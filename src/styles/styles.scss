@@ -1,0 +1,19 @@
+@import 'colors.scss';
+
+html {
+	height: 100%;
+}
+
+body {
+  font-family: Segoe UI, Helvetica Neue, Helvetica, sans-serif;
+  font-weight: 400;
+  margin: 0;
+  height: 100%;
+}
+
+a {
+  color: $gold-mid;
+  &:hover {
+    color: $purple-mid;
+  }
+}

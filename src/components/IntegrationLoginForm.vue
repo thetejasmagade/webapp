@@ -1,0 +1,128 @@
+<template>
+  <div>
+    <div class="container">
+      <GoogleButton
+        class="btn"
+        :on-success="onGoogleSuccess"
+        text="Sign up with Google"
+      />
+
+      <TwitterButton 
+        class="btn"
+        :is-subscribed-news="subscribeNews"
+      />
+
+      <div class="item switch">
+        <ToggleSwitch
+          v-model="subscribeNews"
+        />
+        <span class="sub-item right">Get coding articles and news</span>
+      </div>
+
+      <div class="item switch">
+        <ToggleSwitch
+          v-model="tosAccepted"
+        />
+        <span class="sub-item right">I've read and agree to the 
+          <a href="https://qvault.io/terms-of-service/">terms</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import GoogleButton from '@/components/GoogleButton';
+import TwitterButton from '@/components/TwitterButton';
+import ToggleSwitch from '@/components/ToggleSwitch';
+
+import {
+  isLoggedIn,
+  loginGoogle
+} from '@/lib/cloudClient.js';
+
+export default {
+  components: {
+    GoogleButton,
+    TwitterButton,
+    ToggleSwitch
+  },
+  data(){
+    return {
+      state: 'register',
+      email: null,
+      firstName: null,
+      lastName: null,
+      password: null,
+      passwordConfirm: null,
+      subscribeNews: true,
+      tosAccepted: true,
+      validationCode: null
+    };
+  },
+  methods: {
+    beforeIntegration(){
+      if (!this.tosAccepted){
+        this.$notify({
+          type: 'error',
+          text: 'You need to accept the terms of service'
+        });
+        return;
+      }
+    },
+    async onGoogleSuccess(googleUser){
+      try {
+        await loginGoogle(
+          googleUser.getAuthResponse().id_token,
+          this.subscribeNews
+        );
+        this.$store.commit('setIsLoggedIn', isLoggedIn());
+        this.$router.push({name: 'Courses'});
+      } catch (err){
+        this.$notify({
+          type: 'error',
+          text: err
+        });
+      }
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+@import '@/styles/colors.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: center;
+
+  .item {
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: row;
+    
+    &.switch{
+      align-items: center;
+      justify-content: center;
+      color: $gray-mid;
+      font-size: .75em;
+      line-height: .75em;
+    }
+
+    .sub-item {
+      flex: 1;
+    }
+
+    .right {
+      margin-left: 1em;
+    }
+  }
+
+  .btn {
+    margin-bottom: 2em;
+  }
+}
+</style>

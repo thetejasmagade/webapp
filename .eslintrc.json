@@ -1,0 +1,49 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "mocha": true,
+    "browser": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended"
+  ],
+  "ignorePatterns": [
+    "public/go_worker.js",
+    "public/python_worker.js"
+  ],
+  "rules": {
+    "comma-dangle": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "indent": [
+      "error",
+      2
+    ]
+  },
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 2019
+  }
+}
