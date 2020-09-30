@@ -3,7 +3,7 @@
     <div class="sidebar">
       <ProfileImage
         class="profile-img"
-        :profile-image-u-r-l="profileImageURL"
+        :profile-image-u-r-l="$store.getters.getUser.ProfileImageURL "
         editable
       />
 
@@ -196,12 +196,6 @@ export default {
       confirmPassword: null,
       user: {}
     };
-  },
-  computed: {
-    profileImageURL(){
-      return this.$store.getters.getUser.ProfileImageURL || 
-        'https://images.squarespace-cdn.com/content/54b7b93ce4b0a3e130d5d232/1519987165674-QZAGZHQWHWV8OXFW6KRT/icon.png';
-    }
   },
   methods: {
     async updateUser() {
