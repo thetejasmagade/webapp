@@ -169,22 +169,32 @@ $mobile-size: 600px;
 
 .item {
   color: $white;
-  padding: .75em;
   text-decoration: none;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   background-color: $gray-darkest;
+
+  @media screen and (max-width: $mobile-size) {
+    padding: .75em;
+  }
+
+  @media screen and (min-width: $mobile-size) {
+    padding: 0 1em 0 1em;
+    border-radius: 5px;
+    margin: .75em .5em .75em .5em;
+  }
 
   &.link {
     cursor: pointer;
 
-    &:hover{
-      background-color: $gray-darker;
+    &.current {
+      color: $gray-darker;
+      background-color: $gold-lighter;
     }
 
-    &.current {
-       background-color: $gray-darker;
+    &:hover{
+      color: $gray-darker;
+      background-color: $gold-light;
     }
   }
 

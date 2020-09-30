@@ -42,6 +42,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: .5em;
+  overflow: hidden;
 
   &:hover{
     box-shadow: 0 16px 32px 0 rgba(0,0,0,0.8);

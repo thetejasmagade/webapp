@@ -1,30 +1,11 @@
 <template>
   <div id="container">
     <div class="sidebar">
-      <div class="profile-img">
-        <img
-          :src="profileImageURL"
-          class="profile"
-          alt="user avatar"
-        >
-        <form enctype="multipart/form-data">
-          <input
-            id="profileImage"
-            type="file"
-            accept="image/*"
-            @change="editProfileImage"
-          >
-          <label
-            for="profileImage"
-            class="updateIcon"
-          >
-            <FontAwesomeIcon
-              icon="camera"
-            />
-          </label>
-        </form>
-      </div>
-
+      <ProfileImage
+        class="profile-img"
+        :profile-image-u-r-l="profileImageURL"
+        editable
+      />
 
       <div class="userPersonal">
         <h3>{{ $store.getters.getUser.FirstName }} {{ $store.getters.getUser.LastName }}</h3>
@@ -32,20 +13,20 @@
         <br>
       </div>
       <div class="tab">
-        <button
-          class="tabItems"
-          :class="currentTab==='profile'?'active':''"
-          @click="currentTab='profile'"
+        <BlockButton
+          :click="() => currentTab='profile'"
+          :color="currentTab==='profile'?'purple-light':'gray-light'"
+          class="btn tabItems"
         >
           Edit Profile
-        </button>
-        <button
-          class="tabItems"
-          :class="currentTab==='updatePass'?'active':''"
-          @click="currentTab='updatePass'"
+        </BlockButton>
+        <BlockButton
+          :click="() => currentTab='updatePass'"
+          :color="currentTab==='updatePass'?'purple-light':'gray-light'"
+          class="btn tabItems"
         >
           Security
-        </button>
+        </BlockButton>
       </div>
     </div>
     <div class="profileContent">
@@ -194,19 +175,18 @@
 import { 
   updateUserPassword, 
   updateUser, 
-  updateUserHandle,
-  updateUserProfileImage
+  updateUserHandle
 } from '@/lib/cloudClient.js';
 import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton';
+import ProfileImage from '@/components/ProfileImage';
 import TextInput from '@/components/TextInput';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
     BlockButton,
     TextInput,
-    FontAwesomeIcon
+    ProfileImage
   },
   data() {
     return {
@@ -224,32 +204,6 @@ export default {
     }
   },
   methods: {
-    async editProfileImage(e){
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length){
-        return;
-      }
-      const formData = new FormData();
-      formData.append('profileImage', files[0]);
-      try {
-        await updateUserProfileImage(formData);
-
-        // cache break to reload image
-        const user = this.$store.getters.getUser;
-        user.ProfileImageURL += '?' + Date.now();
-        this.$store.commit('setUser', user);
-        
-        this.$notify({
-          type: 'success',
-          text: 'Profile image updated successfully'
-        });
-      } catch (err){
-        this.$notify({
-          type: 'error',
-          text: err
-        });
-      }
-    },
     async updateUser() {
       try {
         if (this.user.handle){
@@ -314,6 +268,10 @@ export default {
       color: $gold-dark;
     }
 
+    .profile-img {
+      width: 175px;
+    }
+
     #container {
       color: $gray-darker;
       display: flex;
@@ -325,53 +283,12 @@ export default {
         width: 300px;
         text-align: center;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         @media (max-width: 768px) {
           width: 100%;
-        }
-
-        .profile-img {
-          position: relative;
-
-          img {
-            border-radius: 50%;
-            width: 60%;
-            margin-top: 25px;
-            border: 5px solid $white;
-          }
-          
-          form {
-            input {
-              width: 0.1px;
-              height: 0.1px;
-              opacity: 0;
-              overflow: hidden;
-              position: absolute;
-              z-index: -1;
-            }
-          }
-
-          .updateIcon {
-            position: absolute;
-            left: calc(50% + 50px);
-            bottom: 8%;
-            height: 30px;
-            width: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 0;
-            box-shadow: 0 0 9px 1px $gray-light;
-            background-color: $gray-lightest;
-            font-size: 19px;
-            color: $gray-darkest;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:focus {
-              outline: 0;
-            }
-          }
         }
 
         .userPersonal {
@@ -485,34 +402,14 @@ export default {
     }
 
     .tab {
-      width: 100%;
+      width: 75%;
       margin: 50px 0;
       display: flex;
       flex-direction: column;
 
       .tabItems {
-        padding: 1em;
-        text-decoration: none;
-        font-size: 1em;
         margin: 0 .5em 1em .5em;
-        cursor: pointer;
-        color: $gray-mid;
         font-weight: bold;
-        background: $gray-lighter;
-        border: 0;
-
-        &.active {
-          color: $gray-darkest;
-          background: $gray-lightest;
-        }
-
-        &:hover {
-          color: $gray-darkest;
-        }
-
-        &:focus {
-          outline: none;
-        }
       }
     }
 </style>

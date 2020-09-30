@@ -3,7 +3,12 @@
     <TopNav />
     <div id="dashboard-container">
       <div id="sidebar">
-        <div class="balance-box">
+        <div class="profile-box">
+          <ProfileImage
+            class="profile-img"
+            :profile-image-u-r-l="$store.getters.getUser.ProfileImageURL"
+            :editable="false"
+          />
           <GemDisplay :cost="$store.getters.getBalance" />
         </div>
 
@@ -82,6 +87,8 @@
 import MenuItemHorizontal from '@/components/MenuItemHorizontal';
 import GemDisplay from '@/components/GemDisplay';
 import TopNav from '@/components/TopNav';
+import ProfileImage from '@/components/ProfileImage';
+
 import {
   getRewards
 } from '@/lib/cloudClient.js';
@@ -99,11 +106,14 @@ export default {
   components: {
     MenuItemHorizontal,
     GemDisplay,
-    TopNav
+    TopNav,
+    ProfileImage
   },
   computed: {
     activeCourses(){
-      return this.$store.getters.getCourses.filter(course => course.IsPurchased && !course.IsComplete);
+      return this.$store.getters.getCourses.filter(
+        course => (course.IsPurchased && !course.IsComplete)
+      );
     }
   },
   async mounted(){
@@ -166,30 +176,15 @@ export default {
   flex-basis: 16%;
   min-width: 200px;
 	overflow: auto;
-  background-color: $gray-darkest;
   color: $gray-lightest;
+  background-color: $gray-darker-2;
 
-.logo-box {
-    padding: 15px;
+  .profile-box {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
-
-    img {
-      width: 80px;
-      margin: 10px;
-    }
-  }
-
-  .item {
-    &:hover{
-      background-color: $gray-darker;
-      cursor: pointer;
-
-      span {
-        margin-left: 25px;
-      }
+    align-items: center;
+    .profile-img{
+      width: 40%;
     }
   }
 

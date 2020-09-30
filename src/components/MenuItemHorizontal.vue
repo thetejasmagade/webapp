@@ -97,22 +97,37 @@ export default {
   height: 50px;
   line-height: 50px;
   font-size: 18px;
-  color: $white;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: 0 1em 0 1em;
+  border-radius: 5px;
+
+  &:hover{
+    background-color: $gold-light;
+    color: $gray-darker;
+    cursor: pointer;
+
+    span {
+      margin-left: 25px;
+    }
+  }
 
   &.current {
     color: $gold-light;
+
+    &:hover{
+      color: $gray-darker;
+    }
   }
 
   span {
-      margin-left: 15px;
-      transition: 0.4s;
+    margin-left: 15px;
+    transition: margin-left 0.4s;
   }
 
   .icon {
-      margin-left: 15px;
+    margin-left: 15px;
   }
 
   .spin {
@@ -143,7 +158,7 @@ export default {
     }
 
     &.current {
-      border-color: $purple-mid;
+      border-color: $purple-lighter;
       color: $purple-lighter;
     }
   }

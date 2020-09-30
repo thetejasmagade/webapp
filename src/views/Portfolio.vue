@@ -15,10 +15,11 @@
 
         <div class="row-upper d-flex">
           <div class="profile d-flex align-items-center justify-content-center flex-1">
-            <img
+            <ProfileImage
               class="profile-image"
-              :src="user.ProfileImageURL"
-            >
+              :profile-image-u-r-l="user.ProfileImageURL"
+              :editable="false"
+            />
           </div>
           <div class="profileContent flex-2 py-5">
             <p class="light">
@@ -90,6 +91,7 @@
 <script>
 import TopNav from '@/components/TopNav';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import ProfileImage from '@/components/ProfileImage';
 
 import {
   getCoursesPublic,
@@ -115,7 +117,8 @@ export default {
   },
   components: {
     TopNav,
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    ProfileImage
   },
   data() {
     return {

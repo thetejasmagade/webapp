@@ -60,6 +60,20 @@ button {
     }
   }
 
+  &.gray-light {
+    background-color: $gray-light;
+
+    &:hover{
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+      background-color: $gray-lighter;
+    }
+
+    &:disabled{
+      background-color: $gray-lighter;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    }
+  }
+
   &.green {
     background-color: $green-darker;
 
@@ -84,6 +98,20 @@ button {
 
     &:disabled{
       background-color: $purple-light;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    }
+  }
+
+  &.purple-light {
+    background-color: $purple-light;
+
+    &:hover{
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+      background-color: $purple-lighter;
+    }
+
+    &:disabled{
+      background-color: $purple-lighter;
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }
