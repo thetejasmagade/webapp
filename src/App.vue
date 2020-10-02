@@ -59,12 +59,13 @@ library.add(faLinkedin);
 
 export default {
   metaInfo() {
+    const description = 'Learning to code can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.';
     return {
       meta: [
-        { vmid:'description', name: 'description', content: 'Learn to program. Move at your own pace. Earn content by doing well. Get started for free!' },
+        { vmid:'description', name: 'description', content: description },
 
         { vmid:'og:title', property: 'og:title', content: 'Qvault' },
-        { vmid:'og:description', property: 'og:description', content: 'Learn to program. Move at your own pace. Earn content by doing well. Get started for free!' },
+        { vmid:'og:description', property: 'og:description', content: description },
         { vmid:'og:image', property: 'og:image', content: 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-1024x576.png' },
         { vmid:'og:locale', property: 'og:locale', content: 'en_US' },
         { vmid:'og:type', property: 'og:type', content: 'website' },
@@ -73,7 +74,7 @@ export default {
         { vmid:'twitter:site', name: 'twitter:site', content: '@q_vault' },
         { vmid:'twitter:creator', name: 'twitter:creator', content: '@q_vault' },
         { vmid:'twitter:title', name: 'twitter:title', content: 'Qvault' },
-        { vmid:'twitter:description', property: 'twitter:description', content: 'Learn to program. Move at your own pace. Earn content by doing well. Get started for free!' },
+        { vmid:'twitter:description', property: 'twitter:description', content: description },
         { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-1024x576.png' }
       ]
     };

@@ -19,7 +19,7 @@
 
           <div id="sub-title-container">
             <span>
-              Interactive coding courses. Earn content by doing well.
+              Learning to code can be complicated. We make it simple.
             </span>
           </div>
 
