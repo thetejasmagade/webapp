@@ -24,13 +24,16 @@ import {
   faBars,
   faTrophy,
   faCamera,
-  faMapMarkerAlt
+  faMapMarkerAlt,
+  faLink
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
   faDiscord,
   faTwitter,
-  faGoogle
+  faGoogle,
+  faGithub,
+  faLinkedin
 } from '@fortawesome/free-brands-svg-icons';
 
 library.add(faArrowRight);
@@ -50,6 +53,9 @@ library.add(faDiscord);
 library.add(faTwitter);
 library.add(faGoogle);
 library.add(faMapMarkerAlt);
+library.add(faGithub);
+library.add(faLink);
+library.add(faLinkedin);
 
 export default {
   metaInfo() {

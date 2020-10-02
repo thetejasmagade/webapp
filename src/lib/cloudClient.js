@@ -90,7 +90,17 @@ export async function createUserManual(email, password, firstName, lastName, isS
   return handled;
 }
 
-export async function updateUser(firstName, lastName, bio, jobTitle, city, country){
+export async function updateUser(
+  firstName, 
+  lastName, 
+  bio, 
+  jobTitle, 
+  location, 
+  twitterHandle,
+  linkedinURL,
+  githubHandle,
+  websiteURL
+){
   function emptyToNull(s){
     if (s === ''){
       return null;
@@ -102,8 +112,11 @@ export async function updateUser(firstName, lastName, bio, jobTitle, city, count
   lastName = emptyToNull(lastName);
   bio = emptyToNull(bio);
   jobTitle = emptyToNull(jobTitle);
-  city = emptyToNull(city);
-  country = emptyToNull(country);
+  location = emptyToNull(location);
+  twitterHandle = emptyToNull(twitterHandle);
+  linkedinURL = emptyToNull(linkedinURL);
+  githubHandle = emptyToNull(githubHandle);
+  websiteURL = emptyToNull(websiteURL);
 
   const resp = await fetchWithAuth(`${domain}/v1/users`, {
     method: 'PUT',
@@ -116,8 +129,11 @@ export async function updateUser(firstName, lastName, bio, jobTitle, city, count
       lastName,
       bio,
       jobTitle,
-      city,
-      country
+      location,
+      twitterHandle,
+      linkedinURL,
+      githubHandle,
+      websiteURL
     })
   });
   const handled = await handleJSONResponse(resp);

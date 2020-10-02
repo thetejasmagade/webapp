@@ -42,6 +42,17 @@
               <div class="col">
                 <span>
                   <TextInput
+                    v-model="user.handle"
+                    class="inputItems"
+                    :placeholder="$store.getters.getUser.Handle"
+                    type="text"
+                  />
+                  <label>Qvault Handle</label>
+                </span>
+              </div>
+              <div class="col">
+                <span>
+                  <TextInput
                     v-model="user.firstName"
                     class="inputItems"
                     :placeholder="$store.getters.getUser.FirstName"
@@ -61,18 +72,8 @@
                   <label>Last Name</label>
                 </span>
               </div>
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.handle"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.Handle"
-                    type="text"
-                  />
-                  <label>Handle</label>
-                </span>
-              </div>
             </div>
+
             <div class="row">
               <div class="col">
                 <span>
@@ -88,26 +89,63 @@
               <div class="col">
                 <span>
                   <TextInput
-                    v-model="user.city"
+                    v-model="user.location"
                     class="inputItems"
-                    :placeholder="$store.getters.getUser.City"
+                    :placeholder="$store.getters.getUser.Location"
                     type="text"
                   />
-                  <label>City</label>
+                  <label>Location</label>
                 </span>
               </div>
               <div class="col">
                 <span>
                   <TextInput
-                    v-model="user.country"
+                    v-model="user.websiteURL"
                     class="inputItems"
-                    :placeholder="$store.getters.getUser.Country"
+                    :placeholder="$store.getters.getUser.WebsiteURL"
                     type="text"
                   />
-                  <label>Country</label>
+                  <label>Website</label>
                 </span>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col">
+                <span>
+                  <TextInput
+                    v-model="user.twitterHandle"
+                    class="inputItems"
+                    :placeholder="$store.getters.getUser.TwitterHandle"
+                    type="text"
+                  />
+                  <label>Twitter Handle</label>
+                </span>
+              </div>
+              <div class="col">
+                <span>
+                  <TextInput
+                    v-model="user.linkedinURL"
+                    class="inputItems"
+                    :placeholder="$store.getters.getUser.LinkedinURL"
+                    type="text"
+                  />
+                  <label>Linkedin URL</label>
+                </span>
+              </div>
+              <div class="col">
+                <span>
+                  <TextInput
+                    v-model="user.githubHandle"
+                    class="inputItems"
+                    :placeholder="$store.getters.getUser.GithubHandle"
+                    type="text"
+                  />
+                  <label>Github Username</label>
+                </span>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col">
                 <textarea
@@ -208,8 +246,11 @@ export default {
           this.user.lastName,
           this.user.bio,
           this.user.jobTitle,
-          this.user.city,
-          this.user.country
+          this.user.location,
+          this.user.twitterHandle,
+          this.user.linkedinURL,
+          this.user.githubHandle,
+          this.user.websiteURL
         );
         await loadUser(this);
         this.$notify({

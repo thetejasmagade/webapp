@@ -22,29 +22,89 @@
             />
           </div>
           <div class="profileContent flex-2 py-5">
-            <p class="light">
-              {{ user.Bio }}
-            </p>
-            <br>
-            <div class="row-down d-flex justify-content-between">
-              <div class="flex-1">
-                <div v-if="user.JobTitle">
-                  <span class="light">Job Title: </span> <span>{{ user.JobTitle }}</span>
-                </div>
-                <br>
-                <div v-if="user.City || user.Country">
-                  <span class="light">
-                    <FontAwesomeIcon
-                      icon="map-marker-alt"
-                    />
-                  </span>
-                  <span> {{ user.City }}</span>
-                  <span v-if="user.Country">, {{ user.Country }}</span>
-                </div>
+            <div class="row">
+              <div
+                v-if="user.JobTitle"
+                class="col"
+              >
+                <span class="light">Title:</span>
+                <span class="m-left-5">{{ user.JobTitle }}</span>
+              </div>
+              <div
+                v-if="user.Location"
+                class="col"
+              >
+                <span class="light">
+                  <FontAwesomeIcon icon="map-marker-alt" />
+                </span> 
+                <span class="m-left-5">{{ user.Location }}</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div
+                v-if="user.WebsiteURL"
+                class="col"
+              >
+                <span class="light">
+                  <FontAwesomeIcon icon="link" />
+                </span> 
+                <a
+                  :href="user.WebsiteURL"
+                  target="_blank"
+                  class="m-left-5"
+                >{{ stripProtocol(user.WebsiteURL) }}</a>
+              </div>
+              <div
+                v-if="user.TwitterHandle"
+                class="col"
+              >
+                <span class="light">
+                  <FontAwesomeIcon :icon="['fab', 'twitter']" />
+                </span> 
+                <a
+                  :href="`https://twitter.com/${user.TwitterHandle}`"
+                  target="_blank"
+                  class="m-left-5"
+                >@{{ user.TwitterHandle }}
+                </a>
+              </div>
+            </div>
+
+            <div class="row">
+              <div
+                v-if="user.LinkedinURL"
+                class="col"
+              >
+                <span class="light">
+                  <FontAwesomeIcon :icon="['fab', 'linkedin']" />
+                </span> 
+                <a
+                  :href="user.LinkedinURL"
+                  target="_blank"
+                  class="m-left-5"
+                >{{ stripProtocol(user.LinkedinURL) }}</a>
+              </div>
+              <div
+                v-if="user.GithubHandle"
+                class="col"
+              >
+                <span class="light">
+                  <FontAwesomeIcon :icon="['fab', 'github']" />
+                </span> 
+                <a
+                  :href="`https://github.com/${user.GithubHandle}`"
+                  target="_blank"
+                  class="m-left-5"
+                >{{ user.GithubHandle }}
+                </a>
               </div>
             </div>
           </div>
         </div>
+        <span class="light">
+          {{ user.Bio }}
+        </span>
       </div>
 
       <div class="about">
@@ -146,6 +206,9 @@ export default {
   methods: {
     linkClick(url) {
       window.open(url, '_blank');
+    },
+    stripProtocol(url) {
+      return url.replace(/(^\w+:|^)\/\/?(?:www\.)?/, '');
     }
   }
 };
@@ -193,6 +256,23 @@ export default {
   }
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .col {
+    flex: 1;
+    padding: 15px;
+  }
+}
+
+.m-left-5 {
+  margin-left: 5px;
+}
+
 .profile-image {
   width: 200px;
 }
@@ -219,14 +299,6 @@ export default {
 
 .flex-column {
   flex-direction: column;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.flex-1 {
-  flex: 1;
 }
 
 .flex-2 {
@@ -314,6 +386,7 @@ export default {
   }
 
   .profile {
+    margin-right: 2em;
     img {
       max-width: 240px;
       border-radius: 50%;
