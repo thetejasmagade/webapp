@@ -8922,6 +8922,11 @@ url-parse@^1.4.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+url-search-params-polyfill@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-8.1.0.tgz#5c15b69687165bfd4f6c7d8a161d70d85385885b"
+  integrity sha512-MRG3vzXyG20BJ2fox50/9ZRoe+2h3RM7DIudVD2u/GY9MtayO1Dkrna76IUOak+uoUPVWbyR0pHCzxctP/eDYQ==
+
 url@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/url/-/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"
@@ -9047,6 +9052,13 @@ vue-google-login@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/vue-google-login/-/vue-google-login-2.0.5.tgz#228267444a4a7cfa175b345fe146042d1c3e74ac"
   integrity sha512-C+N8l+otSOiTDQic35bV8Qt/mq9KWGDX35utbZjcD37hGwMXGabW7GetB3cF56r2LfsSiGAnWwPGK2T2V1gZdA==
+
+vue-gtm@3.0.0-vue2:
+  version "3.0.0-vue2"
+  resolved "https://registry.yarnpkg.com/vue-gtm/-/vue-gtm-3.0.0-vue2.tgz#cbda283eb4f4d0e22e06b8fc686ce0e1965d17d7"
+  integrity sha512-/KEcSnH6N0qgljmwCsefd2BzDciGMccQv3QFqpahRRlnzmfj3trtEGfTZppUVBlrqii666Yy1KnfI7IXdAa28w==
+  dependencies:
+    url-search-params-polyfill "^8.1.0"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
