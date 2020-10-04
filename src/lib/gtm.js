@@ -2,7 +2,10 @@
 
 export function registerEvent(){
   try {
-    window.dataLayer.push({ 'event': 'register' });
+    window.dataLayer.push({
+      'event': 'register',
+      'interaction-type': true
+    });
   } catch (err) {
     console.log(err);
   }
