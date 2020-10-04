@@ -92,6 +92,8 @@ import {
   getUser,
   updateTwitterUser
 } from '@/lib/cloudClient.js';
+import { registerEvent } from '@/lib/gtm.js';
+
 import LoginForm from '@/components/LoginForm';
 import RegisterForm from '@/components/RegisterForm';
 import IntegrationLoginForm from '@/components/IntegrationLoginForm';
@@ -121,6 +123,7 @@ export default {
         if (this.$route.query.new_user === 'true'){
           try {
             await updateTwitterUser();
+            registerEvent();
           } catch (err){
             console.log(err);
           }

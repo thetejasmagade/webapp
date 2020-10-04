@@ -39,6 +39,11 @@ export async function loginGoogle(googleJWT, isSubscribedNews) {
   });
   const handled = await handleJSONResponse(resp);
   localStorage.setItem(jwtKey, handled.token);
+
+  if (resp.status === 201){
+    handled.registered = true;
+  }
+
   return handled;
 }
 

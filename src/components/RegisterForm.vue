@@ -108,6 +108,8 @@ import {
   isLoggedIn
 } from '@/lib/cloudClient.js';
 
+import { registerEvent } from '@/lib/gtm.js';
+
 export default {
   components: {
     BlockButton,
@@ -153,13 +155,7 @@ export default {
         );
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
-
-        try{
-          window.dataLayer.push({'event': 'register'});
-        } catch(err) {
-          console.log(err);
-        }
-
+        registerEvent();
         this.state = 'email-verification-code';
       } catch (err){
         this.$notify({
