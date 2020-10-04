@@ -155,10 +155,8 @@ export default {
         await sendEmailVerification(this.email);
 
         try{
-          this.$gtm.trackEvent({
-            event: 'register'
-          });
-        }catch(err){
+          window.dataLayer.push({'event': 'register'});
+        } catch(err) {
           console.log(err);
         }
 

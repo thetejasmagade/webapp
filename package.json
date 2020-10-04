@@ -18,7 +18,6 @@
     "prismjs": "^1.21.0",
     "vue": "^2.6.12",
     "vue-google-login": "^2.0.5",
-    "vue-gtm": "3.0.0-vue2",
     "vue-loading-overlay": "^3.4.0",
     "vue-markdown": "^2.2.4",
     "vue-meta": "^2.4.0",
