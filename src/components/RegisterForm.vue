@@ -105,8 +105,7 @@ import {
   createUserManual, 
   sendEmailVerification, 
   verifyEmail,
-  isLoggedIn,
-  loginGoogle
+  isLoggedIn
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -129,21 +128,6 @@ export default {
     };
   },
   methods: {
-    async onGoogleSuccess(googleUser){
-      try {
-        await loginGoogle(
-          googleUser.getAuthResponse().id_token,
-          this.subscribeNews
-        );
-        this.$store.commit('setIsLoggedIn', isLoggedIn());
-        this.$router.push({name: 'Courses'});
-      } catch (err){
-        this.$notify({
-          type: 'error',
-          text: err
-        });
-      }
-    },
     async submitRegister(){
       if (!this.tosAccepted){
         this.$notify({
@@ -169,6 +153,15 @@ export default {
         );
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
+
+        try{
+          this.$gtm.trackEvent({
+            event: 'register'
+          });
+        }catch(err){
+          console.log(err);
+        }
+
         this.state = 'email-verification-code';
       } catch (err){
         this.$notify({
