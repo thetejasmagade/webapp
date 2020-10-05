@@ -96,6 +96,8 @@ import {
   startProductCheckout
 } from '@/lib/cloudClient.js';
 
+import { gtmEventPurchaseCourse } from '@/lib/gtm.js';
+
 import { loadStripe } from '@stripe/stripe-js';
 
 export default {
@@ -144,6 +146,7 @@ export default {
         async () => {
           try {
             await purchaseCourse(courseUUID);
+            gtmEventPurchaseCourse(gemAmount);
             this.loadCourses();
             const lastGemTransaction = await getLastGemTransaction();
             this.$store.commit('setBalance', lastGemTransaction.Balance);

@@ -92,7 +92,7 @@ import {
   getUser,
   updateTwitterUser
 } from '@/lib/cloudClient.js';
-import { registerEvent } from '@/lib/gtm.js';
+import { gtmEventRegister } from '@/lib/gtm.js';
 
 import LoginForm from '@/components/LoginForm';
 import RegisterForm from '@/components/RegisterForm';
@@ -123,7 +123,7 @@ export default {
         if (this.$route.query.new_user === 'true'){
           try {
             await updateTwitterUser();
-            registerEvent();
+            gtmEventRegister();
           } catch (err){
             console.log(err);
           }

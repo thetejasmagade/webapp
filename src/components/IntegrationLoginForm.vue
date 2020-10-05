@@ -40,7 +40,7 @@ import {
   isLoggedIn,
   loginGoogle
 } from '@/lib/cloudClient.js';
-import { registerEvent } from '@/lib/gtm.js';
+import { gtmEventRegister } from '@/lib/gtm.js';
 
 export default {
   components: {
@@ -78,7 +78,7 @@ export default {
           this.subscribeNews
         );
         if (resp.registered){
-          registerEvent();
+          gtmEventRegister();
         }
         this.$store.commit('setIsLoggedIn', isLoggedIn());
         this.$router.push({name: 'Courses'});

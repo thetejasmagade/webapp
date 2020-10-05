@@ -30,7 +30,7 @@
         :key="i"
         class="card"
         :img-src="localImageIfExists(product.ImageURL)"
-        :click="() => { checkout(product.ID) }"
+        :click="() => { checkout(product) }"
       >
         <div class="body">
           <div
@@ -70,6 +70,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 import { publicKey } from '@/lib/stripeConsts';
+import { gtmEventStartCheckout } from '@/lib/gtm.js';
+
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
 import imgGem1 from '@/img/gem-1.png';
@@ -114,10 +116,11 @@ export default {
     })();
   },
   methods: {
-    async checkout(productID){
+    async checkout(product){
       this.isLoading = true;
-      const checkoutSession = await startProductCheckout(productID);
+      const checkoutSession = await startProductCheckout(product.ID);
       const stripe = await loadStripe(publicKey);
+      gtmEventStartCheckout(product.Price.UnitAmount);
       await stripe.redirectToCheckout({
         sessionId: checkoutSession.id
       });
