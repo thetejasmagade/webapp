@@ -15,9 +15,10 @@ addEventListener('message', async (e) => {
     `);
 
     let oldLog = console.log;
-    console.log = (line) => {
+    console.log = (...lines) => {
+      const printables = lines.map(line => prepareToPrint(line));
       postMessage({
-        message: prepareToPrint(line)
+        message: printables.join(' ')
       });
     };
     try {
