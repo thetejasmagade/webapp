@@ -25,6 +25,18 @@ export function gtmEventStartCheckout(priceUSD){
   }
 }
 
+export function gtmEventFinishCheckout(priceUSD){
+  try {
+    window.dataLayer.push({
+      'event': 'finish-checkout',
+      'interaction-type': false,
+      'conversionValue': priceUSD
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function gtmEventPurchaseCourse(priceGems){
   const gemsToUSDRatio = .001;
   try {

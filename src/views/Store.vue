@@ -70,7 +70,10 @@ import { loadStripe } from '@stripe/stripe-js';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 import { publicKey } from '@/lib/stripeConsts';
-import { gtmEventStartCheckout } from '@/lib/gtm.js';
+import { 
+  gtmEventStartCheckout,
+  gtmEventFinishCheckout
+} from '@/lib/gtm.js';
 
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
@@ -81,9 +84,11 @@ import imgGem4 from '@/img/gem-4.png';
 import imgGem5 from '@/img/gem-5.png';
 import {
   startProductCheckout,
-  completePayments,
-  getLastGemTransaction
+  completePayments
 } from '@/lib/cloudClient.js';
+import { 
+  loadBalance
+} from '@/lib/cloudStore.js';
 
 export default {
   components: {
@@ -104,9 +109,11 @@ export default {
   async mounted(){
     (async () => {
       try {
-        await completePayments();
-        const lastGemTransaction = await getLastGemTransaction();
-        this.$store.commit('setBalance', lastGemTransaction.Balance);
+        const resp = await completePayments();
+        if (resp.TotalUnitAmountPayed){
+          gtmEventFinishCheckout(resp.TotalUnitAmountPayed / 100.0);
+          loadBalance(this);
+        }
       } catch (err) {
         this.$notify({
           type: 'error',
