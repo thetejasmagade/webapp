@@ -127,7 +127,7 @@ export default {
       this.isLoading = true;
       const checkoutSession = await startProductCheckout(product.ID);
       const stripe = await loadStripe(publicKey);
-      gtmEventStartCheckout(product.Price.UnitAmount);
+      gtmEventStartCheckout(product.Price.UnitAmount / 100);
       await stripe.redirectToCheckout({
         sessionId: checkoutSession.id
       });
