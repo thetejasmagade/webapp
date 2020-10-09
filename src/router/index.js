@@ -70,6 +70,10 @@ const routes = [
   },
   {
     path: '/portfolio/:userHandle',
+    redirect: '/u/:userHandle'
+  },
+  {
+    path: '/u/:userHandle',
     name: 'Portfolio',
     component: Portfolio
   }
