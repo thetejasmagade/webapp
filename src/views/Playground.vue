@@ -55,7 +55,8 @@ export default {
         go: 'Go - Web Assembly',
         js: 'JavaScript',
         python: 'Python - Web Assembly',
-        rust: 'Rust - Web Assembly'
+        rust: 'Rust - Web Assembly',
+        purescript: 'PureScript'
       }
     };
   },
@@ -86,7 +87,7 @@ export default {
 import "fmt"
 
 func main(){
-\tfmt.Println("hello world")
+\tfmt.Println("hello, world")
 }
 
 // code is compiled to WASM
@@ -99,12 +100,12 @@ func main(){
       }
       if (this.lang === 'js'){
         this.$refs.codeEditor.setCode(`
-console.log("hello world")
+console.log("hello, world")
 `);
         return;
       }
       if (this.lang === 'python'){
-        this.$refs.codeEditor.setCode(`print("hello world")
+        this.$refs.codeEditor.setCode(`print("hello, world")
 
 # We use a Python interpreter that's compiled to Web Assembly
 # to run code right in your browser using a Web Worker
@@ -115,8 +116,18 @@ console.log("hello world")
       }
       if (this.lang === 'rust'){
         this.$refs.codeEditor.setCode(`fn main() {
-  println!("Hello World!");
+  println!("hello, world");
 }
+`);
+        return;
+      }
+      if (this.lang === 'purescript'){
+        this.$refs.codeEditor.setCode(`module Main where
+
+import Effect.Console (log)
+
+main = do
+  log "hello, world"
 `);
         return;
       }

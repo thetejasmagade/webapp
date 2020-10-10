@@ -61,6 +61,7 @@ import 'prismjs/components/prism-javascript.min';
 import 'prismjs/components/prism-go.min';
 import 'prismjs/components/prism-rust.min';
 import 'prismjs/components/prism-python.min';
+import 'prismjs/components/prism-haskell.min';
 import 'prismjs/themes/prism-tomorrow.css';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -70,7 +71,8 @@ import LoadingOverlay from '@/components/LoadingOverlay';
 import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
 import { 
   compileGo,
-  compileRust
+  compileRust,
+  compilePureScript
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -100,7 +102,7 @@ export default {
       output: [],
       err: false,
       isLoading: false,
-      worker: getWorker(this.progLang)
+      worker: getWorker(this.getWorkerLang(this.progLang))
     };
   },
   computed: {
@@ -111,16 +113,30 @@ export default {
       return 2;
     },
     insertSpaces(){
-      return this.progLang === 'js';
+      return this.progLang === 'js' || 
+        this.progLang === 'purescript' ||
+        this.progLang === 'rust';
     }
   },
   watch: { 
     progLang(newLang) {
       terminateWorker(this.worker);
-      this.worker = getWorker(newLang);
+      this.worker = getWorker(this.getWorkerLang(newLang));
     }
   },
   methods: {
+    getWorkerLang(progLang){
+      if (progLang === 'purescript'){
+        return 'js';
+      }
+      return progLang;
+    },
+    getPrismLang(progLang){
+      if (progLang === 'purescript'){
+        return 'haskell';
+      }
+      return progLang;
+    },
     scrollToEnd () {
       requestAnimationFrame(() => {
         var content = this.$refs.consoleOutput;
@@ -128,7 +144,7 @@ export default {
       });
     },
     highlighter(code) {
-      return highlight(code, languages[this.progLang]);
+      return highlight(code, languages[this.getPrismLang(this.progLang)]);
     },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
@@ -156,6 +172,17 @@ export default {
           try {
             const wasm = await compileRust(this.code);
             await useWorker(this.worker, wasm, (data) => {
+              this.output.push(data); 
+              this.scrollToEnd();
+            });
+          } catch (err){
+            await this.runCallback(err);
+            throw err;
+          }
+        } else if (this.progLang === 'purescript'){
+          try {
+            const resp = await compilePureScript(this.code);
+            await useWorker(this.worker, resp.Code, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });

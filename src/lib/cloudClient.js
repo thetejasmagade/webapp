@@ -288,6 +288,21 @@ export async function compileRust(code) {
   return handled;
 }
 
+export async function compilePureScript(code) {
+  const resp = await fetch(`${domain}/v1/compile/purescript`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      code
+    })
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getLastGemTransaction(){
   const resp = await fetchWithAuth(`${domain}/v1/gem_transactions/last`, {
     method: 'GET',
