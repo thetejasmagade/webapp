@@ -128,8 +128,7 @@ console.log("hello world")
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
-
-$mobile-size: 600px;
+@import '@/styles/consts.scss';
 
 #container {
   display: flex;

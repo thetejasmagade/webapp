@@ -45,7 +45,8 @@ export default {
     },
     profileImageURL:{
       type: String,
-      required: true
+      required: false,
+      default: null
     },
     editable:{
       type: Boolean,
@@ -102,7 +103,6 @@ export default {
     border-radius: 50%;
     width: 100%;
     margin-top: 25px;
-    border: 5px solid $white;
   }
   
   form {
@@ -127,7 +127,7 @@ export default {
     border: 0;
     box-shadow: 0 0 9px 1px $gray-light;
     background-color: $gray-lightest;
-    font-size: 19px;
+    font-size: 18px;
     color: $gray-darkest;
     display: flex;
     align-items: center;

@@ -127,8 +127,6 @@ export default {
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
 
-$mobile-size: 600px;
-
 #navs {
   display: flex;
   flex-direction: column;

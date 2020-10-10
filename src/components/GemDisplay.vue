@@ -1,17 +1,19 @@
 <template>
   <div
     id="gem-display"
+    :style="{flexDirection: vertical ? 'column' : 'row'}"
   >
+    <img
+      :width="imgWidth"
+      src="../img/gem-256.png"
+      :style="{'margin': `${margin}px`}"
+    >
     <span
       v-if="cost"
       :style="{'font-size': `${fontSize}px`}"
     >
       {{ cost }}
     </span>
-    <img
-      :width="imgWidth"
-      src="../img/gem-256.png"
-    >
   </div>
 </template>
 
@@ -27,6 +29,11 @@ export default {
       type: Number,
       required: false,
       default: 1
+    },
+    vertical: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed:{
@@ -38,6 +45,15 @@ export default {
         return 32;
       }
       return 24;
+    },
+    margin(){
+      if (this.size === 1){
+        return -8;
+      }
+      if (this.size === 2){
+        return -16;
+      }
+      return -8;
     },
     imgWidth(){
       if (this.size === 1){
@@ -60,9 +76,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  span {
-    margin-left: 10px;
-  }
+  text-align: center;
 }
 </style>

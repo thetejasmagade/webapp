@@ -148,8 +148,6 @@ export default {
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
 
-$mobile-size: 600px;
-
 #container {
   background-color: $gray-darkest;
   background-repeat: no-repeat;
@@ -243,7 +241,7 @@ $mobile-size: 600px;
       align-items: center;
       justify-content: space-evenly;
       background-color: $gold-light;
-      color: $gray-lightest;
+      color: $white;
       text-align: center;
 
       #side-image {

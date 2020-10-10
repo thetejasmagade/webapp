@@ -16,7 +16,7 @@
         :class="{'is-open': subItemsTabOpen}"
         icon="arrow-right"
       />
-      <span>{{ text }}</span>
+      <span v-if="text">{{ text }}</span>
     </div>
     <div
       v-if="subItems.length > 0"
@@ -56,7 +56,8 @@ export default {
     },
     text:{
       type: String,
-      required: true
+      required: false,
+      default: null
     },
     subItems:{
       type: Array,
@@ -100,7 +101,6 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 1em 0 1em;
   border-radius: 5px;
 
   &:hover{
@@ -122,12 +122,11 @@ export default {
   }
 
   span {
-    margin-left: 15px;
     transition: margin-left 0.4s;
   }
 
   .icon {
-    margin-left: 15px;
+    margin: 0 15px 0 15px;
   }
 
   .spin {
