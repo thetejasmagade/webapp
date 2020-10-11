@@ -61,7 +61,8 @@ import 'prismjs/components/prism-javascript.min';
 import 'prismjs/components/prism-go.min';
 import 'prismjs/components/prism-rust.min';
 import 'prismjs/components/prism-python.min';
-import 'prismjs/components/prism-haskell.min';
+import 'prismjs/components/prism-haskell.min'; // required for purescript
+import 'prismjs/components/prism-purescript.min';
 import 'prismjs/themes/prism-tomorrow.css';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -131,12 +132,6 @@ export default {
       }
       return progLang;
     },
-    getPrismLang(progLang){
-      if (progLang === 'purescript'){
-        return 'haskell';
-      }
-      return progLang;
-    },
     scrollToEnd () {
       requestAnimationFrame(() => {
         var content = this.$refs.consoleOutput;
@@ -144,7 +139,7 @@ export default {
       });
     },
     highlighter(code) {
-      return highlight(code, languages[this.getPrismLang(this.progLang)]);
+      return highlight(code, languages[this.progLang]);
     },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));

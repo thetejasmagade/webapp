@@ -124,10 +124,12 @@ console.log("hello, world")
       if (this.lang === 'purescript'){
         this.$refs.codeEditor.setCode(`module Main where
 
-import Effect.Console (log)
+import Prelude
+
+import Effect.Console (logShow)
 
 main = do
-  log "hello, world"
+  logShow "hello, world"
 `);
         return;
       }

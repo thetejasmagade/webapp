@@ -17,6 +17,9 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-go.js';
 import 'prismjs/components/prism-bash.js';
+import 'prismjs/components/prism-javascript.js';
+import 'prismjs/components/prism-haskell.min'; // required for purescript
+import 'prismjs/components/prism-purescript.min';
 
 import VueMarkdown from 'vue-markdown';
 
