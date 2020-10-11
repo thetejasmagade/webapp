@@ -223,7 +223,8 @@ export default {
         await this.runCallback(finalOut);
       } catch(err) {
         this.isLoading = false;
-        this.output = [ err ];
+        const errLines = err.split(/\r?\n/);
+        this.output = errLines;
         this.err = true;
       }
     },
