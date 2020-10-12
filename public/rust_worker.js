@@ -33,7 +33,6 @@ addEventListener('message', async (e) => {
     }
   });
   memory = result.instance.exports.memory;
-  console.log(result.instance.exports);
   await result.instance.exports.main();
   postMessage({
     done: true
