@@ -37,7 +37,7 @@
 
           <BlockButton
             class="btn"
-            :click="() => {linkClick('https://discord.com/invite/wQFg5t')}"
+            :click="() => {linkClick('https://discord.gg/k4rVEWt')}"
           >
             <FontAwesomeIcon
               :icon="['fab', 'discord']"
