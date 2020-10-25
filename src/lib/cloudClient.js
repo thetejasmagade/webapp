@@ -51,6 +51,10 @@ export function getLoginWithTwitterURL(isSubscribedNews){
   return `${domain}/v1/auth/twitter/login?is_subscribed_news=${isSubscribedNews}`;
 }
 
+export function getLoginWithGithubURL(isSubscribedNews) {
+  return `${domain}/v1/auth/github/login?is_subscribed_news=${isSubscribedNews}`;
+}
+
 export async function updateTwitterUser() {
   const resp = await fetchWithAuth(`${domain}/v1/users/twitter/update`, {
     method: 'PUT',

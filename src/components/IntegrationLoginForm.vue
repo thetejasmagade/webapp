@@ -7,6 +7,11 @@
         text="Sign up with Google"
       />
 
+      <GithubButton 
+        class="btn"
+        :is-subscribed-news="subscribeNews"
+      />
+
       <TwitterButton 
         class="btn"
         :is-subscribed-news="subscribeNews"
@@ -34,6 +39,7 @@
 <script>
 import GoogleButton from '@/components/GoogleButton';
 import TwitterButton from '@/components/TwitterButton';
+import GithubButton from '@/components/GithubButton';
 import ToggleSwitch from '@/components/ToggleSwitch';
 
 import {
@@ -46,6 +52,7 @@ export default {
   components: {
     GoogleButton,
     TwitterButton,
+    GithubButton,
     ToggleSwitch
   },
   data(){
