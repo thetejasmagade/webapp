@@ -28,18 +28,21 @@ import SelectDropdown from '@/components/SelectDropdown';
 
 export default {
   metaInfo() {
+    const description = `Run ${this.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
+    const featuredImage = 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-3.png';
+    const title = `Qvault Playground - ${this.displayLang}`;
     return {
       title: 'Qvault - Playground',
       meta: [
-        { vmid:'description', name: 'description', content: `Run ${this.displayLang} code in the browser. Execute your scripts in a sandboxed playground.` },
+        { vmid:'description', name: 'description', content: description },
 
-        { vmid:'og:title', property: 'og:title', content: `Qvault Playground - ${this.displayLang}` },
-        { vmid:'og:description', property: 'og:description', content: `Run ${this.displayLang} code in the browser. Execute your scripts in a sandboxed playground.` },
-        { vmid:'og:image', property: 'og:image', content: 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-3.png' },
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'og:description', property: 'og:description', content: description },
+        { vmid:'og:image', property: 'og:image', content: featuredImage },
 
-        { vmid:'twitter:title', name: 'twitter:title', content: `Qvault Playground - ${this.displayLang}` },
-        { vmid:'twitter:description', property: 'twitter:description', content: `Run ${this.displayLang} code in the browser. Execute your scripts in a sandboxed playground.` },
-        { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-3.png' }
+        { vmid:'twitter:title', name: 'twitter:title', content: title },
+        { vmid:'twitter:description', property: 'twitter:description', content: description },
+        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
       ]
     };
   },

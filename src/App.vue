@@ -78,6 +78,14 @@ export default {
         { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-1024x576.png' }
       ]
     };
+  },
+  async mounted(){
+    if (this.$route.query.error){
+      this.$notify({
+        type: 'error',
+        text: this.$route.query.error
+      });
+    }
   }
 };
 </script>
