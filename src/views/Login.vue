@@ -114,6 +114,12 @@ export default {
     };
   },
   async mounted(){
+    if (this.$route.query.error){
+      this.$notify({
+        type: 'error',
+        text: this.$route.query.error
+      });
+    }
     if (this.$route.query.auth_token){
       try {
         loginToken(this.$route.query.auth_token);
