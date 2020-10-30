@@ -108,15 +108,15 @@ export default {
   },
   computed: {
     tabSize(){
-      if (this.progLang === 'go' || this.progLang == 'python'){
+      if (this.progLang === 'go' || this.progLang == 'py'){
         return 1; // because its a tab
       }
       return 2;
     },
     insertSpaces(){
       return this.progLang === 'js' || 
-        this.progLang === 'purescript' ||
-        this.progLang === 'rust';
+        this.progLang === 'purs' ||
+        this.progLang === 'rs';
     }
   },
   watch: { 
@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     getWorkerLang(progLang){
-      if (progLang === 'purescript'){
+      if (progLang === 'purs'){
         return 'js';
       }
       return progLang;
@@ -163,7 +163,7 @@ export default {
             await this.runCallback(err);
             throw err;
           }
-        } else if (this.progLang === 'rust'){
+        } else if (this.progLang === 'rs'){
           try {
             const wasm = await compileRust(this.code);
             await useWorker(this.worker, wasm, (data) => {
@@ -174,7 +174,7 @@ export default {
             await this.runCallback(err);
             throw err;
           }
-        } else if (this.progLang === 'purescript'){
+        } else if (this.progLang === 'purs'){
           try {
             const resp = await compilePureScript(this.code);
             await useWorker(this.worker, resp.Code, (data) => {
@@ -197,7 +197,7 @@ export default {
             await this.runCallback(JSON.stringify(err));
             throw err;
           }
-        } else if (this.progLang === 'python'){
+        } else if (this.progLang === 'py'){
           await this.sleep(250);
           try {
             await useWorker(this.worker, this.code, (data) => {

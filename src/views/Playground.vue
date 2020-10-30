@@ -57,9 +57,9 @@ export default {
       displayLangs: {
         go: 'Go - Web Assembly',
         js: 'JavaScript',
-        python: 'Python - Web Assembly',
-        rust: 'Rust - Web Assembly',
-        purescript: 'PureScript'
+        py: 'Python - Web Assembly',
+        rs: 'Rust - Web Assembly',
+        purs: 'PureScript'
       }
     };
   },
@@ -107,7 +107,7 @@ console.log("hello, world")
 `);
         return;
       }
-      if (this.lang === 'python'){
+      if (this.lang === 'py'){
         this.$refs.codeEditor.setCode(`print("hello, world")
 
 # We use a Python interpreter that's compiled to Web Assembly
@@ -117,14 +117,14 @@ console.log("hello, world")
         `);
         return;
       }
-      if (this.lang === 'rust'){
+      if (this.lang === 'rs'){
         this.$refs.codeEditor.setCode(`fn main() {
   println!("hello, world");
 }
 `);
         return;
       }
-      if (this.lang === 'purescript'){
+      if (this.lang === 'purs'){
         this.$refs.codeEditor.setCode(`module Main where
 
 import Prelude
