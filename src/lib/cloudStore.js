@@ -4,13 +4,26 @@ import {
   getUser,
   getProducts,
   isLoggedIn,
-  logout
+  logout,
+  getUserAchievements
 } from '@/lib/cloudClient.js';
 
 export async function loadCourses(thisComponent){
   try {
     const courses = await getCourses();
     thisComponent.$store.commit('setCourses', courses);
+  } catch (err) {
+    thisComponent.$notify({
+      type: 'error',
+      text: err
+    });
+  }
+}
+
+export async function loadUserAchievements(thisComponent) {
+  try {
+    const userAchievements = await getUserAchievements();
+    thisComponent.$store.commit('setUserAchievements', userAchievements);
   } catch (err) {
     thisComponent.$notify({
       type: 'error',

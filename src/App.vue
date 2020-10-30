@@ -22,6 +22,7 @@ import {
   faTimes,
   faUndo,
   faBars,
+  faCog,
   faTrophy,
   faCamera,
   faMapMarkerAlt,
@@ -47,6 +48,7 @@ library.add(faStore);
 library.add(faTimes);
 library.add(faUndo);
 library.add(faBars);
+library.add(faCog);
 library.add(faTrophy);
 library.add(faCamera);
 library.add(faDiscord);

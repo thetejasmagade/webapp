@@ -32,18 +32,26 @@
 
       <MenuItemHorizontal
         class="item"
+        icon="cog"
+        :click="() => {$router.push({name: 'Settings'}) }"
+        text="Settings"
+        :current="pathName === 'Settings'"
+      />
+
+      <MenuItemHorizontal
+        class="item"
         icon="user-tie"
-        :click="() => {$router.push({name: 'Profile'}) }"
-        text="Profile"
-        :current="pathName === 'Profile'"
+        :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
+        text="Portfolio"
+        :current="pathName === 'Portfolio'"
       />
 
       <MenuItemHorizontal
         class="item"
         icon="trophy"
-        :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
-        text="Portfolio"
-        :current="pathName === 'Portfolio'"
+        :click="() => {$router.push({name: 'Achievements'}) }"
+        text="Achievements"
+        :current="pathName === 'Achievements'"
       />
 
       <MenuItemHorizontal
@@ -98,16 +106,23 @@
 
       <MenuItemHorizontal
         class="item"
+        icon="cog"
+        :click="() => {$router.push({name: 'Settings'}) }"
+        :current="pathName === 'Settings'"
+      />
+
+      <MenuItemHorizontal
+        class="item"
         icon="user-tie"
-        :click="() => {$router.push({name: 'Profile'}) }"
-        :current="pathName === 'Profile'"
+        :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
+        :current="pathName === 'Portfolio'"
       />
 
       <MenuItemHorizontal
         class="item"
         icon="trophy"
-        :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
-        :current="pathName === 'Portfolio'"
+        :click="() => {$router.push({name: 'Achievements'}) }"
+        :current="pathName === 'Achievements'"
       />
 
       <MenuItemHorizontal

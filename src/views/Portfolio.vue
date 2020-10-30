@@ -4,7 +4,7 @@
 
     <div class="contentContainer">
       <div class="about">
-        <div class="title">
+        <div class="boxtitle">
           <div class="name">
             {{ user.FirstName }} {{ user.LastName }}
           </div>
@@ -108,40 +108,67 @@
       </div>
 
       <div class="about">
-        <h3 class="title">
+        <h3 class="boxtitle">
           Course Progress
         </h3>
 
         <div class="row-portfolio d-flex align-items-center flex-wrap py-5">
-          <div
+          <ImageCard
             v-for="(course, i) of filteredCourses"
             :key="i"
-            class="basis-25"
-            @click.prevent="callModal()"
+            :img-src="course.ImageURL"
+            class="card"
+            :click="() => {linkClick(course.LandingPage)}"
+            theme="light"
           >
             <div
-              class="portfolio d-flex align-items-center justify-content-center flex-column"
-              @click="linkClick(course.LandingPage)"
+              :ref="`cardbody${i}`"
+              class="body"
             >
-              <img
-                :src="course.ImageURL"
-                alt
+              <h3
+                class="item title purple"
               >
-              <div class="card-body">
-                <h3
-                  class="text-capitalize l-height"
-                  @click.prevent="callModal($event)"
-                >
-                  {{ course.Title }}
-                </h3>
-                <p
-                  :class="{'light': !course.IsComplete, complete: course.IsComplete}"
-                >
-                  {{ course.IsComplete ? 'Complete' : 'In Progress' }}
-                </p>
-              </div>
+                {{ course.Title }}
+              </h3>
+              <p
+                class="item description"
+                :class="{'light': !course.IsComplete, 'complete': course.IsComplete}"
+              >
+                {{ course.IsComplete ? 'Complete' : 'In Progress' }}
+              </p>
             </div>
-          </div>
+          </ImageCard>
+        </div>
+      </div>
+
+      <div class="about">
+        <h3 class="boxtitle">
+          Achievements Earned
+        </h3>
+
+        <div class="row-portfolio d-flex align-items-center flex-wrap py-5">
+          <ImageCard
+            v-for="(achievement, i) of filteredAchievements"
+            :key="i"
+            :img-src="achievement.ImageURL"
+            class="card small"
+          >
+            <div
+              :ref="`cardbody${i}`"
+              class="body"
+            >
+              <h3
+                class="item title complete"
+              >
+                {{ achievement.Title }}
+              </h3>
+              <p
+                class="item description light"
+              >
+                {{ achievement.Description }}
+              </p>
+            </div>
+          </ImageCard>
         </div>
       </div>
     </div>
@@ -152,10 +179,12 @@
 import TopNav from '@/components/TopNav';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ProfileImage from '@/components/ProfileImage';
+import ImageCard from '@/components/ImageCard';
 
 import {
   getCoursesPublic,
-  getUserPublic
+  getUserPublic,
+  getUserAchievementsPublic
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -178,24 +207,37 @@ export default {
   components: {
     TopNav,
     FontAwesomeIcon,
-    ProfileImage
+    ProfileImage,
+    ImageCard
   },
   data() {
     return {
       userHandle: this.$route.params.userHandle,
       user: {},
-      courses: []
+      courses: [],
+      achievements: []
     };
   },
   computed: {
     filteredCourses() {
       return this.courses.filter(course => course.IsComplete || course.IsPurchased).sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
+    },
+    filteredAchievements() {
+      return this.achievements.filter(ach => ach.UnlockedAt).sort((ua1, ua2) => {
+        if (ua1.Category < ua2.Category) {
+          return 1;
+        } else if (ua1.Category > ua2.Category) {
+          return -1;
+        }
+        return ua1.GemReward < ua2.GemReward ? -1 : 1;
+      });
     }
   },
   async mounted() {
     try {
       this.user = await getUserPublic(this.userHandle);
       this.courses = await getCoursesPublic(this.userHandle);
+      this.achievements = await getUserAchievementsPublic(this.userHandle);
     } catch (err) {
       this.$notify({
         type: 'error',
@@ -225,7 +267,7 @@ export default {
   height: 100%;
 }
 
-.title {
+.boxtitle {
   .name {
     font-size: 24px;
     color: $black;
@@ -266,6 +308,46 @@ export default {
   .col {
     flex: 1;
     padding: 15px;
+  }
+}
+
+.card {
+  flex: 1 1 calc(22% - 1em);
+  margin: 20px;
+  max-width: 250px;
+  min-width: 150px;
+
+  &.small {
+    max-width: 150px;
+    min-width: 100px;
+
+    .body {
+      .title {
+        font-size: 1em;
+      }
+    }
+  }
+
+  .body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1em;
+
+    .item {
+      margin: 1em 1em 0em 1em;
+    }
+
+    .title {
+      font-size: 1.2em;
+    }
+
+    .description {
+      font-weight: 400;
+      line-height: 1.3em;
+      font-size: 1em;
+    }
   }
 }
 
@@ -319,47 +401,6 @@ export default {
 
 .py-5 {
   padding: 50px 0;
-}
-
-.text-capitalize {
-  text-transform: capitalize;
-}
-
-.portfolio {
-  transition: 0.4s all;
-  margin: 8px 15px;
-  border: solid 1px #37235a38;
-  border-radius: 4px;
-  text-align: center;
-  box-shadow: 0 0 22px -6px #c1c1c1;
-  cursor: pointer;
-
-  .card-body {
-    padding: 5px 10px 15px 10px;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-
-  h3 {
-    color: $purple-darkest;
-  }
-
-  svg {
-    color: $purple-darkest;
-  }
-
-  &:hover {
-    background-color: $purple-darkest;
-
-    h3,
-    svg,
-    p {
-      color: $white;
-    }
-  }
 }
 
 .contentContainer {

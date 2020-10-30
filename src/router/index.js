@@ -3,14 +3,15 @@ import VueRouter from 'vue-router';
 import VueMeta from 'vue-meta';
 
 const Courses = () => import(/* webpackChunkName: "Courses" */ '@/views/Courses.vue');
-const Profile = () => import(/* webpackChunkName: "Profile" */ '@/views/Profile.vue');
+const Portfolio = () => import(/* webpackChunkName: "Portfolio" */ '@/views/Portfolio.vue');
 const Exercise = () => import(/* webpackChunkName: "Exercise" */ '@/views/Exercise.vue');
 const Store = () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue');
 const CouponCode = () => import(/* webpackChunkName: "CouponCode" */ '@/views/CouponCode.vue');
 const Dashboard = () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue');
 const Login = () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue');
 const Playground = () => import(/* webpackChunkName: "Playground" */ '@/views/Playground.vue');
-const Portfolio = () => import(/* webpackChunkName: "Portfolio" */ '@/views/Portfolio.vue');
+const Settings = () => import(/* webpackChunkName: "Settings" */ '@/views/Settings.vue');
+const Achievements = () => import(/* webpackChunkName: "Achievements" */ '@/views/Achievements.vue');
 
 Vue.use(VueRouter);
 
@@ -53,9 +54,14 @@ const routes = [
         component: CouponCode
       },
       {
-        path: 'profile',
-        name: 'Profile',
-        component: Profile
+        path: 'settings',
+        name: 'Settings',
+        component: Settings
+      },
+      {
+        path: 'achievements',
+        name: 'Achievements',
+        component: Achievements
       }
     ]
   },

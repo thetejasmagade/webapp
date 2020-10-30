@@ -9,6 +9,7 @@ export default new Vuex.Store({
     products: [],
     isLoggedIn: false,
     courses: [],
+    userAchievements: [],
     user: {},
     currentModuleUUID: null
   },
@@ -26,6 +27,17 @@ export default new Vuex.Store({
     setCourses(state, newCourses) {
       newCourses.sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
       state.courses = newCourses;
+    },
+    setUserAchievements(state, newUserAchievements) {
+      newUserAchievements.sort((ua1, ua2) => {
+        if (ua1.Category < ua2.Category) {
+          return 1;
+        } else if (ua1.Category > ua2.Category) {
+          return -1;
+        }
+        return ua1.GemReward < ua2.GemReward ? -1 : 1;
+      });
+      state.userAchievements = newUserAchievements;
     },
     setUser(state, newUser) {
       state.user = newUser;
@@ -50,6 +62,9 @@ export default new Vuex.Store({
     },
     getUser(state) {
       return state.user;
+    },
+    getUserAchievements(state) {
+      return state.userAchievements;
     },
     getCurrentModuleUUID(state) {
       return state.currentModuleUUID;

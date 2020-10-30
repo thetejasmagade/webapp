@@ -177,7 +177,7 @@ export async function getUser() {
 }
 
 export async function getUserPublic(handle) {
-  const resp = await fetch(`${domain}/v1/users/${handle}`, {
+  const resp = await fetch(`${domain}/v1/users/public/${handle}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -358,6 +358,30 @@ export async function getProducts(){
   return handled;
 }
 
+export async function getUserAchievements() {
+  const resp = await fetchWithAuth(`${domain}/v1/users/achievements`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getUserAchievementsPublic(handle) {
+  const resp = await fetch(`${domain}/v1/users/achievements/public/${handle}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function completePayments() {
   const resp = await fetchWithAuth(`${domain}/v1/products`, {
     method: 'POST',
@@ -395,7 +419,7 @@ export async function getCourses(){
 }
 
 export async function getCoursesPublic(handle){
-  const resp = await fetch(`${domain}/v1/courses/${handle}`, {
+  const resp = await fetch(`${domain}/v1/courses/public/${handle}`, {
     method: 'GET',
     mode: 'cors',
     headers: {

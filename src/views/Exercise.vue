@@ -175,24 +175,44 @@ export default {
         await this.goForward();
       }
     },
+    async handleRewards(rewardsResponse){
+      if ((rewardsResponse.GemCredit && rewardsResponse.Message) || 
+        rewardsResponse.Achievements && rewardsResponse.Achievements.length > 0){
+        loadBalance(this);
+      }
+
+      let notificationShown = false;
+      if (rewardsResponse.GemCredit && rewardsResponse.Message){
+        this.$notify({
+          type: 'success',
+          text: `${rewardsResponse.Message} 💎x${rewardsResponse.GemCredit}`
+        });
+        notificationShown = true;
+      } 
+      if (rewardsResponse.Achievements){
+        for (const achievement of rewardsResponse.Achievements){
+          this.$notify({
+            type: 'success',
+            title: '<img width="50" src="https://qvault.io/wp-content/uploads/2020/10/QVault-app-min.png">',
+            text: `<i>${achievement.Title}</i> achievement unlocked! 💎x${rewardsResponse.GemCredit}`
+          });
+          notificationShown = true;
+        }
+      }
+      if (!notificationShown) {
+        this.$notify({
+          type: 'success',
+          text: 'Correct! Great Job :)'
+        });
+      }
+    },
     async submitTypeCode(output) {
       try {
-        const credit = await submitCodeExercise(
+        const rewardsResponse = await submitCodeExercise(
           this.exerciseUUID,
           output
         );
-        if (credit.GemCredit && credit.Message){
-          this.$notify({
-            type: 'success',
-            text: `${credit.Message} 💎x${credit.GemCredit}`
-          });
-          loadBalance(this);
-        } else{
-          this.$notify({
-            type: 'success',
-            text: 'Correct! Great Job :)'
-          });
-        }
+        this.handleRewards(rewardsResponse);
         await this.sleep(1500);
         if (this.isCurrentExercise){
           await this.getCurrentExercise();
@@ -206,23 +226,12 @@ export default {
     },
     async submitTypeChoice(question, answer) {
       try {
-        const credit = await submitMultipleChoiceExercise(
+        const rewardsResponse = await submitMultipleChoiceExercise(
           this.exerciseUUID,
           question,
           answer
         );
-        if (credit.GemCredit && credit.Message){
-          this.$notify({
-            type: 'success',
-            text: `${credit.Message} 💎x${credit.GemCredit}`
-          });
-          loadBalance(this);
-        } else{
-          this.$notify({
-            type: 'success',
-            text: 'Correct! Great Job :)'
-          });
-        }
+        this.handleRewards(rewardsResponse);
         await this.sleep(1500);
         if (this.isCurrentExercise){
           await this.getCurrentExercise();

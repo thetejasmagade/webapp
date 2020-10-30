@@ -14,8 +14,8 @@
       </div>
       <div class="tab">
         <BlockButton
-          :click="() => currentTab='profile'"
-          :color="currentTab==='profile'?'purple-light':'gray-light'"
+          :click="() => currentTab='settings'"
+          :color="currentTab==='settings'?'purple-light':'gray-light'"
           class="btn tabItems"
         >
           Edit Profile
@@ -31,7 +31,7 @@
     </div>
     <div class="profileContent">
       <div
-        v-if="currentTab === 'profile'"
+        v-if="currentTab === 'settings'"
         class="visualItems"
       >
         <h3>Edit Your Profile</h3>
@@ -228,7 +228,7 @@ export default {
   },
   data() {
     return {
-      currentTab: 'profile',
+      currentTab: 'settings',
       oldPassword: null,
       newPassword: null,
       confirmPassword: null,
