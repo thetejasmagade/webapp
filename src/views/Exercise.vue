@@ -75,7 +75,7 @@
         class="side"
         :callback="submitTypeChoice"
         :answers="answers"
-        :question="question"
+        :question="question.Question"
       />
     </div>
   </div>
