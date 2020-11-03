@@ -112,6 +112,12 @@ export default {
     CourseCompleted,
     FontAwesomeIcon
   },
+  async beforeRouteUpdate (to, from, next) {
+    this.courseUUID = to.params.courseUUID;
+    this.courseDone = false;
+    await this.getCurrentExercise();
+    next();
+  },
   data(){
     return {
       markdownSource: '',
@@ -144,12 +150,6 @@ export default {
   },
   async mounted(){
     await this.getCurrentExercise();
-  },
-  async beforeRouteUpdate (to, from, next) {
-    this.courseUUID = to.params.courseUUID;
-    this.courseDone = false;
-    await this.getCurrentExercise();
-    next();
   },
   methods: {
     linkClick(url) {
