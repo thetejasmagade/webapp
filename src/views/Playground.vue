@@ -51,6 +51,11 @@ export default {
     TopNav,
     CodeEditor
   },
+  beforeRouteUpdate (to, from, next) {
+    this.lang = to.params.lang;
+    this.setCode();
+    next();
+  },
   data(){
     return {
       lang: this.$route.params.lang,
@@ -73,11 +78,6 @@ export default {
   },
   mounted(){
     this.setCode();
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.lang = to.params.lang;
-    this.setCode();
-    next();
   },
   methods:{
     displayToKey(displayName){
