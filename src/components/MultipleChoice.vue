@@ -7,7 +7,7 @@
         :key="i"
         class="btn"
         color="green"
-        :click="() => {callback(question, answer)}"
+        :click="() => {callback(answer)}"
       >
         <span>{{ answer }}</span>
       </BlockButton>

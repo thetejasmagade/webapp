@@ -482,7 +482,7 @@ export async function submitCodeExercise(exerciseUUID, output){
   return handled;
 }
 
-export async function submitMultipleChoiceExercise(exerciseUUID, question, answer){
+export async function submitMultipleChoiceExercise(exerciseUUID, answer){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
     method: 'POST',
     mode: 'cors',
@@ -490,7 +490,6 @@ export async function submitMultipleChoiceExercise(exerciseUUID, question, answe
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      question,
       answer
     })
   });

@@ -75,7 +75,7 @@
         class="side"
         :callback="submitTypeChoice"
         :answers="answers"
-        :question="currentQuestion"
+        :question="question"
       />
     </div>
   </div>
@@ -125,8 +125,7 @@ export default {
       courseUUID: this.$route.params.courseUUID,
       moduleUUID: null,
       exerciseUUID: null,
-      questions: null,
-      currentQuestionIndex: 0,
+      question: null,
       progLang: 'go',
       courseDone: false,
       isFirstExercise: false,
@@ -136,14 +135,8 @@ export default {
   },
   computed: {
     answers(){
-      if (this.questions) {
-        return this.shuffle(this.questions[this.currentQuestionIndex].Answers);
-      }
-      return null;
-    },
-    currentQuestion(){
-      if (this.questions) {
-        return this.questions[this.currentQuestionIndex].Question;
+      if (this.question) {
+        return this.shuffle(this.question.Answers);
       }
       return null;
     }
@@ -204,11 +197,10 @@ export default {
         });
       }
     },
-    async submitTypeChoice(question, answer) {
+    async submitTypeChoice(answer) {
       try {
         const credit = await submitMultipleChoiceExercise(
           this.exerciseUUID,
-          question,
           answer
         );
         if (credit.GemCredit && credit.Message){
@@ -261,8 +253,8 @@ export default {
       if (this.type === 'type_code'){
         this.$refs.codeEditor.setCode(exercise.Exercise.Code);
         this.progLang = exercise.Exercise.ProgLang;
-      } else if (exercise.Exercise.Questions){
-        this.questions = this.shuffle(exercise.Exercise.Questions);
+      } else if (exercise.Exercise.Question){
+        this.question = this.shuffle(exercise.Exercise.Question);
       }
     },
     async getCurrentExercise(){
