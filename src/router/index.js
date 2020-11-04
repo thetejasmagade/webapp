@@ -65,9 +65,29 @@ const routes = [
       }
     ]
   },
-  { 
+  {
     path: '/playground', 
     redirect: { path: 'playground/go' }
+  },
+  {
+    path: '/playground/golang', 
+    redirect: { path: 'playground/go' }
+  },
+  {
+    path: '/playground/javascript', 
+    redirect: { path: 'playground/js' }
+  },
+  {
+    path: '/playground/python', 
+    redirect: { path: 'playground/py' }
+  },
+  {
+    path: '/playground/rust', 
+    redirect: { path: 'playground/rs' }
+  },
+  {
+    path: '/playground/purescript', 
+    redirect: { path: 'playground/purs' }
   },
   {
     path: '/playground/:lang',
