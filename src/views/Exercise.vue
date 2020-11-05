@@ -186,8 +186,8 @@ export default {
         for (const achievement of rewardsResponse.Achievements){
           this.$notify({
             type: 'success',
-            title: '<img width="50" src="https://qvault.io/wp-content/uploads/2020/10/QVault-app-min.png">',
-            text: `<i>${achievement.Title}</i> achievement unlocked! 💎x${rewardsResponse.GemCredit}`
+            title: `<img width="50" src="${achievement.ImageURL}">`,
+            text: `<i>${achievement.Title}</i> achievement unlocked! 💎x${achievement.GemReward}`
           });
           notificationShown = true;
         }
