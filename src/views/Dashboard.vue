@@ -4,6 +4,7 @@
     <div id="dashboard-container">
       <Sidebar
         :path-name="$router.currentRoute.name"
+        :path-params="$router.currentRoute.params"
         class="sidebar"
       />
 

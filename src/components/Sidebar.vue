@@ -72,9 +72,9 @@
         :text="course.Title"
         :sub-items="modulesToSubItems(course.Modules)"
         :click="() => {$router.push({name: 'Exercise', params: {courseUUID: course.UUID}}) }"
-        :sub-items-tab-open="$router.currentRoute.params.courseUUID === course.UUID"
+        :sub-items-tab-open="pathParams.courseUUID === course.UUID"
         :active-sub-item-u-u-i-d="$store.getters.getCurrentModuleUUID"
-        :current="$router.currentRoute.params.courseUUID === course.UUID"
+        :current="pathParams.courseUUID === course.UUID"
       />
     </div>
 
@@ -153,6 +153,11 @@ export default {
     pathName: {
       type: String,
       required: true
+    },
+    pathParams: {
+      type: Object,
+      required: false,
+      default: () => {return {};}
     }
   },
   computed: {
