@@ -125,7 +125,7 @@ export default {
       courseUUID: this.$route.params.courseUUID,
       moduleUUID: null,
       exerciseUUID: null,
-      question: null,
+      question: {},
       progLang: 'go',
       courseDone: false,
       isFirstExercise: false,
@@ -135,7 +135,7 @@ export default {
   },
   computed: {
     answers(){
-      if (this.question) {
+      if (this.question.Answers) {
         return this.shuffle(this.question.Answers);
       }
       return null;
