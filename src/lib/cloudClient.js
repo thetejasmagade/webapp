@@ -468,7 +468,7 @@ export async function getFirstExercise(courseUUID) {
 
 
 export async function getPreviousExercise(courseUUID, currentExerciseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/${currentExerciseUUID}/previous`, {
+  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/previous/${currentExerciseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -480,7 +480,7 @@ export async function getPreviousExercise(courseUUID, currentExerciseUUID) {
 }
 
 export async function getNextExercise(courseUUID, currentExerciseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/${currentExerciseUUID}/next`, {
+  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/next/${currentExerciseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
