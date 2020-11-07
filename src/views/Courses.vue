@@ -61,21 +61,29 @@
           <GemDisplay
             v-else
             :size="2"
+            class="item"
             :cost="course.GemCost"
           />
 
           <BlockButton
-            id="reset-btn"
-            class="btn item"
-            :click="() => {readMore(course.LandingPage)}"
-            color="gray"
+            class="item"
+            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased,course.product.ID) }"
+            color="purple"
           >
-            More Info
+            Unlock
           </BlockButton>
 
-          <button @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}">
-            <span style="color:white">Demo</span>
-          </button>
+          <div class="item links">
+            <span
+              class="link"
+              @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
+            >Start Demo</span>
+            <span
+              class="gray link"
+              target="_blank"
+              @click.stop="() => {linkClick(course.LandingPage)}"
+            >More Info</span>
+          </div>
         </div>
       </ImageCard>
     </div>
@@ -132,10 +140,25 @@ export default {
         products.sort((p1, p2) => p1.GemAmount > p2.GemAmount ? 1 : -1);
         courses[i].product = products[0];
       }
+
+      if (this.$route.query.courseUUID){
+        for (let i = 0; i < courses.length; i++){
+          if (courses[i].UUID === this.$route.query.courseUUID){
+            let temp = courses[0];
+            courses[0] = courses[i];
+            courses[i] = temp;
+            break;
+          }
+        }
+      }
+
       return courses;
     }
   },
   methods: {
+    linkClick(url) {
+      window.open(url, '_blank');
+    },
     clickOnCourse(courseUUID, gemAmount, isPurchased, productID){
       if (isPurchased) {
         this.$router.push({name: 'Exercise', params: {courseUUID}});
@@ -237,13 +260,19 @@ export default {
       flex-direction: column;
       justify-content: space-between;
 
+      .links {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+      }
+
       .info-circle{
         color: white;
         font-size: 1em;
       }
 
       .item{
-        margin: 1em;
+        margin: 0em 1em 1em 1em;
       }
 
       .title {

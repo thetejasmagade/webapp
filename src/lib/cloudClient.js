@@ -504,7 +504,11 @@ export async function getDemoExercises(courseUUID) {
 }
 
 export async function submitCodeExercise(exerciseUUID, output, isDemo){
-  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code`, {
+  let fetchFunc = fetchWithAuth;
+  if (isDemo) {
+    fetchFunc = fetch;
+  }
+  const resp = await fetchFunc(`${domain}/v1/exercises/${exerciseUUID}/code`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -520,7 +524,11 @@ export async function submitCodeExercise(exerciseUUID, output, isDemo){
 }
 
 export async function submitMultipleChoiceExercise(exerciseUUID, answer, isDemo){
-  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
+  let fetchFunc = fetchWithAuth;
+  if (isDemo) {
+    fetchFunc = fetch;
+  }
+  const resp = await fetchFunc(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -536,7 +544,11 @@ export async function submitMultipleChoiceExercise(exerciseUUID, answer, isDemo)
 }
 
 export async function submitInformationalExercise(exerciseUUID, isDemo){
-  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
+  let fetchFunc = fetchWithAuth;
+  if (isDemo) {
+    fetchFunc = fetch;
+  }
+  const resp = await fetchFunc(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
     method: 'POST',
     mode: 'cors',
     headers: {

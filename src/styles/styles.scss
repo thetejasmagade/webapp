@@ -11,9 +11,16 @@ body {
   height: 100%;
 }
 
-a {
+a, .link{
   color: $gold-mid;
   &:hover {
     color: $purple-mid;
+  }
+
+  &.gray {
+    color: $gray-light;
+    &:hover {
+      color: $gray-lighter;
+    }
   }
 }

@@ -110,9 +110,6 @@ export default {
     await this.getCurrentExercise();
   },
   methods: {
-    linkClick(url) {
-      window.open(url, '_blank');
-    },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },

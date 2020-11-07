@@ -73,6 +73,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: relative;
 
   .margin-left{
     margin-left: 1em;

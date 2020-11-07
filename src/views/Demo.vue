@@ -3,20 +3,36 @@
     <TopNav :title="`Demo`" />
 
     <div
-      v-if="currentIndex >= exercises.length"
+      v-if="currentIndex >= exercises.length && currentIndex !== 0"
       class="demo-complete"
     >
+      <ExerciseNav
+        class="nav"
+        :go-back="goBack"
+        :go-forward="goForward"
+        :can-go-back="!isFirstExercise"
+        :can-go-forward="!isLastScreen"
+      />
       <img
         src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
       >
       <p> 
-        Congragulations! You've completed the demo. fuck off.
+        You've completed the demo!
       </p>
+      <div v-if="$store.getters.getIsLoggedIn"> 
+        <BlockButton
+          class="btn"
+          :click="() => {this.$router.push({ path: `/dashboard/courses?courseUUID=${courseUUID}` })}"
+        >
+          Get Full Course
+        </BlockButton>
+      </div>
       <BlockButton
+        v-else
         class="btn"
-        :click="() => {this.$router.push({ name: 'Courses' })}"
+        :click="() => {this.$router.push({ name: 'Login' })}"
       >
-        Next Course
+        Sign Up
       </BlockButton>
     </div>
 
@@ -29,7 +45,7 @@
           :go-back="goBack"
           :go-forward="goForward"
           :can-go-back="!isFirstExercise"
-          :can-go-forward="!isLastExercise"
+          :can-go-forward="!isLastScreen"
         />
         
         <MarkdownViewer
@@ -98,8 +114,9 @@ export default {
     isFirstExercise(){
       return this.currentIndex === 0;
     },
-    isLastExercise(){
-      return this.currentIndex === this.exercises.length - 1;
+    isLastScreen(){
+      // extra for the last sceen
+      return this.currentIndex === this.exercises.length;
     },
     exercise(){
       if (this.currentIndex < this.exercises.length){
@@ -113,9 +130,6 @@ export default {
     this.getCurrentExercise();
   },
   methods: {
-    linkClick(url) {
-      window.open(url, '_blank');
-    },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
@@ -160,6 +174,9 @@ export default {
       }
     },
     async moveToExercise(){
+      if (!this.exercise){
+        return;
+      }
       this.markdownSource = this.exercise.Readme;
       this.type = this.exercise.Type;
 
@@ -231,8 +248,15 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
+  background-color: $gray-lightest;
+
+  .nav {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0em 1em 0em 1em;
+  }
 
   p {
     font-size: 2em;

@@ -60,6 +60,9 @@ export default new Vuex.Store({
     getCourses(state) {
       return state.courses;
     },
+    getCourse: (state) => (uuid) => {
+      return state.courses.find(course => course.UUID === uuid);
+    },
     getUser(state) {
       return state.user;
     },
