@@ -491,7 +491,19 @@ export async function getNextExercise(courseUUID, currentExerciseUUID) {
   return handled;
 }
 
-export async function submitCodeExercise(exerciseUUID, output){
+export async function getDemoExercises(courseUUID) {
+  const resp = await fetch(`${domain}/v1/courses/${courseUUID}/exercises/demos`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function submitCodeExercise(exerciseUUID, output, isDemo){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code`, {
     method: 'POST',
     mode: 'cors',
@@ -499,14 +511,15 @@ export async function submitCodeExercise(exerciseUUID, output){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      output
+      output,
+      isDemo
     })
   });
   const handled = await handleJSONResponse(resp);
   return handled;
 }
 
-export async function submitMultipleChoiceExercise(exerciseUUID, answer){
+export async function submitMultipleChoiceExercise(exerciseUUID, answer, isDemo){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
     method: 'POST',
     mode: 'cors',
@@ -514,20 +527,24 @@ export async function submitMultipleChoiceExercise(exerciseUUID, answer){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      answer
+      answer,
+      isDemo
     })
   });
   const handled = await handleJSONResponse(resp);
   return handled;
 }
 
-export async function submitInformationalExercise(exerciseUUID){
+export async function submitInformationalExercise(exerciseUUID, isDemo){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify({
+      isDemo
+    })
   });
   const handled = await handleJSONResponse(resp);
   return handled;

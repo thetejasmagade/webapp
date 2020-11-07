@@ -11,40 +11,13 @@
       class="container"
     >
       <div class="side">
-        <div class="navigation">
-          <div>
-            <BlockButton
-              class="btn"
-              :click="goBack"
-              color="gray"
-              :disabled="isFirstExercise"
-            >
-              <FontAwesomeIcon
-                icon="arrow-left"
-              />
-            </BlockButton>
-            <BlockButton
-              :disabled="isCurrentExercise || isLastExercise"
-              class="btn margin-left"
-              :click="goForward"
-              color="gray"
-            >
-              <FontAwesomeIcon
-                icon="arrow-right"
-              />
-            </BlockButton>
-          </div>
-
-          <BlockButton
-            class="btn"
-            :click="() => {linkClick('https://discord.gg/k4rVEWt')}"
-          >
-            <FontAwesomeIcon
-              :icon="['fab', 'discord']"
-            />
-            <span class="margin-left-small"> Help </span>
-          </BlockButton>
-        </div>
+        <ExerciseNav
+          :go-back="goBack"
+          :go-forward="goForward"
+          :can-go-back="!isFirstExercise"
+          :can-go-forward="!(isCurrentExercise || isLastExercise)"
+        />
+        
         <MarkdownViewer
           :source="markdownSource"
         />
@@ -74,7 +47,7 @@
         v-else-if="type === 'type_choice'"
         class="side"
         :callback="submitTypeChoice"
-        :answers="answers"
+        :answers="question.Answers"
         :question="question.Question"
       />
     </div>
@@ -87,7 +60,7 @@ import MultipleChoice from '@/components/MultipleChoice';
 import MarkdownViewer from '@/components/MarkdownViewer';
 import BlockButton from '@/components/BlockButton';
 import CourseCompleted from '@/components/CourseCompleted';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import ExerciseNav from '@/components/ExerciseNav';
 
 import { 
   loadBalance
@@ -110,7 +83,7 @@ export default {
     BlockButton,
     MultipleChoice,
     CourseCompleted,
-    FontAwesomeIcon
+    ExerciseNav
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
@@ -133,27 +106,12 @@ export default {
       isCurrentExercise: false
     };
   },
-  computed: {
-    answers(){
-      if (this.question.Answers) {
-        return this.shuffle(this.question.Answers);
-      }
-      return null;
-    }
-  },
   async mounted(){
     await this.getCurrentExercise();
   },
   methods: {
     linkClick(url) {
       window.open(url, '_blank');
-    },
-    shuffle(a) {
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [ a[i], a[j] ] = [ a[j], a[i] ];
-      }
-      return a;
     },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
@@ -263,7 +221,7 @@ export default {
         this.$refs.codeEditor.setCode(exercise.Exercise.Code);
         this.progLang = exercise.Exercise.ProgLang;
       } else if (exercise.Exercise.Question){
-        this.question = this.shuffle(exercise.Exercise.Question);
+        this.question = exercise.Exercise.Question;
       }
     },
     async getCurrentExercise(){
@@ -329,21 +287,6 @@ export default {
 .full {
   width: 100%;
   padding-top: 20px;
-}
-
-.navigation{
-  margin: 1em 1em 0em 1em;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  .margin-left{
-    margin-left: 1em;
-  }
-
-  .margin-left-small{
-    margin-left: 4px;
-  }
 }
 
 .side {

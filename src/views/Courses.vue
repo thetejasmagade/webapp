@@ -72,6 +72,10 @@
           >
             More Info
           </BlockButton>
+
+          <button @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}">
+            <span style="color:white">Demo</span>
+          </button>
         </div>
       </ImageCard>
     </div>

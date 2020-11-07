@@ -12,6 +12,7 @@ const Login = () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue');
 const Playground = () => import(/* webpackChunkName: "Playground" */ '@/views/Playground.vue');
 const Settings = () => import(/* webpackChunkName: "Settings" */ '@/views/Settings.vue');
 const Achievements = () => import(/* webpackChunkName: "Achievements" */ '@/views/Achievements.vue');
+const Demo = () => import(/* webpackChunkName: "Demo" */ '@/views/Demo.vue');
 
 Vue.use(VueRouter);
 
@@ -102,6 +103,11 @@ const routes = [
     path: '/u/:userHandle',
     name: 'Portfolio',
     component: Portfolio
+  },
+  {
+    path: '/demo/:courseUUID',
+    name: 'Demo',
+    component: Demo
   }
 ];
 
