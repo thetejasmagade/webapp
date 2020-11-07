@@ -66,8 +66,9 @@
           />
 
           <BlockButton
+            v-if="!course.IsPurchased"
             class="item"
-            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased,course.product.ID) }"
+            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, course.product.ID) }"
             color="purple"
           >
             Unlock
