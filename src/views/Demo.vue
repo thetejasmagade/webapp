@@ -61,7 +61,7 @@ import MultipleChoice from '@/components/MultipleChoice';
 import MarkdownViewer from '@/components/MarkdownViewer';
 import ExerciseNav from '@/components/ExerciseNav';
 import TopNav from '@/components/TopNav';
-import BlockButton from '@/components/TopNav';
+import BlockButton from '@/components/BlockButton';
 
 import { 
   submitCodeExercise,
@@ -227,7 +227,8 @@ export default {
   }
 }
 
-.demo-complete{
+.demo-complete {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
