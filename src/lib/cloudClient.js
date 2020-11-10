@@ -55,8 +55,8 @@ export function getLoginWithGithubURL(isSubscribedNews) {
   return `${domain}/v1/auth/github/login?is_subscribed_news=${isSubscribedNews}`;
 }
 
-export async function updateTwitterUser() {
-  const resp = await fetchWithAuth(`${domain}/v1/users/twitter/update`, {
+export async function updateUserCache() {
+  const resp = await fetchWithAuth(`${domain}/v1/users/cache/update`, {
     method: 'PUT',
     mode: 'cors',
     headers: {

@@ -90,7 +90,7 @@ import {
   isLoggedIn,
   loginToken,
   getUser,
-  updateTwitterUser
+  updateUserCache
 } from '@/lib/cloudClient.js';
 import { gtmEventRegister } from '@/lib/gtm.js';
 
@@ -128,7 +128,7 @@ export default {
 
         if (this.$route.query.new_user === 'true'){
           try {
-            await updateTwitterUser();
+            updateUserCache();
             gtmEventRegister();
           } catch (err){
             console.log(err);
