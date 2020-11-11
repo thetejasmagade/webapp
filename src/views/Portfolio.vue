@@ -3,16 +3,11 @@
     <TopNav :title="`Portfolio - ${user.FirstName} ${user.LastName}`" />
 
     <div class="contentContainer">
-      <div class="about">
-        <div class="boxtitle">
-          <div class="name">
-            {{ user.FirstName }} {{ user.LastName }}
-          </div>
-          <div class="handle">
-            @{{ user.Handle }}
-          </div>
-        </div>
-
+      <Section
+        v-if="user.Handle"
+        :title="`${user.FirstName} ${user.LastName}`"
+        :subtitle="`@${user.Handle}`"
+      >
         <div class="row-upper d-flex">
           <div class="profile d-flex align-items-center justify-content-center flex-1">
             <ProfileImage
@@ -105,13 +100,9 @@
         <span class="light">
           {{ user.Bio }}
         </span>
-      </div>
+      </Section>
 
-      <div class="about">
-        <h3 class="boxtitle">
-          Course Progress
-        </h3>
-
+      <Section title="Course Progress">
         <div class="row-portfolio d-flex align-items-center flex-wrap py-5">
           <ImageCard
             v-for="(course, i) of filteredCourses"
@@ -139,13 +130,12 @@
             </div>
           </ImageCard>
         </div>
-      </div>
+      </Section>
 
-      <div class="about">
-        <h3 class="boxtitle">
-          Achievements Earned
-        </h3>
-
+      <Section
+        v-if="filteredAchievements.length>0"
+        title="Achievements Earned"
+      >
         <div class="row-portfolio d-flex align-items-center flex-wrap py-5">
           <ImageCard
             v-for="(achievement, i) of filteredAchievements"
@@ -170,7 +160,7 @@
             </div>
           </ImageCard>
         </div>
-      </div>
+      </Section>
     </div>
   </div>
 </template>
@@ -180,6 +170,7 @@ import TopNav from '@/components/TopNav';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ProfileImage from '@/components/ProfileImage';
 import ImageCard from '@/components/ImageCard';
+import Section from '@/components/Section';
 
 import {
   getCoursesPublic,
@@ -208,7 +199,8 @@ export default {
     TopNav,
     FontAwesomeIcon,
     ProfileImage,
-    ImageCard
+    ImageCard,
+    Section
   },
   data() {
     return {
@@ -258,44 +250,14 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/backgrounds.scss';
 
 #container {
   background-color: $gray-lightest;
   overflow: auto;
-  background-image: linear-gradient(305deg, rgba(254, 254, 254,0.02) 0%, rgba(254, 254, 254,0.02) 1%,transparent 1%, transparent 50%,rgba(220, 220, 220,0.02) 50%, rgba(220, 220, 220,0.02) 64%,rgba(249, 249, 249,0.02) 64%, rgba(249, 249, 249,0.02) 100%),linear-gradient(38deg, rgba(70, 70, 70,0.02) 0%, rgba(70, 70, 70,0.02) 35%,transparent 35%, transparent 62%,rgba(152, 152, 152,0.02) 62%, rgba(152, 152, 152,0.02) 74%,rgba(99, 99, 99,0.02) 74%, rgba(99, 99, 99,0.02) 100%),linear-gradient(337deg, rgba(124, 124, 124,0.02) 0%, rgba(124, 124, 124,0.02) 45%,transparent 45%, transparent 55%,rgba(34, 34, 34,0.02) 55%, rgba(34, 34, 34,0.02) 72%,rgba(189, 189, 189,0.02) 72%, rgba(189, 189, 189,0.02) 100%),linear-gradient(92deg, rgba(239, 239, 239,0.02) 0%, rgba(239, 239, 239,0.02) 12%,transparent 12%, transparent 22%,rgba(204, 204, 204,0.02) 22%, rgba(204, 204, 204,0.02) 51%,rgba(70, 70, 70,0.02) 51%, rgba(70, 70, 70,0.02) 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
+  background-image: $gray-lines;
   background-attachment: fixed;
   height: 100%;
-}
-
-.boxtitle {
-  .name {
-    font-size: 24px;
-    color: $black;
-    font-weight: bold;
-    position: relative;
-    margin-bottom: 5px;
-  }
-
-  .handle {
-    color: $gray-dark;
-  }
-
-  &:after {
-    content: "";
-    background: #3753af;
-    border-radius: 25px;
-    display: block;
-    height: 5px;
-    margin-top: 14px;
-    width: 30px;
-    transition: 0.7s ease-in-out;
-  }
-
-  &:hover {
-    &:after {
-      width: 70px;
-    }
-  }
 }
 
 .row {
@@ -433,14 +395,6 @@ export default {
       border-radius: 50%;
       margin: 0 auto;
     }
-  }
-
-  .about {
-    margin: 25px 0;
-    padding: 2em;
-    background-color: $white;
-    border-radius: 3px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
   }
 }
 </style>

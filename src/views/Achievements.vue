@@ -1,51 +1,47 @@
 <template>
   <div
-    id="container"
+    class="root"
   >
-    <div id="title">
-      <span>
-        Achievements
-      </span>
-    </div>
-
-    <div id="sub-title">
-      <span>
-        Unlocking achievements earns free gems and addss clout to your dev profile
-      </span>
-    </div>
-
-    <div id="cards">
-      <ImageCard
-        v-for="(userAchievement, i) of $store.getters.getUserAchievements"
-        :key="i"
-        :img-src="userAchievement.ImageURL"
-        class="card"
-        :class="{'locked': !userAchievement.UnlockedAt}"
+    <div class="contentContainer">
+      <Section
+        title="Achievements"
+        subtitle="Unlocking achievements earns free gems and adds clout to your dev profile"
       >
-        <div
-          :ref="`cardbody${i}`"
-          class="body"
-        >
-          <p class="item title">
-            {{ userAchievement.Title }}
-          </p>
+        <div id="cards">
+          <ImageCard
+            v-for="(userAchievement, i) of $store.getters.getUserAchievements"
+            :key="i"
+            :img-src="userAchievement.ImageURL"
+            class="card"
+            :class="{'locked': !userAchievement.UnlockedAt}"
+          >
+            <div
+              :ref="`cardbody${i}`"
+              class="body"
+            >
+              <p class="item title">
+                {{ userAchievement.Title }}
+              </p>
 
-          <p class="item description">
-            {{ userAchievement.Description }}
-          </p>
+              <p class="item description">
+                {{ userAchievement.Description }}
+              </p>
 
-          <GemDisplay
-            :size="2"
-            :cost="userAchievement.GemReward"
-          />
+              <GemDisplay
+                :size="2"
+                :cost="userAchievement.GemReward"
+              />
+            </div>
+          </ImageCard>
         </div>
-      </ImageCard>
+      </Section>
     </div>
   </div>
 </template>
 
 <script>
 import ImageCard from '@/components/ImageCard';
+import Section from '@/components/Section';
 import GemDisplay from '@/components/GemDisplay';
 
 import { 
@@ -55,7 +51,8 @@ import {
 export default {
   components: {
     ImageCard,
-    GemDisplay
+    GemDisplay,
+    Section
   },
   async mounted(){
     loadUserAchievements(this);
@@ -65,31 +62,24 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/backgrounds.scss';
 
-#container {
+.root {
   display: block;
-  flex-direction: column;
-  text-align: center;
-  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   overflow: auto;
-  background-image: linear-gradient(135deg, transparent 0%, transparent 6%,rgba(71, 71, 71,0.04) 6%, rgba(71, 71, 71,0.04) 22%,transparent 22%, transparent 100%),linear-gradient(45deg, transparent 0%, transparent 20%,rgba(71, 71, 71,0.04) 20%, rgba(71, 71, 71,0.04) 47%,transparent 47%, transparent 100%),linear-gradient(135deg, transparent 0%, transparent 24%,rgba(71, 71, 71,0.04) 24%, rgba(71, 71, 71,0.04) 62%,transparent 62%, transparent 100%),linear-gradient(45deg, transparent 0%, transparent 73%,rgba(71, 71, 71,0.04) 73%, rgba(71, 71, 71,0.04) 75%,transparent 75%, transparent 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
+  background-image: $gray-lines;
 }
 
-#title{
-  padding: 20px;
-  position: relative;
-  color: $gray-dark;
-  font-size: 3em;
-}
-
-#sub-title {
-  text-align: center;
-  color: $gray-mid;
-  font-size: 1.5em;
-  margin-bottom: 20px;
+.contentContainer {
+  max-width: 1170px;
+  padding: 10px;
+  margin: 0 auto;
+  @media (max-width: 1024px) {
+    max-width: 960px;
+  }
 }
 
 #cards {

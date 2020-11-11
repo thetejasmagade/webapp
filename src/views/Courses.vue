@@ -1,6 +1,6 @@
 <template>
   <div
-    id="container"
+    class="root"
   >
     <LoadingOverlay
       :is-loading="isLoading" 
@@ -8,98 +8,96 @@
     <ConfirmOverlay
       ref="confirmPurchase"
     />
-    <div id="title">
-      <span>
-        Courses
-      </span>
-    </div>
 
-    <div id="sub-title">
-      <span>
-        Learn to code. Earn bonus gems by completing exercises and unlocking achievements
-      </span>
-    </div>
-
-    <div id="cards">
-      <ImageCard
-        v-for="(course, i) of courses"
-        :key="i"
-        :img-src="course.ImageURL"
-        class="card"
-        :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased,course.product.ID) }"
+    <div class="subcontainer">
+      <Section
+        title="All Courses"
+        subtitle="Browse all of our content, new courses are released frequently"
       >
-        <div
-          :ref="`cardbody${i}`"
-          class="body"
-        >
-          <DifficultyBar 
-            :difficulty="course.Difficulty"
-          />
+        <div class="cards">
+          <ImageCard
+            v-for="(course, i) of courses"
+            :key="i"
+            :img-src="course.ImageURL"
+            class="card"
+            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased,course.product.ID) }"
+          >
+            <div
+              :ref="`cardbody${i}`"
+              class="body"
+            >
+              <DifficultyBar 
+                :difficulty="course.Difficulty"
+              />
             
-          <p class="title item">
-            {{ course.Title }}
-          </p>
+              <p class="title item">
+                {{ course.Title }}
+              </p>
 
-          <div
-            v-if="course.IsComplete"
-            class="completed item"
-          >
-            <FontAwesomeIcon
-              icon="check"
-            />
-            <span>Complete</span>
-          </div>
-          <div
-            v-else-if="course.IsPurchased"
-            class="purchased item"
-          >
-            <FontAwesomeIcon
-              icon="check"
-            />
-            <span>Purchased</span>
-          </div>
-          <GemDisplay
-            v-else
-            :size="2"
-            class="item"
-            :cost="course.GemCost"
-          />
+              <div
+                v-if="course.IsComplete"
+                class="completed item"
+              >
+                <FontAwesomeIcon
+                  icon="check"
+                />
+                <span>Complete</span>
+              </div>
+              <div
+                v-else-if="course.IsPurchased"
+                class="purchased item"
+              >
+                <FontAwesomeIcon
+                  icon="check"
+                />
+                <span>Purchased</span>
+              </div>
+              <GemDisplay
+                v-else
+                :size="2"
+                class="item"
+                :cost="course.GemCost"
+              />
 
-          <BlockButton
-            v-if="!course.IsPurchased"
-            class="item"
-            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, course.product.ID) }"
-            color="purple"
-          >
-            Unlock
-          </BlockButton>
+              <BlockButton
+                v-if="!course.IsPurchased"
+                class="item"
+                :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, course.product.ID) }"
+                color="purple"
+              >
+                Unlock
+              </BlockButton>
 
-          <div class="item links">
-            <span
-              class="link"
-              @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
-            >Start Demo</span>
-            <span
-              class="gray link"
-              target="_blank"
-              @click.stop="() => {linkClick(course.LandingPage)}"
-            >More Info</span>
-          </div>
+              <div class="item links">
+                <span
+                  class="link"
+                  @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
+                >Start Demo</span>
+                <span
+                  class="gray link"
+                  target="_blank"
+                  @click.stop="() => {linkClick(course.LandingPage)}"
+                >More Info</span>
+              </div>
+            </div>
+          </ImageCard>
         </div>
-      </ImageCard>
+      </Section>
     </div>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import LoadingOverlay from '@/components/LoadingOverlay';
 
+import Section from '@/components/Section';
+import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
 import ConfirmOverlay from '@/components/ConfirmOverlay';
 import GemDisplay from '@/components/GemDisplay';
 import DifficultyBar from '@/components/DifficultyBar';
 import BlockButton from '@/components/BlockButton';
+
 import { publicKey } from '@/lib/stripeConsts';
 
 import { 
@@ -115,6 +113,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 export default {
   components: {
+    Section,
     LoadingOverlay,
     BlockButton,
     FontAwesomeIcon,
@@ -216,34 +215,27 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/backgrounds.scss';
 
-#container {
+.root {
   display: block;
-  flex-direction: column;
-  text-align: center;
-  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   overflow: auto;
-  background-image: linear-gradient(135deg, transparent 0%, transparent 6%,rgba(71, 71, 71,0.04) 6%, rgba(71, 71, 71,0.04) 22%,transparent 22%, transparent 100%),linear-gradient(45deg, transparent 0%, transparent 20%,rgba(71, 71, 71,0.04) 20%, rgba(71, 71, 71,0.04) 47%,transparent 47%, transparent 100%),linear-gradient(135deg, transparent 0%, transparent 24%,rgba(71, 71, 71,0.04) 24%, rgba(71, 71, 71,0.04) 62%,transparent 62%, transparent 100%),linear-gradient(45deg, transparent 0%, transparent 73%,rgba(71, 71, 71,0.04) 73%, rgba(71, 71, 71,0.04) 75%,transparent 75%, transparent 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
+  background-image: $gray-lines;
 }
 
-#title{
-  padding: 20px;
-  position: relative;
-  color: $gray-dark;
-  font-size: 3em;
+.subcontainer {
+  max-width: 1170px;
+  padding: 10px;
+  margin: 0 auto;
+  @media (max-width: 1024px) {
+    max-width: 960px;
+  }
 }
 
-#sub-title {
-  text-align: center;
-  color: $gray-mid;
-  font-size: 1.5em;
-  margin-bottom: 20px;
-}
-
-#cards {
+.cards {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
