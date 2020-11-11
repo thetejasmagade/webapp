@@ -37,19 +37,19 @@ export default {
   },
   computed:{
     color(){
-      if (this.difficulty === 1){
+      if (this.difficulty / this.maxDifficulty < .2){
         return '#e058ae';
       }
-      if (this.difficulty === 2){
+      if (this.difficulty / this.maxDifficulty < .4){
         return '#d82e9a';
       }
-      if (this.difficulty === 3){
+      if (this.difficulty / this.maxDifficulty < .6){
         return '#ad257b';
       }
-      if (this.difficulty === 4){
+      if (this.difficulty / this.maxDifficulty < .8){
         return '#821c5c';
       }
-      if (this.difficulty === 5){
+      if (this.difficulty / this.maxDifficulty < 1){
         return '#56123e';
       }
       return '#ffffff';
