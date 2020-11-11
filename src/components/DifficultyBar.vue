@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <Tooltip
-      :text="`Difficulty ${difficulty}/5`"
+      :text="`Difficulty ${difficulty}%`"
       color="pink"
       class="item"
       :item-margin="10"
     >
       <ScaleBar
-        :circles-total="5" 
-        :circles-progress="difficulty"
+        :total="maxDifficulty"
+        :progress="difficulty"
         :fill-color="color"
       />
     </Tooltip>
@@ -29,6 +29,11 @@ export default {
       type: Number,
       required: true
     }
+  },
+  data(){
+    return {
+      maxDifficulty: 99
+    };
   },
   computed:{
     color(){

@@ -4,7 +4,7 @@
   >
     <svg
       class="step-progress"
-      :height="circleHeight"
+      :height="lineHeight"
       width="100%"
     >
       <line
@@ -16,16 +16,6 @@
         :y2="line.y2"
         :style="line.style"
       />
-      <circle
-        v-for="(circle, i) in circles"
-        :key="`circle${i}`"
-        :cx="circle.cx"
-        :cy="circle.cy"
-        :r="circle.r"
-        :stroke="circle.stroke"
-        :stroke-width="circle.stroke_width"
-        :fill="circle.fill"
-      />
     </svg>
   </div>
 </template>
@@ -33,11 +23,11 @@
 <script>
 export default {
   props: {
-    circlesTotal: {
+    total: {
       type: Number,
       required: true
     },
-    circlesProgress: {
+    progress: {
       type: Number,
       required: true
     },
@@ -54,67 +44,35 @@ export default {
   },
   data() {
     return {
-      circleRadius: 5,
-      width: 0
+      width: 0,
+      lineHeight: 8
     };
   },
   computed: {
-    circleHeight() {
-      return this.circleRadius * 2;
-    },
-    circles() {
-      let circles = [];
-      for (let i = 0; i < this.circlesProgress; i++) {
-        circles.push({
-          cx: this.circleRadius + this.spacing() * i,
-          cy: this.circleRadius,
-          r: this.circleRadius - 1,
-          stroke: this.fillColor,
-          stroke_width: 1,
-          fill: this.fillColor
-        });
-      }
-      for (let i = 0; i < this.empty(); i++) {
-        circles.push({
-          cx:
-            this.circleRadius +
-            this.spacing() * this.circlesProgress +
-            this.spacing() * i,
-          cy: this.circleRadius,
-          r: this.circleRadius - 1,
-          stroke: this.emptyColor,
-          stroke_width: 1,
-          fill: this.emptyColor
-        });
-      }
-      return circles;
-    },
     lines() {
-      const linesFilled = this.circlesProgress - 1;
+      const linesFilled = this.progress - 1;
       const linesEmpty = this.empty() + 1;
       let lines = [];
       for (let i = 0; i < linesFilled; i++) {
         lines.push({
-          x1: this.circleRadius + this.spacing() * i,
-          y1: this.circleRadius,
-          x2: this.circleRadius + this.spacing() * (i + 1),
-          y2: this.circleRadius,
-          style: `stroke:${this.fillColor};stroke-width:2`
+          x1:  this.spacing() * i,
+          y1: 0,
+          x2: this.spacing() * (i + 1),
+          y2: 0,
+          style: `stroke:${this.fillColor};stroke-width:${this.lineHeight}`
         });
       }
       for (let i = 0; i < linesEmpty; i++) {
         lines.push({
           x1:
-            this.circleRadius +
             linesFilled * this.spacing() +
             this.spacing() * i,
-          y1: this.circleRadius,
+          y1: 0,
           x2:
-            this.circleRadius +
             linesFilled * this.spacing() +
             this.spacing() * (i + 1),
-          y2: this.circleRadius,
-          style: `stroke:${this.emptyColor};stroke-width:2`
+          y2: 0,
+          style: `stroke:${this.emptyColor};stroke-width:${this.lineHeight}`
         });
       }
       return lines;
@@ -129,11 +87,11 @@ export default {
   },
   methods: {
     empty() {
-      return this.circlesTotal - this.circlesProgress;
+      return this.total - this.progress;
     },
     spacing() {
       return (
-        (this.width - this.circleRadius * 2) / (this.circlesProgress + this.empty() - 1)
+        this.width / (this.progress + this.empty() - 1)
       );
     },
     handleResize() {
