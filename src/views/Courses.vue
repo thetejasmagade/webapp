@@ -226,15 +226,6 @@ export default {
   background-image: $gray-lines;
 }
 
-.subcontainer {
-  max-width: 1170px;
-  padding: 10px;
-  margin: 0 auto;
-  @media (max-width: 1024px) {
-    max-width: 960px;
-  }
-}
-
 .cards {
   display: flex;
   justify-content: center;
@@ -245,7 +236,7 @@ export default {
     flex: 1 1 calc(22% - 1em);
     margin: 20px;
     max-width: 400px;
-    min-width: 300px;
+    min-width: 250px;
 
     .body {
       height: 100%;

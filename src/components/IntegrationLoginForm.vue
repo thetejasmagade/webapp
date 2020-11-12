@@ -84,10 +84,12 @@ export default {
           googleUser.getAuthResponse().id_token,
           this.subscribeNews
         );
+        this.$store.commit('setIsLoggedIn', isLoggedIn());
         if (resp.registered){
           gtmEventRegister();
+          this.$router.push({name: 'SignupFlow'});
+          return;
         }
-        this.$store.commit('setIsLoggedIn', isLoggedIn());
         this.$router.push({name: 'Courses'});
       } catch (err){
         this.$notify({

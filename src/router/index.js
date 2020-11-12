@@ -13,6 +13,7 @@ const Playground = () => import(/* webpackChunkName: "Playground" */ '@/views/Pl
 const Settings = () => import(/* webpackChunkName: "Settings" */ '@/views/Settings.vue');
 const Achievements = () => import(/* webpackChunkName: "Achievements" */ '@/views/Achievements.vue');
 const Demo = () => import(/* webpackChunkName: "Demo" */ '@/views/Demo.vue');
+const SignupFlow = () => import(/* webpackChunkName: "SignupFlow" */ '@/views/SignupFlow.vue');
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/signup_flow',
+    name: 'SignupFlow',
+    component: SignupFlow
   },
   {
     path: '/dashboard',

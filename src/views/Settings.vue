@@ -241,17 +241,7 @@ export default {
         if (this.user.handle){
           await updateUserHandle(this.user.handle);
         }
-        await updateUser(
-          this.user.firstName,
-          this.user.lastName,
-          this.user.bio,
-          this.user.jobTitle,
-          this.user.location,
-          this.user.twitterHandle,
-          this.user.linkedinURL,
-          this.user.githubHandle,
-          this.user.websiteURL
-        );
+        await updateUser(this.user);
         await loadUser(this);
         this.$notify({
           type: 'success',

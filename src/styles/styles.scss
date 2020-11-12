@@ -1,4 +1,5 @@
 @import 'colors.scss';
+@import 'consts.scss';
 
 html {
 	height: 100%;
@@ -22,5 +23,13 @@ a, .link{
     &:hover {
       color: $gray-lighter;
     }
+  }
+}
+
+.subcontainer {
+  padding: 1em;
+  margin: 1em;
+  @media screen and (max-width: $mobile-size) {
+    margin: 0;
   }
 }

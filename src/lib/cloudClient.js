@@ -99,7 +99,7 @@ export async function createUserManual(email, password, firstName, lastName, isS
   return handled;
 }
 
-export async function updateUser(
+export async function updateUser({
   firstName, 
   lastName, 
   bio, 
@@ -108,8 +108,9 @@ export async function updateUser(
   twitterHandle,
   linkedinURL,
   githubHandle,
-  websiteURL
-){
+  websiteURL,
+  experienceLevel
+}){
   function emptyToNull(s){
     if (s === ''){
       return null;
@@ -126,6 +127,7 @@ export async function updateUser(
   linkedinURL = emptyToNull(linkedinURL);
   githubHandle = emptyToNull(githubHandle);
   websiteURL = emptyToNull(websiteURL);
+  experienceLevel = emptyToNull(experienceLevel);
 
   const resp = await fetchWithAuth(`${domain}/v1/users`, {
     method: 'PUT',
@@ -142,7 +144,8 @@ export async function updateUser(
       twitterHandle,
       linkedinURL,
       githubHandle,
-      websiteURL
+      websiteURL,
+      experienceLevel
     })
   });
   const handled = await handleJSONResponse(resp);
@@ -158,6 +161,36 @@ export async function updateUserHandle(handle) {
     },
     body: JSON.stringify({
       handle
+    })
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function updateUserInterests(interestUUIDs) {
+  const resp = await fetchWithAuth(`${domain}/v1/users/interests`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      interestUUIDs
+    })
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function userIgnoreCourse(courseUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/users/courses/ignore`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      courseUUID
     })
   });
   const handled = await handleJSONResponse(resp);
@@ -348,6 +381,18 @@ export async function useCouponCode(couponCode) {
 
 export async function getProducts(){
   const resp = await fetchWithAuth(`${domain}/v1/products`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getInterests(){
+  const resp = await fetchWithAuth(`${domain}/v1/interests`, {
     method: 'GET',
     mode: 'cors',
     headers: {

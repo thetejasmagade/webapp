@@ -155,15 +155,6 @@ export default {
   background-image: $gray-lines;
 }
 
-.subcontainer {
-  max-width: 1170px;
-  padding: 10px;
-  margin: 0 auto;
-  @media (max-width: 1024px) {
-    max-width: 960px;
-  }
-}
-
 .coupon-code {
   color: $gold-mid;
   cursor: pointer;

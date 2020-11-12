@@ -17,7 +17,7 @@ export default {
       required: false,
       default: () =>{}
     },
-    color:{
+    color: {
       type: String,
       required: false,
       default: 'purple'

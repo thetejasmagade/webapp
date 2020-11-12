@@ -2,7 +2,7 @@
   <div id="container">
     <TopNav :title="`Portfolio - ${user.FirstName} ${user.LastName}`" />
 
-    <div class="contentContainer">
+    <div class="subcontainer">
       <Section
         v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
@@ -365,36 +365,27 @@ export default {
   padding: 50px 0;
 }
 
-.contentContainer {
-  max-width: 1170px;
-  padding: 10px;
-  margin: 0 auto;
-  @media (max-width: 1024px) {
-    max-width: 960px;
-  }
-
-  .row-portfolio {
-    @media (max-width: 768px) {
-      flex-direction: column;
-      .basis-25 {
-        flex-basis: 90% !important;
-      }
+.row-portfolio {
+  @media (max-width: 768px) {
+    flex-direction: column;
+    .basis-25 {
+      flex-basis: 90% !important;
     }
   }
+}
 
-  .row-upper {
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
+.row-upper {
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
+}
 
-  .profile {
-    margin-right: 2em;
-    img {
-      max-width: 240px;
-      border-radius: 50%;
-      margin: 0 auto;
-    }
+.profile {
+  margin-right: 2em;
+  img {
+    max-width: 240px;
+    border-radius: 50%;
+    margin: 0 auto;
   }
 }
 </style>

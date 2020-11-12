@@ -172,7 +172,7 @@ export default {
           this.password
         );
         this.$store.commit('setIsLoggedIn', isLoggedIn());
-        this.$router.push({name: 'Courses'});
+        this.$router.push({name: 'SignupFlow'});
       } catch (err){
         this.$notify({
           type: 'error',
