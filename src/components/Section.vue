@@ -41,7 +41,6 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 .section {
-  margin: 25px 0;
   padding: 2em;
   background-color: $white;
   border-radius: 3px;

@@ -28,8 +28,15 @@ a, .link{
 
 .subcontainer {
   padding: 1em;
-  margin: 1em;
   @media screen and (max-width: $mobile-size) {
     margin: 0;
   }
+}
+
+.margin-bottom-1 {
+  margin-bottom: 1em;
+}
+
+.margin-top-2 {
+  margin-top: 2em;
 }

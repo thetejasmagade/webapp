@@ -7,6 +7,7 @@
         v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
         :subtitle="`@${user.Handle}`"
+        class="margin-bottom-1"
       >
         <div class="row-upper d-flex">
           <div class="profile d-flex align-items-center justify-content-center flex-1">
@@ -102,7 +103,10 @@
         </span>
       </Section>
 
-      <Section title="Course Progress">
+      <Section
+        title="Course Progress"
+        class="margin-bottom-1"
+      >
         <div class="row-portfolio d-flex align-items-center flex-wrap py-5">
           <ImageCard
             v-for="(course, i) of filteredCourses"
