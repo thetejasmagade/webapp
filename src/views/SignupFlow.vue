@@ -40,7 +40,8 @@ import CheckboxForm from '@/components/CheckboxForm';
 
 import { 
   updateUser,
-  getInterests
+  getInterests,
+  updateUserInterests
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -103,12 +104,13 @@ export default {
         });
       }
     },
-    async submitInterests(answer){
-      const experienceLevel = this.devExperienceAnswersMap[answer];
+    async submitInterests(answers){
+      const interestUUIDs = [];
+      for (const answer of answers){
+        interestUUIDs.push(this.interestsMap[answer]);
+      }
       try {
-        await updateUser({
-          experienceLevel
-        });
+        await updateUserInterests(interestUUIDs);
         this.$router.push({name: 'Courses'});
       } catch (err) {
         this.$notify({
