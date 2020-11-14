@@ -1,6 +1,6 @@
 <template>
   <div
-    id="container"
+    class="login-container"
   >
     <div class="nav-container">
       <TopNav title="Qvault" />
@@ -8,76 +8,60 @@
 
     <div class="panel-container">
       <div class="panel">
-        <div id="left">
-          <img
-            alt="Qvault logo"
-            src="../img/qvault-icon-250.png"
-            class="logo"
-          >
+        <img
+          alt="Qvault logo"
+          src="../img/qvault-icon-250.png"
+          class="logo"
+        >
 
-          <span class="title">
-            We make learning to code <span class="gold">simple.</span>
-          </span>
+        <span class="title">
+          We make computer science <span class="emphasis">simple.</span>
+        </span>
 
-          <span class="title post">
-            <span class="green">Free</span> courses available on signup. Certificates and portfolios free forever.
-          </span>
+        <span class="title sub">
+          Demo courses available on signup. Certificates and portfolios free forever.
+        </span>
 
-          <div
-            v-if="state === 'integration'"
-          >
-            <IntegrationLoginForm class="top" />
-            <div class="bottom">
-              <span>Don't like integrations? <a @click="state='register'">Create password</a></span>
-              <span>Have a password? <a @click="state='login'">Login</a></span>
-            </div>
-          </div>
-
-          <div
-            v-if="state === 'register'"
-          >
-            <RegisterForm class="top" />
-            <div class="bottom">
-              <span>Have an integrated account? <a @click="state='integration'">Single Sign-On</a></span>
-              <span>Have an account? <a @click="state='login'">Login</a></span>
-            </div>
-          </div>
-
-          <div
-            v-if="state === 'login'"
-          >
-            <LoginForm class="top" />
-            <div class="bottom">
-              <span>Need an account? <a @click="state='register'">Sign Up Free</a></span>
-              <span>Have an integrated account? <a @click="state='integration'">Single Sign-On</a></span>
-              <span><a @click="state='forgot-password'">Forgot Password?</a></span>
-            </div>
-          </div>
-    
-          <div
-            v-if="state === 'forgot-password'"
-          >
-            <ForgotPasswordForm class="top" />
-            <div class="bottom">
-              <span><a @click="state='login'">Back</a></span>
-            </div>
+        <div
+          v-if="state === 'integration'"
+          class="form"
+        >
+          <IntegrationLoginForm class="top" />
+          <div class="bottom">
+            <span>Don't like integrations? <a @click="state='register'">Create password</a></span>
+            <span>Have a password? <a @click="state='login'">Login</a></span>
           </div>
         </div>
 
-        <div id="right">
-          <img
-            id="side-image"
-            alt="Transparent books in laptop"
-            src="../img/laptop.png"
-          >
-          <div>
-            <span class="title">
-              Level-Up Your Career
-            </span>
-            <p>
-              Other platforms barrage their users with endless content, 
-              we curate a manageable list of courses that are perfect for you, our student.
-            </p>
+        <div
+          v-if="state === 'register'"
+          class="form"
+        >
+          <RegisterForm class="top" />
+          <div class="bottom">
+            <span>Have an integrated account? <a @click="state='integration'">Single Sign-On</a></span>
+            <span>Have an account? <a @click="state='login'">Login</a></span>
+          </div>
+        </div>
+
+        <div
+          v-if="state === 'login'"
+          class="form"
+        >
+          <LoginForm class="top" />
+          <div class="bottom">
+            <span>Need an account? <a @click="state='register'">Sign Up Free</a></span>
+            <span>Have an integrated account? <a @click="state='integration'">Single Sign-On</a></span>
+            <span><a @click="state='forgot-password'">Forgot Password?</a></span>
+          </div>
+        </div>
+    
+        <div
+          v-if="state === 'forgot-password'"
+        >
+          <ForgotPasswordForm class="top" />
+          <div class="bottom">
+            <span><a @click="state='login'">Back</a></span>
           </div>
         </div>
       </div>
@@ -158,7 +142,15 @@ export default {
 @import '@/styles/consts.scss';
 @import '@/styles/backgrounds.scss';
 
-#container {
+.emphasis {
+  color: $purple-light;
+}
+
+.form {
+  margin: 1em;
+}
+
+.login-container {
   background-color: $gray-darkest;
   background-repeat: no-repeat;
   background-size: cover;
@@ -180,87 +172,44 @@ export default {
     flex-direction: column;
     justify-content: center;
     flex: 1;
+
+    @media (max-width: $mobile-size) {
+      justify-content: flex-start;
+    }
   }
 
   .panel {
     background-color: $gray-lightest;
     min-height: 600px;
+    box-shadow: 0 0 5em $gray-mid;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1em 2em 1em 2em;
 
-    @media (min-width: $mobile-size) {
-      width: 60vw;
+    @media (max-width: $mobile-size) {
+      height: 100%;
+      padding: 1em;
+    }
+
+    .logo {
+      width: 75px;
+      height: 75px;
+      margin-bottom: 1em;
       margin-top: 1em;
     }
 
-    @media (max-width: $mobile-size) {
-      min-height: 0px;
-    }
-
-    display: flex;
-    flex-flow: row wrap;
-    align-items: stretch;
-    box-shadow: 0 0 5em $gray-mid;
-
-    #left {
-      flex: 4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      padding-top: 2em;
-      background-color: inherit;
-      padding: 0px 10px 0px 10px;
-
-      @media (max-width: $mobile-size) {
-        height: calc(100vh - #{$bar-height});
-        background-image: $gray-lines;
-      }
-
-      .logo {
-        width: 75px;
-        height: 75px;
-        margin-bottom: 1em;
-        margin-top: 1em;
-      }
-
-      .title {
-        color: $gray-dark;
-        font-size: 1.4em;
-        text-align: center;
-        margin-bottom: 1em;
-
-        &.post {
-          color: $gray-light;
-          font-size: 1em;
-        }
-
-        .green {
-          color: $green-mid;
-        }
-
-        .gold {
-          color: $purple-light;
-        }
-      }
-    }
-
-    #right{
-      padding: 2em;
-      flex: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      background-color: $gold-light;
-      color: $white;
+    .title {
+      color: $gray-dark;
+      font-size: 1.4em;
       text-align: center;
+      margin-bottom: 1em;
 
-      #side-image {
-        width: 300px;
-        margin-bottom: 2em;
-      }
-
-      .title {
-        font-size: 1.5em;
+      &.sub {
+        color: $gray-light;
+        font-size: 1em;
       }
     }
 
