@@ -62,6 +62,11 @@ export default {
       required: false,
       default: true
     }
+  },
+  methods: {
+    linkClick(url) {
+      window.open(url, '_blank');
+    }
   }
 };
 </script>
