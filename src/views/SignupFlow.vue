@@ -6,7 +6,7 @@
       <Section
         v-if="page === 0"
         title="Developer Experience"
-        subtitle="Let us know where you are at as a programmer so we can recommend the best courses for you"
+        subtitle="Let us know where you're at as a programmer so we can recommend the best courses for you"
       >
         <MultipleChoice
           :callback="submitDeveloperExperience"
