@@ -23,7 +23,7 @@
         <CheckboxForm
           :callback="submitInterests"
           :answers="interestsAnswers"
-          question="Which do you find most interesting? Select up to five."
+          question="Which do you find most interesting? Select up to 5"
           :min-checked="1"
           :max-checked="5"
         />
