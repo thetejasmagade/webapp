@@ -6,7 +6,7 @@
       src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
     >
     <p> 
-      Congragulations! You've completed this course 
+      Congratulations! You've completed this course 
     </p>
     <BlockButton
       class="btn"

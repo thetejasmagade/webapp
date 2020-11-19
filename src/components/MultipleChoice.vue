@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div id="root">
-      <p>{{ question }}</p>
+    <div class="multiple-choice">
+      <h2>{{ question }}</h2>
       <BlockButton
         v-for="(answer, i) of answers"
         :key="i"
@@ -44,16 +44,16 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 
-#root {
+.multiple-choice {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
 
-  p {
-    margin-top: 25px;
+  h2 {
+    margin-top: 1em;
     font-size: 2em;
-    padding: 20px;
+    padding: 0 1em 0 1em;
   }
 
   .btn {
