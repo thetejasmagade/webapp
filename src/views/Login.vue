@@ -115,7 +115,7 @@ export default {
             updateUserCache();
             gtmEventRegister();
             this.$store.commit('setIsLoggedIn', isLoggedIn());
-            this.$router.push({name: 'SignupFlow'});
+            this.$router.push({name: 'SignupFlowExperience'});
             return;
           } catch (err){
             console.log(err);

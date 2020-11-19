@@ -13,7 +13,10 @@ const Playground = () => import(/* webpackChunkName: "Playground" */ '@/views/Pl
 const Settings = () => import(/* webpackChunkName: "Settings" */ '@/views/Settings.vue');
 const Achievements = () => import(/* webpackChunkName: "Achievements" */ '@/views/Achievements.vue');
 const Demo = () => import(/* webpackChunkName: "Demo" */ '@/views/Demo.vue');
-const SignupFlow = () => import(/* webpackChunkName: "SignupFlow" */ '@/views/SignupFlow.vue');
+const SignupFlowExperience = () => import(/* webpackChunkName: "SignupFlowExperience" */ '@/views/SignupFlowExperience.vue');
+const SignupFlowInterests = () => import(/* webpackChunkName: "SignupFlowInterests" */ '@/views/SignupFlowInterests.vue');
+const SignupFlowGems = () => import(/* webpackChunkName: "SignupFlowGems" */ '@/views/SignupFlowGems.vue');
+
 
 Vue.use(VueRouter);
 
@@ -31,9 +34,19 @@ const routes = [
     component: Login
   },
   {
-    path: '/signup_flow',
-    name: 'SignupFlow',
-    component: SignupFlow
+    path: '/signup_flow/experience',
+    name: 'SignupFlowExperience',
+    component: SignupFlowExperience
+  },
+  {
+    path: '/signup_flow/interests',
+    name: 'SignupFlowInterests',
+    component: SignupFlowInterests
+  },
+  {
+    path: '/signup_flow/gems',
+    name: 'SignupFlowGems',
+    component: SignupFlowGems
   },
   {
     path: '/dashboard',
