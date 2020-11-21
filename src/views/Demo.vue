@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="demo-root">
     <TopNav :title="`Demo`" />
 
     <div
@@ -206,14 +206,15 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/consts.scss';
 
-.root {
-  height: 100%;
+.demo-root {
+  height: 100%
 }
 
 .container {
   display: flex;
-  height: 100%;
+  height: calc(100vh - #{$bar-height});
 }
 
 .full {
