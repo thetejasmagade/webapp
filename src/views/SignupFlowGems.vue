@@ -9,24 +9,24 @@
         class="section"
       >
         <div class="body">
-          <p>
-            At university, courses cost thousands of dollars.
-            On Qvault, courses cost about the same as dinner and a movie,
-            and with our gem system you can save even more!
-          </p>
           <img
             width="250"
             src="../img/gem-3.png"
           >
+          <p>
+            At university, courses cost thousands of dollars.
+            With us, courses cost about the same as dinner and a movie,
+            and with our gem system you can save even more!
+          </p>
           <p> 
-            Within Qvault, gems are used as a way to buy courses.
-            Since you're new, you'll need to buy some gems to get started,
-            but as you complete assignments we'll award you with bonus gems!
+            Within Qvault, gems are used to buy courses.
+            Buy some gems to get started,
+            and as you complete assignments we'll award you with free bonus gems!
           </p>
           <BlockButton
             :click="done"
           >
-            <span> Let's Get Going </span>
+            <span> Get Started </span>
           </BlockButton>
         </div>
       </Section>
@@ -77,13 +77,14 @@ export default {
     flex: 1;
 
     .section {
-      max-width: 800px;
+      max-width: 600px;
 
       .body {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        text-align: center;
       }
     }
   }

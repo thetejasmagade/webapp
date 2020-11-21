@@ -8,13 +8,21 @@
         subtitle="By knowing which technologies and subjects you like, we can suggest material that's perfect for you"
         class="section"
       >
-        <CheckboxForm
-          :callback="submitInterests"
-          :answers="interestsAnswers"
-          question="Which do you find most interesting? Select up to 5"
-          :min-checked="1"
-          :max-checked="5"
-        />
+        <div class="body">
+          <h3>Which do you find most interesting? Select up to 5</h3>
+          <CheckboxForm
+            v-model="checkedAnswers"
+            :options="interestsAnswers"
+          />
+          <BlockButton
+            class="btn"
+            color="purple"
+            :click="submitInterests"
+            :disabled="checkedAnswers.length < 1 || checkedAnswers.length > 5"
+          >
+            <span>Submit</span>
+          </BlockButton>
+        </div>
       </Section>
     </div>
   </div>
@@ -24,6 +32,7 @@
 import TopNav from '@/components/TopNav';
 import Section from '@/components/Section';
 import CheckboxForm from '@/components/CheckboxForm';
+import BlockButton from '@/components/BlockButton';
 
 import { 
   getInterests,
@@ -34,11 +43,13 @@ export default {
   components: {
     TopNav,
     Section,
-    CheckboxForm
+    CheckboxForm,
+    BlockButton
   },
   data(){
     return {
       interestUUIDs: [],
+      checkedAnswers: [],
       interestsMap: {}
     };
   },
@@ -56,9 +67,9 @@ export default {
     this.interestsMap = interestsMap;
   },
   methods:{
-    async submitInterests(answers){
+    async submitInterests(){
       const interestUUIDs = [];
-      for (const answer of answers){
+      for (const answer of this.checkedAnswers){
         interestUUIDs.push(this.interestsMap[answer]);
       }
       try {
@@ -98,7 +109,11 @@ export default {
     flex: 1;
 
     .section {
-      max-width: 800px;
+      max-width: 700px;
+      
+      .body {
+        text-align: center;
+      }
     }
   }
 }

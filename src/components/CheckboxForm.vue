@@ -1,72 +1,45 @@
 <template>
   <div>
     <div class="checkbox-form">
-      <p>{{ question }}</p>
       <div class="answers">
         <label
-          v-for="(answer, i) of answers"
+          v-for="(option, i) of options"
           :key="i"
           class="item"
         >
-          <span :for="answer">{{ answer }}</span>
+          <span :for="option">{{ option }}</span>
           <input
-            :id="answer"
+            :id="option"
             v-model="checked"
             type="checkbox"
-            :value="answer"
+            :value="option"
+            @change="onChange"
           >
           <span class="checkmark" />
         </label>
       </div>
-      <BlockButton
-        class="btn"
-        color="purple"
-        :click="() => {callback(checked)}"
-        :disabled="checked.length < minChecked || checked.length > maxChecked"
-      >
-        <span>Submit</span>
-      </BlockButton>
     </div>
   </div>
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton';
-
 export default {
-  components: {
-    BlockButton
-  },
   props: {
-    callback: {
-      type: Function,
-      required: true
-    },
-    question: {
-      type: String,
-      required: false,
-      default: ''
-    },
-    answers: {
+    options: {
       type: Array,
       required: false,
       default: () => []
-    },
-    minChecked: {
-      type: Number,
-      required: false,
-      default: 1
-    },
-    maxChecked: {
-      type: Number,
-      required: false,
-      default: Number.MAX_SAFE_INTEGER
     }
   },
   data(){
     return {
       checked: []
     };
+  },
+  methods: {
+    onChange() {
+      this.$emit('input', this.checked);
+    }
   }
 };
 </script>
@@ -78,30 +51,19 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
 
   .answers {
     display: flex;
     flex-direction: column;
     align-items: left;
-    min-width: 75%;
+    width: 100%;
   }
 
   label {
     margin-left: 1em;
   }
 
-  p {
-    font-size: 1.5em;
-  }
-
-  .btn {
-    font-size: 18px;
-    margin: 1em;
-  }
-
   $item-height: 25px;
-
   .item {
     display: block;
     position: relative;
@@ -135,29 +97,24 @@ export default {
     background-color: $gray-lighter;
   }
 
-  /* On mouse-over, add a grey background color */
   .item:hover input ~ .checkmark {
     background-color: $gray-light;
   }
 
-  /* When the checkbox is checked, add a blue background */
   .item input:checked ~ .checkmark {
     background-color: $gold-mid;
   }
 
-  /* Create the checkmark/indicator (hidden when not checked) */
   .checkmark:after {
     content: "";
     position: absolute;
     display: none;
   }
 
-  /* Show the checkmark when checked */
   .item input:checked ~ .checkmark:after {
     display: block;
   }
 
-  /* Style the checkmark/indicator */
   .item .checkmark:after {
     left: 9px;
     top: 5px;

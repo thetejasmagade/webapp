@@ -8,11 +8,23 @@
         subtitle="Let us know where you're at as a programmer so we can recommend the best courses for you"
         class="section"
       >
-        <MultipleChoice
-          :callback="submitDeveloperExperience"
-          :answers="devExperienceAnswers"
-          question="Which answer best describes you?"
-        />
+        <div class="body">
+          <h3>Roughly how much coding experience do you have?</h3>
+          <Slider
+            v-model="experienceLevel"
+            :min="0"
+            :max="99"
+            class="slider"
+          />
+          <p>{{ devExperienceDescription }}</p>
+          <BlockButton
+            class="btn"
+            color="purple"
+            :click="submitDeveloperExperience"
+          >
+            Submit
+          </BlockButton>
+        </div>
       </Section>
     </div>
   </div>
@@ -20,8 +32,9 @@
 
 <script>
 import TopNav from '@/components/TopNav';
-import MultipleChoice from '@/components/MultipleChoice';
+import Slider from '@/components/Slider';
 import Section from '@/components/Section';
+import BlockButton from '@/components/BlockButton';
 
 import { 
   updateUser
@@ -29,35 +42,41 @@ import {
 
 export default {
   components: {
-    MultipleChoice,
+    Slider,
     TopNav,
-    Section
+    Section,
+    BlockButton
   },
   data(){
     return {
-      experienceLevel: 0,
-      // answer -> exerienceLevel
-      devExperienceAnswersMap: {
-        'I\'ve never written a line of code': 0,
-        'I\'ve taken courses or classes before but have never finished a project': 10,
-        'I\'ve completed coding projects or classes but have never been payed to code': 20,
-        'I have an entry-level programming job': 30,
-        'I have a degree or have worked in the industry for at least 3 years': 40,
-        'I\'ve been called a senior engineer': 60
-      }
+      experienceLevel: 0
     };
   },
   computed: {
-    devExperienceAnswers(){
-      return Object.keys(this.devExperienceAnswersMap);
+    devExperienceDescription(){
+      if (this.experienceLevel < 10){
+        return 'I\'ve never written a line of code';
+      }
+      if (this.experienceLevel < 20){
+        return 'I\'ve taken courses or classes before but have never finished a project';
+      }
+      if (this.experienceLevel < 30){
+        return 'I\'ve completed coding projects or classes but have never been payed to code';
+      }
+      if (this.experienceLevel < 40){
+        return 'I have an entry-level programming job';
+      }
+      if (this.experienceLevel < 60){
+        return 'I have a degree or have worked in the industry for at least 3 years';
+      }
+      return 'I\'ve been called a senior engineer';
     }
   },
   methods:{
-    async submitDeveloperExperience(answer){
-      const experienceLevel = this.devExperienceAnswersMap[answer];
+    async submitDeveloperExperience(){
       try {
         await updateUser({
-          experienceLevel
+          experienceLevel: this.experienceLevel
         });
         this.$router.push({name: 'SignupFlowInterests' });
       } catch (err) {
@@ -95,7 +114,15 @@ export default {
 
     .section {
       max-width: 800px;
+
+      .body {
+        text-align: center;
+      }
     }
+  }
+
+  .slider {
+    margin-bottom: 1.5em;
   }
 }
 </style>
