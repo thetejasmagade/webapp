@@ -14,6 +14,12 @@
             @click.stop=""
           >
             <div class="modal-body">
+              <div>
+                <div
+                  class="close"
+                  @click.stop="hide"
+                />
+              </div>
               <slot />
             </div>
           </div>
@@ -52,19 +58,21 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: table;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
 }
 
 .modal-container {
-  max-width: 90%;
-  width: 600px;
-  margin: 0px auto;
+  flex: 1 1 calc(22% - 1em);
+  max-width: 600px;
+  min-width: 250px;
   padding: 20px 30px;
   background-color: $gray-darker-2;
   color: $gray-lightest;
@@ -76,20 +84,13 @@ export default {
 
 .modal-body {
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter {
   opacity: 0;
@@ -105,4 +106,32 @@ export default {
   transform: scale(1.1);
 }
 
+.close {
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+  position: relative;
+  float: right;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: $white;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+}
 </style>

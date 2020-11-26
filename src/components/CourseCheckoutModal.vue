@@ -101,6 +101,7 @@ export default {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
     .col {
       display: flex;
