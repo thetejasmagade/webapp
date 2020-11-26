@@ -21,15 +21,13 @@
             direction="row"
             :img-src="recommendedCourse.ImageURL"
             class="recommended-card"
-            :click="() => {clickOnCourse(
-              recommendedCourse.UUID,
-              recommendedCourse.GemCost,
-              recommendedCourse.IsPurchased,
-              recommendedCourse.product.ID
-            ) }"
+            :click="() => {clickOnCourse(recommendedCourse.UUID, recommendedCourse.GemCost, recommendedCourse.IsPurchased) }"
           >
+            <CourseCheckoutModal
+              ref="modalRecommended"
+              :course="recommendedCourse"
+            />
             <div
-              :ref="`cardbody-recommended`"
               class="body"
             >
               <DifficultyBar 
@@ -63,17 +61,8 @@
                 v-else
                 :size="2"
                 class="item"
-                :cost="recommendedCourse.GemCost"
+                :text="`${recommendedCourse.GemCost}`"
               />
-
-              <BlockButton
-                v-if="!recommendedCourse.IsPurchased"
-                class="item"
-                :click="() => {clickOnCourse(recommendedCourse.UUID, recommendedCourse.GemCost, recommendedCourse.IsPurchased, recommendedCourse.product.ID) }"
-                color="purple"
-              >
-                Unlock
-              </BlockButton>
 
               <div class="item links">
                 <span
@@ -101,10 +90,13 @@
             :key="i"
             :img-src="course.ImageURL"
             class="card"
-            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased,course.product.ID) }"
+            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, i) }"
           >
+            <CourseCheckoutModal
+              :ref="`modal`"
+              :course="course"
+            />
             <div
-              :ref="`cardbody${i}`"
               class="body"
             >
               <DifficultyBar 
@@ -137,17 +129,8 @@
                 v-else
                 :size="2"
                 class="item"
-                :cost="course.GemCost"
+                :text="`${course.GemCost}`"
               />
-
-              <BlockButton
-                v-if="!course.IsPurchased"
-                class="item"
-                :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, course.product.ID) }"
-                color="purple"
-              >
-                Unlock
-              </BlockButton>
 
               <div class="item links">
                 <span
@@ -177,32 +160,27 @@ import ImageCard from '@/components/ImageCard';
 import ConfirmOverlay from '@/components/ConfirmOverlay';
 import GemDisplay from '@/components/GemDisplay';
 import DifficultyBar from '@/components/DifficultyBar';
-import BlockButton from '@/components/BlockButton';
-
-import { publicKey } from '@/lib/stripeConsts';
+import CourseCheckoutModal from '@/components/CourseCheckoutModal';
 
 import { 
   getCourses,
   purchaseCourse,
   getLastGemTransaction,
-  startProductCheckout,
   getCourseRecommendations
 } from '@/lib/cloudClient.js';
 
 import { gtmEventPurchaseCourse } from '@/lib/gtm.js';
 
-import { loadStripe } from '@stripe/stripe-js';
-
 export default {
   components: {
     Section,
     LoadingOverlay,
-    BlockButton,
     FontAwesomeIcon,
     ImageCard,
     ConfirmOverlay,
     GemDisplay,
-    DifficultyBar
+    DifficultyBar,
+    CourseCheckoutModal
   },
   data() {
     return {
@@ -229,7 +207,7 @@ export default {
           products = products.filter(product => product.GemAmount >= courses[i].GemCost);
         }
         products.sort((p1, p2) => p1.GemAmount > p2.GemAmount ? 1 : -1);
-        courses[i].product = products[0];
+        courses[i].products = products;
       }
 
       if (this.$route.query.courseUUID){
@@ -263,13 +241,20 @@ export default {
     linkClick(url) {
       window.open(url, '_blank');
     },
-    clickOnCourse(courseUUID, gemAmount, isPurchased, productID){
+    showModal(i){
+      if (typeof i === 'undefined'){
+        this.$refs['modalRecommended'].show();
+        return;
+      }
+      this.$refs['modal'][i].show();
+    },
+    clickOnCourse(courseUUID, gemAmount, isPurchased, i){
       if (isPurchased) {
         this.$router.push({name: 'Exercise', params: {courseUUID}});
         return;
       }
       if (this.$store.getters.getBalance < gemAmount){
-        this.checkout(productID);
+        this.showModal(i);
         return;
       }
       this.$refs['confirmPurchase'].openNav(
@@ -289,15 +274,6 @@ export default {
           }
         }
       );
-    },
-    async checkout(productID){
-      this.isLoading = true;
-      const checkoutSession = await startProductCheckout(productID);
-      const stripe = await loadStripe(publicKey);
-      await stripe.redirectToCheckout({
-        sessionId: checkoutSession.id
-      });
-      this.isLoading = false;
     },
     readMore(url) {
       window.open(url, '_blank');

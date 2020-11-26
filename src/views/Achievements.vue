@@ -29,7 +29,7 @@
 
               <GemDisplay
                 :size="2"
-                :cost="userAchievement.GemReward"
+                :text="`${userAchievement.GemReward}`"
               />
             </div>
           </ImageCard>

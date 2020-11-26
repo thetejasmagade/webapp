@@ -7,7 +7,7 @@
           :profile-image-u-r-l="$store.getters.getUser.ProfileImageURL"
           :editable="false"
         />
-        <GemDisplay :cost="$store.getters.getBalance" />
+        <GemDisplay :text="`${$store.getters.getBalance}`" />
       </div>
 
       <div class="divider">
@@ -81,7 +81,7 @@
     <div class="sidebar mobile">
       <div class="profile-box">
         <GemDisplay
-          :cost="$store.getters.getBalance"
+          :text="`${$store.getters.getBalance}`"
           vertical
         />
       </div>

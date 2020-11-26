@@ -9,10 +9,10 @@
       :style="{'margin': `${margin}px`}"
     >
     <span
-      v-if="cost"
+      v-if="text"
       :style="{'font-size': `${fontSize}px`}"
     >
-      {{ cost }}
+      {{ text }}
     </span>
   </div>
 </template>
@@ -20,8 +20,8 @@
 <script>
 export default {
   props: { 
-    cost: {
-      type: Number,
+    text: {
+      type: String,
       required: false,
       default: null
     },
