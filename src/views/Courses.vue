@@ -236,6 +236,11 @@ export default {
         text: err
       });
     }
+
+    if (this.$route.query.courseUUID){
+      // selected course SHOULD be set as the first in the list
+      this.clickOnCourse(this.courses[0].UUID, this.courses[0].GemCost, this.courses[0].IsPurchased, 0);
+    }
   },
   methods: {
     linkClick(url) {

@@ -12,8 +12,8 @@
       <p>
         You need {{ course.GemCost }} gems
         to unlock {{ course.Title }}.
-        Don't worry, you can buy some right now!
-        Gems never expire. Get them in bulk if you'll be taking multiple courses.
+        Don't worry, you can buy some right now, and they never expire!
+        Get them in bulk if you'll be taking multiple courses.
       </p>
       <div class="row">
         <div class="col">
