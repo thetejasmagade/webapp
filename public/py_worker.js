@@ -12,16 +12,16 @@ addEventListener('message', async (e) => {
       });
       return;
     }
-  }
+  };
 
   self.writeStdOut = (stdout) => {
-    stdout = stdout.split('\n')
-    for (line of stdout){
+    stdout = stdout.split('\n');
+    for (const line of stdout){
       postMessage({
         message: line
       });
     }
-  }
+  };
 
 
   pyodide.runPython(`
@@ -40,7 +40,7 @@ addEventListener('message', async (e) => {
     sys.stdout = f1
     sys.stderr = f2
     runCode()
-  `)
+  `);
 
   postMessage({
     done: true
