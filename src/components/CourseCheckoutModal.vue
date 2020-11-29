@@ -31,7 +31,7 @@
             :color=" i === 0 ? 'gold' : 'gray'"
           >
             Get {{ product.GemAmount }}
-            Gems for
+            Gems -
             ${{ product.Price.UnitAmount / 100 }}
             <span
               v-if="product.DiscountDollars"

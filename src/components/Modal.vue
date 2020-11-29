@@ -49,6 +49,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/consts.scss';
 
 .modal-mask {
   position: fixed;
@@ -76,14 +77,13 @@ export default {
   padding: 20px 30px;
   background-color: $gray-darker-2;
   color: $gray-lightest;
-  border-radius: 2px;
+  border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-body {
-  margin: 20px 0;
   display: flex;
   flex-direction: column;
 }
@@ -111,7 +111,9 @@ export default {
   height: 32px;
   opacity: 0.3;
   position: relative;
-  float: right;
+  @media screen and (min-width: $mobile-size) {
+    position: absolute;
+  }
 
   &:hover {
     opacity: 1;
