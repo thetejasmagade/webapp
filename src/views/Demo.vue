@@ -3,7 +3,7 @@
     <TopNav :title="`Demo`" />
 
     <div
-      v-if="currentIndex >= exercises.length && currentIndex !== 0"
+      v-if="currentIndex >= demoExercises.length && currentIndex !== 0"
       class="demo-complete"
     >
       <ExerciseNav
@@ -13,27 +13,45 @@
         :can-go-back="!isFirstExercise"
         :can-go-forward="!isLastScreen"
       />
-      <img
-        src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
-      >
-      <p> 
-        You've completed the demo!
-      </p>
-      <div v-if="$store.getters.getIsLoggedIn"> 
-        <BlockButton
-          class="btn"
-          :click="() => {this.$router.push({ path: `/dashboard/courses?courseUUID=${courseUUID}` })}"
+
+      <div class="subcontainer">
+        <Section
+          title="You've completed the demo!"
+          subtitle="Don't stop now"
+          class="section"
         >
-          Get Full Course
-        </BlockButton>
+          <div class="body">
+            <img
+              src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
+            >
+            <div v-if="$store.getters.getIsLoggedIn">
+              <p>
+                Complete the rest of the course to get a certificate,
+                earn free gems and content,
+                and support the continued development of Qvault
+              </p>
+              <BlockButton
+                :click="() => {this.$router.push({ path: `/dashboard/courses?courseUUID=${courseUUID}` })}"
+              >
+                Get Full Course
+              </BlockButton>
+            </div>
+            <div v-else>
+              <p>
+                Complete the rest of the course to get a certificate,
+                earn free gems and content,
+                and support the continued development of Qvault.
+                Create an account to get started.
+              </p>
+              <BlockButton
+                :click="() => {this.$router.push({ name: 'Login' })}"
+              >
+                Sign Up
+              </BlockButton>
+            </div>
+          </div>
+        </Section>
       </div>
-      <BlockButton
-        v-else
-        class="btn"
-        :click="() => {this.$router.push({ name: 'Login' })}"
-      >
-        Sign Up
-      </BlockButton>
     </div>
 
     <div
@@ -78,6 +96,7 @@ import MarkdownViewer from '@/components/MarkdownViewer';
 import ExerciseNav from '@/components/ExerciseNav';
 import TopNav from '@/components/TopNav';
 import BlockButton from '@/components/BlockButton';
+import Section from '@/components/Section';
 
 import { 
   submitCodeExercise,
@@ -92,7 +111,8 @@ export default {
     MultipleChoice,
     ExerciseNav,
     TopNav,
-    BlockButton
+    BlockButton,
+    Section
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
@@ -104,7 +124,7 @@ export default {
       markdownSource: '',
       type: '',
       courseUUID: this.$route.params.courseUUID,
-      exercises: [],
+      demoExercises: [],
       currentIndex: 0,
       question: {},
       progLang: 'go'
@@ -116,17 +136,17 @@ export default {
     },
     isLastScreen(){
       // extra for the last sceen
-      return this.currentIndex === this.exercises.length;
+      return this.currentIndex === this.demoExercises.length;
     },
-    exercise(){
-      if (this.currentIndex < this.exercises.length){
-        return this.exercises[this.currentIndex];
+    demoExercise(){
+      if (this.currentIndex < this.demoExercises.length){
+        return this.demoExercises[this.currentIndex];
       }
       return null;
     }
   },
   async mounted(){
-    this.exercises = await getDemoExercises(this.courseUUID);
+    this.demoExercises = await getDemoExercises(this.courseUUID);
     this.getCurrentExercise();
   },
   methods: {
@@ -136,7 +156,7 @@ export default {
     async submitTypeCode(output) {
       try {
         await submitCodeExercise(
-          this.exercise.UUID,
+          this.demoExercise.UUID,
           output,
           true
         );
@@ -156,7 +176,7 @@ export default {
     async submitTypeChoice(answer) {
       try {
         await submitMultipleChoiceExercise(
-          this.exercise.UUID,
+          this.demoExercise.UUID,
           answer,
           true
         );
@@ -174,19 +194,19 @@ export default {
       }
     },
     async moveToExercise(){
-      if (!this.exercise){
+      if (!this.demoExercise){
         return;
       }
-      this.markdownSource = this.exercise.Readme;
-      this.type = this.exercise.Type;
+      this.markdownSource = this.demoExercise.Readme;
+      this.type = this.demoExercise.Type;
 
       // Allow DOM to render changes before setting data on components
       await this.$nextTick();
       if (this.type === 'type_code'){
-        this.$refs.codeEditor.setCode(this.exercise.Code);
-        this.progLang = this.exercise.ProgLang;
-      } else if (this.exercise.Question){
-        this.question = this.exercise.Question;
+        this.$refs.codeEditor.setCode(this.demoExercise.Code);
+        this.progLang = this.demoExercise.ProgLang;
+      } else if (this.demoExercise.Question){
+        this.question = this.demoExercise.Question;
       }
     },
     async getCurrentExercise(){
@@ -259,13 +279,23 @@ export default {
     padding: 0em 1em 0em 1em;
   }
 
-  p {
-    font-size: 2em;
-  }
+  .subcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
 
-  .btn {
-    font-size: 1.5em;
-    margin: 1em;
+    .section {
+      max-width: 800px;
+
+      .body {
+        text-align: center;
+
+        img {
+          margin: 1em;
+        }
+      }
+    }
   }
 }
 
