@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div id="code-editor-root">
+    <div class="code-editor-root">
       <LoadingOverlay
         :is-loading="isLoading"
       />
-      <div id="editor-container">
+      <div class="editor-container">
         <PrismEditor
           v-model="code"
           class="my-editor"
@@ -16,8 +16,8 @@
         />
       </div>
       <div
-        id="console-output"
         ref="consoleOutput"
+        class="console-output"
       >
         <BlockButton
           id="run-btn"
@@ -264,19 +264,19 @@ span.token.operator {
   }
 }
 
-#code-editor-root {
+.code-editor-root {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
 
-  #editor-container {
+  .editor-container {
     flex: 4;
     overflow: auto;
     margin: 10px 0 0 0;
   }
 
-  #console-output {
+  .console-output {
     background-color: $gray-darkest;
     flex: 2;
     flex-direction: column;
