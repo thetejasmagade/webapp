@@ -171,13 +171,19 @@ main = do
   }
 
   .select-container{
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    margin: 1em;
-
     @media screen and (max-width: $mobile-size) {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: row;
+      margin: 1em;
       justify-content: center;
+    }
+    @media screen and (min-width: $mobile-size) {
+      display: block;
+      top: calc(10px + #{$bar-height});
+      right: 10px;
+      position: absolute;
+      z-index: 1;
     }
   }
 

@@ -273,6 +273,7 @@ span.token.operator {
   #editor-container {
     flex: 4;
     overflow: auto;
+    margin: 10px 0 0 0;
   }
 
   #console-output {
