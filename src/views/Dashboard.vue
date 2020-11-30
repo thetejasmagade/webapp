@@ -11,7 +11,12 @@
       <div id="content">
         <div class="inner-content">
           <div class="panel">
-            <router-view class="router-view" />
+            <keep-alive>
+              <router-view
+                :key="$route.fullPath"
+                class="router-view"
+              />
+            </keep-alive>
           </div>
         </div>
       </div>
