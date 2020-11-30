@@ -103,15 +103,15 @@ button {
   }
 
   &.gold {
-    background-color: $gold-mid;
+    background-color: $gold-dark;
 
     &:hover{
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
-      background-color: $gold-lighter;
+      background-color: $gold-light;
     }
 
     &:disabled{
-      background-color: $gold-lighter;
+      background-color: $gold-light;
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }

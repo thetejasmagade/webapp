@@ -6,7 +6,7 @@
         v-for="(answer, i) of answers"
         :key="i"
         class="btn"
-        color="green"
+        color="gold"
         :click="() => {callback(answer)}"
       >
         <span>{{ answer }}</span>
@@ -60,6 +60,7 @@ export default {
     font-size: 18px;
     width: 80%;
     margin: 10px;
+    max-width: 400px;
   }
 }
 

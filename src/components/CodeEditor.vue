@@ -63,7 +63,9 @@ import 'prismjs/components/prism-rust.min';
 import 'prismjs/components/prism-python.min';
 import 'prismjs/components/prism-haskell.min'; // required for purescript
 import 'prismjs/components/prism-purescript.min';
-import 'prismjs/themes/prism-tomorrow.css';
+
+// should match any other prism components that share a page
+import 'prismjs/themes/prism-okaidia.css';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -255,7 +257,6 @@ span.token.operator {
 }
 
 .my-editor {
-  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 1.5;
 
@@ -265,6 +266,7 @@ span.token.operator {
 }
 
 .code-editor-root {
+  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -277,11 +279,13 @@ span.token.operator {
   }
 
   .console-output {
-    background-color: $gray-darkest;
+    font-size: 14px;
+    background-color: $gray-darker-2;
     flex: 2;
     flex-direction: column;
     padding: 10px;
     overflow: auto;
+    border-top: solid 1px $gray-light;
 
     .btn {
       float: right;

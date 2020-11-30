@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div class="playground-root">
     <TopNav :title="`${displayLang} Playground`" />
 
     <div class="select-container">
@@ -12,8 +12,8 @@
     </div>
 
     <CodeEditor
-      id="editor"
       ref="codeEditor"
+      class="editor"
       :run-callback="() => {}"
       :reset-callback="setCode"
       :prog-lang="lang"
@@ -146,12 +146,12 @@ main = do
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
 
-#container {
+.playground-root {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: $white;
   height: 100%;
+  background-color: $gray-darker;
 
   .langs{
     display: flex;
@@ -163,9 +163,10 @@ main = do
     }
   }
 
-  #editor {
+  .editor {
     flex: 1;
-    background-color: $white;
+    background-color: $gray-darker;
+    color: $gray-lighter;
     max-height: 100%;
     overflow: auto;
   }
@@ -188,10 +189,11 @@ main = do
   }
 
   .select {
-    max-width: 300px;
-
     @media screen and (max-width: $mobile-size) {
       max-width: 100%;
+    }
+    @media screen and (min-width: $mobile-size) {
+      width: 250px;
     }
   }
 }

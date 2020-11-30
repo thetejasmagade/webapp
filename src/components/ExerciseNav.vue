@@ -3,7 +3,7 @@
     <div>
       <BlockButton
         :click="goBack"
-        color="gray"
+        color="green"
         :disabled="!canGoBack"
       >
         <FontAwesomeIcon
@@ -14,7 +14,7 @@
         :disabled="!canGoForward"
         class="margin-left"
         :click="goForward"
-        color="gray"
+        color="green"
       >
         <FontAwesomeIcon
           icon="arrow-right"

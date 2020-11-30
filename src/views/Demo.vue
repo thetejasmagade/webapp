@@ -58,7 +58,7 @@
       v-else
       class="container"
     >
-      <div class="side">
+      <div class="side left">
         <ExerciseNav
           :go-back="goBack"
           :go-forward="goForward"
@@ -73,14 +73,14 @@
       <CodeEditor
         v-if="type === 'type_code'"
         ref="codeEditor"
-        class="side"
+        class="side right"
         :run-callback="submitTypeCode"
         :reset-callback="getCurrentExercise"
         :prog-lang="progLang"
       />
       <MultipleChoice
         v-else-if="type === 'type_choice'"
-        class="side"
+        class="side right"
         :callback="submitTypeChoice"
         :answers="question.Answers"
         :question="question.Question"
@@ -90,9 +90,9 @@
 </template>
 
 <script>
-import CodeEditor from '@/components/CodeEditor';
 import MultipleChoice from '@/components/MultipleChoice';
 import MarkdownViewer from '@/components/MarkdownViewer';
+import CodeEditor from '@/components/CodeEditor';
 import ExerciseNav from '@/components/ExerciseNav';
 import TopNav from '@/components/TopNav';
 import BlockButton from '@/components/BlockButton';
@@ -246,8 +246,18 @@ export default {
   height: 100%;
   overflow: auto;
   flex: 1;
-  background-color: $white;
+  background-color: $gray-dark-2;
+  color: $gray-lightest;
   border-right: 2px solid $black;
+
+  &.left {
+    border-right: 2px solid $gray-light;
+  }
+
+  &.right {
+    background-color: $gray-darker;
+    color: $gray-lighter;
+  }
 }
 
 #info-container {

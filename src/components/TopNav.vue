@@ -1,6 +1,6 @@
 <template>
-  <div id="navs">
-    <div id="nav">
+  <div class="navs">
+    <div class="nav">
       <div class="item-group">
         <div class="item">
           <img
@@ -135,12 +135,12 @@ export default {
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
 
-#navs {
+.navs {
   display: flex;
   flex-direction: column;
 }
 
-#nav {
+.nav {
   background-color: $gray-darkest;
   display: flex;
   flex-direction: row;

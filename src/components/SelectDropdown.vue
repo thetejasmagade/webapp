@@ -68,7 +68,7 @@ export default {
   line-height: 47px;
 
   .selected {
-    background-color: $gray-darkest;
+    background-color: $gray-darker-2;
     border-radius: 6px;
     border: 1px solid $gray-mid;
     color: $white;
@@ -101,7 +101,7 @@ export default {
     border-left: 1px solid $gold-dark;
     border-bottom: 1px solid $gold-dark;
     position: absolute;
-    background-color: $gray-darkest;
+    background-color: $gray-darker-2;
     left: 0;
     right: 0;
     z-index: 1;

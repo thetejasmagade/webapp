@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div id="markdown-viewer-container">
+    <div class="markdown-viewer-container">
       <VueMarkdown
-        id="viewer"
+        class="viewer"
         :source="source"
         :breaks="false"
         :anchor-attributes="{target: '_blank'}"
@@ -14,12 +14,14 @@
 
 <script>
 import Prism from 'prismjs';
-import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-go.js';
 import 'prismjs/components/prism-bash.js';
 import 'prismjs/components/prism-javascript.js';
 import 'prismjs/components/prism-haskell.min'; // required for purescript
 import 'prismjs/components/prism-purescript.min';
+
+// should match any other prism components that share a page
+import 'prismjs/themes/prism-okaidia.css';
 
 import VueMarkdown from 'vue-markdown';
 
@@ -47,11 +49,10 @@ export default {
 <style lang="scss">
 @import '@/styles/colors.scss';
 
-#markdown-viewer-container {
+.markdown-viewer-container {
   min-height: 100%;
-  background-color: $white;
 
-  #viewer{
+  .viewer{
     padding: 20px;
     overflow: auto;
     min-height: 100%;
@@ -64,7 +65,7 @@ export default {
     }
 
     code {
-      color: $pink-dark;
+      color: $pink-lighter;
     }
   }
 }
