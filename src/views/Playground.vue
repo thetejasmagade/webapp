@@ -151,6 +151,7 @@ main = do
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
+  background-color: $gray-darker;
 
   .langs{
     display: flex;
