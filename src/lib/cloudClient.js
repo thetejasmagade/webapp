@@ -475,8 +475,20 @@ export async function getCourses(){
   return handled;
 }
 
-export async function getCoursesPublic(handle){
-  const resp = await fetch(`${domain}/v1/courses/public/${handle}`, {
+export async function getCoursePublic(courseUUID){
+  const resp = await fetch(`${domain}/v1/courses/public/${courseUUID}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getCoursesPublic(userHandle){
+  const resp = await fetch(`${domain}/v1/users/public/${userHandle}/courses`, {
     method: 'GET',
     mode: 'cors',
     headers: {
