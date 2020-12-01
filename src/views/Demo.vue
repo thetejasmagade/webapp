@@ -1,6 +1,6 @@
 <template>
   <div class="demo-root">
-    <TopNav :title="`Demo`" />
+    <TopNav :title="`${course.Title} - Demo`" />
 
     <div
       v-if="currentIndex >= demoExercises.length && currentIndex !== 0"
@@ -16,7 +16,7 @@
 
       <div class="subcontainer">
         <Section
-          title="You've completed the demo!"
+          :title="`You've completed the ${course.Title} demo!`"
           subtitle="Don't stop now"
           class="section"
         >
@@ -114,10 +114,29 @@ import Section from '@/components/Section';
 import { 
   submitCodeExercise,
   submitMultipleChoiceExercise,
-  getDemoExercises
+  getDemoExercises,
+  getCoursePublic
 } from '@/lib/cloudClient.js';
 
 export default {
+  metaInfo() {
+    const title = `Qvault's ${this.course.Title} course demo`;
+    const description = `Demo Qvault's ${this.course.Title} course in the browser. It's free to start and you don't even need to login.`;
+    return {
+      title: title,
+      meta: [
+        { vmid:'description', name: 'description', content: description },
+
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'og:description', property: 'og:description', content: description },
+        { vmid:'og:image', property: 'og:image', content: this.course.ImageURL  },
+
+        { vmid:'twitter:title', name: 'twitter:title', content: title},
+        { vmid:'twitter:description', property: 'twitter:description', content: description },
+        { vmid:'twitter:image', name: 'twitter:image', content: this.course.ImageURL }
+      ]
+    };
+  },
   components: {
     CodeEditor,
     MarkdownViewer,
@@ -137,6 +156,7 @@ export default {
       markdownSource: '',
       type: '',
       courseUUID: this.$route.params.courseUUID,
+      course: {},
       demoExercises: [],
       currentIndex: 0,
       question: {},
@@ -160,6 +180,7 @@ export default {
   },
   async mounted(){
     this.demoExercises = await getDemoExercises(this.courseUUID);
+    this.course = await getCoursePublic(this.courseUUID);
     this.getCurrentExercise();
   },
   methods: {
