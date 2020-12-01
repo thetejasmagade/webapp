@@ -29,181 +29,186 @@
         </BlockButton>
       </div>
     </div>
+
     <div class="profileContent">
       <div
         v-if="currentTab === 'settings'"
         class="visualItems"
       >
-        <h3>Edit Your Profile</h3>
-        <hr>
-        <div class="innerProfile">
-          <form @submit.prevent="updateUser">
-            <div class="row">
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.handle"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.Handle"
-                    type="text"
-                  />
-                  <label>Qvault Handle</label>
-                </span>
+        <Section
+          title="Edit Your Profile"
+          subtitle="Changes will be reflected on your public dev portfolio"
+        >
+          <div class="innerProfile">
+            <form @submit.prevent="updateUser">
+              <div class="row">
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.handle"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.Handle"
+                      type="text"
+                    />
+                    <label>Qvault Handle</label>
+                  </span>
+                </div>
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.firstName"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.FirstName"
+                      type="text"
+                    />
+                    <label>First Name</label>
+                  </span>
+                </div>
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.lastName"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.LastName"
+                      type="text"
+                    />
+                    <label>Last Name</label>
+                  </span>
+                </div>
               </div>
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.firstName"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.FirstName"
-                    type="text"
-                  />
-                  <label>First Name</label>
-                </span>
-              </div>
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.lastName"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.LastName"
-                    type="text"
-                  />
-                  <label>Last Name</label>
-                </span>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.jobTitle"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.JobTitle"
-                    type="text"
-                  />
-                  <label>Job Title</label>
-                </span>
+              <div class="row">
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.jobTitle"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.JobTitle"
+                      type="text"
+                    />
+                    <label>Job Title</label>
+                  </span>
+                </div>
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.location"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.Location"
+                      type="text"
+                    />
+                    <label>Location</label>
+                  </span>
+                </div>
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.websiteURL"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.WebsiteURL"
+                      type="text"
+                    />
+                    <label>Website</label>
+                  </span>
+                </div>
               </div>
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.location"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.Location"
-                    type="text"
-                  />
-                  <label>Location</label>
-                </span>
-              </div>
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.websiteURL"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.WebsiteURL"
-                    type="text"
-                  />
-                  <label>Website</label>
-                </span>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.twitterHandle"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.TwitterHandle"
-                    type="text"
-                  />
-                  <label>Twitter Handle</label>
-                </span>
+              <div class="row">
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.twitterHandle"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.TwitterHandle"
+                      type="text"
+                    />
+                    <label>Twitter Handle</label>
+                  </span>
+                </div>
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.linkedinURL"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.LinkedinURL"
+                      type="text"
+                    />
+                    <label>Linkedin URL</label>
+                  </span>
+                </div>
+                <div class="col">
+                  <span>
+                    <TextInput
+                      v-model="user.githubHandle"
+                      class="inputItems"
+                      :placeholder="$store.getters.getUser.GithubHandle"
+                      type="text"
+                    />
+                    <label>Github Username</label>
+                  </span>
+                </div>
               </div>
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.linkedinURL"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.LinkedinURL"
-                    type="text"
-                  />
-                  <label>Linkedin URL</label>
-                </span>
-              </div>
-              <div class="col">
-                <span>
-                  <TextInput
-                    v-model="user.githubHandle"
-                    class="inputItems"
-                    :placeholder="$store.getters.getUser.GithubHandle"
-                    type="text"
-                  />
-                  <label>Github Username</label>
-                </span>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col">
-                <textarea
-                  v-model="user.bio"
-                  :placeholder="$store.getters.getUser.Bio"
-                  class="inputItems textarea"
-                  rows="4"
-                />
-                <label>Bio</label>
+              <div class="row">
+                <div class="col">
+                  <textarea
+                    v-model="user.bio"
+                    :placeholder="$store.getters.getUser.Bio"
+                    class="inputItems textarea"
+                    rows="4"
+                  />
+                  <label>Bio</label>
+                </div>
               </div>
-            </div>
-            <div class="text-center">
-              <BlockButton class="btn">
-                Update
-              </BlockButton>
-            </div>
-          </form>
-        </div>
+              <div class="text-center">
+                <BlockButton class="btn">
+                  Update
+                </BlockButton>
+              </div>
+            </form>
+          </div>
+        </Section>
       </div>
 
       <div
         v-if="currentTab === 'updatePass'"
         class="visualItems"
       >
-        <h3>Security Preferences</h3>
-        <hr>
-
-        <div class="profile-edit-box">
-          <form
-            id="form"
-            @submit.prevent="updatePassword"
-          >
-            <p class="title">
-              Change Password
-            </p>
-            <TextInput
-              v-model="oldPassword"
-              placeholder="Old Password"
-              type="password"
-              class="inputItems vertical"
-            />
-            <TextInput
-              v-model="newPassword"
-              class="inputItems vertical"
-              placeholder="New Password"
-              type="password"
-            />
-            <TextInput
-              v-model="confirmPassword"
-              class="inputItems vertical"
-              placeholder="Confirm Password"
-              type="password"
-            />
-            <BlockButton class="btn">
-              Submit
-            </BlockButton>
-          </form>
-        </div>
+        <Section
+          title="Security Preferences"
+        >
+          <div class="profile-edit-box">
+            <form
+              id="form"
+              @submit.prevent="updatePassword"
+            >
+              <p class="title">
+                Change Password
+              </p>
+              <TextInput
+                v-model="oldPassword"
+                placeholder="Old Password"
+                type="password"
+                class="inputItems vertical"
+              />
+              <TextInput
+                v-model="newPassword"
+                class="inputItems vertical"
+                placeholder="New Password"
+                type="password"
+              />
+              <TextInput
+                v-model="confirmPassword"
+                class="inputItems vertical"
+                placeholder="Confirm Password"
+                type="password"
+              />
+              <BlockButton class="btn">
+                Submit
+              </BlockButton>
+            </form>
+          </div>
+        </Section>
       </div>
     </div>
   </div>
@@ -219,12 +224,14 @@ import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton';
 import ProfileImage from '@/components/ProfileImage';
 import TextInput from '@/components/TextInput';
+import Section from '@/components/Section';
 
 export default {
   components: {
     BlockButton,
     TextInput,
-    ProfileImage
+    ProfileImage,
+    Section
   },
   data() {
     return {
@@ -302,7 +309,7 @@ export default {
       color: $gray-darker;
       display: flex;
       flex-wrap: wrap;
-      background-image: $green-lines;
+      background-image: $gray-lines;
       height: 100%;
 
       .sidebar {
@@ -330,7 +337,6 @@ export default {
 
       .profileContent {
         flex: 1;
-        background-image: $gray-lines;
         padding: 15px;
         overflow: auto;
         background-repeat: no-repeat;
@@ -338,24 +344,18 @@ export default {
         background-attachment: fixed;
 
         .visualItems {
-          
-          h3 {
-            color: $purple-darker;
-          }
-
-          hr {
-            border-color: $gray-lighter;
-          }
 
           .inputItems {
             line-height: 26px;
             width: 100%;
             font-family: 'Roboto', sans-serif;
+            color: $gray-lightest;
 
             &.textarea {
               outline: none;
               resize: none;
               border-color: $gray-lighter;
+              background: inherit;
 
               &:focus{
                 border-color: $purple-dark;
@@ -369,9 +369,6 @@ export default {
 
           .profile-edit-box {
             position: relative;
-            width: 70%;
-            margin: 0 auto;
-            box-shadow: 0 3px 9px 2px #0000001c;
             @media (max-width: 768px) {
               width: 99%;
             }
@@ -382,7 +379,6 @@ export default {
               flex-direction: column;
               padding: 30px;
               align-items: center;
-              background: $white;
               margin: 35px 0;
 
               .title {
@@ -390,7 +386,7 @@ export default {
                 font-size: 1.4rem;
                 padding: 12px 27px;
                 font-weight: bold;
-                color: #5e62b5;
+                color: $gray-lightest;
               }
             }
           }
@@ -407,11 +403,7 @@ export default {
     }
 
     .innerProfile {
-      width: 80%;
-      margin: 33px auto;
       padding: 25px;
-      background: $white;
-      box-shadow: 0 3px 9px 2px $gray-lighter;
 
       .row {
         display: flex;

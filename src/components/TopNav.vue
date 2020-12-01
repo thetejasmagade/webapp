@@ -141,7 +141,7 @@ export default {
 }
 
 .nav {
-  background-color: $gray-darker-2;
+  background-color: $gray-darker-3;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -179,7 +179,6 @@ export default {
   text-decoration: none;
   display: flex;
   align-items: center;
-  background-color: $gray-darker-2;;
 
   @media screen and (max-width: $mobile-size) {
     padding: .75em;

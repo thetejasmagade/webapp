@@ -40,23 +40,24 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+
 .section {
   padding: 2em;
   background-color: $white;
   border-radius: 3px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+  background-color: $gray-darker-2;
+  color: $gray-lightest;
 
   .titlebox {
     .title {
       font-size: 24px;
-      color: $black;
       font-weight: bold;
       position: relative;
       margin-bottom: 5px;
     }
 
     .subtitle {
-      color: $gray-dark;
+      color: $gray-lighter;
     }
 
     &:after {

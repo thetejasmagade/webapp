@@ -177,7 +177,7 @@ export default {
   .card{
     flex: 1 1 calc(22% - 1em);
     margin: .5em;
-    max-width: 275px;
+    max-width: 225px;
     min-width: 200px;
 
     .body {

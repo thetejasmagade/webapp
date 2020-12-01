@@ -61,7 +61,7 @@ library.add(faLinkedin);
 
 export default {
   metaInfo() {
-    const description = 'Learning to code can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.';
+    const description = 'Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.';
     return {
       meta: [
         { vmid:'description', name: 'description', content: description },

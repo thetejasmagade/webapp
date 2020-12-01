@@ -6,7 +6,7 @@
       'dark': theme === 'dark',
       'light': theme === 'light',
       'column': direction === 'column',
-      'row': direction === 'row'
+      'row': direction === 'row',
     }"
     @click="safeClick"
   >
@@ -79,21 +79,11 @@ export default {
 
   &.dark{
     background-color: $gray-darkest;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-
-    &:hover{
-      box-shadow: 0 16px 32px 0 rgba(0,0,0,0.8);
-    }
   }
 
   &.light{
     border: solid 1px $gray-lighter;
     background-color: $gray-lightest;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-
-    &:hover{
-      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
-    }
   }
 
   img {
@@ -105,6 +95,10 @@ export default {
 
   &.clickable{
     cursor: pointer;
+    transition: all .2s ease-in-out; 
+    &:hover{
+      transform: scale(1.05);
+    }
   }
 
   .body {
