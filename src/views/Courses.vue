@@ -310,6 +310,7 @@ export default {
   background-attachment: fixed;
   overflow: auto;
   background-image: $gray-lines;
+  min-height: calc(100vh - #{$bar-height});
 }
 
 .cards {
