@@ -141,12 +141,13 @@ export default {
 }
 
 .nav {
-  background-color: $gray-darkest;
+  background-color: $gray-darker-2;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-size: 15px;
-  height: $bar-height;
+  height: calc(#{$bar-height} - 2px);
+  border-bottom: 2px solid $gray-dark;
 
   .item-group {
     display: flex;
@@ -178,7 +179,7 @@ export default {
   text-decoration: none;
   display: flex;
   align-items: center;
-  background-color: $gray-darkest;
+  background-color: $gray-darker-2;;
 
   @media screen and (max-width: $mobile-size) {
     padding: .75em;

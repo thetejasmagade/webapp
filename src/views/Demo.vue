@@ -70,6 +70,19 @@
           :source="markdownSource"
         />
       </div>
+      <div
+        v-if="type === 'type_info'"
+        id="info-container"
+        class="side right"
+      >
+        <p> 👈 Read First </p>
+        <BlockButton
+          class="btn"
+          :click="() => {submitTypeInfo()}"
+        >
+          Continue
+        </BlockButton>
+      </div>
       <CodeEditor
         v-if="type === 'type_code'"
         ref="codeEditor"
@@ -152,6 +165,9 @@ export default {
   methods: {
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
+    },
+    async submitTypeInfo(){
+      await this.goForward();
     },
     async submitTypeCode(output) {
       try {
@@ -271,7 +287,7 @@ export default {
   }
 
   .btn {
-    font-size: 2em;
+    font-size: 1.2em;
   }
 }
 

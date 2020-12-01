@@ -216,7 +216,6 @@ export default {
 
   &.mobile{
     text-align: center;
-    margin-top: .5em;
     .item {
       margin: 0 .5em 0 .5em;
     }

@@ -25,9 +25,9 @@
       <div
         v-if="type === 'type_info'"
         id="info-container"
-        class="side"
+        class="side right"
       >
-        <p> 👈 Read First 👈🏿 </p>
+        <p> 👈 Read First </p>
         <BlockButton
           class="btn"
           :click="() => {submitTypeInfo()}"
