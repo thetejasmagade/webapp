@@ -87,9 +87,11 @@ export default {
 <style lang="scss">
 @import 'styles/styles.scss';
 @import 'styles/colors.scss';
+@import 'styles/backgrounds.scss';
 
 #app {
   height: 100%;
+  background-image: $gray-lines;
 }
 
 .vue-notification-group {

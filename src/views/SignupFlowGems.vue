@@ -64,10 +64,6 @@ export default {
   justify-content: flex-start;
   align-content: center;
   height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-image: $gray-lines;
   
   .subcontainer {
     display: flex;

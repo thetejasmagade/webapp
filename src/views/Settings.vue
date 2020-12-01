@@ -293,141 +293,139 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    @import "@/styles/colors.scss";
-    @import '@/styles/backgrounds.scss';
+@import "@/styles/colors.scss";
 
-    label {
-      font-size: .75em;
-      color: $gold-dark;
+label {
+  font-size: .75em;
+  color: $gold-dark;
+}
+
+.profile-img {
+  width: 175px;
+}
+
+#container {
+  color: $gray-darker;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+
+  .sidebar {
+    width: 300px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
     }
 
-    .profile-img {
-      width: 175px;
+    .userPersonal {
+      margin-top: 1em;
+      color: $white;
+      position: relative;
+
+      h3, h5 {
+        margin: 0;
+      }
     }
+  }
 
-    #container {
-      color: $gray-darker;
-      display: flex;
-      flex-wrap: wrap;
-      background-image: $gray-lines;
-      height: 100%;
+  .profileContent {
+    flex: 1;
+    padding: 15px;
+    overflow: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 
-      .sidebar {
-        width: 300px;
-        text-align: center;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .visualItems {
 
-        @media (max-width: 768px) {
-          width: 100%;
+      .inputItems {
+        line-height: 26px;
+        width: 100%;
+        font-family: 'Roboto', sans-serif;
+        color: $gray-lightest;
+
+        &.textarea {
+          outline: none;
+          resize: none;
+          border-color: $gray-lighter;
+          background: inherit;
+
+          &:focus{
+            border-color: $purple-dark;
+          }
         }
 
-        .userPersonal {
-          margin-top: 1em;
-          color: $white;
-          position: relative;
-
-          h3, h5 {
-            margin: 0;
-          }
+        &.vertical{
+          margin-bottom: 1em;
         }
       }
 
-      .profileContent {
-        flex: 1;
-        padding: 15px;
-        overflow: auto;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-
-        .visualItems {
-
-          .inputItems {
-            line-height: 26px;
-            width: 100%;
-            font-family: 'Roboto', sans-serif;
-            color: $gray-lightest;
-
-            &.textarea {
-              outline: none;
-              resize: none;
-              border-color: $gray-lighter;
-              background: inherit;
-
-              &:focus{
-                border-color: $purple-dark;
-              }
-            }
-
-            &.vertical{
-              margin-bottom: 1em;
-            }
-          }
-
-          .profile-edit-box {
-            position: relative;
-            @media (max-width: 768px) {
-              width: 99%;
-            }
-
-            form {
-              display: flex;
-              justify-content: center;
-              flex-direction: column;
-              padding: 30px;
-              align-items: center;
-              margin: 35px 0;
-
-              .title {
-                text-align: center;
-                font-size: 1.4rem;
-                padding: 12px 27px;
-                font-weight: bold;
-                color: $gray-lightest;
-              }
-            }
-          }
-
-          .btn {
-            width: 200px;
-            border-radius: 50px;
-            padding: 10px;
-            font-size: 1rem;
-            margin: 10px;
-          }
-        }
-      }
-    }
-
-    .innerProfile {
-      padding: 25px;
-
-      .row {
-        display: flex;
-        flex-wrap: wrap;
+      .profile-edit-box {
+        position: relative;
         @media (max-width: 768px) {
+          width: 99%;
+        }
+
+        form {
+          display: flex;
+          justify-content: center;
           flex-direction: column;
-        }
+          padding: 30px;
+          align-items: center;
+          margin: 35px 0;
 
-        .col {
-          flex: 1;
-          padding: 15px;
+          .title {
+            text-align: center;
+            font-size: 1.4rem;
+            padding: 12px 27px;
+            font-weight: bold;
+            color: $gray-lightest;
+          }
         }
       }
-    }
 
-    .tab {
-      width: 75%;
-      margin: 50px 0;
-      display: flex;
+      .btn {
+        width: 200px;
+        border-radius: 50px;
+        padding: 10px;
+        font-size: 1rem;
+        margin: 10px;
+      }
+    }
+  }
+}
+
+.innerProfile {
+  padding: 25px;
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    @media (max-width: 768px) {
       flex-direction: column;
-
-      .tabItems {
-        margin: 0 .5em 1em .5em;
-        font-weight: bold;
-      }
     }
+
+    .col {
+      flex: 1;
+      padding: 15px;
+    }
+  }
+}
+
+.tab {
+  width: 75%;
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+
+  .tabItems {
+    margin: 0 .5em 1em .5em;
+    font-weight: bold;
+  }
+}
 </style>

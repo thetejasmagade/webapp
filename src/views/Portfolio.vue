@@ -254,12 +254,9 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
-@import '@/styles/backgrounds.scss';
 
 #container {
-  background-color: $gray-lightest;
   overflow: auto;
-  background-image: $gray-lines;
   background-attachment: fixed;
   height: 100%;
 }

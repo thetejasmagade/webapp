@@ -1,25 +1,33 @@
 <template>
-  <div id="container">
-    <form
-      class="active-form"
-      @submit.prevent="submit"
+  <div class="subcontainer">
+    <Section
+      title="Coupon Code"
+      class="section"
     >
-      <TextInput
-        v-model="couponCode"
-        placeholder="Enter Your Code Here"
-        type="text"
-        class="item"
-      />
-      <BlockButton class="btn item">
-        Claim
-      </BlockButton>
-    </form>
+      <div class="body">
+        <form
+          class="active-form"
+          @submit.prevent="submit"
+        >
+          <TextInput
+            v-model="couponCode"
+            placeholder="Enter Your Code Here"
+            type="text"
+            class="item"
+          />
+          <BlockButton class="btn item">
+            Claim
+          </BlockButton>
+        </form>
+      </div>
+    </Section>
   </div>
 </template>
 
 <script>
 import BlockButton from '@/components/BlockButton';
 import TextInput from '@/components/TextInput';
+import Section from '@/components/Section';
 import {
   useCouponCode
 } from '@/lib/cloudClient.js';
@@ -32,7 +40,8 @@ import {
 export default {
   components: {
     BlockButton,
-    TextInput
+    TextInput,
+    Section
   },
   data() {
     return {
@@ -63,29 +72,39 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 
-#container {
+.subcontainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex: 1;
 
-  .active-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 4em;
+  .section {
+    max-width: 800px;
 
-    .item {
-      margin-bottom: 2em;
-      width: 100%;
+    .body {
+      text-align: center;
     }
+  }
+}
 
-    .btn {
-      margin-bottom: 2em;
-      width: 50%;
-      min-width: 250px;
-    }
+.active-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 4em;
+
+  .item {
+    margin-bottom: 2em;
+    width: 100%;
+    color: $gray-lightest;
+  }
+
+  .btn {
+    margin-bottom: 2em;
+    width: 50%;
+    min-width: 250px;
   }
 }
 

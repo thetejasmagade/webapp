@@ -151,17 +151,12 @@ export default {
 }
 
 .login-container {
-  background-color: $gray-darkest;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   height: 100vh;
   overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-image: $gray-lines;
 
   .nav-container {
     width: 100%;

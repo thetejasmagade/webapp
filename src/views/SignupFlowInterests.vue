@@ -96,10 +96,6 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-image: $gray-lines;
 
   .subcontainer {
     display: flex;

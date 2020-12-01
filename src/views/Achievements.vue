@@ -62,7 +62,6 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
-@import '@/styles/backgrounds.scss';
 @import '@/styles/consts.scss';
 
 .root {
@@ -71,7 +70,6 @@ export default {
   background-size: cover;
   background-attachment: fixed;
   overflow: auto;
-  background-image: $gray-lines;
   min-height: calc(100vh - #{$bar-height});
 }
 

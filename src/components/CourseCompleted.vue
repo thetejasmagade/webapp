@@ -1,42 +1,49 @@
 <template>
-  <div
-    class="container"
-  >
-    <img
-      src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
+  <div class="subcontainer">
+    <Section
+      :title="`Congragulations! You've completed the course`"
+      subtitle="Check out the new certificate on your profile then start your next course"
+      class="section"
     >
-    <p> 
-      Congratulations! You've completed this course 
-    </p>
-    <BlockButton
-      class="btn"
-      :click="() => {this.$router.push({ name: 'Courses' })}"
-    >
-      Next Course
-    </BlockButton>
-    <BlockButton
-      class="btn"
-      :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
-      color="gray"
-    >
-      View Portfolio
-    </BlockButton>
-    <BlockButton
-      class="btn"
-      :click="restartCallback"
-      color="gray"
-    >
-      Restart
-    </BlockButton>
+      <div class="body">
+        <img
+          src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
+        >
+        <div class="btns">
+          <BlockButton
+            class="btn"
+            :click="() => {this.$router.push({ name: 'Courses' })}"
+          >
+            Next Course
+          </BlockButton>
+          <BlockButton
+            class="btn"
+            :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
+            color="gray"
+          >
+            View Portfolio
+          </BlockButton>
+          <BlockButton
+            class="btn"
+            :click="restartCallback"
+            color="gray"
+          >
+            Restart
+          </BlockButton>
+        </div>
+      </div>
+    </Section>
   </div>
 </template>
 
 <script>
 import BlockButton from '@/components/BlockButton';
+import Section from '@/components/Section';
 
 export default {
   components: {
-    BlockButton
+    BlockButton,
+    Section
   },
   props: { 
     restartCallback: {
@@ -50,19 +57,35 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 
-.container {
+.subcontainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-}
+  align-items: center;
+  flex: 1;
 
-p {
-  font-size: 2em;
-}
+  .section {
+    max-width: 800px;
 
-.btn {
-  font-size: 1.5em;
-  margin: 1em;
+    .body {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .btn {
+        margin: 5px;
+      }
+
+      img {
+        margin: 1em;
+      }
+    }
+  }
 }
 </style>

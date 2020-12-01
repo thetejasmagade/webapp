@@ -10,14 +10,12 @@
 
       <div id="content">
         <div class="inner-content">
-          <div class="panel">
-            <keep-alive>
-              <router-view
-                :key="$route.fullPath"
-                class="router-view"
-              />
-            </keep-alive>
-          </div>
+          <keep-alive>
+            <router-view
+              :key="$route.fullPath"
+              class="router-view"
+            />
+          </keep-alive>
         </div>
       </div>
     </div>
@@ -100,18 +98,11 @@ export default {
 	height: 100%;
 	overflow: auto;
   flex: 1;
-  background-color: $gray-mid;
 
   .inner-content {
     display: flex;
     flex-direction: column;
     height: 100%;
-
-    .panel{
-      background-color: $gray-lightest;
-      height: 100%;
-      overflow: auto;
-    }
   }
 }
 </style>
