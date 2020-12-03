@@ -116,7 +116,7 @@ export default {
   }
 
   .btn {
-    font-size: 1em;
+    min-width: 90%;
   }
 
   .img {
