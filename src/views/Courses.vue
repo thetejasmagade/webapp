@@ -346,10 +346,12 @@ export default {
 }
 
 .card {
-  flex: 1 1 calc(22% - 1em);
-  margin: 20px;
-  max-width: 400px;
-  min-width: 250px;
+  $margin: 20px;
+  flex: 1 1 200px;
+  margin: $margin;
+  max-width: 300px;
+  min-width: 200px;
+  height: calc(100% - #{$margin});
 
   .body {
     height: 100%;

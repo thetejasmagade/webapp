@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div class="portfolio-root">
     <TopNav :title="`Portfolio - ${user.FirstName} ${user.LastName}`" />
 
     <div class="subcontainer">
@@ -255,7 +255,7 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 
-#container {
+.portfolio-root {
   overflow: auto;
   background-attachment: fixed;
   height: 100%;
