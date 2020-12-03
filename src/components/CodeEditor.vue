@@ -3,6 +3,7 @@
     <div class="code-editor-root">
       <LoadingOverlay
         :is-loading="isLoading"
+        :cancel="cancelCode"
       />
       <div class="editor-container">
         <PrismEditor
@@ -148,6 +149,12 @@ export default {
     },
     setCode(code){
       this.code = code;
+    },
+    cancelCode(){
+      this.isLoading = false;
+      terminateWorker(this.worker);
+      this.output = [ 'code execution cancelled' ];
+      this.err = true;
     },
     async runCode() {
       try {

@@ -1,25 +1,62 @@
 <template>
-  <div class="vld-parent">
-    <loading
+  <div class="loading-overlay">
+    <VueLoadingOverlay
       :active.sync="isLoading" 
       :is-full-page="true"
-    />
+      :can-cancel="false"
+      :enforce-focus="true"
+    >
+      <template v-slot:after>
+        <BlockButton
+          :click="cancel"
+          color="gray"
+          class="btn"
+        >
+          Cancel
+        </BlockButton>
+      </template>
+    </VueLoadingOverlay>
   </div>
 </template>
  
 <script>
-import Loading from 'vue-loading-overlay';
+import BlockButton from '@/components/BlockButton';
+import VueLoadingOverlay from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
     
 export default {
   components: {
-    Loading
+    VueLoadingOverlay,
+    BlockButton
   },
   props: { 
     isLoading:{
       type: Boolean,
       required: true
+    },
+    cancel: {
+      type: Function,
+      required: false,
+      default: () => {}
     }
   }
 };
 </script> 
+
+<style lang="scss">
+@import '@/styles/colors.scss';
+
+.loading-overlay{
+
+  .vld-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn {
+    margin-top: 1em;
+  }
+}
+</style>
