@@ -8,13 +8,18 @@
       width="100%"
     >
       <line
-        v-for="(line, i) in lines"
-        :key="`line${i}`"
-        :x1="line.x1"
-        :y1="line.y1"
-        :x2="line.x2"
-        :y2="line.y2"
-        :style="line.style"
+        :x1="lineFull.x1"
+        :y1="lineFull.y1"
+        :x2="lineFull.x2"
+        :y2="lineFull.y2"
+        :style="`stroke:${fillColor};stroke-width:${lineHeight}`"
+      />
+      <line
+        :x1="lineEmpty.x1"
+        :y1="lineEmpty.y1"
+        :x2="lineEmpty.x2"
+        :y2="lineEmpty.y2"
+        :style="`stroke:${emptyColor};stroke-width:${lineHeight}`"
       />
     </svg>
   </div>
@@ -49,33 +54,21 @@ export default {
     };
   },
   computed: {
-    lines() {
-      const linesFilled = this.progress - 1;
-      const linesEmpty = this.empty() + 1;
-      let lines = [];
-      for (let i = 0; i < linesFilled; i++) {
-        lines.push({
-          x1:  this.spacing() * i,
-          y1: 0,
-          x2: this.spacing() * (i + 1),
-          y2: 0,
-          style: `stroke:${this.fillColor};stroke-width:${this.lineHeight}`
-        });
-      }
-      for (let i = 0; i < linesEmpty; i++) {
-        lines.push({
-          x1:
-            linesFilled * this.spacing() +
-            this.spacing() * i,
-          y1: 0,
-          x2:
-            linesFilled * this.spacing() +
-            this.spacing() * (i + 1),
-          y2: 0,
-          style: `stroke:${this.emptyColor};stroke-width:${this.lineHeight}`
-        });
-      }
-      return lines;
+    lineFull(){
+      return {
+        x1:  0,
+        y1: 0,
+        x2: this.width * (this.progress / this.total) -1,
+        y2: 0
+      };      
+    },
+    lineEmpty(){
+      return {
+        x1:  this.width * (this.progress / this.total) +1,
+        y1: 0,
+        x2: this.width,
+        y2: 0
+      }; 
     }
   },
   mounted() {
@@ -86,14 +79,6 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
-    empty() {
-      return this.total - this.progress;
-    },
-    spacing() {
-      return (
-        this.width / (this.progress + this.empty() - 1)
-      );
-    },
     handleResize() {
       if (this.$refs.container) {
         this.width = this.$refs.container.clientWidth;
