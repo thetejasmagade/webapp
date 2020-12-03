@@ -153,7 +153,8 @@ export default {
     cancelCode(){
       this.isLoading = false;
       terminateWorker(this.worker);
-      this.output = [ 'code execution cancelled' ];
+      this.worker = getWorker(this.getWorkerLang(this.progLang));
+      this.output.push('code execution cancelled');
       this.err = true;
     },
     async runCode() {
