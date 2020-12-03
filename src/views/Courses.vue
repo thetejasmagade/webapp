@@ -17,16 +17,16 @@
         class="recommended-section margin-bottom-1"
       >
         <div class="body">
+          <CourseCheckoutModal
+            ref="modalRecommended"
+            :course="recommendedCourse"
+          />
           <ImageCard
             direction="row"
             :img-src="recommendedCourse.ImageURL"
             class="recommended-card"
             :click="() => {clickOnCourse(recommendedCourse.UUID, recommendedCourse.GemCost, recommendedCourse.IsPurchased) }"
           >
-            <CourseCheckoutModal
-              ref="modalRecommended"
-              :course="recommendedCourse"
-            />
             <div
               class="body"
             >
@@ -85,66 +85,69 @@
         subtitle="Browse all of our content, new courses are released frequently"
       >
         <div class="cards">
-          <ImageCard
+          <div
             v-for="(course, i) of courses"
             :key="i"
-            :img-src="course.ImageURL"
-            class="card"
-            :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, i) }"
           >
             <CourseCheckoutModal
               :ref="`modal`"
               :course="course"
             />
-            <div
-              class="body"
+            <ImageCard
+              :img-src="course.ImageURL"
+              class="card"
+              :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, i) }"
             >
-              <DifficultyBar 
-                :difficulty="course.Difficulty"
-              />
+              <div
+                class="body"
+              >
+                <DifficultyBar 
+                  :difficulty="course.Difficulty"
+                />
             
-              <span class="title item">
-                {{ course.Title }}
-              </span>
+                <span class="title item">
+                  {{ course.Title }}
+                </span>
 
-              <div
-                v-if="course.IsComplete"
-                class="completed item"
-              >
-                <FontAwesomeIcon
-                  icon="check"
+                <div
+                  v-if="course.IsComplete"
+                  class="completed item"
+                >
+                  <FontAwesomeIcon
+                    icon="check"
+                  />
+                  <span>Complete</span>
+                </div>
+                <div
+                  v-else-if="course.IsPurchased"
+                  class="purchased item"
+                >
+                  <FontAwesomeIcon
+                    icon="check"
+                  />
+                  <span>Purchased</span>
+                </div>
+                <GemDisplay
+                  v-else
+                  :size="2"
+                  class="item"
+                  :text="`${course.GemCost}`"
                 />
-                <span>Complete</span>
-              </div>
-              <div
-                v-else-if="course.IsPurchased"
-                class="purchased item"
-              >
-                <FontAwesomeIcon
-                  icon="check"
-                />
-                <span>Purchased</span>
-              </div>
-              <GemDisplay
-                v-else
-                :size="2"
-                class="item"
-                :text="`${course.GemCost}`"
-              />
 
-              <div class="item links">
-                <span
-                  class="link"
-                  @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
-                >Start Demo</span>
-                <span
-                  class="gray link"
-                  target="_blank"
-                  @click.stop="() => {linkClick(course.LandingPage)}"
-                >More Info</span>
+                <div class="item links">
+                  <span
+                    class="link"
+                    @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
+                  >Start Demo</span>
+                  <span
+                    class="gray link"
+                    target="_blank"
+                    @click.stop="() => {linkClick(course.LandingPage)}"
+                  >More Info</span>
+                </div>
               </div>
-            </div>
-          </ImageCard>
+            </ImageCard>
+          </div>
         </div>
       </Section>
     </div>
@@ -343,10 +346,12 @@ export default {
 }
 
 .card {
-  flex: 1 1 calc(22% - 1em);
-  margin: 20px;
-  max-width: 400px;
-  min-width: 250px;
+  $margin: 20px;
+  flex: 1 1 200px;
+  margin: $margin;
+  max-width: 300px;
+  min-width: 200px;
+  height: calc(100% - #{$margin});
 
   .body {
     height: 100%;

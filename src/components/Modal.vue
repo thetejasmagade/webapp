@@ -114,6 +114,7 @@ export default {
   @media screen and (min-width: $mobile-size) {
     position: absolute;
   }
+  cursor: pointer;
 
   &:hover {
     opacity: 1;
