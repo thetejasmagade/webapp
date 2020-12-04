@@ -318,7 +318,6 @@ export default {
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  background-color: $gray-lightest;
 
   .nav {
     width: 100%;
