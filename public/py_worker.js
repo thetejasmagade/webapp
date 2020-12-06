@@ -17,6 +17,9 @@ addEventListener('message', async (e) => {
   self.writeStdOut = (stdout) => {
     stdout = stdout.split('\n');
     for (const line of stdout){
+      if (!line){
+        continue;
+      }
       postMessage({
         message: line
       });
