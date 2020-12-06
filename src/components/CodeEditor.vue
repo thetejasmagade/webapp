@@ -45,6 +45,7 @@
           v-for="(line, i) of output"
           :key="i"
           :class="{error: err}"
+          class="pre"
         >
           {{ line }}
         </p>
@@ -262,6 +263,10 @@ export default {
 
 span.token.operator {
   background: inherit !important;
+}
+
+.pre {
+  white-space: pre;
 }
 
 .my-editor {
