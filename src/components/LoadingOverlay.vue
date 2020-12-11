@@ -6,7 +6,10 @@
       :can-cancel="false"
       :enforce-focus="true"
     >
-      <template v-slot:after>
+      <template
+        v-if="cancel"
+        v-slot:after
+      >
         <BlockButton
           :click="cancel"
           color="gray"
@@ -37,7 +40,7 @@ export default {
     cancel: {
       type: Function,
       required: false,
-      default: () => {}
+      default: null
     }
   }
 };
