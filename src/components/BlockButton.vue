@@ -35,11 +35,10 @@ export default {
 @import '@/styles/colors.scss';
 
 button {
-  border-radius: 20px;
+  border-radius:5px;
   border-width: 0px;
   padding: 10px 30px 10px 30px;
   color: $white;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
   cursor: pointer;
 
   &:disabled{
@@ -50,13 +49,11 @@ button {
     background-color: $gray-dark;
 
     &:hover{
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
       background-color: $gray-mid;
     }
 
     &:disabled{
       background-color: $gray-light;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }
 
@@ -64,13 +61,11 @@ button {
     background-color: $gray-light;
 
     &:hover{
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
       background-color: $gray-lighter;
     }
 
     &:disabled{
       background-color: $gray-lighter;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }
 
@@ -78,13 +73,11 @@ button {
     background-color: $green-darker;
 
     &:hover{
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
       background-color: $green-mid;
     }
 
     &:disabled{
       background-color: $green-light;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }
 
@@ -92,13 +85,11 @@ button {
     background-color: $purple-dark;
 
     &:hover{
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
       background-color: $purple-lighter;
     }
 
     &:disabled{
       background-color: $purple-lighter;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }
 
@@ -106,13 +97,11 @@ button {
     background-color: $gold-dark;
 
     &:hover{
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
       background-color: $gold-light;
     }
 
     &:disabled{
       background-color: $gold-light;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }
 
@@ -120,13 +109,11 @@ button {
     background-color: $purple-light;
 
     &:hover{
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
       background-color: $purple-lighter;
     }
 
     &:disabled{
       background-color: $purple-lighter;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     }
   }
 

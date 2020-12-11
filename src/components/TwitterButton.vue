@@ -46,7 +46,7 @@ export default {
   background: $white;
   color: $gray-mid;
   border: 0;
-  border-radius: 30px;
+  border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
   white-space: nowrap;
   outline: none;
