@@ -1,49 +1,69 @@
 <template>
-  <Modal
-    ref="modal"
-  >
-    <div class="body">
-      <h2> Unlock {{ course.Title }} </h2>
-      <GemDisplay
-        :size="1"
-        class="item"
-        :text="`${$store.getters.getBalance} / ${course.GemCost}`"
-      />
-      <p>
-        You need {{ course.GemCost }} gems
-        to unlock {{ course.Title }}.
-        Don't worry, you can buy some right now, and they never expire!
-        Get them in bulk if you'll be taking multiple courses.
-      </p>
-      <div class="row">
-        <div class="col">
-          <img
-            :src="course.ImageURL"
-            class="item img"
-          >
-        </div>
-        <div class="col">
-          <BlockButton
-            v-for="(product, i) of course.products"
-            :key="i"
-            class="item btn"
-            :click="() => {checkout(product.ID)}"
-            :color=" i === 0 ? 'gold' : 'gray'"
-          >
-            Get {{ product.GemAmount }}
-            Gems -
-            ${{ product.Price.UnitAmount / 100 }}
-            <span
-              v-if="product.DiscountDollars"
-              class="strikethrough"
+  <div>
+    <Modal
+      ref="modal"
+      :on-close="onClose"
+    >
+      <div class="body">
+        <h2> Unlock {{ course.Title }} </h2>
+        <GemDisplay
+          :size="1"
+          class="item"
+          :text="`${$store.getters.getBalance} / ${course.GemCost}`"
+        />
+        <p>
+          <span class="emphasis">You need {{ course.GemCost - $store.getters.getBalance }} more gems</span>
+          to unlock {{ course.Title }}. Don't worry, you can buy some right now, and they never expire!
+          Get them in bulk to save on multiple courses.
+        </p>
+        <div class="row">
+          <div class="col">
+            <img
+              :src="course.ImageURL"
+              class="item img"
             >
-              ${{ (product.Price.UnitAmount / 100) + product.DiscountDollars }}
-            </span>
-          </BlockButton>
+          </div>
+          <div class="col">
+            <BlockButton
+              v-for="(product, i) of course.products"
+              :key="i"
+              class="item btn"
+              :click="() => {checkout(product.ID)}"
+              :color=" i === 0 ? 'gold' : 'gray'"
+            >
+              Get {{ product.GemAmount }}
+              Gems -
+              ${{ product.Price.UnitAmount / 100 }}
+              <span
+                v-if="product.DiscountDollars"
+                class="strikethrough"
+              >
+                ${{ (product.Price.UnitAmount / 100) + product.DiscountDollars }}
+              </span>
+            </BlockButton>
+          </div>
         </div>
       </div>
-    </div>
-  </Modal>
+    </Modal>
+    <Modal
+      ref="surveyModal"
+    >
+      <div class="body">
+        <p />
+        <h2> We're sorry you're not interested :(</h2>
+        <p>
+          As a first time student, we want to provide
+          the courses you need to achieve your goals!
+          <a
+            target="_blank"
+            href="https://forms.gle/j2g5edjuPUFDW3tJ9"
+          >Please take this survey to earn some free Gems
+          </a>
+          and let us know how we can improve the platform for you.
+        </p>
+      </div>
+    </Modal>
+  </div>
 </template>
 
 <script>
@@ -68,9 +88,19 @@ export default {
     course: {
       type: Object,
       required: true
+    },
+    userHasAlreadyBoughtCourses: {
+      type: Boolean,
+      required: true
     }
   },
   methods:{
+    onClose(){
+      if (this.userHasAlreadyBoughtCourses){
+        return;
+      }
+      this.$refs.surveyModal.show();
+    },
     show(){
       this.$refs.modal.show();
     },
@@ -89,6 +119,10 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+
+.emphasis {
+  color: $purple-lighter;
+}
 
 .body {
   display: flex;

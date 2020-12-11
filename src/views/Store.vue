@@ -9,7 +9,7 @@
     <div class="subcontainer">
       <Section
         title="Store"
-        subtitle="Jumpstart your coding career. Grab some gems to unlock courses"
+        subtitle="Gems are the currency of Qvault. Buy some gems in order to unlock full courses"
       >
         <div class="coupon-code">
           <span @click="$router.push({name: 'CouponCode'})">
@@ -53,6 +53,14 @@
               </div>
             </div>
           </ImageCard>
+        </div>
+        <div class="survey-box">
+          <a
+            target="_blank"
+            href="https://forms.gle/j2g5edjuPUFDW3tJ9"
+          >
+            Take a survey and get some free gems
+          </a>
         </div>
       </Section>
     </div>
@@ -164,6 +172,12 @@ export default {
     color: $gold-darker;
     text-decoration: underline;
   }
+}
+
+.survey-box {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
 }
 
 .cards {

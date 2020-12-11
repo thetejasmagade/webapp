@@ -20,6 +20,7 @@
           <CourseCheckoutModal
             ref="modalRecommended"
             :course="recommendedCourse"
+            :user-has-already-bought-courses="userHasAlreadyBoughtCourses"
           />
           <ImageCard
             direction="row"
@@ -92,6 +93,7 @@
             <CourseCheckoutModal
               :ref="`modal`"
               :course="course"
+              :user-has-already-bought-courses="userHasAlreadyBoughtCourses"
             />
             <ImageCard
               :img-src="course.ImageURL"
@@ -199,6 +201,15 @@ export default {
         }
       }
       return null;
+    },
+    userHasAlreadyBoughtCourses(){
+      let hasBought = false;
+      for (const course of this.courses){
+        if (course.IsPurchased){
+          hasBought = true;
+        }
+      }
+      return hasBought;
     },
     courses(){
       let courses = this.$store.getters.getCourses;

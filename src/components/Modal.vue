@@ -31,6 +31,13 @@
 
 <script>
 export default {
+  props: {
+    onClose: {
+      type: Function,
+      required: false,
+      default: () => {}
+    }
+  },
   data() {
     return {
       showModal: false
@@ -42,6 +49,7 @@ export default {
     },
     hide(){
       this.showModal = false;
+      this.onClose();
     }
   }
 };
