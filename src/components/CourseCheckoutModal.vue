@@ -29,7 +29,7 @@
               :key="i"
               class="item btn"
               :click="() => {checkout(product.ID)}"
-              :color=" i === 0 ? 'gold' : 'gray'"
+              :color=" i === 0 ? 'purple' : 'gray'"
             >
               Get {{ product.GemAmount }}
               Gems -
@@ -43,6 +43,10 @@
             </BlockButton>
           </div>
         </div>
+        <span
+          class="link"
+          @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
+        >or start the demo</span>
       </div>
     </Modal>
     <Modal
@@ -145,12 +149,13 @@ export default {
     }
   }
 
-  .item{
+  .item {
     margin: 0em 1em 1em 1em;
   }
 
   .btn {
     min-width: 90%;
+    font-size: 1em;
   }
 
   .img {

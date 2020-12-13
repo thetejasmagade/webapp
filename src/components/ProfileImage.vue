@@ -59,10 +59,13 @@ export default {
       if (this.profileImageURL){
         return this.profileImageURL;
       }
-      return 'https://images.squarespace-cdn.com/content/54b7b93ce4b0a3e130d5d232/1519987165674-QZAGZHQWHWV8OXFW6KRT/icon.png';
+      return 'https://www.xovi.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png';
     }
   },
   methods: {
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
     async editProfileImage(e){
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length){
@@ -72,6 +75,9 @@ export default {
       formData.append('profileImage', files[0]);
       try {
         await updateUserProfileImage(formData);
+
+        // let the upload REALLY complete - kinda janky
+        await this.sleep(500);
 
         // cache break to reload image
         const user = this.$store.getters.getUser;
@@ -118,7 +124,7 @@ export default {
 
   .updateIcon {
     position: absolute;
-    left: calc(50% + 50px);
+    left: 75%;
     bottom: 8%;
     height: 30px;
     width: 30px;

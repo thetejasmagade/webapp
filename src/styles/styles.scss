@@ -43,6 +43,7 @@ h4 {
 }
 
 a, .link{
+  cursor: pointer;
   color: $gold-mid;
   &:hover {
     color: $purple-mid;

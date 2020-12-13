@@ -1,33 +1,29 @@
 <template>
-  <div id="container">
+  <div class="settings-root">
     <div class="sidebar">
-      <ProfileImage
-        class="profile-img"
-        :profile-image-u-r-l="$store.getters.getUser.ProfileImageURL "
-        editable
-      />
-
-      <div class="userPersonal">
-        <h3>{{ $store.getters.getUser.FirstName }} {{ $store.getters.getUser.LastName }}</h3>
-        <h5>{{ $store.getters.getUser.Email }}</h5>
-        <br>
-      </div>
-      <div class="tab">
-        <BlockButton
-          :click="() => currentTab='settings'"
-          :color="currentTab==='settings'?'purple-light':'gray-light'"
-          class="btn tabItems"
-        >
-          Edit Profile
-        </BlockButton>
-        <BlockButton
-          :click="() => currentTab='updatePass'"
-          :color="currentTab==='updatePass'?'purple-light':'gray-light'"
-          class="btn tabItems"
-        >
-          Security
-        </BlockButton>
-      </div>
+      <Section
+        :title="`${$store.getters.getUser.FirstName} ${$store.getters.getUser.LastName }`"
+        :subtitle="$store.getters.getUser.Email "
+      >
+        <div class="body">
+          <div class="tab">
+            <BlockButton
+              :click="() => currentTab='settings'"
+              :color="currentTab==='settings'?'purple-light':'gray-light'"
+              class="btn tabItems"
+            >
+              Profile
+            </BlockButton>
+            <BlockButton
+              :click="() => currentTab='updatePass'"
+              :color="currentTab==='updatePass'?'purple-light':'gray-light'"
+              class="btn tabItems"
+            >
+              Security
+            </BlockButton>
+          </div>
+        </div>
+      </Section>
     </div>
 
     <div class="profileContent">
@@ -177,9 +173,8 @@
         <Section
           title="Security Preferences"
         >
-          <div class="profile-edit-box">
+          <div class="security-body">
             <form
-              id="form"
               @submit.prevent="updatePassword"
             >
               <p class="title">
@@ -222,7 +217,6 @@ import {
 } from '@/lib/cloudClient.js';
 import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton';
-import ProfileImage from '@/components/ProfileImage';
 import TextInput from '@/components/TextInput';
 import Section from '@/components/Section';
 
@@ -230,7 +224,6 @@ export default {
   components: {
     BlockButton,
     TextInput,
-    ProfileImage,
     Section
   },
   data() {
@@ -304,7 +297,7 @@ label {
   width: 175px;
 }
 
-#container {
+.settings-root {
   color: $gray-darker;
   display: flex;
   flex-wrap: wrap;
@@ -312,24 +305,16 @@ label {
 
   .sidebar {
     width: 300px;
-    text-align: center;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 15px 0 15px 15px;
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
     @media (max-width: 768px) {
       width: 100%;
-    }
-
-    .userPersonal {
-      margin-top: 1em;
-      color: $white;
-      position: relative;
-
-      h3, h5 {
-        margin: 0;
-      }
     }
   }
 
@@ -365,8 +350,10 @@ label {
         }
       }
 
-      .profile-edit-box {
+      .security-body {
         position: relative;
+        display: flex;
+        justify-content: center;
         @media (max-width: 768px) {
           width: 99%;
         }
@@ -378,6 +365,8 @@ label {
           padding: 30px;
           align-items: center;
           margin: 35px 0;
+          max-width: 400px;
+          width: 100%;
 
           .title {
             text-align: center;
@@ -391,9 +380,6 @@ label {
 
       .btn {
         width: 200px;
-        border-radius: 50px;
-        padding: 10px;
-        font-size: 1rem;
         margin: 10px;
       }
     }

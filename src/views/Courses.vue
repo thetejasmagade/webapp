@@ -83,7 +83,7 @@
 
       <Section
         title="All Courses"
-        subtitle="Browse all of our content, new courses are released frequently"
+        subtitle="Browse all of our content, we release new courses frequently"
       >
         <div class="cards">
           <div

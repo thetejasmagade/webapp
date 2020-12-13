@@ -9,7 +9,7 @@
     <div class="subcontainer">
       <Section
         title="Store"
-        subtitle="Gems are the currency of Qvault. Buy some gems in order to unlock full courses"
+        subtitle="Gems are the currency of Qvault. Buy some gems to unlock full courses"
       >
         <div class="coupon-code">
           <span @click="$router.push({name: 'CouponCode'})">
