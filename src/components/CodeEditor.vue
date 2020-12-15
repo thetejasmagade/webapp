@@ -20,35 +20,35 @@
         ref="consoleOutput"
         class="console-output"
       >
-        <BlockButton
-          id="run-btn"
-          class="btn"
-          :click="runCode"
-        >
-          <FontAwesomeIcon
-            icon="play"
-          />
-          Run
-        </BlockButton>
-        <BlockButton
-          id="reset-btn"
-          class="btn"
-          :click="runReset"
-          color="gray"
-        >
-          <FontAwesomeIcon
-            icon="undo"
-          />
-          Reset
-        </BlockButton>
-        <p
-          v-for="(line, i) of output"
-          :key="i"
-          :class="{error: err}"
-          class="pre"
-        >
-          {{ line }}
-        </p>
+        <div class="btns">
+          <BlockButton
+            class="btn"
+            :click="runCode"
+          >
+            <FontAwesomeIcon
+              icon="play"
+            />
+          </BlockButton>
+          <BlockButton
+            class="btn"
+            :click="runReset"
+            color="gray"
+          >
+            <FontAwesomeIcon
+              icon="undo"
+            />
+          </BlockButton>
+        </div>
+        <div class="output">
+          <p
+            v-for="(line, i) of output"
+            :key="i"
+            :class="{error: err}"
+            class="pre"
+          >
+            {{ line }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -112,14 +112,18 @@ export default {
   },
   computed: {
     tabSize(){
-      if (this.progLang === 'go' || this.progLang == 'py'){
+      if (this.progLang === 'go'){
         return 1; // because its a tab
+      }
+      if (this.progLang === 'py'){
+        return 4;
       }
       return 2;
     },
     insertSpaces(){
       return this.progLang === 'js' || 
         this.progLang === 'purs' ||
+        this.progLang === 'py' ||
         this.progLang === 'rs';
     }
   },
@@ -295,17 +299,24 @@ span.token.operator {
     font-size: 14px;
     background-color: $gray-darker-2;
     flex: 2;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     padding: 10px;
     overflow: auto;
     border-top: solid 1px $gray-light;
 
+    .btns {
+      display: flex;
+      flex-direction: column;
+    }
+
     .btn {
-      float: right;
-      margin-left: 1em;
+      margin: 1em 0 0 0;
       font-size: 1em;
-      top: 0;
-      position: sticky;
+    }
+
+    .output {
+      padding: 1em;
     }
 
     p {
