@@ -26,57 +26,14 @@
             direction="row"
             :img-src="recommendedCourse.ImageURL"
             class="recommended-card"
-            :click="() => {clickOnCourse(recommendedCourse.UUID, recommendedCourse.GemCost, recommendedCourse.IsPurchased) }"
           >
-            <div
+            <CourseCardBody
+              v-if="recommendedCourse"
               class="body"
-            >
-              <DifficultyBar 
-                class="margin-top-2"
-                :difficulty="recommendedCourse.Difficulty"
-              />
-            
-              <span class="title item">
-                {{ recommendedCourse.Title }}
-              </span>
-
-              <div
-                v-if="recommendedCourse.IsComplete"
-                class="completed item"
-              >
-                <FontAwesomeIcon
-                  icon="check"
-                />
-                <span>Complete</span>
-              </div>
-              <div
-                v-else-if="recommendedCourse.IsPurchased"
-                class="purchased item"
-              >
-                <FontAwesomeIcon
-                  icon="check"
-                />
-                <span>Purchased</span>
-              </div>
-              <GemDisplay
-                v-else
-                :size="2"
-                class="item"
-                :text="`${recommendedCourse.GemCost}`"
-              />
-
-              <div class="item links">
-                <span
-                  class="link"
-                  @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: recommendedCourse.UUID}});}"
-                >Start Demo</span>
-                <span
-                  class="gray link"
-                  target="_blank"
-                  @click.stop="() => {linkClick(recommendedCourse.LandingPage)}"
-                >More Info</span>
-              </div>
-            </div>
+              :course="recommendedCourse"
+              :click-buy-demo-course="() => {clickBuyCourse(recommendedCourse.UUID, recommendedCourse.GemDemoCost, recommendedCourse.IsDemoPurchased, true) }"
+              :click-buy-course="()=> {clickBuyCourse(recommendedCourse.UUID, recommendedCourse.GemCost, recommendedCourse.IsPurchased, false) }"
+            />
           </ImageCard>
         </div>
       </Section>
@@ -98,56 +55,13 @@
             <ImageCard
               :img-src="course.ImageURL"
               class="card"
-              :click="() => {clickOnCourse(course.UUID, course.GemCost, course.IsPurchased, i) }"
             >
-              <div
+              <CourseCardBody
                 class="body"
-              >
-                <DifficultyBar 
-                  :difficulty="course.Difficulty"
-                />
-            
-                <span class="title item">
-                  {{ course.Title }}
-                </span>
-
-                <div
-                  v-if="course.IsComplete"
-                  class="completed item"
-                >
-                  <FontAwesomeIcon
-                    icon="check"
-                  />
-                  <span>Complete</span>
-                </div>
-                <div
-                  v-else-if="course.IsPurchased"
-                  class="purchased item"
-                >
-                  <FontAwesomeIcon
-                    icon="check"
-                  />
-                  <span>Purchased</span>
-                </div>
-                <GemDisplay
-                  v-else
-                  :size="2"
-                  class="item"
-                  :text="`${course.GemCost}`"
-                />
-
-                <div class="item links">
-                  <span
-                    class="link"
-                    @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
-                  >Start Demo</span>
-                  <span
-                    class="gray link"
-                    target="_blank"
-                    @click.stop="() => {linkClick(course.LandingPage)}"
-                  >More Info</span>
-                </div>
-              </div>
+                :course="course"
+                :click-buy-demo-course="() => {clickBuyCourse(course.UUID, course.GemDemoCost, course.IsDemoPurchased, true, i) }"
+                :click-buy-course="()=> {clickBuyCourse(course.UUID, course.GemCost, course.IsPurchased, false, i) }"
+              />
             </ImageCard>
           </div>
         </div>
@@ -157,22 +71,23 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
 import Section from '@/components/Section';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
 import ConfirmOverlay from '@/components/ConfirmOverlay';
-import GemDisplay from '@/components/GemDisplay';
-import DifficultyBar from '@/components/DifficultyBar';
 import CourseCheckoutModal from '@/components/CourseCheckoutModal';
+import CourseCardBody from '@/components/CourseCardBody';
 
 import { 
-  getCourses,
   purchaseCourse,
+  purchaseDemoCourse,
   getLastGemTransaction,
   getCourseRecommendations
 } from '@/lib/cloudClient.js';
+
+import { 
+  loadCourses
+} from '@/lib/cloudStore.js';
 
 import { gtmEventPurchaseCourse } from '@/lib/gtm.js';
 
@@ -180,12 +95,10 @@ export default {
   components: {
     Section,
     LoadingOverlay,
-    FontAwesomeIcon,
     ImageCard,
     ConfirmOverlay,
-    GemDisplay,
-    DifficultyBar,
-    CourseCheckoutModal
+    CourseCheckoutModal,
+    CourseCardBody
   },
   data() {
     return {
@@ -220,6 +133,9 @@ export default {
         if (products.length === 0){
           products = products.filter(product => product.GemAmount >= courses[i].GemCost);
         }
+        if (products.length > 3){
+          products = products.slice(0, 3);
+        }
         products.sort((p1, p2) => p1.GemAmount > p2.GemAmount ? 1 : -1);
         courses[i].products = products;
       }
@@ -234,7 +150,6 @@ export default {
           }
         }
       }
-
       return courses;
     }
   },
@@ -252,8 +167,11 @@ export default {
     }
 
     if (this.$route.query.courseUUID){
+      if (this.courses.length === 0 ){
+        await loadCourses(this);
+      }
       // selected course SHOULD be set as the first in the list
-      this.clickOnCourse(this.courses[0].UUID, this.courses[0].GemCost, this.courses[0].IsPurchased, 0);
+      this.clickBuyCourse(this.courses[0].UUID, this.courses[0].GemCost, this.courses[0].IsPurchased, false, 0);
     }
   },
   methods: {
@@ -267,7 +185,7 @@ export default {
       }
       this.$refs['modal'][i].show();
     },
-    clickOnCourse(courseUUID, gemAmount, isPurchased, i){
+    clickBuyCourse(courseUUID, gemAmount, isPurchased, isDemo, i){
       if (isPurchased) {
         this.$router.push({name: 'Exercise', params: {courseUUID}});
         return;
@@ -277,12 +195,16 @@ export default {
         return;
       }
       this.$refs['confirmPurchase'].openNav(
-        `Would you like to purchase this course for ${gemAmount} gems?`,
+        `Would you like to purchase this ${isDemo ? 'demo' : 'course'} for ${gemAmount} gems?`,
         async () => {
           try {
-            await purchaseCourse(courseUUID);
-            gtmEventPurchaseCourse(gemAmount);
-            this.loadCourses();
+            if (isDemo) {
+              await purchaseDemoCourse(courseUUID);
+            } else {
+              await purchaseCourse(courseUUID);
+              gtmEventPurchaseCourse(gemAmount);
+            }
+            await loadCourses(this);
             const lastGemTransaction = await getLastGemTransaction();
             this.$store.commit('setBalance', lastGemTransaction.Balance);
           } catch (err) {
@@ -293,20 +215,6 @@ export default {
           }
         }
       );
-    },
-    readMore(url) {
-      window.open(url, '_blank');
-    },
-    async loadCourses() {
-      try {
-        const courses = await getCourses();
-        this.$store.commit('setCourses', courses);
-      } catch (err) {
-        this.$notify({
-          type: 'error',
-          text: err
-        });
-      }
     }
   }
 };
@@ -315,6 +223,10 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
+
+.flex-1 {
+  flex: 1;
+}
 
 .root {
   display: block;
@@ -340,16 +252,12 @@ export default {
 }
 
 .recommended-card {
-  margin-top: 1em;
   max-width: 600px;
 
   .body {
     height: 100%;
     padding: 0 1em 0 1em;
     min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     @media (min-width: $mobile-size) {
       border-left: 1px solid $gray-lightest;
     }
@@ -366,48 +274,6 @@ export default {
 
   .body {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 }
-
-.links {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.item{
-  margin: 0em 1em 1em 1em;
-}
-
-.title {
-  color: $gold-dark;
-  font-size: 1.5em;
-}
-
-.description {
-  color: $white;
-  font-weight: 400;
-  line-height: 1.3em;
-  font-size: 1em;
-}
-
-.completed {
-  color: $green-light;
-
-  span {
-    margin-left: 10px;
-  }
-}
-
-.purchased {
-  color: $gold-lighter;
-
-  span {
-    margin-left: 10px;
-  }
-}
-
 </style>

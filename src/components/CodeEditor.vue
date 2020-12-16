@@ -30,7 +30,7 @@
             />
           </BlockButton>
           <BlockButton
-            class="btn"
+            class="btn bottom"
             :click="runReset"
             color="gray"
           >
@@ -308,15 +308,18 @@ span.token.operator {
     .btns {
       display: flex;
       flex-direction: column;
+
+      .bottom {
+        margin: 1em 0 0 0;
+      }
     }
 
     .btn {
-      margin: 1em 0 0 0;
       font-size: 1em;
     }
 
     .output {
-      padding: 1em;
+      padding: 0 1em 0 1em;
     }
 
     p {

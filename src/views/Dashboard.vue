@@ -10,12 +10,10 @@
 
       <div id="content">
         <div class="inner-content">
-          <keep-alive>
-            <router-view
-              :key="$route.fullPath"
-              class="router-view"
-            />
-          </keep-alive>
+          <router-view
+            :key="$route.fullPath"
+            class="router-view"
+          />
         </div>
       </div>
     </div>

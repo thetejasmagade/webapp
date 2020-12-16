@@ -7,6 +7,45 @@
     />
 
     <div
+      v-else-if="demoComplete"
+      class="demo-complete"
+    >
+      <ExerciseNav
+        class="nav"
+        :go-back="goBack"
+        :go-forward="goForward"
+        :can-go-back="!isFirstExercise"
+        :can-go-forward="false"
+      />
+
+      <div class="subcontainer">
+        <Section
+          :title="`You've completed the ${course.Title} demo!`"
+          subtitle="Don't stop now"
+          class="section"
+        >
+          <div class="body">
+            <img
+              src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
+            >
+            <div>
+              <p>
+                Complete the rest of the course to get a certificate,
+                earn free gems and content,
+                and support the continued development of Qvault
+              </p>
+              <BlockButton
+                :click="() => {this.$router.push({ path: `/dashboard/courses?courseUUID=${courseUUID}` })}"
+              >
+                Get Full Course
+              </BlockButton>
+            </div>
+          </div>
+        </Section>
+      </div>
+    </div>
+
+    <div
       v-else
       class="container"
     >
@@ -61,6 +100,7 @@ import CodeEditor from '@/components/CodeEditor';
 import BlockButton from '@/components/BlockButton';
 import CourseCompleted from '@/components/CourseCompleted';
 import ExerciseNav from '@/components/ExerciseNav';
+import Section from '@/components/Section';
 
 import { 
   loadBalance
@@ -73,7 +113,8 @@ import {
   submitInformationalExercise,
   submitCodeExercise,
   submitMultipleChoiceExercise,
-  getFirstExercise
+  getFirstExercise,
+  getDemoExercises
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -83,7 +124,8 @@ export default {
     BlockButton,
     MultipleChoice,
     CourseCompleted,
-    ExerciseNav
+    ExerciseNav,
+    Section
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
@@ -98,6 +140,7 @@ export default {
       courseUUID: this.$route.params.courseUUID,
       moduleUUID: null,
       exerciseUUID: null,
+      demoExercises: [],
       question: {},
       progLang: 'go',
       courseDone: false,
@@ -106,8 +149,34 @@ export default {
       isCurrentExercise: false
     };
   },
+  computed: {
+    course(){
+      let courses = this.$store.getters.getCourses;
+      for (const course of courses){
+        if (course.UUID === this.courseUUID){
+          return course;
+        }
+      }
+      return {};
+    },
+    demoComplete(){
+      if (this.course.IsPurchased){
+        return false;
+      }
+      if (this.demoExercises.length === 0){
+        return false;
+      }
+      for (const demo of this.demoExercises){
+        if (demo.UUID === this.exerciseUUID){
+          return false;
+        }
+      }
+      return true;
+    }
+  },
   async mounted(){
     await this.getCurrentExercise();
+    this.demoExercises = await getDemoExercises(this.courseUUID);
   },
   methods: {
     sleep(ms) {
@@ -316,6 +385,39 @@ export default {
 
   .btn {
     font-size: 1.2em;
+  }
+}
+
+.demo-complete {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  .nav {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0em 1em 0em 1em;
+  }
+
+  .subcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+    .section {
+      max-width: 800px;
+
+      .body {
+        text-align: center;
+
+        img {
+          margin: 1em;
+        }
+      }
+    }
   }
 }
 

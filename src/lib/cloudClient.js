@@ -511,6 +511,18 @@ export async function purchaseCourse(courseUUID){
   return handled;
 }
 
+export async function purchaseDemoCourse(courseUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/purchase_demo`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getCurrentExercise(courseUUID){
   const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/current`, {
     method: 'GET',

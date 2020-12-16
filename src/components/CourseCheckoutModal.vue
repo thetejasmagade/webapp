@@ -29,7 +29,7 @@
               :key="i"
               class="item btn"
               :click="() => {checkout(product.ID)}"
-              :color=" i === 0 ? 'purple' : 'gray'"
+              :color=" i === 0 ? 'gold' : 'gray'"
             >
               Get {{ product.GemAmount }}
               Gems -
@@ -43,10 +43,6 @@
             </BlockButton>
           </div>
         </div>
-        <span
-          class="link"
-          @click.stop="() => {$router.push({name: 'Demo', params: {courseUUID: course.UUID}});}"
-        >or start the demo</span>
       </div>
     </Modal>
     <Modal
@@ -54,7 +50,7 @@
     >
       <div class="body">
         <p />
-        <h2> We're sorry you're not interested :(</h2>
+        <h2>Sorry you're not interested!</h2>
         <p>
           As a first time student, we want to provide
           the courses you need to achieve your goals!

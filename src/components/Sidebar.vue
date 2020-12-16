@@ -163,7 +163,7 @@ export default {
   computed: {
     activeCourses(){
       return this.$store.getters.getCourses.filter(
-        course => (course.IsPurchased && !course.IsComplete)
+        course => ((course.IsPurchased || course.IsDemoPurchased) && !course.IsComplete)
       );
     }
   },
