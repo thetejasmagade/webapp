@@ -40,9 +40,13 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/consts.scss';
 
 .section {
   padding: 2em;
+  @media (max-width: $mobile-size) {
+    padding: 1em;
+  }
   background-color: $white;
   border-radius: 3px;
   background-color: $gray-darker-2;

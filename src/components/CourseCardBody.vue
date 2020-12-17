@@ -88,7 +88,7 @@
       </div>
     </div>
 
-    <div class="item links">
+    <div class="item links bottom">
       <span
         class="gray link"
         target="_blank"
@@ -141,7 +141,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1em 1em 0 1em;
 }
 
 .title {
@@ -178,7 +177,11 @@ export default {
 }
 
 .item{
-  margin: 15px 0 0 0;
+  margin: 15px 5px 0 5px;
+
+  &.bottom{
+    margin: 0 0 10px 0;
+  }
 }
 
 .links {

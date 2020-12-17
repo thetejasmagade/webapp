@@ -42,9 +42,9 @@ export default {
     TopNav
   },
   async mounted(){
-    loadLoggedIn(this);  
+    loadLoggedIn(this);
+    await loadProducts(this); 
     loadCourses(this);
-    loadProducts(this);
     loadUser(this);
 
     await this.loadRewards();

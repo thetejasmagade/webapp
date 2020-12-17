@@ -16,7 +16,7 @@
         subtitle="Based on your profile, we suggest starting here"
         class="recommended-section margin-bottom-1"
       >
-        <div class="body">
+        <div class="cards">
           <CourseCheckoutModal
             ref="modalRecommended"
             :course="recommendedCourse"
@@ -150,6 +150,7 @@ export default {
           }
         }
       }
+      console.log(courses);
       return courses;
     }
   },
@@ -244,20 +245,17 @@ export default {
   width: 100%;
 }
 
-.recommended-section {
-  .body {
-    display: flex;
-    justify-content: center;
-  }
-}
-
 .recommended-card {
   max-width: 600px;
+  margin: 20px 0 0 0;
+
+  @media (max-width: $mobile-size) {
+    min-width: 200px;
+    flex: 1 1 200px;
+  }
 
   .body {
     height: 100%;
-    padding: 0 1em 0 1em;
-    min-width: 200px;
     @media (min-width: $mobile-size) {
       border-left: 1px solid $gray-lightest;
     }
