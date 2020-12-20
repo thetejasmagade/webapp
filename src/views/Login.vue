@@ -113,7 +113,7 @@ export default {
         if (this.$route.query.new_user === 'true'){
           try {
             updateUserCache();
-            gtmEventRegister();
+            gtmEventRegister('twitter/github');
             this.$store.commit('setIsLoggedIn', isLoggedIn());
             this.$router.push({name: 'SignupFlowExperience'});
             return;

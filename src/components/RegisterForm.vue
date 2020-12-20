@@ -155,7 +155,7 @@ export default {
         );
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
-        gtmEventRegister();
+        gtmEventRegister('email');
         this.state = 'email-verification-code';
       } catch (err){
         this.$notify({

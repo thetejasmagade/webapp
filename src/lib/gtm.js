@@ -1,11 +1,13 @@
 // make sure scripts are included in HTML head
 
-export function gtmEventRegister(){
+// method can be 'email', 'google', etc
+export function gtmEventRegister(method){
   try {
     window.dataLayer.push({
-      'event': 'register',
+      'event': 'sign_up',
       'interaction-type': false,
-      'conversionValue': .25
+      'conversionValue': .25,
+      'method': method
     });
   } catch (err) {
     console.log(err);

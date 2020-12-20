@@ -86,7 +86,7 @@ export default {
         );
         this.$store.commit('setIsLoggedIn', isLoggedIn());
         if (resp.registered){
-          gtmEventRegister();
+          gtmEventRegister('google');
           this.$router.push({name: 'SignupFlowExperience'});
           return;
         }
