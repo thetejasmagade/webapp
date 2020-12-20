@@ -30,9 +30,9 @@ export default {
   metaInfo() {
     const description = `Run ${this.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
     const featuredImage = 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-3.png';
-    const title = `Qvault Playground - ${this.displayLang}`;
+    const title = `${this.displayLang} Playground - Qvault`;
     return {
-      title: 'Qvault - Playground',
+      title: title,
       meta: [
         { vmid:'description', name: 'description', content: description },
 

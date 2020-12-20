@@ -85,6 +85,25 @@ import ForgotPasswordForm from '@/components/ForgotPasswordForm';
 import TopNav from '@/components/TopNav';
 
 export default {
+  metaInfo() {
+    const description = 'Login or sign up for Qvault\'s computer science and coding courses. All our courses have free demos, get started today.';
+    const featuredImage = 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-1.png';
+    const title = 'Login - Qvault';
+    return {
+      title: title,
+      meta: [
+        { vmid:'description', name: 'description', content: description },
+
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'og:description', property: 'og:description', content: description },
+        { vmid:'og:image', property: 'og:image', content: featuredImage },
+
+        { vmid:'twitter:title', name: 'twitter:title', content: title },
+        { vmid:'twitter:description', property: 'twitter:description', content: description },
+        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
+      ]
+    };
+  },
   components: {
     LoginForm,
     ForgotPasswordForm,

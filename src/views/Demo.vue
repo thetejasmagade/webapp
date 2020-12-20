@@ -1,6 +1,6 @@
 <template>
   <div class="demo-root">
-    <TopNav :title="`${course.Title} - Demo`" />
+    <TopNav :title="courseTitle" />
 
     <div
       v-if="currentIndex >= demoExercises.length && currentIndex !== 0"
@@ -120,8 +120,9 @@ import {
 
 export default {
   metaInfo() {
-    const title = `Qvault's ${this.course.Title} course demo`;
-    const description = `Demo Qvault's ${this.course.Title} course in the browser. It's free to start and you don't even need to login.`;
+    const description = `Demo the ${this.course.Title} course right in your browser. It's free to start and you don't even need to login.`;
+    const featuredImage = this.course.ImageURL;
+    const title = `${this.course.Title} Course Demo - Qvault`;
     return {
       title: title,
       meta: [
@@ -129,11 +130,11 @@ export default {
 
         { vmid:'og:title', property: 'og:title', content: title },
         { vmid:'og:description', property: 'og:description', content: description },
-        { vmid:'og:image', property: 'og:image', content: this.course.ImageURL  },
+        { vmid:'og:image', property: 'og:image', content: featuredImage },
 
-        { vmid:'twitter:title', name: 'twitter:title', content: title},
+        { vmid:'twitter:title', name: 'twitter:title', content: title },
         { vmid:'twitter:description', property: 'twitter:description', content: description },
-        { vmid:'twitter:image', name: 'twitter:image', content: this.course.ImageURL }
+        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
       ]
     };
   },
@@ -164,6 +165,12 @@ export default {
     };
   },
   computed:{
+    courseTitle(){
+      if (this.course.Title){
+        return `${this.course.Title} - Demo`;
+      }
+      return 'Demo';
+    },
     isFirstExercise(){
       return this.currentIndex === 0;
     },
