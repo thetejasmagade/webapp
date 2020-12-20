@@ -64,16 +64,30 @@ export default {
   display: flex;
   justify-content: space-between;
   border-radius: .5em;
-  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
 
   &.column {
     flex-direction: column;
+
+    img {
+      border-radius: .5em .5em 0 0;
+    }
   }
 
   &.row {
     flex-direction: row;
     @media (max-width: $mobile-size) {
       flex-direction: column;
+    }
+
+    img {
+      border-radius: .5em 0 0 .5em;
     }
   }
 
@@ -84,13 +98,6 @@ export default {
   &.light{
     border: solid 1px $gray-lighter;
     background-color: $gray-lightest;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
   }
 
   &.clickable{
