@@ -51,3 +51,16 @@ export function gtmEventPurchaseCourse(priceGems){
     console.log(err);
   }
 }
+
+export function gtmEventPurchaseCourseDemo(priceGems){
+  const gemsToUSDRatio = .001;
+  try {
+    window.dataLayer.push({
+      'event': 'purchase-course-demo',
+      'interaction-type': false,
+      'conversionValue': priceGems * gemsToUSDRatio
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}

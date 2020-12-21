@@ -89,7 +89,10 @@ import {
   loadCourses
 } from '@/lib/cloudStore.js';
 
-import { gtmEventPurchaseCourse } from '@/lib/gtm.js';
+import {
+  gtmEventPurchaseCourse,
+  gtmEventPurchaseCourseDemo
+} from '@/lib/gtm.js';
 
 export default {
   components: {
@@ -201,6 +204,7 @@ export default {
           try {
             if (isDemo) {
               await purchaseDemoCourse(courseUUID);
+              gtmEventPurchaseCourseDemo(gemAmount);
             } else {
               await purchaseCourse(courseUUID);
               gtmEventPurchaseCourse(gemAmount);
