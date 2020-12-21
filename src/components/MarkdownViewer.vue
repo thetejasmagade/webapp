@@ -3,7 +3,7 @@
     <div class="markdown-viewer-container">
       <VueMarkdown
         class="viewer"
-        :source="source"
+        :source="`${source}\n![hello](https://opidesign.net/wp-content/uploads/landscape-architecture-fun-facts-outside-productions-blog-980x551.jpg)`"
         :breaks="false"
         :anchor-attributes="{target: '_blank'}"
         @rendered="update"
@@ -66,6 +66,11 @@ export default {
 
     code {
       color: $pink-lighter;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 2px;
     }
   }
 }
