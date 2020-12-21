@@ -3,7 +3,7 @@
     <div class="markdown-viewer-container">
       <VueMarkdown
         class="viewer"
-        :source="`${source}\n![hello](https://opidesign.net/wp-content/uploads/landscape-architecture-fun-facts-outside-productions-blog-980x551.jpg)`"
+        :source="source"
         :breaks="false"
         :anchor-attributes="{target: '_blank'}"
         @rendered="update"
