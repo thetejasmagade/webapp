@@ -107,6 +107,11 @@ import {
 } from '@/lib/cloudStore.js';
 
 import { 
+  gtmEarnGems,
+  gtmUnlockAchievement
+} from '@/lib/gtm.js';
+
+import { 
   getCurrentExercise,
   getPreviousExercise,
   getNextExercise,
@@ -198,6 +203,10 @@ export default {
         loadBalance(this);
       }
 
+      if (rewardsResponse.GemCredit){
+        gtmEarnGems(rewardsResponse.GemCredit);
+      }
+
       let notificationShown = false;
       if (rewardsResponse.GemCredit && rewardsResponse.Message){
         this.$notify({
@@ -208,6 +217,12 @@ export default {
       } 
       if (rewardsResponse.Achievements){
         for (const achievement of rewardsResponse.Achievements){
+          if (achievement.GemReward){
+            gtmEarnGems(achievement.GemReward);
+          }
+          if (achievement.UUID){
+            gtmUnlockAchievement(achievement.UUID);
+          }
           this.$notify({
             type: 'success',
             title: `<img width="50" src="${achievement.ImageURL}">`,
@@ -262,12 +277,7 @@ export default {
     async moveToExercise(exercise){
       if (exercise.CourseDone){
         this.courseDone = true;
-        if (exercise.Message && exercise.GemCredit){
-          this.$notify({
-            type: 'success',
-            text: `${exercise.Message} 💎x${exercise.GemCredit}`
-          });
-        }
+        this.handleRewards(exercise.Rewards);
         return;
       }
       this.courseDone = false;

@@ -72,7 +72,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import { publicKey } from '@/lib/stripeConsts';
 import { 
-  gtmEventStartCheckout,
+  gtmEventBeginCheckout,
   gtmEventFinishCheckout
 } from '@/lib/gtm.js';
 
@@ -112,9 +112,15 @@ export default {
   async mounted(){
     (async () => {
       try {
-        const resp = await completePayments();
-        if (resp.TotalUnitAmountPayed){
-          gtmEventFinishCheckout(resp.TotalUnitAmountPayed / 100.0);
+        const completedPayments = await completePayments();
+        for (const completedPayment of completedPayments){
+          gtmEventFinishCheckout(
+            completedPayment.UnitAmount / 100.0,
+            completedPayment.ProductID,
+            completedPayment.ProductName
+          );
+        }
+        if (completedPayments.length > 0){
           loadBalance(this);
         }
       } catch (err) {
@@ -130,7 +136,7 @@ export default {
       this.isLoading = true;
       const checkoutSession = await startProductCheckout(product.ID);
       const stripe = await loadStripe(publicKey);
-      gtmEventStartCheckout(product.Price.UnitAmount / 100);
+      gtmEventBeginCheckout(product.Price.UnitAmount / 100, product.ID, product.Name);
       await stripe.redirectToCheckout({
         sessionId: checkoutSession.id
       });

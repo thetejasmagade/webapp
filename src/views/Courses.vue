@@ -31,8 +31,8 @@
               v-if="recommendedCourse"
               class="body"
               :course="recommendedCourse"
-              :click-buy-demo-course="() => {clickBuyCourse(recommendedCourse.UUID, recommendedCourse.GemDemoCost, recommendedCourse.IsDemoPurchased, true) }"
-              :click-buy-course="()=> {clickBuyCourse(recommendedCourse.UUID, recommendedCourse.GemCost, recommendedCourse.IsPurchased, false) }"
+              :click-buy-demo-course="() => {clickBuyCourse(recommendedCourse, true) }"
+              :click-buy-course="()=> {clickBuyCourse(recommendedCourse, false) }"
             />
           </ImageCard>
         </div>
@@ -59,8 +59,8 @@
               <CourseCardBody
                 class="body"
                 :course="course"
-                :click-buy-demo-course="() => {clickBuyCourse(course.UUID, course.GemDemoCost, course.IsDemoPurchased, true, i) }"
-                :click-buy-course="()=> {clickBuyCourse(course.UUID, course.GemCost, course.IsPurchased, false, i) }"
+                :click-buy-demo-course="() => {clickBuyCourse(course, true, i) }"
+                :click-buy-course="()=> {clickBuyCourse(course, false, i) }"
               />
             </ImageCard>
           </div>
@@ -90,8 +90,7 @@ import {
 } from '@/lib/cloudStore.js';
 
 import {
-  gtmEventPurchaseCourse,
-  gtmEventPurchaseCourseDemo
+  gtmEventPurchaseCourseWithGems
 } from '@/lib/gtm.js';
 
 export default {
@@ -175,7 +174,7 @@ export default {
         await loadCourses(this);
       }
       // selected course SHOULD be set as the first in the list
-      this.clickBuyCourse(this.courses[0].UUID, this.courses[0].GemCost, this.courses[0].IsPurchased, false, 0);
+      this.clickBuyCourse(this.courses[0], false, 0);
     }
   },
   methods: {
@@ -189,25 +188,25 @@ export default {
       }
       this.$refs['modal'][i].show();
     },
-    clickBuyCourse(courseUUID, gemAmount, isPurchased, isDemo, i){
-      if (isPurchased) {
-        this.$router.push({name: 'Exercise', params: {courseUUID}});
+    clickBuyCourse(course, isDemo, i){
+      if ((isDemo && course.IsDemoPurchased) || (!isDemo && course.IsPurchased)) {
+        this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
         return;
       }
-      if (this.$store.getters.getBalance < gemAmount){
+      if (this.$store.getters.getBalance < course.GemCost){
         this.showModal(i);
         return;
       }
       this.$refs['confirmPurchase'].openNav(
-        `Would you like to purchase this ${isDemo ? 'demo' : 'course'} for ${gemAmount} gems?`,
+        `Would you like to purchase this ${isDemo ? 'demo' : 'course'} for ${course.GemCost} gems?`,
         async () => {
           try {
             if (isDemo) {
-              await purchaseDemoCourse(courseUUID);
-              gtmEventPurchaseCourseDemo(gemAmount);
+              await purchaseDemoCourse(course.UUID);
+              gtmEventPurchaseCourseWithGems(course.GemCost, course.Title, true);
             } else {
-              await purchaseCourse(courseUUID);
-              gtmEventPurchaseCourse(gemAmount);
+              await purchaseCourse(course.UUID);
+              gtmEventPurchaseCourseWithGems(course.GemCost, course.Title, false);
             }
             await loadCourses(this);
             const lastGemTransaction = await getLastGemTransaction();
