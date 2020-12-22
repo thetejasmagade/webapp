@@ -152,7 +152,6 @@ export default {
           }
         }
       }
-      console.log(courses);
       return courses;
     }
   },
@@ -189,11 +188,15 @@ export default {
       this.$refs['modal'][i].show();
     },
     clickBuyCourse(course, isDemo, i){
-      if ((isDemo && course.IsDemoPurchased) || (!isDemo && course.IsPurchased)) {
+      const alreadyPurchased = (isDemo && course.IsDemoPurchased) ||
+        (!isDemo && course.IsPurchased);
+      if (alreadyPurchased) {
         this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
         return;
       }
-      if (this.$store.getters.getBalance < course.GemCost){
+      const enoughGems = (isDemo && this.$store.getters.getBalance >= course.GemDemoCost) || 
+        (!isDemo && this.$store.getters.getBalance >= course.GemCost);
+      if (!enoughGems){
         this.showModal(i);
         return;
       }
