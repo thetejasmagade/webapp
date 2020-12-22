@@ -19,6 +19,7 @@ import 'prismjs/components/prism-bash.js';
 import 'prismjs/components/prism-javascript.js';
 import 'prismjs/components/prism-haskell.min'; // required for purescript
 import 'prismjs/components/prism-purescript.min';
+import 'prismjs/components/prism-python.min';
 
 // should match any other prism components that share a page
 import 'prismjs/themes/prism-okaidia.css';
