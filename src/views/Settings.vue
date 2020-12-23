@@ -221,6 +221,16 @@ import TextInput from '@/components/TextInput';
 import Section from '@/components/Section';
 
 export default {
+  metaInfo() {
+    const title = 'Qvault - Settings';
+    return {
+      title: title,
+      meta: [
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'twitter:title', name: 'twitter:title', content: title }
+      ]
+    };
+  },
   components: {
     BlockButton,
     TextInput,
