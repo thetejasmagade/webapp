@@ -80,6 +80,10 @@ import {
   compilePureScript
 } from '@/lib/cloudClient.js';
 
+import { 
+  sleep
+} from '@/lib/sleep.js';
+
 export default {
   components: {
     PrismEditor,
@@ -149,9 +153,6 @@ export default {
     highlighter(code) {
       return highlight(code, languages[this.progLang]);
     },
-    sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    },
     setCode(code){
       this.code = code;
     },
@@ -202,7 +203,7 @@ export default {
           }
         } else if (this.progLang === 'js'){
           // make it feel like something is running
-          await this.sleep(250);
+          await sleep(250);
           try {
             await useWorker(this.worker, this.code, (data) => {
               this.output.push(data); 
@@ -213,7 +214,7 @@ export default {
             throw err;
           }
         } else if (this.progLang === 'py'){
-          await this.sleep(250);
+          await sleep(250);
           try {
             await useWorker(this.worker, this.code, (data) => {
               this.output.push(data); 

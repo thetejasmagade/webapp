@@ -28,7 +28,7 @@
               v-for="(product, i) of course.products"
               :key="i"
               class="item btn"
-              :click="() => {checkout(product.ID)}"
+              :click="() => {checkout(product)}"
               :color=" i === 0 ? 'gold' : 'gray'"
             >
               Get {{ product.GemAmount }}
@@ -75,6 +75,13 @@ import {
   startProductCheckout
 } from '@/lib/cloudClient.js';
 
+import { 
+  gtmEventBeginCheckout
+} from '@/lib/gtm.js';
+import { 
+  sleep
+} from '@/lib/sleep.js';
+
 import { loadStripe } from '@stripe/stripe-js';
 import { publicKey } from '@/lib/stripeConsts';
 
@@ -104,9 +111,11 @@ export default {
     show(){
       this.$refs.modal.show();
     },
-    async checkout(productID){
+    async checkout(product){
       this.isLoading = true;
-      const checkoutSession = await startProductCheckout(productID);
+      gtmEventBeginCheckout(product.Price.UnitAmount / 100, product.ID, product.Name);
+      await sleep(250);
+      const checkoutSession = await startProductCheckout(product.ID);
       const stripe = await loadStripe(publicKey);
       await stripe.redirectToCheckout({
         sessionId: checkoutSession.id

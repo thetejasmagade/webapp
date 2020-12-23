@@ -118,6 +118,10 @@ import {
   getCoursePublic
 } from '@/lib/cloudClient.js';
 
+import { 
+  sleep
+} from '@/lib/sleep.js';
+
 export default {
   metaInfo() {
     const description = `Demo the ${this.course.Title} course right in your browser. It's free to start and you don't even need to login.`;
@@ -191,9 +195,6 @@ export default {
     this.getCurrentExercise();
   },
   methods: {
-    sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    },
     async submitTypeInfo(){
       await this.goForward();
     },
@@ -208,7 +209,7 @@ export default {
           type: 'success',
           text: 'Correct! Great Job :)'
         });
-        await this.sleep(1500);
+        await sleep(1500);
         await this.goForward();
       } catch(err) {
         this.$notify({
@@ -228,7 +229,7 @@ export default {
           type: 'success',
           text: 'Correct! Great Job :)'
         });
-        await this.sleep(1500);
+        await sleep(1500);
         await this.goForward();
       } catch(err) {
         this.$notify({

@@ -33,6 +33,10 @@ import {
 } from '@/lib/cloudClient.js';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import { 
+  sleep
+} from '@/lib/sleep.js';
+
 export default {
   components: {
     FontAwesomeIcon
@@ -63,9 +67,6 @@ export default {
     }
   },
   methods: {
-    sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    },
     async editProfileImage(e){
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length){
@@ -77,7 +78,7 @@ export default {
         await updateUserProfileImage(formData);
 
         // let the upload REALLY complete - kinda janky
-        await this.sleep(500);
+        await sleep(500);
 
         // cache break to reload image
         const user = this.$store.getters.getUser;

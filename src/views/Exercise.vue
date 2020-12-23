@@ -107,6 +107,10 @@ import {
 } from '@/lib/cloudStore.js';
 
 import { 
+  sleep
+} from '@/lib/sleep.js';
+
+import { 
   gtmEarnGems,
   gtmUnlockAchievement
 } from '@/lib/gtm.js';
@@ -194,9 +198,6 @@ export default {
     this.demoExercises = await getDemoExercises(this.courseUUID);
   },
   methods: {
-    sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    },
     async submitTypeInfo(){
       await submitInformationalExercise(
         this.exerciseUUID
@@ -255,7 +256,7 @@ export default {
           output
         );
         this.handleRewards(rewardsResponse);
-        await this.sleep(1500);
+        await sleep(1500);
         if (this.isCurrentExercise){
           await this.getCurrentExercise();
         }
@@ -273,7 +274,7 @@ export default {
           answer
         );
         this.handleRewards(rewardsResponse);
-        await this.sleep(1500);
+        await sleep(1500);
         if (this.isCurrentExercise){
           await this.getCurrentExercise();
         }

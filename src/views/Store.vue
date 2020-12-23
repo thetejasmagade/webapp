@@ -91,6 +91,9 @@ import {
 import { 
   loadBalance
 } from '@/lib/cloudStore.js';
+import { 
+  sleep
+} from '@/lib/sleep.js';
 
 export default {
   metaInfo() {
@@ -144,9 +147,10 @@ export default {
   methods: {
     async checkout(product){
       this.isLoading = true;
+      gtmEventBeginCheckout(product.Price.UnitAmount / 100, product.ID, product.Name);
+      await sleep(250);
       const checkoutSession = await startProductCheckout(product.ID);
       const stripe = await loadStripe(publicKey);
-      gtmEventBeginCheckout(product.Price.UnitAmount / 100, product.ID, product.Name);
       await stripe.redirectToCheckout({
         sessionId: checkoutSession.id
       });
