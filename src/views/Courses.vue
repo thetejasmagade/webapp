@@ -211,12 +211,12 @@ export default {
         return;
       }
       this.$refs['confirmPurchase'].openNav(
-        `Would you like to purchase this ${isDemo ? 'demo' : 'course'} for ${course.GemCost} gems?`,
+        `Would you like to purchase this ${isDemo ? 'demo' : 'course'} for ${isDemo ? course.GemDemoCost : course.GemCost} gems?`,
         async () => {
           try {
             if (isDemo) {
               await purchaseDemoCourse(course.UUID);
-              gtmEventPurchaseCourseWithGems(course.GemCost, course.Title, true);
+              gtmEventPurchaseCourseWithGems(course.GemDemoCost, course.Title, true);
             } else {
               await purchaseCourse(course.UUID);
               gtmEventPurchaseCourseWithGems(course.GemCost, course.Title, false);
