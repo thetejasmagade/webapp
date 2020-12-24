@@ -68,11 +68,7 @@
 </template>
 
 <script>
-import { loadStripe } from '@stripe/stripe-js';
-
-import { publicKey } from '@/lib/stripeConsts';
 import { 
-  gtmEventBeginCheckout,
   gtmEventFinishCheckout
 } from '@/lib/gtm.js';
 
@@ -85,15 +81,14 @@ import imgGem3 from '@/img/gem-3.png';
 import imgGem4 from '@/img/gem-4.png';
 import imgGem5 from '@/img/gem-5.png';
 import {
-  startProductCheckout,
   completePayments
 } from '@/lib/cloudClient.js';
 import { 
   loadBalance
 } from '@/lib/cloudStore.js';
 import { 
-  sleep
-} from '@/lib/sleep.js';
+  checkout
+} from '@/lib/stripewrap.js';
 
 export default {
   metaInfo() {
@@ -147,13 +142,7 @@ export default {
   methods: {
     async checkout(product){
       this.isLoading = true;
-      gtmEventBeginCheckout(product.Price.UnitAmount / 100, product.ID, product.Name);
-      await sleep(250);
-      const checkoutSession = await startProductCheckout(product.ID);
-      const stripe = await loadStripe(publicKey);
-      await stripe.redirectToCheckout({
-        sessionId: checkoutSession.id
-      });
+      await checkout(product);
       this.isLoading = false;
     },
     localImageIfExists(url){

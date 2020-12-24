@@ -4,6 +4,9 @@
       ref="modal"
       :on-close="onClose"
     >
+      <LoadingOverlay
+        :is-loading="isLoading" 
+      />
       <div class="body">
         <h2> Unlock {{ course.Title }} </h2>
         <GemDisplay
@@ -70,26 +73,18 @@
 import Modal from '@/components/Modal';
 import BlockButton from '@/components/BlockButton';
 import GemDisplay from '@/components/GemDisplay';
+import LoadingOverlay from '@/components/LoadingOverlay';
 
 import { 
-  startProductCheckout
-} from '@/lib/cloudClient.js';
-
-import { 
-  gtmEventBeginCheckout
-} from '@/lib/gtm.js';
-import { 
-  sleep
-} from '@/lib/sleep.js';
-
-import { loadStripe } from '@stripe/stripe-js';
-import { publicKey } from '@/lib/stripeConsts';
+  checkout
+} from '@/lib/stripewrap.js';
 
 export default {
   components: {
     BlockButton,
     GemDisplay,
-    Modal
+    Modal,
+    LoadingOverlay
   },
   props: {
     course: {
@@ -100,6 +95,11 @@ export default {
       type: Boolean,
       required: true
     }
+  },
+  data() {
+    return {
+      isLoading: false
+    };
   },
   methods:{
     onClose(){
@@ -113,13 +113,7 @@ export default {
     },
     async checkout(product){
       this.isLoading = true;
-      gtmEventBeginCheckout(product.Price.UnitAmount / 100, product.ID, product.Name);
-      await sleep(250);
-      const checkoutSession = await startProductCheckout(product.ID);
-      const stripe = await loadStripe(publicKey);
-      await stripe.redirectToCheckout({
-        sessionId: checkoutSession.id
-      });
+      await checkout(product);
       this.isLoading = false;
     }
   }
