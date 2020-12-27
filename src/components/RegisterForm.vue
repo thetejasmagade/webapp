@@ -151,7 +151,8 @@ export default {
           this.password,
           this.firstName,
           this.lastName,
-          this.subscribeNews
+          this.subscribeNews,
+          this.$route.query.ruid
         );
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);

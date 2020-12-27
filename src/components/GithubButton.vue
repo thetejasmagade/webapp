@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     click() {
-      window.location.replace(getLoginWithGithubURL(this.isSubscribedNews));
+      window.location.replace(getLoginWithGithubURL(this.isSubscribedNews, this.$route.query.ruid));
     }
   }
 };

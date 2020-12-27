@@ -25,7 +25,7 @@ export async function loginManual(email, password){
   return handled;
 }
 
-export async function loginGoogle(googleJWT, isSubscribedNews) {
+export async function loginGoogle(googleJWT, isSubscribedNews, referringUserUUID) {
   const resp = await fetch(`${domain}/v1/auth/google/login`, {
     method: 'POST',
     mode: 'cors',
@@ -34,7 +34,8 @@ export async function loginGoogle(googleJWT, isSubscribedNews) {
     },
     body: JSON.stringify({
       googleJWT,
-      isSubscribedNews
+      isSubscribedNews,
+      referringUserUUID
     })
   });
   const handled = await handleJSONResponse(resp);
@@ -47,12 +48,12 @@ export async function loginGoogle(googleJWT, isSubscribedNews) {
   return handled;
 }
 
-export function getLoginWithTwitterURL(isSubscribedNews){
-  return `${domain}/v1/auth/twitter/login?is_subscribed_news=${isSubscribedNews}`;
+export function getLoginWithTwitterURL(isSubscribedNews, referringUserUUID){
+  return `${domain}/v1/auth/twitter/login?is_subscribed_news=${isSubscribedNews}&referring_user_id=${referringUserUUID}`;
 }
 
-export function getLoginWithGithubURL(isSubscribedNews) {
-  return `${domain}/v1/auth/github/login?is_subscribed_news=${isSubscribedNews}`;
+export function getLoginWithGithubURL(isSubscribedNews, referringUserUUID) {
+  return `${domain}/v1/auth/github/login?is_subscribed_news=${isSubscribedNews}&referring_user_id=${referringUserUUID}`;
 }
 
 export async function updateUserCache() {
@@ -80,7 +81,7 @@ async function refreshToken(){
   return handled;
 }
 
-export async function createUserManual(email, password, firstName, lastName, isSubscribedNews){
+export async function createUserManual(email, password, firstName, lastName, isSubscribedNews, referringUserUUID){
   const resp = await fetch(`${domain}/v1/users`, {
     method: 'POST',
     mode: 'cors',
@@ -92,7 +93,8 @@ export async function createUserManual(email, password, firstName, lastName, isS
       password, 
       firstName,
       lastName,
-      isSubscribedNews
+      isSubscribedNews,
+      referringUserUUID
     })
   });
   const handled = await handleJSONResponse(resp);

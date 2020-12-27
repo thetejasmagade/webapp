@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     click() {
-      window.location.replace(getLoginWithTwitterURL(this.isSubscribedNews));
+      window.location.replace(getLoginWithTwitterURL(this.isSubscribedNews, this.$route.query.ruid));
     }
   }
 };

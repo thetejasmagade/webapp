@@ -7,6 +7,7 @@ const Portfolio = () => import(/* webpackChunkName: "Portfolio" */ '@/views/Port
 const Exercise = () => import(/* webpackChunkName: "Exercise" */ '@/views/Exercise.vue');
 const Store = () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue');
 const CouponCode = () => import(/* webpackChunkName: "CouponCode" */ '@/views/CouponCode.vue');
+const ReferralProgram = () => import(/* webpackChunkName: "ReferralProgram" */ '@/views/ReferralProgram.vue');
 const Dashboard = () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue');
 const Login = () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue');
 const Playground = () => import(/* webpackChunkName: "Playground" */ '@/views/Playground.vue');
@@ -72,6 +73,11 @@ const routes = [
         path: 'coupon_code',
         name: 'CouponCode',
         component: CouponCode
+      },
+      {
+        path: 'referral_program',
+        name: 'ReferralProgram',
+        component: ReferralProgram
       },
       {
         path: 'settings',

@@ -11,11 +11,26 @@
         title="Store"
         subtitle="Gems are the currency of Qvault. Buy some gems to unlock full courses"
       >
-        <div class="coupon-code">
-          <span @click="$router.push({name: 'CouponCode'})">
-            Coupon Code?
-          </span>
-        </div>
+        <ul>
+          <li>
+            <a @click="$router.push({name: 'CouponCode'})">
+              Got a coupon code?
+            </a>
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://forms.gle/j2g5edjuPUFDW3tJ9"
+            >
+              Take a survey to get 100 free gems
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push({name: 'ReferralProgram'})">
+              Invite friends, get free gems
+            </a>
+          </li>
+        </ul>
         <div class="cards">
           <ImageCard
             v-for="(product, i) of products"
@@ -53,14 +68,6 @@
               </div>
             </div>
           </ImageCard>
-        </div>
-        <div class="survey-box">
-          <a
-            target="_blank"
-            href="https://forms.gle/j2g5edjuPUFDW3tJ9"
-          >
-            Take a survey and get some free gems
-          </a>
         </div>
       </Section>
     </div>
@@ -170,23 +177,10 @@ export default {
   background-attachment: fixed;
   overflow: auto;
   min-height: calc(100vh - #{$bar-height});
-}
 
-.coupon-code {
-  color: $gold-mid;
-  cursor: pointer;
-  margin: 1em;
-
-  &:hover{
-    color: $gold-darker;
-    text-decoration: underline;
+  a {
+    text-decoration: none;
   }
-}
-
-.survey-box {
-  display: flex;
-  justify-content: center;
-  margin: 1em;
 }
 
 .cards {

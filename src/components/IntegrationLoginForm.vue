@@ -82,7 +82,8 @@ export default {
       try {
         const resp = await loginGoogle(
           googleUser.getAuthResponse().id_token,
-          this.subscribeNews
+          this.subscribeNews,
+          this.$route.query.ruid
         );
         this.$store.commit('setIsLoggedIn', isLoggedIn());
         if (resp.registered){
