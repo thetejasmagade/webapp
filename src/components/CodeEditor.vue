@@ -58,13 +58,13 @@
 import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css';
 import { highlight, languages } from 'prismjs/components/prism-core';
-import 'prismjs/components/prism-clike.min';
-import 'prismjs/components/prism-javascript.min';
-import 'prismjs/components/prism-go.min';
-import 'prismjs/components/prism-rust.min';
-import 'prismjs/components/prism-python.min';
-import 'prismjs/components/prism-haskell.min'; // required for purescript
-import 'prismjs/components/prism-purescript.min';
+import 'prismjs/components/prism-clike.js';
+import 'prismjs/components/prism-javascript.js';
+import 'prismjs/components/prism-go.js';
+import 'prismjs/components/prism-rust.js';
+import 'prismjs/components/prism-haskell.js'; // required for purescript
+import 'prismjs/components/prism-purescript.js';
+import 'prismjs/components/prism-python.js';
 
 // should match any other prism components that share a page
 import 'prismjs/themes/prism-okaidia.css';
