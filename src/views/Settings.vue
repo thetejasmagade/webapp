@@ -3,7 +3,7 @@
     <div class="sidebar">
       <Section
         :title="`${$store.getters.getUser.FirstName} ${$store.getters.getUser.LastName }`"
-        :subtitle="$store.getters.getUser.Email "
+        :subtitle="$store.getters.getUser.Email"
       >
         <div class="body">
           <div class="tab">

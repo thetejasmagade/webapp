@@ -129,6 +129,7 @@ export default {
       try {
         const completedPayments = await completePayments();
         for (const completedPayment of completedPayments){
+          window.rewardful('convert', { email: this.$store.getters.getUser.Email });
           gtmEventFinishCheckout(
             completedPayment.UnitAmount / 100.0,
             completedPayment.ProductID,
