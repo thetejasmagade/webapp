@@ -51,14 +51,6 @@
         >
           <span>Blog</span>
         </a>
-
-        <a
-          href="https://stackraft.com/"
-          target="_blank"
-          class="item link"
-        >
-          <span>Jobs</span>
-        </a>
       </div>
 
       <div class="mobile item-group icon">
