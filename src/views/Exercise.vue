@@ -303,7 +303,7 @@ export default {
       this.exerciseUUID = exercise.Exercise.UUID;
 
       // Allow DOM to render changes before setting data on components
-      await this.$nextTick();
+      await sleep(100);
       if (this.type === 'type_code'){
         this.$refs.codeEditor.setCode(exercise.Exercise.Code);
         this.progLang = exercise.Exercise.ProgLang;
