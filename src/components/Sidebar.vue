@@ -226,6 +226,7 @@ export default {
     flex-direction: column;
     align-items: center;
     .profile-img{
+      margin-top: 1em;
       width: 40%;
     }
   }

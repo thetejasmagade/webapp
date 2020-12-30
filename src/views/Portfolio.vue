@@ -319,6 +319,7 @@ export default {
 }
 
 .profile-image {
+  margin-top: 25px;
   width: 200px;
 }
 

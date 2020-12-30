@@ -1,10 +1,11 @@
 <template>
   <div class="profile-img">
-    <img
-      :src="profileImageURLWithDefault"
-      class="profile"
-      alt="user avatar"
-    >
+    <div class="img-box">
+      <img
+        :src="profileImageURLWithDefault"
+        alt="user avatar"
+      >
+    </div>
     <form
       v-if="editable"
       enctype="multipart/form-data"
@@ -78,7 +79,7 @@ export default {
         await updateUserProfileImage(formData);
 
         // let the upload REALLY complete - kinda janky
-        await sleep(500);
+        await sleep(1000);
 
         // cache break to reload image
         const user = this.$store.getters.getUser;
@@ -106,10 +107,22 @@ export default {
 .profile-img {
   position: relative;
 
-  img {
-    border-radius: 50%;
-    width: 100%;
-    margin-top: 25px;
+  .img-box {
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      padding-bottom: 100%;
+    }
+
+    img {
+      border-radius: 50%;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   
   form {
