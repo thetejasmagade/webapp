@@ -224,6 +224,7 @@ export default {
             await loadCourses(this);
             const lastGemTransaction = await getLastGemTransaction();
             this.$store.commit('setBalance', lastGemTransaction.Balance);
+            this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
           } catch (err) {
             this.$notify({
               type: 'error',
