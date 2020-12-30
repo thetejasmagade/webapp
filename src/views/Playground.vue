@@ -12,7 +12,7 @@
     </div>
 
     <CodeEditor
-      ref="codeEditor"
+      v-model="code"
       class="editor"
       :run-callback="() => {}"
       :reset-callback="setCode"
@@ -58,6 +58,7 @@ export default {
   },
   data(){
     return {
+      code: '',
       lang: this.$route.params.lang,
       displayLangs: {
         go: 'Go - Web Assembly',
@@ -85,7 +86,7 @@ export default {
     },
     setCode(){
       if (this.lang === 'go'){
-        this.$refs.codeEditor.setCode(`package main
+        this.code = `package main
 
 import "fmt"
 
@@ -97,35 +98,35 @@ func main(){
 // on our servers then
 // executes on your machine
 // read about it on our blog:
-// https://qvault.io/2020/07/01/running-go-in-the-browser-with-web-assembly-wasm/`
-        );
+// https://qvault.io/2020/07/01/running-go-in-the-browser-with-web-assembly-wasm/`;
+        
         return;
       }
       if (this.lang === 'js'){
-        this.$refs.codeEditor.setCode(`
+        this.code = `
 console.log("hello, world")
-`);
+`;
         return;
       }
       if (this.lang === 'py'){
-        this.$refs.codeEditor.setCode(`print("hello, world")
+        this.code = `print("hello, world")
 
 # We use a Python interpreter that's compiled to Web Assembly
 # to run code right in your browser using a Web Worker
 # read about it on our blog: 
 # https://qvault.io/2020/09/24/running-python-in-the-browser-with-web-assembly/
-        `);
+        `;
         return;
       }
       if (this.lang === 'rs'){
-        this.$refs.codeEditor.setCode(`fn main() {
+        this.code = `fn main() {
   println!("hello, world");
 }
-`);
+`;
         return;
       }
       if (this.lang === 'purs'){
-        this.$refs.codeEditor.setCode(`module Main where
+        this.code = `module Main where
 
 import Prelude
 
@@ -133,10 +134,10 @@ import Effect.Console (logShow)
 
 main = do
   logShow "hello, world"
-`);
+`;
         return;
       }
-      this.$refs.codeEditor.setCode('unknown language');
+      this.code = 'unknown language';
     }
   }
 };

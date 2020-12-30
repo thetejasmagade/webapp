@@ -85,7 +85,7 @@
       </div>
       <CodeEditor
         v-if="type === 'type_code'"
-        ref="codeEditor"
+        v-model="code"
         class="side right"
         :run-callback="submitTypeCode"
         :reset-callback="getCurrentExercise"
@@ -165,7 +165,8 @@ export default {
       demoExercises: [],
       currentIndex: 0,
       question: {},
-      progLang: 'go'
+      progLang: 'go',
+      code: ''
     };
   },
   computed:{
@@ -248,7 +249,7 @@ export default {
       // Allow DOM to render changes before setting data on components
       await this.$nextTick();
       if (this.type === 'type_code'){
-        this.$refs.codeEditor.setCode(this.demoExercise.Code);
+        this.code = this.demoExercise.Code;
         this.progLang = this.demoExercise.ProgLang;
       } else if (this.demoExercise.Question){
         this.question = this.demoExercise.Question;

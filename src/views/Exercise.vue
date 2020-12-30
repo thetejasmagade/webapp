@@ -20,7 +20,7 @@
 
       <div class="subcontainer">
         <Section
-          :title="`You've completed the ${course.Title} demo!`"
+          :title="`You've completed the ${courseTitle} demo!`"
           subtitle="Don't stop now"
           class="section"
         >
@@ -76,7 +76,7 @@
       </div>
       <CodeEditor
         v-else-if="type === 'type_code'"
-        ref="codeEditor"
+        v-model="code"
         class="side right"
         :run-callback="submitTypeCode"
         :reset-callback="getCurrentExercise"
@@ -128,7 +128,7 @@ import {
 
 export default {
   metaInfo() {
-    const title = `${this.course.Title} Course - Qvault`;
+    const title = `${this.courseTitle} Course - Qvault`;
     return {
       title: title,
       meta: [
@@ -165,7 +165,8 @@ export default {
       courseDone: false,
       isFirstExercise: false,
       isLastExercise: false,
-      isCurrentExercise: false
+      isCurrentExercise: false,
+      code: ''
     };
   },
   computed: {
@@ -176,10 +177,16 @@ export default {
           return course;
         }
       }
-      return {};
+      return null;
+    },
+    courseTitle(){
+      if (this.course){
+        return this.course.Title;
+      }
+      return null;
     },
     demoComplete(){
-      if (this.course.IsPurchased){
+      if (!this.course || this.course.IsPurchased){
         return false;
       }
       if (this.demoExercises.length === 0){
@@ -302,10 +309,8 @@ export default {
       this.$store.commit('setCurrentModuleUUID', this.moduleUUID);
       this.exerciseUUID = exercise.Exercise.UUID;
 
-      // Allow DOM to render changes before setting data on components
-      await sleep(200);
       if (this.type === 'type_code'){
-        this.$refs.codeEditor.setCode(exercise.Exercise.Code);
+        this.code = exercise.Exercise.Code;
         this.progLang = exercise.Exercise.ProgLang;
       } else if (exercise.Exercise.Question){
         this.question = exercise.Exercise.Question;

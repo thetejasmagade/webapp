@@ -14,6 +14,7 @@
           :tab-size="tabSize"
           :insert-spaces="insertSpaces"
           :highlight="highlighter"
+          @input="onInput"
         />
       </div>
       <div
@@ -103,11 +104,15 @@ export default {
     progLang: {
       type: String,
       required: true
+    },
+    value: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
-      code: '',
+      code: this.value,
       output: [],
       err: false,
       isLoading: false,
@@ -135,9 +140,16 @@ export default {
     progLang(newLang) {
       terminateWorker(this.worker);
       this.worker = getWorker(this.getWorkerLang(newLang));
+    },
+    value(newValue) {
+      this.code = newValue;
     }
   },
   methods: {
+    onInput() {
+      // this.currentValue is a string because HTML is weird
+      this.$emit('input', this.code);
+    },
     getWorkerLang(progLang){
       if (progLang === 'purs'){
         return 'js';
@@ -152,9 +164,6 @@ export default {
     },
     highlighter(code) {
       return highlight(code, languages[this.progLang]);
-    },
-    setCode(code){
-      this.code = code;
     },
     cancelCode(){
       this.isLoading = false;
