@@ -27,7 +27,7 @@
           </li>
           <li>
             <a @click="$router.push({name: 'ReferralProgram'})">
-              Invite friends, get free gems
+              Invite friends, get 150 free gems
             </a>
           </li>
         </ul>

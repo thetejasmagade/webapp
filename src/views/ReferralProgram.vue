@@ -10,12 +10,10 @@
           We think learning is better with friends,
           so for everyone you invite to join,
           you’ll both earn some free gems.
-          As soon as the conditions of your promotion are satisfied,
-          we’ll credit each of your accounts.
 
           Copy the link below and give it to your friend.
           When they create their account using this link,
-          you'll both get some free gems!
+          you'll both get free gems!
         </p>
 
         <div class="center">
