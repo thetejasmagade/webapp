@@ -51,6 +51,7 @@
     >
       <div class="side left">
         <ExerciseNav
+          class="nav"
           :go-back="goBack"
           :go-forward="goForward"
           :can-go-back="!isFirstExercise"
@@ -418,18 +419,17 @@ export default {
   }
 }
 
+.nav {
+  padding: 1em;
+  box-sizing: border-box;
+}
+
 .demo-complete {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-
-  .nav {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0em 1em 0em 1em;
-  }
 
   .subcontainer {
     display: flex;

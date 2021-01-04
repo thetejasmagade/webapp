@@ -49,15 +49,20 @@ export default {
 
 <style lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/consts.scss';
 
 .markdown-viewer-container {
   min-height: 100%;
 
   .viewer{
-    padding: 20px;
+    padding: 1em;
     overflow: auto;
     min-height: 100%;
     background-color: inherit;
+
+    @media (max-width: $mobile-size) {
+      padding: .5em;
+    }
 
     pre {
       code {

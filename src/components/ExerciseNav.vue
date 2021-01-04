@@ -5,6 +5,7 @@
         :click="goBack"
         color="green"
         :disabled="!canGoBack"
+        class="margin-bottom-mobile"
       >
         <FontAwesomeIcon
           icon="arrow-left"
@@ -12,7 +13,7 @@
       </BlockButton>
       <BlockButton
         :disabled="!canGoForward"
-        class="margin-left"
+        class="margin-left-desktop"
         :click="goForward"
         color="green"
       >
@@ -29,7 +30,7 @@
       <FontAwesomeIcon
         :icon="['fab', 'discord']"
       />
-      <span class="margin-left-small"> Help </span>
+      <span class="margin-left-small-desktop"> Help </span>
     </BlockButton>
   </div>
 </template>
@@ -73,19 +74,30 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/consts.scss';
+
 .navigation{
-  margin: 1em 1em 0em 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   position: relative;
 
-  .margin-left{
-    margin-left: 1em;
+  .margin-left-desktop {
+    @media (min-width: $mobile-size) {
+      margin-left: 1em;
+    }
   }
 
-  .margin-left-small{
-    margin-left: 4px;
+  .margin-bottom-mobile {
+    @media (max-width: $mobile-size) {
+      margin-bottom: 1em;
+    }
+  }
+
+  .margin-left-small-desktop {
+    @media (min-width: $mobile-size) {
+      margin-left: 4px;
+    }
   }
 }
 </style>
