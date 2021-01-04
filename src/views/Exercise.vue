@@ -79,7 +79,7 @@
         v-model="code"
         class="side right"
         :run-callback="submitTypeCode"
-        :reset-callback="getCurrentExercise"
+        :reset-callback="resetCode"
         :prog-lang="progLang"
       />
       <MultipleChoice
@@ -166,7 +166,8 @@ export default {
       isFirstExercise: false,
       isLastExercise: false,
       isCurrentExercise: false,
-      code: ''
+      code: '',
+      defaultCode: ''
     };
   },
   computed: {
@@ -205,6 +206,9 @@ export default {
     this.demoExercises = await getDemoExercises(this.courseUUID);
   },
   methods: {
+    resetCode(){
+      this.code = this.defaultCode;
+    },
     async submitTypeInfo(){
       await submitInformationalExercise(
         this.exerciseUUID
@@ -311,6 +315,7 @@ export default {
 
       if (this.type === 'type_code'){
         this.code = exercise.Exercise.Code;
+        this.defaultCode = exercise.Exercise.Code;
         this.progLang = exercise.Exercise.ProgLang;
       } else if (exercise.Exercise.Question){
         this.question = exercise.Exercise.Question;
