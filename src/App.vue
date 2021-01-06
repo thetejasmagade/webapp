@@ -26,7 +26,9 @@ import {
   faTrophy,
   faCamera,
   faMapMarkerAlt,
-  faLink
+  faLink,
+  faSave,
+  faBackward
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -58,6 +60,8 @@ library.add(faMapMarkerAlt);
 library.add(faGithub);
 library.add(faLink);
 library.add(faLinkedin);
+library.add(faSave);
+library.add(faBackward);
 
 export default {
   metaInfo() {

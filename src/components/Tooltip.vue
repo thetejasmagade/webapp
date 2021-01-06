@@ -5,7 +5,13 @@
     </div>
     <div
       class="tooltip"
-      :class="color"
+      :class="{
+        gray: color === 'gray',
+        pink: color === 'pink',
+        top: position === 'top',
+        right: position === 'right'
+      }"
+      :style="{'margin-top': `${marginTop}px`}"
     >
       <span
         class="text"
@@ -25,12 +31,22 @@ export default {
     color:{
       type: String,
       required: false,
-      default: 'purple'
+      default: 'gray'
+    },
+    position:{
+      type: String,
+      required: false,
+      default: 'top'
     },
     itemMargin: {
       type: Number,
       required: false,
-      default: 5
+      default: 0
+    },
+    marginTop: {
+      type: Number,
+      required: false,
+      default: 0
     }
   }
 };
@@ -38,6 +54,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
+@import '@/styles/consts.scss';
 
 .tooltip-box { 
   position: relative;
@@ -48,27 +65,26 @@ export default {
     text-align: center;
     padding: 5px 0;
     border-radius: 2px;
-    
+    font-family: $default-font-family;
+
     width: 120px;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -60px;
+
+    &.top {
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+    }
+
+    &.right {
+      top: 50%;
+      left: 110%;
+    }
 
     opacity: 0;
     transition: opacity 1s;
 
     position: absolute;
     z-index: 1;
-
-    .text::after {
-      content: " ";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-    }
   }
 
   &:hover{
@@ -78,18 +94,12 @@ export default {
   }
 }
 
-.purple {
-  background: $purple-lighter;
-  &::after {
-    border-color: $purple-lighter transparent transparent transparent;
-  }
+.gray {
+  background: $gray-light;
 }
 
 .pink {
   background: $pink-mid;
-  &::after {
-    border-color: $pink-mid transparent transparent transparent;
-  }
 }
 
 </style>

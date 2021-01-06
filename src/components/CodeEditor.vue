@@ -30,15 +30,53 @@
               icon="play"
             />
           </BlockButton>
-          <BlockButton
-            class="btn bottom"
-            :click="runReset"
-            color="gray"
+          <Tooltip
+            v-if="saveCallback"
+            :text="`Save Code`"
+            position="right"
+            :margin-top="-7"
           >
-            <FontAwesomeIcon
-              icon="undo"
-            />
-          </BlockButton>
+            <BlockButton
+              class="btn bottom"
+              :click="saveCallback"
+              color="green"
+            >
+              <FontAwesomeIcon
+                icon="save"
+              />
+            </BlockButton>
+          </Tooltip>
+          <Tooltip
+            v-if="loadCallback"
+            :text="`Load Last Save`"
+            position="right"
+            :margin-top="-7"
+          >
+            <BlockButton
+              class="btn bottom"
+              :click="loadCallback"
+              color="gray"
+            >
+              <FontAwesomeIcon
+                icon="backward"
+              />
+            </BlockButton>
+          </Tooltip>
+          <Tooltip
+            :text="`Reset Exercise`"
+            position="right"
+            :margin-top="-7"
+          >
+            <BlockButton
+              class="btn bottom"
+              :click="runReset"
+              color="gray"
+            >
+              <FontAwesomeIcon
+                icon="undo"
+              />
+            </BlockButton>
+          </Tooltip>
         </div>
         <div class="output">
           <p
@@ -70,10 +108,6 @@ import 'prismjs/components/prism-python.js';
 // should match any other prism components that share a page
 import 'prismjs/themes/prism-okaidia.css';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-import BlockButton from '@/components/BlockButton';
-import LoadingOverlay from '@/components/LoadingOverlay';
 import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
 import { 
   compileGo,
@@ -85,12 +119,19 @@ import {
   sleep
 } from '@/lib/sleep.js';
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import BlockButton from '@/components/BlockButton';
+import LoadingOverlay from '@/components/LoadingOverlay';
+import Tooltip from '@/components/Tooltip';
+
+
 export default {
   components: {
     PrismEditor,
     FontAwesomeIcon,
     LoadingOverlay,
-    BlockButton
+    BlockButton,
+    Tooltip
   },
   props: {
     runCallback: {
@@ -100,6 +141,16 @@ export default {
     resetCallback: {
       type: Function,
       required: true
+    },
+    saveCallback: {
+      type: Function,
+      required: false,
+      default: null
+    },
+    loadCallback: {
+      type: Function,
+      required: false,
+      default: null
     },
     progLang: {
       type: String,
@@ -326,6 +377,7 @@ span.token.operator {
 
     .btn {
       font-size: 1em;
+      width: 100%;
     }
 
     .output {

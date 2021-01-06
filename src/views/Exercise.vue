@@ -81,6 +81,8 @@
         class="side right"
         :run-callback="submitTypeCode"
         :reset-callback="resetCode"
+        :save-callback="saveCode"
+        :load-callback="getSavedCode"
         :prog-lang="progLang"
       />
       <MultipleChoice
@@ -124,7 +126,9 @@ import {
   submitCodeExercise,
   submitMultipleChoiceExercise,
   getFirstExercise,
-  getDemoExercises
+  getDemoExercises,
+  saveCode,
+  getSavedCode
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -209,6 +213,42 @@ export default {
   methods: {
     resetCode(){
       this.code = this.defaultCode;
+    },
+    async saveCode(){
+      try{
+        await saveCode(this.exerciseUUID, this.code);
+        this.$notify({
+          type: 'success',
+          text: 'Code saved!'
+        });
+      } catch (err) {
+        this.$notify({
+          type: 'error',
+          text: 'Couldn\'t save code'
+        });
+      }
+    },
+    async getSavedCode(){
+      try{
+        const resp = await getSavedCode (this.exerciseUUID, this.code);
+        if (resp.Code && resp.Code !== ''){
+          this.code = resp.Code;
+          this.$notify({
+            type: 'success',
+            text: 'Last save loaded!'
+          });
+          return;
+        }
+        this.$notify({
+          type: 'error',
+          text: 'No saved code found for this exercise'
+        });
+      } catch (err) {
+        this.$notify({
+          type: 'error',
+          text: 'Couldn\'t load code'
+        });
+      }
     },
     async submitTypeInfo(){
       await submitInformationalExercise(
