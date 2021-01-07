@@ -11,7 +11,6 @@
         top: position === 'top',
         right: position === 'right'
       }"
-      :style="{'margin-top': `${marginTop}px`}"
     >
       <span
         class="text"

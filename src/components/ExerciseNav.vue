@@ -3,9 +3,9 @@
     <div>
       <BlockButton
         :click="goBack"
-        color="green"
         :disabled="!canGoBack"
         class="margin-bottom-mobile"
+        :color="canGoBack ? 'green' : 'gray'"
       >
         <FontAwesomeIcon
           icon="arrow-left"
@@ -15,12 +15,21 @@
         :disabled="!canGoForward"
         class="margin-left-desktop"
         :click="goForward"
-        color="green"
+        :color="canGoForward ? 'green' : 'gray'"
       >
         <FontAwesomeIcon
           icon="arrow-right"
         />
       </BlockButton>
+    </div>
+
+    <div
+      v-if="title"
+      class="title"
+    >
+      <span>
+        {{ title }}
+      </span>
     </div>
 
     <BlockButton
@@ -44,7 +53,12 @@ export default {
     BlockButton,
     FontAwesomeIcon
   },
-  props: { 
+  props: {
+    title: {
+      type: String,
+      required: false,
+      default: null
+    },
     goBack:{
       type: Function,
       required: true
@@ -81,6 +95,16 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
+
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: $mobile-size) {
+      display: none;
+    }
+  }
 
   .margin-left-desktop {
     @media (min-width: $mobile-size) {

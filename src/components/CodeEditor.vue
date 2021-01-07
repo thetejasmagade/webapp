@@ -23,7 +23,6 @@
       >
         <div class="btns">
           <Tooltip
-            v-if="saveCallback"
             :text="`Run Code`"
             position="right"
           >

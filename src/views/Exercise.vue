@@ -52,12 +52,13 @@
       <div class="side left">
         <ExerciseNav
           class="nav"
+          :title="modulePosition ? `${moduleTitleTruncated} - ${modulePosition}/${numExercisesInModule}`: null"
           :go-back="goBack"
           :go-forward="goForward"
           :can-go-back="!isFirstExercise"
           :can-go-forward="!(isCurrentExercise || isLastExercise)"
         />
-        
+
         <MarkdownViewer
           :source="markdownSource"
         />
@@ -128,7 +129,8 @@ import {
   getFirstExercise,
   getDemoExercises,
   saveCode,
-  getSavedCode
+  getSavedCode,
+  getCourses
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -172,13 +174,59 @@ export default {
       isLastExercise: false,
       isCurrentExercise: false,
       code: '',
-      defaultCode: ''
+      defaultCode: '',
+      courses: null
     };
   },
   computed: {
+    modulePosition(){
+      if (!this.module){
+        return null;
+      }
+      let count = 0;
+      if (!this.module.Exercises){
+        return null;
+      }
+      for (const exercise of this.module.Exercises){
+        count++;
+        if (exercise.UUID === this.exerciseUUID){
+          return count;
+        }
+      }
+      return null;
+    },
+    numExercisesInModule(){
+      if (!this.module){
+        return null;
+      }
+      if (this.module.Exercises){
+        return this.module.Exercises.length;
+      }
+      return null;
+    },
+    module(){
+      if (!this.course || !this.course.Modules){
+        return null;
+      }
+      for (const mod of this.course.Modules){
+        if (mod.UUID === this.moduleUUID){
+          return mod;
+        }
+      }
+      return null;
+    },
+    moduleTitleTruncated(){
+      const maxLength = 15;
+      if (this.module.Title > 5) {
+        return this.module.Title.substring(0, maxLength) + '...';
+      }
+      return this.module.Title;
+    },
     course(){
-      let courses = this.$store.getters.getCourses;
-      for (const course of courses){
+      if (!this.courses){
+        return null;
+      }
+      for (const course of this.courses){
         if (course.UUID === this.courseUUID){
           return course;
         }
@@ -207,6 +255,7 @@ export default {
     }
   },
   async mounted(){
+    this.courses = await getCourses(this.courseUUID);
     await this.getCurrentExercise();
     this.demoExercises = await getDemoExercises(this.courseUUID);
   },

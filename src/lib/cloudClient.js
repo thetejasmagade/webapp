@@ -465,8 +465,8 @@ export async function startProductCheckout(productID){
   return handled;
 }
 
-export async function getCourses(){
-  const resp = await fetchWithAuth(`${domain}/v1/courses`, {
+export async function getCourses(courseUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/courses?course_uuid=${courseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
