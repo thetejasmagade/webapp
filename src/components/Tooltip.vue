@@ -81,6 +81,10 @@ export default {
 
     position: absolute;
     z-index: 1;
+
+    @media (max-width: $mobile-size) {
+      display: none;
+    }
   }
 
   &:hover{
