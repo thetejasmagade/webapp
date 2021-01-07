@@ -1,6 +1,6 @@
 <template>
   <div class="tooltip-box">
-    <div :style="{margin: `${itemMargin}px`}">
+    <div>
       <slot />
     </div>
     <div
@@ -42,11 +42,6 @@ export default {
       type: Number,
       required: false,
       default: 0
-    },
-    marginTop: {
-      type: Number,
-      required: false,
-      default: 0
     }
   }
 };
@@ -70,18 +65,20 @@ export default {
     width: 120px;
 
     &.top {
-      bottom: 100%;
+      bottom: calc(100% + 5px);
       left: 50%;
       margin-left: -60px;
     }
 
     &.right {
       top: 50%;
-      left: 110%;
+      left: calc(100% + 5px);
+      transform: translate(0, -50%);
     }
 
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity .5s;
+    transition-delay: .4s;
 
     position: absolute;
     z-index: 1;

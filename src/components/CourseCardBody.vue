@@ -4,6 +4,7 @@
   >
     <DifficultyBar 
       :difficulty="course.Difficulty"
+      class="item"
     />
             
     <span class="title item">
@@ -177,7 +178,7 @@ export default {
 }
 
 .item{
-  margin: 15px 5px 0 5px;
+  margin: 10px 10px 0 10px;
 
   &.bottom{
     margin: 0 0 10px 0;

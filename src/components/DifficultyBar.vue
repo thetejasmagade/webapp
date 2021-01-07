@@ -3,8 +3,6 @@
     <Tooltip
       :text="`Difficulty ${difficulty}%`"
       color="pink"
-      class="item"
-      :item-margin="10"
     >
       <ScaleBar
         :total="maxDifficulty"

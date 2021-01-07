@@ -22,22 +22,28 @@
         class="console-output"
       >
         <div class="btns">
-          <BlockButton
-            class="btn"
-            :click="runCode"
+          <Tooltip
+            v-if="saveCallback"
+            :text="`Run Code`"
+            position="right"
           >
-            <FontAwesomeIcon
-              icon="play"
-            />
-          </BlockButton>
+            <BlockButton
+              class="btn"
+              :click="runCode"
+            >
+              <FontAwesomeIcon
+                icon="play"
+              />
+            </BlockButton>
+          </Tooltip>
           <Tooltip
             v-if="saveCallback"
             :text="`Save Code`"
             position="right"
-            :margin-top="-7"
+            class="bottom"
           >
             <BlockButton
-              class="btn bottom"
+              class="btn"
               :click="saveCallback"
               color="green"
             >
@@ -50,10 +56,10 @@
             v-if="loadCallback"
             :text="`Load Last Save`"
             position="right"
-            :margin-top="-7"
+            class="bottom"
           >
             <BlockButton
-              class="btn bottom"
+              class="btn"
               :click="loadCallback"
               color="gray"
             >
@@ -65,10 +71,10 @@
           <Tooltip
             :text="`Reset Exercise`"
             position="right"
-            :margin-top="-7"
+            class="bottom"
           >
             <BlockButton
-              class="btn bottom"
+              class="btn"
               :click="runReset"
               color="gray"
             >
