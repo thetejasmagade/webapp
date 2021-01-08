@@ -52,7 +52,6 @@ export default {
 
 .tooltip-box { 
   position: relative;
-  display: inline-block;
 
   .tooltip { 
     color: $white;
@@ -60,7 +59,6 @@ export default {
     padding: 5px 0;
     border-radius: 2px;
     font-family: $default-font-family;
-
     width: 120px;
 
     &.top {
@@ -75,8 +73,9 @@ export default {
       transform: translate(0, -50%);
     }
 
+    visibility: hidden;
     opacity: 0;
-    transition: opacity .5s;
+    transition: visibility 0s, opacity 0.5s linear;
     transition-delay: .4s;
 
     position: absolute;
@@ -89,6 +88,7 @@ export default {
 
   &:hover{
     .tooltip {
+      visibility: visible;
       opacity: 1;
     }
   }
