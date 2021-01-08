@@ -324,21 +324,6 @@ export async function compileGo(code){
   return handled;
 }
 
-export async function compileRust(code) {
-  const resp = await fetch(`${domain}/v1/compile/rust`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      code
-    })
-  });
-  const handled = await handleWasmResponse(resp);
-  return handled;
-}
-
 export async function compilePureScript(code) {
   const resp = await fetch(`${domain}/v1/compile/purescript`, {
     method: 'POST',

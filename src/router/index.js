@@ -108,10 +108,6 @@ const routes = [
     redirect: { path: 'playground/py' }
   },
   {
-    path: '/playground/rust', 
-    redirect: { path: 'playground/rs' }
-  },
-  {
     path: '/playground/purescript', 
     redirect: { path: 'playground/purs' }
   },

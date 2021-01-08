@@ -105,7 +105,6 @@ import { highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-clike.js';
 import 'prismjs/components/prism-javascript.js';
 import 'prismjs/components/prism-go.js';
-import 'prismjs/components/prism-rust.js';
 import 'prismjs/components/prism-haskell.js'; // required for purescript
 import 'prismjs/components/prism-purescript.js';
 import 'prismjs/components/prism-python.js';
@@ -116,7 +115,6 @@ import 'prismjs/themes/prism-okaidia.css';
 import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
 import { 
   compileGo,
-  compileRust,
   compilePureScript
 } from '@/lib/cloudClient.js';
 
@@ -188,8 +186,7 @@ export default {
     insertSpaces(){
       return this.progLang === 'js' || 
         this.progLang === 'purs' ||
-        this.progLang === 'py' ||
-        this.progLang === 'rs';
+        this.progLang === 'py';
     }
   },
   watch: { 
@@ -219,11 +216,7 @@ export default {
       });
     },
     highlighter(code) {
-      let progLang = this.progLang;
-      if (this.progLang === 'rs'){
-        progLang = 'rust';
-      }
-      return highlight(code, languages[progLang]);
+      return highlight(code, languages[this.progLang]);
     },
     cancelCode(){
       this.isLoading = false;
@@ -248,18 +241,7 @@ export default {
             await this.runCallback(err);
             throw err;
           }
-        } else if (this.progLang === 'rs'){
-          try {
-            const wasm = await compileRust(this.code);
-            await useWorker(this.worker, wasm, (data) => {
-              this.output.push(data); 
-              this.scrollToEnd();
-            });
-          } catch (err){
-            await this.runCallback(err);
-            throw err;
-          }
-        } else if (this.progLang === 'purs'){
+        }  else if (this.progLang === 'purs'){
           try {
             const resp = await compilePureScript(this.code);
             await useWorker(this.worker, resp.Code, (data) => {

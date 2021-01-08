@@ -64,7 +64,6 @@ export default {
         go: 'Go - Web Assembly',
         js: 'JavaScript',
         py: 'Python - Web Assembly',
-        rs: 'Rust - Web Assembly',
         purs: 'PureScript'
       }
     };
@@ -116,13 +115,6 @@ console.log("hello, world")
 # read about it on our blog: 
 # https://qvault.io/2020/09/24/running-python-in-the-browser-with-web-assembly/
         `;
-        return;
-      }
-      if (this.lang === 'rs'){
-        this.code = `fn main() {
-  println!("hello, world");
-}
-`;
         return;
       }
       if (this.lang === 'purs'){
