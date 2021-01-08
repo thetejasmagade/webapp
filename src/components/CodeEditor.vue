@@ -219,7 +219,11 @@ export default {
       });
     },
     highlighter(code) {
-      return highlight(code, languages[this.progLang]);
+      let progLang = this.progLang;
+      if (this.progLang === 'rs'){
+        progLang = 'rust';
+      }
+      return highlight(code, languages[progLang]);
     },
     cancelCode(){
       this.isLoading = false;
