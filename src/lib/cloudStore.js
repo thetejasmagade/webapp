@@ -5,8 +5,21 @@ import {
   getProducts,
   isLoggedIn,
   logout,
-  getUserAchievements
+  getUserAchievements,
+  getInterests
 } from '@/lib/cloudClient.js';
+
+export async function loadAllInterests(thisComponent){
+  try {
+    const interests = await getInterests();
+    thisComponent.$store.commit('setAllInterests', interests);
+  } catch (err) {
+    thisComponent.$notify({
+      type: 'error',
+      text: err
+    });
+  }
+}
 
 export async function loadCourses(thisComponent){
   try {

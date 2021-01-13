@@ -35,9 +35,12 @@ import CheckboxForm from '@/components/CheckboxForm';
 import BlockButton from '@/components/BlockButton';
 
 import { 
-  getInterests,
   updateUserInterests
 } from '@/lib/cloudClient.js';
+
+import { 
+  loadAllInterests
+} from '@/lib/cloudStore.js';
 
 export default {
   components: {
@@ -59,9 +62,9 @@ export default {
     }
   },
   async mounted(){
-    const interests = await getInterests();
+    await loadAllInterests(this);
     let interestsMap = {};
-    for (const interest of interests){
+    for (const interest of this.$store.getters.getAllInterests){
       interestsMap[interest.Title] = interest.UUID;
     }
     this.interestsMap = interestsMap;

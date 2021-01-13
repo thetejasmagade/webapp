@@ -2,12 +2,56 @@
   <div
     class="body"
   >
-    <DifficultyBar 
-      :difficulty="course.Difficulty"
-      class="item"
-    />
+    <div class="icons item">
+      <div class="icon pink">
+        <Tooltip
+          :text="`Difficulty ${course.Difficulty}%`"
+          color="pink"
+        >
+          <FontAwesomeIcon
+            icon="signal"
+          />
+        </Tooltip>
+      </div>
+      <div
+        v-if="interests.length > 0"
+        class="icon gold"
+      >
+        <Tooltip
+          :text="`Tags: ${interests.join(', ')}`"
+          color="gold"
+        >
+          <FontAwesomeIcon
+            icon="tags"
+          />
+        </Tooltip>
+      </div>
+      <div
+        v-if="prereqs.length > 0 "
+        class="icon purple"
+      >
+        <Tooltip
+          :text="`Prerequsites: ${prereqs.join(', ')}`"
+          color="purple"
+        >
+          <FontAwesomeIcon
+            icon="school"
+          />
+        </Tooltip>
+      </div>
+      <div class="icon gray">
+        <Tooltip
+          :text="`~${course.Modules.length * 6} Hours`"
+          color="gray"
+        >
+          <FontAwesomeIcon
+            icon="hourglass"
+          />
+        </Tooltip>
+      </div>
+    </div>
             
-    <span class="title item">
+    <span class="title">
       {{ course.Title }}
     </span>
 
@@ -100,17 +144,21 @@
 </template>
 
 <script>
+import { 
+  loadAllInterests
+} from '@/lib/cloudStore.js';
+
 import GemDisplay from '@/components/GemDisplay';
-import DifficultyBar from '@/components/DifficultyBar';
 import BlockButton from '@/components/BlockButton';
+import Tooltip from '@/components/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
     GemDisplay,
-    DifficultyBar,
     BlockButton,
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    Tooltip
   },
   props: { 
     course: {
@@ -126,6 +174,39 @@ export default {
       required: true
     }
   },
+  computed: {
+    interests(){
+      if (!this.course || !this.course.Interests){
+        return [];
+      }
+      let interests = [];
+      for (const [ interestUUID ]  of Object.entries(this.course.Interests)){
+        for (const interest of this.$store.getters.getAllInterests){
+          if (interestUUID === interest.UUID){
+            interests.push(interest.Title);
+          }
+        }
+      }
+      return interests;
+    },
+    prereqs(){
+      if (!this.course || !this.course.PrerequisiteCourseUUIDS){
+        return [];
+      }
+      let prereqs = [];
+      for (const uuid of this.course.PrerequisiteCourseUUIDS){
+        for (const course of this.$store.getters.getCourses){
+          if (course.UUID === uuid){
+            prereqs.push(course.Title);
+          }
+        }
+      }
+      return prereqs;
+    }
+  },
+  async mounted(){
+    loadAllInterests(this);
+  },
   methods: {
     linkClick(url) {
       window.open(url, '_blank');
@@ -137,6 +218,27 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  .icon {
+    &.pink {
+      color: $pink-lighter;
+    }
+    &.purple {
+      color: $purple-lighter;
+    }
+    &.gray {
+      color: $gray-lighter;
+    }
+    &.gold {
+      color: $gold-lighter;
+    }
+  }
+}
 
 .body {
   display: flex;

@@ -28,7 +28,11 @@ import {
   faMapMarkerAlt,
   faLink,
   faSave,
-  faBackward
+  faBackward,
+  faSignal,
+  faTags,
+  faSchool,
+  faHourglass
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -62,6 +66,11 @@ library.add(faLink);
 library.add(faLinkedin);
 library.add(faSave);
 library.add(faBackward);
+library.add(faSignal);
+library.add(faTags);
+library.add(faSchool);
+library.add(faHourglass);
+
 
 export default {
   metaInfo() {

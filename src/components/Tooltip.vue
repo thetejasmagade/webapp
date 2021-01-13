@@ -8,6 +8,8 @@
       :class="{
         gray: color === 'gray',
         pink: color === 'pink',
+        gold: color === 'gold',
+        purple: color === 'purple',
         top: position === 'top',
         right: position === 'right'
       }"
@@ -56,7 +58,7 @@ export default {
   .tooltip { 
     color: $white;
     text-align: center;
-    padding: 5px 0;
+    padding: 5px;
     border-radius: 2px;
     font-family: $default-font-family;
     width: 120px;
@@ -95,11 +97,19 @@ export default {
 }
 
 .gray {
-  background: $gray-light;
+  background: $gray-mid;
 }
 
 .pink {
   background: $pink-mid;
+}
+
+.gold {
+  background: $gold-dark;
+}
+
+.purple {
+  background: $purple-dark;
 }
 
 </style>

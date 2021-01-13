@@ -11,7 +11,8 @@ export default new Vuex.Store({
     courses: [],
     userAchievements: [],
     user: {},
-    currentModuleUUID: null
+    currentModuleUUID: null,
+    allInterests: []
   },
   mutations: {
     setBalance(state, newBalance) {
@@ -44,6 +45,9 @@ export default new Vuex.Store({
     },
     setCurrentModuleUUID(state, newCurrentModuleUUID) {
       state.currentModuleUUID = newCurrentModuleUUID;
+    },
+    setAllInterests(state, newAllInterests){
+      state.allInterests = newAllInterests;
     }
   },
   actions: {},
@@ -71,6 +75,9 @@ export default new Vuex.Store({
     },
     getCurrentModuleUUID(state) {
       return state.currentModuleUUID;
+    },
+    getAllInterests(state){
+      return state.allInterests;
     }
   }
 });
