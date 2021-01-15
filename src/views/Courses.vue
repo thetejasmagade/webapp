@@ -90,7 +90,8 @@ import {
 } from '@/lib/cloudStore.js';
 
 import {
-  gtmEventPurchaseCourseWithGems
+  gtmEventPurchaseCourseWithGems,
+  gtmEventSelectCourse
 } from '@/lib/gtm.js';
 
 export default {
@@ -204,6 +205,7 @@ export default {
         this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
         return;
       }
+      gtmEventSelectCourse(course.UUID, course.Title);
       const enoughGems = (isDemo && this.$store.getters.getBalance >= course.GemDemoCost) || 
         (!isDemo && this.$store.getters.getBalance >= course.GemCost);
       if (!enoughGems){

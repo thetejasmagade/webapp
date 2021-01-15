@@ -115,8 +115,9 @@ import {
 } from '@/lib/sleep.js';
 
 import { 
-  gtmEarnGems,
-  gtmUnlockAchievement
+  gtmEventEarnGems,
+  gtmEventUnlockAchievement,
+  gtmEventFinishCourse
 } from '@/lib/gtm.js';
 
 import { 
@@ -316,7 +317,7 @@ export default {
       }
 
       if (rewardsResponse.GemCredit){
-        gtmEarnGems(rewardsResponse.GemCredit);
+        gtmEventEarnGems(rewardsResponse.GemCredit);
       }
 
       let notificationShown = false;
@@ -330,10 +331,10 @@ export default {
       if (rewardsResponse.Achievements){
         for (const achievement of rewardsResponse.Achievements){
           if (achievement.GemReward){
-            gtmEarnGems(achievement.GemReward);
+            gtmEventEarnGems(achievement.GemReward);
           }
           if (achievement.UUID){
-            gtmUnlockAchievement(achievement.UUID);
+            gtmEventUnlockAchievement(achievement.UUID);
           }
           this.$notify({
             type: 'success',
@@ -388,9 +389,15 @@ export default {
     },
     async moveToExercise(exercise){
       if (exercise.CourseDone){
+        if (!this.courseDone){
+          gtmEventFinishCourse(this.course.Title, false);
+        }
         this.courseDone = true;
         this.handleRewards(exercise.Rewards);
         return;
+      }
+      if (this.demoComplete){
+        gtmEventFinishCourse(this.course.Title, true);
       }
       this.courseDone = false;
       this.isFirstExercise = exercise.Exercise.IsFirst;
@@ -509,17 +516,12 @@ export default {
 }
 
 .nav {
+  width: 100%;
   padding: 1em;
   box-sizing: border-box;
 }
 
 .demo-complete {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-
   .subcontainer {
     display: flex;
     flex-direction: column;

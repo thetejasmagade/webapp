@@ -39,6 +39,10 @@ import TopNav from '@/components/TopNav';
 import BlockButton from '@/components/BlockButton';
 import Section from '@/components/Section';
 
+import { 
+  gtmEventTutorialComplete
+} from '@/lib/gtm.js';
+
 export default {
   components: {
     BlockButton,
@@ -47,6 +51,7 @@ export default {
   },
   methods:{
     async done(){
+      gtmEventTutorialComplete();
       this.$router.push({name: 'Courses' });
     }
   }

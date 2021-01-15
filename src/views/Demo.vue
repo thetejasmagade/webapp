@@ -3,7 +3,7 @@
     <TopNav :title="courseTitle" />
 
     <div
-      v-if="currentIndex >= demoExercises.length && currentIndex !== 0"
+      v-if="isLastScreen"
       class="demo-complete"
     >
       <ExerciseNav
@@ -60,6 +60,7 @@
     >
       <div class="side left">
         <ExerciseNav
+          class="nav"
           :go-back="goBack"
           :go-forward="goForward"
           :can-go-back="!isFirstExercise"
@@ -117,6 +118,10 @@ import {
   getDemoExercises,
   getCoursePublic
 } from '@/lib/cloudClient.js';
+
+import { 
+  gtmEventFinishCourse
+} from '@/lib/gtm.js';
 
 import { 
   sleep
@@ -180,8 +185,7 @@ export default {
       return this.currentIndex === 0;
     },
     isLastScreen(){
-      // extra for the last sceen
-      return this.currentIndex === this.demoExercises.length;
+      return this.currentIndex >= this.demoExercises.length && this.currentIndex !== 0;
     },
     demoExercise(){
       if (this.currentIndex < this.demoExercises.length){
@@ -240,6 +244,10 @@ export default {
       }
     },
     async moveToExercise(){
+      if (this.isLastScreen){
+        gtmEventFinishCourse(this.course.Title, true);
+      }
+
       if (!this.demoExercise){
         return;
       }
@@ -321,18 +329,18 @@ export default {
   }
 }
 
+.nav {
+  width: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
 .demo-complete {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-
-  .nav {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0em 1em 0em 1em;
-  }
 
   .subcontainer {
     display: flex;

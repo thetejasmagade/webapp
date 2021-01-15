@@ -9,7 +9,6 @@ export function gtmEventRegister(method){
   try {
     window.dataLayer.push({
       'event': 'sign_up',
-      'interaction-type': false,
       'method': method,
       'value': .25,
       'currency': 'USD'
@@ -23,7 +22,6 @@ export function gtmEventBeginCheckout(priceUSD, productID, productName){
   try {
     window.dataLayer.push({
       'event': 'begin_checkout',
-      'interaction-type': false,
       'items': [ {
         'item_id': productID,
         'item_name': productName,
@@ -42,7 +40,6 @@ export function gtmEventFinishCheckout(priceUSD, productID, productName){
   try {
     window.dataLayer.push({
       'event': 'purchase',
-      'interaction-type': false,
       'items': [ {
         'item_id': productID,
         'item_name': productName,
@@ -61,8 +58,7 @@ export function gtmEventPurchaseCourseWithGems(priceGems, courseName, isDemo){
   try {
     window.dataLayer.push({
       'event': 'spend_virtual_currency',
-      'interaction-type': false,
-      'item_name': `${courseName}${isDemo ? ' - Demo' : ''}`,
+      'item_name': getCourseNameWithDemo(courseName, isDemo),
       'virtual_currency_name': 'Gems',
       'value': priceGems
     });
@@ -71,11 +67,10 @@ export function gtmEventPurchaseCourseWithGems(priceGems, courseName, isDemo){
   }
 }
 
-export function gtmEarnGems(numGems){
+export function gtmEventEarnGems(numGems){
   try {
     window.dataLayer.push({
       'event': 'earn_virtual_currency',
-      'interaction-type': false,
       'virtual_currency_name': 'Gems',
       'value': numGems
     });
@@ -84,14 +79,63 @@ export function gtmEarnGems(numGems){
   }
 }
 
-export function gtmUnlockAchievement(achievementID){
+export function gtmEventUnlockAchievement(achievementID){
   try {
     window.dataLayer.push({
       'event': 'unlock_achievement',
-      'interaction-type': false,
       'achievement_id': achievementID
     });
   } catch (err) {
     console.log(err);
   }
+}
+
+export function gtmEventFinishCourse(courseName, isDemo){
+  try {
+    window.dataLayer.push({
+      'event': 'level_end',
+      'level_name': getCourseNameWithDemo(courseName, isDemo)
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventSelectCourse(courseUUID, courseName){
+  try {
+    window.dataLayer.push({
+      'event': 'select_item',
+      'item_list_name': 'courses',
+      'items': [ {
+        'item_id': courseUUID,
+        'item_name': courseName
+      } ]
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventTutorialBegin(){
+  try {
+    window.dataLayer.push({
+      'event': 'tutorial_begin'
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventTutorialComplete(){
+  try {
+    window.dataLayer.push({
+      'event': 'tutorial_complete'
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function getCourseNameWithDemo(courseName, isDemo){
+  return `${courseName}${isDemo ? ' - Demo' : ''}`;
 }

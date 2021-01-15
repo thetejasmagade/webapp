@@ -37,6 +37,10 @@ import Section from '@/components/Section';
 import BlockButton from '@/components/BlockButton';
 
 import { 
+  gtmEventTutorialBegin
+} from '@/lib/gtm.js';
+
+import { 
   updateUser
 } from '@/lib/cloudClient.js';
 
@@ -71,6 +75,9 @@ export default {
       }
       return 'I\'ve been called a senior engineer';
     }
+  },
+  mounted(){
+    gtmEventTutorialBegin();
   },
   methods:{
     async submitDeveloperExperience(){
