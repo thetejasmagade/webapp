@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     balance: 0,
     products: [],
-    isLoggedIn: false,
+    jwtClaims: null,
     courses: [],
     userAchievements: [],
     user: {},
@@ -22,8 +22,8 @@ export default new Vuex.Store({
       newProducts.sort((p1, p2) => p1.Price.UnitAmount > p2.Price.UnitAmount ? 1 : -1);
       state.products = newProducts;
     },
-    setIsLoggedIn(state, newIsLoggedIn) {
-      state.isLoggedIn = newIsLoggedIn;
+    setJWTClaims(state, newJWTClaims) {
+      state.jwtClaims = newJWTClaims;
     },
     setCourses(state, newCourses) {
       newCourses.sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
@@ -59,7 +59,13 @@ export default new Vuex.Store({
       return state.products;
     },
     getIsLoggedIn(state) {
-      return state.isLoggedIn;
+      return state.jwtClaims !== null;
+    },
+    getIsEmailVerified(state){
+      if (!state.jwtClaims){
+        return false;
+      }
+      return state.jwtClaims.email_verified;
     },
     getCourses(state) {
       return state.courses;

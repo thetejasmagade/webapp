@@ -17,6 +17,7 @@ const Demo = () => import(/* webpackChunkName: "Demo" */ '@/views/Demo.vue');
 const SignupFlowExperience = () => import(/* webpackChunkName: "SignupFlowExperience" */ '@/views/SignupFlowExperience.vue');
 const SignupFlowInterests = () => import(/* webpackChunkName: "SignupFlowInterests" */ '@/views/SignupFlowInterests.vue');
 const SignupFlowGems = () => import(/* webpackChunkName: "SignupFlowGems" */ '@/views/SignupFlowGems.vue');
+const VerifyEmail = () => import(/* webpackChunkName: "VerifyEmail" */ '@/views/VerifyEmail.vue');
 
 
 Vue.use(VueRouter);
@@ -33,6 +34,11 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/verify_email',
+    name: 'VerifyEmail',
+    component: VerifyEmail
   },
   {
     path: '/signup_flow/experience',

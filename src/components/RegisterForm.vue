@@ -1,97 +1,72 @@
 <template>
-  <div>
-    <div
-      v-if="state === 'register'"
+  <div
+    class="active-form"
+  >
+    <form
       class="active-form"
+      @submit.prevent="submitRegister"
     >
-      <form
-        class="active-form"
-        @submit.prevent="submitRegister"
-      >
+      <TextInput
+        v-model="email"
+        placeholder="Email"
+        type="email"
+        name="email"
+        required
+        class="item input"
+      />
+      <div class="item">
         <TextInput
-          v-model="email"
-          placeholder="Email"
-          type="email"
-          name="email"
+          v-model="firstName"
+          class="sub-item"
+          placeholder="First Name"
+          name="fname"
           required
-          class="item input"
-        />
-        <div class="item">
-          <TextInput
-            v-model="firstName"
-            class="sub-item"
-            placeholder="First Name"
-            name="fname"
-            required
-            type="text"
-          />
-          <TextInput
-            v-model="lastName"
-            placeholder="Last Name"
-            type="text"
-            name="lname"
-            required
-            class="sub-item right"
-          />
-        </div>
-        <TextInput
-          v-model="password"
-          placeholder="Password"
-          type="password"
-          class="item"
-          required
-        />
-        <TextInput
-          v-model="passwordConfirm"
-          placeholder="Confirm Password"
-          type="password"
-          class="item"
-          required
-        />
-
-        <div class="item switch">
-          <ToggleSwitch
-            v-model="subscribeNews"
-          />
-          <span class="sub-item right">Get coding articles and news</span>
-        </div>
-
-        <div class="item switch">
-          <ToggleSwitch
-            v-model="tosAccepted"
-          />
-          <span class="sub-item right">I've read and agree to the 
-            <a href="https://qvault.io/terms-of-service/">terms</a>
-          </span>
-        </div>
-
-        <BlockButton class="btn">
-          Sign Up Free
-        </BlockButton>
-      </form>
-    </div>
-
-    <div
-      v-if="state === 'email-verification-code'"
-      class="active-form"
-    >
-      <form
-        class="active-form"
-        @submit.prevent="submitVerificationCode"
-      >
-        <span class="title item">Check Your Email</span>
-        <TextInput
-          v-model="validationCode"
-          placeholder="6 digit code"
           type="text"
-          class="item"
         />
-        <BlockButton class="btn">
-          Submit
-        </BlockButton>
-        <span><a @click="resendVerification">Resend Code</a></span>
-      </form>
-    </div>
+        <TextInput
+          v-model="lastName"
+          placeholder="Last Name"
+          type="text"
+          name="lname"
+          required
+          class="sub-item right"
+        />
+      </div>
+      <TextInput
+        v-model="password"
+        placeholder="Password"
+        type="password"
+        class="item"
+        required
+      />
+      <TextInput
+        v-model="passwordConfirm"
+        placeholder="Confirm Password"
+        type="password"
+        class="item"
+        required
+      />
+
+      <div class="item switch">
+        <ToggleSwitch
+          v-model="subscribeNews"
+        />
+        <span class="sub-item right">Get coding articles and news</span>
+      </div>
+
+      <div class="item switch">
+        <ToggleSwitch
+          v-model="tosAccepted"
+        />
+        <span class="sub-item right">I've read and agree to the 
+          <a href="https://qvault.io/terms-of-service/">terms</a>
+        </span>
+      </div>
+
+      <BlockButton class="btn">
+        Sign Up Free
+      </BlockButton>
+    </form>
   </div>
 </template>
 
@@ -103,9 +78,7 @@ import ToggleSwitch from '@/components/ToggleSwitch';
 import {
   loginManual, 
   createUserManual, 
-  sendEmailVerification, 
-  verifyEmail,
-  isLoggedIn
+  sendEmailVerification
 } from '@/lib/cloudClient.js';
 
 import { gtmEventRegister } from '@/lib/gtm.js';
@@ -118,7 +91,6 @@ export default {
   },
   data(){
     return {
-      state: 'register',
       email: null,
       firstName: null,
       lastName: null,
@@ -157,33 +129,7 @@ export default {
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
         gtmEventRegister('email');
-        this.state = 'email-verification-code';
-      } catch (err){
-        this.$notify({
-          type: 'error',
-          text: err
-        });
-      }
-    },
-    async submitVerificationCode(){
-      try {
-        await verifyEmail(Number(this.validationCode));
-        await loginManual(
-          this.email, 
-          this.password
-        );
-        this.$store.commit('setIsLoggedIn', isLoggedIn());
-        this.$router.push({name: 'SignupFlowExperience'});
-      } catch (err){
-        this.$notify({
-          type: 'error',
-          text: err
-        });
-      }
-    },
-    async resendVerification(){
-      try {
-        await sendEmailVerification(this.email);
+        this.$router.push({name: 'VerifyEmail'});
       } catch (err){
         this.$notify({
           type: 'error',

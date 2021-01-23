@@ -306,6 +306,7 @@ export async function verifyEmail(code){
     })
   });
   const handled = await handleJSONResponse(resp);
+  localStorage.setItem(jwtKey, handled.token);
   return handled;
 }
 
@@ -663,11 +664,19 @@ export function logout(){
 
 export function isLoggedIn(){
   try {
-    let token = localStorage.getItem(jwtKey);
-    let decodedToken = decodeJWT(token);
+    let decodedToken = getJWTClaims();
     return decodedToken.exp > Date.now() / 1000;
   } catch (err){
     return false;
+  }
+}
+
+export function getJWTClaims(){
+  try {
+    let token = localStorage.getItem(jwtKey);
+    return decodeJWT(token);
+  } catch (err){
+    return null;
   }
 }
 

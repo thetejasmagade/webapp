@@ -71,12 +71,15 @@
 
 <script>
 import {
-  isLoggedIn,
   loginToken,
   getUser,
   updateUserCache
 } from '@/lib/cloudClient.js';
 import { gtmEventRegister } from '@/lib/gtm.js';
+
+import {
+  loadLoggedIn
+} from '@/lib/cloudStore.js';
 
 import LoginForm from '@/components/LoginForm';
 import RegisterForm from '@/components/RegisterForm';
@@ -133,7 +136,7 @@ export default {
           try {
             updateUserCache();
             gtmEventRegister('twitter/github');
-            this.$store.commit('setIsLoggedIn', isLoggedIn());
+            loadLoggedIn(this);
             this.$router.push({name: 'SignupFlowExperience'});
             return;
           } catch (err){
@@ -148,8 +151,9 @@ export default {
       }
     }
 
-    this.$store.commit('setIsLoggedIn', isLoggedIn());
-    if (this.$store.getters.getIsLoggedIn){
+    loadLoggedIn(this);
+    if (this.$store.getters.getIsLoggedIn &&
+      this.$store.getters.getIsEmailVerified){
       this.$router.push({name: 'Courses'});
     }
   }

@@ -43,10 +43,13 @@ import GithubButton from '@/components/GithubButton';
 import ToggleSwitch from '@/components/ToggleSwitch';
 
 import {
-  isLoggedIn,
   loginGoogle
 } from '@/lib/cloudClient.js';
 import { gtmEventRegister } from '@/lib/gtm.js';
+
+import {
+  loadLoggedIn
+} from '@/lib/cloudStore.js';
 
 export default {
   components: {
@@ -85,7 +88,7 @@ export default {
           this.subscribeNews,
           this.$route.query.ruid
         );
-        this.$store.commit('setIsLoggedIn', isLoggedIn());
+        loadLoggedIn(this);
         if (resp.registered){
           gtmEventRegister('google');
           this.$router.push({name: 'SignupFlowExperience'});

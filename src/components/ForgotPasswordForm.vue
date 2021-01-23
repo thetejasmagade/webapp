@@ -48,9 +48,12 @@ import TextInput from '@/components/TextInput';
 import {
   loginManual,
   updateUserPasswordCode,
-  isLoggedIn,
   sendEmailVerification
 } from '@/lib/cloudClient.js';
+
+import {
+  loadLoggedIn
+} from '@/lib/cloudStore.js';
 
 export default {
   components: {
@@ -85,7 +88,7 @@ export default {
           Number(this.code)
         );
         await loginManual(this.email, this.newPassword);
-        this.$store.commit('setIsLoggedIn', isLoggedIn());
+        loadLoggedIn(this);
         this.$router.push({name: 'Courses'});
       } catch (err){
         this.$notify({

@@ -34,9 +34,12 @@ import TextInput from '@/components/TextInput';
 
 import {
   loginManual,
-  loginGoogle,
-  isLoggedIn
+  loginGoogle
 } from '@/lib/cloudClient.js';
+
+import {
+  loadLoggedIn
+} from '@/lib/cloudStore.js';
 
 export default {
   components: {
@@ -56,7 +59,7 @@ export default {
           googleUser.getAuthResponse().id_token,
           null
         );
-        this.$store.commit('setIsLoggedIn', isLoggedIn());
+        loadLoggedIn(this);
         this.$router.push({name: 'Courses'});
       } catch (err){
         this.$notify({
@@ -68,7 +71,7 @@ export default {
     async submitLogin(){
       try {
         await loginManual(this.email, this.password);
-        this.$store.commit('setIsLoggedIn', isLoggedIn());
+        loadLoggedIn(this);
         this.$router.push({name: 'Courses'});
       } catch (err){
         this.$notify({

@@ -4,6 +4,7 @@ import {
   getUser,
   getProducts,
   isLoggedIn,
+  getJWTClaims,
   logout,
   getUserAchievements,
   getInterests
@@ -83,9 +84,13 @@ export async function loadUser(thisComponent) {
 }
 
 export function loadLoggedIn(thisComponent) {
-  thisComponent.$store.commit('setIsLoggedIn', isLoggedIn());
+  thisComponent.$store.commit('setJWTClaims', getJWTClaims());
   if (!thisComponent.$store.getters.getIsLoggedIn) {
     thisComponent.$router.push({ name: 'Login' });
+    return;
+  }
+  if (!thisComponent.$store.getters.getIsEmailVerified) {
+    thisComponent.$router.push({ name: 'VerifyEmail' });
   }
 }
 
@@ -94,8 +99,3 @@ export function setLogout(thisComponent) {
   thisComponent.$store.commit('setIsLoggedIn', isLoggedIn());
   thisComponent.$router.push({ name: 'Login' });
 }
-
-
-
-
-
