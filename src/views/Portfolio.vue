@@ -10,12 +10,23 @@
         class="margin-bottom-1"
       >
         <div class="row-upper d-flex">
-          <div class="profile d-flex align-items-center justify-content-center flex-1">
+          <div class="profile flex-column d-flex align-items-center justify-content-center flex-1">
             <ProfileImage
               class="profile-image"
               :profile-image-u-r-l="user.ProfileImageURL"
               :editable="false"
             />
+            <BlockButton 
+              :click="tweet"
+              color="purple"
+              class="share-btn"
+            >
+              <FontAwesomeIcon
+                :icon="['fab', 'twitter']"
+                class="icon"
+              />
+              <span>Share on Twitter</span>
+            </BlockButton>
           </div>
           <div class="profileContent flex-2 py-5">
             <div class="row">
@@ -98,9 +109,9 @@
             </div>
           </div>
         </div>
-        <span class="light">
+        <div class="bio light">
           {{ user.Bio }}
-        </span>
+        </div>
       </Section>
 
       <Section
@@ -121,7 +132,7 @@
               class="body"
             >
               <h3
-                class="item title purple"
+                class="item title color-purple"
               >
                 {{ course.Title }}
               </h3>
@@ -175,6 +186,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ProfileImage from '@/components/ProfileImage';
 import ImageCard from '@/components/ImageCard';
 import Section from '@/components/Section';
+import BlockButton from '@/components/BlockButton';
 
 import {
   getCoursesPublic,
@@ -204,7 +216,8 @@ export default {
     FontAwesomeIcon,
     ProfileImage,
     ImageCard,
-    Section
+    Section,
+    BlockButton
   },
   data() {
     return {
@@ -242,6 +255,9 @@ export default {
     }
   },
   methods: {
+    tweet() {
+      window.open(`https://twitter.com/share?url=https://app.qvault.io/u/${this.user.Handle}&text=Check out my dev profile on @q_vault!&hashtags=qvault`, '_blank');
+    },
     linkClick(url) {
       window.open(url, '_blank');
     },
@@ -359,7 +375,7 @@ export default {
   color: $gold-mid;
 }
 
-.purple {
+.color-purple {
   color: $purple-dark;
 }
 
@@ -389,5 +405,16 @@ export default {
     border-radius: 50%;
     margin: 0 auto;
   }
+}
+
+.share-btn{
+  margin-top: 1em;
+  .icon {
+    margin-right: 5px;
+  }
+}
+
+.bio {
+  margin-top: 1em;
 }
 </style>
