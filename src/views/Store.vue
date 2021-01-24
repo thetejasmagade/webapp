@@ -18,16 +18,16 @@
             </a>
           </li>
           <li>
-            <a
-              target="_blank"
-              href="https://forms.gle/j2g5edjuPUFDW3tJ9"
-            >
-              Take a survey to get 100 free gems
+            <a @click="$router.push({name: 'ReferralProgram'})">
+              Invite friends, get 150 free gems
             </a>
           </li>
           <li>
-            <a @click="$router.push({name: 'ReferralProgram'})">
-              Invite friends, get 150 free gems
+            <a
+              target="_blank"
+              href="https://qvault.io/affiliates/"
+            >
+              Share Qvault, earn cash
             </a>
           </li>
         </ul>

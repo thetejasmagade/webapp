@@ -2,7 +2,6 @@
   <div>
     <Modal
       ref="modal"
-      :on-close="onClose"
     >
       <LoadingOverlay
         :is-loading="isLoading" 
@@ -48,24 +47,6 @@
         </div>
       </div>
     </Modal>
-    <Modal
-      ref="surveyModal"
-    >
-      <div class="body">
-        <p />
-        <h2>Sorry you're not interested!</h2>
-        <p>
-          As a first time student, we want to provide
-          the courses you need to achieve your goals!
-          <a
-            target="_blank"
-            href="https://forms.gle/j2g5edjuPUFDW3tJ9"
-          >Please take this survey to earn some free Gems
-          </a>
-          and let us know how we can improve the platform for you.
-        </p>
-      </div>
-    </Modal>
   </div>
 </template>
 
@@ -102,12 +83,6 @@ export default {
     };
   },
   methods:{
-    onClose(){
-      if (this.userHasAlreadyBoughtCourses){
-        return;
-      }
-      this.$refs.surveyModal.show();
-    },
     show(){
       this.$refs.modal.show();
     },

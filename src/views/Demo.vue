@@ -22,7 +22,7 @@
         >
           <div class="body">
             <img
-              src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
+              src="https://media4.giphy.com/media/3o7qDT9Yp5DdcN3qi4/giphy.gif"
             >
             <div v-if="$store.getters.getIsLoggedIn">
               <p>
@@ -43,11 +43,21 @@
                 and support the continued development of Qvault.
                 Create an account to get started.
               </p>
-              <BlockButton
-                :click="() => {this.$router.push({ name: 'Login' })}"
-              >
-                Sign Up
-              </BlockButton>
+              <p>
+                <BlockButton
+                  :click="() => {this.$router.push({ name: 'Login' })}"
+                >
+                  Sign Up
+                </BlockButton>
+              </p>
+              <p>
+                <a
+                  target="_blank"
+                  href="https://forms.gle/tG3Vj8g1NJ2dCWfT8"
+                >
+                  Also, take a quick survey to get some free gems
+                </a>
+              </p>
             </div>
           </div>
         </Section>
