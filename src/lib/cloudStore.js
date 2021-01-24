@@ -85,11 +85,13 @@ export async function loadUser(thisComponent) {
 
 export function loadLoggedIn(thisComponent) {
   thisComponent.$store.commit('setJWTClaims', getJWTClaims());
-  if (!thisComponent.$store.getters.getIsLoggedIn) {
+  if (!thisComponent.$store.getters.getIsLoggedIn &&
+      thisComponent.$router.currentRoute.name !== 'Login') {
     thisComponent.$router.push({ name: 'Login' });
     return;
   }
-  if (!thisComponent.$store.getters.getIsEmailVerified) {
+  if (thisComponent.$store.getters.getIsLoggedIn &&
+      !thisComponent.$store.getters.getIsEmailVerified) {
     thisComponent.$router.push({ name: 'VerifyEmail' });
   }
 }
