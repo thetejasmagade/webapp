@@ -26,7 +26,7 @@ export default new Vuex.Store({
       state.jwtClaims = newJWTClaims;
     },
     setCourses(state, newCourses) {
-      newCourses.sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
+      newCourses.sort((c1, c2) => c1.Difficulty < c2.Difficulty ? -1 : 1);
       state.courses = newCourses;
     },
     setUserAchievements(state, newUserAchievements) {
