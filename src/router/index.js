@@ -16,6 +16,7 @@ const Achievements = () => import(/* webpackChunkName: "Achievements" */ '@/view
 const Demo = () => import(/* webpackChunkName: "Demo" */ '@/views/Demo.vue');
 const SignupFlowExperience = () => import(/* webpackChunkName: "SignupFlowExperience" */ '@/views/SignupFlowExperience.vue');
 const SignupFlowInterests = () => import(/* webpackChunkName: "SignupFlowInterests" */ '@/views/SignupFlowInterests.vue');
+const SignupFlowPortfolio = () => import(/* webpackChunkName: "SignupFlowPortfolio" */ '@/views/SignupFlowPortfolio.vue');
 const SignupFlowGems = () => import(/* webpackChunkName: "SignupFlowGems" */ '@/views/SignupFlowGems.vue');
 const VerifyEmail = () => import(/* webpackChunkName: "VerifyEmail" */ '@/views/VerifyEmail.vue');
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/signup_flow/interests',
     name: 'SignupFlowInterests',
     component: SignupFlowInterests
+  },
+  {
+    path: '/signup_flow/portfolio',
+    name: 'SignupFlowPortfolio',
+    component: SignupFlowPortfolio
   },
   {
     path: '/signup_flow/gems',
