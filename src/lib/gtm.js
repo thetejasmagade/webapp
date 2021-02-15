@@ -10,7 +10,7 @@ export function gtmEventRegister(method){
     window.dataLayer.push({
       'event': 'sign_up',
       'method': method,
-      'value': .25,
+      'value': '.25',
       'currency': 'USD'
     });
   } catch (err) {
@@ -26,28 +26,35 @@ export function gtmEventBeginCheckout(priceUSD, productID, productName){
         'item_id': productID,
         'item_name': productName,
         'quantity': 1,
-        'price': priceUSD,
+        'price': priceUSD.toString(),
         'currency': 'USD'
       } ],
-      'value': priceUSD
+      'value': priceUSD.toString()
     });
   } catch (err) {
     console.log(err);
   }
 }
 
+// https://developers.google.com/tag-manager/ecommerce-ga4#measure_purchases
 export function gtmEventFinishCheckout(priceUSD, productID, productName){
   try {
     window.dataLayer.push({
       'event': 'purchase',
-      'items': [ {
-        'item_id': productID,
-        'item_name': productName,
-        'quantity': 1,
-        'price': priceUSD,
-        'currency': 'USD'
-      } ],
-      'value': priceUSD
+      'ecommerce': {
+        'purchase': {
+          'value': priceUSD.toString(),
+          'currency': 'USD',
+          'items': [
+            {
+              'item_name': productName,
+              'item_id': productID,
+              'item_price': priceUSD.toString(),
+              'quantity': 1
+            }
+          ]
+        }
+      }
     });
   } catch (err) {
     console.log(err);
