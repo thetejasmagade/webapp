@@ -9,6 +9,7 @@ export default new Vuex.Store({
     products: [],
     jwtClaims: null,
     courses: [],
+    programCS: [],
     userAchievements: [],
     user: {},
     currentModuleUUID: null,
@@ -26,8 +27,11 @@ export default new Vuex.Store({
       state.jwtClaims = newJWTClaims;
     },
     setCourses(state, newCourses) {
-      newCourses.sort((c1, c2) => c1.Difficulty < c2.Difficulty ? -1 : 1);
+      newCourses.sort((c1, c2) => c1.Title < c2.Title ? -1 : 1);
       state.courses = newCourses;
+    },
+    setProgramCS(state, newProgramCS) {
+      state.programCS = newProgramCS;
     },
     setUserAchievements(state, newUserAchievements) {
       newUserAchievements.sort((ua1, ua2) => {
@@ -69,6 +73,17 @@ export default new Vuex.Store({
     },
     getCourses(state) {
       return state.courses;
+    },
+    getProgramCS(state) {
+      let courses = [];
+      for (const courseUUID of state.programCS){
+        for (const course of state.courses){
+          if (course.UUID === courseUUID){
+            courses.push(course);
+          }
+        }
+      }
+      return courses;
     },
     getCourse: (state) => (uuid) => {
       return state.courses.find(course => course.UUID === uuid);

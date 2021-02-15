@@ -1,6 +1,6 @@
 <template>
   <div
-    class="root"
+    class="courses-page"
   >
     <LoadingOverlay
       :is-loading="isLoading" 
@@ -11,30 +11,76 @@
 
     <div class="subcontainer">
       <Section
-        v-if="recommendedCourse"
-        title="#1 Recommended Course"
-        subtitle="Based on your profile, we suggest starting here"
-        class="recommended-section margin-bottom-1"
+        title="Your path to a successful coding career"
+        subtitle="Take the following courses in order"
+        class="margin-bottom-1"
+      >
+        <div class="program">
+          <div
+            v-for="(course, i) of $store.getters.getProgramCS"
+            :key="i"
+            class="item"
+          >
+            <h3>
+              #{{ i+1 }}
+            </h3>
+            <ImageCard
+              :img-src="course.ImageURL"
+              class="card"
+            >
+              <CourseCardBody
+                v-if="course"
+                class="body"
+                :course="course"
+                :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
+                :click-buy-course="()=> {clickBuyCourse(course, false) }"
+              />
+            </ImageCard>
+          </div>
+        </div>
+        <h2> Notes </h2>
+        <p class="max-width">
+          <i>
+            This curriculum is a work-in-progress
+            while we build towards an unaccredited university-level CS degree.
+            <a
+              href="https://github.com/qvault/curriculum"
+              target="_blank"
+            >You can find the roadmap here.</a>
+            Buying courses,
+            being part of our
+            <a
+              href="https://discord.gg/k4rVEWt"
+              target="_blank"
+            >Discord community</a>,
+            and providing great feedback will help us get the project finished.
+          </i>
+        </p>
+      </Section>
+
+      <Section
+        v-if="recommendedCourses && recommendedCourses.length > 0"
+        title="Recommended à la carte courses"
+        subtitle="Based on your profile, you may want to take these courses to reach short-term goals"
+        class="margin-bottom-1"
       >
         <div class="cards">
-          <CourseCheckoutModal
-            ref="modalRecommended"
-            :course="recommendedCourse"
-            :user-has-already-bought-courses="userHasAlreadyBoughtCourses"
-          />
-          <ImageCard
-            direction="row"
-            :img-src="recommendedCourse.ImageURL"
-            class="recommended-card"
+          <div
+            v-for="(course, i) of recommendedCourses"
+            :key="i"
           >
-            <CourseCardBody
-              v-if="recommendedCourse"
-              class="body"
-              :course="recommendedCourse"
-              :click-buy-demo-course="() => {clickBuyCourse(recommendedCourse, true) }"
-              :click-buy-course="()=> {clickBuyCourse(recommendedCourse, false) }"
-            />
-          </ImageCard>
+            <ImageCard
+              :img-src="course.ImageURL"
+              class="card"
+            >
+              <CourseCardBody
+                class="body"
+                :course="course"
+                :click-buy-demo-course="() => { clickBuyCourse(course, true) }"
+                :click-buy-course="() => { clickBuyCourse(course, false) }"
+              />
+            </ImageCard>
+          </div>
         </div>
       </Section>
 
@@ -48,7 +94,7 @@
             :key="i"
           >
             <CourseCheckoutModal
-              :ref="`modal`"
+              :ref="course.UUID"
               :course="course"
               :user-has-already-bought-courses="userHasAlreadyBoughtCourses"
             />
@@ -59,8 +105,8 @@
               <CourseCardBody
                 class="body"
                 :course="course"
-                :click-buy-demo-course="() => {clickBuyCourse(course, true, i) }"
-                :click-buy-course="()=> {clickBuyCourse(course, false, i) }"
+                :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
+                :click-buy-course="()=> {clickBuyCourse(course, false) }"
               />
             </ImageCard>
           </div>
@@ -116,18 +162,10 @@ export default {
   data() {
     return {
       isLoading: false,
-      recommendedCourseUUID: null
+      recommendedCourses: []
     };
   },
   computed:{
-    recommendedCourse(){
-      for (const course of this.courses){
-        if (course.UUID === this.recommendedCourseUUID){
-          return course;
-        }
-      }
-      return null;
-    },
     userHasAlreadyBoughtCourses(){
       let hasBought = false;
       for (const course of this.courses){
@@ -152,26 +190,21 @@ export default {
         products.sort((p1, p2) => p1.GemAmount > p2.GemAmount ? 1 : -1);
         courses[i].products = products;
       }
-
-      if (this.$route.query.courseUUID){
-        for (let i = 0; i < courses.length; i++){
-          if (courses[i].UUID === this.$route.query.courseUUID){
-            let temp = courses[0];
-            courses[0] = courses[i];
-            courses[i] = temp;
-            break;
-          }
-        }
-      }
       return courses;
     }
   },
   async mounted(){
     try{
-      let recommendations = await getCourseRecommendations();
-      if (recommendations.length > 0){
-        this.recommendedCourseUUID = recommendations[0].UUID;
+      let recommendedCourses = await getCourseRecommendations();
+      const maxRecommended = 2;
+      let final = [];
+      for (const course of recommendedCourses){
+        if (final.length >= maxRecommended){
+          continue;
+        }
+        final.push(course);
       }
+      this.recommendedCourses = final;
     } catch (err) {
       this.$notify({
         type: 'error',
@@ -183,22 +216,19 @@ export default {
       if (this.courses.length === 0 ){
         await loadCourses(this);
       }
-      // selected course SHOULD be set as the first in the list
-      this.clickBuyCourse(this.courses[0], false, 0);
+      for (let i = 0; i < this.courses.length; i++){
+        if (this.courses[i].UUID === this.$route.query.courseUUID){
+          this.clickBuyCourse(this.courses[i], false);
+          break;
+        }
+      }
     }
   },
   methods: {
-    linkClick(url) {
-      window.open(url, '_blank');
+    showModal(courseUUID){
+      this.$refs[courseUUID][0].show();
     },
-    showModal(i){
-      if (typeof i === 'undefined'){
-        this.$refs['modalRecommended'].show();
-        return;
-      }
-      this.$refs['modal'][i].show();
-    },
-    clickBuyCourse(course, isDemo, i){
+    clickBuyCourse(course, isDemo){
       const alreadyPurchased = (isDemo && course.IsDemoPurchased) ||
         (!isDemo && course.IsPurchased);
       if (alreadyPurchased) {
@@ -209,7 +239,7 @@ export default {
       const enoughGems = (isDemo && this.$store.getters.getBalance >= course.GemDemoCost) || 
         (!isDemo && this.$store.getters.getBalance >= course.GemCost);
       if (!enoughGems){
-        this.showModal(i);
+        this.showModal(course.UUID);
         return;
       }
       this.$refs['confirmPurchase'].openNav(
@@ -244,11 +274,7 @@ export default {
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
 
-.flex-1 {
-  flex: 1;
-}
-
-.root {
+.courses-page {
   display: block;
   background-repeat: no-repeat;
   background-size: cover;
@@ -264,19 +290,45 @@ export default {
   width: 100%;
 }
 
-.recommended-card {
-  max-width: 600px;
-  margin: 20px 0 0 0;
+.program {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: auto;
+  margin: 1em;
+  padding: 1em;
+  background-color: $gray-dark;
+  border-radius: 6px;
 
-  @media (max-width: $mobile-size) {
-    min-width: 200px;
-    flex: 1 1 200px;
+  scrollbar-width: thin;
+  scrollbar-color: $gray-dark $gray-light;
+  &::-webkit-scrollbar {
+    width: 11px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $gray-dark;
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray-light;
+    border-radius: 6px;
+    border: 3px solid $gray-light;
+    &:hover{
+      background-color: $gray-lighter;
+      border: 3px solid $gray-lighter;
+    }
   }
 
-  .body {
-    height: 100%;
-    @media (min-width: $mobile-size) {
-      border-left: 1px solid $gray-lightest;
+  .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2em;
+
+    h3 {
+      font-size: 2em;
+      margin: 0;
     }
   }
 }

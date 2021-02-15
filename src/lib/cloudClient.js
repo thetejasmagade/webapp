@@ -223,6 +223,18 @@ export async function getCourseRecommendations() {
   return handled;
 }
 
+export async function getProgramCS() {
+  const resp = await fetchWithAuth(`${domain}/v1/programs/cs`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getUserPublic(handle) {
   const resp = await fetch(`${domain}/v1/users/public/${handle}`, {
     method: 'GET',

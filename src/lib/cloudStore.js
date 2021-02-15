@@ -1,5 +1,6 @@
 import {
   getCourses,
+  getProgramCS,
   getLastGemTransaction,
   getUser,
   getProducts,
@@ -26,6 +27,22 @@ export async function loadCourses(thisComponent){
   try {
     const courses = await getCourses();
     thisComponent.$store.commit('setCourses', courses);
+  } catch (err) {
+    thisComponent.$notify({
+      type: 'error',
+      text: err
+    });
+  }
+}
+
+export async function loadProgramCS(thisComponent){
+  if (!thisComponent.$store.getters.getCourses ||
+    thisComponent.$store.getters.getCourses.length === 0){
+    await loadCourses(thisComponent);
+  }
+  try {
+    const programCS = await getProgramCS();
+    thisComponent.$store.commit('setProgramCS', programCS);
   } catch (err) {
     thisComponent.$notify({
       type: 'error',

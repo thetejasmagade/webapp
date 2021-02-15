@@ -29,7 +29,7 @@ import {
 } from '@/lib/cloudClient.js';
 
 import {
-  loadCourses,
+  loadProgramCS,
   loadBalance,
   loadProducts,
   loadUser,
@@ -54,7 +54,7 @@ export default {
   async mounted(){
     loadLoggedIn(this);
     await loadProducts(this); 
-    loadCourses(this);
+    loadProgramCS(this);
     loadUser(this);
 
     await this.loadRewards();
