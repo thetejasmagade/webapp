@@ -20,50 +20,53 @@
       v-else
       class="container"
     >
-      <div class="side left">
-        <ExerciseNav
-          class="nav"
-          :title="modulePosition ? `${moduleTitleTruncated} - ${modulePosition}/${numExercisesInModule}`: null"
-          :go-back="goBack"
-          :go-forward="goForward"
-          :can-go-back="!isFirstExercise"
-          :can-go-forward="!(isCurrentExercise || isLastExercise)"
-        />
+      <Multipane layout="horizontal">
+        <div class="side left">
+          <ExerciseNav
+            class="nav"
+            :title="modulePosition ? `${moduleTitleTruncated} - ${modulePosition}/${numExercisesInModule}`: null"
+            :go-back="goBack"
+            :go-forward="goForward"
+            :can-go-back="!isFirstExercise"
+            :can-go-forward="!(isCurrentExercise || isLastExercise)"
+          />
 
-        <MarkdownViewer
-          :source="markdownSource"
-        />
-      </div>
-      <div
-        v-if="type === 'type_info'"
-        id="info-container"
-        class="side right"
-      >
-        <p> 👈 Read First </p>
-        <BlockButton
-          class="btn"
-          :click="() => {submitTypeInfo()}"
+          <MarkdownViewer
+            :source="markdownSource"
+          />
+        </div>
+        <MultipaneResizer />
+        <div
+          v-if="type === 'type_info'"
+          id="info-container"
+          class="side right"
         >
-          Continue
-        </BlockButton>
-      </div>
-      <CodeEditor
-        v-else-if="type === 'type_code'"
-        v-model="code"
-        class="side right"
-        :run-callback="submitTypeCode"
-        :reset-callback="resetCode"
-        :save-callback="saveCode"
-        :load-callback="getSavedCode"
-        :prog-lang="progLang"
-      />
-      <MultipleChoice
-        v-else-if="type === 'type_choice'"
-        class="side right"
-        :callback="submitTypeChoice"
-        :answers="question.Answers"
-        :question="question.Question"
-      />
+          <p> 👈 Read First </p>
+          <BlockButton
+            class="btn"
+            :click="() => {submitTypeInfo()}"
+          >
+            Continue
+          </BlockButton>
+        </div>
+        <CodeEditor
+          v-else-if="type === 'type_code'"
+          v-model="code"
+          class="side right"
+          :run-callback="submitTypeCode"
+          :reset-callback="resetCode"
+          :save-callback="saveCode"
+          :load-callback="getSavedCode"
+          :prog-lang="progLang"
+        />
+        <MultipleChoice
+          v-else-if="type === 'type_choice'"
+          class="side right"
+          :callback="submitTypeChoice"
+          :answers="question.Answers"
+          :question="question.Question"
+        />
+      </Multipane>
     </div>
   </div>
 </template>
@@ -76,6 +79,8 @@ import BlockButton from '@/components/BlockButton';
 import CourseCompleted from '@/components/CourseCompleted';
 import DemoCompleted from '@/components/DemoCompleted';
 import ExerciseNav from '@/components/ExerciseNav';
+import Multipane from '@/components/Multipane';
+import MultipaneResizer from '@/components/MultipaneResizer';
 
 import { 
   loadBalance
@@ -123,7 +128,9 @@ export default {
     MultipleChoice,
     CourseCompleted,
     ExerciseNav,
-    DemoCompleted
+    DemoCompleted,
+    Multipane,
+    MultipaneResizer
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
@@ -457,17 +464,18 @@ export default {
 .side {
   height: 100%;
   overflow: auto;
-  flex: 1;
   background-color: $gray-dark-2;
   color: $gray-lightest;
 
   &.left {
     border-right: 2px solid $gray-light;
+    width: 50%;
   }
 
   &.right {
     background-color: $gray-darker;
     color: $gray-lighter;
+    flex: 1;
   }
 }
 

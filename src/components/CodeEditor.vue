@@ -274,7 +274,7 @@ span.token.operator {
   .console-output {
     font-size: 14px;
     background-color: $gray-darker-2;
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: row;
     padding: 10px;
