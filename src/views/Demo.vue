@@ -2,67 +2,15 @@
   <div class="demo-root">
     <TopNav :title="courseTitle" />
 
-    <div
+    <DemoCompleted
       v-if="isLastScreen"
-      class="demo-complete"
-    >
-      <ExerciseNav
-        class="nav"
-        :go-back="goBack"
-        :go-forward="goForward"
-        :can-go-back="!isFirstExercise"
-        :can-go-forward="!isLastScreen"
-      />
-
-      <div class="subcontainer">
-        <Section
-          :title="`You've completed the ${course.Title} demo!`"
-          subtitle="Don't stop now"
-          class="section"
-        >
-          <div class="body">
-            <img
-              src="https://media4.giphy.com/media/3o7qDT9Yp5DdcN3qi4/giphy.gif"
-            >
-            <div v-if="$store.getters.getIsLoggedIn">
-              <p>
-                Complete the rest of the course to get a certificate,
-                earn free gems and content,
-                and support the continued development of Qvault
-              </p>
-              <BlockButton
-                :click="() => {this.$router.push({ path: `/dashboard/courses?courseUUID=${courseUUID}` })}"
-              >
-                Get Full Course
-              </BlockButton>
-            </div>
-            <div v-else>
-              <p>
-                Complete the rest of the course to get a certificate,
-                earn free gems and content,
-                and support the continued development of Qvault.
-                Create an account to get started.
-              </p>
-              <p>
-                <BlockButton
-                  :click="() => {this.$router.push({ name: 'Login' })}"
-                >
-                  Sign Up
-                </BlockButton>
-              </p>
-              <p>
-                <a
-                  target="_blank"
-                  href="https://forms.gle/tG3Vj8g1NJ2dCWfT8"
-                >
-                  Also, take a quick survey to get some free gems
-                </a>
-              </p>
-            </div>
-          </div>
-        </Section>
-      </div>
-    </div>
+      :back-callback="goBack"
+      :forward-callback="goForward"
+      :can-go-back="!isFirstExercise"
+      :can-go-forward="!isLastScreen"
+      :course-title="course.Title"
+      :course-u-u-i-d="course.UUID"
+    />
 
     <div
       v-else
@@ -120,7 +68,7 @@ import CodeEditor from '@/components/CodeEditor';
 import ExerciseNav from '@/components/ExerciseNav';
 import TopNav from '@/components/TopNav';
 import BlockButton from '@/components/BlockButton';
-import Section from '@/components/Section';
+import DemoCompleted from '@/components/DemoCompleted';
 
 import { 
   submitCodeExercise,
@@ -164,7 +112,7 @@ export default {
     ExerciseNav,
     TopNav,
     BlockButton,
-    Section
+    DemoCompleted
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;

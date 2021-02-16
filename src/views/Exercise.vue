@@ -6,55 +6,16 @@
       :restart-callback="goToBeginning"
     />
 
-    <div
+    <DemoCompleted
       v-else-if="demoComplete"
-      class="demo-complete"
-    >
-      <ExerciseNav
-        class="nav"
-        :go-back="goBack"
-        :go-forward="goForward"
-        :can-go-back="!isFirstExercise"
-        :can-go-forward="false"
-      />
-
-      <div class="subcontainer">
-        <Section
-          :title="`You've completed the ${courseTitle} demo!`"
-          subtitle="Don't stop now"
-          class="section"
-        >
-          <div class="body">
-            <img
-              src="https://media4.giphy.com/media/3o7qDT9Yp5DdcN3qi4/giphy.gif"
-            >
-            <div>
-              <p>
-                Complete the rest of the course to get a certificate,
-                earn free gems and content,
-                and support the continued development of Qvault
-              </p>
-              <p>
-                <BlockButton
-                  :click="() => {this.$router.push({ path: `/dashboard/courses?courseUUID=${courseUUID}` })}"
-                >
-                  Get Full Course
-                </BlockButton>
-              </p>
-              <p>
-                <a
-                  target="_blank"
-                  href="https://forms.gle/tG3Vj8g1NJ2dCWfT8"
-                >
-                  Also, take a quick survey to get some free gems
-                </a>
-              </p>
-            </div>
-          </div>
-        </Section>
-      </div>
-    </div>
-
+      :back-callback="goBack"
+      :forward-callback="goForward"
+      :can-go-back="!isFirstExercise"
+      :can-go-forward="false"
+      :course-title="courseTitle"
+      :course-u-u-i-d="courseUUID"
+    />
+      
     <div
       v-else
       class="container"
@@ -113,8 +74,8 @@ import MarkdownViewer from '@/components/MarkdownViewer';
 import CodeEditor from '@/components/CodeEditor';
 import BlockButton from '@/components/BlockButton';
 import CourseCompleted from '@/components/CourseCompleted';
+import DemoCompleted from '@/components/DemoCompleted';
 import ExerciseNav from '@/components/ExerciseNav';
-import Section from '@/components/Section';
 
 import { 
   loadBalance
@@ -162,7 +123,7 @@ export default {
     MultipleChoice,
     CourseCompleted,
     ExerciseNav,
-    Section
+    DemoCompleted
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
@@ -530,26 +491,4 @@ export default {
   padding: 1em;
   box-sizing: border-box;
 }
-
-.demo-complete {
-  .subcontainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-
-    .section {
-      max-width: 800px;
-
-      .body {
-        text-align: center;
-
-        img {
-          margin: 1em;
-        }
-      }
-    }
-  }
-}
-
 </style>
