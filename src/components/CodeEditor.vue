@@ -1,10 +1,10 @@
 <template>
   <div>
+    <LoadingOverlay
+      :is-loading="isLoading"
+      :cancel="cancelCode"
+    />
     <div class="code-editor-root">
-      <LoadingOverlay
-        :is-loading="isLoading"
-        :cancel="cancelCode"
-      />
       <div class="editor-container">
         <PrismEditor
           v-model="code"
