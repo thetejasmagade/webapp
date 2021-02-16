@@ -5,39 +5,42 @@
       :cancel="cancelCode"
     />
     <div class="code-editor-root">
-      <div class="editor-container">
-        <PrismEditor
-          v-model="code"
-          class="my-editor"
-          :language="progLang"
-          line-numbers
-          :tab-size="tabSize"
-          :insert-spaces="insertSpaces"
-          :highlight="highlighter"
-          @input="onInput"
-        />
-      </div>
-      <div
-        ref="consoleOutput"
-        class="console-output"
-      >
-        <ConsoleButtons
-          :run-callback="runCode"
-          :reset-callback="runReset"
-          :save-callback="saveCallback"
-          :load-callback="loadCallback"
-        />
-        <div class="output">
-          <p
-            v-for="(line, i) of output"
-            :key="i"
-            :class="{error: err}"
-            class="pre"
-          >
-            {{ line }}
-          </p>
+      <Multipane layout="vertical">
+        <div class="editor-container">
+          <PrismEditor
+            v-model="code"
+            class="my-editor"
+            :language="progLang"
+            line-numbers
+            :tab-size="tabSize"
+            :insert-spaces="insertSpaces"
+            :highlight="highlighter"
+            @input="onInput"
+          />
         </div>
-      </div>
+        <MultipaneResizer />
+        <div
+          ref="consoleOutput"
+          class="console-output"
+        >
+          <ConsoleButtons
+            :run-callback="runCode"
+            :reset-callback="runReset"
+            :save-callback="saveCallback"
+            :load-callback="loadCallback"
+          />
+          <div class="output">
+            <p
+              v-for="(line, i) of output"
+              :key="i"
+              :class="{error: err}"
+              class="pre"
+            >
+              {{ line }}
+            </p>
+          </div>
+        </div>
+      </Multipane>
     </div>
   </div>
 </template>
@@ -68,12 +71,16 @@ import {
 
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ConsoleButtons from '@/components/ConsoleButtons';
+import Multipane from '@/components/Multipane';
+import MultipaneResizer from '@/components/MultipaneResizer';
 
 export default {
   components: {
     PrismEditor,
     LoadingOverlay,
-    ConsoleButtons
+    ConsoleButtons,
+    Multipane,
+    MultipaneResizer
   },
   props: {
     runCallback: {
@@ -257,12 +264,9 @@ span.token.operator {
 .code-editor-root {
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
 
   .editor-container {
-    flex: 4;
+    height: 70%;
     overflow: auto;
     margin: 10px 0 0 0;
   }
