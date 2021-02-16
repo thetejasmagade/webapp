@@ -21,68 +21,12 @@
         ref="consoleOutput"
         class="console-output"
       >
-        <div class="btns">
-          <Tooltip
-            :text="`Run Code`"
-            position="right"
-          >
-            <BlockButton
-              class="btn"
-              :click="runCode"
-            >
-              <FontAwesomeIcon
-                icon="play"
-              />
-            </BlockButton>
-          </Tooltip>
-          <Tooltip
-            v-if="saveCallback"
-            :text="`Save Code`"
-            position="right"
-            class="bottom"
-          >
-            <BlockButton
-              class="btn"
-              :click="saveCallback"
-              color="green"
-            >
-              <FontAwesomeIcon
-                icon="save"
-              />
-            </BlockButton>
-          </Tooltip>
-          <Tooltip
-            v-if="loadCallback"
-            :text="`Load Last Save`"
-            position="right"
-            class="bottom"
-          >
-            <BlockButton
-              class="btn"
-              :click="loadCallback"
-              color="gray"
-            >
-              <FontAwesomeIcon
-                icon="backward"
-              />
-            </BlockButton>
-          </Tooltip>
-          <Tooltip
-            :text="`Reset Exercise`"
-            position="right"
-            class="bottom"
-          >
-            <BlockButton
-              class="btn"
-              :click="runReset"
-              color="gray"
-            >
-              <FontAwesomeIcon
-                icon="undo"
-              />
-            </BlockButton>
-          </Tooltip>
-        </div>
+        <ConsoleButtons
+          :run-callback="runCode"
+          :reset-callback="runReset"
+          :save-callback="saveCallback"
+          :load-callback="loadCallback"
+        />
         <div class="output">
           <p
             v-for="(line, i) of output"
@@ -122,19 +66,14 @@ import {
   sleep
 } from '@/lib/sleep.js';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import BlockButton from '@/components/BlockButton';
 import LoadingOverlay from '@/components/LoadingOverlay';
-import Tooltip from '@/components/Tooltip';
-
+import ConsoleButtons from '@/components/ConsoleButtons';
 
 export default {
   components: {
     PrismEditor,
-    FontAwesomeIcon,
     LoadingOverlay,
-    BlockButton,
-    Tooltip
+    ConsoleButtons
   },
   props: {
     runCallback: {
@@ -337,20 +276,6 @@ span.token.operator {
     padding: 10px;
     overflow: auto;
     border-top: solid 1px $gray-light;
-
-    .btns {
-      display: flex;
-      flex-direction: column;
-
-      .bottom {
-        margin: 1em 0 0 0;
-      }
-    }
-
-    .btn {
-      font-size: 1em;
-      width: 100%;
-    }
 
     .output {
       padding: 0 1em 0 1em;
