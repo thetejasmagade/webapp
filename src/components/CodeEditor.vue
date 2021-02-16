@@ -230,53 +230,37 @@ export default {
         this.output = [];
         this.isLoading = true;
 
-        if (this.progLang === 'go'){
-          try {
+        try {
+          if (this.progLang === 'go'){
             const wasm = await compileGo(this.code);
             await useWorker(this.worker, wasm, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
-          } catch (err){
-            await this.runCallback(err);
-            throw err;
-          }
-        }  else if (this.progLang === 'purs'){
-          try {
+          }  else if (this.progLang === 'purs'){
             const resp = await compilePureScript(this.code);
             await useWorker(this.worker, resp.Code, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
-          } catch (err){
-            await this.runCallback(err);
-            throw err;
-          }
-        } else if (this.progLang === 'js'){
+          } else if (this.progLang === 'js'){
           // make it feel like something is running
-          await sleep(250);
-          try {
+            await sleep(250);
             await useWorker(this.worker, this.code, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
-          } catch (err){
-            await this.runCallback(JSON.stringify(err));
-            throw err;
-          }
-        } else if (this.progLang === 'py'){
-          await sleep(250);
-          try {
+          } else if (this.progLang === 'py'){
+            await sleep(250);
             await useWorker(this.worker, this.code, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
-          } catch (err){
-            await this.runCallback(JSON.stringify(err));
-            throw err;
           }
+        } catch (err){
+          await this.runCallback(JSON.stringify(err));
+          throw err;
         }
-
         this.err = false;
         this.isLoading = false;
         let finalOut = '';
@@ -284,20 +268,17 @@ export default {
           if (Array.isArray(line) || typeof line === 'object'){
             finalOut += JSON.stringify(line);
           } else{
-            finalOut+=line;
+            finalOut += line;
           }
         }
         await this.runCallback(finalOut);
       } catch(err) {
         this.isLoading = false;
-
         let errString = err;
         if (typeof err !== 'string'){
           errString = err.toString();
         }
-
         const errLines = errString.split(/\r?\n/);
-
         this.output = errLines;
         this.err = true;
       }
