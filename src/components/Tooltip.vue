@@ -14,10 +14,15 @@
         right: position === 'right'
       }"
     >
-      <span
-        class="text"
-        :class="color"
-      >{{ text }}</span>
+      <div
+        v-for="(line, i) of lines"
+        :key="i"
+      >
+        <span class="text">
+          {{ line }}
+        </span>
+        <br>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +48,11 @@ export default {
       type: Number,
       required: false,
       default: 0
+    }
+  },
+  computed: {
+    lines(){
+      return this.text.split('\n');
     }
   }
 };
@@ -78,7 +88,7 @@ export default {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
-    transition-delay: .4s;
+    transition-delay: .3s;
 
     position: absolute;
     z-index: 1;

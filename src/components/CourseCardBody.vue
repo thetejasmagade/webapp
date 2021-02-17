@@ -18,7 +18,7 @@
         class="icon gold"
       >
         <Tooltip
-          :text="`Tags: ${interests.join(', ')}`"
+          :text="`Tags:\n${interests.join('\n')}`"
           color="gold"
         >
           <FontAwesomeIcon
@@ -31,7 +31,7 @@
         class="icon purple"
       >
         <Tooltip
-          :text="`Prerequsites: ${prereqs.join(', ')}`"
+          :text="`Prerequsites:\n${prereqs.join('\n')}`"
           color="purple"
         >
           <FontAwesomeIcon
