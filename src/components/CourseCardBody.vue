@@ -51,7 +51,7 @@
       </div>
     </div>
             
-    <span class="title">
+    <span class="title item">
       {{ course.Title }}
     </span>
 
@@ -92,16 +92,17 @@
         v-if="!course.IsDemoPurchased"
         class="buy-buttons item"
       >
-        <GemDisplay
-          :size="1"
-          class="flex-1"
-          :text="`${course.GemDemoCost}`"
-        />
         <BlockButton
           :click="clickBuyDemoCourse"
           class="btn"
+          color="gray"
         >
-          Get Demo
+          <GemDisplay
+            :size=".5"
+            class="flex-1 margin-neg-10"        
+            :text="`${course.GemDemoCost} Demo`"
+            text-color="gray-lightest"
+          />
         </BlockButton>
       </div>
       <div
@@ -118,17 +119,17 @@
       </div>
 
       <div class="buy-buttons item">
-        <GemDisplay
-          :size="1"
-          class="flex-1"
-          :text="`${course.GemCost}`"
-        />
         <BlockButton
           :click="clickBuyCourse"
-          :color="course.IsDemoPurchased ? 'purple' : 'gray'"
+          color="purple"
           class="btn"
         >
-          Get Course
+          <GemDisplay
+            :size=".5"
+            class="flex-1 margin-neg-10"
+            text-color="gray-lightest"
+            :text="`${course.GemCost}`"
+          />
         </BlockButton>
       </div>
     </div>
@@ -248,7 +249,7 @@ export default {
 
 .title {
   color: $gold-dark;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .buy-buttons{
@@ -257,9 +258,8 @@ export default {
   justify-content: center;
 
   .btn {
-    margin-left: 1em;
-    font-size: 1em;
-    min-width: 150px;
+    font-size: 14px;
+    width: 100%;
   }
 }
 
@@ -280,10 +280,10 @@ export default {
 }
 
 .item{
-  margin: 10px 10px 0 10px;
+  margin: 10px 15px 0 15px;
 
   &.bottom{
-    margin: 0 0 10px 0;
+    margin: 10px;
   }
 }
 
@@ -291,6 +291,10 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.margin-neg-10 {
+  margin: -10px;
 }
 
 </style>

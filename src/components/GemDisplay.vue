@@ -11,6 +11,7 @@
     <span
       v-if="text"
       :style="{'font-size': `${fontSize}px`}"
+      :class="textColor"
     >
       {{ text }}
     </span>
@@ -34,10 +35,18 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    textColor: {
+      type: String,
+      required: false,
+      default: 'purple-lighter'
     }
   },
   computed:{
     fontSize(){
+      if (this.size === .5){
+        return 18;
+      }
       if (this.size === 1){
         return 24;
       }
@@ -47,6 +56,9 @@ export default {
       return 24;
     },
     margin(){
+      if (this.size === .5){
+        return -8;
+      }
       if (this.size === 1){
         return -8;
       }
@@ -56,6 +68,9 @@ export default {
       return -8;
     },
     imgWidth(){
+      if (this.size === .5){
+        return 50;
+      }
       if (this.size === 1){
         return 50;
       }
@@ -72,10 +87,17 @@ export default {
 @import '@/styles/colors.scss';
 
 #gem-display {
-  color: $purple-lighter;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.purple-lighter {
+  color: $purple-lighter;
+}
+
+.gray-lightest {
+  color: $gray-lightest;
 }
 </style>
