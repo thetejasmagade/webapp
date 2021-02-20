@@ -32,7 +32,10 @@ import {
   faSignal,
   faTags,
   faSchool,
-  faHourglass
+  faHourglass,
+  faSearch,
+  faCheese,
+  faGraduationCap
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -70,7 +73,9 @@ library.add(faSignal);
 library.add(faTags);
 library.add(faSchool);
 library.add(faHourglass);
-
+library.add(faSearch);
+library.add(faCheese);
+library.add(faGraduationCap);
 
 export default {
   metaInfo() {

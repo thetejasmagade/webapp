@@ -8,110 +8,132 @@
     <ConfirmOverlay
       ref="confirmPurchase"
     />
+    <div>
+      <div
+        v-for="(course, i) of courses"
+        :key="i"
+      >
+        <CourseCheckoutModal
+          :ref="course.UUID"
+          :course="course"
+          :user-has-already-bought-courses="userHasAlreadyBoughtCourses"
+        />
+      </div>
+    </div>
 
     <div class="subcontainer">
-      <Section
-        title="Your path to a successful coding career"
-        subtitle="Take the following courses in order"
-        class="margin-bottom-1"
-      >
-        <div class="program">
-          <div
-            v-for="(course, i) of $store.getters.getProgramCS"
-            :key="i"
-            class="item"
+      <Tabs class="tabs">
+        <Tab
+          title="CS Program"
+          icon="graduation-cap"
+        >
+          <Section
+            title="Your path to a successful coding career"
+            subtitle="Take the following courses in order"
+            class="margin-bottom-1"
           >
-            <h3>
-              #{{ i+1 }}
-            </h3>
-            <ImageCard
-              :img-src="course.ImageURL"
-              class="card"
-            >
-              <CourseCardBody
-                v-if="course"
-                class="body"
-                :course="course"
-                :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
-                :click-buy-course="()=> {clickBuyCourse(course, false) }"
-              />
-            </ImageCard>
-          </div>
-        </div>
-        <h2> Notes </h2>
-        <p class="max-width">
-          <i>
-            This curriculum is a work-in-progress
-            while we build towards an unaccredited university-level CS degree.
-            <a
-              href="https://github.com/qvault/curriculum"
-              target="_blank"
-            >You can find the roadmap here.</a>
-            Buying courses,
-            being part of our
-            <a
-              href="https://discord.gg/k4rVEWt"
-              target="_blank"
-            >Discord community</a>,
-            and providing great feedback will help us get the project finished.
-          </i>
-        </p>
-      </Section>
-
-      <Section
-        v-if="recommendedCourses && recommendedCourses.length > 0"
-        title="Recommended à la carte courses"
-        subtitle="Based on your profile, you may want to take these courses to reach short-term goals"
-        class="margin-bottom-1"
-      >
-        <div class="cards">
-          <div
-            v-for="(course, i) of recommendedCourses"
-            :key="i"
+            <div class="program">
+              <div
+                v-for="(course, i) of $store.getters.getProgramCS"
+                :key="i"
+                class="item"
+              >
+                <h3>
+                  #{{ i+1 }}
+                </h3>
+                <ImageCard
+                  :img-src="course.ImageURL"
+                  class="card"
+                >
+                  <CourseCardBody
+                    v-if="course"
+                    class="body"
+                    :course="course"
+                    :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
+                    :click-buy-course="()=> {clickBuyCourse(course, false) }"
+                  />
+                </ImageCard>
+              </div>
+            </div>
+            <h2> Notes </h2>
+            <p class="max-width">
+              <i>
+                This curriculum is a work-in-progress
+                while we build towards an unaccredited university-level CS degree.
+                <a
+                  href="https://github.com/qvault/curriculum"
+                  target="_blank"
+                >You can find the roadmap here.</a>
+                Buying courses,
+                being part of our
+                <a
+                  href="https://discord.gg/k4rVEWt"
+                  target="_blank"
+                >Discord community</a>,
+                and providing great feedback will help us get the project finished.
+              </i>
+            </p>
+          </Section>
+        </Tab>
+        <Tab
+          title="A La Carte"
+          icon="cheese"
+        >
+          <Section
+            v-if="recommendedCourses && recommendedCourses.length > 0"
+            title="Recommended à la carte courses"
+            subtitle="Based on your profile, take these courses to reach short-term goals"
+            class="margin-bottom-1"
           >
-            <ImageCard
-              :img-src="course.ImageURL"
-              class="card"
-            >
-              <CourseCardBody
-                class="body"
-                :course="course"
-                :click-buy-demo-course="() => { clickBuyCourse(course, true) }"
-                :click-buy-course="() => { clickBuyCourse(course, false) }"
-              />
-            </ImageCard>
-          </div>
-        </div>
-      </Section>
-
-      <Section
-        title="All Courses"
-        subtitle="Browse all of our content, we release new courses frequently"
-      >
-        <div class="cards">
-          <div
-            v-for="(course, i) of courses"
-            :key="i"
+            <div class="cards">
+              <div
+                v-for="(course, i) of recommendedCourses"
+                :key="i"
+              >
+                <ImageCard
+                  :img-src="course.ImageURL"
+                  class="card"
+                >
+                  <CourseCardBody
+                    class="body"
+                    :course="course"
+                    :click-buy-demo-course="() => { clickBuyCourse(course, true) }"
+                    :click-buy-course="() => { clickBuyCourse(course, false) }"
+                  />
+                </ImageCard>
+              </div>
+            </div>
+          </Section>
+        </Tab>
+        <Tab
+          title="Browse"
+          icon="search"
+        >
+          <Section
+            title="All Courses"
+            subtitle="Browse all of our content, we release new courses frequently"
           >
-            <CourseCheckoutModal
-              :ref="course.UUID"
-              :course="course"
-              :user-has-already-bought-courses="userHasAlreadyBoughtCourses"
-            />
-            <ImageCard
-              :img-src="course.ImageURL"
-              class="card"
-            >
-              <CourseCardBody
-                class="body"
-                :course="course"
-                :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
-                :click-buy-course="()=> {clickBuyCourse(course, false) }"
-              />
-            </ImageCard>
-          </div>
-        </div>
-      </Section>
+            <div class="cards">
+              <div
+                v-for="(course, i) of courses"
+                :key="i"
+              >
+                <ImageCard
+                  :img-src="course.ImageURL"
+                  class="card"
+                >
+                  <CourseCardBody
+                    class="body"
+                    :course="course"
+                    :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
+                    :click-buy-course="()=> {clickBuyCourse(course, false) }"
+                  />
+                </ImageCard>
+              </div>
+            </div>
+          </Section>
+        </Tab>
+      </Tabs>
     </div>
   </div>
 </template>
@@ -123,6 +145,8 @@ import ImageCard from '@/components/ImageCard';
 import ConfirmOverlay from '@/components/ConfirmOverlay';
 import CourseCheckoutModal from '@/components/CourseCheckoutModal';
 import CourseCardBody from '@/components/CourseCardBody';
+import Tab from '@/components/Tab';
+import Tabs from '@/components/Tabs';
 
 import { 
   purchaseCourse,
@@ -157,7 +181,9 @@ export default {
     ImageCard,
     ConfirmOverlay,
     CourseCheckoutModal,
-    CourseCardBody
+    CourseCardBody,
+    Tab,
+    Tabs
   },
   data() {
     return {
@@ -327,7 +353,7 @@ export default {
     margin-right: 2em;
 
     h3 {
-      font-size: 2em;
+      font-size: 1.5em;
       margin: 0;
     }
   }
@@ -338,7 +364,9 @@ export default {
   flex: 1 1 200px;
   margin: $margin;
   max-width: 300px;
-  min-width: 200px;
+  @media (min-width: $mobile-size) {
+    min-width: 250px;
+  }
   height: calc(100% - #{$margin});
 
   .body {

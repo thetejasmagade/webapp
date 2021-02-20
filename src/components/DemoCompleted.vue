@@ -56,11 +56,13 @@
 <script>
 import BlockButton from '@/components/BlockButton';
 import Section from '@/components/Section';
+import ExerciseNav from '@/components/ExerciseNav';
 
 export default {
   components: {
     BlockButton,
-    Section
+    Section,
+    ExerciseNav
   },
   props: {
     courseTitle: {

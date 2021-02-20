@@ -68,7 +68,7 @@
 
     <div
       v-if="mobileMenuOpen"
-      class="dropdown mobile"
+      class="mobile"
     >
       <a
         href="/"
@@ -151,6 +151,7 @@ export default {
 
 .mobile {
   display: none !important;
+  background-color: $gray-darker-3;
   @media screen and (max-width: $mobile-size) {
     display: block !important;
   }
