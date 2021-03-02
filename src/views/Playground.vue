@@ -177,7 +177,7 @@ main = do
       top: calc(10px + #{$bar-height});
       right: 10px;
       position: absolute;
-      z-index: 1;
+      z-index: 5;
     }
   }
 
