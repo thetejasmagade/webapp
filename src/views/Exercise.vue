@@ -5,16 +5,6 @@
       class="full"
       :restart-callback="goToBeginning"
     />
-
-    <DemoCompleted
-      v-else-if="demoComplete"
-      :back-callback="goBack"
-      :forward-callback="goForward"
-      :can-go-back="!isFirstExercise"
-      :can-go-forward="false"
-      :course-title="courseTitle"
-      :course-u-u-i-d="courseUUID"
-    />
       
     <div
       v-else
@@ -28,7 +18,7 @@
             :go-back="goBack"
             :go-forward="goForward"
             :can-go-back="!isFirstExercise"
-            :can-go-forward="!(isCurrentExercise || isLastExercise)"
+            :can-go-forward="!isLastExercise"
           />
 
           <MarkdownViewer
@@ -77,7 +67,6 @@ import MarkdownViewer from '@/components/MarkdownViewer';
 import CodeEditor from '@/components/CodeEditor';
 import BlockButton from '@/components/BlockButton';
 import CourseCompleted from '@/components/CourseCompleted';
-import DemoCompleted from '@/components/DemoCompleted';
 import ExerciseNav from '@/components/ExerciseNav';
 import Multipane from '@/components/Multipane';
 import MultipaneResizer from '@/components/MultipaneResizer';
@@ -104,7 +93,6 @@ import {
   submitCodeExercise,
   submitMultipleChoiceExercise,
   getFirstExercise,
-  getDemoExercises,
   saveCode,
   getSavedCode,
   getCourses
@@ -128,7 +116,6 @@ export default {
     MultipleChoice,
     CourseCompleted,
     ExerciseNav,
-    DemoCompleted,
     Multipane,
     MultipaneResizer
   },
@@ -145,7 +132,6 @@ export default {
       courseUUID: this.$route.params.courseUUID,
       moduleUUID: null,
       exerciseUUID: null,
-      demoExercises: [],
       question: {},
       progLang: 'go',
       courseDone: false,
@@ -217,26 +203,11 @@ export default {
         return this.course.Title;
       }
       return null;
-    },
-    demoComplete(){
-      if (!this.course || this.course.IsPurchased){
-        return false;
-      }
-      if (this.demoExercises.length === 0){
-        return false;
-      }
-      for (const demo of this.demoExercises){
-        if (demo.UUID === this.exerciseUUID){
-          return false;
-        }
-      }
-      return true;
     }
   },
   async mounted(){
     this.courses = await getCourses(this.courseUUID);
     await this.getCurrentExercise();
-    this.demoExercises = await getDemoExercises(this.courseUUID);
   },
   methods: {
     resetCode(){
@@ -373,9 +344,6 @@ export default {
         this.courseDone = true;
         this.handleRewards(exercise.Rewards);
         return;
-      }
-      if (this.demoComplete){
-        gtmEventFinishCourse(this.course.Title, true);
       }
       this.courseDone = false;
       this.isFirstExercise = exercise.Exercise.IsFirst;

@@ -60,22 +60,6 @@
         :click="logout"
         text="Logout"
       />
-
-      <div class="divider">
-        <div class="divider" />
-      </div>
-
-      <MenuItemHorizontal
-        v-for="(course, i) of activeCourses"
-        :key="i"
-        class="item"
-        :text="course.Title"
-        :sub-items="modulesToSubItems(course.Modules)"
-        :click="() => {$router.push({name: 'Exercise', params: {courseUUID: course.UUID}}) }"
-        :sub-items-tab-open="pathParams.courseUUID === course.UUID"
-        :active-sub-item-u-u-i-d="$store.getters.getCurrentModuleUUID"
-        :current="pathParams.courseUUID === course.UUID"
-      />
     </div>
 
     <div class="sidebar mobile">
@@ -158,13 +142,6 @@ export default {
       type: Object,
       required: false,
       default: () => {return {};}
-    }
-  },
-  computed: {
-    activeCourses(){
-      return this.$store.getters.getCourses.filter(
-        course => ((course.IsPurchased || course.IsDemoPurchased) && !course.IsComplete)
-      );
     }
   },
   methods: {

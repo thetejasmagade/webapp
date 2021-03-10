@@ -19,7 +19,7 @@
         </span>
 
         <span class="title sub">
-          Free demos available on signup. Certificates and portfolios free forever.
+          Free courses available on signup.
         </span>
 
         <div

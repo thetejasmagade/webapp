@@ -5,21 +5,6 @@
     <LoadingOverlay
       :is-loading="isLoading" 
     />
-    <ConfirmOverlay
-      ref="confirmPurchase"
-    />
-    <div>
-      <div
-        v-for="(course, i) of courses"
-        :key="i"
-      >
-        <CourseCheckoutModal
-          :ref="course.UUID"
-          :course="course"
-          :user-has-already-bought-courses="userHasAlreadyBoughtCourses"
-        />
-      </div>
-    </div>
 
     <div class="subcontainer">
       <Tabs class="tabs">
@@ -44,13 +29,12 @@
                 <ImageCard
                   :img-src="course.ImageURL"
                   class="card"
+                  :click="()=>{$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});}"
                 >
                   <CourseCardBody
                     v-if="course"
                     class="body"
                     :course="course"
-                    :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
-                    :click-buy-course="()=> {clickBuyCourse(course, false) }"
                   />
                 </ImageCard>
               </div>
@@ -76,6 +60,33 @@
           </Section>
         </Tab>
         <Tab
+          title="Browse"
+          icon="search"
+        >
+          <Section
+            title="All Courses"
+            subtitle="Browse all of our content, we release new courses frequently"
+          >
+            <div class="cards">
+              <div
+                v-for="(course, i) of courses"
+                :key="i"
+              >
+                <ImageCard
+                  :img-src="course.ImageURL"
+                  class="card"
+                  :click="()=>{$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});}"
+                >
+                  <CourseCardBody
+                    class="body"
+                    :course="course"
+                  />
+                </ImageCard>
+              </div>
+            </div>
+          </Section>
+        </Tab>
+        <Tab
           v-if="recommendedCourses && recommendedCourses.length > 0"
           title="Recommended"
           icon="star"
@@ -94,40 +105,11 @@
                 <ImageCard
                   :img-src="course.ImageURL"
                   class="card"
+                  :click="()=>{$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});}"
                 >
                   <CourseCardBody
                     class="body"
                     :course="course"
-                    :click-buy-demo-course="() => { clickBuyCourse(course, true) }"
-                    :click-buy-course="() => { clickBuyCourse(course, false) }"
-                  />
-                </ImageCard>
-              </div>
-            </div>
-          </Section>
-        </Tab>
-        <Tab
-          title="Browse"
-          icon="search"
-        >
-          <Section
-            title="All Courses"
-            subtitle="Browse all of our content, we release new courses frequently"
-          >
-            <div class="cards">
-              <div
-                v-for="(course, i) of courses"
-                :key="i"
-              >
-                <ImageCard
-                  :img-src="course.ImageURL"
-                  class="card"
-                >
-                  <CourseCardBody
-                    class="body"
-                    :course="course"
-                    :click-buy-demo-course="() => {clickBuyCourse(course, true) }"
-                    :click-buy-course="()=> {clickBuyCourse(course, false) }"
                   />
                 </ImageCard>
               </div>
@@ -143,27 +125,14 @@
 import Section from '@/components/Section';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
-import ConfirmOverlay from '@/components/ConfirmOverlay';
-import CourseCheckoutModal from '@/components/CourseCheckoutModal';
 import CourseCardBody from '@/components/CourseCardBody';
 import Tab from '@/components/Tab';
 import Tabs from '@/components/Tabs';
 
 import { 
-  purchaseCourse,
-  purchaseDemoCourse,
-  getLastGemTransaction,
   getCourseRecommendations
 } from '@/lib/cloudClient.js';
 
-import { 
-  loadCourses
-} from '@/lib/cloudStore.js';
-
-import {
-  gtmEventPurchaseCourseWithGems,
-  gtmEventSelectCourse
-} from '@/lib/gtm.js';
 
 export default {
   metaInfo() {
@@ -180,8 +149,6 @@ export default {
     Section,
     LoadingOverlay,
     ImageCard,
-    ConfirmOverlay,
-    CourseCheckoutModal,
     CourseCardBody,
     Tab,
     Tabs
@@ -193,15 +160,6 @@ export default {
     };
   },
   computed:{
-    userHasAlreadyBoughtCourses(){
-      let hasBought = false;
-      for (const course of this.courses){
-        if (course.IsPurchased){
-          hasBought = true;
-        }
-      }
-      return hasBought;
-    },
     courses(){
       let courses = this.$store.getters.getCourses;
       const balance = this.$store.getters.getBalance;
@@ -237,61 +195,6 @@ export default {
         type: 'error',
         text: err
       });
-    }
-
-    if (this.$route.query.courseUUID){
-      if (this.courses.length === 0 ){
-        await loadCourses(this);
-      }
-      for (let i = 0; i < this.courses.length; i++){
-        if (this.courses[i].UUID === this.$route.query.courseUUID){
-          this.clickBuyCourse(this.courses[i], false);
-          break;
-        }
-      }
-    }
-  },
-  methods: {
-    showModal(courseUUID){
-      this.$refs[courseUUID][0].show();
-    },
-    clickBuyCourse(course, isDemo){
-      const alreadyPurchased = (isDemo && course.IsDemoPurchased) ||
-        (!isDemo && course.IsPurchased);
-      if (alreadyPurchased) {
-        this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
-        return;
-      }
-      gtmEventSelectCourse(course.UUID, course.Title);
-      const enoughGems = (isDemo && this.$store.getters.getBalance >= course.GemDemoCost) || 
-        (!isDemo && this.$store.getters.getBalance >= course.GemCost);
-      if (!enoughGems){
-        this.showModal(course.UUID);
-        return;
-      }
-      this.$refs['confirmPurchase'].openNav(
-        `Would you like to purchase this ${isDemo ? 'demo' : 'course'} for ${isDemo ? course.GemDemoCost : course.GemCost} gems?`,
-        async () => {
-          try {
-            if (isDemo) {
-              await purchaseDemoCourse(course.UUID);
-              gtmEventPurchaseCourseWithGems(course.GemDemoCost, course.Title, true);
-            } else {
-              await purchaseCourse(course.UUID);
-              gtmEventPurchaseCourseWithGems(course.GemCost, course.Title, false);
-            }
-            await loadCourses(this);
-            const lastGemTransaction = await getLastGemTransaction();
-            this.$store.commit('setBalance', lastGemTransaction.Balance);
-            this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
-          } catch (err) {
-            this.$notify({
-              type: 'error',
-              text: err
-            });
-          }
-        }
-      );
     }
   }
 };

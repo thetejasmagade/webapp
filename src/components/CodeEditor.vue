@@ -85,7 +85,8 @@ export default {
   props: {
     runCallback: {
       type: Function,
-      required: true
+      required: false,
+      default: ()=>{}
     },
     resetCallback: {
       type: Function,

@@ -229,7 +229,7 @@ export default {
   },
   computed: {
     filteredCourses() {
-      return this.courses.filter(course => course.IsComplete || course.IsPurchased).sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
+      return this.courses.filter(course => course.IsComplete).sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
     },
     filteredAchievements() {
       return this.achievements.filter(ach => ach.UnlockedAt).sort((ua1, ua2) => {

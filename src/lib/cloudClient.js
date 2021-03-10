@@ -499,30 +499,6 @@ export async function getCoursesPublic(userHandle){
   return handled;
 }
 
-export async function purchaseCourse(courseUUID){
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/purchase`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function purchaseDemoCourse(courseUUID){
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/purchase_demo`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function getCurrentExercise(courseUUID){
   const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/current`, {
     method: 'GET',
@@ -572,23 +548,8 @@ export async function getNextExercise(courseUUID, currentExerciseUUID) {
   return handled;
 }
 
-export async function getDemoExercises(courseUUID) {
-  const resp = await fetch(`${domain}/v1/courses/${courseUUID}/exercises/demos`, {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function submitCodeExercise(exerciseUUID, output, isDemo){
+export async function submitCodeExercise(exerciseUUID, output){
   let fetchFunc = fetchWithAuth;
-  if (isDemo) {
-    fetchFunc = fetch;
-  }
   const resp = await fetchFunc(`${domain}/v1/exercises/${exerciseUUID}/code`, {
     method: 'POST',
     mode: 'cors',
@@ -596,48 +557,35 @@ export async function submitCodeExercise(exerciseUUID, output, isDemo){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      output,
-      isDemo
+      output
     })
   });
   const handled = await handleJSONResponse(resp);
   return handled;
 }
 
-export async function submitMultipleChoiceExercise(exerciseUUID, answer, isDemo){
-  let fetchFunc = fetchWithAuth;
-  if (isDemo) {
-    fetchFunc = fetch;
-  }
-  const resp = await fetchFunc(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
+export async function submitMultipleChoiceExercise(exerciseUUID, answer){
+  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      answer,
-      isDemo
+      answer
     })
   });
   const handled = await handleJSONResponse(resp);
   return handled;
 }
 
-export async function submitInformationalExercise(exerciseUUID, isDemo){
-  let fetchFunc = fetchWithAuth;
-  if (isDemo) {
-    fetchFunc = fetch;
-  }
-  const resp = await fetchFunc(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
+export async function submitInformationalExercise(exerciseUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      isDemo
-    })
+    }
   });
   const handled = await handleJSONResponse(resp);
   return handled;

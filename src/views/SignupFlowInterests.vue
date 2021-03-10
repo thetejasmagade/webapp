@@ -77,7 +77,7 @@ export default {
       }
       try {
         await updateUserInterests(interestUUIDs);
-        this.$router.push({name: 'SignupFlowPortfolio'});
+        this.$router.push({name: 'SignupFlowGems'});
       } catch (err) {
         this.$notify({
           type: 'error',

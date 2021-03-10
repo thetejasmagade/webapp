@@ -64,74 +64,6 @@
         />
         <span>Complete</span>
       </div>
-      <BlockButton
-        :click="clickBuyCourse"
-        class="btn item"
-      >
-        Browse Course
-      </BlockButton>
-    </div>
-    <div
-      v-else-if="course.IsPurchased"
-    >
-      <div class="purchased item">
-        <FontAwesomeIcon
-          icon="check"
-        />
-        <span>Purchased</span>
-      </div>
-      <BlockButton
-        :click="clickBuyCourse"
-        class="btn item"
-      >
-        Continue Course
-      </BlockButton>
-    </div>
-    <div v-else>
-      <div
-        v-if="!course.IsDemoPurchased"
-        class="buy-buttons item"
-      >
-        <BlockButton
-          :click="clickBuyDemoCourse"
-          class="btn"
-          color="gray"
-        >
-          <GemDisplay
-            :size=".5"
-            class="flex-1 margin-neg-10"        
-            :text="`${course.GemDemoCost} Demo`"
-            text-color="gray-lightest"
-          />
-        </BlockButton>
-      </div>
-      <div
-        v-else
-        class="buy-buttons item"
-      >
-        <BlockButton
-          :click="clickBuyDemoCourse"
-          class="btn"
-          color="gray"
-        >
-          Start Demo
-        </BlockButton>
-      </div>
-
-      <div class="buy-buttons item">
-        <BlockButton
-          :click="clickBuyCourse"
-          color="purple"
-          class="btn"
-        >
-          <GemDisplay
-            :size=".5"
-            class="flex-1 margin-neg-10"
-            text-color="gray-lightest"
-            :text="`${course.GemCost}`"
-          />
-        </BlockButton>
-      </div>
     </div>
 
     <div class="item links bottom">
@@ -149,29 +81,17 @@ import {
   loadAllInterests
 } from '@/lib/cloudStore.js';
 
-import GemDisplay from '@/components/GemDisplay';
-import BlockButton from '@/components/BlockButton';
 import Tooltip from '@/components/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
-    GemDisplay,
-    BlockButton,
     FontAwesomeIcon,
     Tooltip
   },
   props: { 
     course: {
       type: Object,
-      required: true
-    },
-    clickBuyDemoCourse: {
-      type: Function,
-      required: true
-    },
-    clickBuyCourse: {
-      type: Function,
       required: true
     }
   },
@@ -253,27 +173,8 @@ export default {
   font-size: 1.3em;
 }
 
-.buy-buttons{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  .btn {
-    font-size: 14px;
-    width: 100%;
-  }
-}
-
 .completed {
   color: $green-light;
-
-  span {
-    margin-left: 10px;
-  }
-}
-
-.purchased {
-  color: $gold-lighter;
 
   span {
     margin-left: 10px;
