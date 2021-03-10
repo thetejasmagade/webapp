@@ -76,13 +76,14 @@
           </Section>
         </Tab>
         <Tab
-          title="A La Carte"
-          icon="cheese"
+          v-if="recommendedCourses && recommendedCourses.length > 0"
+          title="Recommended"
+          icon="star"
         >
           <Section
             v-if="recommendedCourses && recommendedCourses.length > 0"
             title="Recommended à la carte courses"
-            subtitle="Based on your profile, take these courses to reach short-term goals"
+            subtitle="Based on your profile, take these courses to reach your short-term goals"
             class="margin-bottom-1"
           >
             <div class="cards">

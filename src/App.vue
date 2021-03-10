@@ -34,7 +34,7 @@ import {
   faSchool,
   faHourglass,
   faSearch,
-  faCheese,
+  faStar,
   faGraduationCap
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -74,7 +74,7 @@ library.add(faTags);
 library.add(faSchool);
 library.add(faHourglass);
 library.add(faSearch);
-library.add(faCheese);
+library.add(faStar);
 library.add(faGraduationCap);
 
 export default {
