@@ -14,7 +14,7 @@
         >
           <Section
             title="Your path to a successful coding career"
-            subtitle="Take the following courses in order"
+            subtitle="Take the following courses in order to complete our computer science program"
             class="margin-bottom-1"
           >
             <div class="program">
@@ -161,21 +161,7 @@ export default {
   },
   computed:{
     courses(){
-      let courses = this.$store.getters.getCourses;
-      const balance = this.$store.getters.getBalance;
-      for (let i = 0; i < courses.length; i++){
-        let products = this.$store.getters.getProducts;
-        products = products.filter(product => product.GemAmount >= courses[i].GemCost - balance);
-        if (products.length === 0){
-          products = products.filter(product => product.GemAmount >= courses[i].GemCost);
-        }
-        if (products.length > 3){
-          products = products.slice(0, 3);
-        }
-        products.sort((p1, p2) => p1.GemAmount > p2.GemAmount ? 1 : -1);
-        courses[i].products = products;
-      }
-      return courses;
+      return this.$store.getters.getCourses;
     }
   },
   async mounted(){

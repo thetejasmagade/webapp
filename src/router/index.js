@@ -6,7 +6,6 @@ const Courses = () => import(/* webpackChunkName: "Courses" */ '@/views/Courses.
 const Portfolio = () => import(/* webpackChunkName: "Portfolio" */ '@/views/Portfolio.vue');
 const Exercise = () => import(/* webpackChunkName: "Exercise" */ '@/views/Exercise.vue');
 const Store = () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue');
-const CouponCode = () => import(/* webpackChunkName: "CouponCode" */ '@/views/CouponCode.vue');
 const ReferralProgram = () => import(/* webpackChunkName: "ReferralProgram" */ '@/views/ReferralProgram.vue');
 const Dashboard = () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue');
 const Login = () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue');
@@ -17,7 +16,6 @@ const SignupFlowExperience = () => import(/* webpackChunkName: "SignupFlowExperi
 const SignupFlowInterests = () => import(/* webpackChunkName: "SignupFlowInterests" */ '@/views/SignupFlowInterests.vue');
 const SignupFlowGems = () => import(/* webpackChunkName: "SignupFlowGems" */ '@/views/SignupFlowGems.vue');
 const VerifyEmail = () => import(/* webpackChunkName: "VerifyEmail" */ '@/views/VerifyEmail.vue');
-
 
 Vue.use(VueRouter);
 
@@ -73,11 +71,6 @@ const routes = [
         path: 'store',
         name: 'Store',
         component: Store
-      },
-      {
-        path: 'coupon_code',
-        name: 'CouponCode',
-        component: CouponCode
       },
       {
         path: 'referral_program',

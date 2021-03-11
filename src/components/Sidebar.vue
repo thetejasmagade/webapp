@@ -40,15 +40,15 @@
 
       <MenuItemHorizontal
         class="item"
-        icon="user-tie"
-        :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
+        :icon="$store.getters.getUserIsSubscribed ? 'user-tie' : 'lock'"
+        :click="() => {clickPortfolio()}"
         text="Portfolio"
         :current="pathName === 'Portfolio'"
       />
 
       <MenuItemHorizontal
         class="item"
-        icon="trophy"
+        :icon="$store.getters.getUserIsSubscribed ? 'trophy' : 'lock'"
         :click="() => {$router.push({name: 'Achievements'}) }"
         text="Achievements"
         :current="pathName === 'Achievements'"
@@ -145,6 +145,13 @@ export default {
     }
   },
   methods: {
+    clickPortfolio(){
+      if (this.$store.getters.getUserIsSubscribed){
+        this.$router.push({name: 'Portfolio', params: {userHandle: this.$store.getters.getUser.Handle}});
+        return;
+      }
+      this.$proModal.show();
+    },
     modulesToSubItems(modules){
       let subItems = [];
       for (const mod of modules) {

@@ -4,6 +4,7 @@
       :duration="3000"
       classes="custom-notification"
     />
+    <ProModalPlugin />
     <router-view />
   </div>
 </template>
@@ -35,7 +36,8 @@ import {
   faHourglass,
   faSearch,
   faStar,
-  faGraduationCap
+  faGraduationCap,
+  faLock
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -76,6 +78,7 @@ library.add(faHourglass);
 library.add(faSearch);
 library.add(faStar);
 library.add(faGraduationCap);
+library.add(faLock);
 
 export default {
   metaInfo() {

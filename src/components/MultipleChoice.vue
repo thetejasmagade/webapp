@@ -8,8 +8,17 @@
         class="btn"
         color="gold"
         :click="() => {callback(answer)}"
+        :disabled="!$store.getters.getUserIsSubscribed"
       >
         <span>{{ answer }}</span>
+      </BlockButton>
+      <BlockButton
+        v-if="!$store.getters.getUserIsSubscribed"
+        class="btn"
+        color="purple"
+        :click="() => {$router.push({name: 'Store'});}"
+      >
+        <span>Get quiz access</span>
       </BlockButton>
     </div>
   </div>

@@ -26,7 +26,13 @@
     <div
       v-if="title"
       class="title"
+      :class="{'complete': exerciseIsComplete}"
     >
+      <FontAwesomeIcon
+        v-if="exerciseIsComplete"
+        class="check"
+        icon="check"
+      />
       <span>
         {{ title }}
       </span>
@@ -58,6 +64,11 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    exerciseIsComplete: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     goBack:{
       type: Function,
@@ -96,10 +107,18 @@ export default {
   justify-content: space-between;
   position: relative;
 
+  .check {
+    margin-right: 5px;
+  }
+
   .title {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &.complete {
+      color: $gold-light;
+    }
 
     @media (max-width: $mobile-size) {
       display: none;

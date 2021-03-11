@@ -91,6 +91,12 @@ export default new Vuex.Store({
     getUser(state) {
       return state.user;
     },
+    getUserIsSubscribed(state) {
+      if (state.user){
+        return state.user.IsSubscribed;
+      }
+      return false;
+    },
     getUserAchievements(state) {
       return state.userAchievements;
     },

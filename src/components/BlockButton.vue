@@ -37,7 +37,7 @@ export default {
 button {
   border-radius: 5px;
   border-width: 0px;
-  padding: 10px 20px 10px 20px;
+  padding: 8px 20px 8px 20px;
   color: $white;
   cursor: pointer;
 

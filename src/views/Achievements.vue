@@ -5,8 +5,14 @@
     <div class="contentContainer">
       <Section
         title="Achievements"
-        subtitle="Unlocking achievements earns free gems and adds clout to your dev profile"
+        subtitle="Achievements and gems add clout to your portfolio."
       >
+        <a
+          v-if="!$store.getters.getUserIsSubscribed"
+          @click="$router.push({name: 'Store'})"
+        >
+          Upgrade to a pro membership to start unlocking achievements and earning gems
+        </a>
         <div id="cards">
           <ImageCard
             v-for="(userAchievement, i) of $store.getters.getUserAchievements"
@@ -89,6 +95,11 @@ export default {
   margin: 0 auto;
   @media (max-width: 1024px) {
     max-width: 960px;
+  }
+
+  a {
+    margin: 1em;
+    display: block;
   }
 }
 

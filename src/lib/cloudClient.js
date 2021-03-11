@@ -587,7 +587,8 @@ export async function submitInformationalExercise(exerciseUUID){
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify({})
   });
   const handled = await handleJSONResponse(resp);
   return handled;

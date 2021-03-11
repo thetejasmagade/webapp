@@ -11,6 +11,73 @@
         title="Store"
         subtitle="A Pro account will make learning faster and easier. Don't hold yourself back from a high-paying tech job"
       >
+        <div
+          v-for="(subscriptionPlan, i) of subscriptionPlans"
+          :key="i"
+          class="cards"
+        >
+          <ImageCard
+            v-for="(price, j) of subscriptionPlan.Prices"
+            :key="j"
+            class="card"
+            :img-src="price.ImageURL"
+            :click="() => { checkout(subscriptionPlan, price) }"
+          >
+            <div class="body">
+              <div class="title">
+                <span> {{ price.Title }}</span>
+              </div>
+
+              <div class="price">
+                <span>${{ (price.UnitAmountPerMonth / 100) }} / month </span>
+              </div>
+
+              <ul>
+                <li
+                  v-for="(feature, k) of subscriptionPlan.Features"
+                  :key="k"
+                >
+                  {{ feature }}
+                </li>
+              </ul>
+
+              <div
+                v-if="price.MostPopular"
+                class="pill"
+              >
+                <span class="gold">
+                  Most Popular
+                </span>
+              </div>
+            </div>
+          </ImageCard>
+          <ImageCard
+            class="card"
+            img-src="https://qvault.io/wp-content/uploads/2021/03/Basic-Plan-1.jpg"
+          >
+            <div class="body">
+              <div class="title">
+                <span> Basic Plan </span>
+              </div>
+
+              <div class="price">
+                <span> Free </span>
+              </div>
+
+              <ul>
+                <li>
+                  Access to read all course material
+                </li>
+                <li>
+                  Limited code sandbox for exercises
+                </li>
+                <li>
+                  Save assignment progress
+                </li>
+              </ul>
+            </div>
+          </ImageCard>
+        </div>
         <ul>
           <li>
             <a @click="$router.push({name: 'ReferralProgram'})">
@@ -26,36 +93,6 @@
             </a>
           </li>
         </ul>
-        <div
-          v-for="(subscriptionPlan, i) of subscriptionPlans"
-          :key="i"
-          class="cards"
-        >
-          <ImageCard
-            v-for="(price, j) of subscriptionPlan.Prices"
-            :key="j"
-            class="card"
-            :img-src="price.ImageURL"
-            :click="() => { checkout(subscriptionPlan, price) }"
-          >
-            <div class="body">
-              <div
-                v-if="price.MostPopular"
-                class="pill"
-              >
-                <span class="gold">
-                  Most Popular
-                </span>
-              </div>
-              <div class="title">
-                <span> {{ price.Title }}</span>
-              </div>
-              <div class="price">
-                <span>${{ (price.UnitAmountPerMonth / 100) }} / month </span>
-              </div>
-            </div>
-          </ImageCard>
-        </div>
       </Section>
     </div>
   </div>
@@ -138,19 +175,28 @@ export default {
   justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
+  padding: 1em;
 
   .card{
-    flex: 1 1 calc(22% - 1em);
+    flex: 1;
     margin: .5em;
-    max-width: 225px;
+    max-width: 300px;
     min-width: 200px;
 
     .body {
       height: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
       flex-direction: column;
+      padding: 1em;
+
+      ul{
+        text-align: left;
+
+        li {
+          margin-top: 5px;
+        }
+      }
     }
 
     .pill{
@@ -162,10 +208,6 @@ export default {
 
         &.gold {
           background-color: $gold-dark;
-        }
-
-        &.green {
-          background-color: $green-dark;
         }
       }
       margin-bottom: 1em;
@@ -185,12 +227,6 @@ export default {
       font-size: 1.25em;
       color: $green-mid;
       margin-bottom: .5em;
-
-      .original {
-        color: $gray-mid;
-        margin-right: 1em;
-        background: linear-gradient(to left bottom, transparent 47.75%, currentColor 49.5%, currentColor 50.5%, transparent 52.25%);
-      }
     }
   }
 }

@@ -1,0 +1,67 @@
+<template>
+  <Modal
+    ref="proModal"
+  >
+    <div class="pro-modal">
+      <h1> You've discovered a Pro feature! </h1>
+      <p>
+        Upgrade to one of the Pro plans to be able to check your answers,
+        earn certifications, unlock achievements and more.
+      </p>
+      <BlockButton
+        class="btn"
+        :click="() => {btnClick()}"
+        color="purple"
+      >
+        View Plans
+      </BlockButton>
+    </div>
+  </Modal>
+</template>
+
+<script>
+import Modal from '@/components/Modal';
+import BlockButton from '@/components/BlockButton';
+import ProModalPlugin from '@/plugins/ProModal';
+
+export default {
+  components:{
+    Modal,
+    BlockButton
+  },
+  beforeMount() {
+    ProModalPlugin.EventBus.$on('show', () => {
+      this.show();
+    });
+  },
+  methods:{
+    show(){
+      this.$refs.proModal.show();
+    },
+    hide(){
+      this.$refs.proModal.hide();
+    },
+    btnClick(){
+      this.$router.push({name: 'Store'});
+      this.hide();
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+@import '@/styles/colors.scss';
+@import '@/styles/consts.scss';
+
+.pro-modal {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .btn {
+        max-width: 200px;
+    }
+}
+</style>

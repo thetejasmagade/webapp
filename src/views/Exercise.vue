@@ -19,6 +19,7 @@
             :go-forward="goForward"
             :can-go-back="!isFirstExercise"
             :can-go-forward="!isLastExercise"
+            :exercise-is-complete="isComplete"
           />
 
           <MarkdownViewer
@@ -140,7 +141,8 @@ export default {
       isCurrentExercise: false,
       code: '',
       defaultCode: '',
-      courses: null
+      courses: null,
+      isComplete: false
     };
   },
   computed: {
@@ -250,6 +252,10 @@ export default {
       }
     },
     async submitTypeInfo(){
+      if (!this.$store.getters.getUserIsSubscribed){
+        await this.goForward();
+        return;
+      }
       await submitInformationalExercise(
         this.exerciseUUID
       );
@@ -301,6 +307,9 @@ export default {
       }
     },
     async submitTypeCode(output) {
+      if (!this.$store.getters.getUserIsSubscribed){
+        return;
+      }
       try {
         const rewardsResponse = await submitCodeExercise(
           this.exerciseUUID,
@@ -319,6 +328,9 @@ export default {
       }
     },
     async submitTypeChoice(answer) {
+      if (!this.$store.getters.getUserIsSubscribed){
+        return;
+      }
       try {
         const rewardsResponse = await submitMultipleChoiceExercise(
           this.exerciseUUID,
@@ -349,6 +361,7 @@ export default {
       this.isFirstExercise = exercise.Exercise.IsFirst;
       this.isLastExercise = exercise.Exercise.IsLast;
       this.isCurrentExercise = exercise.IsCurrent;
+      this.isComplete = exercise.IsComplete;
 
       this.markdownSource = exercise.Exercise.Readme;
       this.type = exercise.Exercise.Type;

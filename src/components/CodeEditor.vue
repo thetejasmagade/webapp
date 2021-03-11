@@ -267,7 +267,7 @@ span.token.operator {
   height: 100%;
 
   .editor-container {
-    height: 70%;
+    height: 65%;
     overflow: auto;
     margin: 10px 0 0 0;
   }

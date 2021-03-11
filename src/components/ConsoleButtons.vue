@@ -14,6 +14,22 @@
       </BlockButton>
     </Tooltip>
     <Tooltip
+      v-if="!$store.getters.getUser && !$store.getters.getUserIsSubscribed"
+      :text="`Check Answer`"
+      position="right"
+      class="bottom"
+    >
+      <BlockButton
+        class="btn"
+        :click="() => $proModal.show()"
+        color="gold"
+      >
+        <FontAwesomeIcon
+          icon="check"
+        />
+      </BlockButton>
+    </Tooltip>
+    <Tooltip
       v-if="saveCallback"
       :text="`Save Code`"
       position="right"
