@@ -403,6 +403,42 @@ export async function getProducts(){
   return handled;
 }
 
+export async function getSubscriptionPLans(){
+  const resp = await fetchWithAuth(`${domain}/v1/subscription_plans`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function startSubscriptionPlanCheckout(priceID){
+  const resp = await fetchWithAuth(`${domain}/v1/subscription_plans/${priceID}/checkout`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function openCustomerPortal() {
+  const resp = await fetchWithAuth(`${domain}/v1/customer_portal`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  window.location.href = handled.URL;
+}
+
 export async function getInterests(){
   const resp = await fetchWithAuth(`${domain}/v1/interests`, {
     method: 'GET',
@@ -549,8 +585,7 @@ export async function getNextExercise(courseUUID, currentExerciseUUID) {
 }
 
 export async function submitCodeExercise(exerciseUUID, output){
-  let fetchFunc = fetchWithAuth;
-  const resp = await fetchFunc(`${domain}/v1/exercises/${exerciseUUID}/code`, {
+  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code`, {
     method: 'POST',
     mode: 'cors',
     headers: {

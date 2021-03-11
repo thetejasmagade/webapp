@@ -21,6 +21,13 @@
             >
               Security
             </BlockButton>
+            <BlockButton
+              :click="() => {openCustomerPortal()}"
+              :color="currentTab==='updatePass'?'purple-light':'gray-light'"
+              class="btn tabItems"
+            >
+              Billing
+            </BlockButton>
           </div>
         </div>
       </Section>
@@ -213,7 +220,8 @@
 import { 
   updateUserPassword, 
   updateUser, 
-  updateUserHandle
+  updateUserHandle,
+  openCustomerPortal
 } from '@/lib/cloudClient.js';
 import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton';
@@ -246,6 +254,9 @@ export default {
     };
   },
   methods: {
+    openCustomerPortal() {
+      openCustomerPortal();
+    },
     async updateUser() {
       try {
         if (this.user.handle){
