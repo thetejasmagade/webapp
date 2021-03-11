@@ -9,17 +9,12 @@
     <div class="subcontainer">
       <Section
         title="Store"
-        subtitle="Gems are the currency of Qvault. Buy some gems to unlock full courses"
+        subtitle="A Pro account will make learning faster and easier. Don't hold yourself back from a high-paying tech job"
       >
         <ul>
           <li>
-            <a @click="$router.push({name: 'CouponCode'})">
-              Got a coupon code?
-            </a>
-          </li>
-          <li>
             <a @click="$router.push({name: 'ReferralProgram'})">
-              Invite friends, get 150 free gems
+              Invite friends, get 150 gems
             </a>
           </li>
           <li>
@@ -31,40 +26,32 @@
             </a>
           </li>
         </ul>
-        <div class="cards">
+        <div
+          v-for="(subscriptionPlan, i) of subscriptionPlans"
+          :key="i"
+          class="cards"
+        >
           <ImageCard
-            v-for="(product, i) of products"
-            :key="i"
+            v-for="(price, j) of subscriptionPlan.Prices"
+            :key="j"
             class="card"
-            :img-src="localImageIfExists(product.ImageURL)"
-            :click="() => { checkout(product) }"
+            :img-src="price.ImageURL"
+            :click="() => { checkout(subscriptionPlan, price) }"
           >
             <div class="body">
               <div
-                v-if="product.MostPopular"
+                v-if="price.MostPopular"
                 class="pill"
               >
                 <span class="gold">
                   Most Popular
                 </span>
               </div>
-              <div
-                v-if="product.BestDeal"
-                class="pill"
-              >
-                <span class="green">
-                  Best Deal
-                </span>
-              </div>
               <div class="title">
-                <span> Get {{ product.GemAmount }} Gems</span>
+                <span> {{ price.Title }}</span>
               </div>
               <div class="price">
-                <span
-                  v-if="product.DiscountDollars !== 0"
-                  class="original"
-                >${{ (product.Price.UnitAmount / 100) + product.DiscountDollars }}</span>
-                <span>${{ (product.Price.UnitAmount / 100) }}</span>
+                <span>${{ (price.UnitAmountPerMonth / 100) }} / month </span>
               </div>
             </div>
           </ImageCard>
@@ -75,24 +62,9 @@
 </template>
 
 <script>
-import { 
-  gtmEventFinishCheckout
-} from '@/lib/gtm.js';
-
 import Section from '@/components/Section';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
-import imgGem1 from '@/img/gem-1.png';
-import imgGem2 from '@/img/gem-2.png';
-import imgGem3 from '@/img/gem-3.png';
-import imgGem4 from '@/img/gem-4.png';
-import imgGem5 from '@/img/gem-5.png';
-import {
-  completePayments
-} from '@/lib/cloudClient.js';
-import { 
-  loadBalance
-} from '@/lib/cloudStore.js';
 import { 
   checkout
 } from '@/lib/stripewrap.js';
@@ -120,50 +92,25 @@ export default {
     };
   },
   computed: {
-    products(){
-      let products = this.$store.getters.getProducts;
-      return products;
+    subscriptionPlans(){
+      return this.$store.getters.getSubscriptionPlans;
     }
   },
   async mounted(){
-    (async () => {
+    loadUser(this);
+  },
+  methods: {
+    async checkout(subscriptionPlan, price){
+      this.isLoading = true;
       try {
-        const completedPayments = await completePayments();
-        for (const completedPayment of completedPayments){
-          await loadUser(this);
-          window.rewardful('convert', { email: this.$store.getters.getUser.Email });
-          gtmEventFinishCheckout(
-            completedPayment.UnitAmount / 100.0,
-            completedPayment.ProductID,
-            completedPayment.ProductName
-          );
-        }
-        if (completedPayments.length > 0){
-          loadBalance(this);
-        }
-      } catch (err) {
+        await checkout(subscriptionPlan, price);
+      } catch (err){
         this.$notify({
           type: 'error',
           text: err
         });
-      } 
-    })();
-  },
-  methods: {
-    async checkout(product){
-      this.isLoading = true;
-      await checkout(product);
+      }
       this.isLoading = false;
-    },
-    localImageIfExists(url){
-      const imageMap = {
-        'https://files.stripe.com/links/fl_live_6ssyPWe0N1x2tnPpkqueyvix': imgGem1,
-        'https://files.stripe.com/links/fl_live_4LuaQKie1yZvkPBVh4Otq23s': imgGem2,
-        'https://files.stripe.com/links/fl_live_vHKJH47wkrSPyE3OjM3wj8dZ': imgGem3,
-        'https://files.stripe.com/links/fl_live_i04SKUo4zTtxi5Cw9x8SGYS7': imgGem4,
-        'https://files.stripe.com/links/fl_live_62wRlMFYz1iocbKsEZ3QLnrT': imgGem5
-      };
-      return imageMap[url] ? imageMap[url] : url;
     }
   }
 };

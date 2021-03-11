@@ -3,7 +3,7 @@ import {
   getProgramCS,
   getLastGemTransaction,
   getUser,
-  getProducts,
+  getSubscriptionPlans,
   isLoggedIn,
   getJWTClaims,
   logout,
@@ -75,10 +75,10 @@ export async function loadBalance(thisComponent) {
   }
 }
 
-export async function loadProducts(thisComponent) {
+export async function loadSubscriptionPlans(thisComponent) {
   try {
-    const products = await getProducts();
-    thisComponent.$store.commit('setProducts', products);
+    const subscriptionPlans = await getSubscriptionPlans();
+    thisComponent.$store.commit('setSubscriptionPlans', subscriptionPlans);
   } catch (err) {
     thisComponent.$notify({
       type: 'error',

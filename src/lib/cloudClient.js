@@ -391,19 +391,7 @@ export async function useCouponCode(couponCode) {
   return handled;
 }
 
-export async function getProducts(){
-  const resp = await fetchWithAuth(`${domain}/v1/products`, {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getSubscriptionPLans(){
+export async function getSubscriptionPlans(){
   const resp = await fetchWithAuth(`${domain}/v1/subscription_plans`, {
     method: 'GET',
     mode: 'cors',
@@ -415,13 +403,16 @@ export async function getSubscriptionPLans(){
   return handled;
 }
 
-export async function startSubscriptionPlanCheckout(priceID){
+export async function startSubscriptionPlanCheckout(priceID, referralID){
   const resp = await fetchWithAuth(`${domain}/v1/subscription_plans/${priceID}/checkout`, {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify({
+      referralID
+    })
   });
   const handled = await handleJSONResponse(resp);
   return handled;
@@ -466,30 +457,6 @@ export async function getUserAchievements() {
 export async function getUserAchievementsPublic(handle) {
   const resp = await fetch(`${domain}/v1/users/achievements/public/${handle}`, {
     method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function completePayments() {
-  const resp = await fetchWithAuth(`${domain}/v1/products`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function startProductCheckout(productID){
-  const resp = await fetchWithAuth(`${domain}/v1/products/${productID}/checkout`, {
-    method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'

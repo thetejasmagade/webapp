@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     balance: 0,
-    products: [],
+    subscriptionPlans: [],
     jwtClaims: null,
     courses: [],
     programCS: [],
@@ -19,9 +19,9 @@ export default new Vuex.Store({
     setBalance(state, newBalance) {
       state.balance = newBalance;
     },
-    setProducts(state, newProducts) {
-      newProducts.sort((p1, p2) => p1.Price.UnitAmount > p2.Price.UnitAmount ? 1 : -1);
-      state.products = newProducts;
+    setSubscriptionPlans(state, newSubscriptionPlans) {
+      newSubscriptionPlans.sort((p1, p2) => p1.Price.UnitAmount > p2.Price.UnitAmount ? 1 : -1);
+      state.subscriptionPlans = newSubscriptionPlans;
     },
     setJWTClaims(state, newJWTClaims) {
       state.jwtClaims = newJWTClaims;
@@ -59,8 +59,8 @@ export default new Vuex.Store({
     getBalance(state) {
       return state.balance;
     },
-    getProducts(state) {
-      return state.products;
+    getSubscriptionPlans(state) {
+      return state.subscriptionPlans;
     },
     getIsLoggedIn(state) {
       return state.jwtClaims !== null;

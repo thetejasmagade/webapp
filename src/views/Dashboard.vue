@@ -31,7 +31,7 @@ import {
 import {
   loadProgramCS,
   loadBalance,
-  loadProducts,
+  loadSubscriptionPlans,
   loadUser,
   loadLoggedIn
 } from '@/lib/cloudStore.js';
@@ -53,7 +53,7 @@ export default {
   },
   async mounted(){
     loadLoggedIn(this);
-    await loadProducts(this); 
+    await loadSubscriptionPlans(this); 
     loadProgramCS(this);
     loadUser(this);
 
