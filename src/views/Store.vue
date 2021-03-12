@@ -106,9 +106,6 @@ import {
   checkout
 } from '@/lib/stripewrap.js';
 import { loadUser } from '@/lib/cloudStore.js';
-import { 
-  gtmEventFinishCheckout
-} from '@/lib/gtm.js';
 
 export default {
   metaInfo() {
@@ -138,13 +135,6 @@ export default {
   },
   async mounted(){
     loadUser(this);
-    if (this.$route.query.checkout === 'success'){
-      this.$notify({
-        type: 'success',
-        text: 'Welcome to Qvault Pro!'
-      });
-      gtmEventFinishCheckout(null, null, 'Qvault Pro');
-    }
   },
   methods: {
     async checkout(price){
