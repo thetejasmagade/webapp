@@ -14,8 +14,8 @@ import {
 
 export const publicKey = 'pk_live_fbxxM4d9vtfIeSClZwjRtBCs00IzxS2rqu';
 
-export async function checkout(subscriptionPlan, price){
-  gtmEventBeginCheckout(price.UnitAmount / 100, subscriptionPlan.ID, subscriptionPlan.Name);
+export async function checkout(price){
+  gtmEventBeginCheckout(price.UnitAmount / 100, price.ID, price.Title);
   // arbitrary - how long does it take to propogate to GTM consistently
   await sleep(1000);
   const checkoutSession = await startSubscriptionPlanCheckout(

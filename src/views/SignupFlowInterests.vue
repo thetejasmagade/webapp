@@ -39,6 +39,11 @@ import {
 } from '@/lib/cloudClient.js';
 
 import { 
+  gtmEventTutorialComplete
+} from '@/lib/gtm.js';
+
+
+import { 
   loadAllInterests
 } from '@/lib/cloudStore.js';
 
@@ -77,7 +82,8 @@ export default {
       }
       try {
         await updateUserInterests(interestUUIDs);
-        this.$router.push({name: 'SignupFlowGems'});
+        gtmEventTutorialComplete();
+        this.$router.push({name: 'Courses'});
       } catch (err) {
         this.$notify({
           type: 'error',

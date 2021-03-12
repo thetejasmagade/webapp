@@ -21,7 +21,7 @@
             :key="j"
             class="card"
             :img-src="price.ImageURL"
-            :click="() => { checkout(subscriptionPlan, price) }"
+            :click="() => { checkout(price) }"
           >
             <div class="body">
               <div class="title">
@@ -106,6 +106,9 @@ import {
   checkout
 } from '@/lib/stripewrap.js';
 import { loadUser } from '@/lib/cloudStore.js';
+import { 
+  gtmEventFinishCheckout
+} from '@/lib/gtm.js';
 
 export default {
   metaInfo() {
@@ -135,12 +138,19 @@ export default {
   },
   async mounted(){
     loadUser(this);
+    if (this.$route.query.checkout === 'success'){
+      this.$notify({
+        type: 'success',
+        text: 'Welcome to Qvault Pro!'
+      });
+      gtmEventFinishCheckout(null, null, 'Qvault Pro');
+    }
   },
   methods: {
-    async checkout(subscriptionPlan, price){
+    async checkout(price){
       this.isLoading = true;
       try {
-        await checkout(subscriptionPlan, price);
+        await checkout(price);
       } catch (err){
         this.$notify({
           type: 'error',

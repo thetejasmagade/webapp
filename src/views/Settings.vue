@@ -228,6 +228,10 @@ import BlockButton from '@/components/BlockButton';
 import TextInput from '@/components/TextInput';
 import Section from '@/components/Section';
 
+import { 
+  gtmEventFinishCheckout
+} from '@/lib/gtm.js';
+
 export default {
   metaInfo() {
     const title = 'Qvault - Settings';
@@ -252,6 +256,15 @@ export default {
       confirmPassword: null,
       user: {}
     };
+  },
+  mounted(){
+    if (this.$route.query.checkout === 'success'){
+      this.$notify({
+        type: 'success',
+        text: 'Welcome to Qvault Pro!'
+      });
+      gtmEventFinishCheckout(null, null, 'Qvault Pro');
+    }
   },
   methods: {
     openCustomerPortal() {

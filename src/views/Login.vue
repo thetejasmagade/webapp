@@ -89,7 +89,7 @@ import TopNav from '@/components/TopNav';
 
 export default {
   metaInfo() {
-    const description = 'Login or sign up for Qvault\'s computer science and coding courses. All our courses have free demos, get started today.';
+    const description = 'Login or sign up for Qvault\'s computer science and coding courses. All our courses are free to audit, get started today.';
     const featuredImage = 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-1.png';
     const title = 'Login - Qvault';
     return {
