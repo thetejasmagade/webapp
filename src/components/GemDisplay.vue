@@ -5,7 +5,7 @@
   >
     <img
       :width="imgWidth"
-      src="../img/gem-256.png"
+      src="../img/gem-3-150.png"
       :style="{'margin': `${margin}px`}"
     >
     <span
@@ -57,25 +57,25 @@ export default {
     },
     margin(){
       if (this.size === .5){
-        return -8;
+        return -4;
       }
       if (this.size === 1){
-        return -8;
+        return -4;
       }
       if (this.size === 2){
-        return -16;
+        return 4;
       }
-      return -8;
+      return -4;
     },
     imgWidth(){
       if (this.size === .5){
-        return 50;
+        return 40;
       }
       if (this.size === 1){
-        return 50;
+        return 40;
       }
       if (this.size === 2){
-        return 75;
+        return 60;
       }
       return 50;
     }

@@ -259,6 +259,7 @@ export default {
       await submitInformationalExercise(
         this.exerciseUUID
       );
+      this.isComplete = true;
       if (this.isCurrentExercise){
         await this.getCurrentExercise();
       } else {
@@ -315,6 +316,7 @@ export default {
           this.exerciseUUID,
           output
         );
+        this.isComplete = true;
         this.handleRewards(rewardsResponse);
         await sleep(1500);
         if (this.isCurrentExercise){
@@ -336,6 +338,7 @@ export default {
           this.exerciseUUID,
           answer
         );
+        this.isComplete = true;
         this.handleRewards(rewardsResponse);
         await sleep(1500);
         if (this.isCurrentExercise){

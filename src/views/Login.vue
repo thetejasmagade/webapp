@@ -199,7 +199,6 @@ export default {
   .panel {
     background-color: $gray-lightest;
     min-height: 600px;
-    box-shadow: 0 0 5em $gray-mid;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
