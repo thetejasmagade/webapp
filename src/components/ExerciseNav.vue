@@ -30,8 +30,13 @@
     >
       <FontAwesomeIcon
         v-if="exerciseIsComplete"
-        class="check"
+        class="icon"
         icon="check"
+      />
+      <FontAwesomeIcon
+        v-else-if="locked"
+        class="icon pink"
+        icon="lock"
       />
       <span>
         {{ title }}
@@ -64,6 +69,11 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    locked: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     exerciseIsComplete: {
       type: Boolean,
@@ -107,8 +117,12 @@ export default {
   justify-content: space-between;
   position: relative;
 
-  .check {
+  .icon {
     margin-right: 5px;
+
+    &.pink {
+      color: $pink-dark;
+    }
   }
 
   .title {

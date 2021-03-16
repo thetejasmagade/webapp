@@ -28,6 +28,7 @@
             :reset-callback="runReset"
             :save-callback="saveCallback"
             :load-callback="loadCallback"
+            :verify-callback="verifyCode"
           />
           <div class="output">
             <p
@@ -102,6 +103,11 @@ export default {
       required: false,
       default: null
     },
+    verifyCallback: {
+      type: Function,
+      required: false,
+      default: null
+    },
     progLang: {
       type: String,
       required: true
@@ -172,11 +178,14 @@ export default {
       this.output.push('code execution cancelled');
       this.err = true;
     },
+    async verifyCode(){
+      let finalOut = this.outputToSubmission(this.output);
+      await this.verifyCallback(finalOut);
+    },
     async runCode() {
       try {
         this.output = [];
         this.isLoading = true;
-
         try {
           if (this.progLang === 'go'){
             const wasm = await compileGo(this.code);
@@ -210,14 +219,7 @@ export default {
         }
         this.err = false;
         this.isLoading = false;
-        let finalOut = '';
-        for (const line of this.output){
-          if (Array.isArray(line) || typeof line === 'object'){
-            finalOut += JSON.stringify(line);
-          } else{
-            finalOut += line;
-          }
-        }
+        let finalOut = this.outputToSubmission(this.output);
         await this.runCallback(finalOut);
       } catch(err) {
         this.isLoading = false;
@@ -229,6 +231,17 @@ export default {
         this.output = errLines;
         this.err = true;
       }
+    },
+    outputToSubmission(output){
+      let finalOut = '';
+      for (const line of output){
+        if (Array.isArray(line) || typeof line === 'object'){
+          finalOut += JSON.stringify(line);
+        } else{
+          finalOut += line;
+        }
+      }
+      return finalOut;
     },
     async runReset() {
       try {

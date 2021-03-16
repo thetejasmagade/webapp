@@ -20,6 +20,7 @@
             :can-go-back="!isFirstExercise"
             :can-go-forward="!isLastExercise"
             :exercise-is-complete="isComplete"
+            :locked="locked"
           />
 
           <MarkdownViewer
@@ -46,6 +47,7 @@
           class="side right"
           :run-callback="submitTypeCode"
           :reset-callback="resetCode"
+          :verify-callback="verifyCodeClick"
           :save-callback="saveCode"
           :load-callback="getSavedCode"
           :prog-lang="progLang"
@@ -56,6 +58,7 @@
           :callback="submitTypeChoice"
           :answers="question.Answers"
           :question="question.Question"
+          :locked="locked"
         />
       </Multipane>
     </div>
@@ -151,10 +154,14 @@ export default {
       code: '',
       defaultCode: '',
       courses: null,
-      isComplete: false
+      isComplete: false,
+      isFree: false
     };
   },
   computed: {
+    locked(){
+      return !this.$store.getters.getUserIsSubscribed && !this.isFree;
+    },
     modulePosition(){
       if (!this.module){
         return null;
@@ -248,6 +255,13 @@ export default {
     await this.getCurrentExercise();
   },
   methods: {
+    verifyCodeClick(output){
+      if (this.isFree){
+        this.verifyCode(output);
+        return;
+      }
+      this.$proModal.show();
+    },
     resetCode(){
       this.code = this.defaultCode;
     },
@@ -288,19 +302,11 @@ export default {
       }
     },
     async submitTypeInfo(){
-      if (!this.$store.getters.getUserIsSubscribed){
-        await this.goForward();
-        return;
-      }
       await submitInformationalExercise(
         this.exerciseUUID
       );
       this.isComplete = true;
-      if (this.isCurrentExercise){
-        await this.getCurrentExercise();
-      } else {
-        await this.goForward();
-      }
+      await this.goForward();
     },
     async handleRewards(rewardsResponse){
       if ((rewardsResponse.GemCredit && rewardsResponse.Message) || 
@@ -343,11 +349,7 @@ export default {
         });
       }
     },
-    async submitTypeCode(output) {
-      gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
-      if (!this.$store.getters.getUserIsSubscribed){
-        return;
-      }
+    async verifyCode(output){
       try {
         const rewardsResponse = await submitCodeExercise(
           this.exerciseUUID,
@@ -356,7 +358,7 @@ export default {
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
         await sleep(1500);
-        if (this.isCurrentExercise){
+        if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
           await this.getCurrentExercise();
         }
       } catch(err) {
@@ -366,10 +368,14 @@ export default {
         });
       }
     },
-    async submitTypeChoice(answer) {
+    async submitTypeCode(output) {
+      gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
       if (!this.$store.getters.getUserIsSubscribed){
         return;
       }
+      this.verifyCode(output);
+    },
+    async submitTypeChoice(answer) {
       try {
         const rewardsResponse = await submitMultipleChoiceExercise(
           this.exerciseUUID,
@@ -378,7 +384,7 @@ export default {
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
         await sleep(1500);
-        if (this.isCurrentExercise){
+        if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
           await this.getCurrentExercise();
         }
       } catch(err) {
@@ -399,6 +405,7 @@ export default {
         return;
       }
       this.courseDone = false;
+      this.isFree = exercise.Exercise.IsFree;
       this.isFirstExercise = exercise.Exercise.IsFirst;
       this.isLastExercise = exercise.Exercise.IsLast;
       this.isCurrentExercise = exercise.IsCurrent;

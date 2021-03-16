@@ -21,7 +21,7 @@
     >
       <BlockButton
         class="btn"
-        :click="() => $proModal.show()"
+        :click="verifyCallback"
         color="gold"
       >
         <FontAwesomeIcon
@@ -105,6 +105,11 @@ export default {
       default: null
     },
     loadCallback: {
+      type: Function,
+      required: false,
+      default: null
+    },
+    verifyCallback: {
       type: Function,
       required: false,
       default: null

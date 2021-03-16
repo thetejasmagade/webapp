@@ -8,12 +8,12 @@
         class="btn"
         color="gold"
         :click="() => {callback(answer)}"
-        :disabled="!$store.getters.getUserIsSubscribed"
+        :disabled="locked"
       >
         <span>{{ answer }}</span>
       </BlockButton>
       <BlockButton
-        v-if="!$store.getters.getUserIsSubscribed"
+        v-if="locked"
         class="btn"
         color="purple"
         :click="() => {$router.push({name: 'Store'});}"
@@ -40,6 +40,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    locked: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     answers: {
       type: Array,
