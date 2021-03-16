@@ -11,7 +11,7 @@ export default new Vuex.Store({
     courses: [],
     programCS: [],
     userAchievements: [],
-    user: {},
+    user: null,
     currentModuleUUID: null,
     allInterests: []
   },

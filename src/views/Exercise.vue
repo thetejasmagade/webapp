@@ -73,7 +73,8 @@ import Multipane from '@/components/Multipane';
 import MultipaneResizer from '@/components/MultipaneResizer';
 
 import { 
-  loadBalance
+  loadBalance,
+  loadUser
 } from '@/lib/cloudStore.js';
 
 import { 
@@ -225,6 +226,11 @@ export default {
       this.moveToExercise(exercise);
       return;
     }
+
+    if (!this.$store.getters.getUser){
+      await loadUser(this);
+    }
+
     if (!this.$store.getters.getUserIsSubscribed){
       try{
         const exerciseUUID = await loadUnsubscribedProgress(this.courseUUID);

@@ -55,7 +55,9 @@ export default {
     loadLoggedIn(this);
     await loadSubscriptionPlans(this); 
     loadProgramCS(this);
-    loadUser(this);
+    if (!this.$store.getters.getUser){
+      loadUser(this);
+    }
 
     await this.loadRewards();
     loadBalance(this);

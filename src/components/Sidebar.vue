@@ -4,7 +4,7 @@
       <div class="profile-box">
         <ProfileImage
           class="profile-img"
-          :profile-image-u-r-l="$store.getters.getUser.ProfileImageURL"
+          :profile-image-u-r-l="$store.getters.getUser ? $store.getters.getUser.ProfileImageURL : null"
           editable
         />
         <GemDisplay :text="`${$store.getters.getBalance}`" />
