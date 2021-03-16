@@ -49,7 +49,7 @@
                   target="_blank"
                 >You can find the roadmap here.</a>
                 Buying courses,
-                being part of our
+                being part of the
                 <a
                   href="https://discord.gg/k4rVEWt"
                   target="_blank"
@@ -65,7 +65,7 @@
         >
           <Section
             title="All Courses"
-            subtitle="Browse all of our content, we release new courses frequently"
+            subtitle="Browse all of my content, I release new courses frequently"
           >
             <div class="cards">
               <div

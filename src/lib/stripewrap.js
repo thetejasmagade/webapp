@@ -19,7 +19,7 @@ export async function checkout(price){
   // arbitrary - how long does it take to propogate to GTM consistently
   await sleep(1000);
   const checkoutSession = await startSubscriptionPlanCheckout(
-    price.ID, window.Rewardful.referral);
+    price.ID, window.Rewardful ? window.Rewardful.referral : null);
   const stripe = await loadStripe(publicKey);
   await stripe.redirectToCheckout({
     sessionId: checkoutSession.id
