@@ -1,11 +1,14 @@
 import decodeJWT from './decodeJWT';
+import {
+  saveCloudJWT,
+  loadCloudJWT,
+  removeCloudJWT
+} from './localStorageLib';
 
 export const domain = 'https://api.classroom.qvault.io';
 
-const jwtKey = 'cloudJWT';
-
 export function loginToken(token) {
-  localStorage.setItem(jwtKey, token);
+  saveCloudJWT(token);
 }
 
 export async function loginManual(email, password){
@@ -21,7 +24,7 @@ export async function loginManual(email, password){
     })
   });
   const handled = await handleJSONResponse(resp);
-  localStorage.setItem(jwtKey, handled.token);
+  saveCloudJWT(handled.token);
   return handled;
 }
 
@@ -39,7 +42,7 @@ export async function loginGoogle(googleJWT, isSubscribedNews, referringUserUUID
     })
   });
   const handled = await handleJSONResponse(resp);
-  localStorage.setItem(jwtKey, handled.token);
+  saveCloudJWT(handled.token);
 
   if (resp.status === 201){
     handled.registered = true;
@@ -77,7 +80,7 @@ async function refreshToken(){
     }
   });
   const handled = await handleJSONResponse(resp);
-  localStorage.setItem(jwtKey, handled.token);
+  saveCloudJWT(handled.token);
   return handled;
 }
 
@@ -318,7 +321,7 @@ export async function verifyEmail(code){
     })
   });
   const handled = await handleJSONResponse(resp);
-  localStorage.setItem(jwtKey, handled.token);
+  saveCloudJWT(handled.token);
   return handled;
 }
 
@@ -515,8 +518,19 @@ export async function getCurrentExercise(courseUUID){
 }
 
 export async function getFirstExerciseInModule(courseUUID, moduleUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/modules/${moduleUUID}/exercises/first
-  `, {
+  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/modules/${moduleUUID}/exercises/first`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getExerciseByID(courseUUID, exerciseUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/by_id/${exerciseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -634,7 +648,7 @@ export async function saveCode(exerciseUUID, code) {
 }
 
 export function logout(){
-  localStorage.removeItem(jwtKey);
+  removeCloudJWT();
 }
 
 export function isLoggedIn(){
@@ -648,7 +662,7 @@ export function isLoggedIn(){
 
 export function getJWTClaims(){
   try {
-    let token = localStorage.getItem(jwtKey);
+    let token = loadCloudJWT();
     return decodeJWT(token);
   } catch (err){
     return null;
@@ -659,7 +673,7 @@ async function fetchWithAuth(url, params){
   if (!isLoggedIn()){
     throw 'You\'re not logged in, please logout and back in';
   }
-  let token = localStorage.getItem(jwtKey);
+  let token = loadCloudJWT();
   let decodedToken = decodeJWT(token);
   const hoursDelta = 24;
   if (decodedToken.exp < (Date.now() + hoursDelta*60*60) / 1000){

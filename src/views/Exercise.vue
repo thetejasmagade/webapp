@@ -98,8 +98,14 @@ import {
   saveCode,
   getSavedCode,
   getCourses,
-  getFirstExerciseInModule
+  getFirstExerciseInModule,
+  getExerciseByID
 } from '@/lib/cloudClient.js';
+
+import {
+  saveUnsubscribedProgress,
+  loadUnsubscribedProgress
+} from '@/lib/localStorageLib';
 
 export default {
   metaInfo() {
@@ -218,6 +224,20 @@ export default {
       );
       this.moveToExercise(exercise);
       return;
+    }
+    if (!this.$store.getters.getUserIsSubscribed){
+      try{
+        const exerciseUUID = await loadUnsubscribedProgress(this.courseUUID);
+        const exercise = await getExerciseByID(
+          this.courseUUID,
+          exerciseUUID
+        );
+        this.moveToExercise(exercise);
+        return;
+      } catch (err){
+        console.log(err);
+        // do nothing
+      }
     }
     await this.getCurrentExercise();
   },
@@ -363,6 +383,7 @@ export default {
       }
     },
     async moveToExercise(exercise){
+      saveUnsubscribedProgress(this.courseUUID, exercise.Exercise.UUID);
       if (exercise.CourseDone){
         if (!this.courseDone){
           gtmEventFinishCourse(this.course.Title, false);
