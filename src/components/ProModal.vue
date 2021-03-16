@@ -24,6 +24,8 @@ import Modal from '@/components/Modal';
 import BlockButton from '@/components/BlockButton';
 import ProModalPlugin from '@/plugins/ProModal';
 
+import { gtmEventOpenProModal } from '@/lib/gtm';
+
 export default {
   components:{
     Modal,
@@ -36,6 +38,7 @@ export default {
   },
   methods:{
     show(){
+      gtmEventOpenProModal();
       this.$refs.proModal.show();
     },
     hide(){

@@ -29,7 +29,7 @@
                 <ImageCard
                   :img-src="course.ImageURL"
                   class="card"
-                  :click="()=>{$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});}"
+                  :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBody
                     v-if="course"
@@ -75,7 +75,7 @@
                 <ImageCard
                   :img-src="course.ImageURL"
                   class="card"
-                  :click="()=>{$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});}"
+                  :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBody
                     class="body"
@@ -105,7 +105,7 @@
                 <ImageCard
                   :img-src="course.ImageURL"
                   class="card"
-                  :click="()=>{$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});}"
+                  :click="()=>() => { goToCourse(course) }"
                 >
                   <CourseCardBody
                     class="body"
@@ -133,6 +133,9 @@ import {
   getCourseRecommendations
 } from '@/lib/cloudClient.js';
 
+import { 
+  gtmEventSelectCourse
+} from '@/lib/gtm.js';
 
 export default {
   metaInfo() {
@@ -181,6 +184,12 @@ export default {
         type: 'error',
         text: err
       });
+    }
+  },
+  methods: {
+    goToCourse(course){
+      gtmEventSelectCourse(course.UUID, course.Title);
+      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
     }
   }
 };

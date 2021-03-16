@@ -83,7 +83,8 @@ import {
 import { 
   gtmEventEarnGems,
   gtmEventUnlockAchievement,
-  gtmEventFinishCourse
+  gtmEventFinishCourse,
+  gtmEventExecuteCode
 } from '@/lib/gtm.js';
 
 import { 
@@ -317,6 +318,7 @@ export default {
       }
     },
     async submitTypeCode(output) {
+      gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
       if (!this.$store.getters.getUserIsSubscribed){
         return;
       }

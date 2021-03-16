@@ -61,6 +61,28 @@ export function gtmEventFinishCheckout(priceUSD, productID, productName){
   }
 }
 
+export function gtmEventExecuteCode(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'execute_code',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventOpenProModal(){
+  try {
+    window.dataLayer.push({
+      'event': 'open_pro_modal'
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function gtmEventEarnGems(numGems){
   try {
     window.dataLayer.push({
