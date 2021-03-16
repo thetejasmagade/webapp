@@ -150,7 +150,7 @@ export default {
     border: solid $white;
     border-width: 0 0 0 1px;
     margin-left: 30px;
-    cursor: text;
+    cursor: pointer;
 
     span {
       padding-left: 20px;
@@ -159,6 +159,11 @@ export default {
     &.current {
       border-color: $purple-lighter;
       color: $purple-lighter;
+    }
+
+    &:hover {
+      border-color: $purple-dark;
+      color: $purple-dark;
     }
   }
 }

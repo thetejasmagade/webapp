@@ -96,7 +96,8 @@ import {
   getFirstExercise,
   saveCode,
   getSavedCode,
-  getCourses
+  getCourses,
+  getFirstExerciseInModule
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -209,6 +210,14 @@ export default {
   },
   async mounted(){
     this.courses = await getCourses(this.courseUUID);
+    if (this.$route.params.moduleUUID){
+      const exercise = await getFirstExerciseInModule(
+        this.courseUUID,
+        this.$route.params.moduleUUID
+      );
+      this.moveToExercise(exercise);
+      return;
+    }
     await this.getCurrentExercise();
   },
   methods: {

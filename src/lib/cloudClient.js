@@ -514,6 +514,19 @@ export async function getCurrentExercise(courseUUID){
   return handled;
 }
 
+export async function getFirstExerciseInModule(courseUUID, moduleUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/modules/${moduleUUID}/exercises/first
+  `, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getFirstExercise(courseUUID) {
   const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/first`, {
     method: 'GET',
@@ -525,7 +538,6 @@ export async function getFirstExercise(courseUUID) {
   const handled = await handleJSONResponse(resp);
   return handled;
 }
-
 
 export async function getPreviousExercise(courseUUID, currentExerciseUUID) {
   const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/previous/${currentExerciseUUID}`, {

@@ -60,6 +60,24 @@
         :click="logout"
         text="Logout"
       />
+
+      <div
+        v-if="activeCourse"
+        class="divider"
+      >
+        <div class="divider" />
+      </div>
+
+      <MenuItemHorizontal
+        v-if="activeCourse"
+        class="item"
+        :text="activeCourse.Title"
+        :sub-items="modulesToSubItems(activeCourse.Modules)"
+        :click="() => {}"
+        :sub-items-tab-open="true"
+        :active-sub-item-u-u-i-d="$store.getters.getCurrentModuleUUID"
+        :current="true"
+      />
     </div>
 
     <div class="sidebar mobile">
@@ -144,6 +162,16 @@ export default {
       default: () => {return {};}
     }
   },
+  computed: {
+    activeCourse(){
+      for (const course of this.$store.getters.getCourses){
+        if (course.UUID === this.pathParams.courseUUID){
+          return course;
+        }
+      }
+      return null;
+    }
+  },
   methods: {
     clickPortfolio(){
       if (this.$store.getters.getUserIsSubscribed){
@@ -156,8 +184,18 @@ export default {
       let subItems = [];
       for (const mod of modules) {
         subItems.push({
+          thisComponent: this,
           text: mod.Title,
-          uuid: mod.UUID
+          uuid: mod.UUID,
+          async click() {
+            this.thisComponent.$router.push({
+              name: 'Exercise',
+              params: {
+                courseUUID: this.thisComponent.activeCourse.UUID,
+                moduleUUID: this.uuid
+              }
+            });
+          }
         });
       }
       return subItems;
