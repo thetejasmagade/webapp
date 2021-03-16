@@ -645,8 +645,7 @@ export function getJWTClaims(){
 
 async function fetchWithAuth(url, params){
   if (!isLoggedIn()){
-    // redirect to login screen
-    return;
+    throw 'You\'re not logged in, please logout and back in';
   }
   let token = localStorage.getItem(jwtKey);
   let decodedToken = decodeJWT(token);

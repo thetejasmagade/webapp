@@ -14,7 +14,7 @@
       </BlockButton>
     </Tooltip>
     <Tooltip
-      v-if="!$store.getters.getUser && !$store.getters.getUserIsSubscribed"
+      v-if="!$store.getters.getUserIsSubscribed"
       :text="`Check Answer`"
       position="right"
       class="bottom"
