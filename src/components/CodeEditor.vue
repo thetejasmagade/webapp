@@ -28,7 +28,7 @@
             :reset-callback="runReset"
             :save-callback="saveCallback"
             :load-callback="loadCallback"
-            :verify-callback="verifyCode"
+            :verify-callback="verifyCallback ? verifyCode : null"
           />
           <div class="output">
             <p
