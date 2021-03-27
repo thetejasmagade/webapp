@@ -68,16 +68,15 @@ export default {
   line-height: 47px;
 
   .selected {
-    background-color: $gray-darker-2;
+    background-color: $gray-lighter;
     border-radius: 6px;
     border: 1px solid $gray-mid;
-    color: $white;
+    color: $gray-darker-2;
     padding-left: 1em;
     cursor: pointer;
     user-select: none;
 
     &.open{
-      border: 1px solid $gold-dark;
       border-radius: 6px 6px 0px 0px;
     }
 
@@ -89,7 +88,7 @@ export default {
       width: 0;
       height: 0;
       border: 5px solid transparent;
-      border-color: $white transparent transparent transparent;
+      border-color: $gray-darker-2 transparent transparent transparent;
     }
   }
 
@@ -97,22 +96,22 @@ export default {
     color: $white;
     border-radius: 0px 0px 6px 6px;
     overflow: hidden;
-    border-right: 1px solid $gold-dark;
-    border-left: 1px solid $gold-dark;
-    border-bottom: 1px solid $gold-dark;
+    border-right: 1px solid $gray-mid;
+    border-left: 1px solid $gray-mid;
+    border-bottom: 1px solid $gray-mid;
     position: absolute;
-    background-color: $gray-darker-2;
+    background-color: $gray-lighter;
     left: 0;
     right: 0;
     z-index: 5;
 
     div{
-      color: $white;
+      color: $gray-darker-2;
       padding-left: 1em;
       cursor: pointer;
       user-select: none;
       &:hover{
-        background-color: $gold-dark;
+        background-color: $gold-light;
       }
     }
   }

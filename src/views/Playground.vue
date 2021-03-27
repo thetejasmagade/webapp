@@ -144,7 +144,7 @@ main = do
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
-  background-color: $gray-darker;
+  background-color: $gray-lighter;
 
   .langs{
     display: flex;
@@ -158,8 +158,7 @@ main = do
 
   .editor {
     flex: 1;
-    background-color: $gray-darker;
-    color: $gray-lighter;
+    background-color: $gray-lightest;
     max-height: 100%;
     overflow: auto;
   }
