@@ -133,13 +133,13 @@ export default {
 }
 
 .nav {
-  background-color: $gray-darker-3;
+  background-color: $gray-darker-2;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-size: 15px;
   height: calc(#{$bar-height} - 2px);
-  border-bottom: 2px solid $gray-dark;
+  border-bottom: 2px solid $gray-light;
 
   .item-group {
     display: flex;

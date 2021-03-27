@@ -147,16 +147,16 @@ export default {
 
   .icon {
     &.pink {
-      color: $pink-lighter;
+      color: $pink-mid;
     }
     &.purple {
-      color: $purple-lighter;
+      color: $purple-mid;
     }
     &.gray {
-      color: $gray-lighter;
+      color: $gray-mid;
     }
     &.gold {
-      color: $gold-lighter;
+      color: $gold-mid;
     }
   }
 }
@@ -174,7 +174,7 @@ export default {
 }
 
 .completed {
-  color: $green-light;
+  color: $green-mid;
 
   span {
     margin-left: 10px;

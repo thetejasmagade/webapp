@@ -97,7 +97,7 @@ export default {
 
   &.light{
     border: solid 1px $gray-lighter;
-    background-color: $gray-lightest;
+    background-color: $white;
   }
 
   &.clickable{

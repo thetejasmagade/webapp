@@ -91,7 +91,6 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
-@import '@/styles/backgrounds.scss';
 
 .verify-email {
   display: flex;

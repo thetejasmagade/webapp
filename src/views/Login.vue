@@ -15,7 +15,7 @@
         >
 
         <span class="title">
-          We make computer science <span class="emphasis">simple.</span>
+          Getting a coding job can be <span class="emphasis">simple.</span>
         </span>
 
         <span class="title sub">
@@ -163,7 +163,6 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
-@import '@/styles/backgrounds.scss';
 
 .emphasis {
   color: $purple-light;

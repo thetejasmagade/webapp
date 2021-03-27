@@ -22,7 +22,7 @@ import 'prismjs/components/prism-purescript.js';
 import 'prismjs/components/prism-python.js';
 
 // should match any other prism components that share a page
-import 'prismjs/themes/prism-okaidia.css';
+import 'prismjs/themes/prism-coy.css';
 
 import VueMarkdown from 'vue-markdown';
 
@@ -71,7 +71,8 @@ export default {
     }
 
     code {
-      color: $pink-lighter;
+      color: $pink-dark;
+      font-size: 1.2em;
     }
 
     img {

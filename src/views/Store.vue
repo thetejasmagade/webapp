@@ -9,7 +9,7 @@
     <div class="subcontainer">
       <Section
         title="Store"
-        subtitle="A Pro account will make learning faster and easier. Don't hold yourself back from a high-paying tech job"
+        subtitle="A Pro account will make learning faster and easier, and you'll be able to show off your work to employers"
       >
         <div
           v-for="(subscriptionPlan, i) of subscriptionPlans"
@@ -17,9 +17,37 @@
           class="cards"
         >
           <ImageCard
+            class="card"
+            theme="light"
+            img-src="https://qvault.io/wp-content/uploads/2021/03/promonthly-300x169.jpg"
+          >
+            <div class="body">
+              <div class="title">
+                <span> Basic Plan </span>
+              </div>
+
+              <div class="price">
+                <span> Free </span>
+              </div>
+
+              <ul>
+                <li>
+                  Access to read all course material
+                </li>
+                <li>
+                  Limited code sandbox for exercises
+                </li>
+                <li>
+                  Save assignment progress
+                </li>
+              </ul>
+            </div>
+          </ImageCard>
+          <ImageCard
             v-for="(price, j) of subscriptionPlan.Prices"
             :key="j"
             class="card"
+            theme="light"
             :img-src="price.ImageURL"
             :click="() => { checkout(price) }"
           >
@@ -49,32 +77,6 @@
                   Most Popular
                 </span>
               </div>
-            </div>
-          </ImageCard>
-          <ImageCard
-            class="card"
-            img-src="https://qvault.io/wp-content/uploads/2021/03/Basic-Plan-1.jpg"
-          >
-            <div class="body">
-              <div class="title">
-                <span> Basic Plan </span>
-              </div>
-
-              <div class="price">
-                <span> Free </span>
-              </div>
-
-              <ul>
-                <li>
-                  Access to read all course material
-                </li>
-                <li>
-                  Limited code sandbox for exercises
-                </li>
-                <li>
-                  Save assignment progress
-                </li>
-              </ul>
             </div>
           </ImageCard>
         </div>
@@ -177,7 +179,7 @@ export default {
   width: 100%;
   padding: 1em;
 
-  .card{
+  .card {
     flex: 1;
     margin: .5em;
     max-width: 300px;
@@ -214,7 +216,7 @@ export default {
     }
 
     .title {
-      color: $purple-lightest;
+      color: $purple-mid;
       font-size: 1.5em;
       margin-bottom: .5em;
 

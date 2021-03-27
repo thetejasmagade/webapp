@@ -227,7 +227,7 @@ export default {
 .sidebar {
 	overflow: auto;
   color: $gray-lightest;
-  background-color: $gray-darker-3;
+  background-color: $gray-darker-2;
   height: 100%;
 
   &.desktop{

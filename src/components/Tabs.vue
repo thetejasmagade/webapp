@@ -64,8 +64,8 @@ export default {
 }
 
 .tabs-tab {
-  background-color: $gray-dark;
-  color: $gray-lightest;
+  background-color: $gray-light;
+  color: $gray-darker;
   padding: 15px 30px;
   @media screen and (max-width: $mobile-size) {
     padding: 10px 20px;
@@ -76,12 +76,11 @@ export default {
   cursor: pointer;
 
   &.tab-selected {
-    background-color: $gray-darker-2;
+    background-color: $gray-lightest;
   }
 }
 
 .body {
-  background-color: $gray-darker-2;
   border-radius: 0px 3px 3px 3px;
 }
 

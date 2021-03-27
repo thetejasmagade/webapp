@@ -54,9 +54,7 @@ export default {
   .icon {
     font-size: 32px;
     color: #00acee;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 20px 10px 20px;
   }
 
   span {

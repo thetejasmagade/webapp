@@ -47,10 +47,9 @@ export default {
   @media (max-width: $mobile-size) {
     padding: 1em;
   }
-  background-color: $white;
   border-radius: 3px;
-  background-color: $gray-darker-2;
-  color: $gray-lightest;
+  background-color: $gray-lightest;
+  color: $gray-darker;
 
   .titlebox {
     .title {
@@ -58,10 +57,11 @@ export default {
       font-weight: bold;
       position: relative;
       margin-bottom: 5px;
+      color: $gold-dark;
     }
 
     .subtitle {
-      color: $gray-lighter;
+      color: $gray-mid;
     }
 
     &:after {

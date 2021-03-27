@@ -493,17 +493,15 @@ export default {
 .side {
   height: 100%;
   overflow: auto;
-  background-color: $gray-dark-2;
-  color: $gray-lightest;
+  background-color: $gray-lightest;
+  color: $gray-darker;
 
   &.left {
-    border-right: 2px solid $gray-light;
+    border-right: 2px solid $gray-dark;
     width: 50%;
   }
 
   &.right {
-    background-color: $gray-darker;
-    color: $gray-lighter;
     flex: 1;
   }
 }

@@ -19,6 +19,7 @@
             :key="i"
             :img-src="userAchievement.ImageURL"
             class="card"
+            theme="light"
             :class="{'locked': !userAchievement.UnlockedAt}"
           >
             <div
@@ -136,7 +137,7 @@ export default {
       }
 
       .description {
-        color: $white;
+        color: $gray-darker;
         font-weight: 400;
         line-height: 1.3em;
         font-size: 1em;

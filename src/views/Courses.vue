@@ -14,7 +14,7 @@
         >
           <Section
             title="Your path to a successful coding career"
-            subtitle="Take the following courses in order to complete our computer science program"
+            subtitle="Take the following courses in order to complete the full CS program"
             class="margin-bottom-1"
           >
             <div class="program">
@@ -27,6 +27,7 @@
                   #{{ i+1 }}
                 </h3>
                 <ImageCard
+                  theme="light"
                   :img-src="course.ImageURL"
                   class="card"
                   :click="() => { goToCourse(course) }"
@@ -43,7 +44,7 @@
             <p class="max-width">
               <i>
                 This curriculum is a work-in-progress
-                while we build towards an unaccredited university-level CS degree.
+                while I build towards an unaccredited university-level CS degree.
                 <a
                   href="https://github.com/qvault/curriculum"
                   target="_blank"
@@ -65,7 +66,7 @@
         >
           <Section
             title="All Courses"
-            subtitle="Browse all of my content, I release new courses frequently"
+            subtitle="Browse all my content, I release new courses as often as I can"
           >
             <div class="cards">
               <div
@@ -73,6 +74,7 @@
                 :key="i"
               >
                 <ImageCard
+                  theme="light"
                   :img-src="course.ImageURL"
                   class="card"
                   :click="() => { goToCourse(course) }"
@@ -103,6 +105,7 @@
                 :key="i"
               >
                 <ImageCard
+                  theme="light"
                   :img-src="course.ImageURL"
                   class="card"
                   :click="()=>() => { goToCourse(course) }"
@@ -222,8 +225,10 @@ export default {
   overflow: auto;
   margin: 1em;
   padding: 1em;
-  background-color: $gray-dark;
+  background-color: $gray-lighter;
+  color: $purple-dark;
   border-radius: 6px;
+  border: solid 1px $gray-lighter;
 
   scrollbar-width: thin;
   scrollbar-color: $gray-dark $gray-light;
@@ -231,7 +236,7 @@ export default {
     width: 11px;
   }
   &::-webkit-scrollbar-track {
-    background: $gray-dark;
+    background: $gray-lighter;
     border-radius: 6px;
   }
   &::-webkit-scrollbar-thumb {
@@ -239,8 +244,8 @@ export default {
     border-radius: 6px;
     border: 3px solid $gray-light;
     &:hover{
-      background-color: $gray-lighter;
-      border: 3px solid $gray-lighter;
+      background-color: $gray-dark;
+      border: 3px solid $gray-dark;
     }
   }
 

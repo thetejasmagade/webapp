@@ -131,7 +131,7 @@ export default {
     align-items: center;
 
     &.complete {
-      color: $gold-light;
+      color: $green-dark;
     }
 
     @media (max-width: $mobile-size) {

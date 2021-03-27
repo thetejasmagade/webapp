@@ -9,21 +9,21 @@
           <div class="tab">
             <BlockButton
               :click="() => currentTab='settings'"
-              :color="currentTab==='settings'?'purple-light':'gray-light'"
+              :color="currentTab==='settings' ? 'purple-light':'gray-light'"
               class="btn tabItems"
             >
               Profile
             </BlockButton>
             <BlockButton
               :click="() => currentTab='updatePass'"
-              :color="currentTab==='updatePass'?'purple-light':'gray-light'"
+              :color="currentTab==='updatePass' ? 'purple-light':'gray-light'"
               class="btn tabItems"
             >
               Security
             </BlockButton>
             <BlockButton
               :click="() => {openCustomerPortal()}"
-              :color="currentTab==='updatePass'?'purple-light':'gray-light'"
+              color="gray-light"
               class="btn tabItems"
             >
               Billing
@@ -366,7 +366,6 @@ label {
         line-height: 26px;
         width: 100%;
         font-family: 'Roboto', sans-serif;
-        color: $gray-lightest;
 
         &.textarea {
           outline: none;

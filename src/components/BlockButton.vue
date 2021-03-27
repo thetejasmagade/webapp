@@ -49,7 +49,7 @@ button {
     background-color: $gray-dark;
 
     &:hover{
-      background-color: $gray-mid;
+      background-color: $gray-darker;
     }
 
     &:disabled{
@@ -73,7 +73,7 @@ button {
     background-color: $green-darker;
 
     &:hover{
-      background-color: $green-mid;
+      background-color: $green-darkest;
     }
 
     &:disabled{
@@ -85,7 +85,7 @@ button {
     background-color: $purple-dark;
 
     &:hover{
-      background-color: $purple-lighter;
+      background-color: $purple-darker;
     }
 
     &:disabled{
@@ -97,7 +97,7 @@ button {
     background-color: $gold-dark;
 
     &:hover{
-      background-color: $gold-light;
+      background-color: $gold-darker;
     }
 
     &:disabled{

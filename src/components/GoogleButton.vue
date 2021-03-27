@@ -63,6 +63,7 @@ export default {
   .icon {
     font-size: 32px;
     color: #DB4437;
+    margin: 0px 20px 0px 20px;
   }
 
   span {

@@ -83,8 +83,8 @@ export default {
   max-width: 600px;
   min-width: 250px;
   padding: 20px 30px;
-  background-color: $gray-darker-2;
-  color: $gray-lightest;
+  background-color: $gray-lightest;
+  color: $gray-darker;
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;

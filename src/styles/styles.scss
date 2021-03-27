@@ -44,9 +44,9 @@ h4 {
 
 a, .link{
   cursor: pointer;
-  color: $gold-mid;
+  color: $gold-dark;
   &:hover {
-    color: $purple-mid;
+    color: $gold-darkest;
   }
 
   &.gray {

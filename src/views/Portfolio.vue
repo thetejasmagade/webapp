@@ -157,6 +157,7 @@
             :key="i"
             :img-src="achievement.ImageURL"
             class="card small"
+            theme="light"
           >
             <div
               :ref="`cardbody${i}`"
@@ -368,7 +369,7 @@ export default {
 }
 
 .light {
-  color: $gray-light;
+  color: $gray-mid;
 }
 
 .complete {

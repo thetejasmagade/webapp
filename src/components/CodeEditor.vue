@@ -58,7 +58,7 @@ import 'prismjs/components/prism-purescript.js';
 import 'prismjs/components/prism-python.js';
 
 // should match any other prism components that share a page
-import 'prismjs/themes/prism-okaidia.css';
+import 'prismjs/themes/prism-coy.css';
 
 import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
 import { 
@@ -287,13 +287,13 @@ span.token.operator {
 
   .console-output {
     font-size: 14px;
-    background-color: $gray-darker-2;
+    background-color: $gray-lighter;
     flex: 1;
     display: flex;
     flex-direction: row;
     padding: 10px;
     overflow: auto;
-    border-top: solid 1px $gray-light;
+    border-top: solid 1px $gray-dark;
 
     .output {
       padding: 0 1em 0 1em;
@@ -302,11 +302,11 @@ span.token.operator {
     p {
       margin: 0;
       font-size: 1em;
-      color: $white;
+      color: $gray-darker;
     }
 
     .error {
-      color: $pink-light;
+      color: $pink-dark;
     }
   }
 }
