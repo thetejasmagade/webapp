@@ -43,7 +43,7 @@ export function gtmEventFinishCheckout(priceUSD, productID, productName){
       'event': 'purchase',
       'ecommerce': {
         'purchase': {
-          'value': priceUSD.toString(),
+          'value': priceUSD ? priceUSD.toString() : '20',
           'currency': 'USD',
           'items': [
             {
