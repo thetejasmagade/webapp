@@ -594,13 +594,14 @@ addEventListener('message', async (e) => {
 	const go = new self.Go();
 	const result = await WebAssembly.instantiate(e.data, go.importObject);
 	let oldLog = console.log;
-	console.log = (line) => { postMessage({
-		message: line
-	}); };
+	console.log = (line) => {
+		postMessage({
+			message: line
+		});
+	};
 	await go.run(result.instance);
 	console.log = oldLog;
 	postMessage({
 		done: true
 	});
 }, false);
-  
