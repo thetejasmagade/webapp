@@ -188,12 +188,12 @@ export default {
 
     &.current {
       color: $gray-darker;
-      background-color: $gold-lighter;
+      background-color: $gold-light;
     }
 
     &:hover{
       color: $gray-darker;
-      background-color: $gold-light;
+      background-color: $gold-mid;
     }
   }
 

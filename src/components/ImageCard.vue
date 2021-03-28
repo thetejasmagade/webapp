@@ -1,10 +1,8 @@
 <template>
   <div
-    class="image-card"
+    class="image-card light"
     :class="{
       'clickable': click,
-      'dark': theme === 'dark',
-      'light': theme === 'light',
       'column': direction === 'column',
       'row': direction === 'row',
     }"
@@ -32,11 +30,6 @@ export default {
       type: Function,
       required: false,
       default: null
-    },
-    theme: {
-      type: String,
-      required: false,
-      default: 'dark'
     },
     direction: {
       type: String,
@@ -89,10 +82,6 @@ export default {
     img {
       border-radius: .5em 0 0 .5em;
     }
-  }
-
-  &.dark{
-    background-color: $gray-darkest;
   }
 
   &.light{

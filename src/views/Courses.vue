@@ -17,25 +17,24 @@
             subtitle="Take the following courses in order to complete the full CS program"
             class="margin-bottom-1"
           >
-            <div class="program">
+            <div class="program-body">
               <div
                 v-for="(course, i) of $store.getters.getProgramCS"
                 :key="i"
-                class="item"
+                class="program-item"
               >
-                <h3>
-                  #{{ i+1 }}
-                </h3>
                 <ImageCard
+                  v-if="!course.IsComplete"
                   theme="light"
+                  direction="row"
                   :img-src="course.ImageURL"
-                  class="card"
+                  class="card row"
                   :click="() => { goToCourse(course) }"
                 >
-                  <CourseCardBody
-                    v-if="course"
+                  <CourseCardBodyRow
                     class="body"
                     :course="course"
+                    :i="i"
                   />
                 </ImageCard>
               </div>
@@ -76,7 +75,7 @@
                 <ImageCard
                   theme="light"
                   :img-src="course.ImageURL"
-                  class="card"
+                  class="card col"
                   :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBody
@@ -107,7 +106,7 @@
                 <ImageCard
                   theme="light"
                   :img-src="course.ImageURL"
-                  class="card"
+                  class="card col"
                   :click="()=>() => { goToCourse(course) }"
                 >
                   <CourseCardBody
@@ -129,6 +128,7 @@ import Section from '@/components/Section';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
 import CourseCardBody from '@/components/CourseCardBody';
+import CourseCardBodyRow from '@/components/CourseCardBodyRow';
 import Tab from '@/components/Tab';
 import Tabs from '@/components/Tabs';
 
@@ -152,6 +152,7 @@ export default {
     };
   },
   components: {
+    CourseCardBodyRow,
     Section,
     LoadingOverlay,
     ImageCard,
@@ -218,63 +219,37 @@ export default {
   width: 100%;
 }
 
-.program {
+.program-body {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.program-item {
   flex-direction: row;
-  flex-wrap: nowrap;
-  overflow: auto;
-  margin: 1em;
-  padding: 1em;
-  background-color: $gray-lighter;
-  color: $purple-dark;
-  border-radius: 6px;
-  border: solid 1px $gray-lighter;
-
-  scrollbar-width: thin;
-  scrollbar-color: $gray-dark $gray-light;
-  &::-webkit-scrollbar {
-    width: 11px;
-  }
-  &::-webkit-scrollbar-track {
-    background: $gray-lighter;
-    border-radius: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: $gray-light;
-    border-radius: 6px;
-    border: 3px solid $gray-light;
-    &:hover{
-      background-color: $gray-dark;
-      border: 3px solid $gray-dark;
-    }
-  }
-
-  .item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 2em;
-
-    h3 {
-      font-size: 1.5em;
-      margin: 0;
-    }
-  }
+  display: flex;
+  margin: 2em 0 0 0;
+  max-width: 900px;
 }
 
 .card {
-  $margin: 20px;
-  flex: 1 1 200px;
-  margin: $margin;
-  max-width: 300px;
-  @media (min-width: $mobile-size) {
-    min-width: 250px;
-  }
-  height: calc(100% - #{$margin});
+  &.col {
+    $margin: 20px;
+    flex: 1 1 200px;
+    margin: $margin;
+    max-width: 300px;
+    @media (min-width: $mobile-size) {
+      min-width: 250px;
+    }
+    height: calc(100% - #{$margin});
 
-  .body {
-    height: 100%;
+    .body {
+      height: 100%;
+    }
+  }
+
+  &.row {
+    flex: 1;
   }
 }
 </style>

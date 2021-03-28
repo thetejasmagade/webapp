@@ -104,7 +104,7 @@ export default {
   border-radius: 5px;
 
   &:hover{
-    background-color: $gold-light;
+    background-color: $gold-mid;
     color: $gray-darker;
     cursor: pointer;
 
@@ -114,7 +114,7 @@ export default {
   }
 
   &.current {
-    color: $gold-light;
+    color: $gold-mid;
 
     &:hover{
       color: $gray-darker;
