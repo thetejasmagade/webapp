@@ -6,7 +6,6 @@
     </h2>
     <div class="pills">
       <div
-        v-if="course.Difficulty"
         class="pill pink"
       >
         <span>
@@ -18,7 +17,6 @@
         </span>
       </div>
       <div
-        v-if="course.Difficulty"
         class="pill gray"
       >
         <span>
