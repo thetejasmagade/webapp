@@ -60,7 +60,7 @@ export default {
           null
         );
         loadLoggedIn(this);
-        this.$router.push({name: 'Courses'});
+        this.$router.push({name: 'Courses', params: { courseUUID: this.$route.query.course_uuid}});
       } catch (err){
         this.$notify({
           type: 'error',
@@ -72,7 +72,7 @@ export default {
       try {
         await loginManual(this.email, this.password);
         loadLoggedIn(this);
-        this.$router.push({name: 'Courses'});
+        this.$router.push({name: 'Courses', params: { courseUUID: this.$route.query.course_uuid}});
       } catch (err){
         this.$notify({
           type: 'error',

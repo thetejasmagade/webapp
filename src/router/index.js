@@ -32,17 +32,17 @@ const routes = [
     component: Login
   },
   {
-    path: '/verify_email',
+    path: '/verify_email/:courseUUID?',
     name: 'VerifyEmail',
     component: VerifyEmail
   },
   {
-    path: '/signup_flow/experience',
+    path: '/signup_flow/experience/:courseUUID?',
     name: 'SignupFlowExperience',
     component: SignupFlowExperience
   },
   {
-    path: '/signup_flow/interests',
+    path: '/signup_flow/interests/:courseUUID?',
     name: 'SignupFlowInterests',
     component: SignupFlowInterests
   },
@@ -52,7 +52,7 @@ const routes = [
     component: Dashboard,
     children: [
       {
-        path: 'courses',
+        path: 'courses/:courseUUID?',
         name: 'Courses',
         component: Courses
       },

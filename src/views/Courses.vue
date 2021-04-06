@@ -189,6 +189,9 @@ export default {
         text: err
       });
     }
+    if (this.$route.params.courseUUID){
+      this.$router.push({name: 'Exercise', params: {courseUUID: this.$route.params.courseUUID}});
+    }
   },
   methods: {
     goToCourse(course){

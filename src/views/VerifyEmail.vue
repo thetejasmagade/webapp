@@ -66,7 +66,7 @@ export default {
       try {
         await verifyEmail(Number(this.validationCode));
         loadLoggedIn(this);
-        this.$router.push({name: 'SignupFlowExperience'});
+        this.$router.push({name: 'SignupFlowExperience', params: { courseUUID: this.$route.params.courseUUID}});
       } catch (err){
         this.$notify({
           type: 'error',
@@ -124,7 +124,6 @@ export default {
 
   .item {
     margin: 2em;
-    color: $gray-lightest;
   }
 
   .btn {

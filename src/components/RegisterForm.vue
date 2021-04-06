@@ -129,7 +129,7 @@ export default {
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
         gtmEventRegister('email');
-        this.$router.push({name: 'VerifyEmail'});
+        this.$router.push({name: 'VerifyEmail', params: { courseUUID: this.$route.query.course_uuid}});
       } catch (err){
         this.$notify({
           type: 'error',

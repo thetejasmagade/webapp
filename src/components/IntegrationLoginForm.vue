@@ -91,10 +91,10 @@ export default {
         loadLoggedIn(this);
         if (resp.registered){
           gtmEventRegister('google');
-          this.$router.push({name: 'SignupFlowExperience'});
+          this.$router.push({name: 'SignupFlowExperience', params: { courseUUID: this.$route.query.course_uuid}});
           return;
         }
-        this.$router.push({name: 'Courses'});
+        this.$router.push({name: 'Courses', params: { courseUUID: this.$route.query.course_uuid}});
       } catch (err){
         this.$notify({
           type: 'error',
