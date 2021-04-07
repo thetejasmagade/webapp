@@ -5,7 +5,7 @@ import VueMeta from 'vue-meta';
 const Courses = () => import(/* webpackChunkName: "Courses" */ '@/views/Courses.vue');
 const Portfolio = () => import(/* webpackChunkName: "Portfolio" */ '@/views/Portfolio.vue');
 const Exercise = () => import(/* webpackChunkName: "Exercise" */ '@/views/Exercise.vue');
-const Store = () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue');
+const Pricing = () => import(/* webpackChunkName: "Pricing" */ '@/views/Pricing.vue');
 const ReferralProgram = () => import(/* webpackChunkName: "ReferralProgram" */ '@/views/ReferralProgram.vue');
 const Dashboard = () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue');
 const Login = () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue');
@@ -62,9 +62,9 @@ const routes = [
         component: Exercise
       },
       {
-        path: 'store',
-        name: 'Store',
-        component: Store
+        path: 'pricing',
+        name: 'Pricing',
+        component: Pricing
       },
       {
         path: 'referral_program',

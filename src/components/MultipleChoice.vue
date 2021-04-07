@@ -16,7 +16,7 @@
         v-if="locked"
         class="btn"
         color="purple"
-        :click="() => {$router.push({name: 'Store'});}"
+        :click="() => {$router.push({name: 'Pricing'});}"
       >
         <span>Get quiz access</span>
       </BlockButton>

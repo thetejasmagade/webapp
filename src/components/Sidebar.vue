@@ -17,9 +17,9 @@
       <MenuItemHorizontal
         class="item"
         icon="store"
-        :click="() => {$router.push({name: 'Store'})}"
-        text="Store"
-        :current="pathName === 'Store'"
+        :click="() => {$router.push({name: 'Pricing'})}"
+        text="Pro Pricing"
+        :current="pathName === 'Pricing'"
       />
 
       <MenuItemHorizontal
@@ -95,8 +95,8 @@
       <MenuItemHorizontal
         class="item"
         icon="store"
-        :click="() => {$router.push({name: 'Store'})}"
-        :current="pathName === 'Store'"
+        :click="() => {$router.push({name: 'Pro Pricing'})}"
+        :current="pathName === 'Pricing'"
       />
 
       <MenuItemHorizontal

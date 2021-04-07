@@ -9,9 +9,10 @@
       >
         <a
           v-if="!$store.getters.getUserIsSubscribed"
-          @click="$router.push({name: 'Store'})"
+          @click="$router.push({name: 'Pricing'})"
         >
-          Upgrade to a pro membership to start unlocking achievements and earning gems
+          Upgrade to a Pro plan to be able to check your answers,
+          earn certifications, unlock achievements and support the project.
         </a>
         <div id="cards">
           <ImageCard

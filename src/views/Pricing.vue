@@ -9,7 +9,7 @@
     <div class="subcontainer">
       <Section
         title="Store"
-        subtitle="A Pro account will make learning faster and easier, and you'll be able to show off your work to employers"
+        subtitle="A Pro account makes learning faster and easier, and unlocks certificates to show off to employers"
       >
         <div
           v-for="(subscriptionPlan, i) of subscriptionPlans"
@@ -111,7 +111,7 @@ import { loadUser } from '@/lib/cloudStore.js';
 
 export default {
   metaInfo() {
-    const title = 'Qvault - Store';
+    const title = 'Qvault - Pro Pricing';
     return {
       title: title,
       meta: [

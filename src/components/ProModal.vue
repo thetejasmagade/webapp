@@ -5,8 +5,8 @@
     <div class="pro-modal">
       <h1> You've discovered a Pro feature! </h1>
       <p>
-        Upgrade to one of the Pro plans to be able to check your answers,
-        earn certifications, unlock achievements and more.
+        Upgrade to a Pro plan to be able to check your answers,
+        earn certifications, unlock achievements and support the project.
       </p>
       <BlockButton
         class="btn"
@@ -45,7 +45,7 @@ export default {
       this.$refs.proModal.hide();
     },
     btnClick(){
-      this.$router.push({name: 'Store'});
+      this.$router.push({name: 'Pricing'});
       this.hide();
     }
   }
