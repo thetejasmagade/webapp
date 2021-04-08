@@ -64,9 +64,24 @@ export default {
       padding: .5em;
     }
 
+    h1 {
+      font-weight: 600;
+    }
+
+    h2 {
+      font-weight: 400;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
     pre {
       code {
         color: inherit;
+        background-color: inherit;
+        font-size: 1em;
       }
     }
 
