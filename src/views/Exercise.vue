@@ -24,6 +24,7 @@
           />
 
           <MarkdownViewer
+            class="markdown-viewer"
             :source="markdownSource"
           />
         </div>
@@ -493,6 +494,8 @@ export default {
 .side {
   height: 100%;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
   background-color: $gray-lightest;
   color: $gray-darker;
 
@@ -521,7 +524,14 @@ export default {
   }
 }
 
+.markdown-viewer {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
 .nav {
+  flex: 0 0 auto;
+  border-bottom: solid 1px $gray-light;
   width: 100%;
   padding: 1em;
   box-sizing: border-box;

@@ -116,6 +116,8 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
+  background-color: $gray-lighter;
+  color: $gray-darker;
 
   .icon {
     margin-right: 5px;
