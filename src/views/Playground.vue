@@ -196,7 +196,7 @@ main = do
     @media screen and (min-width: $mobile-size) {
       display: block;
       top: calc(10px + #{$bar-height});
-      right: 10px;
+      right: 20px;
       position: absolute;
       z-index: 5;
     }
