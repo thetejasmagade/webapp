@@ -1,7 +1,32 @@
 importScripts('https://pyodide-cdn2.iodide.io/v0.15.0/full/pyodide.js');
 
+// globally accessible canvas element
+let canvas;
+
+function getHash(toHash) {
+  var hash = 0;
+  if (toHash.length == 0) {
+    return hash;
+  }
+  for (var i = 0; i < toHash.length; i++) {
+    var char = toHash.charCodeAt(i);
+    hash = ((hash<<5)-hash)+char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return hash;
+}
+
 addEventListener('message', async (e) => {
   await languagePluginLoader;
+
+  if (e.data.type === 'canvas') {
+    canvas = e.data.canvas;
+    return;
+  }
+  if (canvas){
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
   self.runCode = () => {
     try {
@@ -45,7 +70,16 @@ addEventListener('message', async (e) => {
     runCode()
   `);
 
+  let encodedHash;
+  if (canvas){
+    const canvasBlob = await canvas.convertToBlob();
+    const encodedImage = await canvasBlob.text();
+    encodedHash = getHash(encodedImage);
+    console.log('canvas hash:', encodedHash);
+  }
+
   postMessage({
-    done: true
+    done: true,
+    encodedHash
   });
 }, false);

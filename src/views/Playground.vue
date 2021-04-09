@@ -16,7 +16,8 @@
       class="editor"
       :run-callback="() => {}"
       :reset-callback="setCode"
-      :prog-lang="lang"
+      :prog-lang="progLang"
+      :canvas-enabled="lang === 'jsCanvas'"
     />
   </div>
 </template>
@@ -63,6 +64,7 @@ export default {
       displayLangs: {
         go: 'Go - Web Assembly',
         js: 'JavaScript',
+        jsCanvas: 'JavaScript Canvas',
         py: 'Python - Web Assembly',
         purs: 'PureScript'
       }
@@ -74,6 +76,12 @@ export default {
     },
     displayLangsArray(){
       return Object.values(this.displayLangs);
+    },
+    progLang(){
+      if (this.lang === 'jsCanvas'){
+        return 'js';
+      }
+      return this.lang;
     }
   },
   mounted(){
@@ -103,6 +111,20 @@ func main(){
       }
       if (this.lang === 'js'){
         this.code = `
+console.log("hello, world")
+`;
+        return;
+      }
+      if (this.lang === 'jsCanvas'){
+        this.code = `
+var ctx = canvas.getContext('2d');
+
+ctx.fillStyle = 'rgb(200, 0, 0)';
+ctx.fillRect(10, 10, 50, 50);
+
+ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+ctx.fillRect(30, 30, 50, 50);
+
 console.log("hello, world")
 `;
         return;

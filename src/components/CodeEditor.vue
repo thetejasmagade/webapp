@@ -31,14 +31,22 @@
             :verify-callback="verifyCallback ? verifyCode : null"
           />
           <div class="output">
-            <p
-              v-for="(line, i) of output"
-              :key="i"
-              :class="{error: err}"
-              class="pre"
-            >
-              {{ line }}
-            </p>
+            <canvas
+              v-if="canvasEnabled"
+              id="canvas"
+              ref="canvas"
+              height="150"
+            />
+            <div class="log">
+              <p
+                v-for="(line, i) of output"
+                :key="i"
+                :class="{error: err}"
+                class="pre"
+              >
+                {{ line }}
+              </p>
+            </div>
           </div>
         </div>
       </Multipane>
@@ -84,6 +92,11 @@ export default {
     MultipaneResizer
   },
   props: {
+    canvasEnabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     runCallback: {
       type: Function,
       required: false,
@@ -123,7 +136,7 @@ export default {
       output: [],
       err: false,
       isLoading: false,
-      worker: getWorker(this.getWorkerLang(this.progLang))
+      worker: null
     };
   },
   computed: {
@@ -142,7 +155,12 @@ export default {
         this.progLang === 'py';
     }
   },
-  watch: { 
+  watch: {
+    canvasEnabled(isEnabled) {
+      this.$nextTick(() => {
+        this.worker = getWorker(this.getWorkerLang(this.progLang), isEnabled ? this.$refs.canvas : null);
+      });
+    },
     progLang(newLang) {
       terminateWorker(this.worker);
       this.worker = getWorker(this.getWorkerLang(newLang));
@@ -150,6 +168,9 @@ export default {
     value(newValue) {
       this.code = newValue;
     }
+  },
+  mounted(){
+    this.worker = getWorker(this.getWorkerLang(this.progLang), this.canvasEnabled ? this.$refs.canvas : null);
   },
   methods: {
     onInput() {
@@ -262,10 +283,6 @@ span.token.operator {
   background: inherit !important;
 }
 
-.pre {
-  white-space: pre;
-}
-
 .my-editor {
   font-size: 14px;
   line-height: 1.5;
@@ -296,7 +313,22 @@ span.token.operator {
     border-top: solid 1px $gray-dark;
 
     .output {
-      padding: 0 1em 0 1em;
+      padding: 0 0 0 1em;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      .log{
+        .pre {
+          white-space: pre-wrap;
+        }
+      }
+
+      #canvas {
+        border: 1px solid $gray-dark;
+        background-color: $white;
+        width: 50%;
+      }
     }
 
     p {

@@ -1,6 +1,21 @@
-export function getWorker(lang) {
+export function getWorker(lang, canvasElement) {
+
+  const worker = new window.Worker(`/${lang}_worker.js`);
+
+  if (canvasElement){
+    const offscreenControl = canvasElement.transferControlToOffscreen();
+    worker.postMessage(
+      {
+        type: 'canvas',
+        canvas: offscreenControl,
+        pixelRatio: window.devicePixelRatio
+      },
+      [ offscreenControl ]
+    );
+  }
+
   return {
-    webWorker: new window.Worker(`/${lang}_worker.js`),
+    webWorker: worker,
     lang
   };
 }

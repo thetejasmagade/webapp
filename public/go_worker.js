@@ -590,8 +590,33 @@
 	}
 })();
 
+let canvas;
+
+function getHash(toHash) {
+	var hash = 0;
+	if (toHash.length == 0) {
+		return hash;
+	}
+	for (var i = 0; i < toHash.length; i++) {
+		var char = toHash.charCodeAt(i);
+		hash = ((hash << 5) - hash) + char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
+}
+
 addEventListener('message', async (e) => {
 	const go = new self.Go();
+
+	if (e.data.type === 'canvas') {
+		canvas = e.data.canvas;
+		return;
+	}
+	if (canvas) {
+		const context = canvas.getContext('2d');
+		context.clearRect(0, 0, canvas.width, canvas.height);
+	}
+
 	const result = await WebAssembly.instantiate(e.data, go.importObject);
 	let oldLog = console.log;
 	console.log = (line) => {
@@ -601,7 +626,17 @@ addEventListener('message', async (e) => {
 	};
 	await go.run(result.instance);
 	console.log = oldLog;
+
+	let encodedHash;
+	if (canvas) {
+		const canvasBlob = await canvas.convertToBlob();
+		const encodedImage = await canvasBlob.text();
+		encodedHash = getHash(encodedImage);
+		console.log('canvas hash:', encodedHash);
+	}
+
 	postMessage({
-		done: true
+		done: true,
+		encodedHash
 	});
 }, false);
