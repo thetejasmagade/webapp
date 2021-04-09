@@ -58,12 +58,12 @@ export default {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
   white-space: nowrap;
   outline: none;
-  padding: 10px 20px 10px 20px;
+  padding: 0 18px 0 0;
 
   .icon {
     font-size: 32px;
     color: #DB4437;
-    margin: 0px 20px 0px 20px;
+    margin: 10px 20px 10px 20px;
   }
 
   span {
