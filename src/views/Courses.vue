@@ -18,6 +18,16 @@
             class="margin-bottom-1"
           >
             <div class="program-body">
+              <ProfileSpeechBubble
+                link="https://qvault.io/about#wagslane"
+                class="speech-bubble"
+                text="
+                  I've found the #1 thing that sets candidates apart is their understanding of computer science concepts.
+                  That's why I wrote this hands-on program. There's just too much that educators leave out in boot
+                  camps and crash courses."
+                image-u-r-l="https://pbs.twimg.com/profile_images/1380974063959429120/ZcqTzuh7_400x400.jpg"
+                bio="Lane, Author"
+              />
               <div
                 v-for="(course, i) of $store.getters.getProgramCS"
                 :key="i"
@@ -131,6 +141,7 @@ import CourseCardBody from '@/components/CourseCardBody';
 import CourseCardBodyRow from '@/components/CourseCardBodyRow';
 import Tab from '@/components/Tab';
 import Tabs from '@/components/Tabs';
+import ProfileSpeechBubble from '@/components/ProfileSpeechBubble';
 
 import { 
   getCourseRecommendations
@@ -158,7 +169,8 @@ export default {
     ImageCard,
     CourseCardBody,
     Tab,
-    Tabs
+    Tabs,
+    ProfileSpeechBubble
   },
   data() {
     return {
@@ -254,5 +266,13 @@ export default {
   &.row {
     flex: 1;
   }
+}
+
+.speech-bubble {
+  border: 1px solid $gray-light;
+  border-radius: 5px;
+  max-width: 700px;
+  background-color: $white;
+  margin: 1em 0 0 0;
 }
 </style>
