@@ -13,8 +13,8 @@
           icon="graduation-cap"
         >
           <Section
-            title="Your path to a successful coding career"
-            subtitle="Take the following courses in order to complete the full CS program"
+            :title="`Your next course: ${ $store.getters.getProgramCS[0].Title }`"
+            subtitle="Take these courses in order to complete the full computer science program"
             class="margin-bottom-1"
           >
             <div class="program-body">
@@ -32,6 +32,7 @@
                 v-for="(course, i) of $store.getters.getProgramCS"
                 :key="i"
                 class="program-item"
+                :class="{'first': i === 0}"
               >
                 <ImageCard
                   v-if="!course.IsComplete"
@@ -39,6 +40,7 @@
                   direction="row"
                   :img-src="course.ImageURL"
                   class="card row"
+                  :class="{'first': i === 0}"
                   :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBodyRow
@@ -244,7 +246,7 @@ export default {
   flex-direction: row;
   display: flex;
   margin: 2em 0 0 0;
-  max-width: 900px;
+  max-width: 800px;
 }
 
 .card {
@@ -266,12 +268,17 @@ export default {
   &.row {
     flex: 1;
   }
+
+  &.first {
+    border: 0;
+    box-shadow: 1em 1em 1em 0 $gray-darkest;
+  }
 }
 
 .speech-bubble {
   border: 1px solid $gray-light;
   border-radius: 5px;
-  max-width: 700px;
+  max-width: 1000px;
   background-color: $white;
   margin: 1em 0 0 0;
 }

@@ -10,6 +10,7 @@
         pink: color === 'pink',
         gold: color === 'gold',
         purple: color === 'purple',
+        green: color === 'green',
         top: position === 'top',
         right: position === 'right'
       }"
@@ -116,6 +117,10 @@ export default {
 
 .gold {
   background: $gold-dark;
+}
+
+.green {
+  background: $green-dark;
 }
 
 .purple {

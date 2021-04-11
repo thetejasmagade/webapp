@@ -1,9 +1,5 @@
 <template>
   <div class="body">
-    <h2 class="title item">
-      <span v-if="i === 0">Your Next Course: </span>
-      <span class="gold-color">{{ course.Title }}</span>
-    </h2>
     <div class="pills">
       <div
         class="pill pink"
@@ -23,14 +19,14 @@
           <FontAwesomeIcon
             icon="hourglass"
           />
-          Time to complete:
-          {{ `~${course.Modules.length * 6} Hours` }}
+          Est.
+          {{ `~${course.Modules.length * 4} Hours` }}
         </span>
       </div>
       <div
         v-for="(interest, j) of interests"
         :key="j"
-        class="pill gold"
+        class="pill green"
       >
         <span>
           <FontAwesomeIcon
@@ -104,11 +100,6 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
-
-.gold-color {
-  color: $gold-mid;
-}
-
 .body {
   padding: 1em;
   display: flex;
@@ -128,22 +119,21 @@ export default {
     justify-content: center;
 
     .pill{
-    padding: 5px 20px 5px 20px;
-    color: $white;
-    font-size: 1em;
-    border-radius: 16px;
-    margin: 0 1em 0 0;
+      padding: 5px 20px 5px 20px;
+      color: $white;
+      font-size: 1em;
+      border-radius: 16px;
+      margin: 0 1em 1em 0;
 
-    &.gold {
-        background-color: $gold-dark;
-    }
-    &.pink {
+      &.green {
+        background-color: $green-dark;
+      }
+      &.pink {
         background-color: $pink-dark;
-    }
-    &.gray {
+      }
+      &.gray {
         background-color: $gray-dark;
-    }
-    margin-bottom: 1em;
+      }
     }
   }
 }

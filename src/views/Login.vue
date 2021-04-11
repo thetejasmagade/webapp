@@ -15,11 +15,11 @@
         >
 
         <span class="title">
-          Getting a coding job can be <span class="emphasis">simple.</span>
+          Mastering computer science can be <span class="emphasis">simple.</span>
         </span>
 
         <span class="title sub">
-          Free courses available on signup.
+          All coding courses are free to audit.
         </span>
 
         <div

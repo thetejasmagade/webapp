@@ -15,11 +15,11 @@
       </div>
       <div
         v-if="interests.length > 0"
-        class="icon gold"
+        class="icon green"
       >
         <Tooltip
           :text="`Tags:\n${interests.join('\n')}`"
-          color="gold"
+          color="green"
         >
           <FontAwesomeIcon
             icon="tags"
@@ -155,8 +155,8 @@ export default {
     &.gray {
       color: $gray-mid;
     }
-    &.gold {
-      color: $gold-mid;
+    &.green {
+      color: $green-mid;
     }
   }
 }
