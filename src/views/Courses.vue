@@ -42,6 +42,7 @@
                   class="card row"
                   :class="{'first': i === 0}"
                   :click="() => { goToCourse(course) }"
+                  img-width="400px"
                 >
                   <CourseCardBodyRow
                     class="body"

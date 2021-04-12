@@ -10,6 +10,7 @@
   >
     <div>
       <img
+        :style="{'width': imgWidth}"
         :src="imgSrc"
       >
     </div>
@@ -35,6 +36,11 @@ export default {
       type: String,
       required: false,
       default: 'column'
+    },
+    imgWidth: {
+      type: String,
+      required: false,
+      default: '100%'
     }
   },
   methods: {
@@ -59,7 +65,6 @@ export default {
   border-radius: .5em;
 
   img {
-    width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center center;
