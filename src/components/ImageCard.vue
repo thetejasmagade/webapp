@@ -10,7 +10,7 @@
   >
     <div>
       <img
-        :style="{'width': imgWidth}"
+        :style="{'width': imgWidth, 'min-height': imgMinHeight}"
         :src="imgSrc"
       >
     </div>
@@ -38,6 +38,11 @@ export default {
       default: 'column'
     },
     imgWidth: {
+      type: String,
+      required: false,
+      default: '100%'
+    },
+    imgMinHeight: {
       type: String,
       required: false,
       default: '100%'

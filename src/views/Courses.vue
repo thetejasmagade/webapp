@@ -13,7 +13,7 @@
           icon="graduation-cap"
         >
           <Section
-            :title="`Your next course: ${ $store.getters.getProgramCS[0].Title }`"
+            :title="`Your next course: ${ $store.getters.getProgramCS.length > 0 ? $store.getters.getProgramCS[0].Title : null }`"
             subtitle="Take these courses in order to complete the full computer science program"
             class="margin-bottom-1"
           >
@@ -43,6 +43,7 @@
                   :class="{'first': i === 0}"
                   :click="() => { goToCourse(course) }"
                   img-width="400px"
+                  img-min-height="400px"
                 >
                   <CourseCardBodyRow
                     class="body"

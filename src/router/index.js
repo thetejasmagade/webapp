@@ -113,6 +113,10 @@ const routes = [
     redirect: '/u/:userHandle'
   },
   {
+    path: '/demo/:courseUUID',
+    redirect: '/dashboard/courses/:courseUUID?'
+  },
+  {
     path: '/u/:userHandle',
     name: 'Portfolio',
     component: Portfolio
