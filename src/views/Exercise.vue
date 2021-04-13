@@ -38,7 +38,7 @@
           <p> 👈 Read First </p>
           <BlockButton
             class="btn"
-            :click="() => {submitTypeInfo()}"
+            :click="goForward"
           >
             Continue
           </BlockButton>
@@ -308,7 +308,6 @@ export default {
         this.exerciseUUID
       );
       this.isComplete = true;
-      await this.goForward();
     },
     async handleRewards(rewardsResponse){
       if ((rewardsResponse.GemCredit && rewardsResponse.Message) || 
@@ -454,6 +453,9 @@ export default {
       }
     },
     async goForward(){
+      if (this.type === 'type_info' && !this.isComplete){
+        await this.submitTypeInfo();
+      }
       try {
         const exercise = await getNextExercise(this.courseUUID, this.exerciseUUID);
         this.moveToExercise(exercise);
