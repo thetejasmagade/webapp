@@ -24,6 +24,7 @@
           />
 
           <MarkdownViewer
+            ref="viewer"
             class="markdown-viewer"
             :source="markdownSource"
           />
@@ -411,6 +412,10 @@ export default {
       this.isLastExercise = exercise.Exercise.IsLast;
       this.isCurrentExercise = exercise.IsCurrent;
       this.isComplete = exercise.IsComplete;
+
+      if (exercise.Exercise.Readme !== this.markdownSource){
+        this.$refs.viewer.$el.scrollTop = 0;
+      }
 
       this.markdownSource = exercise.Exercise.Readme;
       this.type = exercise.Exercise.Type;
