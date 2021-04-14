@@ -30,7 +30,7 @@ import SelectDropdown from '@/components/SelectDropdown';
 export default {
   metaInfo() {
     const description = `Run ${this.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
-    const featuredImage = 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-3.png';
+    const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg';
     const title = `${this.displayLang} Playground - Qvault`;
     return {
       title: title,

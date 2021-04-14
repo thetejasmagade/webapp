@@ -89,7 +89,7 @@ export default {
 
         { vmid:'og:title', property: 'og:title', content: 'Qvault' },
         { vmid:'og:description', property: 'og:description', content: description },
-        { vmid:'og:image', property: 'og:image', content: 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-1024x576.png' },
+        { vmid:'og:image', property: 'og:image', content: 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg' },
         { vmid:'og:locale', property: 'og:locale', content: 'en_US' },
         { vmid:'og:type', property: 'og:type', content: 'website' },
 
@@ -98,7 +98,7 @@ export default {
         { vmid:'twitter:creator', name: 'twitter:creator', content: '@q_vault' },
         { vmid:'twitter:title', name: 'twitter:title', content: 'Qvault' },
         { vmid:'twitter:description', property: 'twitter:description', content: description },
-        { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2020/09/Site-Social-Image-1024x576.png' }
+        { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg' }
       ]
     };
   }
