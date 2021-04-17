@@ -1,8 +1,24 @@
 <template>
   <div class="btns">
     <Tooltip
+      v-if="upgradeCallback"
+      :text="`Upgrade to pro`"
+      position="right"
+    >
+      <BlockButton
+        class="btn"
+        :click="upgradeCallback"
+        color="gold"
+      >
+        <FontAwesomeIcon
+          icon="level-up-alt"
+        />
+      </BlockButton>
+    </Tooltip>
+    <Tooltip
       :text="`Run Code`"
       position="right"
+      class="bottom"
     >
       <BlockButton
         class="btn"
@@ -10,22 +26,6 @@
       >
         <FontAwesomeIcon
           icon="play"
-        />
-      </BlockButton>
-    </Tooltip>
-    <Tooltip
-      v-if="!$store.getters.getUserIsSubscribed && verifyCallback"
-      :text="`Check Answer`"
-      position="right"
-      class="bottom"
-    >
-      <BlockButton
-        class="btn"
-        :click="verifyCallback"
-        color="gold"
-      >
-        <FontAwesomeIcon
-          icon="check"
         />
       </BlockButton>
     </Tooltip>
@@ -109,7 +109,7 @@ export default {
       required: false,
       default: null
     },
-    verifyCallback: {
+    upgradeCallback: {
       type: Function,
       required: false,
       default: null

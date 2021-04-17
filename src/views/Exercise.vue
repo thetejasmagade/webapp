@@ -49,7 +49,7 @@
           class="side right"
           :run-callback="submitTypeCode"
           :reset-callback="resetCode"
-          :verify-callback="verifyCodeClick"
+          :upgrade-callback="locked ? upgradeClick : null"
           :save-callback="saveCode"
           :load-callback="getSavedCode"
           :prog-lang="progLang"
@@ -257,12 +257,8 @@ export default {
     await this.getCurrentExercise();
   },
   methods: {
-    verifyCodeClick(output){
-      if (this.isFree){
-        this.verifyCode(output);
-        return;
-      }
-      this.$proModal.show();
+    upgradeClick(){
+      this.$router.push({name: 'Pricing'});
     },
     resetCode(){
       this.code = this.defaultCode;
@@ -371,7 +367,7 @@ export default {
     },
     async submitTypeCode(output) {
       gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
-      if (!this.$store.getters.getUserIsSubscribed){
+      if (this.locked){
         return;
       }
       this.verifyCode(output);

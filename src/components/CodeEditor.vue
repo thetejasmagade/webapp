@@ -28,7 +28,7 @@
             :reset-callback="runReset"
             :save-callback="saveCallback"
             :load-callback="loadCallback"
-            :verify-callback="verifyCallback ? verifyCode : null"
+            :upgrade-callback="upgradeCallback"
           />
           <div class="output">
             <canvas
@@ -116,7 +116,7 @@ export default {
       required: false,
       default: null
     },
-    verifyCallback: {
+    upgradeCallback: {
       type: Function,
       required: false,
       default: null
@@ -198,10 +198,6 @@ export default {
       this.worker = getWorker(this.getWorkerLang(this.progLang));
       this.output.push('code execution cancelled');
       this.err = true;
-    },
-    async verifyCode(){
-      let finalOut = this.outputToSubmission(this.output);
-      await this.verifyCallback(finalOut);
     },
     async runCode() {
       try {

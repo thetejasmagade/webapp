@@ -37,7 +37,8 @@ import {
   faSearch,
   faStar,
   faGraduationCap,
-  faLock
+  faLock,
+  faLevelUpAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -79,6 +80,7 @@ library.add(faSearch);
 library.add(faStar);
 library.add(faGraduationCap);
 library.add(faLock);
+library.add(faLevelUpAlt);
 
 export default {
   metaInfo() {
