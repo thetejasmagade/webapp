@@ -52,6 +52,10 @@ const routes = [
     component: Dashboard,
     children: [
       {
+        path: 'store',
+        redirect: 'pricing'
+      },
+      {
         path: 'courses/:courseUUID?',
         name: 'Courses',
         component: Courses
