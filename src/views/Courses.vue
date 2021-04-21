@@ -31,14 +31,12 @@
               <div
                 v-for="(course, i) of $store.getters.getProgramCS"
                 :key="i"
-                :class="{'first': i === 0}"
               >
                 <ImageCard
                   v-if="!course.IsComplete"
                   theme="light"
                   :img-src="course.ImageURL"
                   class="card large"
-                  :class="{'first': i === 0}"
                   :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBodyDetailed
@@ -249,11 +247,6 @@ export default {
 
   &.large {
     max-width: 450px;
-  }
-
-  &.first {
-    border: 0;
-    box-shadow: 0 0 1em .5em $purple-dark;
   }
 }
 
