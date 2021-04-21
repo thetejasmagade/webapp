@@ -1,16 +1,13 @@
 <template>
   <div
-    class="image-card light"
+    class="image-card light column"
     :class="{
       'clickable': click,
-      'column': direction === 'column',
-      'row': direction === 'row',
     }"
     @click="safeClick"
   >
     <div>
       <img
-        :style="{'width': imgWidth, 'min-height': imgMinHeight}"
         :src="imgSrc"
       >
     </div>
@@ -31,21 +28,6 @@ export default {
       type: Function,
       required: false,
       default: null
-    },
-    direction: {
-      type: String,
-      required: false,
-      default: 'column'
-    },
-    imgWidth: {
-      type: String,
-      required: false,
-      default: '100%'
-    },
-    imgMinHeight: {
-      type: String,
-      required: false,
-      default: '100%'
     }
   },
   methods: {
@@ -68,30 +50,14 @@ export default {
   display: flex;
   justify-content: space-between;
   border-radius: .5em;
+  flex-direction: column;
 
   img {
     height: 100%;
+    width: 100%;
     object-fit: cover;
     object-position: center center;
-  }
-
-  &.column {
-    flex-direction: column;
-
-    img {
-      border-radius: .5em .5em 0 0;
-    }
-  }
-
-  &.row {
-    flex-direction: row;
-    @media (max-width: $mobile-size) {
-      flex-direction: column;
-    }
-
-    img {
-      border-radius: .5em 0 0 .5em;
-    }
+    border-radius: .5em .5em 0 0;
   }
 
   &.light{

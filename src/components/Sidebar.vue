@@ -95,7 +95,7 @@
       <MenuItemHorizontal
         class="item"
         icon="store"
-        :click="() => {$router.push({name: 'Pro Pricing'})}"
+        :click="() => {$router.push({name: 'Pricing'})}"
         :current="pathName === 'Pricing'"
       />
 
@@ -115,14 +115,14 @@
 
       <MenuItemHorizontal
         class="item"
-        icon="user-tie"
-        :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
+        :icon="$store.getters.getUserIsSubscribed ? 'user-tie' : 'lock'"
+        :click="() => {clickPortfolio()}"
         :current="pathName === 'Portfolio'"
       />
 
       <MenuItemHorizontal
         class="item"
-        icon="trophy"
+        :icon="$store.getters.getUserIsSubscribed ? 'trophy' : 'lock'"
         :click="() => {$router.push({name: 'Achievements'}) }"
         :current="pathName === 'Achievements'"
       />

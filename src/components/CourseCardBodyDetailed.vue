@@ -64,10 +64,6 @@ export default {
     course: {
       type: Object,
       required: true
-    },
-    i: {
-      type: Number,
-      required: true
     }
   },
   computed: {

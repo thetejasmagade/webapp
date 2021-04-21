@@ -17,7 +17,7 @@
             subtitle="Take these courses in order to complete the full computer science program"
             class="margin-bottom-1"
           >
-            <div class="program-body">
+            <div class="cards">
               <ProfileSpeechBubble
                 link="https://qvault.io/about#wagslane"
                 class="speech-bubble"
@@ -31,24 +31,19 @@
               <div
                 v-for="(course, i) of $store.getters.getProgramCS"
                 :key="i"
-                class="program-item"
                 :class="{'first': i === 0}"
               >
                 <ImageCard
                   v-if="!course.IsComplete"
                   theme="light"
-                  direction="row"
                   :img-src="course.ImageURL"
-                  class="card row"
+                  class="card large"
                   :class="{'first': i === 0}"
                   :click="() => { goToCourse(course) }"
-                  img-width="400px"
-                  img-min-height="400px"
                 >
-                  <CourseCardBodyRow
+                  <CourseCardBodyDetailed
                     class="body"
                     :course="course"
-                    :i="i"
                   />
                 </ImageCard>
               </div>
@@ -89,7 +84,7 @@
                 <ImageCard
                   theme="light"
                   :img-src="course.ImageURL"
-                  class="card col"
+                  class="card"
                   :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBody
@@ -120,7 +115,7 @@
                 <ImageCard
                   theme="light"
                   :img-src="course.ImageURL"
-                  class="card col"
+                  class="card"
                   :click="()=>() => { goToCourse(course) }"
                 >
                   <CourseCardBody
@@ -142,7 +137,7 @@ import Section from '@/components/Section';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import ImageCard from '@/components/ImageCard';
 import CourseCardBody from '@/components/CourseCardBody';
-import CourseCardBodyRow from '@/components/CourseCardBodyRow';
+import CourseCardBodyDetailed from '@/components/CourseCardBodyDetailed';
 import Tab from '@/components/Tab';
 import Tabs from '@/components/Tabs';
 import ProfileSpeechBubble from '@/components/ProfileSpeechBubble';
@@ -167,11 +162,11 @@ export default {
     };
   },
   components: {
-    CourseCardBodyRow,
     Section,
     LoadingOverlay,
     ImageCard,
     CourseCardBody,
+    CourseCardBodyDetailed,
     Tab,
     Tabs,
     ProfileSpeechBubble
@@ -238,42 +233,27 @@ export default {
   width: 100%;
 }
 
-.program-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.program-item {
-  flex-direction: row;
-  display: flex;
-  margin: 2em 0 0 0;
-  max-width: 800px;
-}
-
 .card {
-  &.col {
-    $margin: 20px;
-    flex: 1 1 200px;
-    margin: $margin;
-    max-width: 300px;
-    @media (min-width: $mobile-size) {
-      min-width: 250px;
-    }
-    height: calc(100% - #{$margin});
+  $margin: 30px;
+  flex: 1 1 200px;
+  margin: $margin;
+  max-width: 300px;
+  @media (min-width: $mobile-size) {
+    min-width: 250px;
+  }
+  height: calc(100% - #{$margin});
 
-    .body {
-      height: 100%;
-    }
+  .body {
+    height: 100%;
   }
 
-  &.row {
-    flex: 1;
+  &.large {
+    max-width: 450px;
   }
 
   &.first {
     border: 0;
-    box-shadow: 1em 1em 1em 0 $gray-darkest;
+    box-shadow: 0 0 1em .5em $purple-dark;
   }
 }
 

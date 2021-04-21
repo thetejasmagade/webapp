@@ -151,7 +151,7 @@ export default {
 
 .mobile {
   display: none !important;
-  background-color: $gray-darker-3;
+  background-color: $gray-darker-2;
   @media screen and (max-width: $mobile-size) {
     display: block !important;
   }
