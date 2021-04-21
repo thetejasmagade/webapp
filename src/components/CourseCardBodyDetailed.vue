@@ -36,7 +36,7 @@
         </span>
       </div>
     </div>
-    <p class="title item">
+    <p>
       {{ course.Description }}
     </p>
     <p
@@ -105,7 +105,7 @@ export default {
   height: 100%;
 
   p {
-    max-width: 400px;
+    text-align: left;
   }
 
   .pills {
@@ -114,7 +114,7 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
 
-    .pill{
+    .pill {
       padding: 5px 20px 5px 20px;
       color: $white;
       font-size: 1em;

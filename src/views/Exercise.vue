@@ -8,7 +8,7 @@
       
     <div
       v-else
-      class="container"
+      class="container desktop"
     >
       <Multipane layout="horizontal">
         <div class="side left">
@@ -64,6 +64,13 @@
         />
       </Multipane>
     </div>
+    <div class="mobile">
+      <Section
+        title="Come back on a computer"
+      >
+        <p> Coding is hard to do on a phone. I want you to have a great experience, so please hurry back on a larger device. </p>
+      </Section>
+    </div>
   </div>
 </template>
 
@@ -76,6 +83,7 @@ import CourseCompleted from '@/components/CourseCompleted';
 import ExerciseNav from '@/components/ExerciseNav';
 import Multipane from '@/components/Multipane';
 import MultipaneResizer from '@/components/MultipaneResizer';
+import Section from '@/components/Section';
 
 import { 
   loadBalance,
@@ -125,6 +133,7 @@ export default {
     };
   },
   components: {
+    Section,
     CodeEditor,
     MarkdownViewer,
     BlockButton,
@@ -480,6 +489,25 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
+
+.mobile {
+  display: none !important;
+  @media screen and (max-width: $mobile-size) {
+    display: block !important;
+  }
+
+  padding: 1em;
+
+  p {
+    padding: 1em;
+  }
+}
+
+.desktop {
+  @media screen and (max-width: $mobile-size) {
+    display: none !important;
+  }
+}
 
 .exercise-root {
   height: 100%;
