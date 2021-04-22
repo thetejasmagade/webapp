@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import TopNav from '@/components/TopNav';
-import Sidebar from '@/components/Sidebar';
+import TopNav from '@/components/TopNav.vue';
+import Sidebar from '@/components/Sidebar.vue';
 
 import {
   getRewards

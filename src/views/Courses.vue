@@ -131,14 +131,14 @@
 </template>
 
 <script>
-import Section from '@/components/Section';
-import LoadingOverlay from '@/components/LoadingOverlay';
-import ImageCard from '@/components/ImageCard';
-import CourseCardBody from '@/components/CourseCardBody';
-import CourseCardBodyDetailed from '@/components/CourseCardBodyDetailed';
-import Tab from '@/components/Tab';
-import Tabs from '@/components/Tabs';
-import ProfileSpeechBubble from '@/components/ProfileSpeechBubble';
+import Section from '@/components/Section.vue';
+import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import ImageCard from '@/components/ImageCard.vue';
+import CourseCardBody from '@/components/CourseCardBody.vue';
+import CourseCardBodyDetailed from '@/components/CourseCardBodyDetailed.vue';
+import Tab from '@/components/Tab.vue';
+import Tabs from '@/components/Tabs.vue';
+import ProfileSpeechBubble from '@/components/ProfileSpeechBubble.vue';
 
 import { 
   getCourseRecommendations

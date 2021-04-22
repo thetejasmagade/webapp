@@ -81,8 +81,8 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import BlockButton from '@/components/BlockButton';
-import Tooltip from '@/components/Tooltip';
+import BlockButton from '@/components/BlockButton.vue';
+import Tooltip from '@/components/Tooltip.vue';
 
 export default {
   components: {

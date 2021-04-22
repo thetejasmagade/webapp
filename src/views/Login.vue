@@ -81,11 +81,11 @@ import {
   loadLoggedIn
 } from '@/lib/cloudStore.js';
 
-import LoginForm from '@/components/LoginForm';
-import RegisterForm from '@/components/RegisterForm';
-import IntegrationLoginForm from '@/components/IntegrationLoginForm';
-import ForgotPasswordForm from '@/components/ForgotPasswordForm';
-import TopNav from '@/components/TopNav';
+import LoginForm from '@/components/LoginForm.vue';
+import RegisterForm from '@/components/RegisterForm.vue';
+import IntegrationLoginForm from '@/components/IntegrationLoginForm.vue';
+import ForgotPasswordForm from '@/components/ForgotPasswordForm.vue';
+import TopNav from '@/components/TopNav.vue';
 
 export default {
   metaInfo() {

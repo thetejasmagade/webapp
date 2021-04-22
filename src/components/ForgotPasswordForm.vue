@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton';
-import TextInput from '@/components/TextInput';
+import BlockButton from '@/components/BlockButton.vue';
+import TextInput from '@/components/TextInput.vue';
 
 import {
   loginManual,

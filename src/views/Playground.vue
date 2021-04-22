@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import CodeEditor from '@/components/CodeEditor';
-import TopNav from '@/components/TopNav';
-import SelectDropdown from '@/components/SelectDropdown';
+import CodeEditor from '@/components/CodeEditor.vue';
+import TopNav from '@/components/TopNav.vue';
+import SelectDropdown from '@/components/SelectDropdown.vue';
 
 export default {
   metaInfo() {

@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import GoogleButton from '@/components/GoogleButton';
-import TwitterButton from '@/components/TwitterButton';
-import GithubButton from '@/components/GithubButton';
-import ToggleSwitch from '@/components/ToggleSwitch';
+import GoogleButton from '@/components/GoogleButton.vue';
+import TwitterButton from '@/components/TwitterButton.vue';
+import GithubButton from '@/components/GithubButton.vue';
+import ToggleSwitch from '@/components/ToggleSwitch.vue';
 
 import {
   loginGoogle

@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import TopNav from '@/components/TopNav';
-import Section from '@/components/Section';
-import TextInput from '@/components/TextInput';
-import BlockButton from '@/components/BlockButton';
+import TopNav from '@/components/TopNav.vue';
+import Section from '@/components/Section.vue';
+import TextInput from '@/components/TextInput.vue';
+import BlockButton from '@/components/BlockButton.vue';
 
 import {
   sendEmailVerification, 

@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal';
-import BlockButton from '@/components/BlockButton';
+import Modal from '@/components/Modal.vue';
+import BlockButton from '@/components/BlockButton.vue';
 import ProModalPlugin from '@/plugins/ProModal';
 
 import { gtmEventOpenProModal } from '@/lib/gtm';

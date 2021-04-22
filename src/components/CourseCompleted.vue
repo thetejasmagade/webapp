@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton';
-import Section from '@/components/Section';
+import BlockButton from '@/components/BlockButton.vue';
+import Section from '@/components/Section.vue';
 
 export default {
   components: {

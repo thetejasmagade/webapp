@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton';
+import BlockButton from '@/components/BlockButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {

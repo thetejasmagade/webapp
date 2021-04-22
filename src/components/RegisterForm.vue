@@ -71,9 +71,9 @@
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton';
-import TextInput from '@/components/TextInput';
-import ToggleSwitch from '@/components/ToggleSwitch';
+import BlockButton from '@/components/BlockButton.vue';
+import TextInput from '@/components/TextInput.vue';
+import ToggleSwitch from '@/components/ToggleSwitch.vue';
 
 import {
   loginManual, 

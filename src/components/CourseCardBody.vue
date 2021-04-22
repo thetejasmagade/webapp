@@ -81,7 +81,7 @@ import {
   loadAllInterests
 } from '@/lib/cloudStore.js';
 
-import Tooltip from '@/components/Tooltip';
+import Tooltip from '@/components/Tooltip.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {

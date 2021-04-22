@@ -23,7 +23,7 @@
 </template>
  
 <script>
-import BlockButton from '@/components/BlockButton';
+import BlockButton from '@/components/BlockButton.vue';
 import VueLoadingOverlay from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
     

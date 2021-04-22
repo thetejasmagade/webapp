@@ -109,10 +109,10 @@
 </template>
 
 <script>
-import Section from '@/components/Section';
-import LoadingOverlay from '@/components/LoadingOverlay';
-import ImageCard from '@/components/ImageCard';
-import ProfileSpeechBubble from '@/components/ProfileSpeechBubble';
+import Section from '@/components/Section.vue';
+import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import ImageCard from '@/components/ImageCard.vue';
+import ProfileSpeechBubble from '@/components/ProfileSpeechBubble.vue';
 import {
   checkout
 } from '@/lib/stripewrap.js';

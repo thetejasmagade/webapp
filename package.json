@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": false,
   "scripts": {
-    "serve": "vue-cli-service serve --open --host localhost",
-    "build": "vue-cli-service build --dest dist && echo '/* /index.html 200' >> dist/_redirects",
-    "lint": "vue-cli-service lint"
+    "serve": "vite --open --host localhost",
+    "build": "vite build --out-dir dist && echo '/* /index.html 200' >> dist/_redirects",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -27,9 +28,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.6",
-    "@vue/cli-plugin-eslint": "^4.5.6",
-    "@vue/cli-service": "^4.5.6",
+    "@vue/compiler-sfc": "^3.0.11",
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.9.0",
@@ -38,8 +37,9 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^10.0.2",
+    "sass": "^1.32.11",
+    "vite": "^2.2.1",
+    "vite-plugin-vue2": "^1.4.4",
     "vue-template-compiler": "^2.6.12"
   }
 }

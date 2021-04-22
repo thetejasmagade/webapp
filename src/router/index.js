@@ -2,19 +2,19 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueMeta from 'vue-meta';
 
-const Courses = () => import(/* webpackChunkName: "Courses" */ '@/views/Courses.vue');
-const Portfolio = () => import(/* webpackChunkName: "Portfolio" */ '@/views/Portfolio.vue');
-const Exercise = () => import(/* webpackChunkName: "Exercise" */ '@/views/Exercise.vue');
-const Pricing = () => import(/* webpackChunkName: "Pricing" */ '@/views/Pricing.vue');
-const ReferralProgram = () => import(/* webpackChunkName: "ReferralProgram" */ '@/views/ReferralProgram.vue');
-const Dashboard = () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue');
-const Login = () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue');
-const Playground = () => import(/* webpackChunkName: "Playground" */ '@/views/Playground.vue');
-const Settings = () => import(/* webpackChunkName: "Settings" */ '@/views/Settings.vue');
-const Achievements = () => import(/* webpackChunkName: "Achievements" */ '@/views/Achievements.vue');
-const SignupFlowExperience = () => import(/* webpackChunkName: "SignupFlowExperience" */ '@/views/SignupFlowExperience.vue');
-const SignupFlowInterests = () => import(/* webpackChunkName: "SignupFlowInterests" */ '@/views/SignupFlowInterests.vue');
-const VerifyEmail = () => import(/* webpackChunkName: "VerifyEmail" */ '@/views/VerifyEmail.vue');
+const Courses = () => import('@/views/Courses.vue');
+const Portfolio = () => import( '@/views/Portfolio.vue');
+const Exercise = () => import('@/views/Exercise.vue');
+const Pricing = () => import( '@/views/Pricing.vue');
+const ReferralProgram = () => import( '@/views/ReferralProgram.vue');
+const Dashboard = () => import('@/views/Dashboard.vue');
+const Login = () => import('@/views/Login.vue');
+const Playground = () => import( '@/views/Playground.vue');
+const Settings = () => import('@/views/Settings.vue');
+const Achievements = () => import('@/views/Achievements.vue');
+const SignupFlowExperience = () => import('@/views/SignupFlowExperience.vue');
+const SignupFlowInterests = () => import('@/views/SignupFlowInterests.vue');
+const VerifyEmail = () => import('@/views/VerifyEmail.vue');
 
 Vue.use(VueRouter);
 

@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import Section from '@/components/Section';
-import BlockButton from '@/components/BlockButton';
+import Section from '@/components/Section.vue';
+import BlockButton from '@/components/BlockButton.vue';
 
 
 export default {

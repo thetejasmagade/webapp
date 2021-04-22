@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import TopNav from '@/components/TopNav';
-import Slider from '@/components/Slider';
-import Section from '@/components/Section';
-import BlockButton from '@/components/BlockButton';
+import TopNav from '@/components/TopNav.vue';
+import Slider from '@/components/Slider.vue';
+import Section from '@/components/Section.vue';
+import BlockButton from '@/components/BlockButton.vue';
 
 import { 
   gtmEventTutorialBegin

@@ -182,12 +182,12 @@
 </template>
 
 <script>
-import TopNav from '@/components/TopNav';
+import TopNav from '@/components/TopNav.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import ProfileImage from '@/components/ProfileImage';
-import ImageCard from '@/components/ImageCard';
-import Section from '@/components/Section';
-import BlockButton from '@/components/BlockButton';
+import ProfileImage from '@/components/ProfileImage.vue';
+import ImageCard from '@/components/ImageCard.vue';
+import Section from '@/components/Section.vue';
+import BlockButton from '@/components/BlockButton.vue';
 
 import {
   getCoursesPublic,

@@ -75,15 +75,15 @@
 </template>
 
 <script>
-import MultipleChoice from '@/components/MultipleChoice';
-import MarkdownViewer from '@/components/MarkdownViewer';
-import CodeEditor from '@/components/CodeEditor';
-import BlockButton from '@/components/BlockButton';
-import CourseCompleted from '@/components/CourseCompleted';
-import ExerciseNav from '@/components/ExerciseNav';
-import Multipane from '@/components/Multipane';
-import MultipaneResizer from '@/components/MultipaneResizer';
-import Section from '@/components/Section';
+import MultipleChoice from '@/components/MultipleChoice.vue';
+import MarkdownViewer from '@/components/MarkdownViewer.vue';
+import CodeEditor from '@/components/CodeEditor.vue';
+import BlockButton from '@/components/BlockButton.vue';
+import CourseCompleted from '@/components/CourseCompleted.vue';
+import ExerciseNav from '@/components/ExerciseNav.vue';
+import Multipane from '@/components/Multipane.vue';
+import MultipaneResizer from '@/components/MultipaneResizer.vue';
+import Section from '@/components/Section.vue';
 
 import { 
   loadBalance,

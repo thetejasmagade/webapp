@@ -224,9 +224,9 @@ import {
   openCustomerPortal
 } from '@/lib/cloudClient.js';
 import { loadUser } from '@/lib/cloudStore.js';
-import BlockButton from '@/components/BlockButton';
-import TextInput from '@/components/TextInput';
-import Section from '@/components/Section';
+import BlockButton from '@/components/BlockButton.vue';
+import TextInput from '@/components/TextInput.vue';
+import Section from '@/components/Section.vue';
 
 import { 
   gtmEventFinishCheckout

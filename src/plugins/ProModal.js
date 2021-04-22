@@ -1,4 +1,4 @@
-import ProModal from '@/components/ProModal';
+import ProModal from '@/components/ProModal.vue';
 
 export default {
   install(Vue) {

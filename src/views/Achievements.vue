@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import ImageCard from '@/components/ImageCard';
-import Section from '@/components/Section';
-import GemDisplay from '@/components/GemDisplay';
+import ImageCard from '@/components/ImageCard.vue';
+import Section from '@/components/Section.vue';
+import GemDisplay from '@/components/GemDisplay.vue';
 
 import { 
   loadUserAchievements

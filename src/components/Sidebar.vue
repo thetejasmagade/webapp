@@ -137,9 +137,9 @@
 </template>
 
 <script>
-import MenuItemHorizontal from '@/components/MenuItemHorizontal';
-import GemDisplay from '@/components/GemDisplay';
-import ProfileImage from '@/components/ProfileImage';
+import MenuItemHorizontal from '@/components/MenuItemHorizontal.vue';
+import GemDisplay from '@/components/GemDisplay.vue';
+import ProfileImage from '@/components/ProfileImage.vue';
 
 import {
   setLogout

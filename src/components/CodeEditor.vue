@@ -43,9 +43,7 @@
                 :key="i"
                 :class="{error: err}"
                 class="pre"
-              >
-                {{ line }}
-              </p>
+              >{{ line }}</p>
             </div>
           </div>
         </div>
@@ -78,10 +76,10 @@ import {
   sleep
 } from '@/lib/sleep.js';
 
-import LoadingOverlay from '@/components/LoadingOverlay';
-import ConsoleButtons from '@/components/ConsoleButtons';
-import Multipane from '@/components/Multipane';
-import MultipaneResizer from '@/components/MultipaneResizer';
+import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import ConsoleButtons from '@/components/ConsoleButtons.vue';
+import Multipane from '@/components/Multipane.vue';
+import MultipaneResizer from '@/components/MultipaneResizer.vue';
 
 export default {
   components: {

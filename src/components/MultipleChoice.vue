@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton';
+import BlockButton from '@/components/BlockButton.vue';
 
 export default {
   components: {
