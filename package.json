@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": false,
   "scripts": {
-    "serve": "vite --open --host localhost",
+    "serve": "vite --open",
+    "preview": "vite preview --open --port 8080",
     "build": "vite build --out-dir dist && echo '/* /index.html 200' >> dist/_redirects",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
@@ -14,7 +15,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "@stripe/stripe-js": "^1.9.0",
-    "babel-runtime": "^6.26.0",
     "core-js": "^3.6.5",
     "prismjs": "^1.22.0",
     "vue": "^2.6.12",
@@ -30,7 +30,6 @@
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.11",
     "@vue/eslint-config-standard": "^5.1.2",
-    "babel-eslint": "^10.1.0",
     "eslint": "^7.9.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
