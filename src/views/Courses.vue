@@ -22,8 +22,8 @@
                 link="https://qvault.io/about#wagslane"
                 class="speech-bubble"
                 text="
-                  I've found the #1 thing that sets candidates apart is their understanding of computer science concepts.
-                  That's why I wrote this hands-on program. There's just too much that educators leave out in boot
+                  I've found the #1 thing that sets developers apart in the job market is their understanding of computer science concepts.
+                  That's why I wrote this hands-on program. There's just too much that educators leave out of boot
                   camps and crash courses."
                 image-u-r-l="https://pbs.twimg.com/profile_images/1380974063959429120/ZcqTzuh7_400x400.jpg"
                 bio="Lane, Author"
