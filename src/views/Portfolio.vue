@@ -60,7 +60,9 @@
                   :href="user.WebsiteURL"
                   target="_blank"
                   class="m-left-5"
-                >{{ stripProtocol(user.WebsiteURL) }}</a>
+                >
+                  {{ stripProtocol(user.WebsiteURL) }}
+                </a>
               </div>
               <div
                 v-if="user.TwitterHandle"
@@ -73,7 +75,8 @@
                   :href="`https://twitter.com/${user.TwitterHandle}`"
                   target="_blank"
                   class="m-left-5"
-                >@{{ user.TwitterHandle }}
+                >
+                  @{{ user.TwitterHandle }}
                 </a>
               </div>
             </div>
@@ -90,7 +93,9 @@
                   :href="user.LinkedinURL"
                   target="_blank"
                   class="m-left-5"
-                >{{ stripProtocol(user.LinkedinURL) }}</a>
+                >
+                  {{ stripProtocol(user.LinkedinURL) }}
+                </a>
               </div>
               <div
                 v-if="user.GithubHandle"
@@ -103,7 +108,8 @@
                   :href="`https://github.com/${user.GithubHandle}`"
                   target="_blank"
                   class="m-left-5"
-                >{{ user.GithubHandle }}
+                >
+                  {{ user.GithubHandle }}
                 </a>
               </div>
             </div>
