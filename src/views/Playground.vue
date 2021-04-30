@@ -166,7 +166,7 @@ main = do
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
-  background-color: $gray-lighter;
+  background-color: $gray-lightest;
 
   .langs{
     display: flex;
@@ -185,7 +185,7 @@ main = do
     overflow: auto;
   }
 
-  .select-container{
+  .select-container {
     @media screen and (max-width: $mobile-size) {
       display: flex;
       justify-content: flex-end;
