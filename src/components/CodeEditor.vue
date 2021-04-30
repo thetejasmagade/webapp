@@ -329,6 +329,7 @@ span.token.operator {
         border: 1px solid $gray-dark;
         background-color: $white;
         width: 50%;
+        margin-right: 1em;
       }
     }
 
