@@ -36,7 +36,8 @@
               v-if="canvasEnabled"
               id="canvas"
               ref="canvas"
-              height="150"
+              height="1000"
+              width="1000"
             />
             <div class="log">
               <p
