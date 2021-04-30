@@ -1,10 +1,6 @@
 <template>
-  <div
-    class="root"
-  >
-    <LoadingOverlay
-      :is-loading="isLoading" 
-    />
+  <div class="root">
+    <LoadingOverlay :is-loading="isLoading" />
 
     <div class="subcontainer">
       <Section
@@ -14,6 +10,7 @@
       >
         <div class="section-body">
           <ProfileSpeechBubble
+            v-if="!$store.getters.getUserIsSubscribed"
             link="https://qvault.io/about#wagslane"
             class="speech-bubble"
             text="
@@ -24,6 +21,9 @@
             image-u-r-l="https://pbs.twimg.com/profile_images/1380974063959429120/ZcqTzuh7_400x400.jpg"
             bio="Lane, Author"
           />
+          <h2 v-else>
+            You're already subscribed. Go take some courses!
+          </h2>
           <div
             v-for="(subscriptionPlan, i) of subscriptionPlans"
             :key="i"
@@ -44,15 +44,9 @@
                 </div>
 
                 <ul>
-                  <li>
-                    Access to read all course material
-                  </li>
-                  <li>
-                    Limited code sandbox for exercises
-                  </li>
-                  <li>
-                    Save assignment progress
-                  </li>
+                  <li>Access to read all course material</li>
+                  <li>Limited code sandbox for exercises</li>
+                  <li>Save assignment progress</li>
                 </ul>
               </div>
             </ImageCard>
@@ -62,7 +56,11 @@
               class="card"
               theme="light"
               :img-src="price.ImageURL"
-              :click="() => { checkout(price) }"
+              :click=" $store.getters.getUserIsSubscribed ? null :
+                () => {
+                  checkout(price);
+                }
+              "
             >
               <div class="body">
                 <div class="title">
@@ -70,7 +68,7 @@
                 </div>
 
                 <div class="price">
-                  <span>${{ (price.UnitAmountPerMonth / 100) }} / month </span>
+                  <span>${{ price.UnitAmountPerMonth / 100 }} / month </span>
                 </div>
 
                 <ul>
@@ -86,14 +84,12 @@
                   v-if="price.MostPopular"
                   class="pill"
                 >
-                  <span class="gold">
-                    Most Popular
-                  </span>
+                  <span class="gold"> Most Popular </span>
                 </div>
               </div>
             </ImageCard>
           </div>
-          <a @click="$router.push({name: 'ReferralProgram'})">
+          <a @click="$router.push({ name: 'ReferralProgram' })">
             Invite friends, get 150 gems
           </a>
           <a
@@ -113,9 +109,7 @@ import Section from '@/components/Section.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import ProfileSpeechBubble from '@/components/ProfileSpeechBubble.vue';
-import {
-  checkout
-} from '@/lib/stripewrap.js';
+import { checkout } from '@/lib/stripewrap.js';
 import { loadUser } from '@/lib/cloudStore.js';
 
 export default {
@@ -124,8 +118,8 @@ export default {
     return {
       title: title,
       meta: [
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'twitter:title', name: 'twitter:title', content: title }
+        { vmid: 'og:title', property: 'og:title', content: title },
+        { vmid: 'twitter:title', name: 'twitter:title', content: title }
       ]
     };
   },
@@ -141,19 +135,19 @@ export default {
     };
   },
   computed: {
-    subscriptionPlans(){
+    subscriptionPlans() {
       return this.$store.getters.getSubscriptionPlans;
     }
   },
-  async mounted(){
+  async mounted() {
     loadUser(this);
   },
   methods: {
-    async checkout(price){
+    async checkout(price) {
       this.isLoading = true;
       try {
         await checkout(price);
-      } catch (err){
+      } catch (err) {
         this.$notify({
           type: 'error',
           text: err
@@ -166,8 +160,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+@import "@/styles/colors.scss";
+@import "@/styles/consts.scss";
 
 .root {
   display: block;
@@ -191,7 +185,7 @@ export default {
 
   .card {
     flex: 1;
-    margin: .5em;
+    margin: 0.5em;
     max-width: 300px;
     min-width: 200px;
 
@@ -202,7 +196,7 @@ export default {
       flex-direction: column;
       padding: 1em;
 
-      ul{
+      ul {
         text-align: left;
 
         li {
@@ -211,7 +205,7 @@ export default {
       }
     }
 
-    .pill{
+    .pill {
       span {
         padding: 5px 20px 5px 20px;
         color: $white;
@@ -228,7 +222,7 @@ export default {
     .title {
       color: $purple-mid;
       font-size: 1.5em;
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
 
       span {
         margin-left: 10px;
@@ -238,15 +232,19 @@ export default {
     .price {
       font-size: 1.25em;
       color: $green-mid;
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
     }
   }
 }
 
-.section-body{
+.section-body {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  h2 {
+    color: $gold-mid;
+  }
 }
 
 .speech-bubble {
@@ -256,5 +254,4 @@ export default {
   background-color: $white;
   margin: 1em 0 0 0;
 }
-
 </style>

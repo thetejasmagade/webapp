@@ -29,6 +29,7 @@
             :save-callback="saveCallback"
             :load-callback="loadCallback"
             :upgrade-callback="upgradeCallback"
+            class="console-buttons"
           />
           <div class="output">
             <canvas
@@ -272,7 +273,6 @@ export default {
 
 <style lang="scss">
 @import '@/styles/colors.scss';
-
 span.token.operator {
   background: inherit !important;
 }
@@ -305,6 +305,13 @@ span.token.operator {
     padding: 10px;
     overflow: auto;
     border-top: solid 1px $gray-dark;
+
+    .console-buttons {
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+    }
+
 
     .output {
       padding: 0 0 0 1em;

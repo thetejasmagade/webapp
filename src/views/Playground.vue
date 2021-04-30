@@ -105,7 +105,7 @@ func main(){
 // on Qvault's servers then
 // executes on your machine
 // read about it on my blog:
-// https://qvault.io/2020/07/01/running-go-in-the-browser-with-web-assembly-wasm/`;
+// https://qvault.io/golang/running-go-in-the-browser-with-web-assembly-wasm`;
         
         return;
       }
@@ -135,7 +135,7 @@ console.log("hello, world")
 # We use a Python interpreter that's compiled to Web Assembly
 # to run code right in your browser using a Web Worker
 # read about it on my blog: 
-# https://qvault.io/2020/09/24/running-python-in-the-browser-with-web-assembly/
+# https://qvault.io/python/running-python-in-the-browser-with-web-assembly
         `;
         return;
       }
