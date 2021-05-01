@@ -15,9 +15,8 @@
           <Section
             :title="`Your next course: ${ $store.getters.getProgramCS.length > 0 ? $store.getters.getProgramCS[0].Title : null }`"
             subtitle="Take these courses in order to complete the full computer science program"
-            class="margin-bottom-1"
           >
-            <div class="cards">
+            <div class="section-body">
               <ProfileSpeechBubble
                 link="https://qvault.io/about#wagslane"
                 class="speech-bubble"
@@ -28,42 +27,44 @@
                 image-u-r-l="https://pbs.twimg.com/profile_images/1380974063959429120/ZcqTzuh7_400x400.jpg"
                 bio="Lane, Author"
               />
-              <div
-                v-for="(course, i) of $store.getters.getProgramCS"
-                :key="i"
-              >
-                <ImageCard
-                  v-if="!course.IsComplete"
-                  theme="light"
-                  :img-src="course.ImageURL"
-                  class="card large"
-                  :click="() => { goToCourse(course) }"
+              <div class="cards">
+                <div
+                  v-for="(course, i) of $store.getters.getProgramCS"
+                  :key="i"
                 >
-                  <CourseCardBodyDetailed
-                    class="body"
-                    :course="course"
-                  />
-                </ImageCard>
+                  <ImageCard
+                    v-if="!course.IsComplete"
+                    theme="light"
+                    :img-src="course.ImageURL"
+                    class="card large"
+                    :click="() => { goToCourse(course) }"
+                  >
+                    <CourseCardBodyDetailed
+                      class="body"
+                      :course="course"
+                    />
+                  </ImageCard>
+                </div>
               </div>
+              <h2> Notes </h2>
+              <p class="max-width">
+                <i>
+                  This curriculum is a work-in-progress
+                  while I build towards an unaccredited university-level CS degree.
+                  <a
+                    href="https://github.com/qvault/curriculum"
+                    target="_blank"
+                  >You can find the roadmap here.</a>
+                  Buying courses,
+                  being part of the
+                  <a
+                    href="https://discord.gg/k4rVEWt"
+                    target="_blank"
+                  >Discord community</a>,
+                  and providing great feedback will help us get the project finished.
+                </i>
+              </p>
             </div>
-            <h2> Notes </h2>
-            <p class="max-width">
-              <i>
-                This curriculum is a work-in-progress
-                while I build towards an unaccredited university-level CS degree.
-                <a
-                  href="https://github.com/qvault/curriculum"
-                  target="_blank"
-                >You can find the roadmap here.</a>
-                Buying courses,
-                being part of the
-                <a
-                  href="https://discord.gg/k4rVEWt"
-                  target="_blank"
-                >Discord community</a>,
-                and providing great feedback will help us get the project finished.
-              </i>
-            </p>
           </Section>
         </Tab>
         <Tab
@@ -214,6 +215,13 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
+
+.section-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .courses-page {
   display: block;
