@@ -203,6 +203,7 @@ export default {
       try {
         this.output = [];
         this.isLoading = true;
+        let hash = null;
         try {
           if (this.progLang === 'go'){
             const wasm = await compileGo(this.code);
@@ -219,10 +220,11 @@ export default {
           } else if (this.progLang === 'js'){
           // make it feel like something is running
             await sleep(250);
-            await useWorker(this.worker, this.code, (data) => {
+            let final = await useWorker(this.worker, this.code, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
+            hash = final.hash;
           } else if (this.progLang === 'py'){
             await sleep(250);
             await useWorker(this.worker, this.code, (data) => {
@@ -231,13 +233,13 @@ export default {
             });
           }
         } catch (err){
-          await this.runCallback(JSON.stringify(err));
+          await this.runCallback({output: JSON.stringify(err)});
           throw err;
         }
         this.err = false;
         this.isLoading = false;
         let finalOut = this.outputToSubmission(this.output);
-        await this.runCallback(finalOut);
+        await this.runCallback({output: finalOut, hash});
       } catch(err) {
         this.isLoading = false;
         let errString = err;

@@ -24,7 +24,7 @@ export function useWorker(worker, params, callback) {
   const promise = new Promise((resolve, reject) => {
     worker.webWorker.onmessage = (event) => {
       if (event.data.done) {
-        resolve();
+        resolve({hash: event.data.encodedHash});
         return;
       }
       if (event.data.error) {

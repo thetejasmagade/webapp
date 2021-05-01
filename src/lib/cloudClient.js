@@ -577,6 +577,21 @@ export async function getNextExercise(courseUUID, currentExerciseUUID) {
   return handled;
 }
 
+export async function submitCodeCanvasExercise(exerciseUUID, canvasHash){
+  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code_canvas`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      canvasHash
+    })
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function submitCodeExercise(exerciseUUID, output){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code`, {
     method: 'POST',

@@ -44,15 +44,16 @@
           </BlockButton>
         </div>
         <CodeEditor
-          v-else-if="type === 'type_code'"
+          v-else-if="type === 'type_code' || type === 'type_code_canvas'"
           v-model="code"
           class="side right"
-          :run-callback="submitTypeCode"
+          :run-callback="type === 'type_code' ? submitTypeCode : submitTypeCodeCanvas"
           :reset-callback="resetCode"
           :upgrade-callback="locked ? upgradeClick : null"
           :save-callback="saveCode"
           :load-callback="getSavedCode"
           :prog-lang="progLang"
+          :canvas-enabled="type === 'type_code_canvas'"
         />
         <MultipleChoice
           v-else-if="type === 'type_choice'"
@@ -108,6 +109,7 @@ import {
   submitInformationalExercise,
   submitCodeExercise,
   submitMultipleChoiceExercise,
+  submitCodeCanvasExercise,
   getFirstExercise,
   saveCode,
   getSavedCode,
@@ -355,7 +357,7 @@ export default {
         });
       }
     },
-    async verifyCode(output){
+    async verifyCode({output}){
       try {
         const rewardsResponse = await submitCodeExercise(
           this.exerciseUUID,
@@ -374,12 +376,38 @@ export default {
         });
       }
     },
-    async submitTypeCode(output) {
+    async verifyHash({hash}){
+      try {
+        const rewardsResponse = await submitCodeCanvasExercise(
+          this.exerciseUUID,
+          hash
+        );
+        this.isComplete = true;
+        this.handleRewards(rewardsResponse);
+        await sleep(1500);
+        if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
+          await this.getCurrentExercise();
+        }
+      } catch(err) {
+        this.$notify({
+          type: 'error',
+          text: err
+        });
+      }
+    },
+    async submitTypeCode({output}) {
       gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
       if (this.locked){
         return;
       }
-      this.verifyCode(output);
+      this.verifyCode({output});
+    },
+    async submitTypeCodeCanvas({hash}) {
+      gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
+      if (this.locked){
+        return;
+      }
+      this.verifyHash({hash});
     },
     async submitTypeChoice(answer) {
       try {
@@ -431,7 +459,11 @@ export default {
         this.code = exercise.Exercise.Code;
         this.defaultCode = exercise.Exercise.Code;
         this.progLang = exercise.Exercise.ProgLang;
-      } else if (exercise.Exercise.Question){
+      } else if (this.type === 'type_code_canvas'){
+        this.code = exercise.Exercise.Code;
+        this.defaultCode = exercise.Exercise.Code;
+        this.progLang = exercise.Exercise.ProgLang;
+      } else if (this.type === 'type_choice'){
         this.question = exercise.Exercise.Question;
       }
     },
