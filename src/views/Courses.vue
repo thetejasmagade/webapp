@@ -29,17 +29,34 @@
               />
               <div class="cards">
                 <div
-                  v-for="(course, i) of $store.getters.getProgramCS"
+                  v-if="csProgramCourses.length > 0"
+                >
+                  <ImageCard
+                    theme="light"
+                    :img-src="csProgramCourses[0].ImageURL"
+                    class="card large"
+                  >
+                    <CourseCardBodyDetailed
+                      class="body"
+                      :course="csProgramCourses[0]"
+                      :click="() => { goToCourse(csProgramCourses[0]) }"
+                    />
+                  </ImageCard>
+                </div>
+              </div>
+              <div class="cards">
+                <div
+                  v-for="(course, i) of csProgramCourses"
                   :key="i"
                 >
                   <ImageCard
-                    v-if="!course.IsComplete"
+                    v-if="i > 0"
                     theme="light"
                     :img-src="course.ImageURL"
-                    class="card large"
+                    class="card"
                     :click="() => { goToCourse(course) }"
                   >
-                    <CourseCardBodyDetailed
+                    <CourseCardBody
                       class="body"
                       :course="course"
                     />
@@ -177,6 +194,9 @@ export default {
     };
   },
   computed:{
+    csProgramCourses(){
+      return this.$store.getters.getProgramCS.filter(course => !course.IsComplete);
+    },
     courses(){
       return this.$store.getters.getCourses;
     }

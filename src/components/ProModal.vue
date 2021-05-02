@@ -57,14 +57,14 @@ export default {
 @import '@/styles/consts.scss';
 
 .pro-modal {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    .btn {
-        max-width: 200px;
-    }
+  .btn {
+      max-width: 200px;
+  }
 }
 </style>
