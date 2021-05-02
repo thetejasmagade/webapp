@@ -131,10 +131,10 @@
                 <ImageCard
                   theme="light"
                   :img-src="course.ImageURL"
-                  class="card"
+                  class="card large"
                   :click="()=>() => { goToCourse(course) }"
                 >
-                  <CourseCardBody
+                  <CourseCardBodyDetailed
                     class="body"
                     :course="course"
                   />
@@ -263,7 +263,7 @@ export default {
   $margin: 30px;
   flex: 1 1 200px;
   margin: $margin;
-  max-width: 300px;
+  max-width: 350px;
   @media (min-width: $mobile-size) {
     min-width: 250px;
   }
@@ -274,7 +274,7 @@ export default {
   }
 
   &.large {
-    max-width: 450px;
+    max-width: 500px;
   }
 }
 
