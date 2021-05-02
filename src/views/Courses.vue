@@ -35,11 +35,11 @@
                     theme="light"
                     :img-src="csProgramCourses[0].ImageURL"
                     class="card large"
+                    :click="() => { goToCourse(csProgramCourses[0]) }"
                   >
                     <CourseCardBodyDetailed
                       class="body"
                       :course="csProgramCourses[0]"
-                      :click="() => { goToCourse(csProgramCourses[0]) }"
                     />
                   </ImageCard>
                 </div>

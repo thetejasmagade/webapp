@@ -36,14 +36,6 @@
         </span>
       </div>
     </div>
-    <BlockButton
-      v-if="click"
-      class="btn"
-      :click="click"
-      color="purple"
-    >
-      Start Course
-    </BlockButton>
     <p>
       {{ course.Description }}
     </p>
@@ -61,14 +53,12 @@
 import { 
   loadAllInterests
 } from '@/lib/cloudStore.js';
-import BlockButton from '@/components/BlockButton.vue';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
-    FontAwesomeIcon,
-    BlockButton
+    FontAwesomeIcon
   },
   props: { 
     course: {
