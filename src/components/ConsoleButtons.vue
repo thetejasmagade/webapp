@@ -13,7 +13,7 @@
         <FontAwesomeIcon
           icon="level-up-alt"
         />
-        Upgrade
+        Go Pro
       </BlockButton>
     </Tooltip>
     <Tooltip

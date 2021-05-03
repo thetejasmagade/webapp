@@ -10,6 +10,28 @@
       v-else
       class="container desktop"
     >
+      <Modal
+        ref="pricingModal"
+      >
+        <div class="pricing-modal">
+          <h1> Upgrade for continued access </h1>
+          <p>
+            If you want to continue to verify your answers and get credit for assignments,
+            <b>you'll need to upgrade to a pro account.</b>
+          </p>
+          <p>
+            That said, still feel free to continue the course in read-only mode, its free to audit!
+          </p>
+          <BlockButton
+            class="btn"
+            :click="() => {modalButtonClick()}"
+            color="purple"
+          >
+            View Plans
+          </BlockButton>
+        </div>
+      </Modal>
+
       <Multipane layout="horizontal">
         <div class="side left">
           <ExerciseNav
@@ -76,6 +98,7 @@
 </template>
 
 <script>
+import Modal from '@/components/Modal.vue';
 import MultipleChoice from '@/components/MultipleChoice.vue';
 import MarkdownViewer from '@/components/MarkdownViewer.vue';
 import CodeEditor from '@/components/CodeEditor.vue';
@@ -99,7 +122,8 @@ import {
   gtmEventEarnGems,
   gtmEventUnlockAchievement,
   gtmEventFinishCourse,
-  gtmEventExecuteCode
+  gtmEventExecuteCode,
+  gtmEventOpenProModal
 } from '@/lib/gtm.js';
 
 import { 
@@ -135,6 +159,7 @@ export default {
     };
   },
   components: {
+    Modal,
     Section,
     CodeEditor,
     MarkdownViewer,
@@ -268,6 +293,14 @@ export default {
     await this.getCurrentExercise();
   },
   methods: {
+    showModal(){
+      gtmEventOpenProModal();
+      this.$refs.pricingModal.show();
+    },
+    modalButtonClick(){
+      this.$router.push({name: 'Pricing'});
+      this.$refs.pricingModal.hide();
+    },
     upgradeClick(){
       this.$router.push({name: 'Pricing'});
     },
@@ -429,6 +462,9 @@ export default {
       }
     },
     async moveToExercise(exercise){
+      if (this.isFree && this.code && !exercise.Exercise.IsFree && !this.$store.getters.getUserIsSubscribed){
+        this.showModal();
+      }
       saveUnsubscribedProgress(this.courseUUID, exercise.Exercise.UUID);
       if (exercise.CourseDone){
         if (!this.courseDone){
