@@ -64,7 +64,7 @@ export default {
   justify-content: center;
 
   .btn {
-      max-width: 200px;
+    max-width: 200px;
   }
 }
 </style>
