@@ -12,7 +12,8 @@
         purple: color === 'purple',
         green: color === 'green',
         top: position === 'top',
-        right: position === 'right'
+        right: position === 'right',
+        bottom: position === 'bottom'
       }"
     >
       <div
@@ -76,6 +77,12 @@ export default {
 
     &.top {
       bottom: calc(100% + 5px);
+      left: 50%;
+      margin-left: -60px;
+    }
+
+    &.bottom {
+      top: calc(100% + 5px);
       left: 50%;
       margin-left: -60px;
     }

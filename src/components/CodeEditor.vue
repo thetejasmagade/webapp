@@ -6,6 +6,16 @@
     />
     <div class="code-editor-root">
       <Multipane layout="vertical">
+        <div class="top-bar">
+          <ConsoleButtons
+            :run-callback="runCode"
+            :reset-callback="runReset"
+            :save-callback="saveCallback"
+            :load-callback="loadCallback"
+            :upgrade-callback="upgradeCallback"
+            class="console-buttons"
+          />
+        </div>
         <div class="editor-container">
           <PrismEditor
             v-model="code"
@@ -20,18 +30,10 @@
         </div>
         <MultipaneResizer />
         <div
-          ref="consoleOutput"
-          class="console-output"
+          ref="console"
+          class="console"
         >
-          <ConsoleButtons
-            :run-callback="runCode"
-            :reset-callback="runReset"
-            :save-callback="saveCallback"
-            :load-callback="loadCallback"
-            :upgrade-callback="upgradeCallback"
-            class="console-buttons"
-          />
-          <div class="output">
+          <Multipane layout="horizontal">
             <canvas
               v-if="canvasEnabled"
               id="canvas"
@@ -39,6 +41,7 @@
               height="1000"
               width="1000"
             />
+            <MultipaneResizer />
             <div class="log">
               <p
                 v-for="(line, i) of output"
@@ -47,7 +50,7 @@
                 class="pre"
               >{{ line }}</p>
             </div>
-          </div>
+          </Multipane>
         </div>
       </Multipane>
     </div>
@@ -185,7 +188,7 @@ export default {
     },
     scrollToEnd () {
       requestAnimationFrame(() => {
-        var content = this.$refs.consoleOutput;
+        var content = this.$refs.console;
         content.scrollTop = Number.MAX_SAFE_INTEGER;
       });
     },
@@ -289,6 +292,15 @@ span.token.operator {
   }
 }
 
+.top-bar {
+  flex: 0 0 auto;
+  border-bottom: solid 1px $gray-light;
+  width: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+  background-color: $gray-lighter;
+}
+
 .code-editor-root {
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   height: 100%;
@@ -299,51 +311,32 @@ span.token.operator {
     margin: 10px 0 0 0;
   }
 
-  .console-output {
+  .console {
     font-size: 14px;
     background-color: $gray-lighter;
     flex: 1;
     display: flex;
     flex-direction: row;
-    padding: 10px;
     overflow: auto;
     border-top: solid 1px $gray-dark;
+    width: 100%;
 
-    .console-buttons {
-      position: sticky;
-      top: 0;
-      align-self: flex-start;
-    }
-
-
-    .output {
-      padding: 0 0 0 1em;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-
-      .log{
-        .pre {
-          white-space: pre-wrap;
-        }
+    .log {
+      margin: 1em;
+      .pre {
+        white-space: pre-wrap;
+        font-size: 1em;
+        color: $gray-darker;
       }
-
-      #canvas {
-        border: 1px solid $gray-dark;
-        background-color: $white;
-        width: 50%;
-        margin-right: 1em;
+      .error {
+        color: $pink-dark;
       }
     }
 
-    p {
-      margin: 0;
-      font-size: 1em;
-      color: $gray-darker;
-    }
-
-    .error {
-      color: $pink-dark;
+    #canvas {
+      border: 1px solid $gray-dark;
+      background-color: $white;
+      margin: 1em 0 1em 1em;
     }
   }
 }

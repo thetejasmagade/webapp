@@ -170,9 +170,9 @@ main = do
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
-  background-color: $gray-lightest;
+  background-color: $gray-lighter;
 
-  .langs{
+  .langs {
     display: flex;
     flex-direction: row;
     padding: 1em;
@@ -199,7 +199,7 @@ main = do
     }
     @media screen and (min-width: $mobile-size) {
       display: block;
-      top: calc(10px + #{$bar-height});
+      top: calc(6px + #{$bar-height});
       right: 20px;
       position: absolute;
       z-index: 5;

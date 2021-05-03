@@ -4,7 +4,6 @@
       <BlockButton
         :click="goBack"
         :disabled="!canGoBack"
-        class="margin-bottom-mobile"
         :color="canGoBack ? 'green' : 'gray'"
       >
         <FontAwesomeIcon
@@ -13,7 +12,7 @@
       </BlockButton>
       <BlockButton
         :disabled="!canGoForward"
-        class="margin-left-desktop"
+        class="margin-left"
         :click="goForward"
         :color="canGoForward ? 'green' : 'gray'"
       >
@@ -46,11 +45,12 @@
     <BlockButton
       class="btn"
       :click="() => {linkClick('https://discord.gg/k4rVEWt')}"
+      color="gray"
     >
       <FontAwesomeIcon
         :icon="['fab', 'discord']"
       />
-      <span class="margin-left-small-desktop"> Help </span>
+      <span> Help </span>
     </BlockButton>
   </div>
 </template>
@@ -138,24 +138,6 @@ export default {
 
     @media (max-width: $mobile-size) {
       display: none;
-    }
-  }
-
-  .margin-left-desktop {
-    @media (min-width: $mobile-size) {
-      margin-left: 1em;
-    }
-  }
-
-  .margin-bottom-mobile {
-    @media (max-width: $mobile-size) {
-      margin-bottom: 1em;
-    }
-  }
-
-  .margin-left-small-desktop {
-    @media (min-width: $mobile-size) {
-      margin-left: 4px;
     }
   }
 }

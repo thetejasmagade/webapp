@@ -2,6 +2,7 @@
   <div id="app">
     <notifications
       :duration="3000"
+      :max="3"
       classes="custom-notification"
     />
     <ProModalPlugin />
@@ -117,16 +118,14 @@ export default {
 }
 
 .vue-notification-group {
-  margin: 60px 10px 0 0;
+  margin: 8em 1em 0 0;
 }
 
 .custom-notification {
-  padding: 10px;
+  padding: 1em;
   cursor: pointer;
-  margin-top: 10px;
-
+  margin-top: 1em;
   font-size: 1em;
-
   color: $white;
   background: $purple-mid !important;
   border-right: 5px solid $gray-darker;

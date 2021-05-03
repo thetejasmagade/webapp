@@ -51,9 +51,9 @@
       </div>
     </div>
             
-    <span class="title item">
-      {{ course.Title }}
-    </span>
+    <p class="item">
+      {{ course.Description }}
+    </p>
 
     <div
       v-if="course.IsComplete"
@@ -71,7 +71,9 @@
         class="gray link"
         target="_blank"
         @click.stop="() => {linkClick(course.LandingPage)}"
-      >More Info</span>
+      >
+        More Info
+      </span>
     </div>
   </div>
 </template>
@@ -168,9 +170,8 @@ export default {
   padding: 0 1em 0 1em;
 }
 
-.title {
-  color: $gold-dark;
-  font-size: 1.3em;
+p {
+  text-align: left;
 }
 
 .completed {
@@ -181,10 +182,10 @@ export default {
   }
 }
 
-.item{
+.item {
   margin: 10px 15px 0 15px;
 
-  &.bottom{
+  &.bottom {
     margin: 10px;
   }
 }

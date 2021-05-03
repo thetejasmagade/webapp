@@ -2,8 +2,8 @@
   <div class="btns">
     <Tooltip
       v-if="upgradeCallback"
-      :text="`Upgrade to pro`"
-      position="right"
+      :text="`Get pro`"
+      position="bottom"
     >
       <BlockButton
         class="btn"
@@ -13,12 +13,12 @@
         <FontAwesomeIcon
           icon="level-up-alt"
         />
+        Upgrade
       </BlockButton>
     </Tooltip>
     <Tooltip
-      :text="`Run Code`"
-      position="right"
-      class="bottom"
+      :text="`Run code`"
+      position="bottom"
     >
       <BlockButton
         class="btn"
@@ -27,18 +27,18 @@
         <FontAwesomeIcon
           icon="play"
         />
+        Run
       </BlockButton>
     </Tooltip>
     <Tooltip
       v-if="saveCallback"
-      :text="`Save Code`"
-      position="right"
-      class="bottom"
+      :text="`Save code`"
+      position="bottom"
     >
       <BlockButton
         class="btn"
         :click="saveCallback"
-        color="green"
+        color="gray"
       >
         <FontAwesomeIcon
           icon="save"
@@ -47,9 +47,8 @@
     </Tooltip>
     <Tooltip
       v-if="loadCallback"
-      :text="`Load Last Save`"
-      position="right"
-      class="bottom"
+      :text="`Load last save`"
+      position="bottom"
     >
       <BlockButton
         class="btn"
@@ -62,9 +61,8 @@
       </BlockButton>
     </Tooltip>
     <Tooltip
-      :text="`Reset Exercise`"
-      position="right"
-      class="bottom"
+      :text="`Reset code`"
+      position="bottom"
     >
       <BlockButton
         class="btn"
@@ -124,15 +122,12 @@ export default {
 
 .btns {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 
   .btn {
-    font-size: 1em;
-    width: 100%;
-  }
-
-  .bottom {
-    margin: 1em 0 0 0;
+    margin: 0 1em 0 0;
   }
 }
 </style>

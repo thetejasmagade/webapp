@@ -68,7 +68,7 @@ export default {
   line-height: 47px;
 
   .selected {
-    background-color: $gray-lighter;
+    background-color: $gray-lightest;
     border-radius: 6px;
     border: 1px solid $gray-mid;
     color: $gray-darker-2;
