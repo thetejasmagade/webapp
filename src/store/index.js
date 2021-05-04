@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {
+function getDefaultState() {
+  return {
     balance: 0,
     subscriptionPlans: [],
     jwtClaims: null,
@@ -14,8 +14,16 @@ export default new Vuex.Store({
     user: null,
     currentModuleUUID: null,
     allInterests: []
-  },
+  };
+}
+
+export default new Vuex.Store({
+  state: getDefaultState(),
   mutations: {
+    reset(state) {
+      Object.assign(state, getDefaultState());
+      console.log(state);
+    },
     setBalance(state, newBalance) {
       state.balance = newBalance;
     },

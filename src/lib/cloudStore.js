@@ -4,7 +4,6 @@ import {
   getLastGemTransaction,
   getUser,
   getSubscriptionPlans,
-  isLoggedIn,
   getJWTClaims,
   logout,
   getUserAchievements,
@@ -115,6 +114,6 @@ export function loadLoggedIn(thisComponent) {
 
 export function setLogout(thisComponent) {
   logout();
-  thisComponent.$store.commit('setIsLoggedIn', isLoggedIn());
+  thisComponent.$store.commit('reset');
   thisComponent.$router.push({ name: 'Login' });
 }
