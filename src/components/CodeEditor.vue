@@ -327,6 +327,7 @@ span.token.operator {
         white-space: pre-wrap;
         font-size: 1em;
         color: $gray-darker;
+        margin: 0;
       }
       .error {
         color: $pink-dark;
