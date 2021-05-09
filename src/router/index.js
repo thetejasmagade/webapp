@@ -6,7 +6,6 @@ const Courses = () => import('@/views/Courses.vue');
 const Portfolio = () => import( '@/views/Portfolio.vue');
 const Exercise = () => import('@/views/Exercise.vue');
 const Pricing = () => import( '@/views/Pricing.vue');
-const ReferralProgram = () => import( '@/views/ReferralProgram.vue');
 const Dashboard = () => import('@/views/Dashboard.vue');
 const Login = () => import('@/views/Login.vue');
 const Playground = () => import( '@/views/Playground.vue');
@@ -69,11 +68,6 @@ const routes = [
         path: 'pricing',
         name: 'Pricing',
         component: Pricing
-      },
-      {
-        path: 'referral_program',
-        name: 'ReferralProgram',
-        component: ReferralProgram
       },
       {
         path: 'settings',
