@@ -13,7 +13,7 @@
             You're already subscribed. Go take some courses!
           </h2>
           <h2 v-else>
-            Upgrade with confidence! I offer a 7-day free trial and a 30-day money-back guarantee
+            Thanks for supporting the project! All purchases have a 7-day free trial and a 30-day money-back guarantee
           </h2>
           <div
             v-for="(subscriptionPlan, i) of subscriptionPlans"
