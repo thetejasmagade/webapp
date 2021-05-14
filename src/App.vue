@@ -39,11 +39,11 @@ import {
   faStar,
   faGraduationCap,
   faLock,
-  faLevelUpAlt
+  faLevelUpAlt,
+  faEye
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
-  faDiscord,
   faTwitter,
   faGoogle,
   faGithub,
@@ -64,7 +64,6 @@ library.add(faBars);
 library.add(faCog);
 library.add(faTrophy);
 library.add(faCamera);
-library.add(faDiscord);
 library.add(faTwitter);
 library.add(faGoogle);
 library.add(faMapMarkerAlt);
@@ -82,6 +81,7 @@ library.add(faStar);
 library.add(faGraduationCap);
 library.add(faLock);
 library.add(faLevelUpAlt);
+library.add(faEye);
 
 export default {
   metaInfo() {

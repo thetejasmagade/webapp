@@ -42,16 +42,19 @@
       </span>
     </div>
 
-    <BlockButton
-      class="btn"
-      :click="() => {linkClick('https://discord.gg/k4rVEWt')}"
-      color="gray"
-    >
-      <FontAwesomeIcon
-        :icon="['fab', 'discord']"
-      />
-      <span> Help </span>
-    </BlockButton>
+    <div :style="{'visibility': clickSolution ? 'visible' : 'hidden'}">
+      <BlockButton
+        class="btn"
+        :click="clickSolution"
+        color="gray"
+      >
+        <FontAwesomeIcon
+          class="icon"
+          icon="eye"
+        />
+        <span> Cheat </span>
+      </BlockButton>
+    </div>
   </div>
 </template>
 
@@ -97,6 +100,11 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    clickSolution:{
+      type: Function,
+      required: false,
+      default: null
     }
   },
   methods: {

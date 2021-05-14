@@ -28,6 +28,14 @@
           <span>Login</span>
         </router-link>
 
+        <a
+          href="https://discord.gg/k4rVEWt"
+          target="_blank"
+          class="item link"
+        >
+          <span>Community</span>
+        </a>
+
         <router-link
           to="/playground/go"
           class="item link"
@@ -35,14 +43,6 @@
         >
           <span>Playground</span>
         </router-link>  
-
-        <a
-          href="https://qvault.io/contact"
-          target="_blank"
-          class="item link"
-        >
-          <span>Contact</span>
-        </a>
 
         <a
           href="https://qvault.io/articles"
