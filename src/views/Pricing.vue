@@ -92,6 +92,7 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import { checkout } from '@/lib/stripewrap.js';
 import { loadUser } from '@/lib/cloudStore.js';
+import { trackUserCancelCheckout } from '@/lib/cloudClient.js';
 
 export default {
   metaInfo() {
@@ -121,6 +122,14 @@ export default {
   },
   async mounted() {
     loadUser(this);
+    if (this.$route.query.cancel && this.$route.query.cancel === 'true'){
+      try{
+        await trackUserCancelCheckout();
+      } catch (err){
+        console.log(err);
+      }
+
+    }
   },
   methods: {
     async checkout(price) {
