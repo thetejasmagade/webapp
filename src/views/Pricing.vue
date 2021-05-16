@@ -6,14 +6,18 @@
       <Section
         class="section"
         title="Pro Pricing"
-        subtitle="Upgrading to pro makes learning faster and easier, and unlocks certificates to show off to employers"
+        subtitle="Thanks for supporting the project! All purchases have a 7-day free trial and a 30-day money-back guarantee"
       >
         <div class="section-body">
-          <h2 v-if="$store.getters.getUserIsSubscribed">
+          <h2
+            v-if="$store.getters.getUserIsSubscribed"
+          >
             You're already subscribed. Go take some courses!
           </h2>
-          <h2 v-else>
-            Thanks for supporting the project! All purchases have a 7-day free trial and a 30-day money-back guarantee
+          <h2
+            v-else
+          >
+            Learn, practice, and apply career-building skills with a Pro account
           </h2>
           <div
             v-for="(subscriptionPlan, i) of subscriptionPlans"
@@ -66,11 +70,11 @@
             >
               <div class="body">
                 <div class="title">
-                  <span> Basic Plan </span>
+                  <span> Basic </span>
                 </div>
 
                 <div class="price gray">
-                  <span> Free </span>
+                  <span> $0 </span>
                 </div>
 
                 <ul>
@@ -80,6 +84,69 @@
               </div>
             </ImageCard>
           </div>
+        </div>
+      </Section>
+
+      <Section
+        class="section"
+        title="Frequently Asked Questions"
+        subtitle="Interested in upgrading but unsure what that entails?"
+      >
+        <div class="section-body">
+          <h2>
+            What's the difference between Basic and Pro?
+          </h2>
+          <p>
+            A basic account is, well, basic. You can demo Pro features on the first 6 exercises of each course, but after that if you're on
+            a basic plan, you'll only be able to read the course material and play in the code sandbox. You won't pass off assignments or know if you
+            got the right answers.
+          </p>
+            
+          <p>
+            Qvault Pro has everything in Basic,
+            plus all the advanced tools, content, solutions and certifications that you
+            need to make your learning faster.
+          </p>
+          <p>
+            A Pro account lets you practice much more efficiently by getting instant verification of all your code
+            solutions. If you get stuck, you can use the "cheat" feature to take a look at the solution
+            and quickly see what's holding you up. Additionally, one of the biggest benefits our Pro subscribers get is access to free certificates
+            of completion when they finish a course. Showing off your work to employers is a quick way to get that high-paying tech job.
+          </p>
+
+          <h2> Do you offer any discounts? </h2>
+          <p>
+            We do promotions from time to time, and currently we're offering a <a
+              target="_blank"
+              href="https://forms.gle/ubTii5KXCMCg84u78"
+            >25% discount to anyone who completes this feedback form.</a>
+            Our top priority is improving the courses, the app, and your experience so your feedback is super valuable to us.
+            When you're finished with the survey you'll be given a coupon code!
+          </p>
+
+          <h2> Do I need to know how to code before signing up? </h2>
+          <p>
+            No, in fact many of our students have zero experience when they sign up.
+            Our "Basic Intro to Coding" courses are built just for you.
+          </p>
+
+          <h2> Why should I upgrade to Qvault Pro? </h2>
+          <p>
+            I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
+            to lead you to a high-paying programming job. If you’re ready to accelerate your learning and apply the skills you learn to real-world scenarios,
+            then Qvault Pro is for you.
+          </p>
+          <p>
+            Aside from the direct benefits, if you like what we're building here at Qvault, your support helps us
+            improve the platform. We're a small organization that's just starting out, so the more people subscribe, the better the product will be.
+          </p>
+
+          <h2> How do I cancel my subscription? </h2>
+          <p>
+            We do our best to be transparent about pricing, and never want anyone keeping
+            a subscription they don't use. You can cancel your subscription any time from your <a href="/dashboard/settings">settings page</a>
+            and you won't be billed again.
+          </p>
         </div>
       </Section>
     </div>
@@ -179,7 +246,7 @@ export default {
     min-width: 200px;
     
     &.popular{
-      box-shadow: 0 10px 20px 0 $purple-darker;
+      box-shadow: 0 10px 20px 5px $purple-darker;
       border: none;
     }
 
@@ -207,7 +274,7 @@ export default {
         border-radius: 16px;
 
         &.gold {
-          background-color: $purple-mid;
+          background-color: $gold-mid;
         }
       }
       margin-bottom: 1em;
@@ -235,21 +302,21 @@ export default {
   }
 }
 
+.section {
+  margin: 0 0 1em 0;
+}
+
 .section-body {
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  p {
+    max-width: 600px;
+  }
+
   h2 {
     color: $gold-dark;
   }
-}
-
-.speech-bubble {
-  border: 1px solid $gray-light;
-  border-radius: 5px;
-  max-width: 700px;
-  background-color: $white;
-  margin: 1em 0 0 0;
 }
 </style>
