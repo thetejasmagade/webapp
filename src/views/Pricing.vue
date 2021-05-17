@@ -6,7 +6,7 @@
       <Section
         class="section"
         title="Pro Pricing"
-        subtitle="Thanks for supporting the project! All purchases have a 7-day free trial and a 30-day money-back guarantee"
+        subtitle="Love it or your money back! Enjoy a 7-day free trial, 30-day money-back guarantee, and cancel anytime."
       >
         <div class="section-body">
           <h2
