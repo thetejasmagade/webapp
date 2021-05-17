@@ -18,7 +18,7 @@
         class="item"
         icon="store"
         :click="() => {$router.push({name: 'Pricing'})}"
-        text="Pro Pricing"
+        text="Pricing"
         :current="pathName === 'Pricing'"
       />
 

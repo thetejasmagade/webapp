@@ -5,7 +5,7 @@
     <div class="subcontainer">
       <Section
         class="section"
-        title="Pro Pricing"
+        title="Pricing"
         subtitle="Love it or your money back! Enjoy a 7-day free trial, 30-day money-back guarantee, and cancel anytime."
       >
         <div class="section-body">
@@ -163,7 +163,7 @@ import { trackUserCancelCheckout } from '@/lib/cloudClient.js';
 
 export default {
   metaInfo() {
-    const title = 'Qvault - Pro Pricing';
+    const title = 'Qvault - Pricing';
     return {
       title: title,
       meta: [
