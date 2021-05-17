@@ -407,7 +407,7 @@ export async function useCouponCode(couponCode) {
 }
 
 export async function getSubscriptionPlans(){
-  const resp = await fetchWithAuth(`${domain}/v1/subscription_plans`, {
+  const resp = await fetch(`${domain}/v1/subscription_plans`, {
     method: 'GET',
     mode: 'cors',
     headers: {

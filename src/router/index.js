@@ -2,18 +2,18 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueMeta from 'vue-meta';
 
-const Courses = () => import('@/views/Courses.vue');
-const Portfolio = () => import( '@/views/Portfolio.vue');
-const Exercise = () => import('@/views/Exercise.vue');
-const Pricing = () => import( '@/views/Pricing.vue');
-const Dashboard = () => import('@/views/Dashboard.vue');
-const Login = () => import('@/views/Login.vue');
-const Playground = () => import( '@/views/Playground.vue');
-const Settings = () => import('@/views/Settings.vue');
-const Achievements = () => import('@/views/Achievements.vue');
-const SignupFlowExperience = () => import('@/views/SignupFlowExperience.vue');
-const SignupFlowInterests = () => import('@/views/SignupFlowInterests.vue');
-const VerifyEmail = () => import('@/views/VerifyEmail.vue');
+import Courses from '@/views/Courses.vue';
+import Portfolio from '@/views/Portfolio.vue';
+import Exercise from '@/views/Exercise.vue';
+import Pricing from '@/views/Pricing.vue';
+import Dashboard from '@/views/Dashboard.vue';
+import Login from '@/views/Login.vue';
+import Playground from '@/views/Playground.vue';
+import Settings from '@/views/Settings.vue';
+import Achievements from '@/views/Achievements.vue';
+import SignupFlowExperience from '@/views/SignupFlowExperience.vue';
+import SignupFlowInterests from '@/views/SignupFlowInterests.vue';
+import VerifyEmail from '@/views/VerifyEmail.vue';
 
 Vue.use(VueRouter);
 
@@ -51,10 +51,6 @@ const routes = [
     component: Dashboard,
     children: [
       {
-        path: 'store',
-        redirect: 'pricing'
-      },
-      {
         path: 'courses/:courseUUID?',
         name: 'Courses',
         component: Courses
@@ -63,11 +59,6 @@ const routes = [
         path: 'exercise/:courseUUID/:moduleUUID?',
         name: 'Exercise',
         component: Exercise
-      },
-      {
-        path: 'pricing',
-        name: 'Pricing',
-        component: Pricing
       },
       {
         path: 'settings',
@@ -80,6 +71,11 @@ const routes = [
         component: Achievements
       }
     ]
+  },
+  {
+    path: '/pricing',
+    name: 'Pricing',
+    component: Pricing
   },
   {
     path: '/playground', 

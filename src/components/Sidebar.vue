@@ -16,14 +16,6 @@
 
       <MenuItemHorizontal
         class="item"
-        icon="store"
-        :click="() => {$router.push({name: 'Pricing'})}"
-        text="Pricing"
-        :current="pathName === 'Pricing'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
         icon="scroll"
         :click="() => {$router.push({name: 'Courses'}) }"
         text="Courses"
@@ -91,13 +83,6 @@
       <div class="divider">
         <div class="divider" />
       </div>
-
-      <MenuItemHorizontal
-        class="item"
-        icon="store"
-        :click="() => {$router.push({name: 'Pricing'})}"
-        :current="pathName === 'Pricing'"
-      />
 
       <MenuItemHorizontal
         class="item"

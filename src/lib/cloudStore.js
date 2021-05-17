@@ -102,7 +102,7 @@ export async function loadUser(thisComponent) {
 export function loadLoggedIn(thisComponent) {
   thisComponent.$store.commit('setJWTClaims', getJWTClaims());
   if (!thisComponent.$store.getters.getIsLoggedIn &&
-      thisComponent.$router.currentRoute.name !== 'Login') {
+      thisComponent.$router.currentRoute.path.includes('dashboard')) {
     thisComponent.$router.push({ name: 'Login' });
     return;
   }

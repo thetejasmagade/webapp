@@ -20,7 +20,6 @@ import {
   faSignOutAlt,
   faPlay,
   faCheck,
-  faStore,
   faTimes,
   faUndo,
   faBars,
@@ -50,6 +49,10 @@ import {
   faLinkedin
 } from '@fortawesome/free-brands-svg-icons';
 
+import {
+  loadLoggedIn
+} from '@/lib/cloudStore.js';
+
 library.add(faArrowRight);
 library.add(faArrowLeft);
 library.add(faUserTie);
@@ -57,7 +60,6 @@ library.add(faScroll);
 library.add(faSignOutAlt);
 library.add(faPlay);
 library.add(faCheck);
-library.add(faStore);
 library.add(faTimes);
 library.add(faUndo);
 library.add(faBars);
@@ -104,6 +106,9 @@ export default {
         { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg' }
       ]
     };
+  },
+  async mounted(){
+    loadLoggedIn(this);
   }
 };
 </script>

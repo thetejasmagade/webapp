@@ -1,5 +1,6 @@
 <template>
   <div class="root">
+    <TopNav title="Qvault Pricing" />
     <LoadingOverlay :is-loading="isLoading" />
 
     <div class="subcontainer">
@@ -154,25 +155,36 @@
 </template>
 
 <script>
+import TopNav from '@/components/TopNav.vue';
 import Section from '@/components/Section.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import { checkout } from '@/lib/stripewrap.js';
-import { loadUser } from '@/lib/cloudStore.js';
+import { loadUser, loadSubscriptionPlans } from '@/lib/cloudStore.js';
 import { trackUserCancelCheckout } from '@/lib/cloudClient.js';
 
 export default {
   metaInfo() {
     const title = 'Qvault - Pricing';
+    const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner-1024x576.jpg';
+    const description = 'Anyone can get a discount on Qvault Pro! Take our feedback survey and we\'ll hook you up with a lower-cost monthly subscribtion.';
     return {
       title: title,
       meta: [
-        { vmid: 'og:title', property: 'og:title', content: title },
-        { vmid: 'twitter:title', name: 'twitter:title', content: title }
+        { vmid:'description', name: 'description', content: description },
+
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'og:description', property: 'og:description', content: description },
+        { vmid:'og:image', property: 'og:image', content: featuredImage },
+
+        { vmid:'twitter:title', name: 'twitter:title', content: title },
+        { vmid:'twitter:description', property: 'twitter:description', content: description },
+        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
       ]
     };
   },
   components: {
+    TopNav,
     ImageCard,
     LoadingOverlay,
     Section
@@ -188,18 +200,25 @@ export default {
     }
   },
   async mounted() {
-    loadUser(this);
+    loadSubscriptionPlans(this);
+    if (this.$store.getters.getIsLoggedIn){
+      loadUser(this);
+    }
     if (this.$route.query.cancel && this.$route.query.cancel === 'true'){
-      try{
+      try {
         await trackUserCancelCheckout();
       } catch (err){
         console.log(err);
       }
-
     }
   },
   methods: {
     async checkout(price) {
+      if (!this.$store.getters.getIsLoggedIn){
+        this.$router.push({name: 'Login'});
+        return;
+      }
+
       this.isLoading = true;
       try {
         await checkout(price);
@@ -230,6 +249,12 @@ export default {
   a {
     text-decoration: none;
   }
+}
+
+.subcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .cards {
@@ -304,6 +329,7 @@ export default {
 
 .section {
   margin: 0 0 1em 0;
+  min-width: 1028px;
 }
 
 .section-body {

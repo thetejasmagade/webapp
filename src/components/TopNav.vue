@@ -28,6 +28,14 @@
           <span>Login</span>
         </router-link>
 
+        <router-link
+          to="/pricing"
+          class="item link"
+          :class="{current: $router.currentRoute.name === 'Pricing' }"
+        >
+          <span>Pricing</span>
+        </router-link>
+
         <a
           href="https://discord.gg/k4rVEWt"
           target="_blank"

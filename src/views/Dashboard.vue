@@ -31,9 +31,7 @@ import {
 import {
   loadProgramCS,
   loadBalance,
-  loadSubscriptionPlans,
-  loadUser,
-  loadLoggedIn
+  loadUser
 } from '@/lib/cloudStore.js';
 
 export default {
@@ -52,8 +50,6 @@ export default {
     TopNav
   },
   async mounted(){
-    loadLoggedIn(this);
-    await loadSubscriptionPlans(this); 
     loadProgramCS(this);
     if (!this.$store.getters.getUser){
       loadUser(this);
