@@ -5,7 +5,7 @@
     <div class="subcontainer">
       <Section
         title="Landing your dream job"
-        subtitle="It's our goal at Qvault not just to educate, but to help you find a tech job you love"
+        subtitle="It's our goal not just to educate, but to also find you a tech job you love"
         class="section"
       >
         <div class="body">
