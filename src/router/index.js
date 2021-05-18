@@ -13,6 +13,7 @@ import Settings from '@/views/Settings.vue';
 import Achievements from '@/views/Achievements.vue';
 import SignupFlowExperience from '@/views/SignupFlowExperience.vue';
 import SignupFlowInterests from '@/views/SignupFlowInterests.vue';
+import SignupFlowRecruiters from '@/views/SignupFlowRecruiters.vue';
 import VerifyEmail from '@/views/VerifyEmail.vue';
 
 Vue.use(VueRouter);
@@ -39,6 +40,11 @@ const routes = [
     path: '/signup_flow/experience/:courseUUID?',
     name: 'SignupFlowExperience',
     component: SignupFlowExperience
+  },
+  {
+    path: '/signup_flow/recruit/:courseUUID?',
+    name: 'SignupFlowRecruiters',
+    component: SignupFlowRecruiters
   },
   {
     path: '/signup_flow/interests/:courseUUID?',

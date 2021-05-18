@@ -126,7 +126,8 @@ export async function updateUser({
   linkedinURL,
   githubHandle,
   websiteURL,
-  experienceLevel
+  experienceLevel,
+  recruitersCanContact
 }){
   function emptyToNull(s){
     if (s === ''){
@@ -162,7 +163,8 @@ export async function updateUser({
       linkedinURL,
       githubHandle,
       websiteURL,
-      experienceLevel
+      experienceLevel,
+      recruitersCanContact
     })
   });
   const handled = await handleJSONResponse(resp);
