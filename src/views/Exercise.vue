@@ -60,7 +60,6 @@
           id="info-container"
           class="side right"
         >
-          <p> 👈 Read First </p>
           <BlockButton
             class="btn"
             :click="goForward"

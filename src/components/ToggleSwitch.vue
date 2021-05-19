@@ -50,11 +50,11 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/colors.scss';
 
-.gold-mid{
+.gold-mid {
   background-color: $gold-mid;
 }
 
-.gray-lighter{
+.gray-lighter {
   background-color: $gray-lighter;
 }
 

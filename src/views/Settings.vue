@@ -45,6 +45,15 @@
           <div class="innerProfile">
             <form @submit.prevent="updateUser">
               <div class="row">
+                <div class="col switch-box">
+                  <span>Get notified of job relevant job offers</span>
+                  <ToggleSwitch
+                    v-model="user.recruitersCanContact"
+                    class="switch"
+                  />
+                </div>
+              </div>
+              <div class="row">
                 <div class="col">
                   <span>
                     <TextInput
@@ -227,6 +236,7 @@ import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import Section from '@/components/Section.vue';
+import ToggleSwitch from '@/components/ToggleSwitch.vue';
 
 import { 
   gtmEventFinishCheckout
@@ -246,7 +256,8 @@ export default {
   components: {
     BlockButton,
     TextInput,
-    Section
+    Section,
+    ToggleSwitch
   },
   data() {
     return {
@@ -254,7 +265,9 @@ export default {
       oldPassword: null,
       newPassword: null,
       confirmPassword: null,
-      user: {}
+      user: {
+        recruitersCanContact: false
+      }
     };
   },
   computed: {
@@ -290,6 +303,14 @@ export default {
     },
     bio(){
       return this.$store.getters.getUser ? this.$store.getters.getUser.Bio : 'Loading...';
+    },
+    recruitersCanContact(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.RecruitersCanContact : false;
+    }
+  },
+  watch: {
+    recruitersCanContact(newRecruitersCanContact) {
+      this.user.recruitersCanContact = newRecruitersCanContact;
     }
   },
   mounted(){
@@ -364,6 +385,19 @@ label {
 
 .profile-img {
   width: 175px;
+}
+
+.switch-box {
+  display: flex;
+  align-items: center;
+
+  .switch {
+    margin: 0 0 0 1em;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    line-height: .75em;
+  }
 }
 
 .settings-root {
