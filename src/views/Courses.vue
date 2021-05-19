@@ -132,7 +132,7 @@
                   theme="light"
                   :img-src="course.ImageURL"
                   class="card large"
-                  :click="()=>() => { goToCourse(course) }"
+                  :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBodyDetailed
                     class="body"
