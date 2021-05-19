@@ -54,7 +54,7 @@ export default {
         await updateUser(
           { recruitersCanContact: this.canContact }
         );
-        this.$router.push({name: 'SignupFlowInterests', params: { courseUUID: this.$route.params.courseUUID}});
+        this.$router.push({name: 'SignupFlowInterests', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
         this.$notify({
           type: 'error',

@@ -28,7 +28,8 @@
         <ToggleSwitch
           v-model="tosAccepted"
         />
-        <span class="sub-item right">I've read and agree to the 
+        <span class="sub-item right">
+          I've read and agree to the 
           <a href="https://qvault.io/terms-of-service/">terms</a>
         </span>
       </div>
@@ -91,10 +92,10 @@ export default {
         loadLoggedIn(this);
         if (resp.registered){
           gtmEventRegister('google');
-          this.$router.push({name: 'SignupFlowExperience', params: { courseUUID: this.$route.query.course_uuid}});
+          this.$router.push({name: 'SignupFlowExperience', query: { redirect: this.$route.query.redirect}});
           return;
         }
-        this.$router.push({name: 'Courses', params: { courseUUID: this.$route.query.course_uuid}});
+        this.$router.push({name: 'Courses', query: { redirect: this.$route.query.redirect}});
       } catch (err){
         this.$notify({
           type: 'error',

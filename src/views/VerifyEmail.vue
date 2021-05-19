@@ -66,7 +66,7 @@ export default {
       try {
         await verifyEmail(Number(this.validationCode));
         loadLoggedIn(this);
-        this.$router.push({name: 'SignupFlowExperience', params: { courseUUID: this.$route.params.courseUUID}});
+        this.$router.push({name: 'SignupFlowExperience', query: {redirect: this.$route.query.redirect}});
       } catch (err){
         this.$notify({
           type: 'error',

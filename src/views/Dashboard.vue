@@ -50,6 +50,10 @@ export default {
     TopNav
   },
   async mounted(){
+    if (this.$route.query.redirect){
+      this.$router.push({path: this.$route.query.redirect});
+    }
+
     loadProgramCS(this);
     if (!this.$store.getters.getUser){
       loadUser(this);

@@ -83,7 +83,7 @@ export default {
       try {
         await updateUserInterests(interestUUIDs);
         gtmEventTutorialComplete();
-        this.$router.push({name: 'Courses', params: { courseUUID: this.$route.params.courseUUID}});
+        this.$router.push({name: 'Courses', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
         this.$notify({
           type: 'error',

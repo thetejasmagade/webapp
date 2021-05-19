@@ -58,7 +58,8 @@
         <ToggleSwitch
           v-model="tosAccepted"
         />
-        <span class="sub-item right">I've read and agree to the 
+        <span class="sub-item right">
+          I've read and agree to the 
           <a href="https://qvault.io/terms-of-service/">terms</a>
         </span>
       </div>
@@ -129,7 +130,7 @@ export default {
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
         gtmEventRegister('email');
-        this.$router.push({name: 'VerifyEmail', params: { courseUUID: this.$route.query.course_uuid}});
+        this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect}});
       } catch (err){
         this.$notify({
           type: 'error',

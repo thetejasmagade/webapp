@@ -85,7 +85,7 @@ export default {
         await updateUser({
           experienceLevel: this.experienceLevel
         });
-        this.$router.push({name: 'SignupFlowRecruiters', params: { courseUUID: this.$route.params.courseUUID}});
+        this.$router.push({name: 'SignupFlowRecruiters', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
         this.$notify({
           type: 'error',

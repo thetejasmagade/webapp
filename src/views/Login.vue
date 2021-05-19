@@ -137,7 +137,7 @@ export default {
             updateUserCache();
             gtmEventRegister('twitter/github');
             loadLoggedIn(this);
-            this.$router.push({name: 'SignupFlowExperience', params: { courseUUID: this.$route.query.course_uuid}});
+            this.$router.push({name: 'SignupFlowExperience', query: { redirect: this.$route.query.redirect}});
             return;
           } catch (err){
             console.log(err);
@@ -155,7 +155,7 @@ export default {
     if (this.$store.getters.getIsLoggedIn &&
       this.$store.getters.getIsEmailVerified){
 
-      this.$router.push({name: 'Courses', params: { courseUUID: this.$route.query.course_uuid}});
+      this.$router.push({name: 'Courses', query: {redirect: this.$route.query.redirect}});
     }
   }
 };

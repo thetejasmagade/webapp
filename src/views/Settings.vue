@@ -2,8 +2,8 @@
   <div class="settings-root">
     <div class="sidebar">
       <Section
-        :title="`${$store.getters.getUser.FirstName} ${$store.getters.getUser.LastName }`"
-        :subtitle="$store.getters.getUser.Email"
+        :title="`${firstName} ${lastName }`"
+        :subtitle="email"
       >
         <div class="body">
           <div class="tab">
@@ -50,7 +50,7 @@
                     <TextInput
                       v-model="user.handle"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.Handle"
+                      :placeholder="handle"
                       type="text"
                     />
                     <label>Qvault Handle</label>
@@ -61,7 +61,7 @@
                     <TextInput
                       v-model="user.firstName"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.FirstName"
+                      :placeholder="firstName"
                       type="text"
                     />
                     <label>First Name</label>
@@ -72,7 +72,7 @@
                     <TextInput
                       v-model="user.lastName"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.LastName"
+                      :placeholder="lastName"
                       type="text"
                     />
                     <label>Last Name</label>
@@ -86,7 +86,7 @@
                     <TextInput
                       v-model="user.jobTitle"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.JobTitle"
+                      :placeholder="jobTitle"
                       type="text"
                     />
                     <label>Job Title</label>
@@ -97,7 +97,7 @@
                     <TextInput
                       v-model="user.location"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.Location"
+                      :placeholder="location"
                       type="text"
                     />
                     <label>Location</label>
@@ -108,7 +108,7 @@
                     <TextInput
                       v-model="user.websiteURL"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.WebsiteURL"
+                      :placeholder="websiteURL"
                       type="text"
                     />
                     <label>Website</label>
@@ -122,7 +122,7 @@
                     <TextInput
                       v-model="user.twitterHandle"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.TwitterHandle"
+                      :placeholder="twitterHandle"
                       type="text"
                     />
                     <label>Twitter Handle</label>
@@ -133,7 +133,7 @@
                     <TextInput
                       v-model="user.linkedinURL"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.LinkedinURL"
+                      :placeholder="linkedinURL"
                       type="text"
                     />
                     <label>Linkedin URL</label>
@@ -144,7 +144,7 @@
                     <TextInput
                       v-model="user.githubHandle"
                       class="inputItems"
-                      :placeholder="$store.getters.getUser.GithubHandle"
+                      :placeholder="githubHandle"
                       type="text"
                     />
                     <label>Github Username</label>
@@ -156,7 +156,7 @@
                 <div class="col">
                   <textarea
                     v-model="user.bio"
-                    :placeholder="$store.getters.getUser.Bio"
+                    :placeholder="bio"
                     class="inputItems textarea"
                     rows="4"
                   />
@@ -256,6 +256,41 @@ export default {
       confirmPassword: null,
       user: {}
     };
+  },
+  computed: {
+    handle(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.Handle : 'Loading...';
+    },
+    firstName(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.FirstName : 'Loading...';
+    },
+    lastName(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.LastName : 'Loading...';
+    },
+    email(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.Email : 'Loading...';
+    },
+    jobTitle(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.JobTitle : 'Loading...';
+    },
+    location(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.Location : 'Loading...';
+    },
+    websiteURL(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.WebsiteURL : 'Loading...';
+    },
+    twitterHandle(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.TwitterHandle : 'Loading...';
+    },
+    linkedinURL(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.LinkedinURL : 'Loading...';
+    },
+    githubHandle(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.GithubHandle : 'Loading...';
+    },
+    bio(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.Bio : 'Loading...';
+    }
   },
   mounted(){
     if (this.$route.query.checkout === 'success'){
