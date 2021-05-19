@@ -38,22 +38,21 @@ export function gtmEventBeginCheckout(priceUSD, productID, productName){
 
 // https://developers.google.com/tag-manager/ecommerce-ga4#measure_purchases
 export function gtmEventFinishCheckout(priceUSD, productID, productName){
+  const priceString = priceUSD ? priceUSD.toString() : '20';
   try {
     window.dataLayer.push({
       'event': 'purchase',
       'ecommerce': {
-        'purchase': {
-          'value': priceUSD ? priceUSD.toString() : '20',
-          'currency': 'USD',
-          'items': [
-            {
-              'item_name': productName,
-              'item_id': productID,
-              'item_price': priceUSD.toString(),
-              'quantity': 1
-            }
-          ]
-        }
+        'value': priceString,
+        'currency': 'USD',
+        'items': [
+          {
+            'item_name': productName,
+            'item_id': productID,
+            'item_price': priceString,
+            'quantity': 1
+          }
+        ]
       }
     });
   } catch (err) {

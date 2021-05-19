@@ -298,7 +298,7 @@ export default {
         type: 'success',
         text: 'Welcome to Qvault Pro!'
       });
-      gtmEventFinishCheckout(null, null, 'Qvault Pro');
+      gtmEventFinishCheckout('20', 'qvault-pro', 'Qvault Pro');
     }
   },
   methods: {
