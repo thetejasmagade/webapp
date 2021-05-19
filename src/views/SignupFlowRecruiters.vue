@@ -9,7 +9,7 @@
         class="section"
       >
         <div class="body">
-          <h3>Would you like our recruiting partners to contact you for job oppurtunities?</h3>
+          <h3>If we find a job we think could work for you, can we notify you?</h3>
           <ToggleSwitch
             v-model="canContact"
           />
