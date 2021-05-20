@@ -33,8 +33,7 @@ import BlockButton from '@/components/BlockButton.vue';
 import TextInput from '@/components/TextInput.vue';
 
 import {
-  loginManual,
-  loginGoogle
+  loginManual
 } from '@/lib/cloudClient.js';
 
 import {
@@ -53,21 +52,6 @@ export default {
     };
   },
   methods: {
-    async onGoogleSuccess(googleUser){
-      try {
-        await loginGoogle(
-          googleUser.getAuthResponse().id_token,
-          null
-        );
-        loadLoggedIn(this);
-        this.$router.push({name: 'Courses', query: { redirect: this.$route.query.redirect}});
-      } catch (err){
-        this.$notify({
-          type: 'error',
-          text: err
-        });
-      }
-    },
     async submitLogin(){
       try {
         await loginManual(this.email, this.password);

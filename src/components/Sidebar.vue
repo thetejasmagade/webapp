@@ -15,6 +15,15 @@
       </div>
 
       <MenuItemHorizontal
+        v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
+        class="item"
+        icon="check"
+        :click="() => {$router.push({name: 'Recruiters'}) }"
+        text="Recruiters"
+        :current="pathName === 'Recruiters'"
+      />
+
+      <MenuItemHorizontal
         class="item"
         icon="scroll"
         :click="() => {$router.push({name: 'Courses'}) }"
@@ -83,6 +92,14 @@
       <div class="divider">
         <div class="divider" />
       </div>
+
+      <MenuItemHorizontal
+        v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
+        class="item"
+        icon="check"
+        :click="() => {$router.push({name: 'Recruiters'}) }"
+        :current="pathName === 'Recruiters'"
+      />
 
       <MenuItemHorizontal
         class="item"

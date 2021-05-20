@@ -127,7 +127,8 @@ export async function updateUser({
   githubHandle,
   websiteURL,
   experienceLevel,
-  recruitersCanContact
+  recruitersCanContact,
+  isRecruiter
 }){
   function emptyToNull(s){
     if (s === ''){
@@ -164,7 +165,8 @@ export async function updateUser({
       githubHandle,
       websiteURL,
       experienceLevel,
-      recruitersCanContact
+      recruitersCanContact,
+      isRecruiter
     })
   });
   const handled = await handleJSONResponse(resp);
@@ -651,6 +653,18 @@ export async function submitInformationalExercise(exerciseUUID){
 
 export async function getSavedCode(exerciseUUID) {
   const resp = await fetchWithAuth(`${domain}/v1/saved_code/${exerciseUUID}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getUsersAsRecruiter() {
+  const resp = await fetchWithAuth(`${domain}/v1/recruiters/users`, {
     method: 'GET',
     mode: 'cors',
     headers: {

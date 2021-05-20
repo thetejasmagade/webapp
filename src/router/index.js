@@ -15,6 +15,7 @@ import SignupFlowExperience from '@/views/SignupFlowExperience.vue';
 import SignupFlowInterests from '@/views/SignupFlowInterests.vue';
 import SignupFlowRecruiters from '@/views/SignupFlowRecruiters.vue';
 import VerifyEmail from '@/views/VerifyEmail.vue';
+import Recruiters from '@/views/Recruiters.vue';
 
 import {
   isLoggedIn
@@ -60,6 +61,11 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     children: [
+      {
+        path: 'recruiters',
+        name: 'Recruiters',
+        component: Recruiters
+      },
       {
         path: 'courses',
         name: 'Courses',

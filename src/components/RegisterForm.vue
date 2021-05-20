@@ -130,7 +130,7 @@ export default {
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
         gtmEventRegister('email');
-        this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect}});
+        this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect, recruiter:this.$route.query.recruiter}});
       } catch (err){
         this.$notify({
           type: 'error',

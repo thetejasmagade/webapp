@@ -44,7 +44,8 @@ import GithubButton from '@/components/GithubButton.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 
 import {
-  loginGoogle
+  loginGoogle,
+  updateUser
 } from '@/lib/cloudClient.js';
 import { gtmEventRegister } from '@/lib/gtm.js';
 
@@ -92,6 +93,11 @@ export default {
         loadLoggedIn(this);
         if (resp.registered){
           gtmEventRegister('google');
+          if (this.$route.query.recruiter){
+            await updateUser({isRecruiter: true});
+            this.$router.push({name: 'Recruiters'});
+            return;
+          }
           this.$router.push({name: 'SignupFlowExperience', query: { redirect: this.$route.query.redirect}});
           return;
         }

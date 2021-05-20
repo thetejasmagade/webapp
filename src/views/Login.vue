@@ -73,7 +73,8 @@
 import {
   loginToken,
   getUser,
-  updateUserCache
+  updateUserCache,
+  updateUser
 } from '@/lib/cloudClient.js';
 import { gtmEventRegister } from '@/lib/gtm.js';
 
@@ -137,6 +138,11 @@ export default {
             updateUserCache();
             gtmEventRegister('twitter/github');
             loadLoggedIn(this);
+            if (this.$route.query.recruiter){
+              await updateUser({isRecruiter: true});
+              this.$router.push({name: 'Recruiters'});
+              return;
+            }
             this.$router.push({name: 'SignupFlowExperience', query: { redirect: this.$route.query.redirect}});
             return;
           } catch (err){
