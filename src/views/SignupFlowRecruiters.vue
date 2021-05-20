@@ -5,20 +5,34 @@
     <div class="subcontainer">
       <Section
         title="Landing your dream job"
-        subtitle="It's our goal not just to educate, but to also find you a tech job you love"
+        subtitle="We not only educate, but also help you find you a job you love"
         class="section"
       >
         <div class="body">
-          <h3>If we find a job we think could work for you, can we notify you?</h3>
-          <ToggleSwitch
-            v-model="canContact"
-          />
+          <p>
+            We have exclusive partnerships with organizations that are dedicated
+            to finding great tech jobs for our students. If you're interested in
+            <b> getting hired now or in the future </b> then opt-in below. You can also update your settings
+            any time, your privacy is a priority to us.
+          </p>
+          <p>
+            Make sure to update your Qvault profile with a picture, LinkedIn account, location,
+            etc, to increase your chances of getting contacted!
+          </p>
+          <h2>If we find a coding job that could work for you, can our partners contact you?</h2>
           <BlockButton
             class="btn"
             color="purple"
-            :click="submit"
+            :click="success"
           >
-            Submit
+            Yes! Contact me
+          </BlockButton>
+          <BlockButton
+            class="btn"
+            color="gray"
+            :click="cancel"
+          >
+            No thanks
           </BlockButton>
         </div>
       </Section>
@@ -29,38 +43,40 @@
 <script>
 import TopNav from '@/components/TopNav.vue';
 import Section from '@/components/Section.vue';
-import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import BlockButton from '@/components/BlockButton.vue';
 
 import { 
   updateUser
 } from '@/lib/cloudClient.js';
 
+import { 
+  gtmEventTutorialComplete
+} from '@/lib/gtm.js';
+
 export default {
   components: {
     TopNav,
     Section,
-    ToggleSwitch,
     BlockButton
   },
-  data(){
-    return {
-      canContact: true
-    };
-  },
   methods:{
-    async submit(){
+    async success(){
       try {
         await updateUser(
-          { recruitersCanContact: this.canContact }
+          { recruitersCanContact: true }
         );
-        this.$router.push({name: 'SignupFlowInterests', query: {redirect: this.$route.query.redirect}});
+        gtmEventTutorialComplete();
+        this.$router.push({name: 'Settings', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
         this.$notify({
           type: 'error',
           text: err
         });
       }
+    },
+    async cancel(){
+      gtmEventTutorialComplete();
+      this.$router.push({name: 'Courses', query: {redirect: this.$route.query.redirect}});
     }
   }
 };
@@ -88,6 +104,11 @@ export default {
       
       .body {
         text-align: center;
+        padding: 1em;
+
+        p {
+          text-align: left;
+        }
       }
     }
   }

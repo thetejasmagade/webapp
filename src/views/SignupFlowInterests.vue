@@ -38,10 +38,6 @@ import {
   updateUserInterests
 } from '@/lib/cloudClient.js';
 
-import { 
-  gtmEventTutorialComplete
-} from '@/lib/gtm.js';
-
 
 import { 
   loadAllInterests
@@ -82,8 +78,7 @@ export default {
       }
       try {
         await updateUserInterests(interestUUIDs);
-        gtmEventTutorialComplete();
-        this.$router.push({name: 'Courses', query: {redirect: this.$route.query.redirect}});
+        this.$router.push({name: 'SignupFlowRecruiters', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
         this.$notify({
           type: 'error',
