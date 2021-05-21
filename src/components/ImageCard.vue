@@ -8,6 +8,7 @@
   >
     <div>
       <img
+        v-if="imgSrc"
         :src="imgSrc"
       >
     </div>
@@ -22,7 +23,8 @@ export default {
   props: { 
     imgSrc: {
       type: String,
-      required: true
+      required: false,
+      default: null
     },
     click: {
       type: Function,

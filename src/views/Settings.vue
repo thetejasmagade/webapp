@@ -109,7 +109,7 @@
                       :placeholder="location"
                       type="text"
                     />
-                    <label>Location</label>
+                    <label>Location (City, Country)</label>
                   </span>
                 </div>
                 <div class="col">

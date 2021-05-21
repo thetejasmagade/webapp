@@ -34,12 +34,6 @@
           Access to this list is exclusive to our amazing partners like you.
           Any breach of the rules will result in an immediate ban and potentially legal action.
         </p>
-
-        <h2> Pricing </h2>
-        <p>
-          We charge a flat rate of $500/placement for any candidates who have junior-level experience or less.
-          We charge $1500/placement for mid-level developers and up. We're excited to work with you!
-        </p>
       </div>
     </Section>
 
@@ -49,18 +43,33 @@
       subtitle="Everyone here has opted-in to being contacted for relevant opportunities"
     >
       <div class="section-body">
-        <p> Check at least one option from each column to see candidates that match your filters </p>
+        <p> * Indicates required </p>
         <div class="toggles">
-          <div class="interests">
+          <div class="toggle interests">
+            <h3> * Interests </h3>
             <CheckboxForm
               v-model="interestsChecked"
               :options="interestsAnswers"
             />
           </div>
-          <div class="experience">
+          <div class="toggle experience">
+            <h3> * Experience </h3>
             <CheckboxForm
               v-model="experienceLabelsChecked"
               :options="experienceLevelLabels"
+            />
+          </div>
+          <div class="toggle location">
+            <h3> Location </h3>
+            <p>
+              This is a "contains" match on the candidate's location text.
+              Try cities, states, or countries, and also try abbreviations like "CA" for "California" or "US" for "United States".
+            </p>
+            <TextInput
+              v-model="locationSearch"
+              class="location-input"
+              placeholder="city, state or country"
+              type="text"
             />
           </div>
         </div>
@@ -69,7 +78,6 @@
             v-for="(user, i) of displayedUsers"
             :key="i"
             theme="light"
-            :img-src="user.ProfileImageURL ? user.ProfileImageURL : 'https://www.xovi.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png'"
             class="card"
           >
             <div
@@ -152,6 +160,7 @@ import CheckboxForm from '@/components/CheckboxForm.vue';
 import Section from '@/components/Section.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import BlockButton from '@/components/BlockButton.vue';
+import TextInput from '@/components/TextInput.vue';
 
 export default {
   components: {
@@ -159,14 +168,16 @@ export default {
     ImageCard,
     FontAwesomeIcon,
     BlockButton,
-    CheckboxForm
+    CheckboxForm,
+    TextInput
   },
   data(){
     return {
       users: {},
       interestsChecked: [],
       interestsMap: {},
-      experienceLabelsChecked: []
+      experienceLabelsChecked: [],
+      locationSearch: ''
     };
   },
   computed: {
@@ -184,6 +195,7 @@ export default {
       users = this.filterMisc(users);
       users = this.filterByInterests(users);
       users = this.filterByExperience(users);
+      users = this.filterByLocation(users);
       users = users.sort((user1, user2) => {
         return Date.parse(user1.CreatedAt) > Date.parse(user2.CreatedAt) ? -1 : 1;
       });
@@ -249,6 +261,18 @@ export default {
       });
       return users;
     },
+    filterByLocation(users){
+      if (this.locationSearch === ''){
+        return users;
+      }
+      users = users.filter(user => {
+        if (!user.Location){
+          return false;
+        }
+        return user.Location.toLowerCase().includes(this.locationSearch.toLowerCase());
+      });
+      return users;
+    },
     reveal(handle){
       const user = JSON.parse(JSON.stringify(this.users[handle]));
       user.revealed = true;
@@ -296,6 +320,14 @@ export default {
   .toggles {
     display: flex;
     flex-direction: row;
+    
+    .location {
+      max-width: 300px;
+    }
+
+    .toggle {
+      margin: 0 1em 0 1em;
+    }
   }
 
   .item {
