@@ -17,7 +17,7 @@
       <MenuItemHorizontal
         v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
         class="item"
-        icon="check"
+        icon="search"
         :click="() => {$router.push({name: 'Recruiters'}) }"
         text="Recruiters"
         :current="pathName === 'Recruiters'"
@@ -96,7 +96,7 @@
       <MenuItemHorizontal
         v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
         class="item"
-        icon="check"
+        icon="search"
         :click="() => {$router.push({name: 'Recruiters'}) }"
         :current="pathName === 'Recruiters'"
       />

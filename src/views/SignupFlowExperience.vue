@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { experienceLevelToObj } from '@/lib/experienceLevels.js';
+
 import TopNav from '@/components/TopNav.vue';
 import Slider from '@/components/Slider.vue';
 import Section from '@/components/Section.vue';
@@ -58,22 +60,7 @@ export default {
   },
   computed: {
     devExperienceDescription(){
-      if (this.experienceLevel < 10){
-        return 'I\'ve never written a line of code';
-      }
-      if (this.experienceLevel < 20){
-        return 'I\'ve taken courses or classes before but have never finished a project';
-      }
-      if (this.experienceLevel < 30){
-        return 'I\'ve completed coding projects or classes but have never been payed to code';
-      }
-      if (this.experienceLevel < 40){
-        return 'I have an entry-level programming job';
-      }
-      if (this.experienceLevel < 60){
-        return 'I have a degree or have worked in the industry for at least 3 years';
-      }
-      return 'I\'ve been called a senior engineer';
+      return experienceLevelToObj(this.experienceLevel).description;
     }
   },
   mounted(){

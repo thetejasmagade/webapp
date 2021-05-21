@@ -49,6 +49,21 @@
       subtitle="Everyone here has opted-in to being contacted for relevant opportunities"
     >
       <div class="section-body">
+        <p> Check at least one option from each column to see candidates that match your filters </p>
+        <div class="toggles">
+          <div class="interests">
+            <CheckboxForm
+              v-model="interestsChecked"
+              :options="interestsAnswers"
+            />
+          </div>
+          <div class="experience">
+            <CheckboxForm
+              v-model="experienceLabelsChecked"
+              :options="experienceLevelLabels"
+            />
+          </div>
+        </div>
         <div class="cards">
           <ImageCard
             v-for="(user, i) of displayedUsers"
@@ -71,7 +86,7 @@
               </div>
 
               <div class="item">
-                <b>{{ devExperienceDescription(user.ExperienceLevel) }}</b>
+                <b>{{ experienceLevelToLabel(user.ExperienceLevel) }}</b>
               </div>
 
               <div class="item">
@@ -125,9 +140,15 @@ import {
 import { 
   loadAllInterests
 } from '@/lib/cloudStore.js';
+import {
+  experienceLevelLabels,
+  experienceLevelUpperLimitToLabel,
+  experienceLevelToObj
+} from '@/lib/experienceLevels.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import CheckboxForm from '@/components/CheckboxForm.vue';
 import Section from '@/components/Section.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import BlockButton from '@/components/BlockButton.vue';
@@ -137,23 +158,35 @@ export default {
     Section,
     ImageCard,
     FontAwesomeIcon,
-    BlockButton
+    BlockButton,
+    CheckboxForm
   },
   data(){
     return {
-      users: {}
+      users: {},
+      interestsChecked: [],
+      interestsMap: {},
+      experienceLabelsChecked: []
     };
   },
   computed: {
+    experienceLevelLabels(){
+      return experienceLevelLabels();
+    },
+    interestsAnswers(){
+      return Object.keys(this.interestsMap);
+    },
     displayedUsers(){
-      const users = [];
+      let users = [];
       for (const value of Object.entries(this.users)) {
-        // remove myself
-        if (value[1].Email.includes('lane.c.wagner')){
-          continue;
-        }
         users.push(value[1]);
       }
+      users = this.filterMisc(users);
+      users = this.filterByInterests(users);
+      users = this.filterByExperience(users);
+      users = users.sort((user1, user2) => {
+        return Date.parse(user1.CreatedAt) > Date.parse(user2.CreatedAt) ? -1 : 1;
+      });
       return users;
     }
   },
@@ -168,13 +201,66 @@ export default {
     } catch (err) {
       console.log(err);
     }
-    loadAllInterests(this);
+    await loadAllInterests(this);
+    let interestsMap = {};
+    for (const interest of this.$store.getters.getAllInterests){
+      interestsMap[interest.Title] = interest.UUID;
+    }
+    this.interestsMap = interestsMap;
   },
   methods: {
+    experienceLevelToLabel(level){
+      return experienceLevelToObj(level).label;
+    },
+    experienceLevelUpperLimitToLabel(upperLimit){
+      return experienceLevelUpperLimitToLabel(upperLimit);
+    },
+    filterMisc(users){
+      users = users.filter(user => {
+        return !user.Email.includes('lane.c.wagner');
+      });
+      return users;
+    },
+    filterByInterests(users){
+      users = users.filter(user => {
+        if (!user.Interests){
+          return this.interestsChecked.length === 0;
+        }
+        for (const interestObject of user.Interests){
+          for (const interestTag of this.interestsChecked){
+            if (interestTag === this.interestTagFromUUID(interestObject.InterestUUID)){
+              return true;
+            }
+          }
+        }
+        return false;
+      });
+      return users;
+    },
+    filterByExperience(users){
+      users = users.filter(user => {
+        for (const experienceLabelChecked of this.experienceLabelsChecked){
+          const expObj = experienceLevelToObj(user.ExperienceLevel);
+          if (expObj.label === experienceLabelChecked){
+            return true;
+          }
+        }
+        return false;
+      });
+      return users;
+    },
     reveal(handle){
       const user = JSON.parse(JSON.stringify(this.users[handle]));
       user.revealed = true;
       this.$set(this.users, handle, user);
+    },
+    interestTagFromUUID(interestUUID) {
+      for (const interest of this.$store.getters.getAllInterests){
+        if (interestUUID === interest.UUID){
+          return interest.Title;
+        }
+      }
+      return 'unknown';
     },
     getInterestTags(interestObjects) {
       if (!interestObjects){
@@ -182,35 +268,13 @@ export default {
       }
       let interests = [];
       for (const interestObject of interestObjects){
-        for (const interest of this.$store.getters.getAllInterests){
-          if (interestObject.InterestUUID === interest.UUID){
-            interests.push(interest.Title);
-          }
-        }
+        interests.push(this.interestTagFromUUID(interestObject.InterestUUID));
       }
       return interests;
     },
     capitalize(s) {
       if (typeof s !== 'string') return '';
-      return s.charAt(0).toUpperCase() + s.slice(1);
-    },
-    devExperienceDescription(experienceLevel){
-      if (experienceLevel < 10){
-        return 'New';
-      }
-      if (experienceLevel < 20){
-        return 'Student';
-      }
-      if (experienceLevel < 30){
-        return 'First Job Hunt';
-      }
-      if (experienceLevel < 40){
-        return 'Junior';
-      }
-      if (experienceLevel < 60){
-        return 'Mid-level';
-      }
-      return 'Senior';
+      return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
     }
   }
 };
@@ -227,6 +291,11 @@ export default {
 
   .section-body {
     padding: 1em 0 0 0;
+  }
+
+  .toggles {
+    display: flex;
+    flex-direction: row;
   }
 
   .item {
@@ -246,7 +315,7 @@ export default {
     flex: 1;
     margin: $margin;
     max-width: 300px;
-    min-width: 300px;
+    min-width: 200px;
     height: calc(100% - #{$margin});
 
     .body {
