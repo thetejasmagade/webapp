@@ -18,7 +18,7 @@
       <div
         v-for="(option, i) of options"
         :key="i"
-        @click="selected=option; open=false; $emit('input', option)"
+        @click="selected=option; open=false; $emit('update:modelValue', option)"
       >
         {{ option }}
       </div>
@@ -44,6 +44,7 @@ export default {
       default: 0
     }
   },
+  emits: [ 'update:modelValue' ],
   data() {
     return {
       selected: this.default ? this.default : (this.options.length > 0 ? this.options[0] : null),
@@ -51,7 +52,7 @@ export default {
     };
   },
   mounted(){
-    this.$emit('input', this.selected);
+    this.$emit('update:modelValue', this.selected);
   }
 };
 </script>

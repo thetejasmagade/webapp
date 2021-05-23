@@ -52,6 +52,7 @@ import {
 import { 
   gtmEventTutorialComplete
 } from '@/lib/gtm.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
@@ -68,8 +69,8 @@ export default {
         gtmEventTutorialComplete();
         this.$router.push({name: 'Settings', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

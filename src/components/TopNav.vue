@@ -15,7 +15,7 @@
           v-if="$store.getters.getIsLoggedIn"
           to="/"
           class="item link"
-          :class="{current: $router.currentRoute.fullPath.includes('dashboard')}"
+          :class="{current: routePath.includes('dashboard')}"
         >
           <span>Dashboard</span>
         </router-link>
@@ -23,7 +23,7 @@
           v-else
           to="/"
           class="item link"
-          :class="{current: $router.currentRoute.name === 'Login'}"
+          :class="{current: routeName === 'Login'}"
         >
           <span>Login</span>
         </router-link>
@@ -31,7 +31,7 @@
         <router-link
           to="/pricing"
           class="item link"
-          :class="{current: $router.currentRoute.name === 'Pricing' }"
+          :class="{current: routeName === 'Pricing' }"
         >
           <span>Pricing</span>
         </router-link>
@@ -47,7 +47,7 @@
         <router-link
           to="/playground/go"
           class="item link"
-          :class="{current: $router.currentRoute.name === 'Playground' }"
+          :class="{current: routeName === 'Playground' }"
         >
           <span>Playground</span>
         </router-link>  
@@ -81,14 +81,14 @@
       <a
         href="/"
         class="item link"
-        :class="{current: $router.currentRoute.fullPath.includes('dashboard')}"
+        :class="{current: routePath.includes('dashboard')}"
       >
         <span>Dashboard</span>
       </a>   
       <a
         href="/playground/go"
         class="item link"
-        :class="{current: $router.currentRoute.name === 'Playground' }"
+        :class="{current: routeName === 'Playground' }"
       >
         <span>Playground</span>
       </a>   
@@ -112,6 +112,7 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useRoute } from 'vue-router';
 
 export default {
   components: {
@@ -127,6 +128,14 @@ export default {
     return {
       mobileMenuOpen: false
     };
+  },
+  computed:{
+    routePath(){
+      return useRoute().path;
+    },
+    routeName(){
+      return useRoute().name;
+    }
   }
 };
 </script>

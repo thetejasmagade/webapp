@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ProModal ref="proModal" />
     <div class="sidebar desktop">
       <div class="profile-box">
         <ProfileImage
@@ -41,7 +42,7 @@
 
       <MenuItemHorizontal
         class="item"
-        :icon="$store.getters.getUserIsSubscribed ? 'user-tie' : 'lock'"
+        :icon="isSubscribed ? 'user-tie' : 'lock'"
         :click="() => {clickPortfolio()}"
         text="Portfolio"
         :current="pathName === 'Portfolio'"
@@ -49,7 +50,7 @@
 
       <MenuItemHorizontal
         class="item"
-        :icon="$store.getters.getUserIsSubscribed ? 'trophy' : 'lock'"
+        :icon="isSubscribed ? 'trophy' : 'lock'"
         :click="() => {$router.push({name: 'Achievements'}) }"
         text="Achievements"
         :current="pathName === 'Achievements'"
@@ -117,14 +118,14 @@
 
       <MenuItemHorizontal
         class="item"
-        :icon="$store.getters.getUserIsSubscribed ? 'user-tie' : 'lock'"
+        :icon="isSubscribed ? 'user-tie' : 'lock'"
         :click="() => {clickPortfolio()}"
         :current="pathName === 'Portfolio'"
       />
 
       <MenuItemHorizontal
         class="item"
-        :icon="$store.getters.getUserIsSubscribed ? 'trophy' : 'lock'"
+        :icon="isSubscribed ? 'trophy' : 'lock'"
         :click="() => {$router.push({name: 'Achievements'}) }"
         :current="pathName === 'Achievements'"
       />
@@ -139,6 +140,7 @@
 </template>
 
 <script>
+import ProModal from '@/components/ProModal.vue';
 import MenuItemHorizontal from '@/components/MenuItemHorizontal.vue';
 import GemDisplay from '@/components/GemDisplay.vue';
 import ProfileImage from '@/components/ProfileImage.vue';
@@ -151,7 +153,8 @@ export default {
   components: {
     MenuItemHorizontal,
     GemDisplay,
-    ProfileImage
+    ProfileImage,
+    ProModal
   },
   props: {
     pathName: {
@@ -165,6 +168,9 @@ export default {
     }
   },
   computed: {
+    isSubscribed(){
+      return this.$store.getters.getUserIsSubscribed;
+    },
     activeCourse(){
       for (const course of this.$store.getters.getCourses){
         if (course.UUID === this.pathParams.courseUUID){
@@ -176,11 +182,11 @@ export default {
   },
   methods: {
     clickPortfolio(){
-      if (this.$store.getters.getUserIsSubscribed){
+      if (this.isSubscribed){
         this.$router.push({name: 'Portfolio', params: {userHandle: this.$store.getters.getUser.Handle}});
         return;
       }
-      this.$proModal.show();
+      this.$refs.proModal.show();
     },
     modulesToSubItems(modules){
       let subItems = [];

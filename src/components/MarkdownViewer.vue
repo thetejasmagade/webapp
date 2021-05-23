@@ -1,19 +1,22 @@
 <template>
   <div>
     <div class="markdown-viewer-container">
-      <VueMarkdown
+      <div
+        ref="viewer"
         class="viewer"
-        :source="source"
-        :breaks="false"
-        :anchor-attributes="{target: '_blank'}"
-        @rendered="update"
       />
     </div>
   </div>
 </template>
 
 <script>
+import MarkdownIt from 'markdown-it';
+import MarkdownItEmoji from 'markdown-it-emoji';
+import MarkdownItSubscript from 'markdown-it-sub';
+import MarkdownItSuperscript from 'markdown-it-sup';
+import MarkdownItLinkAttributes from 'markdown-it-link-attributes';
 import Prism from 'prismjs';
+
 import 'prismjs/components/prism-go.js';
 import 'prismjs/components/prism-bash.js';
 import 'prismjs/components/prism-javascript.js';
@@ -24,12 +27,7 @@ import 'prismjs/components/prism-python.js';
 // should match any other prism components that share a page
 import 'prismjs/themes/prism-coy.css';
 
-import VueMarkdown from 'vue-markdown';
-
 export default {
-  components: {
-    VueMarkdown
-  },
   props: { 
     source:{
       type: String,
@@ -37,15 +35,39 @@ export default {
       default: ''
     }
   },
-  methods: {
-    update() {
-      this.$nextTick(() => {
-        Prism.highlightAll();
-      });
+  data(){
+    const md = new MarkdownIt('default', {
+      breaks: true
+    });
+    md.use(MarkdownItEmoji);
+    md.use(MarkdownItSubscript);
+    md.use(MarkdownItSuperscript);
+    md.use(MarkdownItLinkAttributes, {
+      attrs: {
+        target: '_blank',
+        rel: 'noopener nofollow'
+      }
+    });
+    return {
+      md
+    };
+  },
+  watch: {
+    source: {
+      immediate: true,
+      handler(newSource) {
+        this.$nextTick(() => {
+          this.$refs.viewer.innerHTML = this.md.render(
+            newSource
+          );
+          Prism.highlightAll();
+        });
+      }
     }
   }
 };
 </script>
+
 
 <style lang="scss">
 @import '@/styles/colors.scss';

@@ -3,7 +3,7 @@
     <span
       class="toggle-wrapper"
       role="checkbox"
-      :aria-checked="value.toString()"
+      :aria-checked="modelValue.toString()"
       tabindex="0"
       @click="toggle"
       @keydown.space.prevent="toggle"
@@ -23,25 +23,26 @@
 <script>
 export default {
   props: {
-    value:{
+    modelValue:{
       type: Boolean,
       required: true
     }
   },
+  emits: [ 'update:modelValue' ],
   computed: {
     backgroundStyles() {
       return {
-        'gold-mid': this.value,
-        'gray-lighter': !this.value
+        'gold-mid': this.modelValue,
+        'gray-lighter': !this.modelValue
       };
     },
     indicatorStyles() {
-      return { transform: this.value ? 'translateX(14px)' : 'translateX(0)' };
+      return { transform: this.modelValue ? 'translateX(14px)' : 'translateX(0)' };
     }
   },
   methods: {
     toggle() {
-      this.$emit('input', !this.value);
+      this.$emit('update:modelValue', !this.modelValue);
     }
   }
 };

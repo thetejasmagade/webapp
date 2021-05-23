@@ -6,12 +6,12 @@
       @click="click"
     >
       <FontAwesomeIcon
-        v-if="subItems.length === 0"
-        :icon="icon"
+        v-if="subItems.length === 0 && show"
+        :icon="['fas', icon]" 
         class="icon"
       />
       <FontAwesomeIcon
-        v-else
+        v-else-if="show"
         class="icon spin"
         :class="{'is-open': subItemsTabOpen}"
         icon="arrow-right"
@@ -80,12 +80,37 @@ export default {
       default: null
     }
   },
+  data(){
+    return {
+      show: true
+    };
+  },
   computed: {
     subitemsTabHeight(){
       return this.subItemsTabOpen ? this.subitemsTabHeightExpanded : 0;
     },
     subitemsTabHeightExpanded(){
       return this.subItems.length * 30;
+    }
+  },
+  watch: {
+    icon: {
+      immediate: true,
+      handler() {
+        this.forceRerender();
+      }
+    }
+  },
+  methods: {
+    // this is because alpha fortawesome is broken
+    forceRerender() {
+      // Remove my-component from the DOM
+      this.show = false;
+
+      this.$nextTick(() => {
+        // Add the component back in
+        this.show = true;
+      });
     }
   }
 };

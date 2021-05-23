@@ -81,6 +81,7 @@ import { gtmEventRegister } from '@/lib/gtm.js';
 import {
   loadLoggedIn
 } from '@/lib/cloudStore.js';
+import { notify } from '@/lib/notification.js';
 
 import LoginForm from '@/components/LoginForm.vue';
 import RegisterForm from '@/components/RegisterForm.vue';
@@ -122,8 +123,8 @@ export default {
   },
   async mounted(){
     if (this.$route.query.error){
-      this.$notify({
-        type: 'error',
+      notify({
+        type: 'danger',
         text: this.$route.query.error
       });
     }
@@ -150,8 +151,8 @@ export default {
           }
         }
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

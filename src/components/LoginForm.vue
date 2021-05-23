@@ -39,6 +39,7 @@ import {
 import {
   loadLoggedIn
 } from '@/lib/cloudStore.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
@@ -58,8 +59,8 @@ export default {
         loadLoggedIn(this);
         this.$router.push({name: 'Courses', query: { redirect: this.$route.query.redirect}});
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

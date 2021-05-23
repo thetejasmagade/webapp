@@ -16,7 +16,7 @@ export async function loadAllInterests(thisComponent){
     thisComponent.$store.commit('setAllInterests', interests);
   } catch (err) {
     thisComponent.$notify({
-      type: 'error',
+      type: 'danger',
       text: err
     });
   }
@@ -28,7 +28,7 @@ export async function loadCourses(thisComponent){
     thisComponent.$store.commit('setCourses', courses);
   } catch (err) {
     thisComponent.$notify({
-      type: 'error',
+      type: 'danger',
       text: err
     });
   }
@@ -44,7 +44,7 @@ export async function loadProgramCS(thisComponent){
     thisComponent.$store.commit('setProgramCS', programCS);
   } catch (err) {
     thisComponent.$notify({
-      type: 'error',
+      type: 'danger',
       text: err
     });
   }
@@ -56,7 +56,7 @@ export async function loadUserAchievements(thisComponent) {
     thisComponent.$store.commit('setUserAchievements', userAchievements);
   } catch (err) {
     thisComponent.$notify({
-      type: 'error',
+      type: 'danger',
       text: err
     });
   }
@@ -68,7 +68,7 @@ export async function loadBalance(thisComponent) {
     thisComponent.$store.commit('setBalance', lastGemTransaction.Balance);
   } catch (err) {
     thisComponent.$notify({
-      type: 'error',
+      type: 'danger',
       text: err
     });
   }
@@ -80,7 +80,7 @@ export async function loadSubscriptionPlans(thisComponent) {
     thisComponent.$store.commit('setSubscriptionPlans', subscriptionPlans);
   } catch (err) {
     thisComponent.$notify({
-      type: 'error',
+      type: 'danger',
       text: err
     });
   }
@@ -93,7 +93,7 @@ export async function loadUser(thisComponent) {
     thisComponent.$store.commit('setUser', user);
   } catch (err) {
     thisComponent.$notify({
-      type: 'error',
+      type: 'danger',
       text: err
     });
   }
@@ -101,13 +101,8 @@ export async function loadUser(thisComponent) {
 
 export function loadLoggedIn(thisComponent) {
   thisComponent.$store.commit('setJWTClaims', getJWTClaims());
-  if (!thisComponent.$store.getters.getIsLoggedIn &&
-      thisComponent.$router.currentRoute.path.includes('dashboard')) {
-    thisComponent.$router.push({ name: 'Login' });
-    return;
-  }
   if (thisComponent.$store.getters.getIsLoggedIn &&
-      !thisComponent.$store.getters.getIsEmailVerified) {
+    !thisComponent.$store.getters.getIsEmailVerified) {
     thisComponent.$router.push({ name: 'VerifyEmail' });
   }
 }

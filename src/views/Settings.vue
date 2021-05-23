@@ -241,6 +241,7 @@ import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import { 
   gtmEventFinishCheckout
 } from '@/lib/gtm.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   metaInfo() {
@@ -315,7 +316,7 @@ export default {
   },
   mounted(){
     if (this.$route.query.checkout === 'success'){
-      this.$notify({
+      notify({
         type: 'success',
         text: 'Welcome to Qvault Pro!'
       });
@@ -333,13 +334,13 @@ export default {
         }
         await updateUser(this.user);
         await loadUser(this);
-        this.$notify({
+        notify({
           type: 'success',
           text: 'Profile updated successfully'
         });
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -347,8 +348,8 @@ export default {
     async updatePassword() {
       try {
         if (this.newPassword !== this.confirmPassword){
-          this.$notify({
-            type: 'error',
+          notify({
+            type: 'danger',
             text: 'Passwords don\'t match'
           });
           return;
@@ -358,15 +359,15 @@ export default {
           this.oldPassword,
           this.newPassword
         );
-        this.$notify({
+        notify({
           type: 'success',
           text: 'Password changed successfully'
         });
         this.oldPassword = null;
         this.newPassword = null;
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

@@ -1,18 +1,19 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import Notifications from 'vue-notification';
-import ProModalPlugin from '@/plugins/ProModal.js';
+import {createApp} from 'vue';
+import App from '@/App.vue';
+import router from '@/router';
+import store from '@/store';
+import gAuth from 'vue3-google-auth';
 
-Vue.use(ProModalPlugin);
+import 'mosha-vue-toastify/dist/style.css';
 
-Vue.config.productionTip = false;
+const $gAuth = gAuth.createGAuth({
+  clientId: '44792168937-cm11c7cfa2co3pov1rt7p8r4keiee9cl.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account'
+});
 
-Vue.use(Notifications);
-
-new Vue({
-  store,
-  router,
-  render: h => h(App)
-}).$mount('#app');
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.use($gAuth);
+app.mount('#app');

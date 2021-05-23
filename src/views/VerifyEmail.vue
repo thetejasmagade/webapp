@@ -44,6 +44,8 @@ import {
   loadLoggedIn,
   loadUser
 } from '@/lib/cloudStore.js';
+import { notify } from '@/lib/notification.js';
+
 
 export default {
   components: {
@@ -74,8 +76,8 @@ export default {
         }
         this.$router.push({name: 'SignupFlowExperience', query: {redirect: this.$route.query.redirect}});
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -84,8 +86,8 @@ export default {
       try {
         await sendEmailVerification(this.email);
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

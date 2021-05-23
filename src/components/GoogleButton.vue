@@ -1,25 +1,22 @@
 <template>
-  <GoogleLogin
+  <div
     id="button"
-    :params="googleButtonParams"
-    :on-success="onSuccess"
-    :on-failure="onFailure"
+    @click="onClick"
   >
     <FontAwesomeIcon
       :icon="['fab', 'google']"
       class="icon"
     />
     <span>Sign in with Google</span>
-  </GoogleLogin>
+  </div>
 </template>
 
 <script>
-import { GoogleLogin } from 'vue-google-login';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
-    GoogleLogin,
     FontAwesomeIcon
   },
   props: {
@@ -28,14 +25,17 @@ export default {
       required: true
     }
   },
-  data(){
-    return {
-      googleButtonParams: {
-        client_id: '44792168937-cm11c7cfa2co3pov1rt7p8r4keiee9cl.apps.googleusercontent.com'
+  methods: {
+    onClick(){
+      try {
+        this.$gAuth.signIn(this.onSuccess, this.onFailure);
+      } catch (err){
+        notify({
+          type: 'danger',
+          text: err
+        });
       }
-    };
-  },
-  methods:{
+    },
     onFailure(){
       // do nothing
     }

@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
-import { createVuePlugin } from 'vite-plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [ createVuePlugin() ],
+  plugins: [ vue() ],
   server: {
     port: 8080
   },
@@ -16,7 +16,6 @@ export default defineConfig({
     ]
   },
   build: {
-    chunkSizeWarningLimit: 600,
     cssCodeSplit: false
   }
 });

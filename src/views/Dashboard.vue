@@ -3,15 +3,15 @@
     <TopNav />
     <div id="dashboard-container">
       <Sidebar
-        :path-name="$router.currentRoute.name"
-        :path-params="$router.currentRoute.params"
+        :path-name="routeName"
+        :path-params="routeParams"
         class="sidebar"
       />
 
       <div id="content">
         <div class="inner-content">
           <router-view
-            :key="$route.fullPath"
+            :key="routePath"
             class="router-view"
           />
         </div>
@@ -23,10 +23,12 @@
 <script>
 import TopNav from '@/components/TopNav.vue';
 import Sidebar from '@/components/Sidebar.vue';
+import { useRoute } from 'vue-router';
 
 import {
   getRewards
 } from '@/lib/cloudClient.js';
+import { notify } from '@/lib/notification.js';
 
 import {
   loadProgramCS,
@@ -49,9 +51,23 @@ export default {
     Sidebar,
     TopNav
   },
+  computed: {
+    routePath(){
+      return useRoute().path;
+    },
+    routeName(){
+      return useRoute().name;
+    },
+    routeParams(){
+      return useRoute().params;
+    },
+    routeQuery(){
+      return useRoute().query.redirect;
+    }
+  },
   async mounted(){
-    if (this.$route.query.redirect){
-      this.$router.push({path: this.$route.query.redirect});
+    if (this.routeQuery){
+      this.$router.push({path: this.routeQuery});
     }
 
     loadProgramCS(this);
@@ -67,14 +83,14 @@ export default {
       try {
         const rewards = await getRewards();
         for (const reward of rewards.Rewards){
-          this.$notify({
+          notify({
             type: 'success',
             text: `${reward.Message} 💎x${reward.GemCredit}`
           });
         }
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

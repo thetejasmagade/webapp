@@ -1,11 +1,5 @@
 <template>
   <div id="app">
-    <notifications
-      :duration="3000"
-      :max="3"
-      classes="custom-notification"
-    />
-    <ProModalPlugin />
     <router-view />
   </div>
 </template>
@@ -48,6 +42,10 @@ import {
   faGithub,
   faLinkedin
 } from '@fortawesome/free-brands-svg-icons';
+
+import {
+  loadLoggedIn
+} from '@/lib/cloudStore.js';
 
 library.add(faArrowRight);
 library.add(faArrowLeft);
@@ -102,6 +100,9 @@ export default {
         { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg' }
       ]
     };
+  },
+  created(){
+    loadLoggedIn(this);
   }
 };
 </script>

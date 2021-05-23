@@ -37,6 +37,7 @@ import TopNav from '@/components/TopNav.vue';
 import Slider from '@/components/Slider.vue';
 import Section from '@/components/Section.vue';
 import BlockButton from '@/components/BlockButton.vue';
+import { notify } from '@/lib/notification.js';
 
 import { 
   gtmEventTutorialBegin
@@ -74,8 +75,8 @@ export default {
         });
         this.$router.push({name: 'SignupFlowInterests', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

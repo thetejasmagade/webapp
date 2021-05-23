@@ -127,6 +127,10 @@ export default {
   background-color: $gray-lighter;
   color: $gray-darker;
 
+  .margin-left {
+    margin: 0 0 0 1em;
+  }
+
   .icon {
     margin-right: 5px;
 

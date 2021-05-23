@@ -42,6 +42,7 @@ import {
 import { 
   loadAllInterests
 } from '@/lib/cloudStore.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
@@ -80,8 +81,8 @@ export default {
         await updateUserInterests(interestUUIDs);
         this.$router.push({name: 'SignupFlowRecruiters', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

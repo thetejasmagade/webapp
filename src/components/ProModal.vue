@@ -22,7 +22,6 @@
 <script>
 import Modal from '@/components/Modal.vue';
 import BlockButton from '@/components/BlockButton.vue';
-import ProModalPlugin from '@/plugins/ProModal';
 
 import { gtmEventOpenProModal } from '@/lib/gtm';
 
@@ -30,11 +29,6 @@ export default {
   components:{
     Modal,
     BlockButton
-  },
-  beforeMount() {
-    ProModalPlugin.EventBus.$on('show', () => {
-      this.show();
-    });
   },
   methods:{
     show(){

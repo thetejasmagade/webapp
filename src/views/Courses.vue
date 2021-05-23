@@ -161,6 +161,7 @@ import ProfileSpeechBubble from '@/components/ProfileSpeechBubble.vue';
 import { 
   getCourseRecommendations
 } from '@/lib/cloudClient.js';
+import { notify } from '@/lib/notification.js';
 
 import { 
   gtmEventSelectCourse
@@ -214,8 +215,8 @@ export default {
       }
       this.recommendedCourses = final;
     } catch (err) {
-      this.$notify({
-        type: 'error',
+      notify({
+        type: 'danger',
         text: err
       });
     }

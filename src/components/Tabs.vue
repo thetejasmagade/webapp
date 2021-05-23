@@ -9,11 +9,16 @@
         @click="selectTab(i)"
       >
         <FontAwesomeIcon
-          v-if="tab.icon"
-          :icon="tab.icon"
+          v-if="tab.props"
+          :icon="tab.props.icon"
           class="icon"
         />
-        <span class="desktop">{{ tab.title }}</span>
+        <span
+          v-if="tab.props"
+          class="desktop"
+        >
+          {{ tab.props.title }}
+        </span>
       </li>
     </ul>
     <div class="body">
@@ -24,30 +29,45 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {
+  provide,
+  reactive,
+  onBeforeMount,
+  onBeforeUpdate,
+  onMounted,
+  toRefs
+} from 'vue';
 
 export default {
   components: {
     FontAwesomeIcon
   },
-  data () {
-    return {
+  setup(_, {slots}) {
+    const state = reactive({
       selectedIndex: 0,
-      tabs: [] 
+      tabs: [],
+      count: 0
+    });
+
+    provide('TabsProvider', state);
+
+    const selectTab = (i) => {
+      state.selectedIndex = i;
     };
-  },
-  created () {
-    this.tabs = this.$children;
-  },
-  mounted () {
-    this.selectTab(0);
-  },
-  methods: {
-    selectTab (i) {
-      this.selectedIndex = i;
-      this.tabs.forEach((tab, index) => {
-        tab.isActive = (index === i);
-      });
-    }
+
+    const update = () => {
+      if (slots.default) {
+        state.tabs = slots.default();
+      }
+    };
+
+    onBeforeMount(() => update());
+    onBeforeUpdate(() => update());
+
+    onMounted(() => {
+      selectTab(0);
+    });
+    return {...toRefs(state), selectTab};
   }
 };
 </script>

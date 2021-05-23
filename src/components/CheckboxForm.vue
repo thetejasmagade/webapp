@@ -11,8 +11,8 @@
           <input
             :id="option"
             v-model="checked"
-            type="checkbox"
             :value="option"
+            type="checkbox"
             @change="onChange"
           >
           <span class="checkmark" />
@@ -31,6 +31,7 @@ export default {
       default: () => []
     }
   },
+  emits: [ 'update:modelValue' ],
   data(){
     return {
       checked: []
@@ -38,7 +39,7 @@ export default {
   },
   methods: {
     onChange() {
-      this.$emit('input', this.checked);
+      this.$emit('update:modelValue', this.checked);
     }
   }
 };

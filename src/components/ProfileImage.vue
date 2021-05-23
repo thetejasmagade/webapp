@@ -37,6 +37,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { 
   sleep
 } from '@/lib/sleep.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
@@ -86,13 +87,13 @@ export default {
         user.ProfileImageURL += '?' + Date.now();
         this.$store.commit('setUser', user);
         
-        this.$notify({
+        notify({
           type: 'success',
           text: 'Profile image updated successfully'
         });
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

@@ -19,7 +19,7 @@
 <script>
 export default {
   props: {
-    value: {
+    modelValue: {
       type: Number,
       required: true
     },
@@ -32,15 +32,16 @@ export default {
       required: true
     }
   },
+  emits: [ 'update:modelValue' ],
   data(){
     return {
-      currentValue: this.value
+      currentValue: this.modelValue
     };
   },
   methods: {
     onInput() {
       // this.currentValue is a string because HTML is weird
-      this.$emit('input', parseInt(this.currentValue));
+      this.$emit('update:modelValue', parseInt(this.currentValue));
     }
   }
 };

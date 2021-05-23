@@ -44,7 +44,6 @@
 <script>
 import BlockButton from '@/components/BlockButton.vue';
 import TextInput from '@/components/TextInput.vue';
-
 import {
   loginManual,
   updateUserPasswordCode,
@@ -54,6 +53,8 @@ import {
 import {
   loadLoggedIn
 } from '@/lib/cloudStore.js';
+
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
@@ -74,8 +75,8 @@ export default {
         await sendEmailVerification(this.email);
         this.state='submit-code';
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -91,8 +92,8 @@ export default {
         loadLoggedIn(this);
         this.$router.push({name: 'Courses'});
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -101,8 +102,8 @@ export default {
       try {
         await sendEmailVerification(this.email);
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

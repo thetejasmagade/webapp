@@ -1,7 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
+import { createStore } from 'vuex';
 
 function getDefaultState() {
   return {
@@ -17,12 +14,11 @@ function getDefaultState() {
   };
 }
 
-export default new Vuex.Store({
+export default createStore({
   state: getDefaultState(),
   mutations: {
     reset(state) {
       Object.assign(state, getDefaultState());
-      console.log(state);
     },
     setBalance(state, newBalance) {
       state.balance = newBalance;

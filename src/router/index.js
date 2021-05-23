@@ -1,34 +1,24 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import VueMeta from 'vue-meta';
+import { createRouter, createWebHistory } from 'vue-router';
 
-import Courses from '@/views/Courses.vue';
-import Portfolio from '@/views/Portfolio.vue';
-import Exercise from '@/views/Exercise.vue';
-import Pricing from '@/views/Pricing.vue';
-import Dashboard from '@/views/Dashboard.vue';
-import Login from '@/views/Login.vue';
-import Playground from '@/views/Playground.vue';
-import Settings from '@/views/Settings.vue';
-import Achievements from '@/views/Achievements.vue';
-import SignupFlowExperience from '@/views/SignupFlowExperience.vue';
-import SignupFlowInterests from '@/views/SignupFlowInterests.vue';
-import SignupFlowRecruiters from '@/views/SignupFlowRecruiters.vue';
-import VerifyEmail from '@/views/VerifyEmail.vue';
-import Recruiters from '@/views/Recruiters.vue';
+const Courses = () => import('@/views/Courses.vue');
+const Portfolio = () => import('@/views/Portfolio.vue');
+const Exercise = () => import('@/views/Exercise.vue');
+const Pricing = () => import('@/views/Pricing.vue');
+const Dashboard = () => import('@/views/Dashboard.vue');
+const Login = () => import('@/views/Login.vue');
+const Playground = () => import('@/views/Playground.vue');
+const Settings = () => import('@/views/Settings.vue');
+const Achievements = () => import('@/views/Achievements.vue');
+const SignupFlowExperience = () => import('@/views/SignupFlowExperience.vue');
+const SignupFlowInterests = () => import('@/views/SignupFlowInterests.vue');
+const SignupFlowRecruiters = () => import('@/views/SignupFlowRecruiters.vue');
+const VerifyEmail = () => import('@/views/VerifyEmail.vue');
+const Recruiters = () => import('@/views/Recruiters.vue');
+
 
 import {
   isLoggedIn
 } from '@/lib/cloudClient.js';
-
-Vue.use(VueRouter);
-
-Vue.use(VueMeta, {
-  keyName: 'metaInfo',
-  attribute: 'data-vue-meta',
-  tagIDKeyName: 'vmid',
-  refreshOnceOnNavigation: true
-});
 
 const routes = [
   {
@@ -133,8 +123,8 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes
 });
 
@@ -156,16 +146,4 @@ router.beforeEach((to, from, next) => {
   }
   next();
 });
-
-// Supress redundant navigation errors
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(function (err) {
-    if (err.toString().includes('redundant')){
-      return;
-    }
-    throw err;
-  });
-};
-
 export default router;

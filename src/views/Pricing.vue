@@ -162,6 +162,7 @@ import ImageCard from '@/components/ImageCard.vue';
 import { checkout } from '@/lib/stripewrap.js';
 import { loadUser, loadSubscriptionPlans } from '@/lib/cloudStore.js';
 import { trackUserCancelCheckout } from '@/lib/cloudClient.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   metaInfo() {
@@ -223,8 +224,8 @@ export default {
       try {
         await checkout(price);
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

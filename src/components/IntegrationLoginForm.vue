@@ -4,7 +4,6 @@
       <GoogleButton
         class="btn"
         :on-success="onGoogleSuccess"
-        text="Sign up with Google"
       />
 
       <GithubButton 
@@ -48,10 +47,12 @@ import {
   updateUser
 } from '@/lib/cloudClient.js';
 import { gtmEventRegister } from '@/lib/gtm.js';
+import { notify } from '@/lib/notification.js';
 
 import {
   loadLoggedIn
 } from '@/lib/cloudStore.js';
+
 
 export default {
   components: {
@@ -76,8 +77,8 @@ export default {
   methods: {
     beforeIntegration(){
       if (!this.tosAccepted){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: 'You need to accept the terms of service'
         });
         return;
@@ -103,8 +104,8 @@ export default {
         }
         this.$router.push({name: 'Courses', query: { redirect: this.$route.query.redirect}});
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

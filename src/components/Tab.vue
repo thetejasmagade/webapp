@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import {onBeforeMount, ref, inject, watch} from 'vue';
+
 export default {
   props: {
     title: {
@@ -20,10 +22,25 @@ export default {
       default: null
     }
   },
-  data () {
-    return {
-      isActive: false
-    };
+  setup() {
+    const index = ref(0);
+    const isActive = ref(false);
+
+    const tabs = inject('TabsProvider');
+
+    watch(
+      () => tabs.selectedIndex,
+      () => {
+        isActive.value = index.value === tabs.selectedIndex;
+      }
+    );
+
+    onBeforeMount(() => {
+      index.value = tabs.count;
+      tabs.count++;
+      isActive.value = index.value === tabs.selectedIndex;
+    });
+    return {index, isActive};
   }
 };
 </script>

@@ -15,7 +15,7 @@ const layoutHorizontal = 'horizontal';
 // taken from https://github.com/yansern/vue-multipane
 export default {
   name: 'Multipane',
-
+  emits: [ 'paneResizeStart', 'paneResize', 'paneResizeStop' ],
   props: {
     layout: {
       type: String,

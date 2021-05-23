@@ -83,6 +83,7 @@ import {
 } from '@/lib/cloudClient.js';
 
 import { gtmEventRegister } from '@/lib/gtm.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
@@ -105,15 +106,15 @@ export default {
   methods: {
     async submitRegister(){
       if (!this.tosAccepted){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: 'You need to accept the terms of service'
         });
         return;
       }
       if (this.registerPassword !== this.registerPasswordConfirm){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: 'Passwords don\'t match'
         });
         return;
@@ -132,8 +133,8 @@ export default {
         gtmEventRegister('email');
         this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect, recruiter:this.$route.query.recruiter}});
       } catch (err){
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

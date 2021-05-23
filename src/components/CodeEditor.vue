@@ -94,6 +94,7 @@ export default {
     Multipane,
     MultipaneResizer
   },
+  emits: [ 'update:modelValue' ],
   props: {
     canvasEnabled: {
       type: Boolean,
@@ -128,14 +129,14 @@ export default {
       type: String,
       required: true
     },
-    value: {
+    modelValue: {
       type: String,
       required: true
     }
   },
   data() {
     return {
-      code: this.value,
+      code: this.modelValue,
       output: [],
       err: false,
       isLoading: false,
@@ -168,7 +169,7 @@ export default {
       terminateWorker(this.worker);
       this.worker = getWorker(this.getWorkerLang(newLang));
     },
-    value(newValue) {
+    modelValue(newValue) {
       this.code = newValue;
     }
   },
@@ -178,7 +179,7 @@ export default {
   methods: {
     onInput() {
       // this.currentValue is a string because HTML is weird
-      this.$emit('input', this.code);
+      this.$emit('update:modelValue', this.code);
     },
     getWorkerLang(progLang){
       if (progLang === 'purs'){

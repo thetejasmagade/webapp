@@ -1,5 +1,7 @@
 <template>
   <div class="exercise-root">
+    <ProModal ref="proModal" />
+    
     <CourseCompleted
       v-if="courseDone"
       class="full"
@@ -110,11 +112,13 @@ import ExerciseNav from '@/components/ExerciseNav.vue';
 import Multipane from '@/components/Multipane.vue';
 import MultipaneResizer from '@/components/MultipaneResizer.vue';
 import Section from '@/components/Section.vue';
+import ProModal from '@/components/ProModal.vue';
 
 import { 
   loadBalance,
   loadUser
 } from '@/lib/cloudStore.js';
+import { notify } from '@/lib/notification.js';
 
 import { 
   sleep
@@ -170,7 +174,8 @@ export default {
     CourseCompleted,
     ExerciseNav,
     Multipane,
-    MultipaneResizer
+    MultipaneResizer,
+    ProModal
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
@@ -309,7 +314,7 @@ ${this.defaultMarkdownSource}
   methods: {
     clickSolution(){
       if (this.locked){
-        this.$proModal.show();
+        this.$refs.proModal.show();
         return;
       }
       if (this.markdownSource === this.cheatedMarkdownSource){
@@ -336,13 +341,13 @@ ${this.defaultMarkdownSource}
     async saveCode(){
       try{
         await saveCode(this.exerciseUUID, this.code);
-        this.$notify({
+        notify({
           type: 'success',
           text: 'Code saved!'
         });
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: 'Couldn\'t save code'
         });
       }
@@ -352,19 +357,19 @@ ${this.defaultMarkdownSource}
         const resp = await getSavedCode (this.exerciseUUID, this.code);
         if (resp.Code && resp.Code !== ''){
           this.code = resp.Code;
-          this.$notify({
+          notify({
             type: 'success',
             text: 'Last save loaded!'
           });
           return;
         }
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: 'No saved code found for this exercise'
         });
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: 'Couldn\'t load code'
         });
       }
@@ -387,7 +392,7 @@ ${this.defaultMarkdownSource}
 
       let notificationShown = false;
       if (rewardsResponse.GemCredit && rewardsResponse.Message){
-        this.$notify({
+        notify({
           type: 'success',
           text: `${rewardsResponse.Message} 💎x${rewardsResponse.GemCredit}`
         });
@@ -401,16 +406,15 @@ ${this.defaultMarkdownSource}
           if (achievement.UUID){
             gtmEventUnlockAchievement(achievement.UUID);
           }
-          this.$notify({
+          notify({
             type: 'success',
-            title: `<img width="50" src="${achievement.ImageURL}">`,
             text: `<i>${achievement.Title}</i> achievement unlocked! 💎x${achievement.GemReward}`
           });
           notificationShown = true;
         }
       }
       if (!notificationShown) {
-        this.$notify({
+        notify({
           type: 'success',
           text: 'Correct! Great Job :)'
         });
@@ -429,8 +433,8 @@ ${this.defaultMarkdownSource}
           await this.getCurrentExercise();
         }
       } catch(err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -448,8 +452,8 @@ ${this.defaultMarkdownSource}
           await this.getCurrentExercise();
         }
       } catch(err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -481,8 +485,8 @@ ${this.defaultMarkdownSource}
           await this.getCurrentExercise();
         }
       } catch(err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -542,8 +546,8 @@ ${this.defaultMarkdownSource}
         const exercise = await getCurrentExercise(this.courseUUID);
         this.moveToExercise(exercise);
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -553,8 +557,8 @@ ${this.defaultMarkdownSource}
         const exercise = await getPreviousExercise(this.courseUUID, this.exerciseUUID);
         this.moveToExercise(exercise);
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -567,8 +571,8 @@ ${this.defaultMarkdownSource}
         const exercise = await getNextExercise(this.courseUUID, this.exerciseUUID);
         this.moveToExercise(exercise);
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }
@@ -578,8 +582,8 @@ ${this.defaultMarkdownSource}
         const exercise = await getFirstExercise(this.courseUUID);
         this.moveToExercise(exercise);
       } catch (err) {
-        this.$notify({
-          type: 'error',
+        notify({
+          type: 'danger',
           text: err
         });
       }

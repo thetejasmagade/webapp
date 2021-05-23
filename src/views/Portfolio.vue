@@ -200,6 +200,7 @@ import {
   getUserPublic,
   getUserAchievementsPublic
 } from '@/lib/cloudClient.js';
+import { notify } from '@/lib/notification.js';
 
 export default {
   metaInfo() {
@@ -255,8 +256,8 @@ export default {
       this.courses = await getCoursesPublic(this.userHandle);
       this.achievements = await getUserAchievementsPublic(this.userHandle);
     } catch (err) {
-      this.$notify({
-        type: 'error',
+      notify({
+        type: 'danger',
         text: err
       });
     }

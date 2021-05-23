@@ -24,8 +24,8 @@
  
 <script>
 import BlockButton from '@/components/BlockButton.vue';
-import VueLoadingOverlay from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import VueLoadingOverlay from 'vue3-loading-overlay';
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
     
 export default {
   components: {
