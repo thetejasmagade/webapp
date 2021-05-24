@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <metainfo>
+      <template v-slot:title="{ content }">
+        {{ content ? `${content} | Qvault` : `Qvault` }}
+      </template>
+    </metainfo>
     <router-view />
   </div>
 </template>
@@ -46,6 +51,7 @@ import {
 import {
   loadLoggedIn
 } from '@/lib/cloudStore.js';
+import { useMeta } from 'vue-meta';
 
 library.add(faArrowRight);
 library.add(faArrowLeft);
@@ -80,9 +86,11 @@ library.add(faLevelUpAlt);
 library.add(faEye);
 
 export default {
-  metaInfo() {
+  setup () {
     const description = 'Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.';
-    return {
+    useMeta({
+      title: 'Coding Courses',
+      description,
       meta: [
         { vmid:'description', name: 'description', content: description },
 
@@ -99,7 +107,7 @@ export default {
         { vmid:'twitter:description', property: 'twitter:description', content: description },
         { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg' }
       ]
-    };
+    });
   },
   created(){
     loadLoggedIn(this);

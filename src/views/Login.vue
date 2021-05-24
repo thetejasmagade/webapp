@@ -138,27 +138,9 @@ import RegisterForm from '@/components/RegisterForm.vue';
 import IntegrationLoginForm from '@/components/IntegrationLoginForm.vue';
 import ForgotPasswordForm from '@/components/ForgotPasswordForm.vue';
 import TopNav from '@/components/TopNav.vue';
+import { useMeta } from 'vue-meta';
 
 export default {
-  metaInfo() {
-    const description = 'Login or sign up for Qvault\'s computer science and coding courses. All my courses are free to audit, get started today.';
-    const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg';
-    const title = 'Login - Qvault';
-    return {
-      title: title,
-      meta: [
-        { vmid:'description', name: 'description', content: description },
-
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'og:description', property: 'og:description', content: description },
-        { vmid:'og:image', property: 'og:image', content: featuredImage },
-
-        { vmid:'twitter:title', name: 'twitter:title', content: title },
-        { vmid:'twitter:description', property: 'twitter:description', content: description },
-        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
-      ]
-    };
-  },
   components: {
     LoginForm,
     ForgotPasswordForm,
@@ -214,6 +196,24 @@ export default {
 
       this.$router.push({name: 'Courses', query: {redirect: this.$route.query.redirect}});
     }
+
+    const description = 'Login or sign up for Qvault\'s computer science and coding courses. All my courses are free to audit, get started today.';
+    const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg';
+    const title = 'Login';
+    useMeta({
+      title: title,
+      meta: [
+        { vmid:'description', name: 'description', content: description },
+
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'og:description', property: 'og:description', content: description },
+        { vmid:'og:image', property: 'og:image', content: featuredImage },
+
+        { vmid:'twitter:title', name: 'twitter:title', content: title },
+        { vmid:'twitter:description', property: 'twitter:description', content: description },
+        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
+      ]
+    });
   }
 };
 </script>

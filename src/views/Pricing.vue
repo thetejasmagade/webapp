@@ -15,11 +15,14 @@
               <div class="text-center font-semibold">
                 <p
                   v-if="$store.getters.getUserIsSubscribed"
-                  class="text-xl text-gray-400 font-normal w-full px-8 md:w-full"
+                  class="text-xl text-gray-500 font-normal w-full px-8 md:w-full"
                 >
                   You're already subscribed. Go take some courses!
                 </p>
-                <p class="text-xl text-gray-500 font-normal w-full px-8 md:w-full">
+                <p
+                  v-else
+                  class="text-xl text-gray-500 font-normal w-full px-8 md:w-full"
+                >
                   Learn, practice, and apply career-building skills with a Pro account
                 </p>
               </div>
@@ -37,8 +40,8 @@
                     <span class="text-3xl font-semibold"> {{ subscriptionPlanPrices[0].UnitAmountPerMonth / 100 }}</span>
                     <span class="text-gray-400 font-medium"> / month</span>
                   </p>
-                  <hr class="mt-4 border-1">
-                  <div class="pt-8">
+                  <hr class="m-4 border-1">
+                  <div>
                     <ul class="ml-5 list-disc font-semibold text-gray-400 text-left">
                       <li
                         v-for="(feature, k) of subscriptionPlan.Features"
@@ -49,6 +52,7 @@
                     </ul>
 
                     <BlockButton
+                      v-if="!$store.getters.getUserIsSubscribed"
                       class="m-5"
                       :click="() => {checkout(subscriptionPlanPrices[0])}"
                     >
@@ -66,8 +70,8 @@
                     <span class="text-3xl font-semibold">{{ subscriptionPlanPrices[1].UnitAmountPerMonth / 100 }}</span>
                     <span class="text-gray-400 font-medium"> / month</span>
                   </p>
-                  <hr class="mt-4 border-1 border-gray-600">
-                  <div class="pt-8">
+                  <hr class="m-4 border-1 border-gray-600">
+                  <div>
                     <ul class="ml-5 list-disc font-semibold text-gray-300 text-left">
                       <li
                         v-for="(feature, k) of subscriptionPlan.Features"
@@ -78,7 +82,8 @@
                     </ul>
 
                     <BlockButton
-                      class="m-5"
+                      v-if="!$store.getters.getUserIsSubscribed"
+                      class="mt-5"
                       :click="() => {checkout(subscriptionPlanPrices[1])}"
                     >
                       Start 7-day trial
@@ -100,8 +105,8 @@
                     <span class="text-3xl font-semibold">0</span>
                     <span class="text-gray-400 font-medium"> / month</span>
                   </p>
-                  <hr class="mt-4 border-1">
-                  <div class="pt-8">
+                  <hr class="m-4 border-1">
+                  <div>
                     <ul class="ml-5 list-disc font-semibold text-gray-400 text-left">
                       <li>Access to read all course material</li>
                       <li>Limited code sandbox for exercises</li>
@@ -196,27 +201,9 @@ import { checkout } from '@/lib/stripewrap.js';
 import { loadUser, loadSubscriptionPlans } from '@/lib/cloudStore.js';
 import { trackUserCancelCheckout } from '@/lib/cloudClient.js';
 import { notify } from '@/lib/notification.js';
+import { useMeta } from 'vue-meta';
 
 export default {
-  metaInfo() {
-    const title = 'Qvault - Pricing';
-    const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner-1024x576.jpg';
-    const description = 'Anyone can get a discount on Qvault Pro! Take our feedback survey and we\'ll hook you up with a lower-cost monthly subscribtion.';
-    return {
-      title: title,
-      meta: [
-        { vmid:'description', name: 'description', content: description },
-
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'og:description', property: 'og:description', content: description },
-        { vmid:'og:image', property: 'og:image', content: featuredImage },
-
-        { vmid:'twitter:title', name: 'twitter:title', content: title },
-        { vmid:'twitter:description', property: 'twitter:description', content: description },
-        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
-      ]
-    };
-  },
   components: {
     TopNav,
     LoadingOverlay,
@@ -254,6 +241,24 @@ export default {
         console.log(err);
       }
     }
+
+    const title = 'Pricing';
+    const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner-1024x576.jpg';
+    const description = 'Anyone can get a discount on Qvault Pro! Take our feedback survey and we\'ll hook you up with a lower-cost monthly subscribtion.';
+    useMeta({
+      title: title,
+      meta: [
+        { vmid:'description', name: 'description', content: description },
+
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'og:description', property: 'og:description', content: description },
+        { vmid:'og:image', property: 'og:image', content: featuredImage },
+
+        { vmid:'twitter:title', name: 'twitter:title', content: title },
+        { vmid:'twitter:description', property: 'twitter:description', content: description },
+        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
+      ]
+    });
   },
   methods: {
     async checkout(price) {

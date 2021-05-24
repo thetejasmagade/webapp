@@ -7,7 +7,7 @@
         :options="displayLangsArray"
         :default="displayLangs[lang]"
         class="select"
-        @input="$router.push({path: `/playground/${displayToKey($event)}` })"
+        @update:modelValue="$router.push({path: `/playground/${displayToKey($event)}` })"
       />
     </div>
 
@@ -27,73 +27,13 @@ import CodeEditor from '@/components/CodeEditor.vue';
 import TopNav from '@/components/TopNav.vue';
 import SelectDropdown from '@/components/SelectDropdown.vue';
 
-export default {
-  metaInfo() {
-    const description = `Run ${this.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
-    const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg';
-    const title = `${this.displayLang} Playground - Qvault`;
-    return {
-      title: title,
-      meta: [
-        { vmid:'description', name: 'description', content: description },
+import { reactive, computed, onMounted } from 'vue';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
+import { useMeta } from 'vue-meta';
 
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'og:description', property: 'og:description', content: description },
-        { vmid:'og:image', property: 'og:image', content: featuredImage },
-
-        { vmid:'twitter:title', name: 'twitter:title', content: title },
-        { vmid:'twitter:description', property: 'twitter:description', content: description },
-        { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
-      ]
-    };
-  },
-  components: {
-    SelectDropdown,
-    TopNav,
-    CodeEditor
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.lang = to.params.lang;
-    this.setCode();
-    next();
-  },
-  data(){
-    return {
-      code: '',
-      lang: this.$route.params.lang,
-      displayLangs: {
-        go: 'Go - Web Assembly',
-        js: 'JavaScript',
-        jsCanvas: 'JavaScript Canvas',
-        py: 'Python - Web Assembly',
-        purs: 'PureScript'
-      }
-    };
-  },
-  computed: {
-    displayLang(){
-      return this.displayLangs[this.lang];
-    },
-    displayLangsArray(){
-      return Object.values(this.displayLangs);
-    },
-    progLang(){
-      if (this.lang === 'jsCanvas'){
-        return 'js';
-      }
-      return this.lang;
-    }
-  },
-  mounted(){
-    this.setCode();
-  },
-  methods:{
-    displayToKey(displayName){
-      return Object.keys(this.displayLangs).find(key => this.displayLangs[key] === displayName);
-    },
-    setCode(){
-      if (this.lang === 'go'){
-        this.code = `package main
+function getCode(lang){
+  if (lang === 'go'){
+    return `package main
 
 import "fmt"
 
@@ -106,17 +46,15 @@ func main(){
 // executes on your machine
 // read about it on my blog:
 // https://qvault.io/golang/running-go-in-the-browser-with-web-assembly-wasm`;
-        
-        return;
-      }
-      if (this.lang === 'js'){
-        this.code = `
+  }
+
+  if (lang === 'js'){
+    return `
 console.log("hello, world")
 `;
-        return;
-      }
-      if (this.lang === 'jsCanvas'){
-        this.code = `var ctx = canvas.getContext('2d');
+  }
+  if (lang === 'jsCanvas'){
+    return `var ctx = canvas.getContext('2d');
 
 ctx.fillStyle = 'rgb(200, 0, 0)';
 ctx.fillRect(100, 100, 500, 500);
@@ -131,20 +69,18 @@ console.log("hello, world")
 // resize your screen and the canvas will grow/shrink
 // and stretch the image, it won't change your logic.
 `;
-        return;
-      }
-      if (this.lang === 'py'){
-        this.code = `print("hello, world")
+  }
+  if (lang === 'py'){
+    return `print("hello, world")
 
 # We use a Python interpreter that's compiled to Web Assembly
 # to run code right in your browser using a Web Worker
 # read about it on my blog: 
 # https://qvault.io/python/running-python-in-the-browser-with-web-assembly
         `;
-        return;
-      }
-      if (this.lang === 'purs'){
-        this.code = `module Main where
+  }
+  if (lang === 'purs'){
+    return `module Main where
 
 import Prelude
 
@@ -153,10 +89,86 @@ import Effect.Console (logShow)
 main = do
   logShow "hello, world"
 `;
-        return;
+  }
+  return 'unknown language';
+}
+
+export default {
+  components: {
+    SelectDropdown,
+    TopNav,
+    CodeEditor
+  },
+  setup(){
+    const route = useRoute();
+
+    const state = reactive({
+      code: '',
+      lang: route.params.lang,
+      displayLangs: {
+        go: 'Golang',
+        js: 'JavaScript',
+        jsCanvas: 'JavaScript Canvas',
+        py: 'Python',
+        purs: 'PureScript'
+      },
+      displayLang: '',
+      displayLangsArray: [],
+      progLang: ''
+    });
+
+    const computedMeta = computed(() => {
+      const description = `Run ${state.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
+      const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg';
+      const title = `${state.displayLang} Playground`;
+      return {
+        title: title,
+        meta: [
+          { vmid:'description', name: 'description', content: description },
+
+          { vmid:'og:title', property: 'og:title', content: title },
+          { vmid:'og:description', property: 'og:description', content: description },
+          { vmid:'og:image', property: 'og:image', content: featuredImage },
+
+          { vmid:'twitter:title', name: 'twitter:title', content: title },
+          { vmid:'twitter:description', property: 'twitter:description', content: description },
+          { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
+        ]
+      };
+    });
+    useMeta(computedMeta);
+
+    state.displayLang = computed(() => {
+      return state.displayLangs[state.lang];
+    });
+    state.displayLangsArray = computed(() => {
+      return Object.values(state.displayLangs);
+    });
+    state.progLang = computed(() => {
+      if (state.lang === 'jsCanvas'){
+        return 'js';
       }
-      this.code = 'unknown language';
-    }
+      return state.lang;
+    });
+
+    onMounted(()=>{
+      state.code = getCode(state.lang);
+    });
+
+    onBeforeRouteUpdate((to, from, next) => {
+      state.lang = to.params.lang;
+      state.code = getCode(state.lang);
+      next();
+    });
+
+    state.setCode = () => {
+      state.code = getCode(state.lang);
+    };
+    state.displayToKey = (displayName) => {
+      return Object.keys(state.displayLangs).find(key => state.displayLangs[key] === displayName);
+    };
+
+    return state;
   }
 };
 </script>

@@ -154,16 +154,6 @@ import {
 } from '@/lib/localStorageLib';
 
 export default {
-  metaInfo() {
-    const title = `${this.courseTitle} Course - Qvault`;
-    return {
-      title: title,
-      meta: [
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'twitter:title', name: 'twitter:title', content: title }
-      ]
-    };
-  },
   components: {
     Modal,
     Section,

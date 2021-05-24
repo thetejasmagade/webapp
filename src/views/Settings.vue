@@ -246,6 +246,7 @@ import BlockButton from '@/components/BlockButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import Section from '@/components/Section.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
+import { useMeta } from 'vue-meta';
 
 import { 
   gtmEventFinishCheckout
@@ -253,16 +254,6 @@ import {
 import { notify } from '@/lib/notification.js';
 
 export default {
-  metaInfo() {
-    const title = 'Qvault - Settings';
-    return {
-      title: title,
-      meta: [
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'twitter:title', name: 'twitter:title', content: title }
-      ]
-    };
-  },
   components: {
     BlockButton,
     TextInput,
@@ -331,6 +322,15 @@ export default {
       });
       gtmEventFinishCheckout('20', 'qvault-pro', 'Qvault Pro');
     }
+
+    const title = 'Settings';
+    useMeta({
+      title: title,
+      meta: [
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'twitter:title', name: 'twitter:title', content: title }
+      ]
+    });
   },
   methods: {
     openCustomerPortal() {

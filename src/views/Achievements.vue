@@ -53,22 +53,13 @@
 import ImageCard from '@/components/ImageCard.vue';
 import Section from '@/components/Section.vue';
 import GemDisplay from '@/components/GemDisplay.vue';
+import { useMeta } from 'vue-meta';
 
 import { 
   loadUserAchievements
 } from '@/lib/cloudStore.js';
 
 export default {
-  metaInfo() {
-    const title = 'Qvault - Achievements';
-    return {
-      title: title,
-      meta: [
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'twitter:title', name: 'twitter:title', content: title }
-      ]
-    };
-  },
   components: {
     ImageCard,
     GemDisplay,
@@ -76,6 +67,15 @@ export default {
   },
   async mounted(){
     loadUserAchievements(this);
+
+    const title = 'Achievements';
+    useMeta({
+      title: title,
+      meta: [
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'twitter:title', name: 'twitter:title', content: title }
+      ]
+    });
   }
 };
 </script>

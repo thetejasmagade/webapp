@@ -37,16 +37,6 @@ import {
 } from '@/lib/cloudStore.js';
 
 export default {
-  metaInfo() {
-    const title = 'Qvault - Dashboard';
-    return {
-      title: title,
-      meta: [
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'twitter:title', name: 'twitter:title', content: title }
-      ]
-    };
-  },
   components: {
     Sidebar,
     TopNav

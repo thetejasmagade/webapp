@@ -122,16 +122,6 @@ import {
 import { notify } from '@/lib/notification.js';
 
 export default {
-  metaInfo() {
-    const title = 'Qvault - Courses';
-    return {
-      title: title,
-      meta: [
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'twitter:title', name: 'twitter:title', content: title }
-      ]
-    };
-  },
   components: {
     Section,
     LoadingOverlay,

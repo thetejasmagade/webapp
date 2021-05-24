@@ -3,6 +3,7 @@ import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
 import gAuth from 'vue3-google-auth';
+import { createMetaManager } from 'vue-meta';
 import 'mosha-vue-toastify/dist/style.css';
 
 const $gAuth = gAuth.createGAuth({
@@ -15,4 +16,5 @@ const app = createApp(App);
 app.use(store);
 app.use(router);
 app.use($gAuth);
+app.use(createMetaManager());
 app.mount('#app');

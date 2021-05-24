@@ -173,6 +173,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ProfileImage from '@/components/ProfileImage.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import Section from '@/components/Section.vue';
+import GemDisplay from '@/components/GemDisplay.vue';
+import { useMeta } from 'vue-meta';
+import { computed, reactive, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 import {
   getCoursesPublic,
@@ -182,43 +186,46 @@ import {
 import { notify } from '@/lib/notification.js';
 
 export default {
-  metaInfo() {
-    return {
-      title: `Qvault - ${this.user.FirstName}'s Portfolio`,
-      meta: [
-        { vmid:'description', name: 'description', content: `Check out ${this.user.FirstName} ${this.user.LastName}'s coding accomplishments on Qvault` },
-
-        { vmid:'og:title', property: 'og:title', content: `Qvault Portfolio - ${this.user.Handle}` },
-        { vmid:'og:description', property: 'og:description', content: `Check out ${this.user.FirstName} ${this.user.LastName}'s coding accomplishments on Qvault` },
-        { vmid:'og:image', property: 'og:image', content: this.user.ProfileImageURL },
-
-        { vmid:'twitter:title', name: 'twitter:title', content: `Qvault Portfolio - ${this.user.Handle}` },
-        { vmid:'twitter:description', property: 'twitter:description', content: `Check out ${this.user.FirstName} ${this.user.LastName}'s coding accomplishments on Qvault` },
-        { vmid:'twitter:image', name: 'twitter:image', content: this.user.ProfileImageURL }
-      ]
-    };
-  },
   components: {
     TopNav,
     FontAwesomeIcon,
     ProfileImage,
     ImageCard,
-    Section
+    Section,
+    GemDisplay
   },
-  data() {
-    return {
-      userHandle: this.$route.params.userHandle,
+  setup(){
+    const state = reactive({
       user: {},
       courses: [],
-      achievements: []
-    };
-  },
-  computed: {
-    filteredCourses() {
-      return this.courses.filter(course => course.IsComplete).sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
-    },
-    filteredAchievements() {
-      return this.achievements.filter(ach => ach.UnlockedAt).sort((ua1, ua2) => {
+      achievements: [],
+      filteredCourses: [],
+      filteredAchievements: []
+    });
+
+    const computedMeta = computed(() => {
+      return {
+        title: `${state.user.FirstName}'s Portfolio`,
+        meta: [
+          { vmid:'description', name: 'description', content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault` },
+
+          { vmid:'og:title', property: 'og:title', content: `Qvault Portfolio - ${state.user.Handle}` },
+          { vmid:'og:description', property: 'og:description', content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault` },
+          { vmid:'og:image', property: 'og:image', content: state.user.ProfileImageURL },
+
+          { vmid:'twitter:title', name: 'twitter:title', content: `Qvault Portfolio - ${state.user.Handle}` },
+          { vmid:'twitter:description', property: 'twitter:description', content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault` },
+          { vmid:'twitter:image', name: 'twitter:image', content: state.user.ProfileImageURL }
+        ]
+      };
+    });
+
+    state.filteredCourses = computed(() => {
+      return state.courses.filter(course => course.IsComplete).sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
+    });
+
+    state.filteredAchievements = computed(() => {
+      return state.achievements.filter(ach => ach.UnlockedAt).sort((ua1, ua2) => {
         if (ua1.Category < ua2.Category) {
           return 1;
         } else if (ua1.Category > ua2.Category) {
@@ -226,19 +233,24 @@ export default {
         }
         return ua1.GemReward < ua2.GemReward ? -1 : 1;
       });
-    }
-  },
-  async mounted() {
-    try {
-      this.user = await getUserPublic(this.userHandle);
-      this.courses = await getCoursesPublic(this.userHandle);
-      this.achievements = await getUserAchievementsPublic(this.userHandle);
-    } catch (err) {
-      notify({
-        type: 'danger',
-        text: err
-      });
-    }
+    });
+
+    onMounted(async () => {
+      const route = useRoute();
+      try {
+        state.user = await getUserPublic(route.params.userHandle);
+        state.courses = await getCoursesPublic(route.params.userHandle);
+        state.achievements = await getUserAchievementsPublic(route.params.userHandle);
+      } catch (err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
+    });
+
+    useMeta(computedMeta);
+    return state;
   },
   methods: {
     linkClick(url) {
