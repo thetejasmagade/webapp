@@ -1,9 +1,9 @@
 <template>
   <div
-    class="body"
+    class="flex flex-col justify-between"
   >
-    <div class="icons item">
-      <div class="icon pink">
+    <div class="flex flex-row justify-end mb-2">
+      <div class="text-red-500 mr-5">
         <Tooltip
           :text="`Difficulty ${course.Difficulty}%`"
           color="pink"
@@ -15,10 +15,10 @@
       </div>
       <div
         v-if="interests.length > 0"
-        class="icon green"
+        class="text-green-500 mr-5"
       >
         <Tooltip
-          :text="`Tags:\n${interests.join('\n')}`"
+          :text="interests.join('\n')"
           color="green"
         >
           <FontAwesomeIcon
@@ -28,7 +28,7 @@
       </div>
       <div
         v-if="prereqs.length > 0 "
-        class="icon purple"
+        class="text-blue-500 mr-5"
       >
         <Tooltip
           :text="`Prerequsites:\n${prereqs.join('\n')}`"
@@ -39,7 +39,7 @@
           />
         </Tooltip>
       </div>
-      <div class="icon gray">
+      <div class="text-gray-500 mr-5">
         <Tooltip
           :text="`~${course.Modules.length * 6} Hours`"
           color="gray"
@@ -50,23 +50,28 @@
         </Tooltip>
       </div>
     </div>
+
+    <h2 class="text-xl underline mb-4">
+      <a @click="() => { goToCourse(course) }">{{ course.Title }}</a>
+    </h2>
             
-    <p class="item">
+    <p class="mb-4 text-gray-500 text-sm">
       {{ course.Description }}
     </p>
 
     <div
       v-if="course.IsComplete"
     >
-      <div class="completed item">
+      <div class="text-green-700 text-center">
         <FontAwesomeIcon
           icon="check"
+          class="mr-2"
         />
         <span>Complete</span>
       </div>
     </div>
 
-    <div class="item links bottom">
+    <div class="flex flex-row justify-end">
       <span
         class="gray link"
         target="_blank"
@@ -85,6 +90,10 @@ import {
 
 import Tooltip from '@/components/Tooltip.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+import { 
+  gtmEventSelectCourse
+} from '@/lib/gtm.js';
 
 export default {
   components: {
@@ -133,71 +142,15 @@ export default {
   methods: {
     linkClick(url) {
       window.open(url, '_blank');
+    },
+    goToCourse(course){
+      gtmEventSelectCourse(course.UUID, course.Title);
+      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
     }
   }
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-
-.icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-
-  .icon {
-    &.pink {
-      color: $pink-mid;
-    }
-    &.purple {
-      color: $purple-mid;
-    }
-    &.gray {
-      color: $gray-mid;
-    }
-    &.green {
-      color: $green-mid;
-    }
-  }
-}
-
-.body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0 1em 0 1em;
-}
-
-p {
-  text-align: left;
-}
-
-.completed {
-  color: $green-mid;
-
-  span {
-    margin-left: 10px;
-  }
-}
-
-.item {
-  margin: 10px 15px 0 15px;
-
-  &.bottom {
-    margin: 10px;
-  }
-}
-
-.links {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.margin-neg-10 {
-  margin: -10px;
-}
+<style scoped>
 
 </style>

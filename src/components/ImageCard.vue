@@ -1,18 +1,15 @@
 <template>
   <div
-    class="image-card light column"
-    :class="{
-      'clickable': click,
-    }"
-    @click="safeClick"
+    class="bg-white shadow-2xl rounded mb-6 tracking-wide"
   >
-    <div>
+    <div class="md:flex-shrink-0">
       <img
         v-if="imgSrc"
         :src="imgSrc"
+        class="w-full h-64 rounded rounded-b-none object-cover h-full w-full"
       >
     </div>
-    <div class="body">
+    <div class="px-4 py-2 mt-2">
       <slot />
     </div>
   </div>
@@ -25,58 +22,11 @@ export default {
       type: String,
       required: false,
       default: null
-    },
-    click: {
-      type: Function,
-      required: false,
-      default: null
-    }
-  },
-  methods: {
-    safeClick(){
-      if (this.click) {
-        this.click();
-      }
     }
   }
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.image-card {
-  transition: 0.3s;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-  border-radius: .5em;
-  flex-direction: column;
-
-  img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center center;
-    border-radius: .5em .5em 0 0;
-  }
-
-  &.light{
-    border: solid 1px $gray-lighter;
-    background-color: $white;
-  }
-
-  &.clickable{
-    cursor: pointer;
-    transition: all .2s ease-in-out; 
-    &:hover{
-      transform: scale(1.05);
-    }
-  }
-
-  .body {
-    flex: 1;
-  }
-}
 </style>

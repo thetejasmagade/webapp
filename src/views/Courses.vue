@@ -14,64 +14,42 @@
         >
           <Section
             :title="$store.getters.getProgramCS.length > 0 ? `Your next course: ${$store.getters.getProgramCS[0].Title}` : 'Loading...'"
-            subtitle="Take these courses in order to complete the full computer science program"
+            subtitle="Take these courses in order. You're on your way to a high-paying coding job"
           >
-            <div class="section-body">
-              <div class="cards">
-                <div
-                  v-if="csProgramCourses.length > 0"
+            <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
+              <div
+                v-for="(course, i) of csProgramCourses"
+                :key="i"
+              >
+                <ImageCard
+                  :img-src="course.ImageURL"
                 >
-                  <ImageCard
-                    theme="light"
-                    :img-src="csProgramCourses[0].ImageURL"
-                    class="card large"
-                    :click="() => { goToCourse(csProgramCourses[0]) }"
-                  >
-                    <CourseCardBodyDetailed
-                      class="body"
-                      :course="csProgramCourses[0]"
-                    />
-                  </ImageCard>
-                </div>
+                  <CourseCardBody
+                    :course="course"
+                  />
+                </ImageCard>
               </div>
-              <div class="cards">
-                <div
-                  v-for="(course, i) of csProgramCourses"
-                  :key="i"
-                >
-                  <ImageCard
-                    v-if="i > 0"
-                    theme="light"
-                    :img-src="course.ImageURL"
-                    class="card"
-                    :click="() => { goToCourse(course) }"
-                  >
-                    <CourseCardBody
-                      class="body"
-                      :course="course"
-                    />
-                  </ImageCard>
-                </div>
-              </div>
-              <h2> Notes </h2>
-              <p class="max-width">
-                <i>
-                  This curriculum is a work-in-progress
-                  while I build towards an unaccredited university-level CS degree.
-                  <a
-                    href="https://github.com/qvault/curriculum"
-                    target="_blank"
-                  >You can find the roadmap here.</a>
-                  Buying courses,
-                  being part of the
-                  <a
-                    href="https://discord.gg/k4rVEWt"
-                    target="_blank"
-                  >Discord community</a>,
-                  and providing great feedback will help us get the project finished.
-                </i>
-              </p>
             </div>
+            <h2 class="text-gold-600 text-xl">
+              Notes
+            </h2>
+            <p class="max-width">
+              <i>
+                This curriculum is a work-in-progress
+                while I build towards an unaccredited university-level CS degree.
+                <a
+                  href="https://github.com/qvault/curriculum"
+                  target="_blank"
+                >You can find the roadmap here.</a>
+                Buying courses,
+                being part of the
+                <a
+                  href="https://discord.gg/k4rVEWt"
+                  target="_blank"
+                >Discord community</a>,
+                and providing great feedback will help us get the project finished.
+              </i>
+            </p>
           </Section>
         </Tab>
         <Tab
@@ -82,19 +60,15 @@
             title="All Courses"
             subtitle="Browse all my content, I release new courses as often as I can"
           >
-            <div class="cards">
+            <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
               <div
                 v-for="(course, i) of courses"
                 :key="i"
               >
                 <ImageCard
-                  theme="light"
                   :img-src="course.ImageURL"
-                  class="card"
-                  :click="() => { goToCourse(course) }"
                 >
                   <CourseCardBody
-                    class="body"
                     :course="course"
                   />
                 </ImageCard>
@@ -111,21 +85,17 @@
             v-if="recommendedCourses && recommendedCourses.length > 0"
             title="Recommended à la carte courses"
             subtitle="Based on your profile, take these courses to reach your short-term goals"
-            class="margin-bottom-1"
           >
-            <div class="cards">
+            <div class="grid grid-cols-2 xs:grid-cols-1 gap-4 p-4">
               <div
                 v-for="(course, i) of recommendedCourses"
                 :key="i"
               >
                 <ImageCard
-                  theme="light"
                   :img-src="course.ImageURL"
-                  class="card large"
-                  :click="() => { goToCourse(course) }"
+                  class="max-w-sm"
                 >
-                  <CourseCardBodyDetailed
-                    class="body"
+                  <CourseCardBody
                     :course="course"
                   />
                 </ImageCard>
@@ -143,7 +113,6 @@ import Section from '@/components/Section.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import CourseCardBody from '@/components/CourseCardBody.vue';
-import CourseCardBodyDetailed from '@/components/CourseCardBodyDetailed.vue';
 import Tab from '@/components/Tab.vue';
 import Tabs from '@/components/Tabs.vue';
 
@@ -151,10 +120,6 @@ import {
   getCourseRecommendations
 } from '@/lib/cloudClient.js';
 import { notify } from '@/lib/notification.js';
-
-import { 
-  gtmEventSelectCourse
-} from '@/lib/gtm.js';
 
 export default {
   metaInfo() {
@@ -172,7 +137,6 @@ export default {
     LoadingOverlay,
     ImageCard,
     CourseCardBody,
-    CourseCardBodyDetailed,
     Tab,
     Tabs
   },
@@ -187,7 +151,9 @@ export default {
       return this.$store.getters.getProgramCS.filter(course => !course.IsComplete);
     },
     courses(){
-      return this.$store.getters.getCourses;
+      let courses = this.$store.getters.getCourses;
+      courses.sort((course1, course2) => { return course1.Difficulty < course2.Difficulty ? -1 : 1;} );
+      return courses;
     }
   },
   async mounted(){
@@ -208,67 +174,10 @@ export default {
         text: err
       });
     }
-  },
-  methods: {
-    goToCourse(course){
-      gtmEventSelectCourse(course.UUID, course.Title);
-      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
-    }
   }
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.section-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.courses-page {
-  display: block;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  overflow: auto;
-  min-height: calc(100vh - #{$bar-height});
-}
-
-.cards {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.card {
-  $margin: 30px;
-  flex: 1 1 200px;
-  margin: $margin;
-  max-width: 350px;
-  @media (min-width: $mobile-size) {
-    min-width: 250px;
-  }
-  height: calc(100% - #{$margin});
-
-  .body {
-    height: 100%;
-  }
-
-  &.large {
-    max-width: 500px;
-  }
-}
-
-.speech-bubble {
-  border: 1px solid $gray-light;
-  border-radius: 5px;
-  max-width: 1000px;
-  background-color: $white;
-  margin: 1em 0 0 0;
-}
 </style>

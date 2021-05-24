@@ -7,40 +7,42 @@
         title="Achievements"
         subtitle="Achievements and gems add clout to your portfolio."
       >
-        <a
-          v-if="!$store.getters.getUserIsSubscribed"
-          @click="$router.push({name: 'Pricing'})"
-        >
-          Upgrade to a Pro plan to be able to check your answers,
-          earn certifications, unlock achievements and support the project.
-        </a>
-        <div id="cards">
-          <ImageCard
-            v-for="(userAchievement, i) of $store.getters.getUserAchievements"
-            :key="i"
-            :img-src="userAchievement.ImageURL"
-            class="card"
-            theme="light"
-            :class="{'locked': !userAchievement.UnlockedAt}"
-          >
-            <div
-              :ref="`cardbody${i}`"
-              class="body"
+        <div class="p-4">
+          <p class="mb-5">
+            <a
+              v-if="!$store.getters.getUserIsSubscribed"
+              @click="$router.push({name: 'Pricing'})"
             >
-              <p class="item title">
-                {{ userAchievement.Title }}
-              </p>
+              Upgrade to a Pro plan to be able to check your answers,
+              earn certifications, unlock achievements and support the project.
+            </a>
+          </p>
+          <div class="grid md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-1 gap-4">
+            <ImageCard
+              v-for="(userAchievement, i) of $store.getters.getUserAchievements"
+              :key="i"
+              :img-src="userAchievement.ImageURL"
+              :class="{'opacity-25': !userAchievement.UnlockedAt}"
+            >
+              <div
+                :ref="`cardbody${i}`"
+                class="p-4 flex flex-col items-center"
+              >
+                <p class="text-gold-600 text-xl mb-2">
+                  {{ userAchievement.Title }}
+                </p>
 
-              <p class="item description">
-                {{ userAchievement.Description }}
-              </p>
+                <p class="text-center">
+                  {{ userAchievement.Description }}
+                </p>
 
-              <GemDisplay
-                :size="2"
-                :text="`${userAchievement.GemReward}`"
-              />
-            </div>
-          </ImageCard>
+                <GemDisplay
+                  :size="2"
+                  :text="`${userAchievement.GemReward}`"
+                />
+              </div>
+            </ImageCard>
+          </div>
         </div>
       </Section>
     </div>
@@ -78,73 +80,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-
-.root {
-  display: block;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  overflow: auto;
-  min-height: calc(100vh - #{$bar-height});
-}
-
-.contentContainer {
-  max-width: 1170px;
-  padding: 10px;
-  margin: 0 auto;
-  @media (max-width: 1024px) {
-    max-width: 960px;
-  }
-
-  a {
-    margin: 1em;
-    display: block;
-  }
-}
-
-#cards {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-
-  .card {
-    flex: 1 1 calc(22% - 1em);
-    margin: 20px;
-    max-width: 250px;
-    min-width: 150px;
-
-    &.locked {
-      opacity: 0.4;
-    }
-
-    .body {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .item {
-        margin: 1em;
-      }
-
-      .title {
-        color: $gold-dark;
-        font-size: 1.5em;
-        margin: 0em;
-      }
-
-      .description {
-        color: $gray-darker;
-        font-weight: 400;
-        line-height: 1.3em;
-        font-size: 1em;
-      }
-    }
-  }
-}
+<style scoped>
 
 </style>

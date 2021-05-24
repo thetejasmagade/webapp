@@ -6,7 +6,6 @@
       disabled:cursor-not-allowed
       focus:outline-none
       text-white
-      font-bold
       py-2 px-4 rounded
     "
     :disabled="disabled"
@@ -68,6 +67,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

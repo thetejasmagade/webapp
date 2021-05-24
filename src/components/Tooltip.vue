@@ -96,7 +96,7 @@ export default {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
-    transition-delay: .3s;
+    transition-delay: .1s;
 
     position: absolute;
     z-index: 6;

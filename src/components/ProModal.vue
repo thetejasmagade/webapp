@@ -2,14 +2,15 @@
   <Modal
     ref="proModal"
   >
-    <div class="pro-modal">
-      <h1> You've discovered a Pro feature! </h1>
-      <p>
+    <div>
+      <h1 class="text-2xl text-gold-600 mb-4">
+        You've discovered a Pro feature!
+      </h1>
+      <p class="text-gray-600 mb-4">
         Upgrade to a Pro plan to be able to check your answers,
         earn certifications, unlock achievements and support the project.
       </p>
       <BlockButton
-        class="btn"
         :click="() => {btnClick()}"
         color="purple"
       >
@@ -46,19 +47,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.pro-modal {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .btn {
-    max-width: 200px;
-  }
-}
 </style>

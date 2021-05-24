@@ -1,152 +1,131 @@
 <template>
-  <div class="portfolio-root">
+  <div>
     <TopNav :title="`Portfolio - ${user.FirstName} ${user.LastName}`" />
 
-    <div class="subcontainer">
+    <div class="flex flex-col justify-start items-center">
       <Section
         v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
-        :subtitle="`@${user.Handle}`"
-        class="margin-bottom-1"
+        :subtitle="user.JobTitle"
+        class="max-w-4xl mb-5 mt-4"
       >
-        <div class="row-upper d-flex">
-          <div class="profile flex-column d-flex align-items-center justify-content-center flex-1">
+        <div class="p-4 grid grid-cols-2 xs:grid-cols-1 gap-4">
+          <div class="flex flex-col items-center">
             <ProfileImage
-              class="profile-image"
+              class="w-32 mb-4"
               :profile-image-u-r-l="user.ProfileImageURL"
               :editable="false"
             />
-            <BlockButton 
-              :click="tweet"
-              color="purple"
-              class="share-btn"
-            >
-              <FontAwesomeIcon
-                :icon="['fab', 'twitter']"
-                class="icon"
-              />
-              <span>Share on Twitter</span>
-            </BlockButton>
-          </div>
-          <div class="profileContent flex-2 py-5">
-            <div class="row">
-              <div
-                v-if="user.JobTitle"
-                class="col"
-              >
-                <span class="light">Title:</span>
-                <span class="m-left-5">{{ user.JobTitle }}</span>
-              </div>
-              <div
-                v-if="user.Location"
-                class="col"
-              >
-                <span class="light">
-                  <FontAwesomeIcon icon="map-marker-alt" />
-                </span> 
-                <span class="m-left-5">{{ user.Location }}</span>
-              </div>
-            </div>
 
-            <div class="row">
+            <div>
               <div
                 v-if="user.WebsiteURL"
-                class="col"
+                class="mb-2"
               >
-                <span class="light">
+                <span class="mr-2">
                   <FontAwesomeIcon icon="link" />
                 </span> 
                 <a
                   :href="user.WebsiteURL"
                   target="_blank"
-                  class="m-left-5"
                 >
                   {{ stripProtocol(user.WebsiteURL) }}
                 </a>
               </div>
+
               <div
                 v-if="user.TwitterHandle"
-                class="col"
+                class="mb-2"
               >
-                <span class="light">
+                <span class="mr-1">
                   <FontAwesomeIcon :icon="['fab', 'twitter']" />
                 </span> 
                 <a
                   :href="`https://twitter.com/${user.TwitterHandle}`"
                   target="_blank"
-                  class="m-left-5"
                 >
                   @{{ user.TwitterHandle }}
                 </a>
               </div>
-            </div>
 
-            <div class="row">
               <div
                 v-if="user.LinkedinURL"
-                class="col"
+                class="mb-2"
               >
-                <span class="light">
+                <span class="mr-2">
                   <FontAwesomeIcon :icon="['fab', 'linkedin']" />
                 </span> 
                 <a
                   :href="user.LinkedinURL"
                   target="_blank"
-                  class="m-left-5"
                 >
                   {{ stripProtocol(user.LinkedinURL) }}
                 </a>
               </div>
+
               <div
                 v-if="user.GithubHandle"
-                class="col"
+                class="mb-2"
               >
-                <span class="light">
+                <span class="mr-2">
                   <FontAwesomeIcon :icon="['fab', 'github']" />
                 </span> 
                 <a
                   :href="`https://github.com/${user.GithubHandle}`"
                   target="_blank"
-                  class="m-left-5"
                 >
                   {{ user.GithubHandle }}
                 </a>
               </div>
             </div>
           </div>
-        </div>
-        <div class="bio light">
-          {{ user.Bio }}
+
+          <div class="flex flex-col">
+            <p
+              v-if="user.Handle"
+              class="mb-2 text-gray-600"
+            >
+              @{{ user.Handle }}
+            </p>
+
+            <div
+              v-if="user.Location"
+              class="mb-2 text-blue-600"
+            >
+              <span class="mr-2">
+                <FontAwesomeIcon icon="map-marker-alt" />
+              </span> 
+              <span>{{ user.Location }}</span>
+            </div>
+            
+            <div class="text-gray-500">
+              {{ user.Bio }}
+            </div>
+          </div>
         </div>
       </Section>
 
       <Section
         title="Course Progress"
-        class="margin-bottom-1"
+        class="max-w-4xl mb-5"
       >
-        <div class="row-portfolio d-flex align-items-center flex-wrap py-5">
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
           <ImageCard
             v-for="(course, i) of filteredCourses"
             :key="i"
             :img-src="course.ImageURL"
-            class="card"
-            :click="() => {linkClick(course.LandingPage)}"
-            theme="light"
           >
             <div
               :ref="`cardbody${i}`"
               class="body"
             >
-              <h3
-                class="item title color-purple"
-              >
-                {{ course.Title }}
-              </h3>
+              <h2 class="text-xl underline mb-4">
+                <a @click="() => {linkClick(course.LandingPage)}">{{ course.Title }}</a>
+              </h2>
               <p
-                class="item description"
-                :class="{'light': !course.IsComplete, 'complete': course.IsComplete}"
+                class="text-center text-green-700"
               >
-                {{ course.IsComplete ? 'Complete' : 'In Progress' }}
+                Complete
               </p>
             </div>
           </ImageCard>
@@ -156,29 +135,30 @@
       <Section
         v-if="filteredAchievements.length>0"
         title="Achievements Earned"
+        class="max-w-4xl mb-5"
       >
-        <div class="row-portfolio d-flex align-items-center flex-wrap py-5">
+        <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
           <ImageCard
             v-for="(achievement, i) of filteredAchievements"
             :key="i"
             :img-src="achievement.ImageURL"
-            class="card small"
-            theme="light"
           >
             <div
               :ref="`cardbody${i}`"
-              class="body"
+              class="p-4 flex flex-col items-center"
             >
-              <h3
-                class="item title complete"
-              >
+              <p class="text-gold-600 text-xl mb-2">
                 {{ achievement.Title }}
-              </h3>
-              <p
-                class="item description light"
-              >
+              </p>
+
+              <p class="text-center">
                 {{ achievement.Description }}
               </p>
+
+              <GemDisplay
+                :size="2"
+                :text="`${achievement.GemReward}`"
+              />
             </div>
           </ImageCard>
         </div>
@@ -193,7 +173,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ProfileImage from '@/components/ProfileImage.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import Section from '@/components/Section.vue';
-import BlockButton from '@/components/BlockButton.vue';
 
 import {
   getCoursesPublic,
@@ -224,8 +203,7 @@ export default {
     FontAwesomeIcon,
     ProfileImage,
     ImageCard,
-    Section,
-    BlockButton
+    Section
   },
   data() {
     return {
@@ -263,9 +241,6 @@ export default {
     }
   },
   methods: {
-    tweet() {
-      window.open(`https://twitter.com/share?url=https://app.qvault.io/u/${this.user.Handle}&text=Check out my dev profile on @q_vault!&hashtags=qvault`, '_blank');
-    },
     linkClick(url) {
       window.open(url, '_blank');
     },
@@ -276,153 +251,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
+<style scoped>
 
-.portfolio-root {
-  overflow: auto;
-  background-attachment: fixed;
-  height: 100%;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-
-  .col {
-    flex: 1;
-    padding: 15px;
-  }
-}
-
-.card {
-  flex: 1 1 calc(22% - 1em);
-  margin: 20px;
-  max-width: 250px;
-  min-width: 150px;
-
-  &.small {
-    max-width: 150px;
-    min-width: 100px;
-
-    .body {
-      .title {
-        font-size: 1em;
-      }
-    }
-  }
-
-  .body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-bottom: 1em;
-
-    .item {
-      margin: 1em 1em 0em 1em;
-    }
-
-    .title {
-      font-size: 1.2em;
-    }
-
-    .description {
-      font-weight: 400;
-      line-height: 1.3em;
-      font-size: 1em;
-    }
-  }
-}
-
-.m-left-5 {
-  margin-left: 5px;
-}
-
-.profile-image {
-  margin-top: 25px;
-  width: 200px;
-}
-
-.basis-25 {
-  flex-basis: 25%;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.justify-content-center {
-  justify-content: center;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.flex-2 {
-  flex: 2;
-}
-
-.light {
-  color: $gray-mid;
-}
-
-.complete {
-  color: $gold-mid;
-}
-
-.color-purple {
-  color: $purple-dark;
-}
-
-.py-5 {
-  padding: 50px 0;
-}
-
-.row-portfolio {
-  @media (max-width: 768px) {
-    flex-direction: column;
-    .basis-25 {
-      flex-basis: 90% !important;
-    }
-  }
-}
-
-.row-upper {
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-}
-
-.profile {
-  margin-right: 2em;
-  img {
-    max-width: 240px;
-    border-radius: 50%;
-    margin: 0 auto;
-  }
-}
-
-.share-btn{
-  margin-top: 1em;
-  .icon {
-    margin-right: 5px;
-  }
-}
-
-.bio {
-  margin-top: 1em;
-}
 </style>

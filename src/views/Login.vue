@@ -19,7 +19,7 @@
         >
 
         <h2 class="text-center font-semibold mb-3 text-2xl text-gray-800">
-          Mastering computer science can be <span class="font-bold text-blue-400">simple.</span>
+          Computer science can be <span class="font-bold text-blue-400">simple.</span>
         </h2>
 
         <h3 class="text-center text-gray-500 mb-3">
