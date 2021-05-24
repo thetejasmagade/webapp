@@ -32,7 +32,7 @@
 
         <p class="mb-4">
           Access to this list is exclusive to our amazing partners like you.
-          Any breach of the rules will result in an immediate ban and potentially legal action.
+          Any breach of the rules will result in an immediate ban and potential legal action.
         </p>
       </div>
     </Section>
