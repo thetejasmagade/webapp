@@ -17,16 +17,6 @@
             subtitle="Take these courses in order to complete the full computer science program"
           >
             <div class="section-body">
-              <ProfileSpeechBubble
-                link="https://qvault.io/about#wagslane"
-                class="speech-bubble"
-                text="
-                  I've found the #1 thing that sets developers apart in the job market is their understanding of computer science concepts.
-                  That's why I wrote this hands-on program. There's just too much that educators leave out of boot
-                  camps and crash courses."
-                image-u-r-l="https://pbs.twimg.com/profile_images/1380974063959429120/ZcqTzuh7_400x400.jpg"
-                bio="Lane, Author"
-              />
               <div class="cards">
                 <div
                   v-if="csProgramCourses.length > 0"
@@ -156,7 +146,6 @@ import CourseCardBody from '@/components/CourseCardBody.vue';
 import CourseCardBodyDetailed from '@/components/CourseCardBodyDetailed.vue';
 import Tab from '@/components/Tab.vue';
 import Tabs from '@/components/Tabs.vue';
-import ProfileSpeechBubble from '@/components/ProfileSpeechBubble.vue';
 
 import { 
   getCourseRecommendations
@@ -185,8 +174,7 @@ export default {
     CourseCardBody,
     CourseCardBodyDetailed,
     Tab,
-    Tabs,
-    ProfileSpeechBubble
+    Tabs
   },
   data() {
     return {
