@@ -1,39 +1,46 @@
 <template>
-  <div class="signup-flow-recruiters">
+  <div class="flex flex-col justify-start h-full">
     <TopNav title="Getting Started" />
 
-    <div class="subcontainer">
+    <div class="flex flex-col justify-center items-center flex-1">
       <Section
         title="Landing your dream job"
         subtitle="We not only educate, but also help you find you a job you love"
         class="section"
       >
-        <div class="body">
-          <p>
+        <div class="max-w-xl p-4">
+          <p class="mb-2">
             We have exclusive partnerships with organizations that are dedicated
             to finding great tech jobs for our students. If you're interested in
-            <b> getting hired now or in the future </b> then opt-in below. You can also update your settings
+            <b class="text-gold-700"> getting hired now or in the future </b> then opt-in below. You can also update your settings
             any time, your privacy is a priority to us.
           </p>
-          <p>
+
+          <p class="mb-2">
             Make sure to update your Qvault profile with a picture, LinkedIn account, location,
             etc, to increase your chances of getting contacted!
           </p>
-          <h2>If we find a coding job that could work for you, can our partners contact you?</h2>
-          <BlockButton
-            class="btn"
-            color="purple"
-            :click="success"
-          >
-            Yes! Contact me
-          </BlockButton>
-          <BlockButton
-            class="btn"
-            color="gray"
-            :click="cancel"
-          >
-            No thanks
-          </BlockButton>
+
+          <h2 class="text-xl text-gold-600 mt-4 mb-4">
+            If we find a coding job that seems like a great match, can our partners reach out?
+          </h2>
+
+          <div class="text-center">
+            <BlockButton
+              class="mr-4"
+              color="purple"
+              :click="success"
+            >
+              Yes! Contact me
+            </BlockButton>
+            <BlockButton
+              class="btn"
+              color="gray"
+              :click="cancel"
+            >
+              No thanks
+            </BlockButton>
+          </div>
         </div>
       </Section>
     </div>
@@ -83,39 +90,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.signup-flow-recruiters {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-
-  .subcontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-
-    .section {
-      max-width: 700px;
-      
-      .body {
-        text-align: center;
-        padding: 1em;
-
-        p {
-          text-align: left;
-        }
-      }
-    }
-  }
-
-  .btn {
-    margin: 1em;
-  }
-}
 </style>

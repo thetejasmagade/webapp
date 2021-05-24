@@ -1,27 +1,31 @@
 <template>
-  <div class="signup-flow-interests">
+  <div class="flex flex-col justify-start h-full">
     <TopNav title="Getting Started" />
 
-    <div class="subcontainer">
+    <div class="flex flex-col justify-center items-center flex-1">
       <Section
         title="Technical Interests"
         subtitle="By knowing which technologies and subjects you like, we can suggest material that's perfect for you"
-        class="section"
+        class="max-w-2xl"
       >
-        <div class="body">
-          <h3>Which do you find most interesting? Select up to 5</h3>
+        <div class="mx-5">
+          <h3 class="text-xl text-gold-600 mt-4 text-center">
+            Which do you find most interesting? Select up to 5
+          </h3>
           <CheckboxForm
             v-model="checkedAnswers"
+            class="mb-4"
             :options="interestsAnswers"
           />
-          <BlockButton
-            class="btn"
-            color="purple"
-            :click="submitInterests"
-            :disabled="checkedAnswers.length < 1 || checkedAnswers.length > 5"
-          >
-            <span>Submit</span>
-          </BlockButton>
+          <div class="text-center">
+            <BlockButton
+              color="purple"
+              :click="submitInterests"
+              :disabled="checkedAnswers.length < 1 || checkedAnswers.length > 5"
+            >
+              <span>Submit</span>
+            </BlockButton>
+          </div>
         </div>
       </Section>
     </div>
@@ -91,30 +95,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.signup-flow-interests {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-
-  .subcontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-
-    .section {
-      max-width: 700px;
-      
-      .body {
-        text-align: center;
-      }
-    }
-  }
-}
 </style>

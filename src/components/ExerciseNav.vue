@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation">
+  <div class="flex flex-row justify-between bg-gray-300 text-gray-700">
     <div>
       <BlockButton
         :click="goBack"
@@ -12,7 +12,7 @@
       </BlockButton>
       <BlockButton
         :disabled="!canGoForward"
-        class="margin-left"
+        class="ml-3"
         :click="goForward"
         :color="canGoForward ? 'green' : 'gray'"
       >
@@ -24,17 +24,17 @@
 
     <div
       v-if="title"
-      class="title"
-      :class="{'complete': exerciseIsComplete}"
+      class="flex items-center"
+      :class="{'text-green-700': exerciseIsComplete}"
     >
       <FontAwesomeIcon
         v-if="exerciseIsComplete"
-        class="icon"
+        class="mr-3"
         icon="check"
       />
       <FontAwesomeIcon
         v-else-if="locked"
-        class="icon pink"
+        class="mr-3 text-red-600"
         icon="lock"
       />
       <span>
@@ -44,12 +44,11 @@
 
     <div :style="{'visibility': clickSolution ? 'visible' : 'hidden'}">
       <BlockButton
-        class="btn"
         :click="clickSolution"
         color="gray"
       >
         <FontAwesomeIcon
-          class="icon"
+          class="mr-1"
           icon="eye"
         />
         <span> Cheat </span>
@@ -115,42 +114,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.navigation{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  position: relative;
-  background-color: $gray-lighter;
-  color: $gray-darker;
-
-  .margin-left {
-    margin: 0 0 0 1em;
-  }
-
-  .icon {
-    margin-right: 5px;
-
-    &.pink {
-      color: $pink-dark;
-    }
-  }
-
-  .title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &.complete {
-      color: $green-dark;
-    }
-
-    @media (max-width: $mobile-size) {
-      display: none;
-    }
-  }
-}
 </style>

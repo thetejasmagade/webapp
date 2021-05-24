@@ -1,24 +1,29 @@
 <template>
-  <div class="signup-flow-experience">
+  <div class="flex flex-col justify-start h-full">
     <TopNav title="Getting Started" />
 
-    <div class="subcontainer">
+    <div class="flex flex-col justify-center items-center flex-1">
       <Section
         title="Developer Experience"
         subtitle="Let us know where you're at as a programmer so we can recommend the best courses for you"
-        class="section"
+        class="max-w-2xl"
       >
-        <div class="body">
-          <h3>Roughly how much coding experience do you have?</h3>
+        <div class="text-center">
+          <h3 class="text-xl text-gold-600 my-4">
+            Roughly how much coding experience do you have?
+          </h3>
           <Slider
             v-model="experienceLevel"
             :min="0"
             :max="99"
-            class="slider"
+            class="mb-4"
           />
-          <p>{{ devExperienceDescription }}</p>
+
+          <p class="mb-4 text-gray-500">
+            {{ devExperienceDescription }}
+          </p>
+
           <BlockButton
-            class="btn"
             color="purple"
             :click="submitDeveloperExperience"
           >
@@ -85,34 +90,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.signup-flow-experience {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-
-  .subcontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-
-    .section {
-      max-width: 800px;
-
-      .body {
-        text-align: center;
-      }
-    }
-  }
-
-  .slider {
-    margin-bottom: 1.5em;
-  }
-}
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <div class="btns">
+  <div class="flex flex-row justify-start content-center">
     <Tooltip
       v-if="upgradeCallback"
       :text="`Get pro`"
       position="bottom"
     >
       <BlockButton
-        class="btn"
+        class="mr-3"
         :click="upgradeCallback"
         color="gold"
       >
@@ -16,12 +16,13 @@
         Go Pro
       </BlockButton>
     </Tooltip>
+
     <Tooltip
       :text="`Run code`"
       position="bottom"
     >
       <BlockButton
-        class="btn"
+        class="mr-3"
         :click="runCallback"
       >
         <FontAwesomeIcon
@@ -36,7 +37,7 @@
       position="bottom"
     >
       <BlockButton
-        class="btn"
+        class="mr-3"
         :click="saveCallback"
         color="gray"
       >
@@ -51,7 +52,7 @@
       position="bottom"
     >
       <BlockButton
-        class="btn"
+        class="mr-3"
         :click="loadCallback"
         color="gray"
       >
@@ -65,7 +66,7 @@
       position="bottom"
     >
       <BlockButton
-        class="btn"
+        class="mr-3"
         :click="resetCallback"
         color="gray"
       >
@@ -116,18 +117,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.btns {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-
-  .btn {
-    margin: 0 1em 0 0;
-  }
-}
 </style>
