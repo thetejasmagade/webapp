@@ -6,11 +6,11 @@
       subtitle="Here are some quick rules regarding how to utilize this tool"
     >
       <div class="section-body">
-        <p>
+        <p class="mb-4">
           We <b>strictly require</b> everyone to play by the
           rules. All the rules are legally binding <a href="https://qvault.io/terms-of-service">terms of service that your team agreed to</a>.
         </p>
-        <ul>
+        <ul class="list-disc ml-5 mb-4">
           <li>
             Our system ensures a candidate's contact info can be accessed at most 5 times per month.
             This keeps candidates responsive. We don't want them constantly contacted by different teams.
@@ -30,7 +30,7 @@
           </li>
         </ul>
 
-        <p>
+        <p class="mb-4">
           Access to this list is exclusive to our amazing partners like you.
           Any breach of the rules will result in an immediate ban and potentially legal action.
         </p>
@@ -43,24 +43,32 @@
       subtitle="Everyone here has opted-in to being contacted for relevant opportunities"
     >
       <div class="section-body">
-        <p> * Indicates required </p>
+        <h2 class="mb-4">
+          * Indicates required
+        </h2>
         <div class="toggles">
           <div class="toggle interests">
-            <h3> * Interests </h3>
+            <h3 class="font-bold text-lg mb-4">
+              * Interests
+            </h3>
             <CheckboxForm
               v-model="interestsChecked"
               :options="interestsAnswers"
             />
           </div>
           <div class="toggle experience">
-            <h3> * Experience </h3>
+            <h3 class="font-bold text-lg mb-4">
+              * Experience
+            </h3>
             <CheckboxForm
               v-model="experienceLabelsChecked"
               :options="experienceLevelLabels"
             />
           </div>
           <div class="toggle location">
-            <h3> Location </h3>
+            <h3 class="font-bold text-lg mb-4">
+              Location
+            </h3>
             <p>
               This is a "contains" match on the candidate's location text.
               Try cities, states, or countries, and also try abbreviations like "CA" for "California" or "US" for "United States".
@@ -84,7 +92,9 @@
               v-if="!false"
               class="body"
             >
-              <h3> {{ capitalize(user.FirstName) }} {{ user.revealed ? capitalize(user.LastName) : '' }}</h3>
+              <h3 class="font-bold text-lg mb-4">
+                {{ capitalize(user.FirstName) }} {{ user.revealed ? capitalize(user.LastName) : '' }}
+              </h3>
               
               <div
                 v-if="user.revealed"
@@ -98,12 +108,15 @@
               </div>
 
               <div class="item">
-                <FontAwesomeIcon icon="map-marker-alt" />
+                <FontAwesomeIcon
+                  icon="map-marker-alt"
+                  class="mr-3"
+                />
                 <span> {{ user.Location ? user.Location : 'Unknown' }} </span>
               </div>
 
               <div class="item">
-                <ul>
+                <ul class="list-disc ml-5 mb-4">
                   <li
                     v-for="(interest, j) of getInterestTags(user.Interests)"
                     :key="j"
@@ -276,7 +289,7 @@ export default {
     reveal(handle){
       const user = JSON.parse(JSON.stringify(this.users[handle]));
       user.revealed = true;
-      this.$set(this.users, handle, user);
+      this.users[handle] = user;
     },
     interestTagFromUUID(interestUUID) {
       for (const interest of this.$store.getters.getAllInterests){

@@ -1,20 +1,41 @@
 <template>
   <div>
     <div class="container">
-      <GoogleButton
-        class="btn"
-        :on-success="onGoogleSuccess"
-      />
+      <BlockButton
+        :click="clickGoogle"
+        color="gold"
+        class="my-5"
+      >
+        <FontAwesomeIcon
+          :icon="['fab', 'google']"
+          class="mr-3"
+        />
+        Sign in with Google
+      </BlockButton>
 
-      <GithubButton 
-        class="btn"
-        :is-subscribed-news="subscribeNews"
-      />
+      <BlockButton
+        :click="clickGithub"
+        color="gray"
+        class="mb-5"
+      >
+        <FontAwesomeIcon
+          :icon="['fab', 'github']"
+          class="mr-3"
+        />
+        Sign in with Github
+      </BlockButton>
 
-      <TwitterButton 
-        class="btn"
-        :is-subscribed-news="subscribeNews"
-      />
+      <BlockButton
+        :click="clickTwitter"
+        color="purple"
+        class="mb-5"
+      >
+        <FontAwesomeIcon
+          :icon="['fab', 'twitter']"
+          class="mr-3"
+        />
+        Sign in with Twitter
+      </BlockButton>
 
       <div class="item switch">
         <ToggleSwitch
@@ -29,7 +50,12 @@
         />
         <span class="sub-item right">
           I've read and agree to the 
-          <a href="https://qvault.io/terms-of-service/">terms</a>
+          <a
+            class="link"
+            href="https://qvault.io/terms-of-service/"
+          >
+            terms
+          </a>
         </span>
       </div>
     </div>
@@ -37,10 +63,9 @@
 </template>
 
 <script>
-import GoogleButton from '@/components/GoogleButton.vue';
-import TwitterButton from '@/components/TwitterButton.vue';
-import GithubButton from '@/components/GithubButton.vue';
+import BlockButton from '@/components/BlockButton.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
   loginGoogle,
@@ -53,13 +78,20 @@ import {
   loadLoggedIn
 } from '@/lib/cloudStore.js';
 
+import {
+  getLoginWithGithubURL
+} from '@/lib/cloudClient.js';
+
+import {
+  getLoginWithTwitterURL
+} from '@/lib/cloudClient.js';
+
 
 export default {
   components: {
-    GoogleButton,
-    TwitterButton,
-    GithubButton,
-    ToggleSwitch
+    BlockButton,
+    ToggleSwitch,
+    FontAwesomeIcon
   },
   data(){
     return {
@@ -83,6 +115,28 @@ export default {
         });
         return;
       }
+    },
+    async clickGoogle(){
+      try {
+        this.$gAuth.signIn(this.onGoogleSuccess, this.onGoogleFailure);
+      } catch (err){
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
+    },
+    async clickTwitter(){
+      window.location.replace(getLoginWithTwitterURL(this.isSubscribedNews, this.$route.query.ruid));
+    },
+    async clickGithub(){
+      window.location.replace(getLoginWithGithubURL(this.isSubscribedNews, this.$route.query.ruid));
+    },
+    async onGoogleFailure(){
+      notify({
+        type: 'danger',
+        text: 'Couldn\'t log in with Google'
+      });
     },
     async onGoogleSuccess(googleUser){
       try {

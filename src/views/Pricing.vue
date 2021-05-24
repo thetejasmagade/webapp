@@ -12,11 +12,13 @@
         <div class="section-body">
           <h2
             v-if="$store.getters.getUserIsSubscribed"
+            class="text-xl"
           >
             You're already subscribed. Go take some courses!
           </h2>
           <h2
             v-else
+            class="text-xl"
           >
             Learn, practice, and apply career-building skills with a Pro account
           </h2>
@@ -94,7 +96,7 @@
         subtitle="Interested in upgrading but unsure what that entails?"
       >
         <div class="section-body">
-          <h2>
+          <h2 class="text-xl my-4">
             What's the difference between Basic and Pro?
           </h2>
           <p>
@@ -115,7 +117,9 @@
             of completion when they finish a course. Showing off your work to employers is a quick way to get that high-paying tech job.
           </p>
 
-          <h2> Do you offer any discounts? </h2>
+          <h2 class="text-xl my-4">
+            Do you offer any discounts?
+          </h2>
           <p>
             We do promotions from time to time, and currently we're offering a <a
               target="_blank"
@@ -125,13 +129,17 @@
             When you're finished with the survey you'll be given a coupon code!
           </p>
 
-          <h2> Do I need to know how to code before signing up? </h2>
+          <h2 class="text-xl my-4">
+            Do I need to know how to code before signing up?
+          </h2>
           <p>
             No, in fact many of our students have zero experience when they sign up.
             Our "Basic Intro to Coding" courses are built just for you.
           </p>
 
-          <h2> Why should I upgrade to Qvault Pro? </h2>
+          <h2 class="text-xl my-4">
+            Why should I upgrade to Qvault Pro?
+          </h2>
           <p>
             I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
             to lead you to a high-paying programming job. If you’re ready to accelerate your learning and apply the skills you learn to real-world scenarios,
@@ -142,7 +150,9 @@
             improve the platform. We're a small organization that's just starting out, so the more people subscribe, the better the product will be.
           </p>
 
-          <h2> How do I cancel my subscription? </h2>
+          <h2 class="text-xl my-4">
+            How do I cancel my subscription?
+          </h2>
           <p>
             We do our best to be transparent about pricing, and never want anyone keeping
             a subscription they don't use. You can cancel your subscription any time from your <a href="/dashboard/settings">settings page</a>

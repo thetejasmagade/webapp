@@ -88,28 +88,52 @@ export default {
 
     h1 {
       font-weight: 600;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
 
     h2 {
-      font-weight: 400;
+      font-weight: 600;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
 
     p {
       font-size: 1.1rem;
       line-height: 1.5;
+      margin-bottom: 1rem;
     }
 
     pre {
       code {
         color: inherit;
         background-color: inherit;
-        font-size: 1em;
       }
+    }
+
+    ul {
+      @apply list-disc;
+      margin-left: 1rem;
+    }
+
+    ol {
+      @apply list-decimal;
+      margin-left: 1rem;
     }
 
     code {
       color: $pink-dark;
-      font-size: 1.2em;
     }
 
     img {

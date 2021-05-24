@@ -110,35 +110,10 @@ export default {
 <style lang="scss">
 @import 'styles/styles.scss';
 @import 'styles/colors.scss';
+@import 'styles/index.css';
 
 #app {
   height: 100%;
   background-color: $gray-lighter;
-}
-
-.vue-notification-group {
-  margin: 8em 1em 0 0;
-}
-
-.custom-notification {
-  padding: 1em;
-  cursor: pointer;
-  margin-top: 1em;
-  font-size: 1em;
-  color: $white;
-  background: $purple-mid !important;
-  border-right: 5px solid $gray-darker;
-
-  &.warn {
-    background: $gold-mid !important;
-  }
-
-  &.error {
-    background: $pink-mid !important;
-  }
-
-  &.success {
-    background: $green-dark !important;
-  }
 }
 </style>

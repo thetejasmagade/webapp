@@ -166,7 +166,16 @@
                   <textarea
                     v-model="user.bio"
                     :placeholder="bio"
-                    class="inputItems textarea"
+                    class="
+                      autoexpand
+                      tracking-wide
+                      py-2 px-4 mb-3
+                      leading-relaxed
+                      appearance-none
+                      block w-full 
+                    bg-gray-200
+                      border rounded focus:outline-none border-gray-300
+                    "
                     rows="4"
                   />
                   <label>Bio</label>
@@ -436,17 +445,6 @@ label {
         line-height: 26px;
         width: 100%;
         font-family: 'Roboto', sans-serif;
-
-        &.textarea {
-          outline: none;
-          resize: none;
-          border-color: $gray-lighter;
-          background: inherit;
-
-          &:focus{
-            border-color: $purple-dark;
-          }
-        }
 
         &.vertical{
           margin-bottom: 1em;

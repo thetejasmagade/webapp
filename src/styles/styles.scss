@@ -18,35 +18,6 @@ body {
   background-color: $gray-lighter;
 }
 
-p {
-  margin-block-start: 0;
-  margin-bottom: 1.5em;
-  display: block;
-}
-
-h1 {
-  margin-bottom: 1em;
-  display: block;
-  font-weight: 300;
-}
-
-h2 {
-  margin-bottom: 1em;
-  display: block;
-  font-weight: 300;
-}
-
-h3 {
-  margin-bottom: 1em;
-  line-height: 1.3em;
-  font-weight: 400;
-}
-
-h4 {
-  margin-bottom: 1em;
-  font-weight: 600;
-}
-
 a, .link{
   cursor: pointer;
   color: $gold-dark;

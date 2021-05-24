@@ -3,7 +3,6 @@ import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
 import gAuth from 'vue3-google-auth';
-
 import 'mosha-vue-toastify/dist/style.css';
 
 const $gAuth = gAuth.createGAuth({

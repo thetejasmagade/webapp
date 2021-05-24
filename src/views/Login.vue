@@ -1,66 +1,116 @@
 <template>
   <div
-    class="login-container"
+    class="login-container flex flex-col h-screen bg-gray-100"
   >
     <div class="nav-container">
       <TopNav title="Qvault" />
     </div>
 
-    <div class="panel-container">
-      <div class="panel">
+    <div class="grid place-items-center mx-2 my-20 sm:my-auto">
+      <div
+        class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
+            px-6 py-10 sm:px-10 sm:py-6
+            bg-white rounded-lg shadow-md lg:shadow-lg"
+      >
         <img
           alt="Qvault logo"
           src="../img/qvault-icon-250.png"
-          class="logo"
+          class="mx-auto w-24 mb-3"
         >
 
-        <span class="title">
-          Mastering computer science can be <span class="emphasis">simple.</span>
-        </span>
+        <h2 class="text-center font-semibold mb-3 text-2xl text-gray-800">
+          Mastering computer science can be <span class="font-bold text-blue-400">simple.</span>
+        </h2>
 
-        <span class="title sub">
+        <h3 class="text-center text-gray-500 mb-3">
           All coding courses are free to audit.
-        </span>
+        </h3>
 
         <div
           v-if="state === 'integration'"
-          class="form"
         >
-          <IntegrationLoginForm class="top" />
-          <div class="bottom">
-            <span>Don't like integrations? <a @click="state='register'">Create password</a></span>
-            <span>Have a password? <a @click="state='login'">Login</a></span>
+          <IntegrationLoginForm />
+          <div class="text-center">
+            <p>
+              Don't like integrations? <a
+                class="link"
+                @click="state='register'"
+              >
+                Create password
+              </a>
+            </p>
+            <p>
+              Have a password? <a
+                class="link"
+                @click="state='login'"
+              >
+                Login
+              </a>
+            </p>
           </div>
         </div>
 
         <div
           v-if="state === 'register'"
-          class="form"
         >
-          <RegisterForm class="top" />
-          <div class="bottom">
-            <span>Have an integrated account? <a @click="state='integration'">Single Sign-On</a></span>
-            <span>Have an account? <a @click="state='login'">Login</a></span>
+          <RegisterForm />
+          <div class="text-center">
+            <p>
+              Have an integrated account? <a
+                class="link"
+                @click="state='integration'"
+              >
+                Single Sign-On
+              </a>
+            </p>
+            <p>
+              Have an account? <a
+                class="link"
+                @click="state='login'"
+              >
+                Login
+              </a>
+            </p>
           </div>
         </div>
 
         <div
           v-if="state === 'login'"
-          class="form"
         >
-          <LoginForm class="top" />
-          <div class="bottom">
-            <span>Need an account? <a @click="state='register'">Sign Up Free</a></span>
-            <span>Have an integrated account? <a @click="state='integration'">Single Sign-On</a></span>
-            <span><a @click="state='forgot-password'">Forgot Password?</a></span>
+          <LoginForm />
+          <div class="text-center">
+            <p>
+              Need an account? <a
+                class="link"
+                @click="state='register'"
+              >
+                Sign Up Free
+              </a>
+            </p>
+            <p>
+              Have an integrated account? <a
+                class="link"
+                @click="state='integration'"
+              >
+                Single Sign-On
+              </a>
+            </p>
+            <p>
+              <a
+                class="link"
+                @click="state='forgot-password'"
+              >
+                Forgot Password?
+              </a>
+            </p>
           </div>
         </div>
     
         <div
           v-if="state === 'forgot-password'"
         >
-          <ForgotPasswordForm class="top" />
-          <div class="bottom">
+          <ForgotPasswordForm />
+          <div class="text-center">
             <span><a @click="state='login'">Back</a></span>
           </div>
         </div>
@@ -171,93 +221,5 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
-
-.emphasis {
-  color: $purple-light;
-}
-
-.form {
-  margin: 1em;
-}
-
-.login-container {
-  height: 100vh;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
-  .nav-container {
-    width: 100%;
-  }
-
-  .panel-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-
-    @media (max-width: $mobile-size) {
-      justify-content: flex-start;
-    }
-  }
-
-  .panel {
-    background-color: $gray-lightest;
-    min-height: 600px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 1em 2em 1em 2em;
-
-    @media (max-width: $mobile-size) {
-      height: 100%;
-      padding: 1em;
-    }
-
-    .logo {
-      width: 75px;
-      height: 75px;
-      margin-bottom: 1em;
-      margin-top: 1em;
-    }
-
-    .title {
-      color: $gray-dark;
-      font-size: 1.4em;
-      text-align: center;
-      margin-bottom: 1em;
-
-      &.sub {
-        color: $gray-light;
-        font-size: 1em;
-      }
-    }
-
-    .top {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-    }
-
-    .bottom {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-
-      span {
-        margin-bottom: 10px;
-        a {
-          cursor: pointer;
-        }
-      }
-    }
-  }
-}
 
 </style>

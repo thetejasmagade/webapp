@@ -66,8 +66,8 @@
           class="item"
         >
           <FontAwesomeIcon
-            icon="bars"
-            class="item"
+            :icon="['fa', 'bars']"
+            class="text-3xl cursor-pointer"
             @click="mobileMenuOpen = !mobileMenuOpen"
           />
         </div>

@@ -42,6 +42,26 @@ yarn lint
   },
   "eslint.alwaysShowStatus": true,
   "eslint.format.enable": true,
-  "eslint.packageManager": "yarn"
+  "eslint.packageManager": "yarn",
+  "css.customData": [
+    ".vscode/css_custom_data.json"
+  ]
+}
+```
+
+```json
+{
+  "atDirectives": [
+    {
+      "name": "@tailwind",
+      "description": "Use the @tailwind directive to insert Tailwind’s `base`, `components`, `utilities`, and `screens` styles into your CSS.",
+      "references": [
+        {
+          "name": "Tailwind’s “Functions & Directives” documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives/#tailwind"
+        }
+      ]
+    }
+  ]
 }
 ```
