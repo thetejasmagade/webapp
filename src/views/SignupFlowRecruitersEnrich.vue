@@ -4,26 +4,24 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="Landing your dream job"
-        subtitle="We not only educate, but also help you find you a job you love"
+        title="One last thing"
+        subtitle="Let recruiters know where you're at"
         class="section"
       >
         <div class="max-w-xl p-4">
-          <p class="mb-2">
-            We have exclusive partnerships with organizations that are dedicated
-            to finding great tech jobs for our students. If you're interested in
-            <b class="text-gold-700"> getting hired now or in the future </b> then opt-in below. You can also update your settings
-            any time, your privacy is a priority to us.
-          </p>
-
-          <p class="mb-2">
-            Make sure to update your Qvault profile with a picture, LinkedIn account, location,
-            etc, to increase your chances of getting contacted!
-          </p>
-
-          <h2 class="text-xl text-gold-600 mt-4 mb-4">
-            If we find a coding job that seems like a great match, can our partners reach out?
+          <h2 class="text-xl mt-4 mb-4">
+            You're much more likely to be contacted for great
+            jobs if you give us a rough idea of where you're located.
           </h2>
+
+          <div class="text-center">
+            <TextInput
+              v-model="location"
+              placeholder="city, country"
+              type="text"
+              class="mb-4"
+            />
+          </div>
 
           <div class="text-center">
             <BlockButton
@@ -31,14 +29,14 @@
               color="purple"
               :click="success"
             >
-              Yes! Contact me
+              Save
             </BlockButton>
             <BlockButton
               class="btn"
               color="gray"
               :click="cancel"
             >
-              No thanks
+              Skip
             </BlockButton>
           </div>
         </div>
@@ -51,6 +49,7 @@
 import TopNav from '@/components/TopNav.vue';
 import Section from '@/components/Section.vue';
 import BlockButton from '@/components/BlockButton.vue';
+import TextInput from '@/components/TextInput.vue';
 
 import { 
   updateUser
@@ -65,15 +64,22 @@ export default {
   components: {
     TopNav,
     Section,
-    BlockButton
+    BlockButton,
+    TextInput
+  },
+  data(){
+    return {
+      location: ''
+    };
   },
   methods:{
     async success(){
       try {
         await updateUser(
-          { recruitersCanContact: true }
+          { location: this.location }
         );
-        this.$router.push({name: 'SignupFlowRecruitersEnrich', query: {redirect: this.$route.query.redirect}});
+        gtmEventTutorialComplete();
+        this.$router.push({name: 'Settings', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
         notify({
           type: 'danger',
