@@ -2,11 +2,21 @@
   <div
     class="bg-white shadow-2xl rounded mb-6 tracking-wide"
   >
-    <div class="md:flex-shrink-0">
+    <div
+      class="md:flex-shrink-0 rounded rounded-b-none"
+      :class="{
+        'bg-black': click,
+      }"
+    >
       <img
         v-if="imgSrc"
         :src="imgSrc"
         class="w-full h-64 rounded rounded-b-none object-cover h-full w-full"
+        :class="{
+          'cursor-pointer': click,
+          'hover:opacity-90': click
+        }"
+        @click="onClick"
       >
     </div>
     <div class="px-4 py-2 mt-2">
@@ -22,6 +32,18 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    click: {
+      type: Function,
+      required: false,
+      default: null
+    }
+  },
+  methods: {
+    onClick(){
+      if (this.click){
+        this.click();
+      }
     }
   }
 };
