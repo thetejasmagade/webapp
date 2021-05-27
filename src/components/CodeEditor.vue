@@ -17,21 +17,17 @@
           />
         </div>
         <div class="editor-container">
-          <PrismEditor
+          <CodeMirrorWrapper
+            :key="modelValue"
             v-model="code"
-            class="my-editor"
-            :language="progLang"
-            line-numbers
-            :tab-size="tabSize"
-            :insert-spaces="insertSpaces"
-            :highlight="highlighter"
-            @input="onInput"
+            class="h-full"
+            :options="codeMirrorOptions"
           />
         </div>
         <MultipaneResizer />
         <div
           ref="console"
-          class="console"
+          class="console bg-gray-800 text-gray-200"
         >
           <Multipane layout="horizontal">
             <canvas
@@ -57,21 +53,7 @@
   </div>
 </template>
 
-<script>
-import { PrismEditor } from 'vue-prism-editor';
-import 'vue-prism-editor/dist/prismeditor.min.css';
-import { highlight, languages } from 'prismjs';
-import 'prismjs/components/prism-clike.js';
-import 'prismjs/components/prism-javascript.js';
-import 'prismjs/components/prism-go.js';
-import 'prismjs/components/prism-haskell.js'; // required for purescript
-import 'prismjs/components/prism-purescript.js';
-import 'prismjs/components/prism-python.js';
-
-// should match any other prism components that share a page
-import 'prismjs/themes/prism-coy.css';
-
-import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
+<script>import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
 import { 
   compileGo,
   compilePureScript
@@ -81,6 +63,7 @@ import {
   sleep
 } from '@/lib/sleep.js';
 
+import CodeMirrorWrapper from '@/components/CodeMirrorWrapper.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ConsoleButtons from '@/components/ConsoleButtons.vue';
 import Multipane from '@/components/Multipane.vue';
@@ -88,11 +71,11 @@ import MultipaneResizer from '@/components/MultipaneResizer.vue';
 
 export default {
   components: {
-    PrismEditor,
     LoadingOverlay,
     ConsoleButtons,
     Multipane,
-    MultipaneResizer
+    MultipaneResizer,
+    CodeMirrorWrapper
   },
   emits: [ 'update:modelValue' ],
   props: {
@@ -144,11 +127,36 @@ export default {
     };
   },
   computed: {
-    tabSize(){
+    codeMirrorOptions() {
+      return {
+        tabSize: this.tabSize,
+        indentUnit: this.tabSize,
+        mode: this.codeMirrorLang,
+        theme: 'darcula',
+        lineNumbers: true,
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        styleActiveLine: true
+      };
+    },
+    codeMirrorLang(){
       if (this.progLang === 'go'){
-        return 1; // because its a tab
+        return 'go';
       }
       if (this.progLang === 'py'){
+        return 'python';
+      }
+      if (this.progLang === 'js'){
+        return 'javascript';
+      }
+      if (this.progLang === 'purs'){
+        return 'haskell';
+      }
+      return 'unknown';
+    },
+    tabSize(){
+      if (this.progLang === 'go' ||
+        this.progLang === 'py'){
         return 4;
       }
       return 2;
@@ -192,9 +200,6 @@ export default {
         var content = this.$refs.console;
         content.scrollTop = Number.MAX_SAFE_INTEGER;
       });
-    },
-    highlighter(code) {
-      return highlight(code, languages[this.progLang]);
     },
     cancelCode(){
       this.isLoading = false;
@@ -284,15 +289,6 @@ span.token.operator {
   background: inherit !important;
 }
 
-.my-editor {
-  font-size: 14px;
-  line-height: 1.5;
-
-  .prism-editor__textarea:focus {
-    outline: none;
-  }
-}
-
 .top-bar {
   flex: 0 0 auto;
   border-bottom: solid 1px $gray-light;
@@ -309,12 +305,10 @@ span.token.operator {
   .editor-container {
     height: 65%;
     overflow: auto;
-    margin: 10px 0 0 0;
   }
 
   .console {
     font-size: 14px;
-    background-color: $gray-lighter;
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -327,11 +321,10 @@ span.token.operator {
       .pre {
         white-space: pre-wrap;
         font-size: 1em;
-        color: $gray-darker;
         margin: 0;
       }
       .error {
-        color: $pink-dark;
+        color: $pink-light;
       }
     }
 
