@@ -10,7 +10,7 @@
       
     <div
       v-else
-      class="container desktop"
+      class="exercise-container desktop"
     >
       <Modal
         ref="pricingModal"
@@ -601,7 +601,7 @@ ${this.defaultMarkdownSource}
   height: 100%;
 }
 
-.container {
+.exercise-container {
   display: flex;
   height: calc(100vh - #{$bar-height});
 }
