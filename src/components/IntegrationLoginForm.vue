@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="integration-container">
       <BlockButton
         :click="clickGoogle"
         color="gold"
@@ -171,7 +171,7 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/colors.scss';
 
-.container {
+.integration-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

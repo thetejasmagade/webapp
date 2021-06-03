@@ -23,6 +23,7 @@
               >
                 <ImageCard
                   :img-src="course.ImageURL"
+                  :click="() => goToCourse(course)"
                 >
                   <CourseCardBody
                     :course="course"
@@ -66,6 +67,7 @@
                 :key="i"
               >
                 <ImageCard
+                  :click="() => goToCourse(course)"
                   :img-src="course.ImageURL"
                 >
                   <CourseCardBody
@@ -92,6 +94,7 @@
                 :key="i"
               >
                 <ImageCard
+                  :click="() => goToCourse(course)"
                   :img-src="course.ImageURL"
                   class="max-w-sm"
                 >
@@ -115,6 +118,10 @@ import ImageCard from '@/components/ImageCard.vue';
 import CourseCardBody from '@/components/CourseCardBody.vue';
 import Tab from '@/components/Tab.vue';
 import Tabs from '@/components/Tabs.vue';
+
+import { 
+  gtmEventSelectCourse
+} from '@/lib/gtm.js';
 
 import { 
   getCourseRecommendations
@@ -163,6 +170,12 @@ export default {
         type: 'danger',
         text: err
       });
+    }
+  },
+  methods: {
+    goToCourse(course){
+      gtmEventSelectCourse(course.UUID, course.Title);
+      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
     }
   }
 };

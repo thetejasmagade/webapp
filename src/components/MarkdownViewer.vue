@@ -24,9 +24,6 @@ import 'prismjs/components/prism-haskell.js'; // required for purescript
 import 'prismjs/components/prism-purescript.js';
 import 'prismjs/components/prism-python.js';
 
-// should match any other prism components that share a page
-import 'prismjs/themes/prism-coy.css';
-
 export default {
   props: { 
     source:{
@@ -72,6 +69,7 @@ export default {
 <style lang="scss">
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
+@import '@/styles/prism-darcula.css';
 
 .markdown-viewer-container {
   min-height: 100%;

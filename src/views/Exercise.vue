@@ -10,7 +10,7 @@
       
     <div
       v-else
-      class="container desktop"
+      class="exercise-container desktop"
     >
       <Modal
         ref="pricingModal"
@@ -170,7 +170,7 @@ export default {
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
     this.courseDone = false;
-    await this.getCurrentExercise();
+    await this.moveToCurrentExercise();
     next();
   },
   data(){
@@ -299,7 +299,7 @@ ${this.defaultMarkdownSource}
         // do nothing
       }
     }
-    await this.getCurrentExercise();
+    await this.moveToCurrentExercise();
   },
   methods: {
     clickSolution(){
@@ -418,10 +418,6 @@ ${this.defaultMarkdownSource}
         );
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
-        await sleep(1500);
-        if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
-          await this.getCurrentExercise();
-        }
       } catch(err) {
         notify({
           type: 'danger',
@@ -437,10 +433,6 @@ ${this.defaultMarkdownSource}
         );
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
-        await sleep(1500);
-        if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
-          await this.getCurrentExercise();
-        }
       } catch(err) {
         notify({
           type: 'danger',
@@ -472,7 +464,7 @@ ${this.defaultMarkdownSource}
         this.handleRewards(rewardsResponse);
         await sleep(1500);
         if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
-          await this.getCurrentExercise();
+          await this.moveToCurrentExercise();
         }
       } catch(err) {
         notify({
@@ -531,7 +523,7 @@ ${this.defaultMarkdownSource}
         this.question = exercise.Exercise.Question;
       }
     },
-    async getCurrentExercise(){
+    async moveToCurrentExercise(){
       try {
         const exercise = await getCurrentExercise(this.courseUUID);
         this.moveToExercise(exercise);
@@ -609,7 +601,7 @@ ${this.defaultMarkdownSource}
   height: 100%;
 }
 
-.container {
+.exercise-container {
   display: flex;
   height: calc(100vh - #{$bar-height});
 }
