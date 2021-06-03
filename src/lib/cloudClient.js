@@ -5,7 +5,7 @@ import {
   removeCloudJWT
 } from './localStorageLib';
 
-export const domain = 'https://api.classroom.qvault.io';
+export const domain = 'https://qvault-classroom.wm.r.appspot.com';
 
 export function loginToken(token) {
   saveCloudJWT(token);
