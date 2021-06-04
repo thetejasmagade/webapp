@@ -7,10 +7,10 @@
 <script>
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript.js';
-import 'codemirror/mode/go/go.js';
+import '@/lib/codemirrorModeGo.js';
 import 'codemirror/mode/python/python.js';
 import 'codemirror/mode/haskell/haskell.js';
-import 'codemirror/theme/darcula.css';
+import '@/styles/codemirror-darcula.css';
 import 'codemirror/addon/edit/matchbrackets.js';
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/selection/active-line.js';
