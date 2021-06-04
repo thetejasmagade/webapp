@@ -145,7 +145,6 @@ export default {
 
 .multipane > div {
   position: relative;
-  z-index: 1;
 }
 
 .layout-v > .multipane-resizer {

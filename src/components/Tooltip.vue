@@ -99,7 +99,7 @@ export default {
     transition-delay: .1s;
 
     position: absolute;
-    z-index: 6;
+    z-index: 9997;
 
     @media (max-width: $mobile-size) {
       display: none;
