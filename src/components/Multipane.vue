@@ -57,6 +57,10 @@ export default {
         let { $el: container, layout } = self;
 
         let pane = resizer.previousElementSibling;
+
+        if (!pane){
+          return;
+        }
         let {
           offsetWidth: initialPaneWidth,
           offsetHeight: initialPaneHeight
@@ -67,7 +71,7 @@ export default {
         const { addEventListener, removeEventListener } = window;
 
         const resize = (initialSize, offset = 0) => {
-          if (layout == layoutHorizontal) {
+          if (layout === layoutHorizontal && resizer.className.match('horizontal')) {
             let containerWidth = container.clientWidth;
             let paneWidth = initialSize + offset;
 
@@ -76,7 +80,7 @@ export default {
               : paneWidth + 'px');
           }
 
-          if (layout == layoutVertical) {
+          if (layout === layoutVertical && resizer.className.match('vertical')) {
             let containerHeight = container.clientHeight;
             let paneHeight = initialSize + offset;
 

@@ -56,7 +56,7 @@
             :source="markdownSource"
           />
         </div>
-        <MultipaneResizer />
+        <MultipaneResizer layout="horizontal" />
         <div
           v-if="type === 'type_info'"
           id="info-container"

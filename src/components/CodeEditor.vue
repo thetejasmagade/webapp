@@ -24,7 +24,7 @@
             :options="codeMirrorOptions"
           />
         </div>
-        <MultipaneResizer />
+        <MultipaneResizer layout="vertical" />
         <div
           ref="console"
           class="console bg-gray-800 text-gray-200"
@@ -37,7 +37,7 @@
               height="1000"
               width="1000"
             />
-            <MultipaneResizer />
+            <MultipaneResizer layout="horizontal" />
             <div class="log">
               <p
                 v-for="(line, i) of output"
@@ -304,6 +304,7 @@ span.token.operator {
 
   .editor-container {
     height: 65%;
+    width: 100%;
     overflow: auto;
   }
 
