@@ -18,8 +18,7 @@
         </div>
         <div class="editor-container">
           <CodeMirrorWrapper
-            :key="modelValue"
-            v-model="code"
+            v-model="modelValue"
             class="h-full"
             :options="codeMirrorOptions"
           />
@@ -119,7 +118,6 @@ export default {
   },
   data() {
     return {
-      code: this.modelValue,
       output: [],
       err: false,
       isLoading: false,
@@ -177,18 +175,14 @@ export default {
       terminateWorker(this.worker);
       this.worker = getWorker(this.getWorkerLang(newLang));
     },
-    modelValue(newValue) {
-      this.code = newValue;
+    modelValue(newModelValue){
+      this.$emit('update:modelValue', newModelValue);
     }
   },
   mounted(){
     this.worker = getWorker(this.getWorkerLang(this.progLang), this.canvasEnabled ? this.$refs.canvas : null);
   },
   methods: {
-    onInput() {
-      // this.currentValue is a string because HTML is weird
-      this.$emit('update:modelValue', this.code);
-    },
     getWorkerLang(progLang){
       if (progLang === 'purs'){
         return 'js';
@@ -215,13 +209,13 @@ export default {
         let hash = null;
         try {
           if (this.progLang === 'go'){
-            const wasm = await compileGo(this.code);
+            const wasm = await compileGo(this.modelValue);
             await useWorker(this.worker, wasm, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
           }  else if (this.progLang === 'purs'){
-            const resp = await compilePureScript(this.code);
+            const resp = await compilePureScript(this.modelValue);
             await useWorker(this.worker, resp.Code, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
@@ -229,14 +223,14 @@ export default {
           } else if (this.progLang === 'js'){
           // make it feel like something is running
             await sleep(250);
-            let final = await useWorker(this.worker, this.code, (data) => {
+            let final = await useWorker(this.worker, this.modelValue, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
             hash = final.hash;
           } else if (this.progLang === 'py'){
             await sleep(250);
-            await useWorker(this.worker, this.code, (data) => {
+            await useWorker(this.worker, this.modelValue, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
