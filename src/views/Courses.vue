@@ -13,7 +13,7 @@
           icon="graduation-cap"
         >
           <Section
-            :title="$store.getters.getProgramCS.length > 0 ? `Your next course: ${$store.getters.getProgramCS[0].Title}` : 'Loading...'"
+            :title="csProgramCourses.length > 0 ? `Your next course: ${csProgramCourses[0].Title}` : 'Loading...'"
             subtitle="Take these courses in order. You're on your way to a high-paying coding job"
           >
             <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
