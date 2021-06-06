@@ -42,7 +42,7 @@
             :go-back="goBack"
             :go-forward="goForward"
             :can-go-back="!isFirstExercise"
-            :can-go-forward="!isLastExercise"
+            :can-go-forward="!courseDone"
             :exercise-is-complete="isComplete"
             :locked="locked"
             :click-solution="type === 'type_code' || type === 'type_code_canvas' ?

@@ -2,7 +2,7 @@
   <div class="subcontainer">
     <Section
       :title="`Congragulations! You've completed the course`"
-      subtitle="Check out the new certificate on your profile then start your next course"
+      subtitle="Check out the new certificate on your portfolio then start your next course"
       class="section"
     >
       <div class="body">
@@ -12,7 +12,7 @@
         <div class="btns">
           <BlockButton
             class="btn"
-            :click="() => {this.$router.push({ name: 'Courses' })}"
+            :click="clickNextCourse"
           >
             Next Course
           </BlockButton>
@@ -40,6 +40,10 @@
 import BlockButton from '@/components/BlockButton.vue';
 import Section from '@/components/Section.vue';
 
+import {
+  loadProgramCS
+} from '@/lib/cloudStore.js';
+
 export default {
   components: {
     BlockButton,
@@ -49,6 +53,12 @@ export default {
     restartCallback: {
       type: Function,
       required: true
+    }
+  },
+  methods: {
+    async clickNextCourse(){
+      await loadProgramCS(this);
+      this.$router.push({ name: 'Courses'});
     }
   }
 };
