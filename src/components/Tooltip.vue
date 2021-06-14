@@ -1,16 +1,16 @@
 <template>
-  <div class="tooltip-box">
+  <div class="tooltip-box relative">
     <div>
       <slot />
     </div>
     <div
-      class="tooltip"
+      class="tooltip text-white"
       :class="{
-        gray: color === 'gray',
-        pink: color === 'pink',
-        gold: color === 'gold',
-        purple: color === 'purple',
-        green: color === 'green',
+        'bg-gray-500': color === 'gray',
+        'bg-red-500': color === 'pink',
+        'bg-gold-500': color === 'gold',
+        'bg-blue-500': color === 'purple',
+        'bg-green-500': color === 'green',
         top: position === 'top',
         right: position === 'right',
         bottom: position === 'bottom'
@@ -60,78 +60,46 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
+.tooltip-box:hover .tooltip{
+  visibility: visible;
+  opacity: 1;
+}
 
-.tooltip-box { 
-  position: relative;
+.tooltip {
+  text-align: center;
+  padding: 5px;
+  border-radius: 2px;
+  width: 120px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  transition-delay: 0.1s;
+  position: absolute;
+  z-index: 9997;
+}
 
-  .tooltip { 
-    color: $white;
-    text-align: center;
-    padding: 5px;
-    border-radius: 2px;
-    font-family: $default-font-family;
-    width: 120px;
-
-    &.top {
-      bottom: calc(100% + 5px);
-      left: 50%;
-      margin-left: -60px;
-    }
-
-    &.bottom {
-      top: calc(100% + 5px);
-      left: 50%;
-      margin-left: -60px;
-    }
-
-    &.right {
-      top: 50%;
-      left: calc(100% + 5px);
-      transform: translate(0, -50%);
-    }
-
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
-    transition-delay: .1s;
-
-    position: absolute;
-    z-index: 9997;
-
-    @media (max-width: $mobile-size) {
-      display: none;
-    }
-  }
-
-  &:hover{
-    .tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
+@media (max-width: 600) {
+  .tooltip {
+    display: none;
   }
 }
 
-.gray {
-  background: $gray-mid;
+.top {
+  bottom: calc(100% + 5px);
+  left: 50%;
+  margin-left: -60px;
 }
 
-.pink {
-  background: $pink-mid;
+.bottom {
+  top: calc(100% + 5px);
+  left: 50%;
+  margin-left: -60px;
 }
 
-.gold {
-  background: $gold-dark;
+.right {
+  top: 50%;
+  left: calc(100% + 5px);
+  transform: translate(0, -50%);
 }
-
-.green {
-  background: $green-dark;
-}
-
-.purple {
-  background: $purple-dark;
-}
-
 </style>
