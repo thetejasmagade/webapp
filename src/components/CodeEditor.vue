@@ -4,14 +4,31 @@
       :is-loading="isLoading"
       :cancel="cancelCode"
     />
+    <ConfirmModal
+      ref="loadLastSaveModal"
+      heading="Want to load your last save for this exercise?"
+      text="
+      This will overwrite the code you have in your editor currently.
+      "
+      :on-confirm="loadCallback"
+    />
+
+    <ConfirmModal
+      ref="resetCodeModal"
+      heading="Want to reset your code to the starting point for this exercise?"
+      text="
+      This will overwrite the code you have in your editor currently.
+      "
+      :on-confirm="runReset"
+    />
     <div class="code-editor-root">
       <Multipane layout="vertical">
         <div class="top-bar">
           <ConsoleButtons
             :run-callback="runCode"
-            :reset-callback="runReset"
+            :reset-callback="() => $refs.resetCodeModal.show()"
             :save-callback="saveCallback"
-            :load-callback="loadCallback"
+            :load-callback="() => $refs.loadLastSaveModal.show()"
             :upgrade-callback="upgradeCallback"
             class="console-buttons"
           />
@@ -62,6 +79,7 @@ import {
   sleep
 } from '@/lib/sleep.js';
 
+import ConfirmModal from '@/components/ConfirmModal.vue';
 import CodeMirrorWrapper from '@/components/CodeMirrorWrapper.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ConsoleButtons from '@/components/ConsoleButtons.vue';
@@ -74,7 +92,8 @@ export default {
     ConsoleButtons,
     Multipane,
     MultipaneResizer,
-    CodeMirrorWrapper
+    CodeMirrorWrapper,
+    ConfirmModal
   },
   emits: [ 'update:modelValue' ],
   props: {

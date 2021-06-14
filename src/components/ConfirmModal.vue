@@ -10,7 +10,10 @@
         {{ text }}
       </p>
       <BlockButton
-        :click="() => {onConfirm()}"
+        :click="() => {
+          onConfirm()
+          hide()
+        }"
         color="purple"
         class="mr-4"
       >
