@@ -60,7 +60,11 @@ export default {
 
         'bg-gold-500': this.color === 'gold',
         'hover:bg-gold-600': this.color === 'gold',
-        'disabled:bg-gold-400': this.color === 'gold'
+        'disabled:bg-gold-400': this.color === 'gold',
+
+        'bg-red-500': this.color === 'red',
+        'hover:bg-red-600': this.color === 'red',
+        'disabled:bg-red-400': this.color === 'red'
       };
     }
   }

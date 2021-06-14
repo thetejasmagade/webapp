@@ -116,6 +116,15 @@ export async function createUserManual(email, password, firstName, lastName, isS
   return handled;
 }
 
+export async function deleteUser(){
+  const resp = await fetchWithAuth(`${domain}/v1/users`, {
+    method: 'DELETE',
+    mode: 'cors'
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function updateUser({
   firstName, 
   lastName, 

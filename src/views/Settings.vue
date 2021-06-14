@@ -1,5 +1,15 @@
 <template>
   <div class="settings-root">
+    <ConfirmModal
+      ref="deleteUserModal"
+      heading="Are you absolutely sure you want to permanently delete your account?"
+      text="
+      All your user data will be permanently erased!
+      If you want to cancel your subscription please do so first using the billing section.
+      Deleting your account will NOT automatically cancel your subscription.
+      "
+      :on-confirm="deleteUser"
+    />
     <div class="sidebar">
       <Section
         :title="`${firstName} ${lastName }`"
@@ -10,21 +20,21 @@
             <BlockButton
               :click="() => currentTab='settings'"
               :color="currentTab==='settings' ? 'purple-light':'gray-light'"
-              class="btn tabItems"
+              class="tabItems"
             >
               Profile
             </BlockButton>
             <BlockButton
               :click="() => currentTab='updatePass'"
               :color="currentTab==='updatePass' ? 'purple-light':'gray-light'"
-              class="btn tabItems"
+              class="tabItems"
             >
               Security
             </BlockButton>
             <BlockButton
               :click="() => {openCustomerPortal()}"
               color="gray-light"
-              class="btn tabItems"
+              class="tabItems"
             >
               Billing
             </BlockButton>
@@ -182,7 +192,7 @@
                 </div>
               </div>
               <div class="text-center">
-                <BlockButton class="btn">
+                <BlockButton>
                   Update
                 </BlockButton>
               </div>
@@ -196,7 +206,8 @@
         class="visualItems"
       >
         <Section
-          title="Security Preferences"
+          title="Update Password"
+          class="mb-4"
         >
           <div class="security-body">
             <form
@@ -223,10 +234,23 @@
                 placeholder="Confirm Password"
                 type="password"
               />
-              <BlockButton class="btn">
-                Submit
+              <BlockButton>
+                Update
               </BlockButton>
             </form>
+          </div>
+        </Section>
+        <Section
+          title="Permanent account deletion"
+        >
+          <div class="security-body">
+            <BlockButton
+              color="red"
+              :click="() => $refs.deleteUserModal.show()"
+            >
+              Delete Account Forever
+            </BlockButton>
+            <hr>
           </div>
         </Section>
       </div>
@@ -239,14 +263,20 @@ import {
   updateUserPassword, 
   updateUser, 
   updateUserHandle,
-  openCustomerPortal
+  openCustomerPortal,
+  deleteUser
 } from '@/lib/cloudClient.js';
 import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import Section from '@/components/Section.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
+import ConfirmModal from '@/components/ConfirmModal.vue';
 import { useMeta } from 'vue-meta';
+
+import {
+  setLogout
+} from '@/lib/cloudStore.js';
 
 import { 
   gtmEventFinishCheckout
@@ -258,7 +288,8 @@ export default {
     BlockButton,
     TextInput,
     Section,
-    ToggleSwitch
+    ToggleSwitch,
+    ConfirmModal
   },
   data() {
     return {
@@ -333,6 +364,21 @@ export default {
     });
   },
   methods: {
+    async deleteUser(){
+      try {
+        await deleteUser();
+        setLogout(this);
+        notify({
+          type: 'success',
+          text: 'Account deleted successfully'
+        });
+      } catch (err){
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
+    },
     openCustomerPortal() {
       openCustomerPortal();
     },
@@ -454,7 +500,9 @@ label {
       .security-body {
         position: relative;
         display: flex;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
         @media (max-width: 768px) {
           width: 99%;
         }
@@ -477,11 +525,6 @@ label {
             color: $gray-lightest;
           }
         }
-      }
-
-      .btn {
-        width: 200px;
-        margin: 10px;
       }
     }
   }

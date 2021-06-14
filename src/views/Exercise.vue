@@ -398,7 +398,7 @@ ${this.defaultMarkdownSource}
           }
           notify({
             type: 'success',
-            text: `<i>${achievement.Title}</i> achievement unlocked! 💎x${achievement.GemReward}`
+            text: `${achievement.Title} achievement unlocked! 💎x${achievement.GemReward}`
           });
           notificationShown = true;
         }
