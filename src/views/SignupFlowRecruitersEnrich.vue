@@ -11,13 +11,19 @@
         <div class="max-w-xl p-4">
           <h2 class="text-xl mt-4 mb-4">
             You're much more likely to be contacted for great
-            jobs if you give us a rough idea of where you're located.
+            jobs if you tell us a bit about yourself.
           </h2>
 
-          <div class="text-center">
+          <div class="text-center flex flex-col">
             <TextInput
               v-model="location"
               placeholder="city, country"
+              type="text"
+              class="mb-4"
+            />
+            <TextInput
+              v-model="linkedinURL"
+              placeholder="linkedin url"
               type="text"
               class="mb-4"
             />
@@ -69,14 +75,18 @@ export default {
   },
   data(){
     return {
-      location: ''
+      location: null,
+      linkedinURL: null
     };
   },
   methods:{
     async success(){
       try {
         await updateUser(
-          { location: this.location }
+          {
+            location: this.location,
+            linkedinURL: this.linkedinURL
+          }
         );
         gtmEventTutorialComplete();
         this.$router.push({name: 'Settings', query: {redirect: this.$route.query.redirect}});
