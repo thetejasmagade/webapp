@@ -28,9 +28,18 @@
       <BlockButton
         :click="() => {btnClick()}"
         color="purple"
+        class="mb-4"
       >
         Submit
       </BlockButton>
+
+      <p>
+        If you'd rather speak to the authors and other students directly
+        join our <a
+          href="https://discord.gg/k4rVEWt"
+          target="_blank"
+        >Discord community instead.</a>
+      </p>
     </div>
   </Modal>
 </template>
