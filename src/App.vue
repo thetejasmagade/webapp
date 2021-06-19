@@ -38,7 +38,8 @@ import {
   faGraduationCap,
   faLock,
   faLevelUpAlt,
-  faEye
+  faEye,
+  faComment
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -84,6 +85,7 @@ library.add(faGraduationCap);
 library.add(faLock);
 library.add(faLevelUpAlt);
 library.add(faEye);
+library.add(faComment);
 
 export default {
   setup () {

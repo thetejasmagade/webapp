@@ -116,6 +116,26 @@ export async function createUserManual(email, password, firstName, lastName, isS
   return handled;
 }
 
+export async function upsertExerciseFeedback(
+  exerciseUUID,
+  text,
+  rating
+){
+  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/feedback`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      text,
+      rating
+    })
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function deleteUser(){
   const resp = await fetchWithAuth(`${domain}/v1/users`, {
     method: 'DELETE',

@@ -42,29 +42,47 @@
       </span>
     </div>
 
-    <div :style="{'visibility': clickSolution ? 'visible' : 'hidden'}">
-      <BlockButton
-        :click="clickSolution"
-        color="gray"
+    <div class="flex flex-row flex-end">
+      <Tooltip
+        :text="`Leave Feedback`"
+        position="bottom"
       >
-        <FontAwesomeIcon
-          class="mr-1"
-          icon="eye"
-        />
-        <span> Cheat </span>
-      </BlockButton>
+        <BlockButton
+          :click="clickComment"
+          color="gray"
+          class="mr-4"
+        >
+          <FontAwesomeIcon
+            icon="comment"
+          />
+        </BlockButton>
+      </Tooltip>
+      <div :style="{'visibility': clickSolution ? 'visible' : 'hidden'}">
+        <BlockButton
+          :click="clickSolution"
+          color="gray"
+        >
+          <FontAwesomeIcon
+            class="mr-1"
+            icon="eye"
+          />
+          <span> Cheat </span>
+        </BlockButton>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Tooltip from '@/components/Tooltip.vue';
 import BlockButton from '@/components/BlockButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
     BlockButton,
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    Tooltip
   },
   props: {
     title: {
@@ -101,6 +119,11 @@ export default {
       default: true
     },
     clickSolution:{
+      type: Function,
+      required: false,
+      default: null
+    },
+    clickComment:{
       type: Function,
       required: false,
       default: null

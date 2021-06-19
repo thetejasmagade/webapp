@@ -1,6 +1,11 @@
 <template>
   <div class="exercise-root">
     <ProModal ref="proModal" />
+    <FeedbackModal
+      v-if="exerciseUUID"
+      ref="feedbackModal"
+      :exercise-u-u-i-d="exerciseUUID"
+    />
     
     <CourseCompleted
       v-if="courseDone"
@@ -48,6 +53,7 @@
             :click-solution="type === 'type_code' || type === 'type_code_canvas' ?
               () => {clickSolution()} : null
             "
+            :click-comment="() => showFeedbackModal()"
           />
 
           <MarkdownViewer
@@ -113,6 +119,7 @@ import Multipane from '@/components/Multipane.vue';
 import MultipaneResizer from '@/components/MultipaneResizer.vue';
 import Section from '@/components/Section.vue';
 import ProModal from '@/components/ProModal.vue';
+import FeedbackModal from '@/components/FeedbackModal.vue';
 
 import { 
   loadBalance,
@@ -165,7 +172,8 @@ export default {
     ExerciseNav,
     Multipane,
     MultipaneResizer,
-    ProModal
+    ProModal,
+    FeedbackModal
   },
   async beforeRouteUpdate (to, from, next) {
     this.courseUUID = to.params.courseUUID;
@@ -317,6 +325,9 @@ ${this.defaultMarkdownSource}
     showModal(){
       gtmEventOpenProModal();
       this.$refs.pricingModal.show();
+    },
+    showFeedbackModal(){
+      this.$refs.feedbackModal.show();
     },
     modalButtonClick(){
       this.$router.push({name: 'Pricing'});
