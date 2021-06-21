@@ -339,6 +339,16 @@ export async function updateUserProfileImage(formData) {
   return handled;
 }
 
+export async function updateUserResume(formData) {
+  const resp = await fetchWithAuth(`${domain}/v1/users/resume`, {
+    method: 'PUT',
+    mode: 'cors',
+    body: formData
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function sendEmailVerification(email){
   const resp = await fetch(`${domain}/v1/users/email/send_verification`, {
     method: 'POST',

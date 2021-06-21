@@ -173,6 +173,14 @@
 
               <div class="row">
                 <div class="col">
+                  <ResumeUploader
+                    class="mb-4"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
                   <textarea
                     v-model="user.bio"
                     :placeholder="bio"
@@ -272,6 +280,7 @@ import TextInput from '@/components/TextInput.vue';
 import Section from '@/components/Section.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import ConfirmModal from '@/components/ConfirmModal.vue';
+import ResumeUploader from '@/components/ResumeUploader.vue';
 import { useMeta } from 'vue-meta';
 
 import {
@@ -289,7 +298,8 @@ export default {
     TextInput,
     Section,
     ToggleSwitch,
-    ConfirmModal
+    ConfirmModal,
+    ResumeUploader
   },
   data() {
     return {

@@ -1,26 +1,13 @@
 <template>
   <div class="relative">
-    <div class="img-box">
-      <img
-        :src="profileImageURLWithDefault"
-        alt="user avatar"
-        class="
-          rounded-full
-          absolute
-          w-100
-          h-100
-          cover
-        "
-      >
-    </div>
     <form
-      v-if="editable"
       enctype="multipart/form-data"
+      class="flex flex-row"
     >
       <input
-        id="profileImage"
+        id="resume"
         type="file"
-        accept="image/*"
+        accept="application/pdf"
         class="
           opacity-0
           overflow-hidden
@@ -29,39 +16,41 @@
           h-px
           w-px
         "
-        @change="editProfileImage"
+        @change="editResume"
       >
       <label
-        for="profileImage"
+        for="resume"
         class="
-          absolute
-          right-0
-          bottom-0
-          h-8
-          w-8
-          rounded-full
           cursor-pointer
           border-none
-          bg-gray-200
-          text-lg
+          text-xl
           flex
-          text-gray-800
+          text-blue-500
           items-center
           justify-center
           focus:outline-none
         "
       >
         <FontAwesomeIcon
-          icon="camera"
+          icon="upload"
         />
       </label>
+      <span class="ml-3"> Upload Resume (.pdf) </span>
+      <a
+        v-if="currentResume"
+        class="ml-3"
+        :href="currentResume"
+        target="_blank"
+      >
+        {{ currentUserFirstName }}.pdf
+      </a>
     </form>
   </div>
 </template>
 
 <script>
 import { 
-  updateUserProfileImage
+  updateUserResume
 } from '@/lib/cloudClient.js';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -70,52 +59,55 @@ import {
 } from '@/lib/sleep.js';
 import { notify } from '@/lib/notification.js';
 
+import {
+  loadUser
+} from '@/lib/cloudStore.js';
+
 export default {
   components: {
     FontAwesomeIcon
   },
-  props: { 
-    profileImageURL:{
-      type: String,
-      required: false,
-      default: null
+  computed: {
+    currentResume(){
+      if (!this.$store.getters.getUser){
+        return null;
+      }
+      return this.$store.getters.getUser.ResumeURL;
     },
-    editable:{
-      type: Boolean,
-      required: false,
-      default: false
+    currentUserFirstName(){
+      if (!this.$store.getters.getUser){
+        return null;
+      }
+      return this.$store.getters.getUser.FirstName;
     }
   },
-  computed: {
-    profileImageURLWithDefault(){
-      if (this.profileImageURL){
-        return this.profileImageURL;
-      }
-      return 'https://www.xovi.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png';
+  async mounted(){
+    if (!this.$store.getters.getUser){
+      loadUser(this);
     }
   },
   methods: {
-    async editProfileImage(e){
+    async editResume(e){
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length){
         return;
       }
       const formData = new FormData();
-      formData.append('profileImage', files[0]);
+      formData.append('resume', files[0]);
       try {
-        await updateUserProfileImage(formData);
+        await updateUserResume(formData);
 
         // let the upload REALLY complete - kinda janky
         await sleep(1000);
 
-        // cache break to reload image
+        // cache break to reload pdf
         const user = this.$store.getters.getUser;
-        user.ProfileImageURL += '?' + Date.now();
+        user.ResumeURL += '?' + Date.now();
         this.$store.commit('setUser', user);
         
         notify({
           type: 'success',
-          text: 'Profile image updated successfully'
+          text: 'ResumeURL updated successfully'
         });
       } catch (err){
         notify({
@@ -129,9 +121,5 @@ export default {
 </script>
 
 <style scoped>
-.img-box::after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
+
 </style>

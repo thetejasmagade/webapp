@@ -27,6 +27,9 @@
               type="text"
               class="mb-4"
             />
+            <ResumeUploader
+              class="mb-4"
+            />
           </div>
 
           <div class="text-center">
@@ -56,6 +59,8 @@ import TopNav from '@/components/TopNav.vue';
 import Section from '@/components/Section.vue';
 import BlockButton from '@/components/BlockButton.vue';
 import TextInput from '@/components/TextInput.vue';
+import ResumeUploader from '@/components/ResumeUploader.vue';
+
 
 import { 
   updateUser
@@ -71,7 +76,8 @@ export default {
     TopNav,
     Section,
     BlockButton,
-    TextInput
+    TextInput,
+    ResumeUploader
   },
   data(){
     return {
