@@ -28,16 +28,16 @@
               </div>
 
               <div
-                v-if="subscriptionPlan && subscriptionPlanPrices.length == 2"
+                v-if="priceYearly && priceMonthly"
                 class="pt-24 flex flex-row mb-5"
               >
                 <div class="w-96 p-8 bg-white text-center rounded-3xl pr-16 shadow-xl">
                   <h1 class="text-black font-semibold text-2xl">
-                    {{ subscriptionPlanPrices[0].Title }}
+                    {{ priceMonthly.Title }}
                   </h1>
                   <p class="pt-2 tracking-wide">
                     <span class="text-gray-400 align-top">$ </span>
-                    <span class="text-3xl font-semibold"> {{ subscriptionPlanPrices[0].UnitAmountPerMonth / 100 }}</span>
+                    <span class="text-3xl font-semibold"> {{ priceMonthly.UnitAmountPerMonth / 100 }}</span>
                     <span class="text-gray-400 font-medium"> / month</span>
                   </p>
                   <hr class="m-4 border-1">
@@ -54,7 +54,7 @@
                     <BlockButton
                       v-if="!$store.getters.getUserIsSubscribed"
                       class="m-5"
-                      :click="() => {checkout(subscriptionPlanPrices[0])}"
+                      :click="() => {checkout(priceMonthly)}"
                     >
                       Start 7-day trial
                     </BlockButton>
@@ -63,11 +63,11 @@
 
                 <div class="w-80 p-10 bg-gray-900 text-center rounded-3xl text-white border-4 shadow-xl border-white transform scale-125">
                   <h1 class="text-white font-semibold text-2xl">
-                    {{ subscriptionPlanPrices[1].Title }}
+                    {{ priceYearly.Title }}
                   </h1>
                   <p class="pt-2 tracking-wide">
                     <span class="text-gray-400 align-top">$ </span>
-                    <span class="text-3xl font-semibold">{{ subscriptionPlanPrices[1].UnitAmountPerMonth / 100 }}</span>
+                    <span class="text-3xl font-semibold">{{ priceYearly.UnitAmountPerMonth / 100 }}</span>
                     <span class="text-gray-400 font-medium"> / month</span>
                   </p>
                   <hr class="m-4 border-1 border-gray-600">
@@ -84,7 +84,7 @@
                     <BlockButton
                       v-if="!$store.getters.getUserIsSubscribed"
                       class="mt-5"
-                      :click="() => {checkout(subscriptionPlanPrices[1])}"
+                      :click="() => {checkout(priceYearly)}"
                     >
                       Start 7-day trial
                     </BlockButton>
@@ -222,11 +222,28 @@ export default {
       }
       return this.$store.getters.getSubscriptionPlans[0];
     },
-    subscriptionPlanPrices(){
+    priceYearly(){
       if (!this.subscriptionPlan){
         return null;
       }
-      return this.subscriptionPlan.Prices;
+      for (const price of this.subscriptionPlan.Prices){
+        console.log(price);
+        if (price.Interval === 'year'){
+          return price;
+        } 
+      }
+      return null;
+    },
+    priceMonthly(){
+      if (!this.subscriptionPlan){
+        return null;
+      }
+      for (const price of this.subscriptionPlan.Prices){
+        if (price.Interval === 'month'){
+          return price;
+        } 
+      }
+      return null;
     }
   },
   async mounted() {
