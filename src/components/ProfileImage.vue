@@ -91,7 +91,7 @@ export default {
       if (this.profileImageURL){
         return this.profileImageURL;
       }
-      return 'https://www.xovi.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png';
+      return 'https://orbitermag.com/wp-content/uploads/2017/03/default-user-image-300x300.png';
     }
   },
   methods: {

@@ -47,7 +47,7 @@
         >
           <Multipane layout="horizontal">
             <canvas
-              v-if="canvasEnabled"
+              v-if="canvasAllowed"
               id="canvas"
               ref="canvas"
               height="1000"
@@ -85,6 +85,8 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ConsoleButtons from '@/components/ConsoleButtons.vue';
 import Multipane from '@/components/Multipane.vue';
 import MultipaneResizer from '@/components/MultipaneResizer.vue';
+
+import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
@@ -140,7 +142,8 @@ export default {
       output: [],
       err: false,
       isLoading: false,
-      worker: null
+      worker: null,
+      canvasAllowed: this.canvasEnabled
     };
   },
   computed: {
@@ -186,8 +189,17 @@ export default {
   },
   watch: {
     canvasEnabled(isEnabled) {
+      this.canvasAllowed = isEnabled;
       this.$nextTick(() => {
-        this.worker = getWorker(this.getWorkerLang(this.progLang), isEnabled ? this.$refs.canvas : null);
+        try {
+          this.worker = getWorker(this.getWorkerLang(this.progLang), isEnabled ? this.$refs.canvas : null);
+        } catch (err){
+          this.canvasAllowed = false;
+          notify({
+            type: 'danger',
+            text: err
+          });
+        }
       });
     },
     progLang(newLang) {
@@ -199,7 +211,15 @@ export default {
     }
   },
   mounted(){
-    this.worker = getWorker(this.getWorkerLang(this.progLang), this.canvasEnabled ? this.$refs.canvas : null);
+    try {
+      this.worker = getWorker(this.getWorkerLang(this.progLang), this.canvasEnabled ? this.$refs.canvas : null);
+    } catch (err){
+      this.canvasAllowed = false;
+      notify({
+        type: 'danger',
+        text: err
+      });
+    }
   },
   methods: {
     getWorkerLang(progLang){
@@ -224,8 +244,18 @@ export default {
     async runCode() {
       try {
         this.output = [];
-        this.isLoading = true;
         let hash = null;
+
+        if (!this.canvasAllowed && this.canvasEnabled){
+          notify({
+            type: 'danger',
+            text: 'You\'re browser doesn\'t support canvas assignments, try a chrome-based browser or just skip this exercise'
+          });
+          return;
+        }
+
+        this.isLoading = true;
+
         try {
           if (this.progLang === 'go'){
             const wasm = await compileGo(this.modelValue);

@@ -186,6 +186,16 @@
             a subscription they don't use. You can cancel your subscription any time from your <a href="/dashboard/settings">settings page</a>
             and you won't be billed again.
           </p>
+
+          <h2 class="text-xl my-4 text-gold-700">
+            What if I don't enjoy my Pro account?
+          </h2>
+          <p>
+            Hopefully you can figure out if you're enjoying the content within your 7-day free trial,
+            because you can always cancel before you're charged for the first time. That said, if you wait too long,
+            you can take advantage of our <a href="https://qvault.io/return-policy/">return policy.</a>
+            If you contact us within 30 days of your purchase you're entitled to a full refund.
+          </p>
         </div>
       </Section>
     </div>

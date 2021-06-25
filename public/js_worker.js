@@ -49,15 +49,19 @@ addEventListener('message', async (e) => {
     try {
       await newFunc();
     } catch (err) {
+      // firefox requires a copy
+      const errCopy = err + '';
       postMessage({
-        error: err
+        error: errCopy
       });
       return;
     }
     console.log = oldLog;
   } catch (err) {
+    // firefox requires a copy
+    const errCopy = err + '';
     postMessage({
-      error: err
+      error: errCopy
     });
     return;
   }
