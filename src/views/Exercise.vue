@@ -494,6 +494,7 @@ export default {
       this.isLastExercise = exercise.Exercise.IsLast;
       this.isCurrentExercise = exercise.IsCurrent;
       this.isComplete = exercise.IsComplete;
+      this.isCheating = false;
 
       if (exercise.Exercise.Readme !== this.markdownSource){
         this.scrollMarkdownToTop();
