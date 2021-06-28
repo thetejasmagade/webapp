@@ -50,9 +50,6 @@
             :can-go-forward="!courseDone"
             :exercise-is-complete="isComplete"
             :locked="locked"
-            :click-solution="type === 'type_code' || type === 'type_code_canvas' ?
-              () => {clickSolution()} : null
-            "
             :click-comment="() => showFeedbackModal()"
           />
 
@@ -77,15 +74,19 @@
         </div>
         <CodeEditor
           v-else-if="type === 'type_code' || type === 'type_code_canvas'"
+          :key="isCheating"
           v-model="code"
           class="side right"
           :run-callback="type === 'type_code' ? submitTypeCode : submitTypeCodeCanvas"
           :reset-callback="resetCode"
           :upgrade-callback="locked ? upgradeClick : null"
+          :cheat-callback="cheatClick"
           :save-callback="saveCode"
           :load-callback="getSavedCode"
           :prog-lang="progLang"
           :canvas-enabled="type === 'type_code_canvas'"
+          :solution="complete"
+          :is-cheating="isCheating"
         />
         <MultipleChoice
           v-else-if="type === 'type_choice'"
@@ -184,7 +185,6 @@ export default {
   data(){
     return {
       markdownSource: '',
-      defaultMarkdownSource: '',
       type: '',
       courseUUID: this.$route.params.courseUUID,
       moduleUUID: null,
@@ -200,7 +200,8 @@ export default {
       defaultCode: '',
       courses: null,
       isComplete: false,
-      isFree: false
+      isFree: false,
+      isCheating: false
     };
   },
   computed: {
@@ -266,16 +267,6 @@ export default {
         return this.course.Title;
       }
       return null;
-    },
-    cheatedMarkdownSource(){
-      return `## Full Solution
-
-\`\`\`${this.progLang}
-${this.complete}
-\`\`\`
-
-${this.defaultMarkdownSource}
-`;
     }
   },
   async mounted(){
@@ -310,18 +301,6 @@ ${this.defaultMarkdownSource}
     await this.moveToCurrentExercise();
   },
   methods: {
-    clickSolution(){
-      if (this.locked){
-        this.$refs.proModal.show();
-        return;
-      }
-      if (this.markdownSource === this.cheatedMarkdownSource){
-        this.markdownSource = this.defaultMarkdownSource;
-      } else {
-        this.markdownSource = this.cheatedMarkdownSource;
-      }
-      this.scrollMarkdownToTop();
-    },
     showModal(){
       gtmEventOpenProModal();
       this.$refs.pricingModal.show();
@@ -335,6 +314,13 @@ ${this.defaultMarkdownSource}
     },
     upgradeClick(){
       this.$router.push({name: 'Pricing'});
+    },
+    cheatClick(){
+      if (this.locked){
+        this.$refs.proModal.show();
+        return;
+      }
+      this.isCheating = !this.isCheating;
     },
     resetCode(){
       this.code = this.defaultCode;
@@ -514,7 +500,6 @@ ${this.defaultMarkdownSource}
       }
 
       this.markdownSource = exercise.Exercise.Readme;
-      this.defaultMarkdownSource = exercise.Exercise.Readme;
       this.type = exercise.Exercise.Type;
       this.moduleUUID = exercise.Exercise.ModuleUUID;
       this.$store.commit('setCurrentModuleUUID', this.moduleUUID);
@@ -631,7 +616,7 @@ ${this.defaultMarkdownSource}
 
   &.left {
     border-right: 2px solid $gray-dark;
-    width: 50%;
+    width: 40%;
   }
 
   &.right {

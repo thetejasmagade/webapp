@@ -1,5 +1,7 @@
 <template>
-  <textarea ref="textarea" />
+  <div
+    ref="codemirror"
+  />
 </template>
 
 <script>
@@ -11,13 +13,23 @@ import 'codemirror/mode/haskell/haskell.js';
 import '@/styles/codemirror-darcula.css';
 import 'codemirror/addon/edit/matchbrackets.js';
 import 'codemirror/addon/edit/closebrackets.js';
+import DiffMatchPatch from 'diff-match-patch';
+window.diff_match_patch = DiffMatchPatch;
+window.DIFF_DELETE = DiffMatchPatch.DIFF_DELETE;
+window.DIFF_INSERT = DiffMatchPatch.DIFF_INSERT;
+window.DIFF_EQUAL = DiffMatchPatch.DIFF_EQUAL;
+import 'codemirror/addon/merge/merge.js';
 import 'codemirror/addon/selection/active-line.js';
 import CodeMirror from 'codemirror';
 import { markRaw } from 'vue';
 
 export default {
   props: {
-    modelValue: {
+    code: {
+      type: String,
+      required: true
+    },
+    solution: {
       type: String,
       required: true
     },
@@ -26,7 +38,6 @@ export default {
       default: () => ({})
     }
   },
-  emits: [ 'update:modelValue' ],
   data() {
     return {
       codemirror: null
@@ -36,51 +47,64 @@ export default {
     options: {
       deep: true,
       handler(options) {
+        this.init();
         for (const key in options) {
           this.codemirror.setOption(key, options[key]);
         }
       }
     },
-    modelValue: {
-      handler(newModelValue){
-        this.updateCode(newModelValue);
+    solution: {
+      handler(){
+        this.init();
+      }
+    },
+    code: {
+      handler(){
+        this.init();
       }
     }
   },
   mounted() {
-    this.codemirror = markRaw(CodeMirror.fromTextArea(this.$refs.textarea, this.options));
-    this.codemirror.setSize(null, '100%');
-    this.codemirror.setValue(this.modelValue);
-    this.codemirror.on('change', cm => {
-      this.$emit(
-        'update:modelValue',
-        cm.getValue()
-      );
-    });
-    this.refresh();
+    this.init();
   },
   beforeUnmount(){
     this.codemirror = null;
   },
   methods: {
-    refresh() {
-      this.$nextTick(() => {
-        this.codemirror.refresh();
-      });
-    },
-    updateCode(newVal) {
-      const currentVal = this.codemirror.getValue();
-      if (newVal !== currentVal) {
-        const scrollInfo = this.codemirror.getScrollInfo();
-        this.codemirror.setValue(newVal);
-        this.content = newVal;
-        this.codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
-      }
+    init() {
+      let opts = this.options;
+      opts.value = this.code;
+      opts.origRight = this.solution;
+      this.codemirror = markRaw(
+        CodeMirror.MergeView(
+          this.$refs.codemirror,
+          opts
+        )
+      );
     }
   }
 };
 </script>
 
 <style>
+span.token.operator {
+  background: inherit !important;
+}
 
+.CodeMirror {
+  height: 100% !important;
+}
+
+.CodeMirror-merge {
+  height: 100%;
+}
+
+.CodeMirror-merge-pane {
+  height: 100%;
+  width: 50% !important;
+}
+
+.CodeMirror-merge-gap {
+  width: 0% !important;
+}
 </style>

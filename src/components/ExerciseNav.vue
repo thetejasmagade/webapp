@@ -57,18 +57,6 @@
           />
         </BlockButton>
       </Tooltip>
-      <div :style="{'visibility': clickSolution ? 'visible' : 'hidden'}">
-        <BlockButton
-          :click="clickSolution"
-          color="gray"
-        >
-          <FontAwesomeIcon
-            class="mr-1"
-            icon="eye"
-          />
-          <span> Cheat </span>
-        </BlockButton>
-      </div>
     </div>
   </div>
 </template>
@@ -117,11 +105,6 @@ export default {
       type: Boolean,
       required: false,
       default: true
-    },
-    clickSolution:{
-      type: Function,
-      required: false,
-      default: null
     },
     clickComment:{
       type: Function,

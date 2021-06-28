@@ -24,6 +24,7 @@
       <BlockButton
         class="mr-3"
         :click="runCallback"
+        :disabled="!runCallback"
       >
         <FontAwesomeIcon
           icon="play"
@@ -75,6 +76,21 @@
         />
       </BlockButton>
     </Tooltip>
+    <Tooltip
+      v-if="cheatCallback"
+      :text="`Toggle Solution`"
+      position="bottom"
+    >
+      <BlockButton
+        class="mr-3"
+        :click="cheatCallback"
+        :color="isCheating ? 'gold' : 'gray'"
+      >
+        <FontAwesomeIcon
+          icon="eye"
+        />
+      </BlockButton>
+    </Tooltip>
   </div>
 </template>
 
@@ -92,7 +108,8 @@ export default {
   props: {
     runCallback: {
       type: Function,
-      required: true
+      required: false,
+      default: null
     },
     resetCallback: {
       type: Function,
@@ -112,6 +129,16 @@ export default {
       type: Function,
       required: false,
       default: null
+    },
+    cheatCallback: {
+      type: Function,
+      required: false,
+      default: null
+    },
+    isCheating: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   }
 };

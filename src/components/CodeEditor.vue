@@ -25,20 +25,42 @@
       <Multipane layout="vertical">
         <div class="top-bar">
           <ConsoleButtons
-            :run-callback="runCode"
+            :run-callback="isCheating ? null : runCode"
             :reset-callback="() => $refs.resetCodeModal.show()"
             :save-callback="saveCallback"
             :load-callback="() => $refs.loadLastSaveModal.show()"
             :upgrade-callback="upgradeCallback"
+            :cheat-callback="cheatCallback"
+            :is-cheating="isCheating"
             class="console-buttons"
           />
         </div>
         <div class="editor-container">
           <CodeMirrorWrapper
+            v-if="!isCheating"
             v-model="modelValue"
             class="h-full"
             :options="codeMirrorOptions"
           />
+          <div
+            v-else
+            class="h-full flex flex-col"
+          >
+            <div class="flex flex-row text-xl bg-gray-800">
+              <h2 class="text-center w-1/2 text-red-500">
+                Your Code
+              </h2>
+              <h2 class="text-center w-1/2 text-green-500">
+                Potential Solution
+              </h2>
+            </div>
+            <CodeMirrorMergeWrapper
+              class="flex-grow"
+              :code="modelValue"
+              :solution="solution"
+              :options="codeMirrorOptions"
+            />
+          </div>
         </div>
         <MultipaneResizer layout="vertical" />
         <div
@@ -81,6 +103,7 @@ import {
 
 import ConfirmModal from '@/components/ConfirmModal.vue';
 import CodeMirrorWrapper from '@/components/CodeMirrorWrapper.vue';
+import CodeMirrorMergeWrapper from '@/components/CodeMirrorMergeWrapper.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import ConsoleButtons from '@/components/ConsoleButtons.vue';
 import Multipane from '@/components/Multipane.vue';
@@ -95,6 +118,7 @@ export default {
     Multipane,
     MultipaneResizer,
     CodeMirrorWrapper,
+    CodeMirrorMergeWrapper,
     ConfirmModal
   },
   emits: [ 'update:modelValue' ],
@@ -128,6 +152,16 @@ export default {
       required: false,
       default: null
     },
+    cheatCallback: {
+      type: Function,
+      required: false,
+      default: null
+    },
+    isCheating: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     progLang: {
       type: String,
       required: true
@@ -135,6 +169,11 @@ export default {
     modelValue: {
       type: String,
       required: true
+    },
+    solution: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data() {
@@ -156,7 +195,11 @@ export default {
         lineNumbers: true,
         autoCloseBrackets: true,
         matchBrackets: true,
-        styleActiveLine: true
+        styleActiveLine: true,
+        revertButtons: false,
+        collapseIdentical: false,
+        connect: 'align',
+        readOnly: this.isCheating
       };
     },
     codeMirrorLang(){
@@ -326,12 +369,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '@/styles/colors.scss';
-span.token.operator {
-  background: inherit !important;
-}
-
 .top-bar {
   flex: 0 0 auto;
   border-bottom: solid 1px $gray-light;
@@ -348,7 +387,6 @@ span.token.operator {
   .editor-container {
     height: 65%;
     width: 100%;
-    overflow: auto;
   }
 
   .console {
