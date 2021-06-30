@@ -1,26 +1,13 @@
 <template>
-  <div class="relative">
-    <div class="img-box">
-      <img
-        :src="profileImageURLWithDefault"
-        alt="user avatar"
-        class="
-          rounded-full
-          absolute
-          w-100
-          h-100
-          cover
-        "
-      >
-    </div>
+  <div>
     <form
-      v-if="editable"
       enctype="multipart/form-data"
     >
       <input
         id="profileImage"
         type="file"
         accept="image/*"
+        :disabled="!editable"
         class="
           opacity-0
           overflow-hidden
@@ -31,29 +18,18 @@
         "
         @change="editProfileImage"
       >
-      <label
-        for="profileImage"
-        class="
-          absolute
-          right-0
-          bottom-0
-          h-8
-          w-8
+      <label for="profileImage">
+        <img
+          :src="profileImageURLWithDefault"
+          alt="user avatar"
+          class="
           rounded-full
-          cursor-pointer
-          border-none
-          bg-gray-200
-          text-lg
-          flex
-          text-gray-800
-          items-center
-          justify-center
-          focus:outline-none
+          w-full
+          h-full
+          cover
         "
-      >
-        <FontAwesomeIcon
-          icon="camera"
-        />
+          :class="{'cursor-pointer': editable}"
+        >
       </label>
     </form>
   </div>
@@ -63,7 +39,6 @@
 import { 
   updateUserProfileImage
 } from '@/lib/cloudClient.js';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { 
   sleep
@@ -71,9 +46,6 @@ import {
 import { notify } from '@/lib/notification.js';
 
 export default {
-  components: {
-    FontAwesomeIcon
-  },
   props: { 
     profileImageURL:{
       type: String,
@@ -96,6 +68,10 @@ export default {
   },
   methods: {
     async editProfileImage(e){
+      if (!this.editable){
+        return; 
+      }
+      
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length){
         return;
@@ -129,9 +105,5 @@ export default {
 </script>
 
 <style scoped>
-.img-box::after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
+
 </style>

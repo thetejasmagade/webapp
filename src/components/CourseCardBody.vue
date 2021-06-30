@@ -6,7 +6,7 @@
       <div class="text-red-500 mr-5">
         <Tooltip
           :text="`Difficulty ${course.Difficulty}%`"
-          color="pink"
+          color="red"
         >
           <FontAwesomeIcon
             icon="signal"

@@ -7,8 +7,8 @@
       class="tooltip text-white"
       :class="{
         'bg-gray-500': color === 'gray',
-        'bg-red-500': color === 'pink',
-        'bg-gold-500': color === 'gold',
+        'bg-red-500': color === 'red',
+        'bg-gold-600': color === 'gold',
         'bg-blue-500': color === 'purple',
         'bg-green-500': color === 'green',
         top: position === 'top',
@@ -99,7 +99,7 @@ export default {
 
 .right {
   top: 50%;
-  left: calc(100% + 5px);
+  left: calc(100% + 10px);
   transform: translate(0, -50%);
 }
 </style>

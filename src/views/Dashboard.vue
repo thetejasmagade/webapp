@@ -4,8 +4,7 @@
     <div id="dashboard-container">
       <Sidebar
         :path-name="routeName"
-        :path-params="routeParams"
-        class="sidebar"
+        class="sidebar w-20"
       />
 
       <div id="content">
@@ -47,9 +46,6 @@ export default {
     },
     routeName(){
       return useRoute().name;
-    },
-    routeParams(){
-      return useRoute().params;
     },
     routeQuery(){
       return useRoute().query.redirect;
@@ -103,9 +99,6 @@ export default {
 .sidebar {
 	display: inline-block;
 	vertical-align: top;
-  flex-basis: 16%;
-  max-width: 300px;
-  min-width: 75px;
 }
 
 #content {

@@ -89,6 +89,7 @@
         <FontAwesomeIcon
           icon="eye"
         />
+        Cheat
       </BlockButton>
     </Tooltip>
   </div>

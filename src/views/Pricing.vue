@@ -237,7 +237,6 @@ export default {
         return null;
       }
       for (const price of this.subscriptionPlan.Prices){
-        console.log(price);
         if (price.Interval === 'year'){
           return price;
         } 

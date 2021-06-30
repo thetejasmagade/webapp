@@ -1,140 +1,109 @@
 <template>
   <div>
     <ProModal ref="proModal" />
-    <div class="sidebar desktop">
-      <div class="profile-box">
+
+    <div class="sidebar text-gray-200 bg-gray-800 h-full text-center">
+      <div class="profile-box flex flex-col items-center">
         <ProfileImage
-          class="profile-img"
+          class="profile-img my-4 w-3/5"
           :profile-image-u-r-l="$store.getters.getUser ? $store.getters.getUser.ProfileImageURL : null"
           editable
         />
-        <GemDisplay :text="`${$store.getters.getBalance}`" />
       </div>
 
-      <div class="divider">
-        <div class="divider" />
+      <div class="flex justify-center mb-2">
+        <div class="w-4/5 border-b-2 border-gray-500" />
       </div>
 
-      <MenuItemHorizontal
+      <GemDisplay
+        :size=".5"
+        :text="`${$store.getters.getBalance}`"
+        vertical
+        class="mb-4"
+      />
+
+      <div class="flex justify-center mb-2">
+        <div class="w-4/5 border-b-2 border-gray-500" />
+      </div>
+
+      <Tooltip
         v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
-        class="item"
-        icon="search"
-        :click="() => {$router.push({name: 'Recruiters'}) }"
-        text="Recruiters"
-        :current="pathName === 'Recruiters'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
-        icon="scroll"
-        :click="() => {$router.push({name: 'Courses'}) }"
-        text="Courses"
-        :current="pathName === 'Courses'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
-        icon="cog"
-        :click="() => {$router.push({name: 'Settings'}) }"
-        text="Settings"
-        :current="pathName === 'Settings'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
-        :icon="isSubscribed ? 'user-tie' : 'lock'"
-        :click="() => {clickPortfolio()}"
-        text="Portfolio"
-        :current="pathName === 'Portfolio'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
-        :icon="isSubscribed ? 'trophy' : 'lock'"
-        :click="() => {$router.push({name: 'Achievements'}) }"
-        text="Achievements"
-        :current="pathName === 'Achievements'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
-        icon="sign-out-alt"
-        :click="logout"
-        text="Logout"
-      />
-
-      <div
-        v-if="activeCourse"
-        class="divider"
+        :text="`Recruiters`"
+        position="right"
+        class="mx-4"
+        color="gold"
       >
-        <div class="divider" />
-      </div>
-
-      <MenuItemHorizontal
-        v-if="activeCourse"
-        class="item"
-        :text="activeCourse.Title"
-        :sub-items="modulesToSubItems(activeCourse.Modules)"
-        :click="() => {}"
-        :sub-items-tab-open="true"
-        :active-sub-item-u-u-i-d="$store.getters.getCurrentModuleUUID"
-        :current="true"
-      />
-    </div>
-
-    <div class="sidebar mobile">
-      <div class="profile-box">
-        <GemDisplay
-          :text="`${$store.getters.getBalance}`"
-          vertical
+        <MenuItemHorizontal
+          icon="search"
+          :click="() => {$router.push({name: 'Recruiters'}) }"
+          :current="pathName === 'Recruiters'"
         />
-      </div>
+      </Tooltip>
 
-      <div class="divider">
-        <div class="divider" />
-      </div>
+      <Tooltip
+        :text="`Courses`"
+        position="right"
+        class="mx-4"
+        color="gold"
+      >
+        <MenuItemHorizontal
+          icon="scroll"
+          :click="() => {$router.push({name: 'Courses'}) }"
+          :current="pathName === 'Courses'"
+        />
+      </Tooltip>
 
-      <MenuItemHorizontal
-        v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
-        class="item"
-        icon="search"
-        :click="() => {$router.push({name: 'Recruiters'}) }"
-        :current="pathName === 'Recruiters'"
-      />
+      <Tooltip
+        :text="`Settings`"
+        position="right"
+        class="mx-4"
+        color="gold"
+      >
+        <MenuItemHorizontal
+          icon="cog"
+          :click="() => {$router.push({name: 'Settings'}) }"
+          :current="pathName === 'Settings'"
+        />
+      </Tooltip>
 
-      <MenuItemHorizontal
-        class="item"
-        icon="scroll"
-        :click="() => {$router.push({name: 'Courses'}) }"
-        :current="pathName === 'Courses'"
-      />
+      <Tooltip
+        :text="`Portfolio`"
+        position="right"
+        :color="isSubscribed ? 'gold' : 'red'"
+      >
+        <MenuItemHorizontal
+          class="mx-4"
+          icon="user-tie"
+          :color="isSubscribed ? 'gold' : 'red'"
+          :click="() => {clickPortfolio()}"
+          :current="pathName === 'Portfolio'"
+        />
+      </Tooltip>
 
-      <MenuItemHorizontal
-        class="item"
-        icon="cog"
-        :click="() => {$router.push({name: 'Settings'}) }"
-        :current="pathName === 'Settings'"
-      />
+      <Tooltip
+        :text="`Achievements`"
+        position="right"
+        color="gold"
+      >
+        <MenuItemHorizontal
+          class="mx-4"
+          icon="trophy"
+          :click="() => {$router.push({name: 'Achievements'}) }"
+          :current="pathName === 'Achievements'"
+        />
+      </Tooltip>
 
-      <MenuItemHorizontal
-        class="item"
-        :icon="isSubscribed ? 'user-tie' : 'lock'"
-        :click="() => {clickPortfolio()}"
-        :current="pathName === 'Portfolio'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
-        :icon="isSubscribed ? 'trophy' : 'lock'"
-        :click="() => {$router.push({name: 'Achievements'}) }"
-        :current="pathName === 'Achievements'"
-      />
-
-      <MenuItemHorizontal
-        class="item"
-        icon="sign-out-alt"
-        :click="logout"
-      />
+      <Tooltip
+        :text="`Logout`"
+        position="right"
+        color="gold"
+      >
+        <MenuItemHorizontal
+          class="mx-4"
+          icon="sign-out-alt"
+          :click="logout"
+        />
+      </Tooltip>
     </div>
   </div>
 </template>
@@ -144,6 +113,7 @@ import ProModal from '@/components/ProModal.vue';
 import MenuItemHorizontal from '@/components/MenuItemHorizontal.vue';
 import GemDisplay from '@/components/GemDisplay.vue';
 import ProfileImage from '@/components/ProfileImage.vue';
+import Tooltip from '@/components/Tooltip.vue';
 
 import {
   setLogout
@@ -154,30 +124,18 @@ export default {
     MenuItemHorizontal,
     GemDisplay,
     ProfileImage,
-    ProModal
+    ProModal,
+    Tooltip
   },
   props: {
     pathName: {
       type: String,
       required: true
-    },
-    pathParams: {
-      type: Object,
-      required: false,
-      default: () => {return {};}
     }
   },
   computed: {
     isSubscribed(){
       return this.$store.getters.getUserIsSubscribed;
-    },
-    activeCourse(){
-      for (const course of this.$store.getters.getCourses){
-        if (course.UUID === this.pathParams.courseUUID){
-          return course;
-        }
-      }
-      return null;
     }
   },
   methods: {
@@ -188,26 +146,6 @@ export default {
       }
       this.$refs.proModal.show();
     },
-    modulesToSubItems(modules){
-      let subItems = [];
-      for (const mod of modules) {
-        subItems.push({
-          thisComponent: this,
-          text: mod.Title,
-          uuid: mod.UUID,
-          async click() {
-            this.thisComponent.$router.push({
-              name: 'Exercise',
-              params: {
-                courseUUID: this.thisComponent.activeCourse.UUID,
-                moduleUUID: this.uuid
-              }
-            });
-          }
-        });
-      }
-      return subItems;
-    },
     logout(){
       setLogout(this);
     }
@@ -215,61 +153,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+<style scoped>
 
-.mobile {
-  display: none !important;
-  @media screen and (max-width: $mobile-size) {
-    display: block !important;
-  }
-}
-
-.desktop {
-  @media screen and (max-width: $mobile-size) {
-    display: none !important;
-  }
-}
-
-.sidebar {
-	overflow: auto;
-  color: $gray-lightest;
-  background-color: $gray-darker-2;
-  height: 100%;
-
-  &.desktop{
-    .item {
-      margin: 0 1em 0 1em;
-    }
-  }
-
-  &.mobile{
-    text-align: center;
-    .item {
-      margin: 0 .5em 0 .5em;
-    }
-  }
-
-  .profile-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .profile-img{
-      margin-top: 1em;
-      width: 40%;
-    }
-  }
-
-  .divider {
-    display: flex;
-    justify-content: center;
-    margin: 5px;
-
-    div {
-      width: 80%; 
-      border-bottom: 1px solid $gray-light;
-    }
-  } 
-}
 </style>

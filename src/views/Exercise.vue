@@ -21,13 +21,15 @@
         ref="pricingModal"
       >
         <div class="pricing-modal">
-          <h1> Upgrade for continued access </h1>
-          <p>
+          <h1 class="text-2xl text-gold-600 mb-4">
+            Upgrade for continued access
+          </h1>
+          <p class="text-gray-600 mb-4">
             If you want to continue to verify your answers and get credit for assignments,
             <b>you'll need to upgrade to a pro account.</b>
           </p>
-          <p>
-            That said, still feel free to continue the course in read-only mode, its free to audit!
+          <p class="text-gray-600 mb-4">
+            That said, click outside this pop-up to continue the course in read-only mode, its free to audit!
           </p>
           <BlockButton
             class="btn"
@@ -43,7 +45,11 @@
         <div class="side left">
           <ExerciseNav
             class="nav"
-            :title="modulePosition ? `${moduleTitleTruncated} - ${modulePosition}/${numExercisesInModule}`: null"
+            :modules="course ? course.Modules : null"
+            :exercises="exercises"
+            :course-u-u-i-d="courseUUID"
+            :current-exercise-index="exerciseIndex"
+            :current-module-index="moduleIndex"
             :go-back="goBack"
             :go-forward="goForward"
             :can-go-back="!isFirstExercise"
@@ -208,30 +214,27 @@ export default {
     locked(){
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
     },
-    modulePosition(){
+    exerciseIndex(){
       if (!this.module){
         return null;
       }
-      let count = 0;
       if (!this.module.Exercises){
         return null;
       }
+      let count = 0;
       for (const exercise of this.module.Exercises){
-        count++;
         if (exercise.UUID === this.exerciseUUID){
           return count;
         }
+        count++;
       }
       return null;
     },
-    numExercisesInModule(){
+    exercises(){
       if (!this.module){
         return null;
       }
-      if (this.module.Exercises){
-        return this.module.Exercises.length;
-      }
-      return null;
+      return this.module.Exercises;
     },
     module(){
       if (!this.course || !this.course.Modules){
@@ -241,6 +244,19 @@ export default {
         if (mod.UUID === this.moduleUUID){
           return mod;
         }
+      }
+      return null;
+    },
+    moduleIndex(){
+      if (!this.course || !this.course.Modules){
+        return null;
+      }
+      let index = 0;
+      for (const mod of this.course.Modules){
+        if (mod.UUID === this.moduleUUID){
+          return index;
+        }
+        index++;
       }
       return null;
     },
@@ -472,7 +488,9 @@ export default {
     },
     scrollMarkdownToTop() {
       requestAnimationFrame(() => {
-        this.$refs.viewer.$el.scrollTop = 0;
+        if (this.$refs.viewer && this.$refs.viewer.$el){
+          this.$refs.viewer.$el.scrollTop = 0;
+        }
       });
     },
     async moveToExercise(exercise){
@@ -617,7 +635,7 @@ export default {
 
   &.left {
     border-right: 2px solid $gray-dark;
-    width: 40%;
+    width: 50%;
   }
 
   &.right {

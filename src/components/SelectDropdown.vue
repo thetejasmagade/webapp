@@ -47,12 +47,25 @@ export default {
   emits: [ 'update:modelValue' ],
   data() {
     return {
-      selected: this.default ? this.default : (this.options.length > 0 ? this.options[0] : null),
+      selected: this.getSelectionFromDefault(this.default),
       open: false
     };
   },
-  mounted(){
-    this.$emit('update:modelValue', this.selected);
+  watch: {
+    default(newDefault){
+      this.selected = this.getSelectionFromDefault(newDefault);
+    }
+  },
+  methods: {
+    getSelectionFromDefault(def){
+      if (this.options.length === 0) {
+        return null;
+      }
+      if (!def) {
+        return this.options[0];
+      }
+      return def;
+    }
   }
 };
 </script>
@@ -73,7 +86,7 @@ export default {
     border-radius: 6px;
     border: 1px solid $gray-mid;
     color: $gray-darker-2;
-    padding-left: 1em;
+    padding: 0 2.5em 0 1.5em;
     cursor: pointer;
     user-select: none;
 

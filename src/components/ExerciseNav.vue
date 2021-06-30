@@ -23,22 +23,31 @@
     </div>
 
     <div
-      v-if="title"
       class="flex items-center"
       :class="{'text-green-700': exerciseIsComplete}"
     >
+      <SelectDropdown
+        v-if="moduleNames && currentModuleIndex !== null"
+        class="w-auto"
+        :options="moduleNames"
+        :default="moduleNames[currentModuleIndex]"
+        @update:modelValue="selectModule"
+      />
       <FontAwesomeIcon
         v-if="exerciseIsComplete"
-        class="mr-3"
+        class="ml-3"
         icon="check"
       />
       <FontAwesomeIcon
         v-else-if="locked"
-        class="mr-3 text-red-600"
+        class="ml-3 text-red-600"
         icon="lock"
       />
-      <span>
-        {{ title }}
+      <span
+        v-if="exercises && currentExerciseIndex !== null"
+        class="ml-3"
+      >
+        {{ `${currentExerciseIndex + 1}/${exercises.length}` }}
       </span>
     </div>
 
@@ -65,16 +74,39 @@
 import Tooltip from '@/components/Tooltip.vue';
 import BlockButton from '@/components/BlockButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import SelectDropdown from '@/components/SelectDropdown.vue';
+
 
 export default {
   components: {
     BlockButton,
     FontAwesomeIcon,
-    Tooltip
+    Tooltip,
+    SelectDropdown
   },
   props: {
-    title: {
+    modules: {
+      type: Array,
+      required: false,
+      default: null
+    },
+    exercises: {
+      type: Array,
+      required: false,
+      default: null
+    },
+    courseUUID: {
       type: String,
+      required: false,
+      default: null
+    },
+    currentModuleIndex: {
+      type: Number,
+      required: false,
+      default: null
+    },
+    currentExerciseIndex: {
+      type: Number,
       required: false,
       default: null
     },
@@ -112,9 +144,42 @@ export default {
       default: null
     }
   },
+  computed: {
+    moduleNames() {
+      if (!this.modules){
+        return null;
+      }
+      let i = 1;
+      return this.modules.map(
+        module => {
+          const name = `${i}. ${module.Title}`;
+          i++;
+          return name;
+        }
+      );
+    }
+  },
   methods: {
     linkClick(url) {
       window.open(url, '_blank');
+    },
+    selectModule(moduleName){
+      let modUUID = null;
+      for (const mod of this.modules){
+        if (moduleName.includes(mod.Title)){
+          modUUID = mod.UUID;
+        }
+      }
+      if (!modUUID){
+        return; 
+      }
+      this.$router.push({
+        name: 'Exercise',
+        params: {
+          courseUUID: this.courseUUID,
+          moduleUUID: modUUID
+        }
+      });
     }
   }
 };

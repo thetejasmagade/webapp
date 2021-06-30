@@ -223,7 +223,8 @@ export default {
       max-width: 100%;
     }
     @media screen and (min-width: $mobile-size) {
-      width: 250px;
+      width: auto;
+      min-width: 250px;
     }
   }
 }

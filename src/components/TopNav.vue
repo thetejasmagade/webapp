@@ -2,7 +2,7 @@
   <div class="navs">
     <div class="nav">
       <div class="item-group">
-        <div class="item">
+        <div class="item ml-3">
           <img
             alt="Qvault logo"
             src="../img/qvault-icon-250.png"
@@ -14,7 +14,7 @@
         <router-link
           v-if="$store.getters.getIsLoggedIn"
           to="/"
-          class="item link"
+          class="item link px-4 m-2"
           :class="{current: routePath.includes('dashboard')}"
         >
           <span>Dashboard</span>
@@ -22,7 +22,7 @@
         <router-link
           v-else
           to="/"
-          class="item link"
+          class="item link px-4 m-2"
           :class="{current: routeName === 'Login'}"
         >
           <span>Login</span>
@@ -30,7 +30,7 @@
 
         <router-link
           to="/pricing"
-          class="item link"
+          class="item link px-4 m-2"
           :class="{current: routeName === 'Pricing' }"
         >
           <span>Pricing</span>
@@ -39,14 +39,14 @@
         <a
           href="https://discord.gg/k4rVEWt"
           target="_blank"
-          class="item link"
+          class="item link px-4 m-2"
         >
           <span>Community</span>
         </a>
 
         <router-link
           to="/playground/go"
-          class="item link"
+          class="item link px-4 m-2"
           :class="{current: routeName === 'Playground' }"
         >
           <span>Playground</span>
@@ -55,7 +55,7 @@
         <a
           href="https://qvault.io/articles"
           target="_blank"
-          class="item link"
+          class="item link px-4 m-2"
         >
           <span>Blog</span>
         </a>
@@ -195,9 +195,7 @@ export default {
   }
 
   @media screen and (min-width: $mobile-size) {
-    padding: 0 1em 0 1em;
     border-radius: 5px;
-    margin: .75em .5em .75em .5em;
   }
 
   &.link {
