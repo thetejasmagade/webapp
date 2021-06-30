@@ -39,6 +39,10 @@
 	if (!global.fs) {
 		let outputBuf = "";
 		global.fs = {
+			// QVAULT ADDITION --- ADD ABILITY TO FLUSH OUTPUT BUFFER
+			flushOutputBuf() {
+				outputBuf = "";
+			},
 			constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 }, // unused
 			writeSync(fd, buf) {
 				outputBuf += decoder.decode(buf);
@@ -624,6 +628,7 @@ addEventListener('message', async (e) => {
 			message: line
 		});
 	};
+	fs.flushOutputBuf()
 	await go.run(result.instance);
 	console.log = oldLog;
 
