@@ -39,10 +39,6 @@
 	if (!global.fs) {
 		let outputBuf = "";
 		global.fs = {
-			// QVAULT ADDITION --- ADD ABILITY TO FLUSH OUTPUT BUFFER
-			flushOutputBuf() {
-				outputBuf = "";
-			},
 			constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 }, // unused
 			writeSync(fd, buf) {
 				outputBuf += decoder.decode(buf);
@@ -621,6 +617,9 @@ addEventListener('message', async (e) => {
 		context.clearRect(0, 0, canvas.width, canvas.height);
 	}
 
+	// clear the persistent stdout buffer
+	fs.writeSync(null, new TextEncoder("utf-8").encode('\n'))
+
 	const result = await WebAssembly.instantiate(e.data, go.importObject);
 	let oldLog = console.log;
 	console.log = (line) => {
@@ -628,7 +627,6 @@ addEventListener('message', async (e) => {
 			message: line
 		});
 	};
-	fs.flushOutputBuf()
 	await go.run(result.instance);
 	console.log = oldLog;
 
