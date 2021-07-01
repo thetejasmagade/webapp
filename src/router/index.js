@@ -68,7 +68,7 @@ const routes = [
         component: Courses
       },
       {
-        path: 'exercise/:courseUUID/:moduleUUID?',
+        path: 'exercise/:courseUUID/:moduleUUID?/:exerciseUUID?',
         name: 'Exercise',
         component: Exercise
       },

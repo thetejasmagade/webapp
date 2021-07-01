@@ -2,9 +2,9 @@
   <div class="exercise-root">
     <ProModal ref="proModal" />
     <FeedbackModal
-      v-if="exerciseUUID"
+      v-if="$route.params.exerciseUUID"
       ref="feedbackModal"
-      :exercise-u-u-i-d="exerciseUUID"
+      :exercise-u-u-i-d="$route.params.exerciseUUID"
     />
     
     <CourseCompleted
@@ -47,14 +47,14 @@
             class="nav"
             :modules="course ? course.Modules : null"
             :exercises="exercises"
-            :course-u-u-i-d="courseUUID"
+            :course-u-u-i-d="$route.params.courseUUID"
             :current-exercise-index="exerciseIndex"
             :current-module-index="moduleIndex"
             :go-back="goBack"
             :go-forward="goForward"
             :can-go-back="!isFirstExercise"
             :can-go-forward="!courseDone"
-            :exercise-is-complete="isComplete"
+            :is-complete="isComplete"
             :locked="locked"
             :click-comment="() => showFeedbackModal()"
           />
@@ -182,19 +182,10 @@ export default {
     ProModal,
     FeedbackModal
   },
-  async beforeRouteUpdate (to, from, next) {
-    this.courseUUID = to.params.courseUUID;
-    this.courseDone = false;
-    await this.moveToCurrentExercise();
-    next();
-  },
   data(){
     return {
       markdownSource: '',
       type: '',
-      courseUUID: this.$route.params.courseUUID,
-      moduleUUID: null,
-      exerciseUUID: null,
       question: {},
       progLang: 'go',
       courseDone: false,
@@ -223,7 +214,7 @@ export default {
       }
       let count = 0;
       for (const exercise of this.module.Exercises){
-        if (exercise.UUID === this.exerciseUUID){
+        if (exercise.UUID === this.$route.params.exerciseUUID){
           return count;
         }
         count++;
@@ -241,7 +232,7 @@ export default {
         return null;
       }
       for (const mod of this.course.Modules){
-        if (mod.UUID === this.moduleUUID){
+        if (mod.UUID === this.$route.params.moduleUUID){
           return mod;
         }
       }
@@ -253,7 +244,7 @@ export default {
       }
       let index = 0;
       for (const mod of this.course.Modules){
-        if (mod.UUID === this.moduleUUID){
+        if (mod.UUID === this.$route.params.moduleUUID){
           return index;
         }
         index++;
@@ -272,7 +263,7 @@ export default {
         return null;
       }
       for (const course of this.courses){
-        if (course.UUID === this.courseUUID){
+        if (course.UUID === this.$route.params.courseUUID){
           return course;
         }
       }
@@ -286,35 +277,46 @@ export default {
     }
   },
   async mounted(){
-    this.courses = await getCourses(this.courseUUID);
-    if (this.$route.params.moduleUUID){
-      const exercise = await getFirstExerciseInModule(
-        this.courseUUID,
-        this.$route.params.moduleUUID
+    this.courses = await getCourses(this.$route.params.courseUUID);
+
+    if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID){
+      const exercise = await getExerciseByID(
+        this.$route.params.courseUUID,
+        this.$route.params.exerciseUUID
       );
       this.moveToExercise(exercise);
       return;
     }
 
+    if (this.$route.params.moduleUUID){
+      const exercise = await getFirstExerciseInModule(
+        this.$route.params.courseUUID,
+        this.$route.params.moduleUUID
+      );
+      this.navToExercise(exercise);
+      return;
+    }
+
+      
     if (!this.$store.getters.getUser){
       await loadUser(this);
     }
 
     if (!this.$store.getters.getUserIsSubscribed){
       try{
-        const exerciseUUID = await loadUnsubscribedProgress(this.courseUUID);
+        const exerciseUUID = await loadUnsubscribedProgress(this.$route.params.courseUUID);
         const exercise = await getExerciseByID(
-          this.courseUUID,
+          this.$route.params.courseUUID,
           exerciseUUID
         );
-        this.moveToExercise(exercise);
+        this.navToExercise(exercise);
         return;
       } catch (err){
         console.log(err);
         // do nothing
       }
     }
-    await this.moveToCurrentExercise();
+    await this.navToCurrentExercise();
   },
   methods: {
     showModal(){
@@ -343,7 +345,7 @@ export default {
     },
     async saveCode(){
       try{
-        await saveCode(this.exerciseUUID, this.code);
+        await saveCode(this.$route.params.exerciseUUID, this.code);
         notify({
           type: 'success',
           text: 'Code saved!'
@@ -357,7 +359,7 @@ export default {
     },
     async getSavedCode(){
       try{
-        const resp = await getSavedCode (this.exerciseUUID, this.code);
+        const resp = await getSavedCode(this.$route.params.exerciseUUID, this.code);
         if (resp.Code && resp.Code !== ''){
           this.code = resp.Code;
           notify({
@@ -379,7 +381,7 @@ export default {
     },
     async submitTypeInfo(){
       await submitInformationalExercise(
-        this.exerciseUUID
+        this.$route.params.exerciseUUID
       );
       this.isComplete = true;
     },
@@ -426,7 +428,7 @@ export default {
     async verifyCode({output}){
       try {
         const rewardsResponse = await submitCodeExercise(
-          this.exerciseUUID,
+          this.$route.params.exerciseUUID,
           output
         );
         this.isComplete = true;
@@ -441,7 +443,7 @@ export default {
     async verifyHash({hash}){
       try {
         const rewardsResponse = await submitCodeCanvasExercise(
-          this.exerciseUUID,
+          this.$route.params.exerciseUUID,
           hash
         );
         this.isComplete = true;
@@ -454,14 +456,14 @@ export default {
       }
     },
     async submitTypeCode({output}) {
-      gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
+      gtmEventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.locked){
         return;
       }
       this.verifyCode({output});
     },
     async submitTypeCodeCanvas({hash}) {
-      gtmEventExecuteCode(this.exerciseUUID, this.course.Title);
+      gtmEventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.locked){
         return;
       }
@@ -470,14 +472,14 @@ export default {
     async submitTypeChoice(answer) {
       try {
         const rewardsResponse = await submitMultipleChoiceExercise(
-          this.exerciseUUID,
+          this.$route.params.exerciseUUID,
           answer
         );
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
         await sleep(1500);
         if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
-          await this.moveToCurrentExercise();
+          await this.navToCurrentExercise();
         }
       } catch(err) {
         notify({
@@ -493,11 +495,21 @@ export default {
         }
       });
     },
+    navToExercise(exercise){
+      this.$router.push({
+        name: 'Exercise',
+        params: {
+          courseUUID: exercise.Exercise.CourseUUID,
+          moduleUUID: exercise.Exercise.ModuleUUID,
+          exerciseUUID: exercise.Exercise.UUID
+        }
+      });
+    },
     async moveToExercise(exercise){
       if (this.isFree && this.code && !exercise.Exercise.IsFree && !this.$store.getters.getUserIsSubscribed){
         this.showModal();
       }
-      saveUnsubscribedProgress(this.courseUUID, exercise.Exercise.UUID);
+      saveUnsubscribedProgress(this.$route.params.courseUUID, exercise.Exercise.UUID);
       if (exercise.CourseDone){
         if (!this.courseDone){
           gtmEventFinishCourse(this.course.Title, false);
@@ -520,9 +532,7 @@ export default {
 
       this.markdownSource = exercise.Exercise.Readme;
       this.type = exercise.Exercise.Type;
-      this.moduleUUID = exercise.Exercise.ModuleUUID;
-      this.$store.commit('setCurrentModuleUUID', this.moduleUUID);
-      this.exerciseUUID = exercise.Exercise.UUID;
+      this.$store.commit('setCurrentModuleUUID', this.$route.params.moduleUUID);
 
       if (this.type === 'type_code'){
         this.code = exercise.Exercise.Code;
@@ -538,10 +548,10 @@ export default {
         this.question = exercise.Exercise.Question;
       }
     },
-    async moveToCurrentExercise(){
+    async navToCurrentExercise(){
       try {
-        const exercise = await getCurrentExercise(this.courseUUID);
-        this.moveToExercise(exercise);
+        const exercise = await getCurrentExercise(this.$route.params.courseUUID);
+        this.navToExercise(exercise);
       } catch (err) {
         notify({
           type: 'danger',
@@ -551,8 +561,8 @@ export default {
     },
     async goBack(){
       try {
-        const exercise = await getPreviousExercise(this.courseUUID, this.exerciseUUID);
-        this.moveToExercise(exercise);
+        const exercise = await getPreviousExercise(this.$route.params.courseUUID, this.$route.params.exerciseUUID);
+        this.navToExercise(exercise);
       } catch (err) {
         notify({
           type: 'danger',
@@ -565,8 +575,8 @@ export default {
         await this.submitTypeInfo();
       }
       try {
-        const exercise = await getNextExercise(this.courseUUID, this.exerciseUUID);
-        this.moveToExercise(exercise);
+        const exercise = await getNextExercise(this.$route.params.courseUUID, this.$route.params.exerciseUUID);
+        this.navToExercise(exercise);
       } catch (err) {
         notify({
           type: 'danger',
@@ -576,8 +586,8 @@ export default {
     },
     async goToBeginning(){
       try {
-        const exercise = await getFirstExercise(this.courseUUID);
-        this.moveToExercise(exercise);
+        const exercise = await getFirstExercise(this.$route.params.courseUUID);
+        this.navToExercise(exercise);
       } catch (err) {
         notify({
           type: 'danger',
@@ -627,7 +637,6 @@ export default {
 
 .side {
   height: 100%;
-  overflow: auto;
   display: flex;
   flex-direction: column;
   background-color: $gray-lightest;
@@ -635,7 +644,7 @@ export default {
 
   &.left {
     border-right: 2px solid $gray-dark;
-    width: 50%;
+    flex: 1;
   }
 
   &.right {

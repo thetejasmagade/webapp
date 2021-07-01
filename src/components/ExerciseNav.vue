@@ -24,7 +24,7 @@
 
     <div
       class="flex items-center"
-      :class="{'text-green-700': exerciseIsComplete}"
+      :class="{'text-green-700': isComplete}"
     >
       <SelectDropdown
         v-if="moduleNames && currentModuleIndex !== null"
@@ -34,7 +34,7 @@
         @update:modelValue="selectModule"
       />
       <FontAwesomeIcon
-        v-if="exerciseIsComplete"
+        v-if="isComplete"
         class="ml-3"
         icon="check"
       />
@@ -115,7 +115,7 @@ export default {
       required: false,
       default: false
     },
-    exerciseIsComplete: {
+    isComplete: {
       type: Boolean,
       required: false,
       default: false
