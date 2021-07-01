@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-between bg-gray-300 text-gray-700">
+  <div class="flex flex-row justify-between bg-gray-300 text-gray-700 whitespace-nowrap">
     <div>
       <BlockButton
         :click="goBack"
@@ -23,15 +23,21 @@
     </div>
 
     <div
-      class="flex items-center"
+      class="px-10 flex-1 flex items-center justify-center"
       :class="{'text-green-700': isComplete}"
     >
       <SelectDropdown
         v-if="moduleNames && currentModuleIndex !== null"
-        class="w-auto"
         :options="moduleNames"
         :default="moduleNames[currentModuleIndex]"
         @update:modelValue="selectModule"
+      />
+      <SelectDropdown
+        v-if="exerciseNames && currentExerciseIndex !== null"
+        class="ml-3"
+        :options="exerciseNames"
+        :default="exerciseNames[currentExerciseIndex]"
+        @update:modelValue="selectExercise"
       />
       <FontAwesomeIcon
         v-if="isComplete"
@@ -43,12 +49,6 @@
         class="ml-3 text-red-600"
         icon="lock"
       />
-      <span
-        v-if="exercises && currentExerciseIndex !== null"
-        class="ml-3"
-      >
-        {{ `${currentExerciseIndex + 1}/${exercises.length}` }}
-      </span>
     </div>
 
     <div class="flex flex-row flex-end">
@@ -157,6 +157,16 @@ export default {
           return name;
         }
       );
+    },
+    exerciseNames() {
+      if (!this.exercises){
+        return null;
+      }
+      const names = [];
+      for (let i = 1; i < this.exercises.length +1;i++){
+        names.push(`${i}/${this.exercises.length}`);
+      }
+      return names;
     }
   },
   methods: {
@@ -178,6 +188,28 @@ export default {
         params: {
           courseUUID: this.courseUUID,
           moduleUUID: modUUID
+        }
+      });
+    },
+    selectExercise(exerciseName){
+      let exerciseIndex = null;
+      let i = 0;
+      for (const exName of this.exerciseNames){
+        if (exerciseName === exName){
+          exerciseIndex = i;
+          break;
+        }
+        i++;
+      }
+      if (!exerciseIndex){
+        return; 
+      }
+      this.$router.push({
+        name: 'Exercise',
+        params: {
+          courseUUID: this.courseUUID,
+          moduleUUID: this.modules[this.currentModuleIndex].UUID,
+          exerciseUUID: this.exercises[exerciseIndex].UUID
         }
       });
     }

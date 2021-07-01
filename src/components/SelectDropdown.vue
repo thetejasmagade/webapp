@@ -2,7 +2,6 @@
   <div
     class="
       relative
-      w-full
       outline-none
       h-10
       leading-10
@@ -19,7 +18,7 @@
         border-gray-500
         text-gray-800
         cursor-pointer
-        pr-10
+        pr-8
         pl-6
       "
       :class="{open: open}"
@@ -31,7 +30,7 @@
           arrow
           absolute
           top-5
-          right-4
+          right-3
           h-0
           border-4
         "
@@ -40,7 +39,7 @@
     <div
       class="
         text-gray-100
-        overflow-hidden
+        overflow-auto
         position-absolute
         left-0
         right-0
@@ -51,13 +50,19 @@
         border-r
         border-b
         z-10
+        max-h-80
       "
       :class="{selectHide: !open}"
     >
       <div
         v-for="(option, i) of options"
         :key="i"
-        class="text-gray-800 pl-4 cursor-pointer hover:bg-gold-400"
+        class="
+          text-gray-800
+          px-4
+          cursor-pointer
+          hover:bg-gold-400
+        "
         @click="selected=option; open=false; $emit('update:modelValue', option)"
       >
         {{ option }}

@@ -251,13 +251,6 @@ export default {
       }
       return null;
     },
-    moduleTitleTruncated(){
-      const maxLength = 15;
-      if (this.module.Title > 5) {
-        return this.module.Title.substring(0, maxLength) + '...';
-      }
-      return this.module.Title;
-    },
     course(){
       if (!this.courses){
         return null;
@@ -644,7 +637,7 @@ export default {
 
   &.left {
     border-right: 2px solid $gray-dark;
-    flex: 1;
+    width: 50%;
   }
 
   &.right {
