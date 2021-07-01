@@ -1,23 +1,63 @@
 <template>
   <div
-    class="custom-select"
+    class="
+      relative
+      w-full
+      outline-none
+      h-10
+      leading-10
+    "
     :tabindex="tabindex"
     @blur="open = false"
   >
     <div
-      class="selected"
+      class="
+        selected
+        bg-gray-200
+        rounded-md
+        border
+        border-gray-500
+        text-gray-800
+        cursor-pointer
+        pr-10
+        pl-6
+      "
       :class="{open: open}"
       @click="open = !open"
     >
       {{ selected }}
+      <div
+        class="
+          arrow
+          absolute
+          top-5
+          right-4
+          h-0
+          border-4
+        "
+      />
     </div>
     <div
-      class="items"
+      class="
+        text-gray-100
+        overflow-hidden
+        position-absolute
+        left-0
+        right-0
+        bg-gray-300
+        rounded-b-md
+        border-gray-500
+        border-l
+        border-r
+        border-b
+        z-10
+      "
       :class="{selectHide: !open}"
     >
       <div
         v-for="(option, i) of options"
         :key="i"
+        class="text-gray-800 pl-4 cursor-pointer hover:bg-gold-400"
         @click="selected=option; open=false; $emit('update:modelValue', option)"
       >
         {{ option }}
@@ -70,65 +110,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import '@/styles/colors.scss';
+<style scoped>
 
-.custom-select {
-  position: relative;
-  width: 100%;
-	text-align: left;
-  outline: none;
-  height: 47px;
-  line-height: 47px;
+.open {
+  border-radius: 6px 6px 0px 0px;
+}
 
-  .selected {
-    background-color: $gray-lightest;
-    border-radius: 6px;
-    border: 1px solid $gray-mid;
-    color: $gray-darker-2;
-    padding: 0 2.5em 0 1.5em;
-    cursor: pointer;
-    user-select: none;
-
-    &.open{
-      border-radius: 6px 6px 0px 0px;
-    }
-
-    &:after {
-      position: absolute;
-      content: "";
-      top: 22px;
-      right: 1em;
-      width: 0;
-      height: 0;
-      border: 5px solid transparent;
-      border-color: $gray-darker-2 transparent transparent transparent;
-    }
-  }
-
-  .items {
-    color: $white;
-    border-radius: 0px 0px 6px 6px;
-    overflow: hidden;
-    border-right: 1px solid $gray-mid;
-    border-left: 1px solid $gray-mid;
-    border-bottom: 1px solid $gray-mid;
-    position: absolute;
-    background-color: $gray-lighter;
-    left: 0;
-    right: 0;
-    z-index: 5;
-
-    div{
-      color: $gray-darker-2;
-      padding-left: 1em;
-      cursor: pointer;
-      user-select: none;
-      &:hover{
-        background-color: $gold-light;
-      }
-    }
-  }
+.arrow {
+  border-color: black transparent transparent transparent;
 }
 
 .selectHide {
