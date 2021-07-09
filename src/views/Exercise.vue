@@ -203,6 +203,9 @@ export default {
   },
   computed: {
     locked(){
+      if (this.$store.getters.getUserIsSubscribed === null){
+        return false;
+      }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
     },
     exerciseIndex(){

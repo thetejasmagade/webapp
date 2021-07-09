@@ -23,17 +23,21 @@
     </div>
 
     <div
+      v-if="
+        moduleNames && 
+          currentModuleIndex !== null &&
+          exerciseNames &&
+          currentExerciseIndex !== null
+      "
       class="px-10 flex-1 flex items-center justify-center"
       :class="{'text-green-700': isComplete}"
     >
       <SelectDropdown
-        v-if="moduleNames && currentModuleIndex !== null"
         :options="moduleNames"
         :default="moduleNames[currentModuleIndex]"
         @update:modelValue="selectModule"
       />
       <SelectDropdown
-        v-if="exerciseNames && currentExerciseIndex !== null"
         class="ml-3"
         :options="exerciseNames"
         :default="exerciseNames[currentExerciseIndex]"
