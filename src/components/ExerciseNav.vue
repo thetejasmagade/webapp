@@ -1,5 +1,17 @@
 <template>
-  <div class="flex flex-row justify-between bg-gray-300 text-gray-700 whitespace-nowrap">
+  <div
+    class="
+      flex 
+      flex-row
+      justify-between
+      bg-gray-300
+      whitespace-nowrap
+    "
+    :class="{
+      'bg-green-300': isComplete,
+      'bg-red-300': locked,
+    }"
+  >
     <div>
       <BlockButton
         :click="goBack"
@@ -23,35 +35,26 @@
     </div>
 
     <div
-      v-if="
-        moduleNames && 
-          currentModuleIndex !== null &&
-          exerciseNames &&
-          currentExerciseIndex !== null
-      "
       class="px-10 flex-1 flex items-center justify-center"
-      :class="{'text-green-700': isComplete}"
     >
       <SelectDropdown
+        v-if="
+          moduleNames && 
+            currentModuleIndex !== null
+        "
         :options="moduleNames"
         :default="moduleNames[currentModuleIndex]"
         @update:modelValue="selectModule"
       />
       <SelectDropdown
+        v-if="
+          exerciseNames &&
+            currentExerciseIndex !== null
+        "
         class="ml-3"
         :options="exerciseNames"
         :default="exerciseNames[currentExerciseIndex]"
         @update:modelValue="selectExercise"
-      />
-      <FontAwesomeIcon
-        v-if="isComplete"
-        class="ml-3"
-        icon="check"
-      />
-      <FontAwesomeIcon
-        v-else-if="locked"
-        class="ml-3 text-red-600"
-        icon="lock"
       />
     </div>
 

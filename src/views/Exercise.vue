@@ -22,7 +22,7 @@
       >
         <div class="pricing-modal">
           <h1 class="text-2xl text-gold-600 mb-4">
-            Upgrade for continued access
+            Upgrade for continued pro access
           </h1>
           <p class="text-gray-600 mb-4">
             If you want to continue to verify your answers and get credit for assignments,
@@ -44,6 +44,7 @@
       <Multipane layout="horizontal">
         <div class="side left">
           <ExerciseNav
+            v-if="locked !== null"
             class="nav"
             :modules="course ? course.Modules : null"
             :exercises="exercises"
@@ -196,15 +197,16 @@ export default {
       complete: '',
       defaultCode: '',
       courses: null,
-      isComplete: false,
-      isFree: false,
+      isComplete: null,
+      isFree: null,
       isCheating: false
     };
   },
   computed: {
     locked(){
-      if (this.$store.getters.getUserIsSubscribed === null){
-        return false;
+      if (this.$store.getters.getUserIsSubscribed === null ||
+        this.isFree === null){
+        return null;
       }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
     },
@@ -502,9 +504,11 @@ export default {
       });
     },
     async moveToExercise(exercise){
-      if (this.isFree && this.code && !exercise.Exercise.IsFree && !this.$store.getters.getUserIsSubscribed){
+      // should probably get "6" from server
+      if (this.exerciseIndex === 6){
         this.showModal();
       }
+
       saveUnsubscribedProgress(this.$route.params.courseUUID, exercise.Exercise.UUID);
       if (exercise.CourseDone){
         if (!this.courseDone){
