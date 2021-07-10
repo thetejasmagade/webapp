@@ -532,9 +532,6 @@ export default {
       });
     },
     navToExercise(exercise){
-      if (exercise.CourseDone){
-        this.courseDone = true;
-      }
       this.$router.push({
         name: 'Exercise',
         params: {
@@ -548,6 +545,10 @@ export default {
       // should probably get "6" from server
       if (this.exerciseIndex === 6 && this.moduleIndex === 0){
         this.showModal();
+      }
+
+      if (exercise.CourseDone){
+        this.courseDone = true;
       }
 
       saveUnsubscribedProgress(this.$route.params.courseUUID, exercise.Exercise.UUID);
