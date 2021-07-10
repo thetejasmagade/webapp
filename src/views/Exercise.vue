@@ -494,6 +494,13 @@ export default {
       });
     },
     navToExercise(exercise){
+      if (exercise.CourseDone){
+        if (!this.courseDone){
+          gtmEventFinishCourse(this.course.Title, false);
+        }
+        this.courseDone = true;
+        return;
+      }
       this.$router.push({
         name: 'Exercise',
         params: {
@@ -510,14 +517,6 @@ export default {
       }
 
       saveUnsubscribedProgress(this.$route.params.courseUUID, exercise.Exercise.UUID);
-      if (exercise.CourseDone){
-        if (!this.courseDone){
-          gtmEventFinishCourse(this.course.Title, false);
-        }
-        this.courseDone = true;
-        this.handleRewards(exercise.Rewards);
-        return;
-      }
       this.courseDone = false;
       this.isFree = exercise.Exercise.IsFree;
       this.isFirstExercise = exercise.Exercise.IsFirst;
