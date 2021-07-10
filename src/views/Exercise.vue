@@ -6,41 +6,71 @@
       ref="feedbackModal"
       :exercise-u-u-i-d="$route.params.exerciseUUID"
     />
-    
-    <CourseCompleted
-      v-if="courseDone"
-      class="full"
-      :restart-callback="goToBeginning"
-    />
-      
-    <div
-      v-else
-      class="exercise-container desktop"
+    <Modal
+      ref="pricingModal"
     >
-      <Modal
-        ref="pricingModal"
-      >
-        <div class="pricing-modal">
-          <h1 class="text-2xl text-gold-600 mb-4">
-            Upgrade for continued pro access
-          </h1>
-          <p class="text-gray-600 mb-4">
-            If you want to continue to verify your answers and get credit for assignments,
-            <b>you'll need to upgrade to a pro account.</b>
-          </p>
-          <p class="text-gray-600 mb-4">
-            That said, click outside this pop-up to continue the course in read-only mode, its free to audit!
-          </p>
+      <div>
+        <h1 class="text-2xl text-gold-600 mb-4">
+          Upgrade for continued pro access
+        </h1>
+        <p class="text-gray-600 mb-4">
+          If you want to continue to verify your answers and get credit for assignments,
+          <b>you'll need to upgrade to a pro account.</b>
+        </p>
+        <p class="text-gray-600 mb-4">
+          That said, click outside this pop-up to continue the course in read-only mode, its free to audit!
+        </p>
+        <BlockButton
+          class="btn"
+          :click="() => {modalButtonClick()}"
+          color="purple"
+        >
+          View Plans
+        </BlockButton>
+      </div>
+    </Modal>
+    <Modal
+      ref="courseDoneModal"
+    >
+      <div>
+        <h1 class="text-2xl text-gold-600 mb-4">
+          Congragulations! You've completed the course
+        </h1>
+        <p class="text-gray-600 mb-4">
+          Check out the new certificate on your portfolio then start your next course
+        </p>
+        <img
+          src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
+        >
+        <div class="flex justify-center">
           <BlockButton
-            class="btn"
-            :click="() => {modalButtonClick()}"
-            color="purple"
+            class="m-4"
+            :click="clickNextCourse"
           >
-            View Plans
+            Next Course
+          </BlockButton>
+          <BlockButton
+            class="m-4"
+            :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
+            color="gray"
+          >
+            View Portfolio
+          </BlockButton>
+          <BlockButton
+            class="m-4"
+            :click="goToBeginning"
+            color="gray"
+          >
+            Restart
           </BlockButton>
         </div>
-      </Modal>
+      </div>
+    </Modal>
 
+      
+    <div
+      class="exercise-container desktop"
+    >
       <Multipane layout="horizontal">
         <div class="side left">
           <ExerciseNav
@@ -54,7 +84,7 @@
             :go-back="goBack"
             :go-forward="goForward"
             :can-go-back="!isFirstExercise"
-            :can-go-forward="!courseDone"
+            :can-go-forward="!isLastExercise || courseDone"
             :is-complete="isComplete"
             :locked="locked"
             :click-comment="() => showFeedbackModal()"
@@ -121,7 +151,6 @@ import MultipleChoice from '@/components/MultipleChoice.vue';
 import MarkdownViewer from '@/components/MarkdownViewer.vue';
 import CodeEditor from '@/components/CodeEditor.vue';
 import BlockButton from '@/components/BlockButton.vue';
-import CourseCompleted from '@/components/CourseCompleted.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
 import Multipane from '@/components/Multipane.vue';
 import MultipaneResizer from '@/components/MultipaneResizer.vue';
@@ -131,7 +160,8 @@ import FeedbackModal from '@/components/FeedbackModal.vue';
 
 import { 
   loadBalance,
-  loadUser
+  loadUser,
+  loadProgramCS
 } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
@@ -176,7 +206,6 @@ export default {
     MarkdownViewer,
     BlockButton,
     MultipleChoice,
-    CourseCompleted,
     ExerciseNav,
     Multipane,
     MultipaneResizer,
@@ -311,12 +340,15 @@ export default {
         return;
       } catch (err){
         console.log(err);
-        // do nothing
       }
     }
     await this.navToCurrentExercise();
   },
   methods: {
+    async clickNextCourse(){
+      await loadProgramCS(this);
+      this.$router.push({ name: 'Courses'});
+    },
     showModal(){
       gtmEventOpenProModal();
       this.$refs.pricingModal.show();
@@ -384,6 +416,12 @@ export default {
       this.isComplete = true;
     },
     async handleRewards(rewardsResponse){
+      if (rewardsResponse.CourseDone){
+        if (!this.courseDone){
+          gtmEventFinishCourse(this.course.Title, false);
+        }
+        this.courseDone = true;
+      }
       if ((rewardsResponse.GemCredit && rewardsResponse.Message) || 
         rewardsResponse.Achievements && rewardsResponse.Achievements.length > 0){
         loadBalance(this);
@@ -495,11 +533,7 @@ export default {
     },
     navToExercise(exercise){
       if (exercise.CourseDone){
-        if (!this.courseDone){
-          gtmEventFinishCourse(this.course.Title, false);
-        }
         this.courseDone = true;
-        return;
       }
       this.$router.push({
         name: 'Exercise',
@@ -512,12 +546,11 @@ export default {
     },
     async moveToExercise(exercise){
       // should probably get "6" from server
-      if (this.exerciseIndex === 6){
+      if (this.exerciseIndex === 6 && this.moduleIndex === 0){
         this.showModal();
       }
 
       saveUnsubscribedProgress(this.$route.params.courseUUID, exercise.Exercise.UUID);
-      this.courseDone = false;
       this.isFree = exercise.Exercise.IsFree;
       this.isFirstExercise = exercise.Exercise.IsFirst;
       this.isLastExercise = exercise.Exercise.IsLast;
@@ -552,10 +585,9 @@ export default {
         const exercise = await getCurrentExercise(this.$route.params.courseUUID);
         this.navToExercise(exercise);
       } catch (err) {
-        notify({
-          type: 'danger',
-          text: err
-        });
+        // this probably happens because course is complete
+        const exercise = await getFirstExercise(this.$route.params.courseUUID);
+        this.navToExercise(exercise);
       }
     },
     async goBack(){
@@ -572,6 +604,10 @@ export default {
     async goForward(){
       if (this.type === 'type_info' && !this.isComplete){
         await this.submitTypeInfo();
+      }
+      if (this.courseDone && this.isLastExercise){
+        this.$refs.courseDoneModal.show();
+        return;
       }
       try {
         const exercise = await getNextExercise(this.$route.params.courseUUID, this.$route.params.exerciseUUID);
