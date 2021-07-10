@@ -685,6 +685,7 @@ export default {
 
   &.right {
     flex: 1;
+    overflow: auto;
   }
 }
 
