@@ -1,5 +1,20 @@
 <template>
   <div class="recruiters-root">
+    <Modal ref="experienceHelpModal">
+      <div>
+        <div
+          v-for="(experienceLevel, i) of experienceLevels"
+          :key="i"
+        >
+          <h3 class="font-bold text-lg">
+            {{ experienceLevel.label }}
+          </h3>
+          <p class="mb-4">
+            {{ experienceLevel.description }}
+          </p>
+        </div>
+      </div>
+    </Modal>
     <Section
       class="section"
       title="Rules"
@@ -57,7 +72,10 @@
             />
           </div>
           <div class="toggle experience">
-            <h3 class="font-bold text-lg mb-4">
+            <h3
+              class="font-bold text-lg mb-4 link"
+              @click="showExperienceHelpModal"
+            >
               * Experience
             </h3>
             <CheckboxForm
@@ -155,6 +173,7 @@
 </template>
 
 <script>
+import { experienceLevels } from '@/lib/experienceLevels.js';
 import { 
   getUsersAsRecruiter
 } from '@/lib/cloudClient.js';
@@ -169,6 +188,7 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import Modal from '@/components/Modal.vue';
 import CheckboxForm from '@/components/CheckboxForm.vue';
 import Section from '@/components/Section.vue';
 import ImageCard from '@/components/ImageCard.vue';
@@ -177,6 +197,7 @@ import TextInput from '@/components/TextInput.vue';
 
 export default {
   components: {
+    Modal,
     Section,
     ImageCard,
     FontAwesomeIcon,
@@ -194,6 +215,9 @@ export default {
     };
   },
   computed: {
+    experienceLevels(){
+      return experienceLevels;
+    },
     experienceLevelLabels(){
       return experienceLevelLabels();
     },
@@ -234,6 +258,9 @@ export default {
     this.interestsMap = interestsMap;
   },
   methods: {
+    showExperienceHelpModal() {
+      this.$refs.experienceHelpModal.show();
+    },
     experienceLevelToLabel(level){
       return experienceLevelToObj(level).label;
     },
