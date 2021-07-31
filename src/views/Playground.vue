@@ -7,7 +7,9 @@
         :options="displayLangsArray"
         :default="displayLangs[lang]"
         class="select"
-        @update:modelValue="$router.push({path: `/playground/${displayToKey($event)}` })"
+        @update:modelValue="
+          $router.push({ path: `/playground/${displayToKey($event)}` })
+        "
       />
     </div>
 
@@ -31,8 +33,8 @@ import { reactive, computed, onMounted } from 'vue';
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { useMeta } from 'vue-meta';
 
-function getCode(lang){
-  if (lang === 'go'){
+function getCode(lang) {
+  if (lang === 'go') {
     return `package main
 
 import "fmt"
@@ -48,12 +50,12 @@ func main(){
 // https://qvault.io/golang/running-go-in-the-browser-with-web-assembly-wasm`;
   }
 
-  if (lang === 'js'){
+  if (lang === 'js') {
     return `
 console.log("hello, world")
 `;
   }
-  if (lang === 'jsCanvas'){
+  if (lang === 'jsCanvas') {
     return `var ctx = canvas.getContext('2d');
 
 ctx.fillStyle = 'rgb(200, 0, 0)';
@@ -70,7 +72,7 @@ console.log("hello, world")
 // and stretch the image, it won't change your logic.
 `;
   }
-  if (lang === 'py'){
+  if (lang === 'py') {
     return `print("hello, world")
 
 # We use a Python interpreter that's compiled to Web Assembly
@@ -79,7 +81,7 @@ console.log("hello, world")
 # https://qvault.io/python/running-python-in-the-browser-with-web-assembly
         `;
   }
-  if (lang === 'purs'){
+  if (lang === 'purs') {
     return `module Main where
 
 import Prelude
@@ -99,7 +101,7 @@ export default {
     TopNav,
     CodeEditor
   },
-  setup(){
+  setup() {
     const route = useRoute();
 
     const state = reactive({
@@ -119,20 +121,33 @@ export default {
 
     const computedMeta = computed(() => {
       const description = `Run ${state.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
-      const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg';
+      const featuredImage =
+        'https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg';
       const title = `${state.displayLang} Playground`;
       return {
         title: title,
         meta: [
-          { vmid:'description', name: 'description', content: description },
+          { vmid: 'description', name: 'description', content: description },
 
-          { vmid:'og:title', property: 'og:title', content: title },
-          { vmid:'og:description', property: 'og:description', content: description },
-          { vmid:'og:image', property: 'og:image', content: featuredImage },
+          { vmid: 'og:title', property: 'og:title', content: title },
+          {
+            vmid: 'og:description',
+            property: 'og:description',
+            content: description
+          },
+          { vmid: 'og:image', property: 'og:image', content: featuredImage },
 
-          { vmid:'twitter:title', name: 'twitter:title', content: title },
-          { vmid:'twitter:description', property: 'twitter:description', content: description },
-          { vmid:'twitter:image', name: 'twitter:image', content: featuredImage }
+          { vmid: 'twitter:title', name: 'twitter:title', content: title },
+          {
+            vmid: 'twitter:description',
+            property: 'twitter:description',
+            content: description
+          },
+          {
+            vmid: 'twitter:image',
+            name: 'twitter:image',
+            content: featuredImage
+          }
         ]
       };
     });
@@ -145,13 +160,13 @@ export default {
       return Object.values(state.displayLangs);
     });
     state.progLang = computed(() => {
-      if (state.lang === 'jsCanvas'){
+      if (state.lang === 'jsCanvas') {
         return 'js';
       }
       return state.lang;
     });
 
-    onMounted(()=>{
+    onMounted(() => {
       state.code = getCode(state.lang);
     });
 
@@ -165,7 +180,9 @@ export default {
       state.code = getCode(state.lang);
     };
     state.displayToKey = (displayName) => {
-      return Object.keys(state.displayLangs).find(key => state.displayLangs[key] === displayName);
+      return Object.keys(state.displayLangs).find(
+        (key) => state.displayLangs[key] === displayName
+      );
     };
 
     return state;
@@ -174,8 +191,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+@import "@/styles/colors.scss";
+@import "@/styles/consts.scss";
 
 .playground-root {
   display: flex;
@@ -188,7 +205,7 @@ export default {
     display: flex;
     flex-direction: row;
     padding: 1em;
-    
+
     a {
       padding-left: 10px;
     }
@@ -202,6 +219,7 @@ export default {
   }
 
   .select-container {
+    z-index: 5;
     @media screen and (max-width: $mobile-size) {
       display: flex;
       justify-content: flex-end;
@@ -214,7 +232,6 @@ export default {
       top: calc(6px + #{$bar-height});
       right: 20px;
       position: absolute;
-      z-index: 5;
     }
   }
 
