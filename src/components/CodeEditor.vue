@@ -395,7 +395,7 @@ export default {
     display: flex;
     flex-direction: row;
     overflow: auto;
-    border-top: solid 1px $gray-dark;
+    border-top: solid 2px $gray-dark;
     width: 100%;
 
     .log {
