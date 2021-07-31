@@ -51,6 +51,6 @@
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true,
-    "ecmaVersion": 2019
+    "ecmaVersion": 12
   }
 }
