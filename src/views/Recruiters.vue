@@ -121,6 +121,18 @@
                 {{ user.Email }}
               </div>
 
+              <div
+                v-if="user.revealed && user.ResumeURL"
+                class="item"
+              >
+                <a
+                  target="_blank"
+                  :href="user.ResumeURL"
+                >
+                  resume
+                </a>
+              </div>
+
               <div class="item">
                 <b>{{ experienceLevelToLabel(user.ExperienceLevel) }}</b>
               </div>
