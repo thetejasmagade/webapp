@@ -44,9 +44,12 @@
         </p>
         <img
           src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
-        />
+        >
         <div class="flex justify-center">
-          <BlockButton class="m-4" :click="clickNextCourse">
+          <BlockButton
+            class="m-4"
+            :click="clickNextCourse"
+          >
             Next Course
           </BlockButton>
           <BlockButton
@@ -63,7 +66,11 @@
           >
             View Portfolio
           </BlockButton>
-          <BlockButton class="m-4" :click="goToBeginning" color="gray">
+          <BlockButton
+            class="m-4"
+            :click="goToBeginning"
+            color="gray"
+          >
             Restart
           </BlockButton>
         </div>
@@ -97,8 +104,17 @@
           />
         </div>
         <MultipaneResizer layout="horizontal" />
-        <div v-if="type === 'type_info'" id="info-container" class="side right">
-          <BlockButton class="btn" :click="goForward"> Continue </BlockButton>
+        <div
+          v-if="type === 'type_info'"
+          id="info-container"
+          class="side right"
+        >
+          <BlockButton
+            class="btn"
+            :click="goForward"
+          >
+            Continue
+          </BlockButton>
         </div>
         <CodeEditor
           v-else-if="type === 'type_code' || type === 'type_code_canvas'"
@@ -140,30 +156,30 @@
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
-import MultipleChoice from "@/components/MultipleChoice.vue";
-import MarkdownViewer from "@/components/MarkdownViewer.vue";
-import CodeEditor from "@/components/CodeEditor.vue";
-import BlockButton from "@/components/BlockButton.vue";
-import ExerciseNav from "@/components/ExerciseNav.vue";
-import Multipane from "@/components/Multipane.vue";
-import MultipaneResizer from "@/components/MultipaneResizer.vue";
-import Section from "@/components/Section.vue";
-import ProModal from "@/components/ProModal.vue";
-import FeedbackModal from "@/components/FeedbackModal.vue";
+import Modal from '@/components/Modal.vue';
+import MultipleChoice from '@/components/MultipleChoice.vue';
+import MarkdownViewer from '@/components/MarkdownViewer.vue';
+import CodeEditor from '@/components/CodeEditor.vue';
+import BlockButton from '@/components/BlockButton.vue';
+import ExerciseNav from '@/components/ExerciseNav.vue';
+import Multipane from '@/components/Multipane.vue';
+import MultipaneResizer from '@/components/MultipaneResizer.vue';
+import Section from '@/components/Section.vue';
+import ProModal from '@/components/ProModal.vue';
+import FeedbackModal from '@/components/FeedbackModal.vue';
 
-import { loadBalance, loadUser, loadProgramCS } from "@/lib/cloudStore.js";
-import { notify } from "@/lib/notification.js";
+import { loadBalance, loadUser, loadProgramCS } from '@/lib/cloudStore.js';
+import { notify } from '@/lib/notification.js';
 
-import { sleep } from "@/lib/sleep.js";
+import { sleep } from '@/lib/sleep.js';
 
 import {
   gtmEventEarnGems,
   gtmEventUnlockAchievement,
   gtmEventFinishCourse,
   gtmEventExecuteCode,
-  gtmEventOpenProModal,
-} from "@/lib/gtm.js";
+  gtmEventOpenProModal
+} from '@/lib/gtm.js';
 
 import {
   getCurrentExercise,
@@ -178,13 +194,13 @@ import {
   getSavedCode,
   getCourses,
   getFirstExerciseInModule,
-  getExerciseByID,
-} from "@/lib/cloudClient.js";
+  getExerciseByID
+} from '@/lib/cloudClient.js';
 
 import {
   saveUnsubscribedProgress,
-  loadUnsubscribedProgress,
-} from "@/lib/localStorageLib";
+  loadUnsubscribedProgress
+} from '@/lib/localStorageLib';
 
 export default {
   components: {
@@ -198,25 +214,25 @@ export default {
     Multipane,
     MultipaneResizer,
     ProModal,
-    FeedbackModal,
+    FeedbackModal
   },
   data() {
     return {
-      markdownSource: "",
-      type: "",
+      markdownSource: '',
+      type: '',
       question: {},
-      progLang: "go",
+      progLang: 'go',
       courseDone: false,
       isFirstExercise: false,
       isLastExercise: false,
       isCurrentExercise: false,
-      code: "",
-      complete: "",
-      defaultCode: "",
+      code: '',
+      complete: '',
+      defaultCode: '',
       courses: null,
       isComplete: null,
       isFree: null,
-      isCheating: false,
+      isCheating: false
     };
   },
   computed: {
@@ -291,7 +307,7 @@ export default {
         return this.course.Title;
       }
       return null;
-    },
+    }
   },
   async mounted() {
     this.courses = await getCourses(this.$route.params.courseUUID);
@@ -338,7 +354,7 @@ export default {
   methods: {
     async clickNextCourse() {
       await loadProgramCS(this);
-      this.$router.push({ name: "Courses" });
+      this.$router.push({ name: 'Courses' });
     },
     showModal() {
       gtmEventOpenProModal();
@@ -348,11 +364,11 @@ export default {
       this.$refs.feedbackModal.show();
     },
     modalButtonClick() {
-      this.$router.push({ name: "Pricing" });
+      this.$router.push({ name: 'Pricing' });
       this.$refs.pricingModal.hide();
     },
     upgradeClick() {
-      this.$router.push({ name: "Pricing" });
+      this.$router.push({ name: 'Pricing' });
     },
     cheatClick() {
       if (this.locked) {
@@ -368,13 +384,13 @@ export default {
       try {
         await saveCode(this.$route.params.exerciseUUID, this.code);
         notify({
-          type: "success",
-          text: "Code saved!",
+          type: 'success',
+          text: 'Code saved!'
         });
       } catch (err) {
         notify({
-          type: "danger",
-          text: "Couldn't save code",
+          type: 'danger',
+          text: 'Couldn\'t save code'
         });
       }
     },
@@ -384,22 +400,22 @@ export default {
           this.$route.params.exerciseUUID,
           this.code
         );
-        if (resp.Code && resp.Code !== "") {
+        if (resp.Code && resp.Code !== '') {
           this.code = resp.Code;
           notify({
-            type: "success",
-            text: "Last save loaded!",
+            type: 'success',
+            text: 'Last save loaded!'
           });
           return;
         }
         notify({
-          type: "danger",
-          text: "No saved code found for this exercise",
+          type: 'danger',
+          text: 'No saved code found for this exercise'
         });
       } catch (err) {
         notify({
-          type: "danger",
-          text: "Couldn't load code",
+          type: 'danger',
+          text: 'Couldn\'t load code'
         });
       }
     },
@@ -429,8 +445,8 @@ export default {
       let notificationShown = false;
       if (rewardsResponse.GemCredit && rewardsResponse.Message) {
         notify({
-          type: "success",
-          text: `${rewardsResponse.Message} 💎x${rewardsResponse.GemCredit}`,
+          type: 'success',
+          text: `${rewardsResponse.Message} 💎x${rewardsResponse.GemCredit}`
         });
         notificationShown = true;
       }
@@ -443,16 +459,16 @@ export default {
             gtmEventUnlockAchievement(achievement.UUID);
           }
           notify({
-            type: "success",
-            text: `${achievement.Title} achievement unlocked! 💎x${achievement.GemReward}`,
+            type: 'success',
+            text: `${achievement.Title} achievement unlocked! 💎x${achievement.GemReward}`
           });
           notificationShown = true;
         }
       }
       if (!notificationShown) {
         notify({
-          type: "success",
-          text: "Correct! Great Job :)",
+          type: 'success',
+          text: 'Correct! Great Job :)'
         });
       }
     },
@@ -466,8 +482,8 @@ export default {
         this.handleRewards(rewardsResponse);
       } catch (err) {
         notify({
-          type: "danger",
-          text: err,
+          type: 'danger',
+          text: err
         });
       }
     },
@@ -481,8 +497,8 @@ export default {
         this.handleRewards(rewardsResponse);
       } catch (err) {
         notify({
-          type: "danger",
-          text: err,
+          type: 'danger',
+          text: err
         });
       }
     },
@@ -517,8 +533,8 @@ export default {
         }
       } catch (err) {
         notify({
-          type: "danger",
-          text: err,
+          type: 'danger',
+          text: err
         });
       }
     },
@@ -531,12 +547,12 @@ export default {
     },
     navToExercise(exercise) {
       this.$router.push({
-        name: "Exercise",
+        name: 'Exercise',
         params: {
           courseUUID: exercise.Exercise.CourseUUID,
           moduleUUID: exercise.Exercise.ModuleUUID,
-          exerciseUUID: exercise.Exercise.UUID,
-        },
+          exerciseUUID: exercise.Exercise.UUID
+        }
       });
     },
     async moveToExercise(exercise) {
@@ -570,19 +586,19 @@ export default {
 
       this.markdownSource = exercise.Exercise.Readme;
       this.type = exercise.Exercise.Type;
-      this.$store.commit("setCurrentModuleUUID", this.$route.params.moduleUUID);
+      this.$store.commit('setCurrentModuleUUID', this.$route.params.moduleUUID);
 
-      if (this.type === "type_code") {
+      if (this.type === 'type_code') {
         this.code = exercise.Exercise.Code;
         this.complete = exercise.Exercise.Complete;
         this.defaultCode = exercise.Exercise.Code;
         this.progLang = exercise.Exercise.ProgLang;
-      } else if (this.type === "type_code_canvas") {
+      } else if (this.type === 'type_code_canvas') {
         this.code = exercise.Exercise.Code;
         this.complete = exercise.Exercise.Complete;
         this.defaultCode = exercise.Exercise.Code;
         this.progLang = exercise.Exercise.ProgLang;
-      } else if (this.type === "type_choice") {
+      } else if (this.type === 'type_choice') {
         this.question = exercise.Exercise.Question;
       }
     },
@@ -607,13 +623,13 @@ export default {
         this.navToExercise(exercise);
       } catch (err) {
         notify({
-          type: "danger",
-          text: err,
+          type: 'danger',
+          text: err
         });
       }
     },
     async goForward() {
-      if (this.type === "type_info" && !this.isComplete) {
+      if (this.type === 'type_info' && !this.isComplete) {
         await this.submitTypeInfo();
       }
       if (this.courseDone && this.isLastExercise) {
@@ -628,8 +644,8 @@ export default {
         this.navToExercise(exercise);
       } catch (err) {
         notify({
-          type: "danger",
-          text: err,
+          type: 'danger',
+          text: err
         });
       }
     },
@@ -639,12 +655,12 @@ export default {
         this.navToExercise(exercise);
       } catch (err) {
         notify({
-          type: "danger",
-          text: err,
+          type: 'danger',
+          text: err
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

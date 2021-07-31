@@ -208,7 +208,7 @@ export default {
         }
         i++;
       }
-      if (!exerciseIndex){
+      if (exerciseIndex === null){
         return; 
       }
       this.$router.push({
