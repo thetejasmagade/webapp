@@ -5,6 +5,7 @@
       :cancel="cancelCode"
     />
     <ConfirmModal
+      v-if="loadCallback"
       ref="loadLastSaveModal"
       heading="Want to load your last save for this exercise?"
       text="
@@ -72,6 +73,7 @@
               v-if="canvasAllowed"
               id="canvas"
               ref="canvas"
+              :key="numCancellations"
               height="1000"
               width="1000"
             />
@@ -182,7 +184,10 @@ export default {
       err: false,
       isLoading: false,
       worker: null,
-      canvasAllowed: this.canvasEnabled
+      canvasAllowed: this.canvasEnabled,
+      // re-render the canvas each time we
+      // need a new worker
+      numCancellations: 0
     };
   },
   computed: {
@@ -246,8 +251,7 @@ export default {
       });
     },
     progLang(newLang) {
-      terminateWorker(this.worker);
-      this.worker = getWorker(this.getWorkerLang(newLang));
+      this.refreshWorker(newLang);
     },
     modelValue(newModelValue){
       this.$emit('update:modelValue', newModelValue);
@@ -265,13 +269,20 @@ export default {
     }
   },
   methods: {
+    refreshWorker(lang){
+      terminateWorker(this.worker);
+      this.numCancellations++;
+      this.$nextTick(() => {
+        this.worker = getWorker(this.getWorkerLang(lang), this.canvasEnabled ? this.$refs.canvas : null);
+      });
+    },
     getWorkerLang(progLang){
       if (progLang === 'purs'){
         return 'js';
       }
       return progLang;
     },
-    scrollToEnd () {
+    scrollToEnd() {
       requestAnimationFrame(() => {
         var content = this.$refs.console;
         content.scrollTop = Number.MAX_SAFE_INTEGER;
@@ -279,8 +290,7 @@ export default {
     },
     cancelCode(){
       this.isLoading = false;
-      terminateWorker(this.worker);
-      this.worker = getWorker(this.getWorkerLang(this.progLang));
+      this.refreshWorker(this.progLang);
       this.output.push('code execution cancelled');
       this.err = true;
     },
@@ -288,6 +298,13 @@ export default {
       try {
         this.output = [];
         let hash = null;
+
+        // we need to get a new worker each time because
+        // we need to transfer a new canvas because the last animation
+        // is still running
+        if (this.canvasAllowed){
+          this.refreshWorker(this.progLang);
+        }
 
         if (!this.canvasAllowed && this.canvasEnabled){
           notify({

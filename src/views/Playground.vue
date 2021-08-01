@@ -56,9 +56,7 @@ console.log("hello, world")
 `;
   }
   if (lang === 'jsCanvas') {
-    return `var ctx = canvas.getContext('2d');
-
-ctx.fillStyle = 'rgb(200, 0, 0)';
+    return `ctx.fillStyle = 'rgb(200, 0, 0)';
 ctx.fillRect(100, 100, 500, 500);
 
 ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
@@ -66,6 +64,7 @@ ctx.fillRect(300, 300, 500, 500);
 
 console.log("hello, world")
 
+// 'ctx' is predefined by Qvault as a 2d context for drawing
 // The canvas will always be 1000x1000 pixels
 // for the purpose of drawing. You can
 // resize your screen and the canvas will grow/shrink
