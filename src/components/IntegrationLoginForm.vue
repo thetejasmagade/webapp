@@ -25,18 +25,6 @@
         Sign in with Github
       </BlockButton>
 
-      <BlockButton
-        :click="clickTwitter"
-        color="purple"
-        class="mb-5"
-      >
-        <FontAwesomeIcon
-          :icon="['fab', 'twitter']"
-          class="mr-3"
-        />
-        Sign in with Twitter
-      </BlockButton>
-
       <div class="item switch">
         <ToggleSwitch
           v-model="subscribeNews"
@@ -82,10 +70,6 @@ import {
   getLoginWithGithubURL
 } from '@/lib/cloudClient.js';
 
-import {
-  getLoginWithTwitterURL
-} from '@/lib/cloudClient.js';
-
 
 export default {
   components: {
@@ -125,9 +109,6 @@ export default {
           text: err
         });
       }
-    },
-    async clickTwitter(){
-      window.location.replace(getLoginWithTwitterURL(this.isSubscribedNews, this.$route.query.ruid));
     },
     async clickGithub(){
       window.location.replace(getLoginWithGithubURL(this.isSubscribedNews, this.$route.query.ruid));

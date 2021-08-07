@@ -51,10 +51,6 @@ export async function loginGoogle(googleJWT, isSubscribedNews, referringUserUUID
   return handled;
 }
 
-export function getLoginWithTwitterURL(isSubscribedNews, referringUserUUID){
-  return `${domain}/v1/auth/twitter/login?is_subscribed_news=${isSubscribedNews}&referring_user_id=${referringUserUUID}`;
-}
-
 export function getLoginWithGithubURL(isSubscribedNews, referringUserUUID) {
   return `${domain}/v1/auth/github/login?is_subscribed_news=${isSubscribedNews}&referring_user_id=${referringUserUUID}`;
 }
