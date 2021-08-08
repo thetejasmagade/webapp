@@ -2,7 +2,7 @@
   <div class="bg-white shadow flex flex-col text-gray-700 relative z-50">
     <div class="nav flex flex-row justify-between">
       <div class="flex flex-row items-stretch justify-end">
-        <div class="item ml-3">
+        <div class="ml-3 flex items-center">
           <img
             alt="Qvault logo"
             src="../img/qvault-icon-250.png"
