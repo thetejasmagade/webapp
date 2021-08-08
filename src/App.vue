@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+  >
     <metainfo>
       <template v-slot:title="{ content }">
         {{ content ? `${content} | Qvault` : `Qvault` }}
@@ -126,6 +128,5 @@ export default {
 
 #app {
   height: 100%;
-  background-color: $gray-lighter;
 }
 </style>

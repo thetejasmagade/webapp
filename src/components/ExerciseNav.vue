@@ -3,8 +3,6 @@
     class="
       flex 
       flex-row
-      justify-between
-      bg-gray-300
       whitespace-nowrap
     "
     :class="{

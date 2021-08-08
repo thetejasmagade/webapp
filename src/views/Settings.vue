@@ -191,7 +191,6 @@
                       leading-relaxed
                       appearance-none
                       block w-full 
-                    bg-gray-200
                       border rounded focus:outline-none border-gray-300
                     "
                     rows="4"

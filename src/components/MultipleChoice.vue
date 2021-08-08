@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <div class="multiple-choice">
-      <h2>{{ question }}</h2>
-      <BlockButton
-        v-for="(answer, i) of answers"
-        :key="i"
-        class="btn"
-        color="gold"
-        :click="() => {callback(answer)}"
-        :disabled="locked"
-      >
-        <span>{{ answer }}</span>
-      </BlockButton>
-      <BlockButton
-        v-if="locked"
-        class="btn"
-        color="purple"
-        :click="() => {$router.push({name: 'Pricing'});}"
-      >
-        <span>Get quiz access</span>
-      </BlockButton>
-    </div>
+  <div class="flex flex-col items-center">
+    <h2 class="my-4 text-2xl px-4 max-w-xl">
+      {{ question }}
+    </h2>
+    <BlockButton
+      v-for="(answer, i) of answers"
+      :key="i"
+      class="text-lg w-4/5 m-4 max-w-md"
+      color="gold"
+      :click="() => {callback(answer)}"
+      :disabled="locked"
+    >
+      <span>{{ answer }}</span>
+    </BlockButton>
+    <BlockButton
+      v-if="locked"
+      class="text-lg w-4/5 m-4 max-w-md"
+      color="purple"
+      :click="() => {$router.push({name: 'Pricing'});}"
+    >
+      <span>Get quiz access</span>
+    </BlockButton>
   </div>
 </template>
 
@@ -55,27 +55,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-
-.multiple-choice {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-
-  h2 {
-    margin-top: 1em;
-    font-size: 2em;
-    padding: 0 1em 0 1em;
-  }
-
-  .btn {
-    font-size: 18px;
-    width: 80%;
-    margin: 10px;
-    max-width: 400px;
-  }
-}
+<style scoped>
 
 </style>

@@ -390,11 +390,9 @@ export default {
 @import '@/styles/colors.scss';
 .top-bar {
   flex: 0 0 auto;
-  border-bottom: solid 1px $gray-light;
   width: 100%;
   padding: 1em;
   box-sizing: border-box;
-  background-color: $gray-lighter;
 }
 
 .code-editor-root {
