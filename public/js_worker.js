@@ -79,15 +79,17 @@ addEventListener('message', async (e) => {
   let encodedHash;
   const framesToHash = 3;
   const framesBetween = 10;
-  for (let i = 0; i < framesToHash; i++){
-    const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-    const imageDataText = new TextDecoder().decode(imageData.data);
-    encodedHash = getHash(imageDataText + encodedHash);
-    for (let j = 0; j < framesBetween; j++){
-      await awaitAnimationFrame();
+  if (canvas){
+    for (let i = 0; i < framesToHash; i++){
+      const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+      const imageDataText = new TextDecoder().decode(imageData.data);
+      encodedHash = getHash(imageDataText + encodedHash);
+      for (let j = 0; j < framesBetween; j++){
+        await awaitAnimationFrame();
+      }
     }
+    console.log('canvas hash :', encodedHash);
   }
-  console.log('canvas hash :', encodedHash);
 
   postMessage({
     done: true,
