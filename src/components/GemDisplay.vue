@@ -94,10 +94,10 @@ export default {
 }
 
 .purple-lighter {
-  color: $purple-lighter;
+  color: $purple-mid;
 }
 
 .gray-lightest {
-  color: $gray-lightest;
+  color: $gray-mid;
 }
 </style>

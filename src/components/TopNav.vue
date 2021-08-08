@@ -1,20 +1,21 @@
 <template>
-  <div class="navs">
-    <div class="nav">
-      <div class="item-group">
+  <div class="bg-white shadow flex flex-col text-gray-700 relative z-50">
+    <div class="nav flex flex-row justify-between">
+      <div class="flex flex-row items-stretch justify-end">
         <div class="item ml-3">
           <img
             alt="Qvault logo"
             src="../img/qvault-icon-250.png"
+            class="align-middle w-10 h-10 ml-2"
           >
-          <span class="title">{{ title }}</span>
+          <span class="text-xl ml-4">{{ title }}</span>
         </div>
       </div>
-      <div class="item-group desktop">
+      <div class="flex flex-row items-stretch justify-end desktop">
         <router-link
           v-if="$store.getters.getIsLoggedIn"
           to="/"
-          class="item link px-4 m-2"
+          class="item px-4 m-2"
           :class="{current: routePath.includes('dashboard')}"
         >
           <span>Dashboard</span>
@@ -22,7 +23,7 @@
         <router-link
           v-else
           to="/"
-          class="item link px-4 m-2"
+          class="item px-4 m-2"
           :class="{current: routeName === 'Login'}"
         >
           <span>Login</span>
@@ -30,7 +31,7 @@
 
         <router-link
           to="/pricing"
-          class="item link px-4 m-2"
+          class="item px-4 m-2"
           :class="{current: routeName === 'Pricing' }"
         >
           <span>Pricing</span>
@@ -39,14 +40,14 @@
         <a
           href="https://discord.gg/k4rVEWt"
           target="_blank"
-          class="item link px-4 m-2"
+          class="item px-4 m-2"
         >
           <span>Community</span>
         </a>
 
         <router-link
           to="/playground/go"
-          class="item link px-4 m-2"
+          class="item px-4 m-2"
           :class="{current: routeName === 'Playground' }"
         >
           <span>Playground</span>
@@ -55,39 +56,35 @@
         <a
           href="https://qvault.io/articles"
           target="_blank"
-          class="item link px-4 m-2"
+          class="item px-4 m-2"
         >
           <span>Blog</span>
         </a>
       </div>
 
-      <div class="mobile item-group icon">
-        <div
-          class="item"
-        >
-          <FontAwesomeIcon
-            :icon="['fa', 'bars']"
-            class="text-3xl cursor-pointer"
-            @click="mobileMenuOpen = !mobileMenuOpen"
-          />
-        </div>
+      <div class="mobile bg-white flex flex-row items-stretch justify-end p-4">
+        <FontAwesomeIcon
+          :icon="['fa', 'bars']"
+          class="text-3xl cursor-pointer"
+          @click="mobileMenuOpen = !mobileMenuOpen"
+        />
       </div>
     </div>
 
     <div
       v-if="mobileMenuOpen"
-      class="mobile"
+      class="mobile bg-white"
     >
       <a
         href="/"
-        class="item link"
+        class="item"
         :class="{current: routePath.includes('dashboard')}"
       >
         <span>Dashboard</span>
       </a>   
       <a
         href="/playground/go"
-        class="item link"
+        class="item"
         :class="{current: routeName === 'Playground' }"
       >
         <span>Playground</span>
@@ -95,14 +92,14 @@
       <a
         href="https://qvault.io/contact"
         target="_blank"
-        class="item link"
+        class="item"
       >
         <span>Contact</span>
       </a>   
       <a
         href="https://qvault.io/articles"
         target="_blank"
-        class="item link"
+        class="item"
       >
         <span>Blog</span>
       </a>
@@ -120,7 +117,8 @@ export default {
   },
   props: {
     title: {
-      default: null,
+      default: 'Qvault.io',
+      required: false,
       type: String
     }
   },
@@ -144,31 +142,12 @@ export default {
 @import '@/styles/colors.scss';
 @import '@/styles/consts.scss';
 
-.navs {
-  display: flex;
-  flex-direction: column;
-}
-
 .nav {
-  background-color: $gray-darker-2;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 15px;
-  height: calc(#{$bar-height} - 2px);
-  border-bottom: 2px solid $gray-light;
-
-  .item-group {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: flex-end;
-  }
+  height: $bar-height;
 }
 
 .mobile {
   display: none !important;
-  background-color: $gray-darker-2;
   @media screen and (max-width: $mobile-size) {
     display: block !important;
   }
@@ -180,15 +159,11 @@ export default {
   }
 }
 
-.icon {
-  font-size: 1em;
-}
-
 .item {
-  color: $white;
   text-decoration: none;
   display: flex;
   align-items: center;
+  color: $gray-darker;
 
   @media screen and (max-width: $mobile-size) {
     padding: .75em;
@@ -198,30 +173,13 @@ export default {
     border-radius: 5px;
   }
 
-  &.link {
-    cursor: pointer;
-
-    &.current {
-      color: $gray-darker;
-      background-color: $gold-light;
-    }
-
-    &:hover{
-      color: $gray-darker;
-      background-color: $gold-mid;
-    }
+  &.current {
+    border: solid 1px $gold-mid;
   }
 
-  img {
-    vertical-align: middle;
-    width: 40px;
-    height: 40px;
-    margin-left: .5em;
-  }
-
-  .title {
-    font-size: 1.2em;
-    margin-left: 1em;
+  &:hover{
+    color: $gray-lightest;
+    background-color: $gold-mid;
   }
 }
 </style>

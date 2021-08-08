@@ -2,7 +2,7 @@
   <div class="playground-root">
     <TopNav :title="`${displayLang} Playground`" />
 
-    <div class="select-container">
+    <div class="select-container z-10">
       <SelectDropdown
         :options="displayLangsArray"
         :default="displayLangs[lang]"
@@ -198,7 +198,6 @@ export default {
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
-  background-color: $gray-lighter;
 
   .langs {
     display: flex;
@@ -218,7 +217,6 @@ export default {
   }
 
   .select-container {
-    z-index: 5;
     @media screen and (max-width: $mobile-size) {
       display: flex;
       justify-content: flex-end;
@@ -228,7 +226,7 @@ export default {
     }
     @media screen and (min-width: $mobile-size) {
       display: block;
-      top: calc(6px + #{$bar-height});
+      top: calc(15px + #{$bar-height});
       right: 20px;
       position: absolute;
     }
