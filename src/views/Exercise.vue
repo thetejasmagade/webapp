@@ -178,6 +178,13 @@ import {
   gtmEventUnlockAchievement,
   gtmEventFinishCourse,
   gtmEventExecuteCode,
+  gtmEventExerciseFailure,
+  gtmEventExerciseSuccess,
+  gtmEventSubmitMultipleChoice,
+  gtmEventClickCheat,
+  gtmEventClickExerciseNavigation,
+  gtmEventSaveCode,
+  gtmEventLoadCode,
   gtmEventOpenProModal
 } from '@/lib/gtm.js';
 
@@ -376,11 +383,15 @@ export default {
         return;
       }
       this.isCheating = !this.isCheating;
+      if (this.isCheating){
+        gtmEventClickCheat(this.$route.params.exerciseUUID, this.course.Title);
+      }
     },
     resetCode() {
       this.code = this.defaultCode;
     },
     async saveCode() {
+      gtmEventSaveCode(this.$route.params.exerciseUUID, this.course.Title);
       try {
         await saveCode(this.$route.params.exerciseUUID, this.code);
         notify({
@@ -395,6 +406,7 @@ export default {
       }
     },
     async getSavedCode() {
+      gtmEventLoadCode(this.$route.params.exerciseUUID, this.course.Title);
       try {
         const resp = await getSavedCode(
           this.$route.params.exerciseUUID,
@@ -478,9 +490,11 @@ export default {
           this.$route.params.exerciseUUID,
           output
         );
+        gtmEventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title);
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
       } catch (err) {
+        gtmEventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title);
         notify({
           type: 'danger',
           text: err
@@ -517,11 +531,13 @@ export default {
       this.verifyHash({ hash });
     },
     async submitTypeChoice(answer) {
+      gtmEventSubmitMultipleChoice(this.$route.params.exerciseUUID, this.course.Title);
       try {
         const rewardsResponse = await submitMultipleChoiceExercise(
           this.$route.params.exerciseUUID,
           answer
         );
+        gtmEventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title);
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
         await sleep(1500);
@@ -532,6 +548,7 @@ export default {
           await this.navToCurrentExercise();
         }
       } catch (err) {
+        gtmEventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title);
         notify({
           type: 'danger',
           text: err
@@ -615,6 +632,7 @@ export default {
       }
     },
     async goBack() {
+      gtmEventClickExerciseNavigation(this.$route.params.exerciseUUID, this.course.Title);
       try {
         const exercise = await getPreviousExercise(
           this.$route.params.courseUUID,
@@ -629,6 +647,7 @@ export default {
       }
     },
     async goForward() {
+      gtmEventClickExerciseNavigation(this.$route.params.exerciseUUID, this.course.Title);
       if (this.type === 'type_info' && !this.isComplete) {
         await this.submitTypeInfo();
       }
