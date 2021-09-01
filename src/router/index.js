@@ -16,6 +16,7 @@ const SignupFlowRecruiters = () => import('@/views/SignupFlowRecruiters.vue');
 const SignupFlowRecruitersEnrich = () => import('@/views/SignupFlowRecruitersEnrich.vue');
 const VerifyEmail = () => import('@/views/VerifyEmail.vue');
 const Recruiters = () => import('@/views/Recruiters.vue');
+const Certificate = () => import('@/views/Certificate.vue');
 
 
 import {
@@ -94,6 +95,11 @@ const routes = [
     path: '/pricing',
     name: 'Pricing',
     component: Pricing
+  },
+  {
+    path: '/certificate/:userHandle/:courseUUID',
+    name: 'Certificate',
+    component: Certificate
   },
   {
     path: '/playground', 

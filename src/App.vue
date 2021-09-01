@@ -42,7 +42,8 @@ import {
   faLevelUpAlt,
   faEye,
   faComment,
-  faUpload
+  faUpload,
+  faRibbon
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -90,6 +91,7 @@ library.add(faLevelUpAlt);
 library.add(faEye);
 library.add(faComment);
 library.add(faUpload);
+library.add(faRibbon);
 
 export default {
   setup () {

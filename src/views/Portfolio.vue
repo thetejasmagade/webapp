@@ -120,7 +120,13 @@
               class="body"
             >
               <h2 class="text-xl underline mb-4">
-                <a @click="() => {linkClick(course.LandingPage)}">{{ course.Title }}</a>
+                <a
+                  @click="() => {
+                    $router.push({name: 'Certificate', params: {userHandle: user.Handle, courseUUID: course.UUID}});
+                  }"
+                >
+                  {{ course.Title }}
+                </a>
               </h2>
               <p
                 class="text-center text-green-700"
@@ -253,9 +259,6 @@ export default {
     return state;
   },
   methods: {
-    linkClick(url) {
-      window.open(url, '_blank');
-    },
     stripProtocol(url) {
       return url.replace(/(^\w+:|^)\/\/?(?:www\.)?/, '');
     }
