@@ -85,9 +85,11 @@ export default {
       };
     });
 
-    // TODO USE REAL DATE, USING CURRENT DATE ATM
-    state.computedDate = computed(()=>{
-      var today = new Date();
+    state.computedDate = computed(() => {
+      if (!state.course || !state.course.CompletedAt){
+        return null;
+      }
+      const today = new Date(state.course.CompletedAt);
       return today.toDateString();
     });
 
