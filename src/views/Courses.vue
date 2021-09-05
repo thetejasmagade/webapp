@@ -145,7 +145,7 @@ export default {
   },
   computed:{
     csProgramCourses(){
-      return this.$store.getters.getProgramCS.filter(course => !course.IsComplete);
+      return this.$store.getters.getProgramCS.filter(course => !course.CompletedAt);
     },
     courses(){
       let courses = this.$store.getters.getCourses;

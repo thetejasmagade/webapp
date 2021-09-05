@@ -221,7 +221,7 @@ export default {
     });
 
     state.filteredCourses = computed(() => {
-      return state.courses.filter(course => course.IsComplete).sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
+      return state.courses.filter(course => course.CompletedAt).sort((c1, c2) => c1.Title < c2.Title ? 1 : -1);
     });
 
     state.filteredAchievements = computed(() => {

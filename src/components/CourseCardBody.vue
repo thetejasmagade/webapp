@@ -60,7 +60,7 @@
     </p>
 
     <div
-      v-if="course.IsComplete"
+      v-if="course.CompletedAt"
     >
       <div class="text-green-700 text-center">
         <FontAwesomeIcon
