@@ -1,4 +1,4 @@
-const experienceLevels = [
+export const experienceLevels = [
   {
     label: 'New',
     description: 'I\'ve never written a line of code',

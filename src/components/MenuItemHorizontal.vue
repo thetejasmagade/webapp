@@ -1,12 +1,11 @@
 <template>
   <div>
     <div
-      id="item"
-      class="hover:text-gray-800"
+      class="hover:text-gray-200 cursor-pointer rounded-lg text-lg h-12 flex flex-col justify-center items-center"
       :class="{
-        'text-gold-500': current && color === 'gold',
-        'text-red-500': current && color === 'red',
-        'hover:text-gray-800': current,
+        'border': current,
+        'border-gold-500': color === 'gold',
+        'border-red-500': color === 'red',
         'hover:bg-red-500': color === 'red',
         'hover:bg-gold-500': color === 'gold',
       }"
@@ -14,7 +13,7 @@
     >
       <FontAwesomeIcon
         :icon="['fas', icon]" 
-        class="icon"
+        class="mx-2"
       />
     </div>
   </div>
@@ -51,28 +50,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-
-#item {
-  height: 50px;
-  line-height: 50px;
-  font-size: 18px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  border-radius: 5px;
-
-  &:hover{
-    cursor: pointer;
-
-    span {
-      margin-left: 25px;
-    }
-  }
-
-  .icon {
-    margin: 0 15px 0 15px;
-  }
-}
+<style scoped>
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="integration-container">
+    <div class="flex flex-col justify-evenly w-full items-center">
       <BlockButton
         :click="clickGoogle"
-        color="gold"
+        color="purple"
         class="my-5"
       >
         <FontAwesomeIcon
@@ -15,7 +15,7 @@
 
       <BlockButton
         :click="clickGithub"
-        color="gray"
+        color="gold"
         class="mb-5"
       >
         <FontAwesomeIcon
@@ -25,30 +25,18 @@
         Sign in with Github
       </BlockButton>
 
-      <BlockButton
-        :click="clickTwitter"
-        color="purple"
-        class="mb-5"
-      >
-        <FontAwesomeIcon
-          :icon="['fab', 'twitter']"
-          class="mr-3"
-        />
-        Sign in with Twitter
-      </BlockButton>
-
-      <div class="item switch">
+      <div class="mb-4 flex flex-row items-center justify-center text-xs text-gray-500 leading-3">
         <ToggleSwitch
           v-model="subscribeNews"
         />
-        <span class="sub-item right">Get coding articles and news</span>
+        <span class="flex-1 ml-4">Get coding articles and news</span>
       </div>
 
-      <div class="item switch">
+      <div class="mb-4 flex flex-row items-center justify-center text-xs text-gray-500 leading-3">
         <ToggleSwitch
           v-model="tosAccepted"
         />
-        <span class="sub-item right">
+        <span class="flex-1 ml-4">
           I've read and agree to the 
           <a
             class="link"
@@ -80,10 +68,6 @@ import {
 
 import {
   getLoginWithGithubURL
-} from '@/lib/cloudClient.js';
-
-import {
-  getLoginWithTwitterURL
 } from '@/lib/cloudClient.js';
 
 
@@ -126,9 +110,6 @@ export default {
         });
       }
     },
-    async clickTwitter(){
-      window.location.replace(getLoginWithTwitterURL(this.isSubscribedNews, this.$route.query.ruid));
-    },
     async clickGithub(){
       window.location.replace(getLoginWithGithubURL(this.isSubscribedNews, this.$route.query.ruid));
     },
@@ -168,40 +149,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-
-.integration-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-  align-items: center;
-
-  .item {
-    margin-bottom: 2em;
-    display: flex;
-    flex-direction: row;
-    
-    &.switch{
-      align-items: center;
-      justify-content: center;
-      color: $gray-mid;
-      font-size: .75em;
-      line-height: .75em;
-    }
-
-    .sub-item {
-      flex: 1;
-    }
-
-    .right {
-      margin-left: 1em;
-    }
-  }
-
-  .btn {
-    margin-bottom: 2em;
-  }
-}
+<style scoped>
 </style>

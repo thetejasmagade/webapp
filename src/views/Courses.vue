@@ -13,6 +13,7 @@
           icon="graduation-cap"
         >
           <Section
+            class="section"
             :title="csProgramCourses.length > 0 ? `Your next course: ${csProgramCourses[0].Title}` : 'Loading...'"
             subtitle="Take these courses in order. You're on your way to a high-paying coding job"
           >
@@ -92,6 +93,7 @@
               <div
                 v-for="(course, i) of recommendedCourses"
                 :key="i"
+                class="flex justify-center items-center"
               >
                 <ImageCard
                   :click="() => goToCourse(course)"
@@ -182,5 +184,9 @@ export default {
 </script>
 
 <style scoped>
+
+.section{
+  border-radius: 0 .5rem .5rem .5rem;
+}
 
 </style>

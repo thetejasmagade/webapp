@@ -1,9 +1,6 @@
 export function getWorker(lang, canvasElement) {
-
   const worker = new window.Worker(`/${lang}_worker.js`);
-
   if (canvasElement){
-
     if (!canvasElement.transferControlToOffscreen){
       throw 'You\'re browser doesn\'t support canvas assignments, try a chrome-based browser or just skip this exercise';
     }

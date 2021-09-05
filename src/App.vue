@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+  >
     <metainfo>
       <template v-slot:title="{ content }">
         {{ content ? `${content} | Qvault` : `Qvault` }}
@@ -40,7 +42,8 @@ import {
   faLevelUpAlt,
   faEye,
   faComment,
-  faUpload
+  faUpload,
+  faRibbon
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -88,6 +91,7 @@ library.add(faLevelUpAlt);
 library.add(faEye);
 library.add(faComment);
 library.add(faUpload);
+library.add(faRibbon);
 
 export default {
   setup () {
@@ -126,6 +130,5 @@ export default {
 
 #app {
   height: 100%;
-  background-color: $gray-lighter;
 }
 </style>

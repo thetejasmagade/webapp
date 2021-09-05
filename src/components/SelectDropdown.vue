@@ -12,7 +12,7 @@
     <div
       class="
         selected
-        bg-gray-200
+        bg-white
         rounded-md
         border
         border-gray-500

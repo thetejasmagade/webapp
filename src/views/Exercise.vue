@@ -6,38 +6,41 @@
       ref="feedbackModal"
       :exercise-u-u-i-d="$route.params.exerciseUUID"
     />
-    <Modal
-      ref="pricingModal"
-    >
+    <Modal ref="pricingModal">
       <div>
         <h1 class="text-2xl text-gold-600 mb-4">
           Upgrade for continued pro access
         </h1>
         <p class="text-gray-600 mb-4">
-          If you want to continue to verify your answers and get credit for assignments,
+          If you want to continue to verify your answers and get credit for
+          assignments,
           <b>you'll need to upgrade to a pro account.</b>
         </p>
         <p class="text-gray-600 mb-4">
-          That said, click outside this pop-up to continue the course in read-only mode, its free to audit!
+          That said, click outside this pop-up to continue the course in
+          read-only mode, its free to audit!
         </p>
         <BlockButton
           class="btn"
-          :click="() => {modalButtonClick()}"
+          :click="
+            () => {
+              modalButtonClick();
+            }
+          "
           color="purple"
         >
           View Plans
         </BlockButton>
       </div>
     </Modal>
-    <Modal
-      ref="courseDoneModal"
-    >
+    <Modal ref="courseDoneModal">
       <div>
         <h1 class="text-2xl text-gold-600 mb-4">
           Congragulations! You've completed the course
         </h1>
         <p class="text-gray-600 mb-4">
-          Check out the new certificate on your portfolio then start your next course
+          Check out the new certificate on your portfolio then start your next
+          course
         </p>
         <img
           src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
@@ -51,7 +54,14 @@
           </BlockButton>
           <BlockButton
             class="m-4"
-            :click="() => {$router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}}) }"
+            :click="
+              () => {
+                $router.push({
+                  name: 'Portfolio',
+                  params: { userHandle: $store.getters.getUser.Handle },
+                });
+              }
+            "
             color="gray"
           >
             View Portfolio
@@ -67,10 +77,7 @@
       </div>
     </Modal>
 
-      
-    <div
-      class="exercise-container desktop"
-    >
+    <div class="exercise-container desktop">
       <Multipane layout="horizontal">
         <div class="side left">
           <ExerciseNav
@@ -114,7 +121,9 @@
           :key="isCheating"
           v-model="code"
           class="side right"
-          :run-callback="type === 'type_code' ? submitTypeCode : submitTypeCodeCanvas"
+          :run-callback="
+            type === 'type_code' ? submitTypeCode : submitTypeCodeCanvas
+          "
           :reset-callback="resetCode"
           :upgrade-callback="locked ? upgradeClick : null"
           :cheat-callback="cheatClick"
@@ -136,10 +145,11 @@
       </Multipane>
     </div>
     <div class="mobile">
-      <Section
-        title="Come back on a computer"
-      >
-        <p> Coding is hard to do on a phone. I want you to have a great experience, so please hurry back on a larger device. </p>
+      <Section title="Come back on a computer">
+        <p>
+          Coding is hard to do on a phone. I want you to have a great
+          experience, so please hurry back on a larger device.
+        </p>
       </Section>
     </div>
   </div>
@@ -158,26 +168,27 @@ import Section from '@/components/Section.vue';
 import ProModal from '@/components/ProModal.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
 
-import { 
-  loadBalance,
-  loadUser,
-  loadProgramCS
-} from '@/lib/cloudStore.js';
+import { loadBalance, loadUser, loadProgramCS } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
-import { 
-  sleep
-} from '@/lib/sleep.js';
+import { sleep } from '@/lib/sleep.js';
 
-import { 
+import {
   gtmEventEarnGems,
   gtmEventUnlockAchievement,
   gtmEventFinishCourse,
   gtmEventExecuteCode,
+  gtmEventExerciseFailure,
+  gtmEventExerciseSuccess,
+  gtmEventSubmitMultipleChoice,
+  gtmEventClickCheat,
+  gtmEventClickExerciseNavigation,
+  gtmEventSaveCode,
+  gtmEventLoadCode,
   gtmEventOpenProModal
 } from '@/lib/gtm.js';
 
-import { 
+import {
   getCurrentExercise,
   getPreviousExercise,
   getNextExercise,
@@ -212,7 +223,7 @@ export default {
     ProModal,
     FeedbackModal
   },
-  data(){
+  data() {
     return {
       markdownSource: '',
       type: '',
@@ -232,81 +243,83 @@ export default {
     };
   },
   computed: {
-    locked(){
-      if (this.$store.getters.getUserIsSubscribed === null ||
-        this.isFree === null){
+    locked() {
+      if (
+        this.$store.getters.getUserIsSubscribed === null ||
+        this.isFree === null
+      ) {
         return null;
       }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
     },
-    exerciseIndex(){
-      if (!this.module){
+    exerciseIndex() {
+      if (!this.module) {
         return null;
       }
-      if (!this.module.Exercises){
+      if (!this.module.Exercises) {
         return null;
       }
       let count = 0;
-      for (const exercise of this.module.Exercises){
-        if (exercise.UUID === this.$route.params.exerciseUUID){
+      for (const exercise of this.module.Exercises) {
+        if (exercise.UUID === this.$route.params.exerciseUUID) {
           return count;
         }
         count++;
       }
       return null;
     },
-    exercises(){
-      if (!this.module){
+    exercises() {
+      if (!this.module) {
         return null;
       }
       return this.module.Exercises;
     },
-    module(){
-      if (!this.course || !this.course.Modules){
+    module() {
+      if (!this.course || !this.course.Modules) {
         return null;
       }
-      for (const mod of this.course.Modules){
-        if (mod.UUID === this.$route.params.moduleUUID){
+      for (const mod of this.course.Modules) {
+        if (mod.UUID === this.$route.params.moduleUUID) {
           return mod;
         }
       }
       return null;
     },
-    moduleIndex(){
-      if (!this.course || !this.course.Modules){
+    moduleIndex() {
+      if (!this.course || !this.course.Modules) {
         return null;
       }
       let index = 0;
-      for (const mod of this.course.Modules){
-        if (mod.UUID === this.$route.params.moduleUUID){
+      for (const mod of this.course.Modules) {
+        if (mod.UUID === this.$route.params.moduleUUID) {
           return index;
         }
         index++;
       }
       return null;
     },
-    course(){
-      if (!this.courses){
+    course() {
+      if (!this.courses) {
         return null;
       }
-      for (const course of this.courses){
-        if (course.UUID === this.$route.params.courseUUID){
+      for (const course of this.courses) {
+        if (course.UUID === this.$route.params.courseUUID) {
           return course;
         }
       }
       return null;
     },
-    courseTitle(){
-      if (this.course){
+    courseTitle() {
+      if (this.course) {
         return this.course.Title;
       }
       return null;
     }
   },
-  async mounted(){
+  async mounted() {
     this.courses = await getCourses(this.$route.params.courseUUID);
 
-    if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID){
+    if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID) {
       const exercise = await getExerciseByID(
         this.$route.params.courseUUID,
         this.$route.params.exerciseUUID
@@ -315,7 +328,7 @@ export default {
       return;
     }
 
-    if (this.$route.params.moduleUUID){
+    if (this.$route.params.moduleUUID) {
       const exercise = await getFirstExerciseInModule(
         this.$route.params.courseUUID,
         this.$route.params.moduleUUID
@@ -324,57 +337,62 @@ export default {
       return;
     }
 
-      
-    if (!this.$store.getters.getUser){
+    if (!this.$store.getters.getUser) {
       await loadUser(this);
     }
 
-    if (!this.$store.getters.getUserIsSubscribed){
-      try{
-        const exerciseUUID = await loadUnsubscribedProgress(this.$route.params.courseUUID);
+    if (!this.$store.getters.getUserIsSubscribed) {
+      try {
+        const exerciseUUID = await loadUnsubscribedProgress(
+          this.$route.params.courseUUID
+        );
         const exercise = await getExerciseByID(
           this.$route.params.courseUUID,
           exerciseUUID
         );
         this.navToExercise(exercise);
         return;
-      } catch (err){
+      } catch (err) {
         console.log(err);
       }
     }
     await this.navToCurrentExercise();
   },
   methods: {
-    async clickNextCourse(){
+    async clickNextCourse() {
       await loadProgramCS(this);
-      this.$router.push({ name: 'Courses'});
+      this.$router.push({ name: 'Courses' });
     },
-    showModal(){
+    showModal() {
       gtmEventOpenProModal();
       this.$refs.pricingModal.show();
     },
-    showFeedbackModal(){
+    showFeedbackModal() {
       this.$refs.feedbackModal.show();
     },
-    modalButtonClick(){
-      this.$router.push({name: 'Pricing'});
+    modalButtonClick() {
+      this.$router.push({ name: 'Pricing' });
       this.$refs.pricingModal.hide();
     },
-    upgradeClick(){
-      this.$router.push({name: 'Pricing'});
+    upgradeClick() {
+      this.$router.push({ name: 'Pricing' });
     },
-    cheatClick(){
-      if (this.locked){
+    cheatClick() {
+      if (this.locked) {
         this.$refs.proModal.show();
         return;
       }
       this.isCheating = !this.isCheating;
+      if (this.isCheating){
+        gtmEventClickCheat(this.$route.params.exerciseUUID, this.course.Title);
+      }
     },
-    resetCode(){
+    resetCode() {
       this.code = this.defaultCode;
     },
-    async saveCode(){
-      try{
+    async saveCode() {
+      gtmEventSaveCode(this.$route.params.exerciseUUID, this.course.Title);
+      try {
         await saveCode(this.$route.params.exerciseUUID, this.code);
         notify({
           type: 'success',
@@ -387,10 +405,14 @@ export default {
         });
       }
     },
-    async getSavedCode(){
-      try{
-        const resp = await getSavedCode(this.$route.params.exerciseUUID, this.code);
-        if (resp.Code && resp.Code !== ''){
+    async getSavedCode() {
+      gtmEventLoadCode(this.$route.params.exerciseUUID, this.course.Title);
+      try {
+        const resp = await getSavedCode(
+          this.$route.params.exerciseUUID,
+          this.code
+        );
+        if (resp.Code && resp.Code !== '') {
           this.code = resp.Code;
           notify({
             type: 'success',
@@ -409,42 +431,43 @@ export default {
         });
       }
     },
-    async submitTypeInfo(){
-      await submitInformationalExercise(
-        this.$route.params.exerciseUUID
-      );
+    async submitTypeInfo() {
+      await submitInformationalExercise(this.$route.params.exerciseUUID);
       this.isComplete = true;
     },
-    async handleRewards(rewardsResponse){
-      if (rewardsResponse.CourseDone){
-        if (!this.courseDone){
+    async handleRewards(rewardsResponse) {
+      if (rewardsResponse.CourseDone) {
+        if (!this.courseDone) {
           gtmEventFinishCourse(this.course.Title, false);
         }
         this.courseDone = true;
       }
-      if ((rewardsResponse.GemCredit && rewardsResponse.Message) || 
-        rewardsResponse.Achievements && rewardsResponse.Achievements.length > 0){
+      if (
+        (rewardsResponse.GemCredit && rewardsResponse.Message) ||
+        (rewardsResponse.Achievements &&
+          rewardsResponse.Achievements.length > 0)
+      ) {
         loadBalance(this);
       }
 
-      if (rewardsResponse.GemCredit){
+      if (rewardsResponse.GemCredit) {
         gtmEventEarnGems(rewardsResponse.GemCredit);
       }
 
       let notificationShown = false;
-      if (rewardsResponse.GemCredit && rewardsResponse.Message){
+      if (rewardsResponse.GemCredit && rewardsResponse.Message) {
         notify({
           type: 'success',
           text: `${rewardsResponse.Message} 💎x${rewardsResponse.GemCredit}`
         });
         notificationShown = true;
-      } 
-      if (rewardsResponse.Achievements){
-        for (const achievement of rewardsResponse.Achievements){
-          if (achievement.GemReward){
+      }
+      if (rewardsResponse.Achievements) {
+        for (const achievement of rewardsResponse.Achievements) {
+          if (achievement.GemReward) {
             gtmEventEarnGems(achievement.GemReward);
           }
-          if (achievement.UUID){
+          if (achievement.UUID) {
             gtmEventUnlockAchievement(achievement.UUID);
           }
           notify({
@@ -461,22 +484,24 @@ export default {
         });
       }
     },
-    async verifyCode({output}){
+    async verifyCode({ output }) {
       try {
         const rewardsResponse = await submitCodeExercise(
           this.$route.params.exerciseUUID,
           output
         );
+        gtmEventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title);
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
-      } catch(err) {
+      } catch (err) {
+        gtmEventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title);
         notify({
           type: 'danger',
           text: err
         });
       }
     },
-    async verifyHash({hash}){
+    async verifyHash({ hash }) {
       try {
         const rewardsResponse = await submitCodeCanvasExercise(
           this.$route.params.exerciseUUID,
@@ -484,40 +509,46 @@ export default {
         );
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
-      } catch(err) {
+      } catch (err) {
         notify({
           type: 'danger',
           text: err
         });
       }
     },
-    async submitTypeCode({output}) {
+    async submitTypeCode({ output }) {
       gtmEventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
-      if (this.locked){
+      if (this.locked) {
         return;
       }
-      this.verifyCode({output});
+      this.verifyCode({ output });
     },
-    async submitTypeCodeCanvas({hash}) {
+    async submitTypeCodeCanvas({ hash }) {
       gtmEventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
-      if (this.locked){
+      if (this.locked) {
         return;
       }
-      this.verifyHash({hash});
+      this.verifyHash({ hash });
     },
     async submitTypeChoice(answer) {
+      gtmEventSubmitMultipleChoice(this.$route.params.exerciseUUID, this.course.Title);
       try {
         const rewardsResponse = await submitMultipleChoiceExercise(
           this.$route.params.exerciseUUID,
           answer
         );
+        gtmEventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title);
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
         await sleep(1500);
-        if (this.isCurrentExercise || !this.$store.getters.getUserIsSubscribed){
+        if (
+          this.isCurrentExercise ||
+          !this.$store.getters.getUserIsSubscribed
+        ) {
           await this.navToCurrentExercise();
         }
-      } catch(err) {
+      } catch (err) {
+        gtmEventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title);
         notify({
           type: 'danger',
           text: err
@@ -526,12 +557,12 @@ export default {
     },
     scrollMarkdownToTop() {
       requestAnimationFrame(() => {
-        if (this.$refs.viewer && this.$refs.viewer.$el){
+        if (this.$refs.viewer && this.$refs.viewer.$el) {
           this.$refs.viewer.$el.scrollTop = 0;
         }
       });
     },
-    navToExercise(exercise){
+    navToExercise(exercise) {
       this.$router.push({
         name: 'Exercise',
         params: {
@@ -541,17 +572,24 @@ export default {
         }
       });
     },
-    async moveToExercise(exercise){
+    async moveToExercise(exercise) {
       // should probably get "6" from server
-      if (this.exerciseIndex === 6 && this.moduleIndex === 0){
+      if (
+        this.exerciseIndex === 6 &&
+        this.moduleIndex === 0 &&
+        !this.$store.getters.getUserIsSubscribed
+      ) {
         this.showModal();
       }
 
-      if (exercise.CourseDone){
+      if (exercise.CourseDone) {
         this.courseDone = true;
       }
 
-      saveUnsubscribedProgress(this.$route.params.courseUUID, exercise.Exercise.UUID);
+      saveUnsubscribedProgress(
+        this.$route.params.courseUUID,
+        exercise.Exercise.UUID
+      );
       this.isFree = exercise.Exercise.IsFree;
       this.isFirstExercise = exercise.Exercise.IsFirst;
       this.isLastExercise = exercise.Exercise.IsLast;
@@ -559,7 +597,7 @@ export default {
       this.isComplete = exercise.IsComplete;
       this.isCheating = false;
 
-      if (exercise.Exercise.Readme !== this.markdownSource){
+      if (exercise.Exercise.Readme !== this.markdownSource) {
         this.scrollMarkdownToTop();
       }
 
@@ -567,23 +605,25 @@ export default {
       this.type = exercise.Exercise.Type;
       this.$store.commit('setCurrentModuleUUID', this.$route.params.moduleUUID);
 
-      if (this.type === 'type_code'){
+      if (this.type === 'type_code') {
         this.code = exercise.Exercise.Code;
         this.complete = exercise.Exercise.Complete;
         this.defaultCode = exercise.Exercise.Code;
         this.progLang = exercise.Exercise.ProgLang;
-      } else if (this.type === 'type_code_canvas'){
+      } else if (this.type === 'type_code_canvas') {
         this.code = exercise.Exercise.Code;
         this.complete = exercise.Exercise.Complete;
         this.defaultCode = exercise.Exercise.Code;
         this.progLang = exercise.Exercise.ProgLang;
-      } else if (this.type === 'type_choice'){
+      } else if (this.type === 'type_choice') {
         this.question = exercise.Exercise.Question;
       }
     },
-    async navToCurrentExercise(){
+    async navToCurrentExercise() {
       try {
-        const exercise = await getCurrentExercise(this.$route.params.courseUUID);
+        const exercise = await getCurrentExercise(
+          this.$route.params.courseUUID
+        );
         this.navToExercise(exercise);
       } catch (err) {
         // this probably happens because course is complete
@@ -591,9 +631,13 @@ export default {
         this.navToExercise(exercise);
       }
     },
-    async goBack(){
+    async goBack() {
+      gtmEventClickExerciseNavigation(this.$route.params.exerciseUUID, this.course.Title);
       try {
-        const exercise = await getPreviousExercise(this.$route.params.courseUUID, this.$route.params.exerciseUUID);
+        const exercise = await getPreviousExercise(
+          this.$route.params.courseUUID,
+          this.$route.params.exerciseUUID
+        );
         this.navToExercise(exercise);
       } catch (err) {
         notify({
@@ -602,16 +646,20 @@ export default {
         });
       }
     },
-    async goForward(){
-      if (this.type === 'type_info' && !this.isComplete){
+    async goForward() {
+      gtmEventClickExerciseNavigation(this.$route.params.exerciseUUID, this.course.Title);
+      if (this.type === 'type_info' && !this.isComplete) {
         await this.submitTypeInfo();
       }
-      if (this.courseDone && this.isLastExercise){
+      if (this.courseDone && this.isLastExercise) {
         this.$refs.courseDoneModal.show();
         return;
       }
       try {
-        const exercise = await getNextExercise(this.$route.params.courseUUID, this.$route.params.exerciseUUID);
+        const exercise = await getNextExercise(
+          this.$route.params.courseUUID,
+          this.$route.params.exerciseUUID
+        );
         this.navToExercise(exercise);
       } catch (err) {
         notify({
@@ -620,7 +668,7 @@ export default {
         });
       }
     },
-    async goToBeginning(){
+    async goToBeginning() {
       try {
         const exercise = await getFirstExercise(this.$route.params.courseUUID);
         this.navToExercise(exercise);
@@ -636,8 +684,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
+@import "@/styles/colors.scss";
+@import "@/styles/consts.scss";
 
 .mobile {
   display: none !important;
@@ -711,7 +759,6 @@ export default {
 
 .nav {
   flex: 0 0 auto;
-  border-bottom: solid 1px $gray-light;
   width: 100%;
   padding: 1em;
   box-sizing: border-box;

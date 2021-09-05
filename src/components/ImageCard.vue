@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white shadow-2xl rounded mb-6 tracking-wide"
+    class="bg-white shadow-lg rounded mb-6 tracking-wide"
   >
     <div
       class="md:flex-shrink-0 rounded rounded-b-none"
@@ -11,7 +11,7 @@
       <img
         v-if="imgSrc"
         :src="imgSrc"
-        class="w-full h-64 rounded rounded-b-none object-cover h-full w-full"
+        class="rounded rounded-b-none object-cover h-full w-full"
         :class="{
           'cursor-pointer': click,
           'hover:opacity-90': click

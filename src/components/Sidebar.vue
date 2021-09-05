@@ -2,7 +2,7 @@
   <div>
     <ProModal ref="proModal" />
 
-    <div class="sidebar text-gray-200 bg-gray-800 h-full text-center">
+    <div class="text-gray-700 bg-white h-full text-center shadow relative z-40">
       <div class="profile-box flex flex-col items-center">
         <ProfileImage
           class="profile-img my-4 w-3/5"
@@ -30,7 +30,7 @@
         v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
         :text="`Recruiters`"
         position="right"
-        class="mx-4"
+        class="mx-4 mb-2"
         color="gold"
       >
         <MenuItemHorizontal
@@ -43,7 +43,7 @@
       <Tooltip
         :text="`Courses`"
         position="right"
-        class="mx-4"
+        class="mx-4 mb-2"
         color="gold"
       >
         <MenuItemHorizontal
@@ -56,7 +56,7 @@
       <Tooltip
         :text="`Settings`"
         position="right"
-        class="mx-4"
+        class="mx-4 mb-2"
         color="gold"
       >
         <MenuItemHorizontal
@@ -69,10 +69,10 @@
       <Tooltip
         :text="`Portfolio`"
         position="right"
+        class="mx-4 mb-2"
         :color="isSubscribed ? 'gold' : 'red'"
       >
         <MenuItemHorizontal
-          class="mx-4"
           icon="user-tie"
           :color="isSubscribed ? 'gold' : 'red'"
           :click="() => {clickPortfolio()}"
@@ -83,10 +83,10 @@
       <Tooltip
         :text="`Achievements`"
         position="right"
+        class="mx-4 mb-2"
         color="gold"
       >
         <MenuItemHorizontal
-          class="mx-4"
           icon="trophy"
           :click="() => {$router.push({name: 'Achievements'}) }"
           :current="pathName === 'Achievements'"
@@ -96,10 +96,10 @@
       <Tooltip
         :text="`Logout`"
         position="right"
+        class="mx-4 mb-2"
         color="gold"
       >
         <MenuItemHorizontal
-          class="mx-4"
           icon="sign-out-alt"
           :click="logout"
         />

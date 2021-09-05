@@ -10,11 +10,13 @@ const Playground = () => import('@/views/Playground.vue');
 const Settings = () => import('@/views/Settings.vue');
 const Achievements = () => import('@/views/Achievements.vue');
 const SignupFlowExperience = () => import('@/views/SignupFlowExperience.vue');
+const SignupFlowCommunity = () => import('@/views/SignupFlowCommunity.vue');
 const SignupFlowInterests = () => import('@/views/SignupFlowInterests.vue');
 const SignupFlowRecruiters = () => import('@/views/SignupFlowRecruiters.vue');
 const SignupFlowRecruitersEnrich = () => import('@/views/SignupFlowRecruitersEnrich.vue');
 const VerifyEmail = () => import('@/views/VerifyEmail.vue');
 const Recruiters = () => import('@/views/Recruiters.vue');
+const Certificate = () => import('@/views/Certificate.vue');
 
 
 import {
@@ -36,6 +38,11 @@ const routes = [
     path: '/signup_flow/experience',
     name: 'SignupFlowExperience',
     component: SignupFlowExperience
+  },
+  {
+    path: '/signup_flow/community',
+    name: 'SignupFlowCommunity',
+    component: SignupFlowCommunity
   },
   {
     path: '/signup_flow/recruit',
@@ -88,6 +95,11 @@ const routes = [
     path: '/pricing',
     name: 'Pricing',
     component: Pricing
+  },
+  {
+    path: '/certificate/:userHandle/:courseUUID',
+    name: 'Certificate',
+    component: Certificate
   },
   {
     path: '/playground', 

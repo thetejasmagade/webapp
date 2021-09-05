@@ -60,10 +60,94 @@ export function gtmEventFinishCheckout(priceUSD, productID, productName){
   }
 }
 
+export function gtmEventExerciseFailure(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'exercise_failure',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventExerciseSuccess(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'exercise_success',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function gtmEventExecuteCode(exerciseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'execute_code',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventSubmitMultipleChoice(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'submit_multiple_choice',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventClickCheat(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'click_cheat',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventClickExerciseNavigation(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'click_exercise_navigation',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventSaveCode(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'click_save_code',
+      'exercise_uuid': exerciseUUID,
+      'course_title': courseTitle
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function gtmEventLoadCode(exerciseUUID, courseTitle){
+  try {
+    window.dataLayer.push({
+      'event': 'click_load_code',
       'exercise_uuid': exerciseUUID,
       'course_title': courseTitle
     });

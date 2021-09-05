@@ -1,6 +1,6 @@
 <template>
   <div
-    class="login-container flex flex-col h-screen bg-gray-100"
+    class="login-container flex flex-col h-screen"
   >
     <div class="nav-container">
       <TopNav title="Qvault" />

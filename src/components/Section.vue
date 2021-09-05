@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section bg-white rounded-lg shadow-xl">
     <div
       v-if="title || subtitle"
       class="titlebox"
@@ -47,8 +47,6 @@ export default {
   @media (max-width: $mobile-size) {
     padding: 1em;
   }
-  border-radius: 3px;
-  background-color: $gray-lightest;
   color: $gray-darker;
 
   .titlebox {
