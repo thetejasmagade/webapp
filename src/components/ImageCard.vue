@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     hasSlots(){
-      return this.$slots.length > 0;
+      return this.$slots.default;
     }
   },
   methods: {
