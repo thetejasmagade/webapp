@@ -106,7 +106,8 @@
       </Section>
 
       <Section
-        title="Course Progress"
+        title="Certifications"
+        subtitle="Download and share Qvault certificates with potential employers to show off your skills"
         class="max-w-4xl mb-5"
       >
         <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
@@ -114,33 +115,16 @@
             v-for="(course, i) of filteredCourses"
             :key="i"
             :img-src="course.ImageURL"
-          >
-            <div
-              :ref="`cardbody${i}`"
-              class="body"
-            >
-              <h2 class="text-xl underline mb-4">
-                <a
-                  @click="() => {
-                    $router.push({name: 'Certificate', params: {userHandle: user.Handle, courseUUID: course.UUID}});
-                  }"
-                >
-                  {{ course.Title }}
-                </a>
-              </h2>
-              <p
-                class="text-center text-green-700"
-              >
-                Complete
-              </p>
-            </div>
-          </ImageCard>
+            :click="() => {
+              $router.push({name: 'Certificate', params: {userHandle: user.Handle, courseUUID: course.UUID}});
+            }"
+          />
         </div>
       </Section>
 
       <Section
         v-if="filteredAchievements.length>0"
-        title="Achievements Earned"
+        title="Achievements"
         class="max-w-4xl mb-5"
       >
         <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
@@ -150,7 +134,6 @@
             :img-src="achievement.ImageURL"
           >
             <div
-              :ref="`cardbody${i}`"
               class="p-4 flex flex-col items-center"
             >
               <p class="text-gold-600 text-xl mb-2">
@@ -239,6 +222,14 @@ export default {
         }
         return ua1.GemReward < ua2.GemReward ? -1 : 1;
       });
+    });
+
+    state.computedDate = computed(() => {
+      if (!state.course || !state.course.CompletedAt){
+        return null;
+      }
+      const today = new Date(state.course.CompletedAt);
+      return today.toDateString();
     });
 
     onMounted(async () => {

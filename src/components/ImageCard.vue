@@ -3,23 +3,28 @@
     class="bg-white shadow-lg rounded mb-6 tracking-wide"
   >
     <div
-      class="md:flex-shrink-0 rounded rounded-b-none"
+      class="md:flex-shrink-0 rounded"
       :class="{
         'bg-black': click,
+        'rounded-b-none': hasSlots
       }"
     >
       <img
         v-if="imgSrc"
         :src="imgSrc"
-        class="rounded rounded-b-none object-cover h-full w-full"
+        class="rounded object-cover h-full w-full"
         :class="{
           'cursor-pointer': click,
-          'hover:opacity-90': click
+          'hover:opacity-90': click,
+          'rounded-b-none': hasSlots
         }"
         @click="onClick"
       >
     </div>
-    <div class="px-4 py-2 mt-2">
+    <div
+      v-if="hasSlots"
+      class="px-4 py-2 mt-2"
+    >
       <slot />
     </div>
   </div>
@@ -37,6 +42,11 @@ export default {
       type: Function,
       required: false,
       default: null
+    }
+  },
+  computed: {
+    hasSlots(){
+      return this.$slots.length > 0;
     }
   },
   methods: {

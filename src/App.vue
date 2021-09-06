@@ -43,7 +43,8 @@ import {
   faEye,
   faComment,
   faUpload,
-  faRibbon
+  faRibbon,
+  faDownload
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -92,6 +93,7 @@ library.add(faEye);
 library.add(faComment);
 library.add(faUpload);
 library.add(faRibbon);
+library.add(faDownload);
 
 export default {
   setup () {
