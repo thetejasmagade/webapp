@@ -21,7 +21,7 @@ export const experienceLevels = [
   },
   {
     label: 'Mid-Level Developer',
-    description: 'I have a degree or have worked in the industry for at least 3 years',
+    description: 'I have a degree or have worked in the industry for at least 2 years',
     upperLimit: 60
   },
   {
