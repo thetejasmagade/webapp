@@ -27,21 +27,23 @@
         </p>
         <ul class="list-disc ml-5 mb-4">
           <li>
-            Our system ensures a candidate's contact info can be accessed at most 5 times per month.
-            This keeps candidates responsive. We don't want them constantly contacted by different teams.
+            When you initially contact a candidate you <b>must</b> tell them you found them through Qvault
           </li>
           <li>
-            You're able to view up to 200 candidate's contact information each month.
-          </li>
-          <li>
-            When you initially contact a candidate you <b>must</b> tell them you found them through Qvault.
-          </li>
-          <li>
-            If a candidate asks you to, you <b>must</b> remove them from <b>all</b> your team's contact lists.
+            If a candidate asks you to, you <b>must</b> remove them from <b>all</b> your team's contact lists
           </li>
           <li>
             When a candidate is successfully placed, you're <b>required</b> to <a href="mailto:admin@qvault.io">notify us</a>
-            on or before their first day. We'll send an invoice to your account holder on file at that point.
+            on or before their first day. We'll send an invoice to your account holder on file at that point
+          </li>
+          <li>
+            We charge $750 to place a mid-level developer, $1500 to place a senior developer,
+            and there is no charge for all other lower experience levels.
+            That said, we still require you to contact us and let us know you placed them
+          </li>
+          <li>
+            Experience levels are determined in this pricing system by how the candidate self-identifies in Qvault,
+            not their job title once placed
           </li>
         </ul>
 
