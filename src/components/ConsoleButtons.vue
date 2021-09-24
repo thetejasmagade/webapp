@@ -33,36 +33,6 @@
       </BlockButton>
     </Tooltip>
     <Tooltip
-      v-if="saveCallback"
-      :text="`Save code`"
-      position="bottom"
-    >
-      <BlockButton
-        class="mr-3"
-        :click="saveCallback"
-        color="gray"
-      >
-        <FontAwesomeIcon
-          icon="save"
-        />
-      </BlockButton>
-    </Tooltip>
-    <Tooltip
-      v-if="loadCallback"
-      :text="`Load last save`"
-      position="bottom"
-    >
-      <BlockButton
-        class="mr-3"
-        :click="loadCallback"
-        color="gray"
-      >
-        <FontAwesomeIcon
-          icon="backward"
-        />
-      </BlockButton>
-    </Tooltip>
-    <Tooltip
       :text="`Reset code`"
       position="bottom"
     >
@@ -115,16 +85,6 @@ export default {
     resetCallback: {
       type: Function,
       required: true
-    },
-    saveCallback: {
-      type: Function,
-      required: false,
-      default: null
-    },
-    loadCallback: {
-      type: Function,
-      required: false,
-      default: null
     },
     upgradeCallback: {
       type: Function,

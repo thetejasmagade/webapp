@@ -27,7 +27,6 @@
       />
       <BlockButton
         :click="() => {btnClick()}"
-        color="purple"
         class="mb-4"
       >
         Submit

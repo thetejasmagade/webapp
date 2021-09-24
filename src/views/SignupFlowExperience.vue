@@ -24,7 +24,6 @@
           </p>
 
           <BlockButton
-            color="purple"
             :click="submitDeveloperExperience"
           >
             Submit

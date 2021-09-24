@@ -14,7 +14,7 @@
           onConfirm()
           hide()
         }"
-        color="purple"
+        color="blue"
         class="mr-4"
       >
         Confirm

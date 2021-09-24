@@ -35,7 +35,6 @@
           <div class="text-center">
             <BlockButton
               class="mr-4"
-              color="purple"
               :click="success"
             >
               Save

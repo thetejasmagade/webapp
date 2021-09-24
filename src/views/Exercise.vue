@@ -27,7 +27,6 @@
               modalButtonClick();
             }
           "
-          color="purple"
         >
           View Plans
         </BlockButton>
@@ -127,8 +126,6 @@
           :reset-callback="resetCode"
           :upgrade-callback="locked ? upgradeClick : null"
           :cheat-callback="cheatClick"
-          :save-callback="saveCode"
-          :load-callback="getSavedCode"
           :prog-lang="progLang"
           :canvas-enabled="type === 'type_code_canvas'"
           :solution="complete"
@@ -136,7 +133,10 @@
         />
         <MultipleChoice
           v-else-if="type === 'type_choice'"
-          class="side right"
+          class="
+            side
+            right
+          "
           :callback="submitTypeChoice"
           :answers="question.Answers"
           :question="question.Question"
@@ -183,8 +183,6 @@ import {
   gtmEventSubmitMultipleChoice,
   gtmEventClickCheat,
   gtmEventClickExerciseNavigation,
-  gtmEventSaveCode,
-  gtmEventLoadCode,
   gtmEventOpenProModal
 } from '@/lib/gtm.js';
 
@@ -197,8 +195,6 @@ import {
   submitMultipleChoiceExercise,
   submitCodeCanvasExercise,
   getFirstExercise,
-  saveCode,
-  getSavedCode,
   getCourses,
   getFirstExerciseInModule,
   getExerciseByID
@@ -363,7 +359,7 @@ export default {
       await loadProgramCS(this);
       this.$router.push({ name: 'Courses' });
     },
-    showModal() {
+    showPricingModal() {
       gtmEventOpenProModal();
       this.$refs.pricingModal.show();
     },
@@ -389,47 +385,6 @@ export default {
     },
     resetCode() {
       this.code = this.defaultCode;
-    },
-    async saveCode() {
-      gtmEventSaveCode(this.$route.params.exerciseUUID, this.course.Title);
-      try {
-        await saveCode(this.$route.params.exerciseUUID, this.code);
-        notify({
-          type: 'success',
-          text: 'Code saved!'
-        });
-      } catch (err) {
-        notify({
-          type: 'danger',
-          text: 'Couldn\'t save code'
-        });
-      }
-    },
-    async getSavedCode() {
-      gtmEventLoadCode(this.$route.params.exerciseUUID, this.course.Title);
-      try {
-        const resp = await getSavedCode(
-          this.$route.params.exerciseUUID,
-          this.code
-        );
-        if (resp.Code && resp.Code !== '') {
-          this.code = resp.Code;
-          notify({
-            type: 'success',
-            text: 'Last save loaded!'
-          });
-          return;
-        }
-        notify({
-          type: 'danger',
-          text: 'No saved code found for this exercise'
-        });
-      } catch (err) {
-        notify({
-          type: 'danger',
-          text: 'Couldn\'t load code'
-        });
-      }
     },
     async submitTypeInfo() {
       await submitInformationalExercise(this.$route.params.exerciseUUID);
@@ -575,11 +530,11 @@ export default {
     async moveToExercise(exercise) {
       // should probably get "6" from server
       if (
-        this.exerciseIndex === 6 &&
-        this.moduleIndex === 0 &&
+        this.exerciseIndex === 0 &&
+        this.moduleIndex === 1 &&
         !this.$store.getters.getUserIsSubscribed
       ) {
-        this.showModal();
+        this.showPricingModal();
       }
 
       if (exercise.CourseDone) {

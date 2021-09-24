@@ -4,15 +4,6 @@
       :is-loading="isLoading"
       :cancel="cancelCode"
     />
-    <ConfirmModal
-      v-if="loadCallback"
-      ref="loadLastSaveModal"
-      heading="Want to load your last save for this exercise?"
-      text="
-      This will overwrite the code you have in your editor currently.
-      "
-      :on-confirm="loadCallback"
-    />
 
     <ConfirmModal
       ref="resetCodeModal"
@@ -28,8 +19,6 @@
           <ConsoleButtons
             :run-callback="isCheating ? null : runCode"
             :reset-callback="() => $refs.resetCodeModal.show()"
-            :save-callback="saveCallback"
-            :load-callback="() => $refs.loadLastSaveModal.show()"
             :upgrade-callback="upgradeCallback"
             :cheat-callback="cheatCallback"
             :is-cheating="isCheating"
@@ -138,16 +127,6 @@ export default {
     resetCallback: {
       type: Function,
       required: true
-    },
-    saveCallback: {
-      type: Function,
-      required: false,
-      default: null
-    },
-    loadCallback: {
-      type: Function,
-      required: false,
-      default: null
     },
     upgradeCallback: {
       type: Function,

@@ -132,30 +132,6 @@ export function gtmEventClickExerciseNavigation(exerciseUUID, courseTitle){
   }
 }
 
-export function gtmEventSaveCode(exerciseUUID, courseTitle){
-  try {
-    window.dataLayer.push({
-      'event': 'click_save_code',
-      'exercise_uuid': exerciseUUID,
-      'course_title': courseTitle
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export function gtmEventLoadCode(exerciseUUID, courseTitle){
-  try {
-    window.dataLayer.push({
-      'event': 'click_load_code',
-      'exercise_uuid': exerciseUUID,
-      'course_title': courseTitle
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 export function gtmEventOpenProModal(){
   try {
     window.dataLayer.push({

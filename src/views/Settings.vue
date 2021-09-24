@@ -19,14 +19,14 @@
           <div class="tab">
             <BlockButton
               :click="() => currentTab='settings'"
-              :color="currentTab==='settings' ? 'purple-light':'gray-light'"
+              :color="currentTab==='settings' ? 'blue-light':'gray-light'"
               class="tabItems"
             >
               Profile
             </BlockButton>
             <BlockButton
               :click="() => currentTab='updatePass'"
-              :color="currentTab==='updatePass' ? 'purple-light':'gray-light'"
+              :color="currentTab==='updatePass' ? 'blue-light':'gray-light'"
               class="tabItems"
             >
               Security

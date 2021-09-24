@@ -6,7 +6,9 @@
       disabled:cursor-not-allowed
       focus:outline-none
       text-white
-      py-2 px-4 rounded
+      py-2
+      px-4
+      rounded
     "
     :disabled="disabled"
     :style="{'cursor': disabled ? 'not-allowed' : 'pointer'}"
@@ -27,7 +29,7 @@ export default {
     color: {
       type: String,
       required: false,
-      default: 'purple'
+      default: 'blue'
     },
     disabled:{
       type: Boolean,
@@ -50,13 +52,13 @@ export default {
         'hover:bg-green-800': this.color === 'green',
         'disabled:bg-green-600': this.color === 'green',
 
-        'bg-blue-500': this.color === 'purple',
-        'hover:bg-blue-600': this.color === 'purple',
-        'disabled:bg-blue-400': this.color === 'purple',
+        'bg-blue-500': this.color === 'blue',
+        'hover:bg-blue-600': this.color === 'blue',
+        'disabled:bg-blue-400': this.color === 'blue',
 
-        'bg-blue-400': this.color === 'purple-light',
-        'hover:bg-blue-300': this.color === 'purple-light',
-        'disabled:bg-blue-300': this.color === 'purple-light',
+        'bg-blue-400': this.color === 'blue-light',
+        'hover:bg-blue-300': this.color === 'blue-light',
+        'disabled:bg-blue-300': this.color === 'blue-light',
 
         'bg-gold-500': this.color === 'gold',
         'hover:bg-gold-600': this.color === 'gold',

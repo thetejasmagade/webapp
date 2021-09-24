@@ -15,7 +15,6 @@
             </h3>
 
             <BlockButton
-              color="purple"
               :click="linkClick"
               class="my-4"
             >

@@ -1,13 +1,24 @@
 <template>
   <div class="flex flex-col items-center">
-    <h2 class="my-4 text-2xl px-4 max-w-xl">
-      {{ question }}
-    </h2>
+    <div
+      class="
+        rounded
+        w-4/5
+        max-w-md
+        bg-blue-800
+        text-gray-200
+        my-8
+      "
+    >
+      <h2 class="my-4 text-lg px-4 max-w-xl">
+        {{ question }}
+      </h2>
+    </div>
     <BlockButton
       v-for="(answer, i) of answers"
       :key="i"
-      class="text-lg w-4/5 m-4 max-w-md"
-      color="gold"
+      class="text-lg w-4/5 mb-2 max-w-md"
+      color="blue-light"
       :click="() => {callback(answer)}"
       :disabled="locked"
     >
@@ -16,8 +27,8 @@
     <BlockButton
       v-if="locked"
       class="text-lg w-4/5 m-4 max-w-md"
-      color="purple"
       :click="() => {$router.push({name: 'Pricing'});}"
+      color="gold"
     >
       <span>Get quiz access</span>
     </BlockButton>

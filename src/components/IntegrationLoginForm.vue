@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-evenly w-full items-center">
       <BlockButton
         :click="clickGoogle"
-        color="purple"
+        color="blue"
         class="my-5"
       >
         <FontAwesomeIcon

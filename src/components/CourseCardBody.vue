@@ -32,7 +32,6 @@
       >
         <Tooltip
           :text="`Prerequsites:\n${prereqs.join('\n')}`"
-          color="purple"
         >
           <FontAwesomeIcon
             icon="school"

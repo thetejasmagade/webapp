@@ -19,7 +19,6 @@
           />
           <div class="text-center">
             <BlockButton
-              color="purple"
               :click="submitInterests"
               :disabled="checkedAnswers.length < 1 || checkedAnswers.length > 5"
             >

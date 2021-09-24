@@ -4,6 +4,9 @@
       flex 
       flex-row
       whitespace-nowrap
+      bg-gray-300
+      border-b-2
+      border-gray-400
     "
     :class="{
       'bg-green-300': isComplete,
@@ -14,7 +17,7 @@
       <BlockButton
         :click="goBack"
         :disabled="!canGoBack"
-        :color="canGoBack ? 'green' : 'gray'"
+        :color="canGoBack ? 'blue' : 'gray'"
       >
         <FontAwesomeIcon
           icon="arrow-left"
@@ -24,7 +27,7 @@
         :disabled="!canGoForward"
         class="ml-3"
         :click="goForward"
-        :color="canGoForward ? 'green' : 'gray'"
+        :color="canGoForward ? 'blue' : 'gray'"
       >
         <FontAwesomeIcon
           icon="arrow-right"

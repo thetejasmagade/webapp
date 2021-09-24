@@ -39,7 +39,7 @@ export default {
     textColor: {
       type: String,
       required: false,
-      default: 'purple-lighter'
+      default: 'blue-lighter'
     }
   },
   computed:{
@@ -93,7 +93,7 @@ export default {
   text-align: center;
 }
 
-.purple-lighter {
+.blue-lighter {
   color: $purple-mid;
 }
 

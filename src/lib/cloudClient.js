@@ -686,18 +686,6 @@ export async function submitInformationalExercise(exerciseUUID){
   return handled;
 }
 
-export async function getSavedCode(exerciseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/saved_code/${exerciseUUID}`, {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function getUsersAsRecruiter() {
   const resp = await fetchWithAuth(`${domain}/v1/recruiters/users`, {
     method: 'GET',
@@ -705,21 +693,6 @@ export async function getUsersAsRecruiter() {
     headers: {
       'Content-Type': 'application/json'
     }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function saveCode(exerciseUUID, code) {
-  const resp = await fetchWithAuth(`${domain}/v1/saved_code/${exerciseUUID}`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      code
-    })
   });
   const handled = await handleJSONResponse(resp);
   return handled;

@@ -12,7 +12,6 @@
       </p>
       <BlockButton
         :click="() => {btnClick()}"
-        color="purple"
       >
         View Plans
       </BlockButton>
