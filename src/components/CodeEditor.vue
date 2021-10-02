@@ -172,6 +172,7 @@ export default {
   computed: {
     codeMirrorOptions() {
       return {
+        indentWithTabs: this.indentWithTabs,
         tabSize: this.tabSize,
         indentUnit: this.tabSize,
         mode: this.codeMirrorLang,
@@ -185,6 +186,15 @@ export default {
         connect: 'align',
         readOnly: this.isCheating
       };
+    },
+    indentWithTabs() {
+      if (this.progLang === 'go'){
+        return true;
+      }
+      if (this.progLang === 'py'){
+        return true;
+      }
+      return false;
     },
     codeMirrorLang(){
       if (this.progLang === 'go'){
