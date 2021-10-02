@@ -100,6 +100,28 @@
               type="text"
             />
           </div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-4">
+              Misc
+            </h3>
+            <div class="flex flex-row leading-3 items-center mb-4">
+              <ToggleSwitch
+                v-model="filterResumes"
+              />
+              <span class="ml-2">
+                Has resume
+              </span>
+            </div>
+            <div class="flex flex-row leading-3 items-center">
+              <ToggleSwitch
+                v-model="filterLinkedin"
+              />
+              <span class="ml-2">
+                Has linkedin
+              </span>
+            </div>
+          </div>
         </div>
         <div class="cards">
           <ImageCard
@@ -132,6 +154,18 @@
                   :href="user.ResumeURL"
                 >
                   resume
+                </a>
+              </div>
+
+              <div
+                v-if="user.revealed && user.LinkedinURL"
+                class="item"
+              >
+                <a
+                  target="_blank"
+                  :href="user.LinkedinURL"
+                >
+                  Linkedin
                 </a>
               </div>
 
@@ -187,6 +221,7 @@
 </template>
 
 <script>
+import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import { experienceLevels } from '@/lib/experienceLevels.js';
 import { 
   getUsersAsRecruiter
@@ -217,7 +252,8 @@ export default {
     FontAwesomeIcon,
     BlockButton,
     CheckboxForm,
-    TextInput
+    TextInput,
+    ToggleSwitch
   },
   data(){
     return {
@@ -225,7 +261,9 @@ export default {
       interestsChecked: [],
       interestsMap: {},
       experienceLabelsChecked: [],
-      locationSearch: ''
+      locationSearch: '',
+      filterResumes: false,
+      filterLinkedin: false
     };
   },
   computed: {
@@ -247,6 +285,8 @@ export default {
       users = this.filterByInterests(users);
       users = this.filterByExperience(users);
       users = this.filterByLocation(users);
+      users = this.filterByLinkedin(users);
+      users = this.filterByResume(users);
       users = users.sort((user1, user2) => {
         return Date.parse(user1.CreatedAt) > Date.parse(user2.CreatedAt) ? -1 : 1;
       });
@@ -327,6 +367,25 @@ export default {
       });
       return users;
     },
+    filterByLinkedin(users){
+      console.log(this.filterLinkedin);
+      if (!this.filterLinkedin){
+        return users;
+      }
+      users = users.filter(user => {
+        return user.LinkedinURL;
+      });
+      return users;
+    },
+    filterByResume(users){
+      if (!this.filterResumes){
+        return users;
+      }
+      users = users.filter(user => {
+        return user.ResumeURL;
+      });
+      return users;
+    },
     reveal(handle){
       const user = JSON.parse(JSON.stringify(this.users[handle]));
       user.revealed = true;
@@ -385,7 +444,7 @@ export default {
   }
 
   .item {
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
   }
 
   .cards {
