@@ -20,16 +20,20 @@ export function gtmEventRegister(method){
 
 export function gtmEventBeginCheckout(priceUSD, productID, productName){
   try {
+    window.dataLayer.push({ ecommerce: null });
     window.dataLayer.push({
-      'event': 'begin_checkout',
-      'items': [ {
-        'item_id': productID,
-        'item_name': productName,
-        'quantity': 1,
-        'price': priceUSD.toString(),
-        'currency': 'USD'
-      } ],
-      'value': priceUSD.toString()
+      event: 'begin_checkout',
+      ecommerce: {
+        items: [
+          {
+            item_name: productName,
+            item_id: productID,
+            price: priceUSD,
+            index: 1,
+            quantity: 1
+          }
+        ]
+      }
     });
   } catch (err) {
     console.log(err);
@@ -40,17 +44,18 @@ export function gtmEventBeginCheckout(priceUSD, productID, productName){
 export function gtmEventFinishCheckout(priceUSD, productID, productName){
   const priceString = priceUSD ? priceUSD.toString() : '20';
   try {
+    window.dataLayer.push({ ecommerce: null });
     window.dataLayer.push({
-      'event': 'purchase',
-      'ecommerce': {
-        'value': priceString,
-        'currency': 'USD',
-        'items': [
+      event: 'purchase',
+      ecommerce: {
+        value: priceString,
+        currency: 'USD',
+        items: [ 
           {
-            'item_name': productName,
-            'item_id': productID,
-            'item_price': priceString,
-            'quantity': 1
+            item_name: productName,
+            item_id: productID,
+            price: priceUSD,
+            quantity: 1
           }
         ]
       }
