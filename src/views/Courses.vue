@@ -30,7 +30,7 @@
                 :key="i"
               >
                 <div
-                  class="flex justify-between items-center w-full left-timeline"
+                  class="flex justify-center items-center w-full left-timeline"
                   :class="{
                     'left-timeline': i%2 === 0,
                     'right-timeline': i%2 !==0,
@@ -52,13 +52,14 @@
                     :class="{'bg-gray-400': i > 0, 'bg-blue-500': i === 0}"
                   >
                     <h1 class="mx-auto text-white font-semibold text-xl">
-                      {{ i + 1 }}
+                      {{ i%2 === 0 ? '←' : null }} {{ i + 1 }} {{ i%2 !== 0 ? '→' : null }}
                     </h1>
                   </div>
                   <div class="order-1 sm:w-1/3 items-center">
                     <ImageCard
                       :img-src="course.ImageURL"
                       :click="() => goToCourse(course)"
+                      class="sm:mx-8"
                     >
                       <CourseCardBody
                         :course="course"

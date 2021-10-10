@@ -52,7 +52,7 @@
               class="mt-12 xl:px-24 px-12 sm:px-16 py-2"
               :click="() => {checkout(priceMonthly)}"
             >
-              Start free trial
+              {{ $store.getters.getIsLoggedIn ? 'Start free trial' : 'Login to get started' }}
             </BlockButton>
           </article>
           <article
@@ -82,7 +82,7 @@
               class="mt-12 xl:px-24 px-12 sm:px-16 py-2"
               :click="() => {checkout(priceYearly)}"
             >
-              Start free trial
+              {{ $store.getters.getIsLoggedIn ? 'Start free trial' : 'Login to get started' }}
             </BlockButton>
           </article>
           <article

@@ -26,7 +26,7 @@ export const experienceLevels = [
   },
   {
     label: 'Senior Developer',
-    description: 'I\'ve been called a senior engineer',
+    description: 'I\'ve been employed with the title of "senior engineer"',
     upperLimit: 100
   }
 ];
