@@ -295,7 +295,7 @@ export default {
     },
     async checkout(price) {
       if (!this.$store.getters.getIsLoggedIn){
-        this.$router.push({name: 'Login'});
+        this.$router.push({name: 'Login', query: {redirect: '/pricing'}});
         return;
       }
 
