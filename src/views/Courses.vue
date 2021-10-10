@@ -17,19 +17,55 @@
             :title="csProgramCourses.length > 0 ? `Your next course: ${csProgramCourses[0].Title}` : 'Loading...'"
             subtitle="Take these courses in order. You're on your way to a high-paying coding job"
           >
-            <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
+            <div class="relative wrap overflow-hidden p-10 h-full">
+              <div
+                class="
+                  border-2-2 absolute border-opacity-20 border-gray-700 h-full border
+                  hidden sm:block
+                "
+                style="left: 50%"
+              />
               <div
                 v-for="(course, i) of csProgramCourses"
                 :key="i"
               >
-                <ImageCard
-                  :img-src="course.ImageURL"
-                  :click="() => goToCourse(course)"
+                <div
+                  class="flex justify-between items-center w-full left-timeline"
+                  :class="{
+                    'left-timeline': i%2 === 0,
+                    'right-timeline': i%2 !==0,
+                    'flex-row-reverse': i%2 === 0,
+                    'sm:-mt-48': i > 0
+                  }"
                 >
-                  <CourseCardBody
-                    :course="course"
+                  <div
+                    class="
+                      order-1 w-1/3
+                      hidden sm:block
+                    "
                   />
-                </ImageCard>
+                  <div
+                    class="
+                      z-20 items-center order-1 shadow-xl w-12 h-12 rounded-full
+                      hidden sm:flex
+                    "
+                    :class="{'bg-gray-400': i > 0, 'bg-blue-500': i === 0}"
+                  >
+                    <h1 class="mx-auto text-white font-semibold text-xl">
+                      {{ i + 1 }}
+                    </h1>
+                  </div>
+                  <div class="order-1 sm:w-1/3 items-center">
+                    <ImageCard
+                      :img-src="course.ImageURL"
+                      :click="() => goToCourse(course)"
+                    >
+                      <CourseCardBody
+                        :course="course"
+                      />
+                    </ImageCard>
+                  </div>
+                </div>
               </div>
             </div>
             <h2 class="text-gold-600 text-xl">

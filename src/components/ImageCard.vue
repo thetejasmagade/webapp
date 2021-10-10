@@ -5,7 +5,7 @@
     <div
       class="md:flex-shrink-0 rounded"
       :class="{
-        'bg-black': click,
+        'bg-white': click,
         'rounded-b-none': hasSlots
       }"
     >
@@ -15,7 +15,7 @@
         class="rounded object-cover h-full w-full"
         :class="{
           'cursor-pointer': click,
-          'hover:opacity-90': click,
+          'hover:opacity-50': click,
           'rounded-b-none': hasSlots
         }"
         @click="onClick"

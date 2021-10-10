@@ -49,10 +49,6 @@
         </Tooltip>
       </div>
     </div>
-
-    <h2 class="text-xl underline mb-4">
-      <a @click="() => { goToCourse(course) }">{{ course.Title }}</a>
-    </h2>
             
     <p class="mb-4 text-gray-500 text-sm">
       {{ course.Description }}
@@ -89,10 +85,6 @@ import {
 
 import Tooltip from '@/components/Tooltip.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-import { 
-  gtmEventSelectCourse
-} from '@/lib/gtm.js';
 
 export default {
   components: {
@@ -141,10 +133,6 @@ export default {
   methods: {
     linkClick(url) {
       window.open(url, '_blank');
-    },
-    goToCourse(course){
-      gtmEventSelectCourse(course.UUID, course.Title);
-      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
     }
   }
 };
