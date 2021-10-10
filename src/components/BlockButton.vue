@@ -66,7 +66,12 @@ export default {
 
         'bg-red-500': this.color === 'red',
         'hover:bg-red-600': this.color === 'red',
-        'disabled:bg-red-400': this.color === 'red'
+        'disabled:bg-red-400': this.color === 'red',
+
+        'text-blue-600': this.color === 'white',
+        'bg-white': this.color === 'white',
+        'hover:bg-gray-200': this.color === 'white',
+        'disabled:bg-gray-200': this.color === 'white'
       };
     }
   }

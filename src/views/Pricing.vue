@@ -6,117 +6,117 @@
     <div class="subcontainer">
       <Section
         class="mb-5"
+        style="background-image: radial-gradient(circle at center center, transparent,rgb(255,255,255)),linear-gradient(309deg, rgba(90, 90, 90,0.05) 0%, rgba(90, 90, 90,0.05) 50%,rgba(206, 206, 206,0.05) 50%, rgba(206, 206, 206,0.05) 100%),linear-gradient(39deg, rgba(13, 13, 13,0.05) 0%, rgba(13, 13, 13,0.05) 50%,rgba(189, 189, 189,0.05) 50%, rgba(189, 189, 189,0.05) 100%),linear-gradient(144deg, rgba(249, 249, 249,0.05) 0%, rgba(249, 249, 249,0.05) 50%,rgba(111, 111, 111,0.05) 50%, rgba(111, 111, 111,0.05) 100%),linear-gradient(166deg, rgba(231, 231, 231,0.05) 0%, rgba(231, 231, 231,0.05) 50%,rgba(220, 220, 220,0.05) 50%, rgba(220, 220, 220,0.05) 100%),linear-gradient(212deg, rgba(80, 80, 80,0.05) 0%, rgba(80, 80, 80,0.05) 50%,rgba(243, 243, 243,0.05) 50%, rgba(243, 243, 243,0.05) 100%),radial-gradient(circle at center center, hsl(107,19%,100%),hsl(107,19%,100%));"
         title="Pricing"
         subtitle="Love it or your money back! Enjoy a 7-day free trial, 30-day money-back guarantee, and cancel anytime."
       >
-        <div class="p-4">
-          <div class="flex justify-center items-center">
-            <div class="">
-              <div class="text-center font-semibold">
-                <p
-                  v-if="$store.getters.getUserIsSubscribed"
-                  class="text-xl text-gray-500 font-normal w-full px-8 md:w-full"
-                >
-                  You're already subscribed. Go take some courses!
-                </p>
-                <p
-                  v-else
-                  class="text-xl text-gray-500 font-normal w-full px-8 md:w-full"
-                >
-                  Learn, practice, and apply career-building skills with a Pro account
-                </p>
-              </div>
-
-              <div
-                v-if="priceYearly && priceMonthly"
-                class="pt-24 flex flex-row mb-5"
+        <header class="flex flex-col items-center my-8">
+          <h2
+            v-if="$store.getters.getUserIsSubscribed"
+            class="text-2xl text-primary-normal font-bold"
+          >
+            You're already subscribed. Go take some courses!
+          </h2>
+          <h2
+            v-else
+            class="text-2xl text-primary-normal font-bold"
+          >
+            Learn, practice, and apply career-building skills with a Pro account
+          </h2>
+        </header>
+        <section
+          v-if="priceYearly && priceMonthly"
+          class="flex flex-col lg:flex-row items-center lg:justify-center w-full lg:px-10 py-8"
+        >
+          <article
+            class="shadow-lg bg-white w-4/5 lg:w-custom mb-10 lg:px-4 px-6 py-6 text-center text-primary-dark rounded-lg"
+          >
+            <h5 class="font-bold text-base">
+              {{ priceMonthly.Title }}
+            </h5>
+            <h2 class="pb-4 flex justify-center font-bold border-b border-gray-300">
+              <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceMonthly.CurrencyCode) }}</span>
+              <span class="text-6xl"> {{ priceMonthly.UnitAmountPerMonth / 100 }} / mo </span>
+            </h2>
+            <ul class="text-sm font-bold">
+              <li
+                v-for="(feature, k) of subscriptionPlan.Features"
+                :key="k"
+                class="py-2 border-b border-gray-200"
               >
-                <div class="w-96 p-8 bg-white text-center rounded-3xl pr-16 shadow-xl">
-                  <h1 class="text-black font-semibold text-2xl">
-                    {{ priceMonthly.Title }}
-                  </h1>
-                  <p class="pt-2 tracking-wide">
-                    <span class="text-gray-400 align-top">$ </span>
-                    <span class="text-3xl font-semibold"> {{ priceMonthly.UnitAmountPerMonth / 100 }}</span>
-                    <span class="text-gray-400 font-medium"> / month</span>
-                  </p>
-                  <hr class="m-4 border-1">
-                  <div>
-                    <ul class="ml-5 list-disc font-semibold text-gray-400 text-left">
-                      <li
-                        v-for="(feature, k) of subscriptionPlan.Features"
-                        :key="k"
-                      >
-                        {{ feature }}
-                      </li>
-                    </ul>
-
-                    <BlockButton
-                      v-if="!$store.getters.getUserIsSubscribed"
-                      class="m-5"
-                      :click="() => {checkout(priceMonthly)}"
-                    >
-                      Start 7-day trial
-                    </BlockButton>
-                  </div>
-                </div>
-
-                <div class="w-80 p-10 bg-gray-900 text-center rounded-3xl text-white border-4 shadow-xl border-white transform scale-125">
-                  <h1 class="text-white font-semibold text-2xl">
-                    {{ priceYearly.Title }}
-                  </h1>
-                  <p class="pt-2 tracking-wide">
-                    <span class="text-gray-400 align-top">$ </span>
-                    <span class="text-3xl font-semibold">{{ priceYearly.UnitAmountPerMonth / 100 }}</span>
-                    <span class="text-gray-400 font-medium"> / month</span>
-                  </p>
-                  <hr class="m-4 border-1 border-gray-600">
-                  <div>
-                    <ul class="ml-5 list-disc font-semibold text-gray-300 text-left">
-                      <li
-                        v-for="(feature, k) of subscriptionPlan.Features"
-                        :key="k"
-                      >
-                        {{ feature }}
-                      </li>
-                    </ul>
-
-                    <BlockButton
-                      v-if="!$store.getters.getUserIsSubscribed"
-                      class="mt-5"
-                      :click="() => {checkout(priceYearly)}"
-                    >
-                      Start 7-day trial
-                    </BlockButton>
-                  </div>
-                  <div class="absolute top-4 right-4">
-                    <p class="bg-gold-600 font-semibold px-4 py-1 rounded-full uppercase text-xs">
-                      Popular
-                    </p>
-                  </div>
-                </div>
-
-                <div class="w-96 p-8 bg-white text-center rounded-3xl pl-16 shadow-xl">
-                  <h1 class="text-black font-semibold text-2xl">
-                    Basic
-                  </h1>
-                  <p class="pt-2 tracking-wide">
-                    <span class="text-gray-400 align-top">$ </span>
-                    <span class="text-3xl font-semibold">0</span>
-                    <span class="text-gray-400 font-medium"> / month</span>
-                  </p>
-                  <hr class="m-4 border-1">
-                  <div>
-                    <ul class="ml-5 list-disc font-semibold text-gray-400 text-left">
-                      <li>Access to read all course material</li>
-                      <li>Limited code sandbox for exercises</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                {{ feature }}
+              </li>
+            </ul>
+            <BlockButton
+              v-if="!$store.getters.getUserIsSubscribed"
+              class="mt-12 xl:px-24 px-12 sm:px-16 py-2"
+              :click="() => {checkout(priceMonthly)}"
+            >
+              Start free trial
+            </BlockButton>
+          </article>
+          <article
+            class="shadow-lg lg:w-custom w-4/5 mb-10 px-6 py-8 lg:-mt-6 text-white text-center rounded-lg bg-blue-400"
+          >
+            <h5 class="font-bold text-base">
+              {{ priceYearly.Title }}
+            </h5>
+            <h2
+              class="font-bold pb-4 mt-2 border-b border-gray-100 flex justify-center"
+            >
+              <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceYearly.CurrencyCode) }} </span>
+              <span class="text-6xl "> {{ priceYearly.UnitAmountPerMonth / 100 }} / mo </span>
+            </h2>
+            <ul class=" text-sm font-bold">
+              <li
+                v-for="(feature, k) of subscriptionPlan.Features"
+                :key="k"
+                class="py-3 border-b border-gray-200"
+              >
+                {{ feature }}
+              </li>
+            </ul>
+            <BlockButton
+              v-if="!$store.getters.getUserIsSubscribed"
+              color="white"
+              class="mt-12 xl:px-24 px-12 sm:px-16 py-2"
+              :click="() => {checkout(priceYearly)}"
+            >
+              Start free trial
+            </BlockButton>
+          </article>
+          <article
+            class="shadow-lg bg-white w-4/5 lg:w-custom mb-10 lg:px-4 px-6 py-6 text-center text-primary-dark rounded-lg"
+          >
+            <h5 class="font-bold text-base">
+              Basic
+            </h5>
+            <h2 class="flex justify-center pb-4 font-bold border-b border-gray-200">
+              <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceYearly.CurrencyCode) }} </span>
+              <span class="text-6xl">0.00 / mo</span>
+            </h2>
+            <ul class="text-sm font-bold">
+              <li class="py-2 border-b border-gray-200">
+                Access to read all course material
+              </li>
+              <li class="py-2 border-b border-gray-200">
+                Limited code sandbox for exercises
+              </li>
+              <li class="py-2 border-b border-gray-200">
+                -
+              </li>
+              <li class="py-2 border-b border-gray-200">
+                -
+              </li>
+              <li class="py-2 border-b border-gray-200">
+                -
+              </li>
+              <li class="py-2 border-b border-gray-200">
+                -
+              </li>
+            </ul>
+          </article>
+        </section>
       </Section>
 
       <Section
@@ -287,6 +287,13 @@ export default {
     });
   },
   methods: {
+    getCurrencySymbol(code){
+      console.log(code);
+      if (code === 'inr'){
+        return '₹';
+      }
+      return '$';
+    },
     async checkout(price) {
       if (!this.$store.getters.getIsLoggedIn){
         this.$router.push({name: 'Login'});
