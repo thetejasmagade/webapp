@@ -288,7 +288,6 @@ export default {
   },
   methods: {
     getCurrencySymbol(code){
-      console.log(code);
       if (code === 'inr'){
         return '₹';
       }
