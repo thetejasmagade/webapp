@@ -34,9 +34,9 @@
             <h5 class="font-bold text-base">
               {{ priceMonthly.Title }}
             </h5>
-            <h2 class="pb-4 flex justify-center font-bold border-b border-gray-300">
+            <h2 class="pb-4 flex justify-center font-bold border-b">
               <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceMonthly.CurrencyCode) }}</span>
-              <span class="text-6xl"> {{ priceMonthly.UnitAmountPerMonth / 100 }} / mo </span>
+              <span class="text-6xl"> {{ priceMonthly.UnitAmountPerMonth / 100 }} /mo </span>
             </h2>
             <ul class="text-sm font-bold">
               <li
@@ -65,7 +65,7 @@
               class="font-bold pb-4 mt-2 border-b border-gray-100 flex justify-center"
             >
               <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceYearly.CurrencyCode) }} </span>
-              <span class="text-6xl "> {{ priceYearly.UnitAmountPerMonth / 100 }} / mo </span>
+              <span class="text-6xl "> {{ priceYearly.UnitAmountPerMonth / 100 }} /mo </span>
             </h2>
             <ul class=" text-sm font-bold">
               <li
@@ -93,7 +93,7 @@
             </h5>
             <h2 class="flex justify-center pb-4 font-bold border-b border-gray-200">
               <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceYearly.CurrencyCode) }} </span>
-              <span class="text-6xl">0.00 / mo</span>
+              <span class="text-6xl">0 /mo</span>
             </h2>
             <ul class="text-sm font-bold">
               <li class="py-2 border-b border-gray-200">
