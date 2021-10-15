@@ -279,6 +279,31 @@ export async function getProgramCS() {
   return handled;
 }
 
+export async function getTrackDSAlgos() {
+  const resp = await fetchWithAuth(`${domain}/v1/tracks/ds_algos`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+
+export async function getTrackGopherGang() {
+  const resp = await fetchWithAuth(`${domain}/v1/tracks/gopher_gang`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getUserPublic(handle) {
   const resp = await fetch(`${domain}/v1/users/public/${handle}`, {
     method: 'GET',

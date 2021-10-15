@@ -7,6 +7,8 @@ function getDefaultState() {
     jwtClaims: null,
     courses: [],
     programCS: [],
+    trackDSAlgos: [],
+    trackGopherGang: [],
     userAchievements: [],
     user: null,
     currentModuleUUID: null,
@@ -36,6 +38,12 @@ export default createStore({
     },
     setProgramCS(state, newProgramCS) {
       state.programCS = newProgramCS;
+    },
+    setTrackDSAlgos(state, newTrackDSAlgos) {
+      state.trackDSAlgos = newTrackDSAlgos;
+    },
+    setTrackGopherGang(state, newTrackGopherGang) {
+      state.trackGopherGang = newTrackGopherGang;
     },
     setUserAchievements(state, newUserAchievements) {
       newUserAchievements.sort((ua1, ua2) => {
@@ -81,6 +89,28 @@ export default createStore({
     getProgramCS(state) {
       let courses = [];
       for (const courseUUID of state.programCS){
+        for (const course of state.courses){
+          if (course.UUID === courseUUID){
+            courses.push(course);
+          }
+        }
+      }
+      return courses;
+    },
+    getTrackDSAlgos(state) {
+      let courses = [];
+      for (const courseUUID of state.trackDSAlgos){
+        for (const course of state.courses){
+          if (course.UUID === courseUUID){
+            courses.push(course);
+          }
+        }
+      }
+      return courses;
+    },
+    getTrackGopherGang(state) {
+      let courses = [];
+      for (const courseUUID of state.trackGopherGang){
         for (const course of state.courses){
           if (course.UUID === courseUUID){
             courses.push(course);

@@ -34,24 +34,32 @@ import {
   reactive,
   onBeforeMount,
   onBeforeUpdate,
-  onMounted,
-  toRefs
+  toRefs,
+  watch,
+  onMounted
 } from 'vue';
 
 export default {
   components: {
     FontAwesomeIcon
   },
-  setup(_, {slots}) {
+  props: {
+    initialIndex: {
+      type: Number,
+      required: true
+    }
+  },
+  setup(props, {slots}) {
     const state = reactive({
       selectedIndex: 0,
       tabs: [],
       count: 0
     });
+    const { initialIndex } = toRefs(props);
 
     provide('TabsProvider', state);
 
-    const selectTab = (i) => {
+    const selectTab = i => {
       state.selectedIndex = i;
     };
 
@@ -62,10 +70,10 @@ export default {
     };
 
     onBeforeMount(() => update());
-    onBeforeUpdate(() => update());
-
-    onMounted(() => {
-      selectTab(0);
+    onBeforeUpdate(() =>  update());
+    onMounted(() => selectTab(initialIndex.value));
+    watch(initialIndex, (initialIndex) => {
+      selectTab(initialIndex);
     });
     return {...toRefs(state), selectTab};
   }

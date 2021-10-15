@@ -30,7 +30,7 @@ import {
 import { notify } from '@/lib/notification.js';
 
 import {
-  loadProgramCS,
+  loadTracks,
   loadBalance,
   loadUser
 } from '@/lib/cloudStore.js';
@@ -56,7 +56,7 @@ export default {
       this.$router.push({path: this.routeQuery});
     }
 
-    loadProgramCS(this);
+    loadTracks(this);
     if (!this.$store.getters.getUser){
       loadUser(this);
     }

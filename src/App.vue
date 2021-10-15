@@ -44,7 +44,9 @@ import {
   faComment,
   faUpload,
   faRibbon,
-  faDownload
+  faDownload,
+  faPuzzlePiece,
+  faServer
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -94,6 +96,8 @@ library.add(faComment);
 library.add(faUpload);
 library.add(faRibbon);
 library.add(faDownload);
+library.add(faPuzzlePiece);
+library.add(faServer);
 
 export default {
   setup () {

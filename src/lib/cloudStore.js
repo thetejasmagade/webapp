@@ -1,6 +1,8 @@
 import {
   getCourses,
   getProgramCS,
+  getTrackDSAlgos,
+  getTrackGopherGang,
   getLastGemTransaction,
   getUser,
   getSubscriptionPlans,
@@ -34,14 +36,26 @@ export async function loadCourses(thisComponent){
   }
 }
 
-export async function loadProgramCS(thisComponent){
+export async function loadTracks(thisComponent){
   if (!thisComponent.$store.getters.getCourses ||
     thisComponent.$store.getters.getCourses.length === 0){
     await loadCourses(thisComponent);
   }
   try {
-    const programCS = await getProgramCS();
-    thisComponent.$store.commit('setProgramCS', programCS);
+    await Promise.all([
+      (async()=>{
+        const courses = await getProgramCS();
+        thisComponent.$store.commit('setProgramCS', courses);
+      })(),
+      (async()=>{
+        const courses = await getTrackDSAlgos();
+        thisComponent.$store.commit('setTrackDSAlgos', courses);
+      })(),
+      (async()=>{
+        const courses = await getTrackGopherGang();
+        thisComponent.$store.commit('setTrackGopherGang', courses);
+      })()
+    ]);
   } catch (err) {
     thisComponent.$notify({
       type: 'danger',
