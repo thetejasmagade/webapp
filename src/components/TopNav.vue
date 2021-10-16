@@ -83,6 +83,13 @@
         <span>Dashboard</span>
       </a>   
       <a
+        href="/pricing"
+        class="item"
+        :class="{current: routeName === 'Pricing' }"
+      >
+        <span>Pricing</span>
+      </a>
+      <a
         href="/playground/go"
         class="item"
         :class="{current: routeName === 'Playground' }"
