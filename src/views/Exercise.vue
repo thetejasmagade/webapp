@@ -168,7 +168,7 @@ import Section from '@/components/Section.vue';
 import ProModal from '@/components/ProModal.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
 
-import { loadBalance, loadUser, loadProgramCS } from '@/lib/cloudStore.js';
+import { loadBalance, loadUser, loadTracks } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 import { sleep } from '@/lib/sleep.js';
@@ -356,7 +356,7 @@ export default {
   },
   methods: {
     async clickNextCourse() {
-      await loadProgramCS(this);
+      await loadTracks(this);
       this.$router.push({ name: 'Courses' });
     },
     showPricingModal() {
