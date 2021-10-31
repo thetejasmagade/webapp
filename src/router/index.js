@@ -17,7 +17,10 @@ const SignupFlowRecruitersEnrich = () => import('@/views/SignupFlowRecruitersEnr
 const VerifyEmail = () => import('@/views/VerifyEmail.vue');
 const Recruiters = () => import('@/views/Recruiters.vue');
 const Certificate = () => import('@/views/Certificate.vue');
-
+const CSTrack = () => import('@/views/CSTrack.vue');
+const AlgosTrack = () => import('@/views/AlgosTrack.vue');
+const GolangTrack = () => import('@/views/GolangTrack.vue');
+const Browse = () => import('@/views/Browse.vue');
 
 import {
   isLoggedIn
@@ -72,7 +75,29 @@ const routes = [
       {
         path: 'courses',
         name: 'Courses',
-        component: Courses
+        component: Courses,
+        children: [
+          {
+            path: 'cs-track',
+            name: 'CSTrack',
+            component: CSTrack
+          },
+          {
+            path: 'algos-track',
+            name: 'AlgosTrack',
+            component: AlgosTrack
+          },
+          {
+            path: 'golang-track',
+            name: 'GolangTrack',
+            component: GolangTrack
+          },
+          {
+            path: 'browse',
+            name: 'Browse',
+            component: Browse
+          }
+        ]
       },
       {
         path: 'exercise/:courseUUID/:moduleUUID?/:exerciseUUID?',
