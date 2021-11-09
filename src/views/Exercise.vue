@@ -78,7 +78,15 @@
 
     <div class="exercise-container desktop">
       <Multipane layout="horizontal">
-        <div class="side left">
+        <div
+          class="
+            side 
+            left
+            bg-white
+            border-r
+            border-gray-300
+          "
+        >
           <ExerciseNav
             v-if="locked !== null"
             class="nav"
@@ -106,7 +114,11 @@
         <div
           v-if="type === 'type_info'"
           id="info-container"
-          class="side right"
+          class="
+          side
+          right
+          bg-white
+          "
         >
           <BlockButton
             class="btn"
@@ -136,6 +148,7 @@
           class="
             side
             right
+            bg-white
           "
           :callback="submitTypeChoice"
           :answers="question.Answers"
@@ -678,11 +691,8 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: $gray-lightest;
-  color: $gray-darker;
 
   &.left {
-    border-right: 2px solid $gray-dark;
     width: 50%;
   }
 

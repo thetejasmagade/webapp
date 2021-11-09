@@ -181,12 +181,22 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-// Redirect to login if necessary
 router.beforeEach((to, from, next) => {
-  if (to.fullPath.includes('dashboard') && !to.fullPath.includes('redirect')  && !isLoggedIn()) {
+  // Redirect to login if necessary
+  if (to.fullPath.includes('dashboard') &&
+   !to.fullPath.includes('redirect')  && 
+   !isLoggedIn()
+  ) {
     next({name: 'Login', query: {redirect: to.fullPath}});
     return;
   }
+
+  // Dashboard default child redirect
+  if (to.fullPath === '/dashboard/courses') {
+    next({name: 'CSTrack' });
+    return;
+  }
+
   next();
 });
 export default router;

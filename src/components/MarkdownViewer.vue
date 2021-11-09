@@ -118,15 +118,16 @@ export default {
         color: inherit;
         background-color: inherit;
       }
+      border-radius: 4px;
     }
 
     ul {
-      @apply list-disc;
+      list-style-type: disc;
       margin-left: 1rem;
     }
 
     ol {
-      @apply list-decimal;
+      list-style-type: decimal;
       margin-left: 1rem;
     }
 
@@ -136,7 +137,8 @@ export default {
 
     img {
       max-width: 100%;
-      border-radius: 2px;
+      border-radius: 5px;
+      margin: auto;
     }
   }
 }

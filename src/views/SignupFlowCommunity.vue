@@ -26,7 +26,7 @@
               class="max-w-xs"
               :click="continueClick"
             >
-              Continue
+              Continue to Courses
             </BlockButton>
           </div>
         </div>

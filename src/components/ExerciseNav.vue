@@ -4,13 +4,13 @@
       flex 
       flex-row
       whitespace-nowrap
-      bg-gray-300
-      border-b-2
+      bg-gray-200
+      shadow
       border-gray-400
     "
     :class="{
-      'bg-green-300': isComplete,
-      'bg-red-300': locked,
+      'bg-green-200': isComplete,
+      'bg-red-200': locked,
     }"
   >
     <div>
