@@ -24,7 +24,7 @@
         to="/dashboard/courses/algos-track"
       >
         <FontAwesomeIcon
-          icon="puzzle-piece"
+          :icon="['fab', 'python']"
           class="icon"
         />
         <span
@@ -40,7 +40,7 @@
         to="/dashboard/courses/golang-track"
       >
         <FontAwesomeIcon
-          icon="server"
+          :icon="['fab', 'golang']"
           class="icon"
         />
         <span
@@ -62,7 +62,7 @@
         <span
           class="desktop"
         >
-          Browse
+          All Courses
         </span>
       </router-link>
     </div>
