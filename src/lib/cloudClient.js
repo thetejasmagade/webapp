@@ -114,8 +114,7 @@ export async function createUserManual(email, password, firstName, lastName, isS
 
 export async function upsertExerciseFeedback(
   exerciseUUID,
-  text,
-  rating
+  text
 ){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/feedback`, {
     method: 'PUT',
@@ -124,8 +123,7 @@ export async function upsertExerciseFeedback(
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      text,
-      rating
+      text
     })
   });
   const handled = await handleJSONResponse(resp);

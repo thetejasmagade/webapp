@@ -6,10 +6,6 @@
       <h1 class="text-2xl text-gold-600 mb-4">
         What do you think of this exercise?
       </h1>
-      <StarRating
-        v-model="stars"
-        class="mb-4"
-      />
       <textarea
         v-model="commentText"
         placeholder="Let us know how to improve this page"
@@ -46,7 +42,6 @@
 <script>
 import Modal from '@/components/Modal.vue';
 import BlockButton from '@/components/BlockButton.vue';
-import StarRating from '@/components/StarRating.vue';
 
 import { notify } from '@/lib/notification.js';
 
@@ -57,8 +52,7 @@ import {
 export default {
   components:{
     Modal,
-    BlockButton,
-    StarRating
+    BlockButton
   },
   props: {
     exerciseUUID: {
@@ -81,12 +75,10 @@ export default {
       this.$refs.feedbackModal.hide();
     },
     async btnClick(){
-      const ratingZeroToHundred = ((this.stars / 5) * 100) - 1;
       try {
         await upsertExerciseFeedback(
           this.exerciseUUID,
-          this.commentText,
-          ratingZeroToHundred
+          this.commentText
         );
         notify({
           type: 'success',
