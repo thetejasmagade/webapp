@@ -226,35 +226,8 @@ export async function updateUserInterests(interestUUIDs) {
   return handled;
 }
 
-export async function userIgnoreCourse(courseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/users/courses/ignore`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      courseUUID
-    })
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function getUser() {
   const resp = await fetchWithAuth(`${domain}/v1/users`, {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getCourseRecommendations() {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/recommendations`, {
     method: 'GET',
     mode: 'cors',
     headers: {
