@@ -1,14 +1,13 @@
 <template>
-  <div class="root">
+  <div>
     <TopNav title="Qvault Pricing" />
     <LoadingOverlay :is-loading="isLoading" />
 
-    <div class="subcontainer">
+    <div class="md:p-4 sm:p-0">
       <Section
         class="mb-5"
-        style="background-image: radial-gradient(circle at center center, transparent,rgb(255,255,255)),linear-gradient(309deg, rgba(90, 90, 90,0.05) 0%, rgba(90, 90, 90,0.05) 50%,rgba(206, 206, 206,0.05) 50%, rgba(206, 206, 206,0.05) 100%),linear-gradient(39deg, rgba(13, 13, 13,0.05) 0%, rgba(13, 13, 13,0.05) 50%,rgba(189, 189, 189,0.05) 50%, rgba(189, 189, 189,0.05) 100%),linear-gradient(144deg, rgba(249, 249, 249,0.05) 0%, rgba(249, 249, 249,0.05) 50%,rgba(111, 111, 111,0.05) 50%, rgba(111, 111, 111,0.05) 100%),linear-gradient(166deg, rgba(231, 231, 231,0.05) 0%, rgba(231, 231, 231,0.05) 50%,rgba(220, 220, 220,0.05) 50%, rgba(220, 220, 220,0.05) 100%),linear-gradient(212deg, rgba(80, 80, 80,0.05) 0%, rgba(80, 80, 80,0.05) 50%,rgba(243, 243, 243,0.05) 50%, rgba(243, 243, 243,0.05) 100%),radial-gradient(circle at center center, hsl(107,19%,100%),hsl(107,19%,100%));"
         title="Pricing"
-        subtitle="Love it or your money back! Enjoy a 7-day free trial, 30-day money-back guarantee, and cancel anytime."
+        subtitle="Love it or your money back! Enjoy a free trial, 30-day money-back guarantee, and feel free to cancel anytime."
       >
         <header class="flex flex-col items-center my-8">
           <h2
@@ -17,105 +16,132 @@
           >
             You're already subscribed. Go take some courses!
           </h2>
-          <h2
-            v-else
-            class="text-2xl text-primary-normal font-bold"
-          >
-            Learn, practice, and apply career-building skills with a Pro account
-          </h2>
         </header>
         <section
-          v-if="priceYearly && priceMonthly"
-          class="flex flex-col lg:flex-row items-center lg:justify-center w-full lg:px-10 py-8"
+          v-if="priceYearly && priceMonthly && priceLifetime"
+          class="
+            grid
+            md:grid-cols-2 sm:grid-cols-1
+            gap-4
+            md:p-4 sm:p-0
+            w-full
+          "
         >
-          <article
-            class="shadow-lg bg-white w-4/5 lg:w-custom mb-10 lg:px-4 px-6 py-6 text-center text-primary-dark rounded-lg"
-          >
-            <h5 class="font-bold text-base">
-              {{ priceMonthly.Title }}
-            </h5>
-            <h2 class="pb-4 flex justify-center font-bold border-b">
-              <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceMonthly.CurrencyCode) }}</span>
-              <span class="text-6xl"> {{ priceMonthly.UnitAmountPerMonth / 100 }} /mo </span>
-            </h2>
-            <ul class="text-sm font-bold">
-              <li
-                v-for="(feature, k) of subscriptionPlan.Features"
-                :key="k"
-                class="py-2 border-b border-gray-200"
-              >
-                {{ feature }}
-              </li>
-            </ul>
-            <BlockButton
-              v-if="!$store.getters.getUserIsSubscribed"
-              class="mt-12 xl:px-24 px-12 sm:px-16 py-2"
-              :click="() => {checkout(priceMonthly)}"
+          <div class="flex items-center justify-center">
+            <article
+              class="
+              shadow-lg
+              px-6
+              py-8
+              text-white
+              text-center
+              rounded-lg
+              bg-blue-800
+              items-center
+              flex
+              flex-col
+              max-w-xl
+              h-full
+              w-full
+            "
             >
-              {{ $store.getters.getIsLoggedIn ? 'Start free trial' : 'Login to get started' }}
-            </BlockButton>
-          </article>
-          <article
-            class="shadow-lg lg:w-custom w-4/5 mb-10 px-6 py-8 lg:-mt-6 text-white text-center rounded-lg bg-blue-400"
-          >
-            <h5 class="font-bold text-base">
-              {{ priceYearly.Title }}
-            </h5>
-            <h2
-              class="font-bold pb-4 mt-2 border-b border-gray-100 flex justify-center"
+              <h2 class="flex justify-center pb-4 font-bold border-gray-200">
+                <span class="text-6xl ">Professional</span>
+              </h2>
+              <h3 class="font-bold text-xl mb-4">
+                Learn, practice & get certified on job-ready skills.
+              </h3>
+              <ul class="text-sm font-bold w-64 mb-4">
+                <li
+                  v-for="(feature, k) of subscriptionPlan.Features"
+                  :key="k"
+                  :class="{'border-t': k=== 0}"
+                  class="py-1 border-b border-gray-200"
+                >
+                  {{ feature }}
+                </li>
+              </ul>
+              <div v-if="!$store.getters.getUserIsSubscribed">
+                <div v-if="$store.getters.getIsLoggedIn">
+                  <BlockButton
+                    color="white"
+                    class="mb-4 py-2 w-72"
+                    :click="() => {checkout(priceLifetime)}"
+                  >
+                    Lock-in Lifetime Price - {{ getCurrencySymbol(priceLifetime.CurrencyCode) }}{{ priceLifetime.UnitAmount / 100 }}
+                  </BlockButton>
+                  <BlockButton
+                    color="blue"
+                    class="mb-4 w-72 py-2"
+                    :click="() => {checkout(priceYearly)}"
+                  >
+                    7-day Free Trial, then {{ getCurrencySymbol(priceYearly.CurrencyCode) }}{{ (priceYearly.UnitAmountPerMonth * 12) / 100 }}/year
+                  </BlockButton>
+                  <BlockButton
+                    color="blue"
+                    class="w-72 py-2"
+                    :click="() => {checkout(priceMonthly)}"
+                  >
+                    7-day Free Trial, then {{ getCurrencySymbol(priceMonthly.CurrencyCode) }}{{ priceMonthly.UnitAmountPerMonth / 100 }}/month
+                  </BlockButton>
+                </div>
+                <div v-else>
+                  <BlockButton
+                    color="white"
+                    class="w-72 py-2"
+                    :click="() => {$router.push({name: 'Login', query: {redirect: '/pricing'}})}"
+                  >
+                    Login to Start
+                  </BlockButton>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="flex items-center justify-center">
+            <article
+              class="
+              shadow-lg
+              px-6
+              py-8
+              text-center
+              rounded-lg
+              bg-white
+              items-center
+              flex
+              flex-col
+              max-w-xl
+              h-full
+              w-full
+            "
             >
-              <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceYearly.CurrencyCode) }} </span>
-              <span class="text-6xl "> {{ priceYearly.UnitAmountPerMonth / 100 }} /mo </span>
-            </h2>
-            <ul class=" text-sm font-bold">
-              <li
-                v-for="(feature, k) of subscriptionPlan.Features"
-                :key="k"
-                class="py-3 border-b border-gray-200"
-              >
-                {{ feature }}
-              </li>
-            </ul>
-            <BlockButton
-              v-if="!$store.getters.getUserIsSubscribed"
-              color="white"
-              class="mt-12 xl:px-24 px-12 sm:px-16 py-2"
-              :click="() => {checkout(priceYearly)}"
-            >
-              {{ $store.getters.getIsLoggedIn ? 'Start free trial' : 'Login to get started' }}
-            </BlockButton>
-          </article>
-          <article
-            class="shadow-lg bg-white w-4/5 lg:w-custom mb-10 lg:px-4 px-6 py-6 text-center text-primary-dark rounded-lg"
-          >
-            <h5 class="font-bold text-base">
-              Basic
-            </h5>
-            <h2 class="flex justify-center pb-4 font-bold border-b border-gray-200">
-              <span class="text-3xl mt-6 mr-1">{{ getCurrencySymbol(priceYearly.CurrencyCode) }} </span>
-              <span class="text-6xl">0 /mo</span>
-            </h2>
-            <ul class="text-sm font-bold">
-              <li class="py-2 border-b border-gray-200">
-                Access to read all course material
-              </li>
-              <li class="py-2 border-b border-gray-200">
-                Limited code sandbox for exercises
-              </li>
-              <li class="py-2 border-b border-gray-200">
-                -
-              </li>
-              <li class="py-2 border-b border-gray-200">
-                -
-              </li>
-              <li class="py-2 border-b border-gray-200">
-                -
-              </li>
-              <li class="py-2 border-b border-gray-200">
-                -
-              </li>
-            </ul>
-          </article>
+              <h2 class="flex justify-center pb-4 font-bold border-gray-200">
+                <span class="text-6xl">Basic</span>
+              </h2>
+              <h3 class="font-bold text-xl mb-4">
+                Interactive lessons & daily practice.
+              </h3>
+              <ul class="text-sm font-bold w-64">
+                <li class="py-1 border-b border-t border-gray-300">
+                  Read-only access to courses
+                </li>
+                <li class="py-1 border-b border-gray-300">
+                  Limited coding sandbox
+                </li>
+                <li class="py-1 border-b border-gray-300">
+                  -
+                </li>
+                <li class="py-1 border-b border-gray-300">
+                  -
+                </li>
+                <li class="py-1 border-b border-gray-300">
+                  -
+                </li>
+                <li class="py-1 border-b border-gray-300">
+                  -
+                </li>
+              </ul>
+            </article>
+          </div>
         </section>
       </Section>
 
@@ -127,13 +153,12 @@
           <h2 class="text-xl my-4 text-gold-700">
             What's the difference between Basic and Pro?
           </h2>
-          <p>
+          <p class="mb-4">
             A basic account is, well, basic. You can demo Pro features on the first 6 exercises of each course, but after that if you're on
             a basic plan, you'll only be able to read the course material and play in the code sandbox. You won't pass off assignments or know if you
             got the right answers.
           </p>
-            
-          <p>
+          <p class="mb-4">
             Qvault Pro has everything in Basic,
             plus all the advanced tools, content, solutions and certifications that you
             need to make your learning faster.
@@ -168,7 +193,7 @@
           <h2 class="text-xl my-4 text-gold-700">
             Why should I upgrade to Qvault Pro?
           </h2>
-          <p>
+          <p class="mb-4">
             I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
             to lead you to a high-paying programming job. If you’re ready to accelerate your learning and apply the skills you learn to real-world scenarios,
             then Qvault Pro is for you.
@@ -253,6 +278,17 @@ export default {
         } 
       }
       return null;
+    },
+    priceLifetime(){
+      if (!this.subscriptionPlan){
+        return null;
+      }
+      for (const price of this.subscriptionPlan.Prices){
+        if (price.Interval === 'once'){
+          return price;
+        }
+      }
+      return null;
     }
   },
   async mounted() {
@@ -294,11 +330,6 @@ export default {
       return '$';
     },
     async checkout(price) {
-      if (!this.$store.getters.getIsLoggedIn){
-        this.$router.push({name: 'Login', query: {redirect: '/pricing'}});
-        return;
-      }
-
       this.isLoading = true;
       try {
         await checkout(price);

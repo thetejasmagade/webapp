@@ -271,7 +271,8 @@ import {
   updateUser, 
   updateUserHandle,
   openCustomerPortal,
-  deleteUser
+  deleteUser,
+  confirmOnetimePurchase
 } from '@/lib/cloudClient.js';
 import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton.vue';
@@ -354,8 +355,16 @@ export default {
       this.user.recruitersCanContact = newRecruitersCanContact;
     }
   },
-  mounted(){
+  async mounted(){
     if (this.$route.query.checkout === 'success'){
+      try {
+        await confirmOnetimePurchase();
+      } catch (err){
+        notify({
+          type: 'danger',
+          text: 'Unable to confirm pro account, please contact the stagg'
+        });
+      }
       notify({
         type: 'success',
         text: 'Welcome to Qvault Pro!'

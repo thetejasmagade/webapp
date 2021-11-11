@@ -92,6 +92,18 @@ export async function trackUserCancelCheckout(){
   return handled;
 }
 
+export async function confirmOnetimePurchase(){
+  const resp = await fetchWithAuth(`${domain}/v1/subscription_plans/onetime_purchases`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function createUserManual(email, password, firstName, lastName, isSubscribedNews, referringUserUUID){
   const resp = await fetch(`${domain}/v1/users`, {
     method: 'POST',
