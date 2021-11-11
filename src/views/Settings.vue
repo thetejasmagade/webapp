@@ -373,6 +373,7 @@ export default {
     async handleSuccess(){
       try {
         await confirmOnetimePurchase();
+        await loadUser(this);
       } catch (err){
         notify({
           type: 'danger',
