@@ -357,19 +357,7 @@ export default {
   },
   async mounted(){
     if (this.$route.query.checkout === 'success'){
-      try {
-        await confirmOnetimePurchase();
-      } catch (err){
-        notify({
-          type: 'danger',
-          text: 'Unable to confirm pro account, please contact the stagg'
-        });
-      }
-      notify({
-        type: 'success',
-        text: 'Welcome to Qvault Pro!'
-      });
-      gtmEventFinishCheckout('20', 'qvault-pro', 'Qvault Pro');
+      this.handleSuccess();
     }
 
     const title = 'Settings';
@@ -382,6 +370,22 @@ export default {
     });
   },
   methods: {
+    async handleSuccess(){
+      try {
+        await confirmOnetimePurchase();
+      } catch (err){
+        notify({
+          type: 'danger',
+          text: 'Unable to confirm pro account, please contact us'
+        });
+        return;
+      }
+      notify({
+        type: 'success',
+        text: 'Welcome to Qvault Pro!'
+      });
+      gtmEventFinishCheckout('20', 'qvault-pro', 'Qvault Pro');
+    },
     async deleteUser(){
       try {
         await deleteUser();
