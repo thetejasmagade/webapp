@@ -68,10 +68,21 @@
           "
         >
           <BlockButton
-            class="btn"
+            class="btn mb-4"
             :click="() => goForward(type === 'type_manual')"
           >
             I'm done with this step
+          </BlockButton>
+          <BlockButton
+            v-if="type === 'type_manual'"
+            class="mr-3"
+            :click="linkClick"
+            color="gray"
+          >
+            <FontAwesomeIcon
+              icon="eye"
+            />
+            Cheat
           </BlockButton>
         </div>
       </Multipane>
@@ -96,6 +107,7 @@ import Multipane from '@/components/Multipane.vue';
 import MultipaneResizer from '@/components/MultipaneResizer.vue';
 import Section from '@/components/Section.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -127,7 +139,8 @@ export default {
     ExerciseNav,
     Multipane,
     MultipaneResizer,
-    FeedbackModal
+    FeedbackModal,
+    FontAwesomeIcon
   },
   data() {
     return {
@@ -140,7 +153,8 @@ export default {
       complete: '',
       projects: null,
       isComplete: null,
-      isCheating: false
+      isCheating: false,
+      stepSlug: null
     };
   },
   computed: {
@@ -268,6 +282,8 @@ export default {
       this.isLastStep = step.Step.IsLast;
       this.isCurrentStep = step.IsCurrent;
       this.isComplete = step.IsComplete;
+      console.log(step.Step);
+      this.stepSlug = step.Step.Slug;
 
       if (step.Step.Readme !== this.markdownSource) {
         this.scrollMarkdownToTop();
@@ -338,6 +354,9 @@ export default {
           text: err
         });
       }
+    },
+    linkClick() {
+      window.open(`https://github.com/qvault/projects/tree/main/projects/${this.project.Slug}/${this.stepSlug}/src`, '_blank');
     }
   }
 };
