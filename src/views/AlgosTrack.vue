@@ -5,9 +5,9 @@
       title="Nail coding interviews and jumpstart your career"
       subtitle="These university-quality Python courses will teach you all about algorithms and data structures"
     >
-      <CourseTimeline
-        :courses="trackDSAlgosCourses"
-        :click-callback="goToCourse"
+      <TrackTimeline
+        :units="trackDSAlgosCourses"
+        :click-callback="clickUnit"
       />
     </Section>
   </div>
@@ -15,7 +15,8 @@
 
 <script>
 import Section from '@/components/Section.vue';
-import CourseTimeline from '@/components/CourseTimeline.vue';
+import TrackTimeline from '@/components/TrackTimeline.vue';
+import {unitTypeCourse, getUnitData, unitTypeProject} from '@/lib/unit.js';
 
 import { 
   gtmEventSelectCourse
@@ -23,7 +24,7 @@ import {
 
 export default {
   components: {
-    CourseTimeline,
+    TrackTimeline,
     Section
   },
   computed:{
@@ -32,9 +33,15 @@ export default {
     }
   },
   methods: {
-    goToCourse(course){
-      gtmEventSelectCourse(course.UUID, course.Title);
-      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
+    clickUnit(unit){
+      const unitData = getUnitData(unit);
+      if (unit.type === unitTypeCourse){
+        gtmEventSelectCourse(unitData.UUID, unitData.Title);
+        this.$router.push({name: 'Exercise', params: {courseUUID: unitData.UUID}});
+      }
+      if (unit.type === unitTypeProject){
+        this.$router.push({name: 'Step', params: {projectUUID: unitData.UUID}});
+      }
     }
   }
 };

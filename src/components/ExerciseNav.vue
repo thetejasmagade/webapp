@@ -40,22 +40,22 @@
     >
       <SelectDropdown
         v-if="
-          moduleNames && 
-            currentModuleIndex !== null
+          dropdownOneNames && 
+            dropdownOneIndex !== null
         "
-        :options="moduleNames"
-        :default="moduleNames[currentModuleIndex]"
-        @update:modelValue="selectModule"
+        :options="dropdownOneNames"
+        :default="dropdownOneNames[dropdownOneIndex]"
+        @update:modelValue="itemName => { selectItem(itemName, dropdownOneItems) }"
       />
       <SelectDropdown
         v-if="
-          exerciseNames &&
-            currentExerciseIndex !== null
+          dropdownTwoNames &&
+            dropdownTwoIndex !== null
         "
         class="ml-3"
-        :options="exerciseNames"
-        :default="exerciseNames[currentExerciseIndex]"
-        @update:modelValue="selectExercise"
+        :options="dropdownTwoNames"
+        :default="dropdownTwoNames[dropdownTwoIndex]"
+        @update:modelValue="itemName => { selectItem(itemName, dropdownTwoItems) }"
       />
     </div>
 
@@ -93,27 +93,22 @@ export default {
     SelectDropdown
   },
   props: {
-    modules: {
+    dropdownOneItems: {
       type: Array,
       required: false,
       default: null
     },
-    exercises: {
+    dropdownTwoItems: {
       type: Array,
       required: false,
       default: null
     },
-    courseUUID: {
-      type: String,
-      required: false,
-      default: null
-    },
-    currentModuleIndex: {
+    dropdownOneIndex: {
       type: Number,
       required: false,
       default: null
     },
-    currentExerciseIndex: {
+    dropdownTwoIndex: {
       type: Number,
       required: false,
       default: null
@@ -153,73 +148,30 @@ export default {
     }
   },
   computed: {
-    moduleNames() {
-      if (!this.modules){
+    dropdownOneNames() {
+      if (!this.dropdownOneItems){
         return null;
       }
-      let i = 1;
-      return this.modules.map(
-        module => {
-          const name = `${i}. ${module.Title}`;
-          i++;
-          return name;
-        }
+      return this.dropdownOneItems.map(
+        item => item.name
       );
     },
-    exerciseNames() {
-      if (!this.exercises){
+    dropdownTwoNames() {
+      if (!this.dropdownTwoItems){
         return null;
       }
-      const names = [];
-      for (let i = 1; i < this.exercises.length +1;i++){
-        names.push(`${i}/${this.exercises.length}`);
-      }
-      return names;
+      return this.dropdownTwoItems.map(
+        item => item.name
+      );
     }
   },
   methods: {
-    linkClick(url) {
-      window.open(url, '_blank');
-    },
-    selectModule(moduleName){
-      let modUUID = null;
-      for (const mod of this.modules){
-        if (moduleName.includes(mod.Title)){
-          modUUID = mod.UUID;
+    selectItem(itemName, dropdownItems){
+      for (const dropdownItem of dropdownItems){
+        if (itemName === dropdownItem.name){
+          this.$router.push(dropdownItem.link);
         }
       }
-      if (!modUUID){
-        return; 
-      }
-      this.$router.push({
-        name: 'Exercise',
-        params: {
-          courseUUID: this.courseUUID,
-          moduleUUID: modUUID
-        }
-      });
-    },
-    selectExercise(exerciseName){
-      let exerciseIndex = null;
-      let i = 0;
-      for (const exName of this.exerciseNames){
-        if (exerciseName === exName){
-          exerciseIndex = i;
-          break;
-        }
-        i++;
-      }
-      if (exerciseIndex === null){
-        return; 
-      }
-      this.$router.push({
-        name: 'Exercise',
-        params: {
-          courseUUID: this.courseUUID,
-          moduleUUID: this.modules[this.currentModuleIndex].UUID,
-          exerciseUUID: this.exercises[exerciseIndex].UUID
-        }
-      });
     }
   }
 };

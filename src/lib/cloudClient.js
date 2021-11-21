@@ -142,6 +142,24 @@ export async function upsertExerciseFeedback(
   return handled;
 }
 
+export async function upsertStepFeedback(
+  uuid,
+  text
+){
+  const resp = await fetchWithAuth(`${domain}/v1/steps/${uuid}/feedback`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      text
+    })
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function deleteUser(){
   const resp = await fetchWithAuth(`${domain}/v1/users`, {
     method: 'DELETE',
@@ -250,7 +268,7 @@ export async function getUser() {
   return handled;
 }
 
-export async function getProgramCS() {
+export async function getTrackCS() {
   const resp = await fetchWithAuth(`${domain}/v1/programs/cs`, {
     method: 'GET',
     mode: 'cors',
@@ -540,6 +558,18 @@ export async function getCourses(courseUUID){
   return handled;
 }
 
+export async function getProjects(){
+  const resp = await fetchWithAuth(`${domain}/v1/projects`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getCoursePublic(courseUUID){
   const resp = await fetch(`${domain}/v1/courses/public/${courseUUID}`, {
     method: 'GET',
@@ -636,6 +666,67 @@ export async function getNextExercise(courseUUID, currentExerciseUUID) {
   return handled;
 }
 
+
+export async function getCurrentStep(projectUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/current`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getStepByID(projectUUID, stepUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/by_id/${stepUUID}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getFirstStep(projectUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/first`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getPreviousStep(projectUUID, currentStepUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/previous/${currentStepUUID}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getNextStep(projectUUID, currentStepUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/next/${currentStepUUID}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function submitCodeCanvasExercise(exerciseUUID, canvasHash){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code_canvas`, {
     method: 'POST',
@@ -683,6 +774,32 @@ export async function submitMultipleChoiceExercise(exerciseUUID, answer){
 
 export async function submitInformationalExercise(exerciseUUID){
   const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({})
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function submitInformationalStep(stepUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/steps/${stepUUID}/informational`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({})
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function submitManualStep(stepUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/steps/${stepUUID}/informational`, {
     method: 'POST',
     mode: 'cors',
     headers: {

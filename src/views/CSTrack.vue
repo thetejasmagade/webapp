@@ -5,9 +5,9 @@
       title="Learn the core skills that bootcamps skip, but employers are dying for"
       subtitle="This full CS program will take you from absolute beginner to job-worthy"
     >
-      <CourseTimeline
-        :courses="csProgramCourses"
-        :click-callback="goToCourse"
+      <TrackTimeline
+        :units="trackCS"
+        :click-callback="clickUnit"
       />
       <h2 class="text-gold-600 text-xl">
         Notes
@@ -35,7 +35,8 @@
 
 <script>
 import Section from '@/components/Section.vue';
-import CourseTimeline from '@/components/CourseTimeline.vue';
+import TrackTimeline from '@/components/TrackTimeline.vue';
+import {unitTypeCourse, getUnitData, unitTypeProject} from '@/lib/unit.js';
 
 import { 
   gtmEventSelectCourse
@@ -43,18 +44,24 @@ import {
 
 export default {
   components: {
-    CourseTimeline,
+    TrackTimeline,
     Section
   },
   computed:{
-    csProgramCourses(){
-      return this.$store.getters.getProgramCS;
+    trackCS(){
+      return this.$store.getters.getTrackCS;
     }
   },
   methods: {
-    goToCourse(course){
-      gtmEventSelectCourse(course.UUID, course.Title);
-      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
+    clickUnit(unit){
+      const unitData = getUnitData(unit);
+      if (unit.type === unitTypeCourse){
+        gtmEventSelectCourse(unitData.UUID, unitData.Title);
+        this.$router.push({name: 'Exercise', params: {courseUUID: unitData.UUID}});
+      }
+      if (unit.type === unitTypeProject){
+        this.$router.push({name: 'Step', params: {projectUUID: unitData.UUID}});
+      }
     }
   }
 };

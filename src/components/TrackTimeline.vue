@@ -8,7 +8,7 @@
       style="left: 50%"
     />
     <div
-      v-for="(course, i) of courses"
+      v-for="(unit, i) of units"
       :key="i"
     >
       <div
@@ -39,12 +39,12 @@
         </div>
         <div class="order-1 lg:w-1/3 items-center">
           <ImageCard
-            :img-src="course.ImageURL"
-            :click="() => clickCallback(course)"
+            :img-src="getUnitData(unit).ImageURL"
+            :click="() => clickCallback(unit)"
             class="lg:mx-8"
           >
-            <CourseCardBody
-              :course="course"
+            <UnitCardBody
+              :unit="unit"
             />
           </ImageCard>
         </div>
@@ -55,23 +55,27 @@
 
 <script>
 import ImageCard from '@/components/ImageCard.vue';
-import CourseCardBody from '@/components/CourseCardBody.vue';
+import UnitCardBody from '@/components/UnitCardBody.vue';
+import { getUnitData } from '@/lib/unit.js';
 
 export default {
   components: {
     ImageCard,
-    CourseCardBody
+    UnitCardBody
   },
-  props:{
+  props: {
     clickCallback: {
       type: Function,
       required: false,
       default: () => {}
     },
-    courses: {
+    units: {
       type: Array,
       required: true
     }
+  },
+  methods: {
+    getUnitData
   }
 };
 </script>

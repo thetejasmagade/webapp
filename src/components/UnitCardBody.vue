@@ -5,7 +5,7 @@
     <div class="flex flex-row justify-end mb-2">
       <div class="text-red-500 mr-5">
         <Tooltip
-          :text="`Difficulty ${course.Difficulty}%`"
+          :text="`Difficulty ${unitData.Difficulty}%`"
           color="red"
         >
           <FontAwesomeIcon
@@ -40,7 +40,7 @@
       </div>
       <div class="text-gray-500 mr-5">
         <Tooltip
-          :text="`~${course.Modules.length * 6} Hours`"
+          :text="durationText"
           color="gray"
         >
           <FontAwesomeIcon
@@ -51,11 +51,11 @@
     </div>
             
     <p class="mb-4 text-gray-500 text-sm">
-      {{ course.Description }}
+      {{ unitData.Description }}
     </p>
 
     <div
-      v-if="course.CompletedAt"
+      v-if="unitData.CompletedAt"
     >
       <div class="text-green-700 text-center">
         <FontAwesomeIcon
@@ -70,7 +70,7 @@
       <span
         class="gray link"
         target="_blank"
-        @click.stop="() => {linkClick(course.LandingPage)}"
+        @click.stop="() => {linkClick(unitData.LandingPage)}"
       >
         More Info
       </span>
@@ -85,6 +85,7 @@ import {
 
 import Tooltip from '@/components/Tooltip.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { getUnitData, unitTypeCourse } from '@/lib/unit.js';
 
 export default {
   components: {
@@ -92,18 +93,31 @@ export default {
     Tooltip
   },
   props: { 
-    course: {
+    unit: {
       type: Object,
       required: true
     }
   },
   computed: {
+    durationText(){
+      if (this.unit.type === unitTypeCourse){
+        return `~${this.unitData.Modules.length * 6} Hours`;
+      }
+      console.log(JSON.stringify(this.unitData));
+      return `~${this.unitData.Steps.length} Hours`;
+    },
+    unitData(){
+      return getUnitData(this.unit);
+    },
     interests(){
-      if (!this.course || !this.course.Interests){
+      if (!this.unit){
+        return [];
+      }
+      if (this.unitData.Interests){
         return [];
       }
       let interests = [];
-      for (const [ interestUUID ]  of Object.entries(this.course.Interests)){
+      for (const [ interestUUID ]  of Object.entries(this.unitData.Interests)){
         for (const interest of this.$store.getters.getAllInterests){
           if (interestUUID === interest.UUID){
             interests.push(interest.Title);
@@ -113,11 +127,11 @@ export default {
       return interests;
     },
     prereqs(){
-      if (!this.course || !this.course.PrerequisiteCourseUUIDS){
+      if (!this.unitData || !this.unitData.PrerequisiteCourseUUIDS){
         return [];
       }
       let prereqs = [];
-      for (const uuid of this.course.PrerequisiteCourseUUIDS){
+      for (const uuid of this.unitData.PrerequisiteCourseUUIDS){
         for (const course of this.$store.getters.getCourses){
           if (course.UUID === uuid){
             prereqs.push(course.Title);

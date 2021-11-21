@@ -4,77 +4,14 @@
     <FeedbackModal
       v-if="$route.params.exerciseUUID"
       ref="feedbackModal"
-      :exercise-u-u-i-d="$route.params.exerciseUUID"
+      :uuid="$route.params.exerciseUUID"
+      unit-type="exercise"
     />
-    <Modal ref="pricingModal">
-      <div>
-        <h1 class="text-2xl text-gold-600 mb-4">
-          Upgrade for continued pro access
-        </h1>
-        <p class="text-gray-600 mb-4">
-          If you want to continue to verify your answers and get credit for
-          assignments,
-          <b>you'll need to upgrade to a pro account.</b>
-        </p>
-        <p class="text-gray-600 mb-4">
-          That said, click outside this pop-up to continue the course in
-          read-only mode, its free to audit!
-        </p>
-        <BlockButton
-          class="btn"
-          :click="
-            () => {
-              modalButtonClick();
-            }
-          "
-        >
-          View Plans
-        </BlockButton>
-      </div>
-    </Modal>
-    <Modal ref="courseDoneModal">
-      <div>
-        <h1 class="text-2xl text-gold-600 mb-4">
-          Congragulations! You've completed the course
-        </h1>
-        <p class="text-gray-600 mb-4">
-          Check out the new certificate on your portfolio then start your next
-          course
-        </p>
-        <img
-          src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
-        >
-        <div class="flex justify-center">
-          <BlockButton
-            class="m-4"
-            :click="clickNextCourse"
-          >
-            Next Course
-          </BlockButton>
-          <BlockButton
-            class="m-4"
-            :click="
-              () => {
-                $router.push({
-                  name: 'Portfolio',
-                  params: { userHandle: $store.getters.getUser.Handle },
-                });
-              }
-            "
-            color="gray"
-          >
-            View Portfolio
-          </BlockButton>
-          <BlockButton
-            class="m-4"
-            :click="goToBeginning"
-            color="gray"
-          >
-            Restart
-          </BlockButton>
-        </div>
-      </div>
-    </Modal>
+    <PricingModal ref="pricingModal" />
+    <CourseDoneModal
+      ref="courseDoneModal"
+      :go-to-beginning-callback="goToBeginning"
+    />
 
     <div class="exercise-container desktop">
       <Multipane layout="horizontal">
@@ -90,11 +27,33 @@
           <ExerciseNav
             v-if="locked !== null"
             class="nav"
-            :modules="course ? course.Modules : null"
-            :exercises="exercises"
-            :course-u-u-i-d="$route.params.courseUUID"
-            :current-exercise-index="exerciseIndex"
-            :current-module-index="moduleIndex"
+            :dropdown-one-items="course.Modules.map((mod, i) => {
+              return {
+                name: `${i+1}. ${mod.Title}`,
+                link: {
+                  name: 'Exercise',
+                  params: {
+                    courseUUID: $route.params.courseUUID,
+                    moduleUUID: mod.UUID
+                  }
+                }
+              }
+            })"
+            :dropdown-two-items="exercises.map((ex, i) => {
+              return {
+                name: `${i+1}/${exercises.length}`,
+                link: {
+                  name: 'Exercise',
+                  params: {
+                    courseUUID: $route.params.courseUUID,
+                    moduleUUID: module.UUID,
+                    exerciseUUID: ex.UUID
+                  }
+                }
+              }
+            })"
+            :dropdown-one-index="moduleIndex"
+            :dropdown-two-index="exerciseIndex"
             :go-back="goBack"
             :go-forward="goForward"
             :can-go-back="!isFirstExercise"
@@ -169,7 +128,7 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal.vue';
+import CourseDoneModal from '@/components/CourseDoneModal.vue';
 import MultipleChoice from '@/components/MultipleChoice.vue';
 import MarkdownViewer from '@/components/MarkdownViewer.vue';
 import CodeEditor from '@/components/CodeEditor.vue';
@@ -180,8 +139,9 @@ import MultipaneResizer from '@/components/MultipaneResizer.vue';
 import Section from '@/components/Section.vue';
 import ProModal from '@/components/ProModal.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
+import PricingModal from '@/components/PricingModal.vue';
 
-import { loadBalance, loadUser, loadTracks } from '@/lib/cloudStore.js';
+import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 import { sleep } from '@/lib/sleep.js';
@@ -220,7 +180,7 @@ import {
 
 export default {
   components: {
-    Modal,
+    CourseDoneModal,
     Section,
     CodeEditor,
     MarkdownViewer,
@@ -230,7 +190,8 @@ export default {
     Multipane,
     MultipaneResizer,
     ProModal,
-    FeedbackModal
+    FeedbackModal,
+    PricingModal
   },
   data() {
     return {
@@ -317,12 +278,6 @@ export default {
         }
       }
       return null;
-    },
-    courseTitle() {
-      if (this.course) {
-        return this.course.Title;
-      }
-      return null;
     }
   },
   async mounted() {
@@ -368,20 +323,12 @@ export default {
     await this.navToCurrentExercise();
   },
   methods: {
-    async clickNextCourse() {
-      await loadTracks(this);
-      this.$router.push({ name: 'Courses' });
-    },
     showPricingModal() {
       gtmEventOpenProModal();
       this.$refs.pricingModal.show();
     },
     showFeedbackModal() {
       this.$refs.feedbackModal.show();
-    },
-    modalButtonClick() {
-      this.$router.push({ name: 'Pricing' });
-      this.$refs.pricingModal.hide();
     },
     upgradeClick() {
       this.$router.push({ name: 'Pricing' });

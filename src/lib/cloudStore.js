@@ -1,6 +1,6 @@
 import {
   getCourses,
-  getProgramCS,
+  getTrackCS,
   getTrackDSAlgos,
   getTrackGopherGang,
   getLastGemTransaction,
@@ -9,10 +9,14 @@ import {
   getJWTClaims,
   logout,
   getUserAchievements,
-  getInterests
+  getInterests,
+  getProjects
 } from '@/lib/cloudClient.js';
 
 export async function loadAllInterests(thisComponent){
+  if (thisComponent.$store.getters.getAllInterests.length !== 0){
+    return;
+  }
   try {
     const interests = await getInterests();
     thisComponent.$store.commit('setAllInterests', interests);
@@ -36,16 +40,31 @@ export async function loadCourses(thisComponent){
   }
 }
 
+export async function loadProjects(thisComponent){
+  try {
+    const projects = await getProjects();
+    thisComponent.$store.commit('setProjects', projects);
+  } catch (err) {
+    thisComponent.$notify({
+      type: 'danger',
+      text: err
+    });
+  }
+}
+
 export async function loadTracks(thisComponent){
   if (!thisComponent.$store.getters.getCourses ||
     thisComponent.$store.getters.getCourses.length === 0){
-    await loadCourses(thisComponent);
+    await Promise.all([
+      loadCourses(thisComponent),
+      loadProjects(thisComponent)
+    ]);
   }
   try {
     await Promise.all([
       (async()=>{
-        const courses = await getProgramCS();
-        thisComponent.$store.commit('setProgramCS', courses);
+        const courses = await getTrackCS();
+        thisComponent.$store.commit('setTrackCS', courses);
       })(),
       (async()=>{
         const courses = await getTrackDSAlgos();

@@ -5,9 +5,9 @@
       title="Learn why Golang is taking over modern tech companies"
       subtitle="We'll take you through all the fundamentals of the Go programming language"
     >
-      <CourseTimeline
-        :courses="trackGopherGangCourses"
-        :click-callback="goToCourse"
+      <TrackTimeline
+        :units="trackGopherGangCourses"
+        :click-callback="clickUnit"
       />
     </Section>
   </div>
@@ -15,7 +15,8 @@
 
 <script>
 import Section from '@/components/Section.vue';
-import CourseTimeline from '@/components/CourseTimeline.vue';
+import TrackTimeline from '@/components/TrackTimeline.vue';
+import {unitTypeCourse, getUnitData, unitTypeProject} from '@/lib/unit.js';
 
 import { 
   gtmEventSelectCourse
@@ -23,7 +24,7 @@ import {
 
 export default {
   components: {
-    CourseTimeline,
+    TrackTimeline,
     Section
   },
   computed:{
@@ -32,9 +33,15 @@ export default {
     }
   },
   methods: {
-    goToCourse(course){
-      gtmEventSelectCourse(course.UUID, course.Title);
-      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
+    clickUnit(unit){
+      const unitData = getUnitData(unit);
+      if (unit.type === unitTypeCourse){
+        gtmEventSelectCourse(unitData.UUID, unitData.Title);
+        this.$router.push({name: 'Exercise', params: {courseUUID: unitData.UUID}});
+      }
+      if (unit.type === unitTypeProject){
+        this.$router.push({name: 'Step', params: {projectUUID: unitData.UUID}});
+      }
     }
   }
 };

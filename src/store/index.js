@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { createCourseUnit, createProjectUnit } from '@/lib/unit.js';
 
 function getDefaultState() {
   return {
@@ -6,6 +7,7 @@ function getDefaultState() {
     subscriptionPlans: [],
     jwtClaims: null,
     courses: [],
+    projects: [],
     programCS: [],
     trackDSAlgos: [],
     trackGopherGang: [],
@@ -36,7 +38,11 @@ export default createStore({
       newCourses.sort((c1, c2) => c1.Title < c2.Title ? -1 : 1);
       state.courses = newCourses;
     },
-    setProgramCS(state, newProgramCS) {
+    setProjects(state, newProjects) {
+      newProjects.sort((p1, p2) => p1.Title < p2.Title ? -1 : 1);
+      state.projects = newProjects;
+    },
+    setTrackCS(state, newProgramCS) {
       state.programCS = newProgramCS;
     },
     setTrackDSAlgos(state, newTrackDSAlgos) {
@@ -86,41 +92,63 @@ export default createStore({
     getCourses(state) {
       return state.courses;
     },
-    getProgramCS(state) {
-      let courses = [];
-      for (const courseUUID of state.programCS){
+    getProjects(state) {
+      return state.projects;
+    },
+    getTrackCS(state) {
+      let items = [];
+      for (const uuid of state.programCS){
         for (const course of state.courses){
-          if (course.UUID === courseUUID){
-            courses.push(course);
+          if (course.UUID === uuid){
+            items.push(createCourseUnit(course));
+          }
+        }
+        for (const project of state.projects){
+          if (project.UUID === uuid){
+            items.push(createProjectUnit(project));
           }
         }
       }
-      return courses;
+      return items;
     },
     getTrackDSAlgos(state) {
-      let courses = [];
-      for (const courseUUID of state.trackDSAlgos){
+      let items = [];
+      for (const uuid of state.trackDSAlgos){
         for (const course of state.courses){
-          if (course.UUID === courseUUID){
-            courses.push(course);
+          if (course.UUID === uuid){
+            items.push(createCourseUnit(course));
+
+          }
+        }
+        for (const project of state.projects){
+          if (project.UUID === uuid){
+            items.push(createProjectUnit(project));
           }
         }
       }
-      return courses;
+      return items;
     },
     getTrackGopherGang(state) {
-      let courses = [];
-      for (const courseUUID of state.trackGopherGang){
+      let items = [];
+      for (const uuid of state.trackGopherGang){
         for (const course of state.courses){
-          if (course.UUID === courseUUID){
-            courses.push(course);
+          if (course.UUID === uuid){
+            items.push(createCourseUnit(course));
+          }
+        }
+        for (const project of state.projects){
+          if (project.UUID === uuid){
+            items.push(createProjectUnit(project));
           }
         }
       }
-      return courses;
+      return items;
     },
     getCourse: (state) => (uuid) => {
       return state.courses.find(course => course.UUID === uuid);
+    },
+    getProject: (state) => (uuid) => {
+      return state.projects.find(project => project.UUID === uuid);
     },
     getUser(state) {
       return state.user;

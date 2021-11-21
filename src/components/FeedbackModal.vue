@@ -46,7 +46,8 @@ import BlockButton from '@/components/BlockButton.vue';
 import { notify } from '@/lib/notification.js';
 
 import {
-  upsertExerciseFeedback
+  upsertExerciseFeedback,
+  upsertStepFeedback
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -55,7 +56,11 @@ export default {
     BlockButton
   },
   props: {
-    exerciseUUID: {
+    uuid: {
+      type: String,
+      required: true
+    },
+    unitType: {
       type: String,
       required: true
     }
@@ -76,10 +81,17 @@ export default {
     },
     async btnClick(){
       try {
-        await upsertExerciseFeedback(
-          this.exerciseUUID,
-          this.commentText
-        );
+        if (this.unitType === 'exercise'){
+          await upsertExerciseFeedback(
+            this.uuid,
+            this.commentText
+          );
+        } else {
+          await upsertStepFeedback(
+            this.uuid,
+            this.commentText
+          );
+        }
         notify({
           type: 'success',
           text: 'Thanks for your feedback!'

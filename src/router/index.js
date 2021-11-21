@@ -21,6 +21,7 @@ const CSTrack = () => import('@/views/CSTrack.vue');
 const AlgosTrack = () => import('@/views/AlgosTrack.vue');
 const GolangTrack = () => import('@/views/GolangTrack.vue');
 const Browse = () => import('@/views/Browse.vue');
+const Step = () => import('@/views/Step.vue');
 
 import {
   isLoggedIn
@@ -103,6 +104,11 @@ const routes = [
         path: 'exercise/:courseUUID/:moduleUUID?/:exerciseUUID?',
         name: 'Exercise',
         component: Exercise
+      },
+      {
+        path: 'step/:projectUUID/:stepUUID?',
+        name: 'Step',
+        component: Step
       },
       {
         path: 'settings',
