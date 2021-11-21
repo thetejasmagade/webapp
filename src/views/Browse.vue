@@ -13,7 +13,7 @@
             :click="() => goToCourse(course)"
             :img-src="course.ImageURL"
           >
-            <CourseCardBody
+            <UnitCardBody
               :course="course"
             />
           </ImageCard>
@@ -26,7 +26,7 @@
 <script>
 import Section from '@/components/Section.vue';
 import ImageCard from '@/components/ImageCard.vue';
-import CourseCardBody from '@/components/CourseCardBody.vue';
+import UnitCardBody from '@/components/UnitCardBody.vue';
 
 
 import { 
@@ -37,7 +37,7 @@ export default {
   components: {
     Section,
     ImageCard,
-    CourseCardBody
+    UnitCardBody
   },
   data() {
     return {
