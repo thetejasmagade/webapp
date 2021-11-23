@@ -218,6 +218,7 @@
                   >
                     Start 7-day free trial
                   </BlockButton>
+                  <span class="rounded-lg border-gold-200 border text-gold-200 px-2">Most Popular</span>
                 </div>
                 <div
                   class="
@@ -241,7 +242,7 @@
                     paid once
                   </p>
                   <p class="mb-4">
-                    Never worry about recurring payments with a single lifetime price
+                    Don't stress about recurring payments
                   </p>
                   <BlockButton
                     v-if="$store.getters.getIsLoggedIn && !$store.getters.getUserIsSubscribed"
