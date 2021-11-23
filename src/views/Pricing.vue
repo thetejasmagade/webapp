@@ -21,82 +21,12 @@
           v-if="priceYearly && priceMonthly && priceLifetime"
           class="
             grid
-            md:grid-cols-2 sm:grid-cols-1
+            md:grid-cols-3 sm:grid-cols-1
             gap-4
             md:p-4 sm:p-0
             w-full
           "
         >
-          <div class="flex items-center justify-center">
-            <article
-              class="
-              shadow-lg
-              px-6
-              py-8
-              text-white
-              text-center
-              rounded-lg
-              bg-blue-800
-              items-center
-              flex
-              flex-col
-              max-w-xl
-              h-full
-              w-full
-            "
-            >
-              <h2 class="flex justify-center pb-4 font-bold border-gray-200">
-                <span class="text-6xl ">Professional</span>
-              </h2>
-              <h3 class="font-bold text-xl mb-4">
-                Learn, practice & get certified on job-ready skills.
-              </h3>
-              <ul class="text-sm font-bold w-64 mb-4">
-                <li
-                  v-for="(feature, k) of subscriptionPlan.Features"
-                  :key="k"
-                  :class="{'border-t': k=== 0}"
-                  class="py-1 border-b border-gray-200"
-                >
-                  {{ feature }}
-                </li>
-              </ul>
-              <div v-if="!$store.getters.getUserIsSubscribed">
-                <div v-if="$store.getters.getIsLoggedIn">
-                  <BlockButton
-                    color="white"
-                    class="mb-4 py-2 w-72"
-                    :click="() => {checkout(priceLifetime)}"
-                  >
-                    Lock-in Lifetime Price - {{ getCurrencySymbol(priceLifetime.CurrencyCode) }}{{ priceLifetime.UnitAmount / 100 }}
-                  </BlockButton>
-                  <BlockButton
-                    color="blue"
-                    class="mb-4 w-72 py-2"
-                    :click="() => {checkout(priceYearly)}"
-                  >
-                    7-day Free Trial, then {{ getCurrencySymbol(priceYearly.CurrencyCode) }}{{ (priceYearly.UnitAmountPerMonth * 12) / 100 }}/year
-                  </BlockButton>
-                  <BlockButton
-                    color="blue"
-                    class="w-72 py-2"
-                    :click="() => {checkout(priceMonthly)}"
-                  >
-                    7-day Free Trial, then {{ getCurrencySymbol(priceMonthly.CurrencyCode) }}{{ priceMonthly.UnitAmountPerMonth / 100 }}/month
-                  </BlockButton>
-                </div>
-                <div v-else>
-                  <BlockButton
-                    color="white"
-                    class="w-72 py-2"
-                    :click="() => {$router.push({name: 'Login', query: {redirect: '/pricing'}})}"
-                  >
-                    Login to Start
-                  </BlockButton>
-                </div>
-              </div>
-            </article>
-          </div>
           <div class="flex items-center justify-center">
             <article
               class="
@@ -109,37 +39,230 @@
               items-center
               flex
               flex-col
-              max-w-xl
               h-full
               w-full
             "
             >
-              <h2 class="flex justify-center pb-4 font-bold border-gray-200">
-                <span class="text-6xl">Basic</span>
+              <h2 class="flex justify-center pb-4 border-gray-200 font-bold">
+                <span class="text-2xl">Pro Features</span>
               </h2>
-              <h3 class="font-bold text-xl mb-4">
-                Interactive lessons & daily practice.
-              </h3>
-              <ul class="text-sm font-bold w-64">
-                <li class="py-1 border-b border-t border-gray-300">
-                  Read-only access to courses
-                </li>
-                <li class="py-1 border-b border-gray-300">
-                  Limited coding sandbox
-                </li>
-                <li class="py-1 border-b border-gray-300">
-                  -
-                </li>
-                <li class="py-1 border-b border-gray-300">
-                  -
-                </li>
-                <li class="py-1 border-b border-gray-300">
-                  -
-                </li>
-                <li class="py-1 border-b border-gray-300">
-                  -
-                </li>
-              </ul>
+              <table class="table-auto border-collapse w-full">
+                <thead>
+                  <tr
+                    class="rounded-sm text-lg text-gray-700"
+                  >
+                    <th
+                      class="px-4 py-2 bg-gray-200 font-semibold"
+                    >
+                      Basic
+                    </th>
+                    <th
+                      class="px-4 py-2 bg-gray-200 font-bold"
+                    >
+                      Pro
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="text-sm font-normal text-gray-700">
+                  <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
+                    <td class="px-4 py-4">
+                      Read all content
+                    </td>
+                    <td class="px-4 py-4 font-bold">
+                      Read all content
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100 border-b border-gray-200 py-4">
+                    <td class="px-4 py-4">
+                      Coding sandbox
+                    </td>
+                    <td class="px-4 py-4 font-bold">
+                      Coding sandbox
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100  border-gray-200">
+                    <td class="px-4 py-4">
+                      -
+                    </td>
+                    <td class="px-4 py-4 font-bold">
+                      Instant code verification
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100  border-gray-200">
+                    <td class="px-4 py-4">
+                      -
+                    </td>
+                    <td class="px-4 py-4 font-bold">
+                      Multiple choice quizzes
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100  border-gray-200">
+                    <td class="px-4 py-4">
+                      -
+                    </td>
+                    <td class="px-4 py-4 font-bold">
+                      Certificates of completion
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100  border-gray-200">
+                    <td class="px-4 py-4">
+                      -
+                    </td>
+                    <td class="px-4 py-4 font-bold">
+                      View full solutions
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100  border-gray-200">
+                    <td class="px-4 py-4">
+                      -
+                    </td>
+                    <td class="px-4 py-4 font-bold">
+                      Gems and achievements
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+          </div>
+          <div class="flex items-center justify-center md:col-span-2">
+            <article
+              class="
+              shadow-lg
+              px-6
+              py-8
+              text-center
+              rounded-lg
+              items-center
+              flex
+              flex-col
+              h-full
+              w-full
+            "
+            >
+              <h2 class="flex justify-center pb-4 border-gray-200 font-bold">
+                <span class="text-2xl">Pricing options for your pro account</span>
+              </h2>
+              <div
+                class="
+                  grid
+                  xl:grid-cols-3 lg:grid-cols-1
+                  gap-4
+                  xl:p-4 md:p-0
+                  w-full
+                "
+              >
+                <div>
+                  <div
+                    class="
+                      shadow-lg
+                      px-6
+                      py-8
+                      text-center
+                      rounded-lg
+                      bg-white
+                      items-center
+                      flex
+                      flex-col
+                      h-full
+                      w-full
+                    "
+                  >
+                    <h3 class="text-4xl font-bold">
+                      {{ getCurrencySymbol(priceMonthly.CurrencyCode) }}{{ (priceMonthly.UnitAmountPerMonth) / 100 }} / mo
+                    </h3>
+                    <p class="mb-4 text-gray-400">
+                      paid monthly
+                    </p>
+                    <p class="mb-4">
+                      Learn and practice job-ready skills with small monthly payments
+                    </p>
+                    <BlockButton
+                      v-if="$store.getters.getIsLoggedIn && !$store.getters.getUserIsSubscribed"
+                      class="mb-4 py-2 w-full"
+                      :click="() => {checkout(priceMonthly)}"
+                    >
+                      Start 7-day free trial
+                    </BlockButton>
+                  </div>
+                </div>
+                <div
+                  class="
+                    shadow-lg
+                    px-6
+                    py-8
+                    text-center
+                    rounded-lg
+                    bg-blue-800
+                    text-white
+                    items-center
+                    flex
+                    flex-col
+                    h-full
+                    w-full
+                  "
+                >
+                  <h3 class="text-4xl font-bold">
+                    {{ getCurrencySymbol(priceYearly.CurrencyCode) }}{{ (priceYearly.UnitAmountPerMonth) / 100 }} / mo
+                  </h3>
+                  <p class="mb-4 text-blue-300">
+                    paid yearly
+                  </p>
+                  <p class="mb-4">
+                    Enjoy full access to Qvault pro with {{ (priceMonthly.UnitAmountPerMonth - priceYearly.UnitAmountPerMonth) * 100 / priceMonthly.UnitAmountPerMonth }}% off!
+                  </p>
+                  <BlockButton
+                    v-if="$store.getters.getIsLoggedIn && !$store.getters.getUserIsSubscribed"
+                    color="white"
+                    class="mb-4 py-2 w-full"
+                    :click="() => {checkout(priceYearly)}"
+                  >
+                    Start 7-day free trial
+                  </BlockButton>
+                </div>
+                <div
+                  class="
+                    shadow-lg
+                    px-6
+                    py-8
+                    text-center
+                    rounded-lg
+                    bg-white
+                    items-center
+                    flex
+                    flex-col
+                    h-full
+                    w-full
+                  "
+                >
+                  <h3 class="text-4xl font-bold">
+                    {{ getCurrencySymbol(priceLifetime.CurrencyCode) }}{{ priceLifetime.UnitAmount / 100 }}
+                  </h3>
+                  <p class="mb-4 text-gray-400">
+                    paid once
+                  </p>
+                  <p class="mb-4">
+                    Never worry about recurring payments with a single lifetime price
+                  </p>
+                  <BlockButton
+                    v-if="$store.getters.getIsLoggedIn && !$store.getters.getUserIsSubscribed"
+                    class="mb-4 py-2 w-full"
+                    :click="() => {checkout(priceLifetime)}"
+                  >
+                    Lock-in lifetime price
+                  </BlockButton>
+                </div>
+              </div>
+              <div
+                v-if="!$store.getters.getIsLoggedIn"
+                class="mt-8"
+              >
+                <BlockButton
+                  class="w-72 py-2"
+                  :click="() => {$router.push({name: 'Login', query: {redirect: '/pricing'}})}"
+                >
+                  Login to Start
+                </BlockButton>
+              </div>
             </article>
           </div>
         </section>
