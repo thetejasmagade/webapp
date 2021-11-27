@@ -372,8 +372,11 @@ export default {
   methods: {
     async handleSuccess(){
       try {
-        await confirmOnetimePurchase();
         await loadUser(this);
+        if (!this.$store.getters.getUserIsSubscribed){
+          await confirmOnetimePurchase();
+          await loadUser(this);
+        }
       } catch (err){
         notify({
           type: 'danger',
@@ -385,7 +388,7 @@ export default {
         type: 'success',
         text: 'Welcome to Qvault Pro!'
       });
-      gtmEventFinishCheckout('20', 'qvault-pro', 'Qvault Pro');
+      gtmEventFinishCheckout();
     },
     async deleteUser(){
       try {

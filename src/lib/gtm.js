@@ -18,19 +18,19 @@ export function gtmEventRegister(method){
   }
 }
 
-export function gtmEventBeginCheckout(priceUSD, productID, productName){
+// https://developers.google.com/analytics/devguides/collection/ga4/reference/events#begin_checkout
+export function gtmEventBeginCheckout(){
   try {
     window.dataLayer.push({ ecommerce: null });
     window.dataLayer.push({
       event: 'begin_checkout',
       ecommerce: {
+        currency: 'USD',
+        value: 25.00,
         items: [
           {
-            item_name: productName,
-            item_id: productID,
-            price: priceUSD,
-            index: 1,
-            quantity: 1
+            item_id: 'pro_sub_id',
+            item_name: 'pro_sub'
           }
         ]
       }
@@ -40,22 +40,20 @@ export function gtmEventBeginCheckout(priceUSD, productID, productName){
   }
 }
 
-// https://developers.google.com/tag-manager/ecommerce-ga4#measure_purchases
-export function gtmEventFinishCheckout(priceUSD, productID, productName){
-  const priceString = priceUSD ? priceUSD.toString() : '20';
+// https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase
+export function gtmEventFinishCheckout(){
   try {
     window.dataLayer.push({ ecommerce: null });
     window.dataLayer.push({
       event: 'purchase',
       ecommerce: {
-        value: priceString,
+        value: 25.00,
+        transaction_id: Math.floor(Math.random() * 100000000).toString(),
         currency: 'USD',
         items: [ 
           {
-            item_name: productName,
-            item_id: productID,
-            price: priceUSD,
-            quantity: 1
+            item_name: 'pro_sub',
+            item_id: 'pro_sub_id'
           }
         ]
       }
