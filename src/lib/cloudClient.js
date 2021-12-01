@@ -269,7 +269,7 @@ export async function getUser() {
 }
 
 export async function getTrackCS() {
-  const resp = await fetchWithAuth(`${domain}/v1/programs/cs`, {
+  const resp = await fetchWithAuth(`${domain}/v1/tracks/cs`, {
     method: 'GET',
     mode: 'cors',
     headers: {
