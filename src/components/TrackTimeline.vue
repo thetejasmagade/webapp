@@ -49,10 +49,10 @@
             class="lg:mx-8"
           >
           <skeleton-loader-vue
-            type="circle"
+            type="rect"
             :width="200"
-            :height="200"
-            animation="fade"
+            :height="150"
+            animation="pulse-x"
               />
             <UnitCardBody :unit="unit" />
           </ImageCard>
