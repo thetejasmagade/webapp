@@ -1,4 +1,12 @@
-importScripts('https://pyodide-cdn2.iodide.io/v0.15.0/full/pyodide.js');
+importScripts('https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js');
+
+// https://pyodide.org/en/stable/usage/webworker.html
+async function loadPyodideAndPackages() {
+  self.pyodide = await self.loadPyodide({
+    indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/'
+  });
+}
+let pyodideReadyPromise = loadPyodideAndPackages();
 
 // globally accessible canvas element
 let canvas;
@@ -17,7 +25,7 @@ function getHash(toHash) {
 }
 
 addEventListener('message', async (e) => {
-  await languagePluginLoader;
+  await pyodideReadyPromise;
 
   if (e.data.type === 'canvas') {
     canvas = e.data.canvas;
@@ -30,7 +38,7 @@ addEventListener('message', async (e) => {
 
   self.runCode = () => {
     try {
-      pyodide.runPython(e.data);
+      self.pyodide.runPython(e.data);
     } catch (err){
       postMessage({
         error: err
@@ -51,8 +59,7 @@ addEventListener('message', async (e) => {
     }
   };
 
-
-  pyodide.runPython(`
+  self.pyodide.runPython(`
     import io, code, sys
     from js import writeStdOut, runCode
     
