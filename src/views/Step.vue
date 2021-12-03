@@ -282,7 +282,6 @@ export default {
       this.isLastStep = step.Step.IsLast;
       this.isCurrentStep = step.IsCurrent;
       this.isComplete = step.IsComplete;
-      console.log(step.Step);
       this.stepSlug = step.Step.Slug;
 
       if (step.Step.Readme !== this.markdownSource) {
