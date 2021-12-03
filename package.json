@@ -1,13 +1,13 @@
 {
   "name": "webapp",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "scripts": {
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
     "build": "vite build --out-dir dist && echo '/* /index.html 200' >> dist/_redirects",
-    "lint": "eslint src && eslint public",
-    "lint:fix": "eslint src --fix && eslint src --fix"
+    "lint": "eslint . --ext .js,.ts,.tsx,.vue",
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx,.vue"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
