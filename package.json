@@ -6,8 +6,8 @@
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
     "build": "vite build --out-dir dist && echo '/* /index.html 200' >> dist/_redirects",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint": "eslint src && eslint public",
+    "lint:fix": "eslint src --fix && eslint src --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",

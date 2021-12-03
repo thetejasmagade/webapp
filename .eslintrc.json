@@ -9,10 +9,6 @@
     "eslint:recommended",
     "plugin:vue/recommended"
   ],
-  "ignorePatterns": [
-    "public/go_worker.js",
-    "public/python_worker.js"
-  ],
   "rules": {
     "comma-dangle": "error",
     "quotes": [
