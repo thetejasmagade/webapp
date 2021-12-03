@@ -6,15 +6,15 @@
     >
       <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
         <div
-          v-for="(course, i) of courses"
+          v-for="(courseUnit, i) of courseUnits"
           :key="i"
         >
           <ImageCard
-            :click="() => goToCourse(course)"
-            :img-src="course.ImageURL"
+            :click="() => clickUnit(courseUnit)"
+            :img-src="getUnitData(courseUnit).ImageURL"
           >
             <UnitCardBody
-              :course="course"
+              :unit="courseUnit"
             />
           </ImageCard>
         </div>
@@ -27,7 +27,12 @@
 import Section from '@/components/Section.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import UnitCardBody from '@/components/UnitCardBody.vue';
-
+import {
+  unitTypeCourse, 
+  getUnitData, 
+  unitTypeProject,
+  createCourseUnit
+} from '@/lib/unit.js';
 
 import { 
   gtmEventSelectCourse
@@ -46,16 +51,24 @@ export default {
     };
   },
   computed:{
-    courses(){
+    courseUnits(){
       let courses = this.$store.getters.getCourses;
       courses.sort((course1, course2) => { return course1.Difficulty < course2.Difficulty ? -1 : 1;} );
+      courses = courses.map(course => createCourseUnit(course));
       return courses;
     }
   },
   methods: {
-    goToCourse(course){
-      gtmEventSelectCourse(course.UUID, course.Title);
-      this.$router.push({name: 'Exercise', params: {courseUUID: course.UUID}});
+    getUnitData,
+    clickUnit(unit){
+      const unitData = getUnitData(unit);
+      if (unit.type === unitTypeCourse){
+        gtmEventSelectCourse(unitData.UUID, unitData.Title);
+        this.$router.push({name: 'Exercise', params: {courseUUID: unitData.UUID}});
+      }
+      if (unit.type === unitTypeProject){
+        this.$router.push({name: 'Step', params: {projectUUID: unitData.UUID}});
+      }
     }
   }
 };
