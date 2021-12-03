@@ -8,6 +8,7 @@
       <TrackTimeline
         :units="trackGopherGangCourses"
         :click-callback="clickUnit"
+        :numSkeletonCards="5"
       />
     </Section>
   </div>

@@ -12,6 +12,7 @@
       "
       style="left: 50%"
     />
+
     <div v-for="(unit, i) of units" :key="i">
       <div
         class="flex justify-center items-center w-full left-timeline"
@@ -43,19 +44,14 @@
           </h1>
         </div>
         <div class="order-1 lg:w-1/3 items-center">
-          <ImageCard
+          <ImageCardSkeleton />
+          <!-- <ImageCard
             :img-src="getUnitData(unit).ImageURL"
             :click="() => clickCallback(unit)"
             class="lg:mx-8"
           >
-          <skeleton-loader-vue
-            type="rect"
-            :width="200"
-            :height="150"
-            animation="pulse-x"
-              />
             <UnitCardBody :unit="unit" />
-          </ImageCard>
+          </ImageCard> -->
         </div>
       </div>
     </div>
@@ -66,19 +62,23 @@
 import ImageCard from "@/components/ImageCard.vue";
 import UnitCardBody from "@/components/UnitCardBody.vue";
 import { getUnitData } from "@/lib/unit.js";
-import VueSkeletonLoader from "skeleton-loader-vue";
+import ImageCardSkeleton from "@/components/ImageCardSkeleton.vue";
 
 export default {
   components: {
     ImageCard,
     UnitCardBody,
-    VueSkeletonLoader
+    ImageCardSkeleton,
   },
   props: {
     clickCallback: {
       type: Function,
       required: false,
       default: () => {},
+    },
+    numSkeletonCards: {
+      type: Number,
+      required: false,
     },
     units: {
       type: Array,
