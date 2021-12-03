@@ -6,30 +6,27 @@ Qvault's web app frontend - https://app.qvault.io
 
 ## 🚀 Quick Start
 
-To run locally while connecting to the production backend:
+Use the proper version of node:
 
 ```bash
-yarn install
+nvm use
+```
+
+Install deps:
+
+```bash
 yarn serve
 ```
 
-## 💬 Contact
-
-[![Twitter Follow](https://img.shields.io/twitter/follow/q_vault.svg?label=Follow%20Qvault&style=social)](https://twitter.com/intent/follow?screen_name=q_vault)
-
-Submit an issue (above in the issues tab)
-
-## 👏 Contributing
-
-We love help! Contribute by forking the repo and opening pull requests. Please ensure that your code passes the existing linting.
-
-All pull requests should be submitted to the `master` branch.
+Run the dev server:
 
 ```bash
-yarn lint
+yarn serve
 ```
 
-## VS Code Settings
+## Recommended VS Code Settings
+
+Settings in `.vscode/settings.json`
 
 ```json
 {
@@ -49,29 +46,9 @@ yarn lint
 }
 ```
 
-```json
-{
-  "atDirectives": [
-    {
-      "name": "@tailwind",
-      "description": "Use the @tailwind directive to insert Tailwind’s `base`, `components`, `utilities`, and `screens` styles into your CSS.",
-      "references": [
-        {
-          "name": "Tailwind’s “Functions & Directives” documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives/#tailwind"
-        }
-      ]
-    },
-    {
-      "name": "@layer",
-      "description": "Use the @tailwind directive to insert Tailwind’s `base`, `components`, `utilities`, and `screens` styles into your CSS.",
-      "references": [
-        {
-          "name": "Tailwind’s “Functions & Directives” documentation",
-          "url": "https://tailwindcss.com/docs/functions-and-directives/#tailwind"
-        }
-      ]
-    }
-  ]
-}
-```
+Plugins:
+
+* ESLint by Microsoft
+* Vetur by Pine Wu
+* YAML by Red Hat
+* Tailwind CSS IntelliSense by Tailwind Labs
