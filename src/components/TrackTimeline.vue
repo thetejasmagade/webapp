@@ -12,8 +12,7 @@
       "
       style="left: 50%"
     />
-
-    <div v-for="(unit, i) of units" :key="i">
+    <div v-for="(unit, i) of unitCards" :key="i">
       <div
         class="flex justify-center items-center w-full left-timeline"
         :class="{
@@ -43,15 +42,16 @@
             {{ i % 2 !== 0 ? "→" : null }}
           </h1>
         </div>
-        <div class="order-1 lg:w-1/3 items-center">
-          <ImageCardSkeleton />
-          <!-- <ImageCard
+        <div class="order-1 lg:w-1/3 sm:w-full items-center">
+          <ImageCardSkeleton v-if="!isUnitsLoaded" />
+          <ImageCard
+            v-if="isUnitsLoaded"
             :img-src="getUnitData(unit).ImageURL"
             :click="() => clickCallback(unit)"
             class="lg:mx-8"
           >
             <UnitCardBody :unit="unit" />
-          </ImageCard> -->
+          </ImageCard>
         </div>
       </div>
     </div>
@@ -87,6 +87,14 @@ export default {
   },
   methods: {
     getUnitData,
+  },
+  computed: {
+    unitCards() {
+      return this.units.length === 0 ? this.numSkeletonCards : this.units;
+    },
+    isUnitsLoaded() {
+      return this.units.length > 0;
+    },
   },
 };
 </script>
