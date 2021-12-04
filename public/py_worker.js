@@ -41,7 +41,7 @@ addEventListener('message', async (e) => {
       self.pyodide.runPython(e.data);
     } catch (err){
       postMessage({
-        error: err
+        error: `${err}`
       });
       return;
     }
