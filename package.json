@@ -1,13 +1,13 @@
 {
   "name": "webapp",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "scripts": {
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
     "build": "vite build --out-dir dist && echo '/* /index.html 200' >> dist/_redirects",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint": "eslint . --ext .js,.ts,.tsx,.vue",
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx,.vue"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -31,6 +31,7 @@
     "vue": "^3.0.11",
     "vue-meta": "^3.0.0-alpha.7",
     "vue-router": "^4.0.8",
+    "vue-skeletor": "^1.0.6",
     "vue3-google-auth": "^0.0.2",
     "vue3-loading-overlay": "^0.0.0",
     "vuex": "^4.0.0"

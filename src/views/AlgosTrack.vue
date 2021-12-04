@@ -8,6 +8,7 @@
       <TrackTimeline
         :units="trackDSAlgosCourses"
         :click-callback="clickUnit"
+        :num-skeleton-cards="5"
       />
     </Section>
   </div>

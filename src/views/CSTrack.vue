@@ -8,6 +8,7 @@
       <TrackTimeline
         :units="trackCS"
         :click-callback="clickUnit"
+        :num-skeleton-cards="5"
       />
       <h2 class="text-gold-600 text-xl">
         Notes
