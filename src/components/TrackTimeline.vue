@@ -12,7 +12,10 @@
       "
       style="left: 50%"
     />
-    <div v-for="(unit, i) of unitCards" :key="i">
+    <div
+      v-for="(unit, i) of unitCards"
+      :key="i"
+    >
       <div
         class="flex justify-center items-center w-full left-timeline"
         :class="{
@@ -45,7 +48,7 @@
         <div class="order-1 lg:w-1/3 sm:w-full items-center">
           <ImageCardSkeleton v-if="!isUnitsLoaded" />
           <ImageCard
-            v-if="isUnitsLoaded"
+            v-else
             :img-src="getUnitData(unit).ImageURL"
             :click="() => clickCallback(unit)"
             class="lg:mx-8"
@@ -59,34 +62,32 @@
 </template>
 
 <script>
-import ImageCard from "@/components/ImageCard.vue";
-import UnitCardBody from "@/components/UnitCardBody.vue";
-import { getUnitData } from "@/lib/unit.js";
-import ImageCardSkeleton from "@/components/ImageCardSkeleton.vue";
+import ImageCard from '@/components/ImageCard.vue';
+import UnitCardBody from '@/components/UnitCardBody.vue';
+import { getUnitData } from '@/lib/unit.js';
+import ImageCardSkeleton from '@/components/ImageCardSkeleton.vue';
 
 export default {
   components: {
     ImageCard,
     UnitCardBody,
-    ImageCardSkeleton,
+    ImageCardSkeleton
   },
   props: {
     clickCallback: {
       type: Function,
       required: false,
-      default: () => {},
+      default: () => {}
     },
     numSkeletonCards: {
       type: Number,
       required: false,
+      default: 5
     },
     units: {
       type: Array,
-      required: true,
-    },
-  },
-  methods: {
-    getUnitData,
+      required: true
+    }
   },
   computed: {
     unitCards() {
@@ -94,8 +95,11 @@ export default {
     },
     isUnitsLoaded() {
       return this.units.length > 0;
-    },
+    }
   },
+  methods: {
+    getUnitData
+  }
 };
 </script>
 
