@@ -300,7 +300,7 @@
           <p>
             We do promotions from time to time, and currently we're offering a <a
               target="_blank"
-              href="https://forms.gle/ubTii5KXCMCg84u78"
+              href="https://forms.gle/poQckVBir9XZA7L39"
             >25% discount to anyone who completes this feedback form.</a>
             Our top priority is improving the courses, the app, and your experience so your feedback is super valuable to us.
             When you're finished with the survey you'll be given a coupon code!
