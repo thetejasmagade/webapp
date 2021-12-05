@@ -26,7 +26,7 @@ yarn serve
 
 ## Recommended VS Code Settings
 
-Settings in `.vscode/settings.json`
+Add settings to `.vscode/settings.json`. Note: they won't work unless you open VS Code to the root of this repo.
 
 ```json
 {
