@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-let fs;
-let Go;
-
 (() => {
   // Map multiple JavaScript environments to a single common API,
   // preferring web standards over Node.js API.
@@ -282,7 +279,7 @@ let Go;
             const fd = getInt64(sp + 8);
             const p = getInt64(sp + 16);
             const n = this.mem.getInt32(sp + 24, true);
-            fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));
+            global.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));
           },
 
           // func resetMemoryDataView()
@@ -573,11 +570,12 @@ let Go;
       process.exit(1);
     }
 
+    // eslint-disable-next-line no-undef
     const go = new Go();
     go.argv = process.argv.slice(2);
     go.env = Object.assign({ TMPDIR: require('os').tmpdir() }, process.env);
     go.exit = process.exit;
-    WebAssembly.instantiate(fs.readFileSync(process.argv[2]), go.importObject).then((result) => {
+    WebAssembly.instantiate(global.fs.readFileSync(process.argv[2]), go.importObject).then((result) => {
       process.on('exit', (code) => { // Node.js exits if no event handler is pending
         if (code === 0 && !go.exited) {
           // deadlock, make Go print error and stack traces
@@ -621,7 +619,7 @@ addEventListener('message', async (e) => {
   }
 
   // clear the persistent stdout buffer
-  fs.writeSync(null, new TextEncoder('utf-8').encode('\n'));
+  global.fs.writeSync(null, new TextEncoder('utf-8').encode('\n'));
 
   const result = await WebAssembly.instantiate(e.data, go.importObject);
   let oldLog = console.log;
