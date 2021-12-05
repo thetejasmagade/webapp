@@ -15,7 +15,7 @@ nvm use
 Install deps:
 
 ```bash
-yarn serve
+yarn install
 ```
 
 Run the dev server:
