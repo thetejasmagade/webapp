@@ -4,7 +4,7 @@
       <BlockButton
         :click="clickGoogle"
         color="blue"
-        class="my-5"
+        class="mt-8 mb-4"
       >
         <FontAwesomeIcon
           :icon="['fab', 'google']"
@@ -16,7 +16,7 @@
       <BlockButton
         :click="clickGithub"
         color="gold"
-        class="mb-5"
+        class="mb-12"
       >
         <FontAwesomeIcon
           :icon="['fab', 'github']"
@@ -25,18 +25,18 @@
         Sign in with Github
       </BlockButton>
 
-      <div class="mb-4 flex flex-row items-center justify-center text-xs text-gray-500 leading-3">
+      <div class="mb-2 flex flex-row items-center justify-center text-sm text-gray-400 leading-none">
         <ToggleSwitch
           v-model="subscribeNews"
         />
-        <span class="flex-1 ml-4">Get coding articles and news</span>
+        <span class="flex-1 ml-2">Get coding articles and news</span>
       </div>
 
-      <div class="mb-4 flex flex-row items-center justify-center text-xs text-gray-500 leading-3">
+      <div class="mb-4 flex flex-row items-center justify-center text-sm text-gray-400 leading-none">
         <ToggleSwitch
           v-model="tosAccepted"
         />
-        <span class="flex-1 ml-4">
+        <span class="flex-1 ml-2">
           I've read and agree to the 
           <a
             class="link"

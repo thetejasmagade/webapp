@@ -9,8 +9,9 @@
     <div class="grid place-items-center mx-2 my-20 sm:my-auto">
       <div
         class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
-            px-6 py-10 sm:px-10 sm:py-6
-            bg-white rounded-lg shadow-md lg:shadow-lg"
+          px-6 py-10 sm:px-10 sm:py-6
+          bg-white rounded-lg shadow-md lg:shadow-lg
+          mb-8"
       >
         <img
           alt="Qvault logo"
@@ -18,12 +19,12 @@
           class="mx-auto w-24 mb-3"
         >
 
-        <h2 class="text-center font-semibold mb-3 text-2xl text-gray-800">
+        <h2 class="text-center font-semibold mb-2 text-2xl text-gray-800">
           We make computer science <span class="font-bold text-blue-400">simple</span>
         </h2>
 
         <h3 class="text-center text-gray-500 mb-3">
-          Create an account so we can help you track your progress
+          Create an account to track your progress
         </h3>
 
         <div
@@ -114,6 +115,23 @@
             <span><a @click="state='login'">Back</a></span>
           </div>
         </div>
+      </div>
+
+      <div
+        class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
+          px-6 py-10 sm:px-10 sm:py-6
+          bg-white rounded-lg shadow-md lg:shadow-lg
+          mb-4"
+      >
+        <span class="flex-1 ml-2">
+          Need more info? Go
+          <a
+            class="link"
+            href="https://qvault.io"
+          >
+            back to the homepage
+          </a>
+        </span>
       </div>
     </div>
   </div>
