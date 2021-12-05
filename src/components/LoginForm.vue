@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="active-form">
+    <div class="flex flex-col justify-evenly w-full items-center">
       <form
-        class="active-form"
+        class="flex flex-col justify-evenly w-full items-center"
         @submit.prevent="submitLogin"
       >
         <TextInput
@@ -11,16 +11,16 @@
           type="email"
           required
           name="email"
-          class="item"
+          class="mb-4 w-full"
         />
         <TextInput
           v-model="password"
           placeholder="password"
           type="password"
           required
-          class="item"
+          class="mb-4 w-full"
         />
-        <BlockButton class="btn item">
+        <BlockButton class="mb-4 md:w-1/2 w-full">
           Login
         </BlockButton>
       </form>
@@ -69,25 +69,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-
-.active-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-  align-items: center;
-
-  .item {
-    margin-bottom: 2em;
-    width: 100%;
-  }
-
-  .btn {
-    margin-bottom: 2em;
-    width: 50%;
-    min-width: 250px;
-  }
-}
+<style scoped>
 </style>
