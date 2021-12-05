@@ -19,11 +19,11 @@
         >
 
         <h2 class="text-center font-semibold mb-3 text-2xl text-gray-800">
-          Computer science can be <span class="font-bold text-blue-400">simple.</span>
+          We make computer science <span class="font-bold text-blue-400">simple</span>
         </h2>
 
         <h3 class="text-center text-gray-500 mb-3">
-          All coding courses are free to audit.
+          Create an account so we can help you track your progress
         </h3>
 
         <div

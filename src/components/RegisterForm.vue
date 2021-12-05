@@ -1,9 +1,9 @@
 <template>
   <div
-    class="active-form"
+    class="flex flex-col justify-evenly w-full items-center"
   >
     <form
-      class="active-form"
+      class="flex flex-col justify-evenly w-full items-center"
       @submit.prevent="submitRegister"
     >
       <TextInput
@@ -12,12 +12,12 @@
         type="email"
         name="email"
         required
-        class="item input"
+        class="mb-4 w-full"
       />
-      <div class="item">
+      <div class="mb-4 w-full flex flex-row">
         <TextInput
           v-model="firstName"
-          class="sub-item"
+          class="flex-1"
           placeholder="First Name"
           name="fname"
           required
@@ -29,42 +29,66 @@
           type="text"
           name="lname"
           required
-          class="sub-item right"
+          class="flex-1 ml-4"
         />
       </div>
       <TextInput
         v-model="password"
         placeholder="Password"
         type="password"
-        class="item"
+        class="mb-4 w-full"
         required
       />
       <TextInput
         v-model="passwordConfirm"
         placeholder="Confirm Password"
         type="password"
-        class="item"
+        class="mb-8 w-full"
         required
       />
 
-      <div class="item switch">
+      <div
+        class="
+          mb-2
+          w-full 
+          flex
+          flex-row
+          justify-center
+          items-center
+          text-gray-400
+          text-sm
+          leading-none
+        "
+      >
         <ToggleSwitch
           v-model="subscribeNews"
         />
-        <span class="sub-item right">Get coding articles and news</span>
+        <span class="ml-2">Get coding articles and news</span>
       </div>
 
-      <div class="item switch">
+      <div
+        class="
+          mb-8
+          w-full 
+          flex
+          flex-row
+          justify-center
+          items-center
+          text-gray-400
+          text-sm
+          leading-none
+        "
+      >
         <ToggleSwitch
           v-model="tosAccepted"
         />
-        <span class="sub-item right">
+        <span class="ml-2">
           I've read and agree to the 
           <a href="https://qvault.io/terms-of-service/">terms</a>
         </span>
       </div>
 
-      <BlockButton class="btn">
+      <BlockButton class="mb-4">
         Sign Up Free
       </BlockButton>
     </form>
@@ -143,43 +167,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
+<style scoped>
 
-.active-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-  align-items: center;
-
-  .item {
-    margin-bottom: 2em;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    
-    &.switch{
-      align-items: center;
-      justify-content: center;
-      color: $gray-mid;
-      font-size: .75em;
-      line-height: .75em;
-    }
-
-    .sub-item {
-      flex: 1;
-    }
-
-    .right {
-      margin-left: 1em;
-    }
-  }
-
-  .btn {
-    margin-bottom: 2em;
-    width: 50%;
-    min-width: 250px;
-  }
-}
 </style>
