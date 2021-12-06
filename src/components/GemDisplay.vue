@@ -1,6 +1,10 @@
 <template>
   <div
-    id="gem-display"
+    class="
+      flex
+      justify-center
+      items-center
+    "
     :style="{flexDirection: vertical ? 'column' : 'row'}"
   >
     <img
@@ -11,7 +15,10 @@
     <span
       v-if="text"
       :style="{'font-size': `${fontSize}px`}"
-      :class="textColor"
+      :class="{
+        'text-blue-500': textColor === 'blue-lighter',
+        'text-gray-200': textColor === 'gray-lightest',
+      }"
     >
       {{ text }}
     </span>
@@ -83,21 +90,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
+<style scoped>
 
-#gem-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.blue-lighter {
-  color: $purple-mid;
-}
-
-.gray-lightest {
-  color: $gray-mid;
-}
 </style>
