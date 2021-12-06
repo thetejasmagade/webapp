@@ -13,9 +13,15 @@
       "
       :on-confirm="runReset"
     />
-    <div class="code-editor-root">
+    <div class="font-mono h-full">
       <Multipane layout="vertical">
-        <div class="top-bar">
+        <div
+          class="
+          w-full
+          p-4
+          flex-0
+        "
+        >
           <ConsoleButtons
             :run-callback="isCheating ? null : runCode"
             :reset-callback="() => $refs.resetCodeModal.show()"
@@ -25,7 +31,12 @@
             class="console-buttons"
           />
         </div>
-        <div class="editor-container">
+        <div
+          class="
+            w-full
+            h-4/6
+          "
+        >
           <CodeMirrorWrapper
             v-if="!isCheating"
             v-model="modelValue"
@@ -55,7 +66,17 @@
         <MultipaneResizer layout="vertical" />
         <div
           ref="console"
-          class="console bg-gray-800 text-gray-200"
+          class="
+            text-md
+            flex-1
+            flex-row
+            overflow-auto
+            border-t
+            border-gray-700
+            w-full
+            bg-gray-800
+            text-gray-200
+          "
         >
           <Multipane layout="horizontal">
             <canvas
@@ -65,14 +86,23 @@
               :key="numCancellations"
               height="1000"
               width="1000"
+              class="
+                border-t
+                border-gray-600
+                my-4
+                bg-white
+              "
             />
             <MultipaneResizer layout="horizontal" />
-            <div class="log">
+            <div class="m-4">
               <p
                 v-for="(line, i) of output"
                 :key="i"
-                :class="{error: err}"
-                class="pre"
+                :class="{'text-red-400': err}"
+                class="
+                  whitespace-pre-wrap	
+                  m-0
+                "
               >{{ line }}</p>
             </div>
           </Multipane>
@@ -375,51 +405,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-.top-bar {
-  flex: 0 0 auto;
-  width: 100%;
-  padding: 1em;
-  box-sizing: border-box;
-}
-
-.code-editor-root {
-  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
-  height: 100%;
-
-  .editor-container {
-    height: 65%;
-    width: 100%;
-  }
-
-  .console {
-    font-size: 14px;
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    overflow: auto;
-    border-top: solid 2px $gray-dark;
-    width: 100%;
-
-    .log {
-      margin: 1em;
-      .pre {
-        white-space: pre-wrap;
-        font-size: 1em;
-        margin: 0;
-      }
-      .error {
-        color: $pink-light;
-      }
-    }
-
-    #canvas {
-      border: 1px solid $gray-dark;
-      background-color: $white;
-      margin: 1em 0 1em 1em;
-    }
-  }
-}
+<style scoped>
 
 </style>
