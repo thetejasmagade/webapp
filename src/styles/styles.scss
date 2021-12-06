@@ -1,6 +1,10 @@
 @import 'colors.scss';
 @import 'consts.scss';
 
+:root {
+  --red-600: #9E3A46;
+}
+
 html {
 	height: 100%;
 }

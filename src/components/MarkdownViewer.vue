@@ -1,9 +1,14 @@
 <template>
   <div>
-    <div class="markdown-viewer-container">
+    <div class="min-h-full">
       <div
         ref="viewer"
-        class="viewer"
+        class="
+          viewer
+          md:p-4 p-2
+          overflow-auto
+          min-h-full
+        "
       />
     </div>
   </div>
@@ -16,6 +21,8 @@ import MarkdownItSubscript from 'markdown-it-sub';
 import MarkdownItSuperscript from 'markdown-it-sup';
 import MarkdownItLinkAttributes from 'markdown-it-link-attributes';
 import Prism from 'prismjs';
+
+import '@/styles/prism-darcula.css';
 
 import 'prismjs/components/prism-go.js';
 import 'prismjs/components/prism-bash.js';
@@ -66,81 +73,67 @@ export default {
 </script>
 
 
-<style lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-@import '@/styles/prism-darcula.css';
+<style>
 
-.markdown-viewer-container {
-  min-height: 100%;
-
-  .viewer{
-    padding: 1em;
-    overflow: auto;
-    min-height: 100%;
-    background-color: inherit;
-
-    @media (max-width: $mobile-size) {
-      padding: .5em;
-    }
-
-    h1 {
-      font-weight: 600;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    h2 {
-      font-weight: 600;
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-    }
-
-    h3 {
-      font-weight: 600;
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-
-    h4 {
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    pre {
-      code {
-        color: inherit;
-        background-color: inherit;
-      }
-      border-radius: 4px;
-    }
-
-    ul {
-      list-style-type: disc;
-      margin-left: 1rem;
-    }
-
-    ol {
-      list-style-type: decimal;
-      margin-left: 1rem;
-    }
-
-    code {
-      color: $pink-dark;
-    }
-
-    img {
-      max-width: 100%;
-      border-radius: 5px;
-      margin: auto;
-    }
-  }
+.viewer {
+  background-color: inherit;
 }
 
+.viewer h1 {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.viewer h2 {
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.viewer h3 {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.viewer h4 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.viewer p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.viewer pre {
+  border-radius: 4px;
+}
+
+.viewer pre code {
+  color: inherit;
+  background-color: inherit;
+}
+
+.viewer ul {
+  list-style-type: disc;
+  margin-left: 1rem;
+}
+
+.viewer ol {
+  list-style-type: decimal;
+  margin-left: 1rem;
+}
+
+.viewer code {
+  color: var(--red-600);
+}
+
+.viewer img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin: auto;
+}
 </style>
