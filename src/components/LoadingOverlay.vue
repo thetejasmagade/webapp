@@ -1,7 +1,7 @@
 <template>
-  <div class="loading-overlay">
+  <div>
     <VueLoadingOverlay
-      :active.sync="isLoading" 
+      :active="isLoading" 
       :is-full-page="true"
       :can-cancel="false"
       :enforce-focus="true"
@@ -13,7 +13,7 @@
         <BlockButton
           :click="cancel"
           color="gray"
-          class="btn"
+          class="mt-4"
         >
           Cancel
         </BlockButton>
@@ -46,20 +46,11 @@ export default {
 };
 </script> 
 
-<style lang="scss">
-@import '@/styles/colors.scss';
-
-.loading-overlay{
-
-  .vld-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .btn {
-    margin-top: 1em;
-  }
+<style>
+.vld-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
