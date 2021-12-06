@@ -2,39 +2,53 @@
   <div>
     <form
       v-if="state === 'get-code'"
-      id="forgot-form"
+      class="
+        flex
+        flex-col
+        justify-evenly
+        w-full
+        items-center
+        mt-8
+      "
       @submit.prevent="submitForgotPasswordEmail"
     >
-      <span class="title item">Recover Password</span>
       <TextInput
         v-model="email"
         placeholder="email"
         type="email"
-        class="item"
+        class="mb-8 w-full"
       />
-      <BlockButton class="btn">
-        Submit
+      <BlockButton class="mb-2 md:w-1/2 w-full">
+        Get recovery code
       </BlockButton>
     </form>
 
     <form
       v-if="state === 'submit-code'"
-      id="forgot-form"
+      class="
+        flex
+        flex-col
+        justify-evenly
+        w-full
+        items-center
+        mt-8
+      "
       @submit.prevent="submitRecoveryCode"
     >
-      <span class="title">Enter Recovery Code</span>
       <TextInput
         v-model="code"
-        placeholder="6 digit code"
+        placeholder="6 digit recover code"
         type="text"
+        class="mb-4 w-full"
       />
       <TextInput
         v-model="newPassword"
         placeholder="new password"
         type="password"
+        class="mb-8 w-full"
       />
-      <BlockButton class="btn">
-        Submit
+      <BlockButton class="mb-2 md:w-1/2 w-full">
+        Set new password
       </BlockButton>
       <span><a @click="resendVerification">Resend Code</a></span>
     </form>
@@ -112,31 +126,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
+<style scoped>
 
-#forgot-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-  align-items: center;
-
-  .title {
-    font-size: 1em;
-    color: $gray-darker;
-    text-align: center;
-  }
-
-  .item {
-    margin-bottom: 2em;
-    width: 100%;
-  }
-
-  .btn {
-    margin-bottom: 2em;
-    width: 50%;
-    min-width: 250px;
-  }
-}
 </style>
