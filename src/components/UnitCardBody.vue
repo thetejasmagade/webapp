@@ -103,7 +103,6 @@ export default {
       if (this.unit.type === unitTypeCourse){
         return `~${this.unitData.Modules.length * 6} Hours`;
       }
-      console.log(JSON.stringify(this.unitData));
       return `~${this.unitData.Steps.length} Hours`;
     },
     unitData(){
