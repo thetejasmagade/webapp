@@ -13,8 +13,9 @@
       :go-to-beginning-callback="goToBeginning"
     />
 
+    <ExerciseSkeleton />
     <div class="exercise-container desktop">
-      <Multipane layout="horizontal">
+      <!-- <Multipane layout="horizontal">
         <div
           class="
             side 
@@ -114,7 +115,7 @@
           :question="question.Question"
           :locked="locked"
         />
-      </Multipane>
+      </Multipane> -->
     </div>
     <div class="mobile">
       <Section title="Come back on a computer">
@@ -140,6 +141,7 @@ import Section from '@/components/Section.vue';
 import ProModal from '@/components/ProModal.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
 import PricingModal from '@/components/PricingModal.vue';
+import ExerciseSkeleton from '@/components/ExerciseSkeleton.vue';
 
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -191,7 +193,8 @@ export default {
     MultipaneResizer,
     ProModal,
     FeedbackModal,
-    PricingModal
+    PricingModal,
+    ExerciseSkeleton
   },
   data() {
     return {
