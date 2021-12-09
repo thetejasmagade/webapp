@@ -4,7 +4,6 @@
     gap-4 
     grid-cols-2
   >
-    <!-- upper box keep this?? change it? -->
     <Skeletor 
       height="70"
       width="100%"

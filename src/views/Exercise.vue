@@ -13,10 +13,15 @@
       :go-to-beginning-callback="goToBeginning"
     />
 
-    <ExerciseSkeleton />
-    <div class="exercise-container desktop">
-      <!-- <Multipane layout="horizontal">
+
+    <ExerciseSkeleton v-if="!isContentLoaded" />
+    <div 
+      v-else 
+      class="exercise-container desktop"
+    >
+      <Multipane layout="horizontal">
         <div
+        
           class="
             side 
             left
@@ -115,7 +120,7 @@
           :question="question.Question"
           :locked="locked"
         />
-      </Multipane> -->
+      </Multipane>
     </div>
     <div class="mobile">
       <Section title="Come back on a computer">
@@ -224,6 +229,9 @@ export default {
         return null;
       }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
+    },
+    isContentLoaded() {
+      return this.markdownSource === '' ? false : true;
     },
     exerciseIndex() {
       if (!this.module) {
