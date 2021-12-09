@@ -13,9 +13,15 @@
       :go-to-beginning-callback="goToBeginning"
     />
 
-    <div class="exercise-container desktop">
+
+    <ExerciseSkeleton v-if="!isContentLoaded" />
+    <div 
+      v-else 
+      class="exercise-container desktop"
+    >
       <Multipane layout="horizontal">
         <div
+        
           class="
             side 
             left
@@ -140,6 +146,7 @@ import Section from '@/components/Section.vue';
 import ProModal from '@/components/ProModal.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
 import PricingModal from '@/components/PricingModal.vue';
+import ExerciseSkeleton from '@/components/ExerciseSkeleton.vue';
 
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -191,7 +198,8 @@ export default {
     MultipaneResizer,
     ProModal,
     FeedbackModal,
-    PricingModal
+    PricingModal,
+    ExerciseSkeleton
   },
   data() {
     return {
@@ -221,6 +229,9 @@ export default {
         return null;
       }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
+    },
+    isContentLoaded() {
+      return this.markdownSource === '' ? false : true;
     },
     exerciseIndex() {
       if (!this.module) {
