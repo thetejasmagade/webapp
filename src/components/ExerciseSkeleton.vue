@@ -38,62 +38,21 @@
         
         <Skeletor 
           height="10%"
-          width="90%"
+          width="85%"
           class="
         ml-10
         my-2"
         />
         <Skeletor 
-          height="5%"
-          width="70%"
-          class="
-        ml-10
-        mb-3"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
+          height="10%"
+          width="75%"
           class="
         ml-10
         my-2"
         />
+
         <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-10
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-10
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-10
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-10
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-10
-        my-2"
-        />
-        <Skeletor 
-          height="40%"
+          height="45%"
           width="20%"
           class="
         mt-5
@@ -104,89 +63,42 @@
       <!-- Right side Skeleton -->
       <div> 
         <Skeletor 
-          height="35%"
+          height="20%"
           width="40%"
           class="
         mt-5
         my-2
-        ml-5"
+        ml-10"
         />
         <Skeletor 
-          height="15%"
-          width="80%"
-          class="
-        ml-5"
-        />
-        <Skeletor 
-          height="25%"
-          width="90%"
-          class="
-        ml-5
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
+          height="10%"
           width="70%"
           class="
-        ml-5
-        my-2"
+        ml-10"
         />
+        
         <Skeletor 
-          height="15%"
-          width="70%"
+          height="10%"
+          width="85%"
           class="
-        ml-5
+        ml-10
         my-2"
         />
         <Skeletor 
-          height="15%"
-          width="70%"
+          height="10%"
+          width="75%"
           class="
-        ml-5
-        my-2"
+        ml-10
+        mr-2"
         />
+
         <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-5
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-5
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-5
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-5
-        my-2"
-        />
-        <Skeletor 
-          height="15%"
-          width="70%"
-          class="
-        ml-5
-        my-2"
-        />
-        <Skeletor 
-          height="40%"
+          height="45%"
           width="20%"
           class="
         mt-5
         my-2
-        ml-5"
+        ml-10"
         />
       </div>
     </div>
