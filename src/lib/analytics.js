@@ -14,8 +14,8 @@ export function init(){
   mixpanel.init('41f91ca4df909382e170dda08d4045fb'); 
 }
 
-export function eventTopNavClickPricing(){
-  mixpanel.track('topNavClickPricing');
+export function eventNavigate(){
+  mixpanel.track('navigate');
 }
 
 export function eventOpenPricingModal(){
