@@ -144,7 +144,7 @@ import {
   updateUserCache,
   updateUser
 } from '@/lib/cloudClient.js';
-import { gtmEventRegister } from '@/lib/gtm.js';
+import { eventRegister, singupMethodGithub } from '@/lib/analytics.js';
 
 import {
   loadLoggedIn
@@ -187,7 +187,7 @@ export default {
         if (this.$route.query.new_user === 'true'){
           try {
             updateUserCache();
-            gtmEventRegister('twitter/github');
+            eventRegister(singupMethodGithub);
             loadLoggedIn(this);
             if (this.$route.query.recruiter){
               await updateUser({isRecruiter: true});

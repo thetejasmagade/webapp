@@ -113,11 +113,11 @@ import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 import {
-  gtmEventEarnGems,
-  gtmEventUnlockAchievement,
-  gtmEventFinishCourse,
-  gtmEventClickExerciseNavigation
-} from '@/lib/gtm.js';
+  eventEarnGems,
+  eventUnlockAchievement,
+  eventFinishCourse,
+  eventClickExerciseNavigation
+} from '@/lib/analytics.js';
 
 import {
   getCurrentStep,
@@ -211,7 +211,7 @@ export default {
     async handleRewards(rewardsResponse) {
       if (rewardsResponse.ProjectDone) {
         if (!this.projectDone) {
-          gtmEventFinishCourse(this.project.Title, false);
+          eventFinishCourse(this.project.Title, false);
         }
         this.projectDone = true;
       }
@@ -224,7 +224,7 @@ export default {
       }
 
       if (rewardsResponse.GemCredit) {
-        gtmEventEarnGems(rewardsResponse.GemCredit);
+        eventEarnGems(rewardsResponse.GemCredit);
       }
 
       let notificationShown = false;
@@ -238,10 +238,10 @@ export default {
       if (rewardsResponse.Achievements) {
         for (const achievement of rewardsResponse.Achievements) {
           if (achievement.GemReward) {
-            gtmEventEarnGems(achievement.GemReward);
+            eventEarnGems(achievement.GemReward);
           }
           if (achievement.UUID) {
-            gtmEventUnlockAchievement(achievement.UUID);
+            eventUnlockAchievement(achievement.UUID);
           }
           notify({
             type: 'success',
@@ -304,7 +304,7 @@ export default {
       }
     },
     async goBack() {
-      gtmEventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
+      eventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
       try {
         const step = await getPreviousStep(
           this.$route.params.projectUUID,
@@ -319,7 +319,7 @@ export default {
       }
     },
     async goForward(submitManual) {
-      gtmEventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
+      eventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
       if (this.type === 'type_info' && !this.isComplete) {
         await this.submitTypeInfo();
       }

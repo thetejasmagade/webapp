@@ -59,7 +59,7 @@ import {
   loginGoogle,
   updateUser
 } from '@/lib/cloudClient.js';
-import { gtmEventRegister } from '@/lib/gtm.js';
+import { eventRegister, singupMethodGoogle } from '@/lib/analytics.js';
 import { notify } from '@/lib/notification.js';
 
 import {
@@ -128,7 +128,7 @@ export default {
         );
         loadLoggedIn(this);
         if (resp.registered){
-          gtmEventRegister('google');
+          eventRegister(singupMethodGoogle);
           if (this.$route.query.recruiter){
             await updateUser({isRecruiter: true});
             this.$router.push({name: 'Recruiters'});

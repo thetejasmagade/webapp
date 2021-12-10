@@ -44,8 +44,8 @@ import BlockButton from '@/components/BlockButton.vue';
 import { notify } from '@/lib/notification.js';
 
 import { 
-  gtmEventTutorialBegin
-} from '@/lib/gtm.js';
+  eventTutorialBegin
+} from '@/lib/analytics.js';
 
 import { 
   updateUser
@@ -69,7 +69,7 @@ export default {
     }
   },
   mounted(){
-    gtmEventTutorialBegin();
+    eventTutorialBegin();
   },
   methods:{
     async submitDeveloperExperience(){

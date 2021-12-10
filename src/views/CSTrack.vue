@@ -40,8 +40,8 @@ import TrackTimeline from '@/components/TrackTimeline.vue';
 import {unitTypeCourse, getUnitData, unitTypeProject} from '@/lib/unit.js';
 
 import { 
-  gtmEventSelectCourse
-} from '@/lib/gtm.js';
+  eventSelectCourse
+} from '@/lib/analytics.js';
 
 export default {
   components: {
@@ -57,7 +57,7 @@ export default {
     clickUnit(unit){
       const unitData = getUnitData(unit);
       if (unit.type === unitTypeCourse){
-        gtmEventSelectCourse(unitData.UUID, unitData.Title);
+        eventSelectCourse(unitData.UUID, unitData.Title);
         this.$router.push({name: 'Exercise', params: {courseUUID: unitData.UUID}});
       }
       if (unit.type === unitTypeProject){

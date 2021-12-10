@@ -66,8 +66,8 @@ import {
 } from '@/lib/cloudClient.js';
 
 import { 
-  gtmEventTutorialComplete
-} from '@/lib/gtm.js';
+  eventTutorialComplete
+} from '@/lib/analytics.js';
 import { notify } from '@/lib/notification.js';
 
 export default {
@@ -93,7 +93,7 @@ export default {
             linkedinURL: this.linkedinURL
           }
         );
-        gtmEventTutorialComplete();
+        eventTutorialComplete();
         this.$router.push({name: 'Settings', query: {redirect: this.$route.query.redirect}});
       } catch (err) {
         notify({
@@ -103,7 +103,7 @@ export default {
       }
     },
     async cancel(){
-      gtmEventTutorialComplete();
+      eventTutorialComplete();
       this.$router.push({name: 'Courses', query: {redirect: this.$route.query.redirect}});
     }
   }

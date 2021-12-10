@@ -1,11 +1,21 @@
-// make sure scripts are included in HTML head
+import mixpanel from 'mixpanel-browser';
+
+// make sure gtm scripts are included in HTML head
 
 // recommended events:
 // https://support.google.com/analytics/answer/9267735
 // https://developers.google.com/gtagjs/reference/ga4-events
 
+export const singupMethodGithub = 'github';
+export const singupMethodGoogle = 'googe';
+export const singupMethodEmail = 'email';
+
+export function init(){
+  mixpanel.init('41f91ca4df909382e170dda08d4045fb'); 
+}
+
 // method can be 'email', 'google', etc
-export function gtmEventRegister(method){
+export function eventRegister(method){
   try {
     window.dataLayer.push({
       'event': 'sign_up',
@@ -13,13 +23,16 @@ export function gtmEventRegister(method){
       'value': '.25',
       'currency': 'USD'
     });
+    mixpanel.track('signUp', {
+      method
+    });
   } catch (err) {
     console.log(err);
   }
 }
 
 // https://developers.google.com/analytics/devguides/collection/ga4/reference/events#begin_checkout
-export function gtmEventBeginCheckout(){
+export function eventBeginCheckout(){
   try {
     window.dataLayer.push({ ecommerce: null });
     window.dataLayer.push({
@@ -35,13 +48,14 @@ export function gtmEventBeginCheckout(){
         ]
       }
     });
+    mixpanel.track('beginCheckout');
   } catch (err) {
     console.log(err);
   }
 }
 
 // https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase
-export function gtmEventFinishCheckout(){
+export function eventFinishCheckout(){
   try {
     window.dataLayer.push({ ecommerce: null });
     window.dataLayer.push({
@@ -58,48 +72,52 @@ export function gtmEventFinishCheckout(){
         ]
       }
     });
+    mixpanel.track('purchase');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventExerciseFailure(exerciseUUID, courseTitle){
+export function eventExerciseFailure(exerciseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'exercise_failure',
       'exercise_uuid': exerciseUUID,
       'course_title': courseTitle
     });
+    mixpanel.track('exerciseFailure');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventExerciseSuccess(exerciseUUID, courseTitle){
+export function eventExerciseSuccess(exerciseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'exercise_success',
       'exercise_uuid': exerciseUUID,
       'course_title': courseTitle
     });
+    mixpanel.track('exerciseSuccess');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventExecuteCode(exerciseUUID, courseTitle){
+export function eventExecuteCode(exerciseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'execute_code',
       'exercise_uuid': exerciseUUID,
       'course_title': courseTitle
     });
+    mixpanel.track('executeCode');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventSubmitMultipleChoice(exerciseUUID, courseTitle){
+export function eventSubmitMultipleChoice(exerciseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'submit_multiple_choice',
@@ -111,104 +129,117 @@ export function gtmEventSubmitMultipleChoice(exerciseUUID, courseTitle){
   }
 }
 
-export function gtmEventClickCheat(exerciseUUID, courseTitle){
+export function eventClickCheat(exerciseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'click_cheat',
       'exercise_uuid': exerciseUUID,
       'course_title': courseTitle
     });
+    mixpanel.track('clickCheat');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventClickExerciseNavigation(exerciseUUID, courseTitle){
+export function eventClickExerciseNavigation(exerciseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'click_exercise_navigation',
       'exercise_uuid': exerciseUUID,
       'course_title': courseTitle
     });
+    mixpanel.track('clickExerciseNavigation');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventOpenProModal(){
+export function eventOpenProModal(){
   try {
     window.dataLayer.push({
       'event': 'open_pro_modal'
     });
+    mixpanel.track('openProModal');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventEarnGems(numGems){
+export function eventEarnGems(numGems){
   try {
     window.dataLayer.push({
       'event': 'earn_virtual_currency',
       'virtual_currency_name': 'Gems',
       'value': numGems
     });
+    mixpanel.track('earnVirtualCurrency');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventUnlockAchievement(achievementID){
+export function eventUnlockAchievement(achievementID){
   try {
     window.dataLayer.push({
       'event': 'unlock_achievement',
       'achievement_id': achievementID
     });
+    mixpanel.track('unlockAchievement');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventFinishCourse(courseName){
+export function eventFinishCourse(courseTitle){
   try {
     window.dataLayer.push({
       'event': 'level_end',
-      'level_name': courseName
+      'level_name': courseTitle
+    });
+    mixpanel.track('levelEnd', {
+      courseTitle
     });
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventSelectCourse(courseUUID, courseName){
+export function eventSelectCourse(courseUUID, courseTitle){
   try {
     window.dataLayer.push({
       'event': 'select_item',
       'item_list_name': 'courses',
       'items': [ {
         'item_id': courseUUID,
-        'item_name': courseName
+        'item_name': courseTitle
       } ]
+    });
+    mixpanel.track('selectCourse', {
+      courseTitle
     });
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventTutorialBegin(){
+export function eventTutorialBegin(){
   try {
     window.dataLayer.push({
       'event': 'tutorial_begin'
     });
+    mixpanel.track('tutorialBegin');
   } catch (err) {
     console.log(err);
   }
 }
 
-export function gtmEventTutorialComplete(){
+export function eventTutorialComplete(){
   try {
     window.dataLayer.push({
       'event': 'tutorial_complete'
     });
+    mixpanel.track('tutorialComplete');
   } catch (err) {
     console.log(err);
   }

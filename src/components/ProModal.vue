@@ -23,7 +23,7 @@
 import Modal from '@/components/Modal.vue';
 import BlockButton from '@/components/BlockButton.vue';
 
-import { gtmEventOpenProModal } from '@/lib/gtm';
+import { eventOpenProModal } from '@/lib/analytics.js';
 
 export default {
   components:{
@@ -32,7 +32,7 @@ export default {
   },
   methods:{
     show(){
-      gtmEventOpenProModal();
+      eventOpenProModal();
       this.$refs.proModal.show();
     },
     hide(){

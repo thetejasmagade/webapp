@@ -106,7 +106,7 @@ import {
   sendEmailVerification
 } from '@/lib/cloudClient.js';
 
-import { gtmEventRegister } from '@/lib/gtm.js';
+import { eventRegister, singupMethodEmail } from '@/lib/analytics.js';
 import { notify } from '@/lib/notification.js';
 
 export default {
@@ -154,7 +154,7 @@ export default {
         );
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
-        gtmEventRegister('email');
+        eventRegister(singupMethodEmail);
         this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect, recruiter:this.$route.query.recruiter}});
       } catch (err){
         notify({

@@ -288,8 +288,8 @@ import {
 } from '@/lib/cloudStore.js';
 
 import { 
-  gtmEventFinishCheckout
-} from '@/lib/gtm.js';
+  eventFinishCheckout
+} from '@/lib/analytics.js';
 import { notify } from '@/lib/notification.js';
 
 export default {
@@ -388,7 +388,7 @@ export default {
         type: 'success',
         text: 'Welcome to Qvault Pro!'
       });
-      gtmEventFinishCheckout();
+      eventFinishCheckout();
     },
     async deleteUser(){
       try {

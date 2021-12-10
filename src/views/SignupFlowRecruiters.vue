@@ -56,8 +56,8 @@ import {
 } from '@/lib/cloudClient.js';
 
 import { 
-  gtmEventTutorialComplete
-} from '@/lib/gtm.js';
+  eventTutorialComplete
+} from '@/lib/analytics.js';
 import { notify } from '@/lib/notification.js';
 
 export default {
@@ -81,7 +81,7 @@ export default {
       }
     },
     async cancel(){
-      gtmEventTutorialComplete();
+      eventTutorialComplete();
       this.$router.push({name: 'Courses', query: {redirect: this.$route.query.redirect}});
     }
   }
