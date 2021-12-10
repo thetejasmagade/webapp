@@ -14,6 +14,14 @@ export function init(){
   mixpanel.init('41f91ca4df909382e170dda08d4045fb'); 
 }
 
+export function eventTopNavClickPricing(){
+  mixpanel.track('topNavClickPricing');
+}
+
+export function eventOpenPricingModal(){
+  mixpanel.track('openPricingModal');
+}
+
 // method can be 'email', 'google', etc
 export function eventRegister(method){
   try {

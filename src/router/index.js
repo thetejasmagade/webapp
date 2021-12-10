@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { eventTopNavClickPricing } from '@/lib/analytics.js';
 
 const Courses = () => import('@/views/Courses.vue');
 const Portfolio = () => import('@/views/Portfolio.vue');
@@ -205,4 +206,12 @@ router.beforeEach((to, from, next) => {
 
   next();
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.fullPath.includes('pricing')){
+    eventTopNavClickPricing();
+  }
+  next();
+});
+
 export default router;

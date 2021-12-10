@@ -31,6 +31,8 @@
 import Modal from '@/components/Modal.vue';
 import BlockButton from '@/components/BlockButton.vue';
 
+import { eventOpenPricingModal } from '@/lib/analytics.js';
+
 export default {
   components:{
     Modal,
@@ -49,6 +51,7 @@ export default {
       this.$refs.pricingModal.hide();
     },
     show(){
+      eventOpenPricingModal();
       this.$refs.pricingModal.show();
     },
     hide(){
