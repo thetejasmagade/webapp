@@ -21,83 +21,71 @@
     >
       <div>
         <Skeletor 
-          height="20%"
+          height="60"
           width="40%"
           class="
-        mt-5
-        my-2
-        ml-10"
+            rounded
+            mt-5
+            my-2
+            ml-10
+          "
         />
-        <Skeletor 
-          height="10%"
-          width="70%"
-          class="
-        ml-10"
-        />
-        
-        <Skeletor 
-          height="10%"
-          width="85%"
-          class="
-        ml-10
-        my-2"
-        />
-        <Skeletor 
-          height="10%"
+        <Skeletor
+          v-for="i in 12"
+          :key="i"
+          height="20"
           width="75%"
+          :class="{'mt-5': i === 1}"
           class="
-        ml-10
-        my-2"
-        />
+            rounded
+            my-2
+            ml-10
+          "
+        />     
 
         <Skeletor 
-          height="45%"
-          width="20%"
+          height="50"
+          width="60%"
           class="
-        mt-5
-        my-2
-        ml-10"
+            mt-5
+            my-2
+            ml-10
+          "
         />
       </div>
       <!-- Right side Skeleton -->
-      <div> 
+      <div>
         <Skeletor 
-          height="20%"
+          height="60"
           width="40%"
           class="
-        mt-5
-        my-2
-        ml-10"
+            rounded
+            mt-5
+            my-2
+            ml-10
+          "
         />
-        <Skeletor 
-          height="10%"
-          width="70%"
-          class="
-        ml-10"
-        />
-        
-        <Skeletor 
-          height="10%"
-          width="85%"
-          class="
-        ml-10
-        my-2"
-        />
-        <Skeletor 
-          height="10%"
+        <Skeletor
+          v-for="i in 12"
+          :key="i"
+          height="20"
           width="75%"
+          :class="{'mt-5': i === 1}"
           class="
-        ml-10
-        mr-2"
-        />
+            rounded
+            my-2
+            ml-10
+          "
+        />     
 
         <Skeletor 
-          height="45%"
-          width="20%"
+          height="50"
+          width="60%"
           class="
-        mt-5
-        my-2
-        ml-10"
+            mt-5
+            my-2
+            ml-10
+          "
         />
       </div>
     </div>
