@@ -5,7 +5,6 @@
       flex-row
       whitespace-nowrap
       bg-gray-200
-      shadow
       border-gray-400
     "
     :class="{
@@ -61,8 +60,8 @@
 
     <div class="flex flex-row flex-end">
       <Tooltip
-        :text="`Leave Feedback`"
-        position="bottom"
+        :text="`Feedback`"
+        position="left"
       >
         <BlockButton
           :click="clickComment"

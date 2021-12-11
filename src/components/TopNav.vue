@@ -150,7 +150,7 @@ export default {
 @import '@/styles/consts.scss';
 
 .nav {
-  height: $bar-height;
+  height: var(--top-nav-bar-height);
 }
 
 .mobile {

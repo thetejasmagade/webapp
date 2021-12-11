@@ -1,5 +1,5 @@
 <template>
-  <div class="exercise-root">
+  <div class="h-full">
     <ProModal ref="proModal" />
     <FeedbackModal
       v-if="$route.params.exerciseUUID"
@@ -13,80 +13,97 @@
       :go-to-beginning-callback="goToBeginning"
     />
 
-
     <ExerciseSkeleton v-if="!isContentLoaded" />
-    <div 
-      v-else 
-      class="exercise-container desktop"
+    <div
+      v-else
+      class="
+        h-full
+        hidden
+        flex-col
+        sm:flex
+      "
     >
-      <Multipane layout="horizontal">
+      <ExerciseNav
+        class="
+          p-3
+          w-full
+          box-border
+          shadow
+          z-10
+        "
+        :dropdown-one-items="course.Modules.map((mod, i) => {
+          return {
+            name: `${i+1}. ${mod.Title}`,
+            link: {
+              name: 'Exercise',
+              params: {
+                courseUUID: $route.params.courseUUID,
+                moduleUUID: mod.UUID
+              }
+            }
+          }
+        })"
+        :dropdown-two-items="exercises.map((ex, i) => {
+          return {
+            name: `${i+1}/${exercises.length}`,
+            link: {
+              name: 'Exercise',
+              params: {
+                courseUUID: $route.params.courseUUID,
+                moduleUUID: module.UUID,
+                exerciseUUID: ex.UUID
+              }
+            }
+          }
+        })"
+        :dropdown-one-index="moduleIndex"
+        :dropdown-two-index="exerciseIndex"
+        :go-back="goBack"
+        :go-forward="goForward"
+        :can-go-back="!isFirstExercise"
+        :can-go-forward="!isLastExercise || courseDone"
+        :is-complete="isComplete"
+        :locked="locked"
+        :click-comment="() => showFeedbackModal()"
+      />
+      <Multipane
+        layout="horizontal"
+        class="flex-1 overflow-y-auto"
+      >
         <div
-        
           class="
-            side 
-            left
+            flex
+            flex-col
+            w-1/2
             bg-white
             border-r
             border-gray-300
           "
         >
-          <ExerciseNav
-            v-if="locked !== null"
-            class="nav"
-            :dropdown-one-items="course.Modules.map((mod, i) => {
-              return {
-                name: `${i+1}. ${mod.Title}`,
-                link: {
-                  name: 'Exercise',
-                  params: {
-                    courseUUID: $route.params.courseUUID,
-                    moduleUUID: mod.UUID
-                  }
-                }
-              }
-            })"
-            :dropdown-two-items="exercises.map((ex, i) => {
-              return {
-                name: `${i+1}/${exercises.length}`,
-                link: {
-                  name: 'Exercise',
-                  params: {
-                    courseUUID: $route.params.courseUUID,
-                    moduleUUID: module.UUID,
-                    exerciseUUID: ex.UUID
-                  }
-                }
-              }
-            })"
-            :dropdown-one-index="moduleIndex"
-            :dropdown-two-index="exerciseIndex"
-            :go-back="goBack"
-            :go-forward="goForward"
-            :can-go-back="!isFirstExercise"
-            :can-go-forward="!isLastExercise || courseDone"
-            :is-complete="isComplete"
-            :locked="locked"
-            :click-comment="() => showFeedbackModal()"
-          />
-
           <MarkdownViewer
             ref="viewer"
-            class="markdown-viewer"
+            class="
+              flex-1
+              overflow-y-auto
+            "
             :source="markdownSource"
           />
         </div>
         <MultipaneResizer layout="horizontal" />
         <div
           v-if="type === 'type_info'"
-          id="info-container"
           class="
-          side
-          right
+          h-full
+          flex
+          flex-col
+          items-center
+          justify-center
+          flex-1
+          overflow-auto
           bg-white
           "
         >
           <BlockButton
-            class="btn"
             :click="goForward"
           >
             Continue
@@ -96,7 +113,13 @@
           v-else-if="type === 'type_code' || type === 'type_code_canvas'"
           :key="isCheating"
           v-model="code"
-          class="side right"
+          class="
+            h-full
+            flex
+            flex-col
+            flex-1
+            overflow-auto
+          "
           :run-callback="
             type === 'type_code' ? submitTypeCode : submitTypeCodeCanvas
           "
@@ -111,8 +134,11 @@
         <MultipleChoice
           v-else-if="type === 'type_choice'"
           class="
-            side
-            right
+            h-full
+            flex
+            flex-col
+            flex-1
+            overflow-auto
             bg-white
           "
           :callback="submitTypeChoice"
@@ -122,9 +148,15 @@
         />
       </Multipane>
     </div>
-    <div class="mobile">
+    <div
+      class="
+      block
+      sm:hidden
+      p-4
+    "
+    >
       <Section title="Come back on a computer">
-        <p>
+        <p class="p-4">
           Coding is hard to do on a phone. I want you to have a great
           experience, so please hurry back on a larger device.
         </p>
@@ -609,81 +641,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/colors.scss";
-@import "@/styles/consts.scss";
-
-.mobile {
-  display: none !important;
-  @media screen and (max-width: $mobile-size) {
-    display: block !important;
-  }
-
-  padding: 1em;
-
-  p {
-    padding: 1em;
-  }
-}
-
-.desktop {
-  @media screen and (max-width: $mobile-size) {
-    display: none !important;
-  }
-}
-
-.exercise-root {
-  height: 100%;
-}
-
-.exercise-container {
-  display: flex;
-  height: calc(100vh - #{$bar-height});
-}
-
-.full {
-  padding-top: 20px;
-}
-
-.side {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  &.left {
-    width: 50%;
-  }
-
-  &.right {
-    flex: 1;
-    overflow: auto;
-  }
-}
-
-#info-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  p {
-    font-size: 2em;
-  }
-
-  .btn {
-    font-size: 1.2em;
-  }
-}
-
-.markdown-viewer {
-  flex: 1 1 auto;
-  overflow-y: auto;
-}
-
-.nav {
-  flex: 0 0 auto;
-  width: 100%;
-  padding: 1em;
-  box-sizing: border-box;
-}
+<style scoped>
 </style>

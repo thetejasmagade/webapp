@@ -17,22 +17,6 @@
       <Multipane layout="vertical">
         <div
           class="
-          w-full
-          p-4
-          flex-0
-        "
-        >
-          <ConsoleButtons
-            :run-callback="isCheating ? null : runCode"
-            :reset-callback="() => $refs.resetCodeModal.show()"
-            :upgrade-callback="upgradeCallback"
-            :cheat-callback="cheatCallback"
-            :is-cheating="isCheating"
-            class="console-buttons"
-          />
-        </div>
-        <div
-          class="
             w-full
             h-4/6
           "
@@ -43,27 +27,34 @@
             class="h-full"
             :options="codeMirrorOptions"
           />
-          <div
+          <CodeMirrorMergeWrapper
             v-else
-            class="h-full flex flex-col"
-          >
-            <div class="flex flex-row text-xl bg-gray-800">
-              <h2 class="text-center w-1/2 text-red-500">
-                Your Code
-              </h2>
-              <h2 class="text-center w-1/2 text-green-500">
-                Potential Solution
-              </h2>
-            </div>
-            <CodeMirrorMergeWrapper
-              class="flex-grow"
-              :code="modelValue"
-              :solution="solution"
-              :options="codeMirrorOptions"
-            />
-          </div>
+            class="h-full"
+            :code="modelValue"
+            :solution="solution"
+            :options="codeMirrorOptions"
+          />
         </div>
         <MultipaneResizer layout="vertical" />
+        <div
+          class="
+            w-full
+            p-2
+            flex-0
+            bg-gray-800
+            border-t-2
+            border-b
+            border-gray-600
+          "
+        >
+          <ConsoleButtons
+            :run-callback="isCheating ? null : runCode"
+            :reset-callback="() => $refs.resetCodeModal.show()"
+            :upgrade-callback="upgradeCallback"
+            :cheat-callback="cheatCallback"
+            :is-cheating="isCheating"
+          />
+        </div>
         <div
           ref="console"
           class="
@@ -71,14 +62,16 @@
             flex-1
             flex-row
             overflow-auto
-            border-t
-            border-gray-700
             w-full
             bg-gray-800
             text-gray-200
+            p-4
           "
         >
-          <Multipane layout="horizontal">
+          <Multipane
+            layout="horizontal"
+            class="h-full"
+          >
             <canvas
               v-if="canvasAllowed"
               id="canvas"
@@ -89,12 +82,17 @@
               class="
                 border-t
                 border-gray-600
-                my-4
                 bg-white
+                mr-4
               "
             />
             <MultipaneResizer layout="horizontal" />
-            <div class="m-4">
+            <div
+              class="
+              overflow-auto
+              h-full
+            "
+            >
               <p
                 v-for="(line, i) of output"
                 :key="i"
@@ -112,7 +110,8 @@
   </div>
 </template>
 
-<script>import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
+<script>
+import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
 import { 
   compileGo,
   compilePureScript

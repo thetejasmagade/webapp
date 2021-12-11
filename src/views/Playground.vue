@@ -226,7 +226,7 @@ export default {
     }
     @media screen and (min-width: $mobile-size) {
       display: block;
-      top: calc(15px + #{$bar-height});
+      top: calc(15px + var(--top-nav-bar-height));
       right: 20px;
       position: absolute;
     }

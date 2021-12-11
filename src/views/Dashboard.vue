@@ -1,19 +1,34 @@
 <template>
-  <div id="dashboard">
+  <div>
     <TopNav />
-    <div id="dashboard-container">
+    <div
+      class="
+        flex
+        h-full-minus-bar
+      "
+    >
       <Sidebar
         :path-name="routeName"
-        class="sidebar w-20"
+        class="
+          inline-block
+          align-top
+          w-20"
       />
 
-      <div id="content">
-        <div class="inner-content">
-          <router-view
-            :key="routePath"
-            class="router-view"
-          />
-        </div>
+      <div
+        class="
+        align-top
+        h-full
+        overflow-auto
+        flex-1
+        flex
+        flex-col
+      "
+      >
+        <router-view
+          :key="routePath"
+          class="router-view"
+        />
       </div>
     </div>
   </div>
@@ -85,33 +100,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-
-#dashboard {
-  #dashboard-container {
-    display: flex;
-    height: calc(100vh - #{$bar-height});
-  }
-}
-
-.sidebar {
-	display: inline-block;
-	vertical-align: top;
-}
-
-#content {
-	display: inline-block;
-	vertical-align: top;
-	height: 100%;
-	overflow: auto;
-  flex: 1;
-
-  .inner-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
+<style scoped>
+.h-full-minus-bar {
+  height: calc(100vh - var(--top-nav-bar-height));
 }
 </style>

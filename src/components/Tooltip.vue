@@ -13,7 +13,8 @@
         'bg-green-500': color === 'green',
         top: position === 'top',
         right: position === 'right',
-        bottom: position === 'bottom'
+        bottom: position === 'bottom',
+        left: position === 'left'
       }"
     >
       <div
@@ -100,6 +101,12 @@ export default {
 .right {
   top: 50%;
   left: calc(100% + 10px);
+  transform: translate(0, -50%);
+}
+
+.left {
+  top: 50%;
+  right: calc(100% + 10px);
   transform: translate(0, -50%);
 }
 </style>

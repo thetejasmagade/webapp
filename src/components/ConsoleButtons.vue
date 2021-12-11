@@ -1,5 +1,12 @@
 <template>
-  <div class="flex flex-row justify-start content-center">
+  <div
+    class="
+      flex
+      flex-row
+      justify-start
+      content-center
+    "
+  >
     <Tooltip
       v-if="upgradeCallback"
       :text="`Get pro`"

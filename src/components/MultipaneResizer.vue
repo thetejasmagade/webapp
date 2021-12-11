@@ -1,6 +1,11 @@
 <template>
   <div
-    class="multipane-resizer"
+    class="
+      multipane-resizer
+      block
+      relative
+      z-10
+    "
     :class="{
       'vertical': layout === 'vertical',
       'horizontal': layout === 'horizontal'
@@ -25,10 +30,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.multipane-resizer {
-  display: block;
-  position: relative;
-  z-index: 2;
-}
+<style scoped>
 </style>

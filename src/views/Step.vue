@@ -390,7 +390,7 @@ export default {
 
 .exercise-container {
   display: flex;
-  height: calc(100vh - #{$bar-height});
+  height: calc(100vh - var(--top-nav-bar-height));
 }
 
 .side {
