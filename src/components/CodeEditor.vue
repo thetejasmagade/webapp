@@ -65,12 +65,13 @@
             w-full
             bg-gray-800
             text-gray-200
-            p-4
+            py-4
+            pl-4
           "
         >
           <Multipane
             layout="horizontal"
-            class="h-full"
+            class="h-full flex flex-row"
           >
             <canvas
               v-if="canvasAllowed"
@@ -91,6 +92,8 @@
               class="
               overflow-auto
               h-full
+              flex-1
+              pr-4
             "
             >
               <p
