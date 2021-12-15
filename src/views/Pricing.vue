@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNav title="Qvault Pricing" />
+    <TopNav title="Pricing" />
     <LoadingOverlay :is-loading="isLoading" />
 
     <div class="md:p-4 sm:p-0">

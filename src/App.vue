@@ -55,7 +55,8 @@ import {
   faGithub,
   faLinkedin,
   faPython,
-  faGolang
+  faGolang,
+  faDiscord
 } from '@fortawesome/free-brands-svg-icons';
 
 import {
@@ -102,6 +103,7 @@ library.add(faPuzzlePiece);
 library.add(faServer);
 library.add(faPython);
 library.add(faGolang);
+library.add(faDiscord);
 
 export default {
   setup () {

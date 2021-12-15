@@ -2,8 +2,8 @@
   <div>
     <Section
       class="section"
-      title="Nail coding interviews and jumpstart your career"
-      subtitle="These university-quality Python courses will teach you all about algorithms and data structures"
+      title="It's hard to find a job if you don't understand the fundamentals of algorithms"
+      subtitle="These university-quality Python courses will fill in the gaps in your CS knowledge"
     >
       <TrackTimeline
         :units="trackDSAlgosCourses"

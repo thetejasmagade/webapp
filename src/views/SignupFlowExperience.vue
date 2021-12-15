@@ -4,8 +4,8 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="Developer Experience"
-        subtitle="Let us know where you're at as a programmer so we can recommend the best courses for you"
+        title="Where are you at in your coding career?"
+        subtitle="We only want to give you courses, projects, advice, and connections relevant to your situation"
         class="max-w-2xl"
       >
         <div class="text-center">
@@ -26,7 +26,7 @@
           <BlockButton
             :click="submitDeveloperExperience"
           >
-            Submit
+            Continue
           </BlockButton>
         </div>
       </Section>

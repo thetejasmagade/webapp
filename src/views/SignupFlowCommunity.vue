@@ -4,21 +4,31 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="Our Community"
-        subtitle="We learn better together. Join our friendly community to receive and give help along the way"
+        title="Join our Discord Community"
+        subtitle="Connect with our community and founders directly for personal advice and help"
         class="max-w-2xl"
       >
         <div class="text-center">
           <div class="flex flex-col items-center">
             <h3 class="text-xl text-gold-600 my-4">
-              Ask questions and make friends on our Discord server
+              Why should I join?
             </h3>
+            <ul class="list-disc ml-5 mb-4 text-left">
+              <li>Get instant personalized help with your resume and portfolio</li>
+              <li>Get personal advice on what you should be learning and building</li>
+              <li>Attend free digital learning events</li>
+              <li>Get help with courses and projects</li>
+            </ul>
 
             <BlockButton
               :click="linkClick"
               class="my-4"
             >
-              Join us on Discord
+              <FontAwesomeIcon
+                :icon="['fab', 'discord']"
+                class="icon"
+              />
+              Join the Discord Free
             </BlockButton>
 
             <BlockButton
@@ -26,7 +36,7 @@
               class="max-w-xs"
               :click="continueClick"
             >
-              Continue to Courses
+              Continue
             </BlockButton>
           </div>
         </div>
@@ -37,7 +47,7 @@
 
 <script>
 import { experienceLevelToObj } from '@/lib/experienceLevels.js';
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import TopNav from '@/components/TopNav.vue';
 import Section from '@/components/Section.vue';
 import BlockButton from '@/components/BlockButton.vue';
@@ -46,7 +56,8 @@ export default {
   components: {
     TopNav,
     Section,
-    BlockButton
+    BlockButton,
+    FontAwesomeIcon
   },
   data(){
     return {

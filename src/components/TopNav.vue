@@ -42,16 +42,12 @@
           target="_blank"
           class="item px-4 m-2"
         >
+          <FontAwesomeIcon
+            :icon="['fab', 'discord']"
+            class="icon mr-2"
+          />
           <span>Community</span>
         </a>
-
-        <router-link
-          to="/playground/go"
-          class="item px-4 m-2"
-          :class="{current: routeName === 'Playground' }"
-        >
-          <span>Playground</span>
-        </router-link>  
 
         <a
           href="https://qvault.io/articles"
@@ -88,20 +84,17 @@
         :class="{current: routeName === 'Pricing' }"
       >
         <span>Pricing</span>
-      </a>
+      </a> 
       <a
-        href="/playground/go"
-        class="item"
-        :class="{current: routeName === 'Playground' }"
-      >
-        <span>Playground</span>
-      </a>   
-      <a
-        href="https://qvault.io/contact"
+        href="https://discord.gg/k4rVEWt"
         target="_blank"
         class="item"
       >
-        <span>Contact</span>
+        <FontAwesomeIcon
+          :icon="['fab', 'discord']"
+          class="icon mr-2"
+        />
+        <span>Community</span>
       </a>   
       <a
         href="https://qvault.io/articles"
@@ -124,7 +117,7 @@ export default {
   },
   props: {
     title: {
-      default: 'Qvault.io',
+      default: null,
       required: false,
       type: String
     }

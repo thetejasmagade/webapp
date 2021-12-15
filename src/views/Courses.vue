@@ -13,12 +13,6 @@ import TabsNav from '@/components/TabsNav.vue';
 export default {
   components: {
     TabsNav
-  },
-  data() {
-    return {
-      isLoading: false,
-      initialTabIndex: 0
-    };
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <div>
     <Section
       title="All Courses"
-      subtitle="Browse all of Qvault's content. We release new courses often"
+      subtitle="Browse all of Qvault's content. Join the Discord to get recommendations"
     >
       <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
         <div

@@ -80,14 +80,14 @@ const routes = [
         component: Courses,
         children: [
           {
-            path: 'cs-track',
-            name: 'CSTrack',
-            component: CSTrack
-          },
-          {
             path: 'algos-track',
             name: 'AlgosTrack',
             component: AlgosTrack
+          },
+          {
+            path: 'cs-track',
+            name: 'CSTrack',
+            component: CSTrack
           },
           {
             path: 'golang-track',
@@ -200,7 +200,7 @@ router.beforeEach((to, from, next) => {
 
   // Dashboard default child redirect
   if (to.fullPath === '/dashboard/courses') {
-    next({name: 'CSTrack' });
+    next({name: 'AlgosTrack' });
     return;
   }
 

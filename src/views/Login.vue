@@ -3,7 +3,7 @@
     class="login-container flex flex-col h-screen"
   >
     <div class="nav-container">
-      <TopNav title="Qvault" />
+      <TopNav />
     </div>
 
     <div class="grid place-items-center mx-2 my-20 sm:my-auto">

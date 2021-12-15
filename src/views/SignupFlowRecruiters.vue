@@ -4,25 +4,20 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="Landing your dream job"
-        subtitle="We not only educate, but also help you find you a job you love"
+        title="Qvault is about achieving career goals"
+        subtitle="Do you want help finding your next dev job?"
         class="section"
       >
         <div class="max-w-xl p-4">
           <p class="mb-2">
-            We have exclusive partnerships with organizations that are dedicated
-            to finding great tech jobs for our students. If you're interested in
+            We have partnerships with organizations that are dedicated
+            to finding great coding jobs for our community. If you're interested in
             <b class="text-gold-700"> getting hired now or in the future </b> then opt-in below. You can also update your settings
-            any time, your privacy is a priority to us.
-          </p>
-
-          <p class="mb-2">
-            Make sure to update your Qvault profile with a picture, LinkedIn account, location,
-            etc, to increase your chances of getting contacted!
+            any time, your privacy is an absolute priority to us.
           </p>
 
           <h2 class="text-xl text-gold-600 mt-4 mb-4">
-            If we find a coding job that seems like a great match, can our partners reach out?
+            If a partner finds a coding job that seems like a great match, can they reach out to you via email?
           </h2>
 
           <div class="text-center">

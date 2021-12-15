@@ -4,22 +4,6 @@
       <router-link
         v-if="$store.getters.getIsLoggedIn"
         class="tabs-tab"
-        :class="{'tab-selected': routePath.includes('cs-track')}"
-        to="/dashboard/courses/cs-track"
-      >
-        <FontAwesomeIcon
-          icon="graduation-cap"
-          class="icon"
-        />
-        <span
-          class="desktop"
-        >
-          Computer Science Track
-        </span>
-      </router-link>
-      <router-link
-        v-if="$store.getters.getIsLoggedIn"
-        class="tabs-tab"
         :class="{'tab-selected': routePath.includes('algos-track')}"
         to="/dashboard/courses/algos-track"
       >
@@ -31,6 +15,22 @@
           class="desktop"
         >
           Algorithms Track
+        </span>
+      </router-link>
+      <router-link
+        v-if="$store.getters.getIsLoggedIn"
+        class="tabs-tab"
+        :class="{'tab-selected': routePath.includes('cs-track')}"
+        to="/dashboard/courses/cs-track"
+      >
+        <FontAwesomeIcon
+          icon="graduation-cap"
+          class="icon"
+        />
+        <span
+          class="desktop"
+        >
+          CompSci Track
         </span>
       </router-link>
       <router-link

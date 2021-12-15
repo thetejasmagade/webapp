@@ -5,7 +5,7 @@
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
         title="Technical Interests"
-        subtitle="By knowing which technologies and subjects you like, we can suggest material that's perfect for you"
+        subtitle="Let us know here and in the Discord what you're most interested in"
         class="max-w-2xl"
       >
         <div class="mx-5">
@@ -22,7 +22,7 @@
               :click="submitInterests"
               :disabled="checkedAnswers.length < 1 || checkedAnswers.length > 5"
             >
-              <span>Submit</span>
+              <span>Continue</span>
             </BlockButton>
           </div>
         </div>
