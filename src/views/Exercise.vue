@@ -150,10 +150,10 @@
     </div>
     <div
       class="
-      block
-      sm:hidden
-      p-4
-    "
+        block
+        sm:hidden
+        p-4
+      "
     >
       <Section title="Come back on a computer">
         <p class="p-4">

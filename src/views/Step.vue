@@ -1,5 +1,5 @@
 <template>
-  <div class="exercise-root">
+  <div class="h-full">
     <CourseDoneModal
       ref="projectDoneModal"
       :go-to-beginning-callback="goToBeginning"
@@ -13,47 +13,62 @@
 
     <div
       v-if="project"
-      class="exercise-container desktop"
+      class="
+        h-full
+        hidden
+        flex-col
+        sm:flex
+      "
     >
+      <ExerciseNav
+        class="
+          p-3
+          w-full
+          box-border
+          shadow
+          z-10
+        "
+        :dropdown-one-items="project.Steps.map((step, i) => {
+          return {
+            name: `${i+1}/${project.Steps.length}`,
+            link: {
+              name: 'Step',
+              params: {
+                projectUUID: $route.params.projectUUID,
+                stepUUID: step.UUID
+              }
+            }
+          }
+        })"
+        :dropdown-one-index="stepIndex"
+        :go-back="goBack"
+        :go-forward="() => {goForward(false)}"
+        :can-go-back="!isFirstStep"
+        :can-go-forward="!isLastStep || projectDone"
+        :is-complete="isComplete"
+        :locked="false"
+        :click-comment="() => showFeedbackModal()"
+      />
       <Multipane
         layout="horizontal"
+        class="flex-1 overflow-y-auto"
       >
         <div
           class="
-            side 
-            left
+            flex
+            flex-col
+            w-1/2
             bg-white
             border-r
             border-gray-300
           "
         >
-          <ExerciseNav
-            class="nav"
-            :dropdown-one-items="project.Steps.map((step, i) => {
-              return {
-                name: `${i+1}/${project.Steps.length}`,
-                link: {
-                  name: 'Step',
-                  params: {
-                    projectUUID: $route.params.projectUUID,
-                    stepUUID: step.UUID
-                  }
-                }
-              }
-            })"
-            :dropdown-one-index="stepIndex"
-            :go-back="goBack"
-            :go-forward="() => {goForward(false)}"
-            :can-go-back="!isFirstStep"
-            :can-go-forward="!isLastStep || projectDone"
-            :is-complete="isComplete"
-            :locked="false"
-            :click-comment="() => showFeedbackModal()"
-          />
-
           <MarkdownViewer
             ref="viewer"
-            class="markdown-viewer"
+            class="
+              flex-1
+              overflow-y-auto
+            "
             :source="markdownSource"
           />
         </div>
@@ -62,9 +77,14 @@
           v-if="type === 'type_info' || type === 'type_manual'"
           id="info-container"
           class="
-          side
-          right
-          bg-white
+            h-full
+            flex
+            flex-col
+            items-center
+            justify-center
+            flex-1
+            overflow-auto
+            bg-white
           "
         >
           <BlockButton
@@ -87,9 +107,15 @@
         </div>
       </Multipane>
     </div>
-    <div class="mobile">
+    <div
+      class="
+        block
+        sm:hidden
+        p-4
+      "
+    >
       <Section title="Come back on a computer">
-        <p>
+        <p class="p-4">
           Coding is hard to do on a phone. I want you to have a great
           experience, so please hurry back on a larger device.
         </p>
@@ -361,77 +387,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/colors.scss";
-@import "@/styles/consts.scss";
-
-.mobile {
-  display: none !important;
-  @media screen and (max-width: $mobile-size) {
-    display: block !important;
-  }
-
-  padding: 1em;
-
-  p {
-    padding: 1em;
-  }
-}
-
-.desktop {
-  @media screen and (max-width: $mobile-size) {
-    display: none !important;
-  }
-}
-
-.exercise-root {
-  height: 100%;
-}
-
-.exercise-container {
-  display: flex;
-  height: calc(100vh - var(--top-nav-bar-height));
-}
-
-.side {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  &.left {
-    width: 50%;
-  }
-
-  &.right {
-    flex: 1;
-    overflow: auto;
-  }
-}
-
-#info-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  p {
-    font-size: 2em;
-  }
-
-  .btn {
-    font-size: 1.2em;
-  }
-}
-
-.markdown-viewer {
-  flex: 1 1 auto;
-  overflow-y: auto;
-}
-
-.nav {
-  flex: 0 0 auto;
-  width: 100%;
-  padding: 1em;
-  box-sizing: border-box;
-}
+<style scoped>
 </style>
