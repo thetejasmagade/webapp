@@ -20,7 +20,7 @@
         >
 
         <h2 class="text-center font-semibold mb-2 text-2xl text-gray-800">
-          We make computer science <span class="font-bold text-blue-400">simple</span>
+          Learn coding concepts that <span class="font-bold text-blue-400">get you hired</span>
         </h2>
 
         <h3 class="text-center text-gray-500 mb-3">
