@@ -25,12 +25,24 @@ function getHash(toHash) {
 }
 
 addEventListener('message', async (e) => {
-  await pyodideReadyPromise;
-
-  if (e.data.type === 'canvas') {
+  if (e.data.type === 'SETUP_CANVAS') {
     canvas = e.data.canvas;
     return;
   }
+
+  await pyodideReadyPromise;
+
+  if (e.data.type === 'WORKER_READY') {
+    postMessage({
+      ready: true
+    });
+    return;
+  }
+
+  if (e.data.type !== 'EXEC_CODE') {
+    throw 'bad data type in worker';
+  }
+
   if (canvas){
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -38,7 +50,7 @@ addEventListener('message', async (e) => {
 
   self.runCode = () => {
     try {
-      self.pyodide.runPython(e.data);
+      self.pyodide.runPython(e.data.code);
     } catch (err){
       postMessage({
         error: `${err}`

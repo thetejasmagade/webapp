@@ -30,10 +30,22 @@ function getHash(toHash) {
 }
 
 addEventListener('message', async (e) => {
-  if (e.data.type === 'canvas') {
+  if (e.data.type === 'SETUP_CANVAS') {
     canvas = e.data.canvas;
     return;
   }
+
+  if (e.data.type === 'WORKER_READY') {
+    postMessage({
+      ready: true
+    });
+    return;
+  }
+
+  if (e.data.type !== 'EXEC_CODE') {
+    throw 'bad data type in worker';
+  }
+
   if (canvas){
     if (!ctx) {
       ctx = canvas.getContext('2d');
@@ -44,7 +56,7 @@ addEventListener('message', async (e) => {
   try {
     const newFunc = new Function(`
     let wholeCode = async function () {
-      ${e.data}
+      ${e.data.code}
     };
     return wholeCode();
     `);

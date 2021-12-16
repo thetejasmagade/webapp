@@ -3,6 +3,7 @@
     <LoadingOverlay
       :is-loading="isLoading"
       :cancel="cancelCode"
+      :display-text="loadingText"
     />
 
     <ConfirmModal
@@ -114,7 +115,7 @@
 </template>
 
 <script>
-import { getWorker, useWorker, terminateWorker } from '@/lib/runWorker.js';
+import { getWorker, useWorker, terminateWorker, awaitWorkerReady } from '@/lib/runWorker.js';
 import { 
   compileGo,
   compilePureScript
@@ -198,7 +199,8 @@ export default {
       canvasAllowed: this.canvasEnabled,
       // re-render the canvas each time we
       // need a new worker
-      numCancellations: 0
+      numCancellations: 0,
+      loadingText: null
     };
   },
   computed: {
@@ -339,19 +341,34 @@ export default {
 
         try {
           if (this.progLang === 'go'){
+            this.loadingText = 'Compiling your code...';
             const wasm = await compileGo(this.modelValue);
+            this.loadingText = 'Setting up your environment...';
+            await awaitWorkerReady(this.worker);
+            this.loadingText = 'Running your code...';
+            // make it feel like something is running
+            await sleep(250);
             await useWorker(this.worker, wasm, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
           }  else if (this.progLang === 'purs'){
+            this.loadingText = 'Transpiling your code...';
             const resp = await compilePureScript(this.modelValue);
+            this.loadingText = 'Setting up your environment...';
+            await awaitWorkerReady(this.worker);
+            this.loadingText = 'Running your code...';
+            // make it feel like something is running
+            await sleep(250);
             await useWorker(this.worker, resp.Code, (data) => {
               this.output.push(data); 
               this.scrollToEnd();
             });
           } else if (this.progLang === 'js'){
-          // make it feel like something is running
+            this.loadingText = 'Setting up your environment...';
+            await awaitWorkerReady(this.worker);
+            this.loadingText = 'Running your code...';
+            // make it feel like something is running
             await sleep(250);
             let final = await useWorker(this.worker, this.modelValue, (data) => {
               this.output.push(data); 
@@ -359,6 +376,10 @@ export default {
             });
             hash = final.hash;
           } else if (this.progLang === 'py'){
+            this.loadingText = 'Setting up your environment...';
+            await awaitWorkerReady(this.worker);
+            this.loadingText = 'Running your code...';
+            // make it feel like something is running
             await sleep(250);
             await useWorker(this.worker, this.modelValue, (data) => {
               this.output.push(data); 
@@ -371,6 +392,7 @@ export default {
         }
         this.err = false;
         this.isLoading = false;
+        this.loadingText = null;
         let finalOut = this.outputToSubmission(this.output);
         await this.runCallback({output: finalOut, hash});
       } catch(err) {

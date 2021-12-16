@@ -7,7 +7,7 @@ export function getWorker(lang, canvasElement) {
     const offscreenControl = canvasElement.transferControlToOffscreen();
     worker.postMessage(
       {
-        type: 'canvas',
+        type: 'SETUP_CANVAS',
         canvas: offscreenControl,
         pixelRatio: window.devicePixelRatio
       },
@@ -21,7 +21,24 @@ export function getWorker(lang, canvasElement) {
   };
 }
 
-export function useWorker(worker, params, callback) {
+export function awaitWorkerReady(worker) {
+  const promise = new Promise((resolve, reject) => {
+    worker.webWorker.onmessage = (event) => {
+      if (event.data.ready) {
+        resolve();
+        return;
+      }
+      if (event.data.error) {
+        reject(event.data.error);
+        return;
+      }
+    };
+  });
+  worker.webWorker.postMessage({type: 'WORKER_READY'});
+  return promise;
+}
+
+export function useWorker(worker, code, callback) {
   const promise = new Promise((resolve, reject) => {
     worker.webWorker.onmessage = (event) => {
       if (event.data.done) {
@@ -35,7 +52,7 @@ export function useWorker(worker, params, callback) {
       callback(event.data.message);
     };
   });
-  worker.webWorker.postMessage(params);
+  worker.webWorker.postMessage({type: 'EXEC_CODE', code});
   return promise;
 }
 

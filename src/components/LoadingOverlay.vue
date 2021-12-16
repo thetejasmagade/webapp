@@ -2,18 +2,32 @@
   <div>
     <VueLoadingOverlay
       :active="isLoading" 
-      :is-full-page="true"
+      :is-full-page="false"
       :can-cancel="false"
       :enforce-focus="true"
+      :opacity=".8"
+      :loader="'bars'"
     >
       <template
         v-if="cancel"
+        v-slot:before
+      >
+        <div>
+          <h2
+            v-if="displayText"
+            class="text-2xl text-gold-600"
+          >
+            {{ displayText }}
+          </h2>
+        </div>
+      </template>
+      <template
+        v-if="cancel" 
         v-slot:after
       >
         <BlockButton
           :click="cancel"
           color="gray"
-          class="mt-4"
         >
           Cancel
         </BlockButton>
@@ -39,6 +53,11 @@ export default {
     },
     cancel: {
       type: Function,
+      required: false,
+      default: null
+    },
+    displayText: {
+      type: String,
       required: false,
       default: null
     }
