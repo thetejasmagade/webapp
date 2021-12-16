@@ -609,10 +609,22 @@ function getHash(toHash) {
 addEventListener('message', async (e) => {
   const go = new self.Go();
 
-  if (e.data.type === 'canvas') {
+  if (e.data.type === 'SETUP_CANVAS') {
     canvas = e.data.canvas;
     return;
   }
+
+  if (e.data.type === 'WORKER_READY') {
+    postMessage({
+      ready: true
+    });
+    return;
+  }
+
+  if (e.data.type !== 'EXEC_CODE') {
+    throw 'bad data type in worker';
+  }
+
   if (canvas) {
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -621,7 +633,7 @@ addEventListener('message', async (e) => {
   // clear the persistent stdout buffer
   global.fs.writeSync(null, new TextEncoder('utf-8').encode('\n'));
 
-  const result = await WebAssembly.instantiate(e.data, go.importObject);
+  const result = await WebAssembly.instantiate(e.data.code, go.importObject);
   let oldLog = console.log;
   console.log = (line) => {
     postMessage({

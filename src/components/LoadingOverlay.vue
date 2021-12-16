@@ -5,31 +5,25 @@
       :is-full-page="true"
       :can-cancel="false"
       :enforce-focus="true"
+      :opacity=".8"
     >
+      <template
+        v-if="cancel"
+        v-slot:before
+      >
+        <div class="mb-4">
+          <h2
+            v-if="displayText"
+            class="text-2xl text-gold-600"
+          >
+            {{ displayText }}
+          </h2>
+        </div>
+      </template>
       <template
         v-if="cancel"
         v-slot:after
       >
-        <p
-          v-if="progLang==='go'"
-        >
-          Compiling your code, this may take a moment...
-        </p>
-        <p
-          v-else-if="progLang==='py'"
-        >
-          Initializing python...
-        </p>
-        <p
-          v-else-if="progLang==='js'"
-        >
-          Running JavaScript...
-        </p>
-        <p
-          v-else
-        >
-          Your environment is loading, this may take a moment...
-        </p>
         <BlockButton
           :click="cancel"
           color="gray"
@@ -62,7 +56,7 @@ export default {
       required: false,
       default: null
     },
-    progLang: {
+    displayText: {
       type: String,
       required: false,
       default: null
