@@ -16,8 +16,9 @@
       class="
         h-full
         hidden
-        flex-col
         sm:flex
+        flex-col
+        bg-white
       "
     >
       <ExerciseNav
@@ -49,63 +50,47 @@
         :locked="false"
         :click-comment="() => showFeedbackModal()"
       />
-      <Multipane
-        layout="horizontal"
-        class="flex-1 overflow-y-auto"
+      <div
+        class="
+        overflow-y-auto
+        w-full
+        flex
+        flex-col
+        items-center
+      "
       >
         <div
           class="
-            flex
-            flex-col
-            w-1/2
-            bg-white
-            border-r
-            border-gray-300
-          "
+          max-w-4xl
+        "
         >
+          <div class="mt-4 w-full flex flex-row justify-end">
+            <BlockButton
+              class="btn mr-3"
+              :click="() => goForward(true)"
+            >
+              I'm done with this step
+            </BlockButton>
+
+            <BlockButton
+              v-if="type === 'type_manual'"
+              :click="linkClick"
+              color="gray"
+            >
+              <FontAwesomeIcon
+                icon="eye"
+              />
+              Cheat
+            </BlockButton>
+          </div>
+
           <MarkdownViewer
             ref="viewer"
-            class="
-              flex-1
-              overflow-y-auto
-            "
+          
             :source="markdownSource"
           />
         </div>
-        <MultipaneResizer layout="horizontal" />
-        <div
-          v-if="type === 'type_info' || type === 'type_manual'"
-          id="info-container"
-          class="
-            h-full
-            flex
-            flex-col
-            items-center
-            justify-center
-            flex-1
-            overflow-auto
-            bg-white
-          "
-        >
-          <BlockButton
-            class="btn mb-4"
-            :click="() => goForward(type === 'type_manual')"
-          >
-            I'm done with this step
-          </BlockButton>
-          <BlockButton
-            v-if="type === 'type_manual'"
-            class="mr-3"
-            :click="linkClick"
-            color="gray"
-          >
-            <FontAwesomeIcon
-              icon="eye"
-            />
-            Cheat
-          </BlockButton>
-        </div>
-      </Multipane>
+      </div>
     </div>
     <div
       class="
@@ -129,8 +114,6 @@ import CourseDoneModal from '@/components/CourseDoneModal.vue';
 import MarkdownViewer from '@/components/MarkdownViewer.vue';
 import BlockButton from '@/components/BlockButton.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
-import Multipane from '@/components/Multipane.vue';
-import MultipaneResizer from '@/components/MultipaneResizer.vue';
 import Section from '@/components/Section.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -163,8 +146,6 @@ export default {
     MarkdownViewer,
     BlockButton,
     ExerciseNav,
-    Multipane,
-    MultipaneResizer,
     FeedbackModal,
     FontAwesomeIcon
   },
@@ -230,7 +211,7 @@ export default {
       this.handleRewards(rewardsResponse);
     },
     async submitTypeManual() {
-      const rewardsResponse =await submitManualStep(this.$route.params.stepUUID);
+      const rewardsResponse = await submitManualStep(this.$route.params.stepUUID);
       this.isComplete = true;
       this.handleRewards(rewardsResponse);
     },
@@ -344,12 +325,13 @@ export default {
         });
       }
     },
-    async goForward(submitManual) {
+    async goForward(done) {
       eventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
-      if (this.type === 'type_info' && !this.isComplete) {
+      if (this.type === 'type_info' && !this.isComplete && done) {
         await this.submitTypeInfo();
       }
-      if (this.type === 'type_manual' && submitManual) {
+      if (this.type === 'type_manual' && !this.isComplete && done) {
+        console.log('here');
         await this.submitTypeManual();
       }
       if (this.projectDone && this.isLastStep) {
