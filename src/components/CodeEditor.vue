@@ -3,6 +3,7 @@
     <LoadingOverlay
       :is-loading="isLoading"
       :cancel="cancelCode"
+      :prog-lang="progLang"
     />
 
     <ConfirmModal

@@ -10,6 +10,26 @@
         v-if="cancel"
         v-slot:after
       >
+        <p
+          v-if="progLang==='go'"
+        >
+          Compiling your code, this may take a moment...
+        </p>
+        <p
+          v-else-if="progLang==='py'"
+        >
+          Initializing python...
+        </p>
+        <p
+          v-else-if="progLang==='js'"
+        >
+          Running JavaScript...
+        </p>
+        <p
+          v-else
+        >
+          Your environment is loading, this may take a moment...
+        </p>
         <BlockButton
           :click="cancel"
           color="gray"
@@ -39,6 +59,11 @@ export default {
     },
     cancel: {
       type: Function,
+      required: false,
+      default: null
+    },
+    progLang: {
+      type: String,
       required: false,
       default: null
     }
