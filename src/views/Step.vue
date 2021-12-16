@@ -31,7 +31,7 @@
         "
         :dropdown-one-items="project.Steps.map((step, i) => {
           return {
-            name: `${i+1}/${project.Steps.length}`,
+            name: `Step ${i+1} of ${project.Steps.length}`,
             link: {
               name: 'Step',
               params: {
