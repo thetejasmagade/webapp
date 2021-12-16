@@ -2,16 +2,17 @@
   <div>
     <VueLoadingOverlay
       :active="isLoading" 
-      :is-full-page="true"
+      :is-full-page="false"
       :can-cancel="false"
       :enforce-focus="true"
       :opacity=".8"
+      :loader="'bars'"
     >
       <template
         v-if="cancel"
         v-slot:before
       >
-        <div class="mb-4">
+        <div>
           <h2
             v-if="displayText"
             class="text-2xl text-gold-600"
@@ -21,13 +22,12 @@
         </div>
       </template>
       <template
-        v-if="cancel"
+        v-if="cancel" 
         v-slot:after
       >
         <BlockButton
           :click="cancel"
           color="gray"
-          class="mt-4"
         >
           Cancel
         </BlockButton>
