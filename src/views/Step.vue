@@ -16,8 +16,9 @@
       class="
         h-full
         hidden
-        flex-col
         sm:flex
+        flex-col
+        bg-white
       "
     >
       <ExerciseNav
@@ -49,63 +50,20 @@
         :locked="false"
         :click-comment="() => showFeedbackModal()"
       />
-      <Multipane
-        layout="horizontal"
-        class="flex-1 overflow-y-auto"
-      >
-        <div
-          class="
-            flex
-            flex-col
-            w-1/2
-            bg-white
-            border-r
-            border-gray-300
-          "
-        >
-          <MarkdownViewer
-            ref="viewer"
-            class="
-              flex-1
-              overflow-y-auto
-            "
-            :source="markdownSource"
-          />
-        </div>
-        <MultipaneResizer layout="horizontal" />
-        <div
-          v-if="type === 'type_info' || type === 'type_manual'"
-          id="info-container"
-          class="
-            h-full
-            flex
-            flex-col
-            items-center
-            justify-center
-            flex-1
-            overflow-auto
-            bg-white
-          "
-        >
-          <BlockButton
-            class="btn mb-4"
-            :click="() => goForward(type === 'type_manual')"
-          >
-            I'm done with this step
-          </BlockButton>
-          <BlockButton
-            v-if="type === 'type_manual'"
-            class="mr-3"
-            :click="linkClick"
-            color="gray"
-          >
-            <FontAwesomeIcon
-              icon="eye"
-            />
-            Cheat
-          </BlockButton>
-        </div>
-      </Multipane>
+      <CardStepTypeInfo
+        v-if="type === 'type_info'"
+        :markdown-source="markdownSource"
+        :project-slug="project.Slug"
+        :step-slug="stepSlug"
+        :done-with-step="() => goForward(true)"
+      />
+      <CardStepTypeManual
+        v-else-if="type === 'type_manual'"
+        :markdown-source="markdownSource"
+        :project-slug="project.Slug"
+        :step-slug="stepSlug"
+        :done-with-step="() => goForward(true)"
+      />
     </div>
     <div
       class="
@@ -126,14 +84,11 @@
 
 <script>
 import CourseDoneModal from '@/components/CourseDoneModal.vue';
-import MarkdownViewer from '@/components/MarkdownViewer.vue';
-import BlockButton from '@/components/BlockButton.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
-import Multipane from '@/components/Multipane.vue';
-import MultipaneResizer from '@/components/MultipaneResizer.vue';
+import CardStepTypeInfo from '@/components/cards/CardStepTypeInfo.vue';
+import CardStepTypeManual from '@/components/cards/CardStepTypeManual.vue';
 import Section from '@/components/Section.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -160,13 +115,10 @@ export default {
   components: {
     CourseDoneModal,
     Section,
-    MarkdownViewer,
-    BlockButton,
     ExerciseNav,
-    Multipane,
-    MultipaneResizer,
     FeedbackModal,
-    FontAwesomeIcon
+    CardStepTypeInfo,
+    CardStepTypeManual
   },
   data() {
     return {
@@ -179,7 +131,6 @@ export default {
       complete: '',
       projects: null,
       isComplete: null,
-      isCheating: false,
       stepSlug: null
     };
   },
@@ -230,7 +181,7 @@ export default {
       this.handleRewards(rewardsResponse);
     },
     async submitTypeManual() {
-      const rewardsResponse =await submitManualStep(this.$route.params.stepUUID);
+      const rewardsResponse = await submitManualStep(this.$route.params.stepUUID);
       this.isComplete = true;
       this.handleRewards(rewardsResponse);
     },
@@ -283,13 +234,6 @@ export default {
         });
       }
     },
-    scrollMarkdownToTop() {
-      requestAnimationFrame(() => {
-        if (this.$refs.viewer && this.$refs.viewer.$el) {
-          this.$refs.viewer.$el.scrollTop = 0;
-        }
-      });
-    },
     navToStep(step) {
       this.$router.push({
         name: 'Step',
@@ -309,10 +253,6 @@ export default {
       this.isCurrentStep = step.IsCurrent;
       this.isComplete = step.IsComplete;
       this.stepSlug = step.Step.Slug;
-
-      if (step.Step.Readme !== this.markdownSource) {
-        this.scrollMarkdownToTop();
-      }
 
       this.markdownSource = step.Step.Readme;
       this.type = step.Step.Type;
@@ -344,12 +284,12 @@ export default {
         });
       }
     },
-    async goForward(submitManual) {
+    async goForward(done) {
       eventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
-      if (this.type === 'type_info' && !this.isComplete) {
+      if (this.type === 'type_info' && !this.isComplete && done) {
         await this.submitTypeInfo();
       }
-      if (this.type === 'type_manual' && submitManual) {
+      if (this.type === 'type_manual' && !this.isComplete && done) {
         await this.submitTypeManual();
       }
       if (this.projectDone && this.isLastStep) {
@@ -379,9 +319,6 @@ export default {
           text: err
         });
       }
-    },
-    linkClick() {
-      window.open(`https://github.com/qvault/projects/tree/main/projects/${this.project.Slug}/${this.stepSlug}/src`, '_blank');
     }
   }
 };

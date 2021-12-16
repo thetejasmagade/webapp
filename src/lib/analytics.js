@@ -7,7 +7,7 @@ import mixpanel from 'mixpanel-browser';
 // https://developers.google.com/gtagjs/reference/ga4-events
 
 export const singupMethodGithub = 'github';
-export const singupMethodGoogle = 'googe';
+export const singupMethodGoogle = 'google';
 export const singupMethodEmail = 'email';
 
 export function init(){
@@ -99,14 +99,20 @@ export function eventExerciseFailure(exerciseUUID, courseTitle){
   }
 }
 
-export function eventExerciseSuccess(exerciseUUID, courseTitle){
+export function eventExerciseSuccess(exerciseUUID, courseTitle, exerciseIndex, moduleIndex){
   try {
     window.dataLayer.push({
       'event': 'exercise_success',
       'exercise_uuid': exerciseUUID,
-      'course_title': courseTitle
+      'course_title': courseTitle, 
+      'exercise_index': exerciseIndex,
+      'module_index': moduleIndex
     });
-    mixpanel.track('exerciseSuccess');
+    mixpanel.track('exerciseSuccess', {
+      courseTitle,
+      exerciseIndex,
+      moduleIndex
+    });
   } catch (err) {
     console.log(err);
   }
