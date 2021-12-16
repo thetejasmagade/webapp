@@ -50,47 +50,20 @@
         :locked="false"
         :click-comment="() => showFeedbackModal()"
       />
-      <div
-        class="
-        overflow-y-auto
-        w-full
-        flex
-        flex-col
-        items-center
-      "
-      >
-        <div
-          class="
-          max-w-4xl
-        "
-        >
-          <div class="mt-4 w-full flex flex-row justify-end">
-            <BlockButton
-              class="btn mr-3"
-              :click="() => goForward(true)"
-            >
-              I'm done with this step
-            </BlockButton>
-
-            <BlockButton
-              v-if="type === 'type_manual'"
-              :click="linkClick"
-              color="gray"
-            >
-              <FontAwesomeIcon
-                icon="eye"
-              />
-              Cheat
-            </BlockButton>
-          </div>
-
-          <MarkdownViewer
-            ref="viewer"
-          
-            :source="markdownSource"
-          />
-        </div>
-      </div>
+      <CardStepTypeInfo
+        v-if="type === 'type_info'"
+        :markdown-source="markdownSource"
+        :project-slug="project.Slug"
+        :step-slug="stepSlug"
+        :done-with-step="() => goForward(true)"
+      />
+      <CardStepTypeManual
+        v-else-if="type === 'type_manual'"
+        :markdown-source="markdownSource"
+        :project-slug="project.Slug"
+        :step-slug="stepSlug"
+        :done-with-step="() => goForward(true)"
+      />
     </div>
     <div
       class="
@@ -111,12 +84,11 @@
 
 <script>
 import CourseDoneModal from '@/components/CourseDoneModal.vue';
-import MarkdownViewer from '@/components/MarkdownViewer.vue';
-import BlockButton from '@/components/BlockButton.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
+import CardStepTypeInfo from '@/components/cards/CardStepTypeInfo.vue';
+import CardStepTypeManual from '@/components/cards/CardStepTypeManual.vue';
 import Section from '@/components/Section.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -143,11 +115,10 @@ export default {
   components: {
     CourseDoneModal,
     Section,
-    MarkdownViewer,
-    BlockButton,
     ExerciseNav,
     FeedbackModal,
-    FontAwesomeIcon
+    CardStepTypeInfo,
+    CardStepTypeManual
   },
   data() {
     return {
@@ -160,7 +131,6 @@ export default {
       complete: '',
       projects: null,
       isComplete: null,
-      isCheating: false,
       stepSlug: null
     };
   },
@@ -264,13 +234,6 @@ export default {
         });
       }
     },
-    scrollMarkdownToTop() {
-      requestAnimationFrame(() => {
-        if (this.$refs.viewer && this.$refs.viewer.$el) {
-          this.$refs.viewer.$el.scrollTop = 0;
-        }
-      });
-    },
     navToStep(step) {
       this.$router.push({
         name: 'Step',
@@ -290,10 +253,6 @@ export default {
       this.isCurrentStep = step.IsCurrent;
       this.isComplete = step.IsComplete;
       this.stepSlug = step.Step.Slug;
-
-      if (step.Step.Readme !== this.markdownSource) {
-        this.scrollMarkdownToTop();
-      }
 
       this.markdownSource = step.Step.Readme;
       this.type = step.Step.Type;
@@ -331,7 +290,6 @@ export default {
         await this.submitTypeInfo();
       }
       if (this.type === 'type_manual' && !this.isComplete && done) {
-        console.log('here');
         await this.submitTypeManual();
       }
       if (this.projectDone && this.isLastStep) {
@@ -361,9 +319,6 @@ export default {
           text: err
         });
       }
-    },
-    linkClick() {
-      window.open(`https://github.com/qvault/projects/tree/main/projects/${this.project.Slug}/${this.stepSlug}/src`, '_blank');
     }
   }
 };
