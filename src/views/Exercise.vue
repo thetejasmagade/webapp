@@ -33,7 +33,7 @@
         "
         :dropdown-one-items="course.Modules.map((mod, i) => {
           return {
-            name: `${i+1}. ${mod.Title}`,
+            name: `Chapter ${i+1}: ${mod.Title}`,
             link: {
               name: 'Exercise',
               params: {
@@ -45,7 +45,7 @@
         })"
         :dropdown-two-items="exercises.map((ex, i) => {
           return {
-            name: `${i+1}/${exercises.length}`,
+            name: `Exercise ${i+1} of ${exercises.length}`,
             link: {
               name: 'Exercise',
               params: {

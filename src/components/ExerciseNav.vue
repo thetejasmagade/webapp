@@ -12,7 +12,7 @@
       'bg-red-200': locked,
     }"
   >
-    <div>
+    <div class="flex-1 flex items-center justify-start">
       <BlockButton
         :click="goBack"
         :disabled="!canGoBack"
@@ -22,6 +22,7 @@
           icon="arrow-left"
         />
       </BlockButton>
+      
       <BlockButton
         :disabled="!canGoForward"
         class="ml-3"
@@ -32,16 +33,13 @@
           icon="arrow-right"
         />
       </BlockButton>
-    </div>
 
-    <div
-      class="px-10 flex-1 flex items-center justify-center"
-    >
       <SelectDropdown
         v-if="
           dropdownOneNames && 
             dropdownOneIndex !== null
         "
+        class="ml-3"
         :options="dropdownOneNames"
         :default="dropdownOneNames[dropdownOneIndex]"
         @update:modelValue="itemName => { selectItem(itemName, dropdownOneItems) }"
