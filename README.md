@@ -42,7 +42,8 @@ Add settings to `.vscode/settings.json`. Note: they won't work unless you open V
   "eslint.packageManager": "yarn",
   "css.customData": [
     ".vscode/css_custom_data.json"
-  ]
+  ],
+  "editor.tabSize": 2
 }
 ```
 

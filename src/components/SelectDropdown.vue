@@ -1,71 +1,76 @@
 <template>
-  <div
-    class="
-      relative
-      outline-none
-      h-10
-      leading-10
-    "
-    :tabindex="tabindex"
-    @blur="open = false"
-  >
-    <div
-      class="
-        selected
-        bg-white
-        rounded-md
-        border
-        border-gray-500
-        text-gray-800
-        cursor-pointer
-        pr-8
-        pl-6
-      "
-      :class="{open: open}"
-      @click="open = !open"
-    >
-      {{ selected }}
-      <div
-        class="
-          arrow
-          absolute
-          top-5
-          right-3
-          h-0
-          border-4
-        "
-      />
-    </div>
-    <div
-      class="
-        text-gray-100
-        overflow-auto
-        position-absolute
-        left-0
-        right-0
-        bg-gray-300
-        rounded-b-md
-        border-gray-500
-        border-l
-        border-r
-        border-b
-        z-10
-        max-h-80
-      "
-      :class="{selectHide: !open}"
-    >
-      <div
-        v-for="(option, i) of options"
-        :key="i"
-        class="
-          text-gray-800
-          px-4
-          cursor-pointer
-          hover:bg-gold-400
-        "
-        @click="selected=option; open=false; $emit('update:modelValue', option)"
+  <div class="flex items-center justify-center">
+    <div class="relative inline-block text-left dropdown cursor-pointer">
+      <span
+        class="rounded-md shadow-sm"
       >
-        {{ option }}
+        <button
+          class="
+            inline-flex
+            justify-center
+            w-full
+            px-4
+            py-2
+            leading-6
+            text-gray-800
+            transition
+            duration-150
+            ease-in-out
+            bg-white border
+            border-gray-300
+            rounded-md
+            hover:text-gray-400
+            focus:outline-none
+          " 
+          type="button"
+          aria-haspopup="true"
+          aria-expanded="true"
+          aria-controls="headlessui-menu-items-117"
+        >
+          <span>{{ selected }}</span>
+          <svg
+            class="w-5 h-6 ml-2 -mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </span>
+      <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-left -translate-y-2 scale-95">
+        <div
+          id="headlessui-menu-items-117"
+          class="absolute left-0 w-56 mt-2 origin-top-left bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none overflow-y-auto max-h-56"
+          aria-labelledby="headlessui-menu-button-1"
+          role="menu"
+        >
+          <div
+            v-for="(option, i) of options"
+            :key="i"
+            href="javascript:void(0)"
+            tabindex="0"
+            class="
+              text-gray-800
+              hover:text-gray-300
+              flex
+              justify-between
+              w-full
+              px-4
+              py-2
+              text-sm
+              leading-5
+              text-left
+            "
+            role="menuitem"
+            @click="selected=option; $emit('update:modelValue', option)"
+          >
+            {{ option }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -92,8 +97,7 @@ export default {
   emits: [ 'update:modelValue' ],
   data() {
     return {
-      selected: this.getSelectionFromDefault(this.default),
-      open: false
+      selected: this.getSelectionFromDefault(this.default)
     };
   },
   watch: {
@@ -116,16 +120,9 @@ export default {
 </script>
 
 <style scoped>
-
-.open {
-  border-radius: 6px 6px 0px 0px;
-}
-
-.arrow {
-  border-color: black transparent transparent transparent;
-}
-
-.selectHide {
-  display: none;
+.dropdown:focus-within .dropdown-menu {
+  opacity:1;
+  transform: translate(0) scale(1);
+  visibility: visible;
 }
 </style>
