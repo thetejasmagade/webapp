@@ -448,11 +448,11 @@ export default {
           this.$route.params.exerciseUUID,
           output
         );
-        eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title);
+        eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
         this.isComplete = true;
         this.handleRewards(rewardsResponse);
       } catch (err) {
-        eventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title);
+        eventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleInde);
         notify({
           type: 'danger',
           text: err
