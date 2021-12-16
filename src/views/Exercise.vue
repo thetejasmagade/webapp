@@ -21,6 +21,7 @@
         hidden
         flex-col
         sm:flex
+        bg-white
       "
     >
       <ExerciseNav
@@ -66,87 +67,42 @@
         :locked="locked"
         :click-comment="() => showFeedbackModal()"
       />
-      <Multipane
-        layout="horizontal"
-        class="flex-1 overflow-y-auto"
-      >
-        <div
-          class="
-            flex
-            flex-col
-            w-1/2
-            bg-white
-            border-r
-            border-gray-300
-          "
-        >
-          <MarkdownViewer
-            ref="viewer"
-            class="
-              flex-1
-              overflow-y-auto
-            "
-            :source="markdownSource"
-          />
-        </div>
-        <MultipaneResizer layout="horizontal" />
-        <div
-          v-if="type === 'type_info'"
-          class="
-          h-full
-          flex
-          flex-col
-          items-center
-          justify-center
-          flex-1
-          overflow-auto
-          bg-white
-          "
-        >
-          <BlockButton
-            :click="goForward"
-          >
-            Continue
-          </BlockButton>
-        </div>
-        <CodeEditor
-          v-else-if="type === 'type_code' || type === 'type_code_canvas'"
-          :key="isCheating"
-          v-model="code"
-          class="
-            h-full
-            flex
-            flex-col
-            flex-1
-            overflow-auto
-          "
-          :run-callback="
-            type === 'type_code' ? submitTypeCode : submitTypeCodeCanvas
-          "
-          :reset-callback="resetCode"
-          :upgrade-callback="locked ? upgradeClick : null"
-          :cheat-callback="cheatClick"
-          :prog-lang="progLang"
-          :canvas-enabled="type === 'type_code_canvas'"
-          :solution="complete"
-          :is-cheating="isCheating"
-        />
-        <MultipleChoice
-          v-else-if="type === 'type_choice'"
-          class="
-            h-full
-            flex
-            flex-col
-            flex-1
-            overflow-auto
-            bg-white
-          "
-          :callback="submitTypeChoice"
-          :answers="question.Answers"
-          :question="question.Question"
-          :locked="locked"
-        />
-      </Multipane>
+      <CardExerciseTypeInfo
+        v-if="type === 'type_info'"
+        :markdown-source="markdownSource"
+      />
+      <CardExerciseTypeMultipleChoice
+        v-else-if="type === 'type_choice'"
+        :markdown-source="markdownSource"
+        :answers="question.Answers"
+        :question="question.Question"
+        :locked="locked"
+        :callback="submitTypeChoice"
+      />
+      <CardExerciseTypeCode
+        v-else-if="type === 'type_code'"
+        v-model="code"
+        :markdown-source="markdownSource"
+        :prog-lang="progLang"
+        :solution-code="complete"
+        :run-callback="submitTypeCode"
+        :reset-code-callback="resetCode"
+        :cheat-callback="cheatClick"
+        :upgrade-callback="locked ? upgradeClick : null"
+        :is-cheating="isCheating"
+      />
+      <CardExerciseTypeCodeCanvas
+        v-else-if="type === 'type_code_canvas'"
+        v-model="code"
+        :markdown-source="markdownSource"
+        :prog-lang="progLang"
+        :solution-code="complete"
+        :run-callback="submitTypeCodeCanvas"
+        :reset-code-callback="resetCode"
+        :cheat-callback="cheatClick"
+        :upgrade-callback="locked ? upgradeClick : null"
+        :is-cheating="isCheating"
+      />
     </div>
     <div
       class="
@@ -167,18 +123,16 @@
 
 <script>
 import CourseDoneModal from '@/components/CourseDoneModal.vue';
-import MultipleChoice from '@/components/MultipleChoice.vue';
-import MarkdownViewer from '@/components/MarkdownViewer.vue';
-import CodeEditor from '@/components/CodeEditor.vue';
-import BlockButton from '@/components/BlockButton.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
-import Multipane from '@/components/Multipane.vue';
-import MultipaneResizer from '@/components/MultipaneResizer.vue';
 import Section from '@/components/Section.vue';
 import ProModal from '@/components/ProModal.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
 import PricingModal from '@/components/PricingModal.vue';
 import ExerciseSkeleton from '@/components/ExerciseSkeleton.vue';
+import CardExerciseTypeInfo from '@/components/cards/CardExerciseTypeInfo.vue';
+import CardExerciseTypeMultipleChoice from '@/components/cards/CardExerciseTypeMultipleChoice.vue';
+import CardExerciseTypeCode from '@/components/cards/CardExerciseTypeCode.vue';
+import CardExerciseTypeCodeCanvas from '@/components/cards/CardExerciseTypeCodeCanvas.vue';
 
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -221,17 +175,15 @@ export default {
   components: {
     CourseDoneModal,
     Section,
-    CodeEditor,
-    MarkdownViewer,
-    BlockButton,
-    MultipleChoice,
+    CardExerciseTypeInfo,
     ExerciseNav,
-    Multipane,
-    MultipaneResizer,
     ProModal,
     FeedbackModal,
     PricingModal,
-    ExerciseSkeleton
+    ExerciseSkeleton,
+    CardExerciseTypeMultipleChoice,
+    CardExerciseTypeCode,
+    CardExerciseTypeCodeCanvas
   },
   data() {
     return {
