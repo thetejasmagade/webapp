@@ -50,7 +50,6 @@ export default {
   },
   computed:{
     trackCS(){
-      console.log(JSON.stringify(this.$store.getters.getTrackCS));
       return this.$store.getters.getTrackCS;
     }
   },
