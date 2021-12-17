@@ -49,7 +49,7 @@
         <MenuItemHorizontal
           icon="scroll"
           :click="() => {$router.push({name: 'Courses'}) }"
-          :current="pathName === 'Courses'"
+          :current="routePath.includes('courses')"
         />
       </Tooltip>
 
@@ -129,6 +129,10 @@ export default {
   },
   props: {
     pathName: {
+      type: String,
+      required: true
+    },
+    routePath: {
       type: String,
       required: true
     }

@@ -9,6 +9,7 @@
     >
       <Sidebar
         :path-name="routeName"
+        :route-path="routePath"
         class="
           inline-block
           align-top

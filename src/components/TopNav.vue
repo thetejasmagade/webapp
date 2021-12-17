@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white shadow flex flex-col text-gray-700 relative z-50">
-    <div class="nav flex flex-row justify-between">
+    <div class="top-nav-bar-height flex flex-row justify-between">
       <div class="flex flex-row items-stretch justify-end">
         <div class="ml-3 flex items-center">
           <img
@@ -11,28 +11,68 @@
           <span class="text-xl ml-4">{{ title }}</span>
         </div>
       </div>
-      <div class="flex flex-row items-stretch justify-end desktop">
+      <div class="md:flex flex-row items-stretch justify-end hidden">
         <router-link
           v-if="$store.getters.getIsLoggedIn"
           to="/"
-          class="item px-4 m-2"
-          :class="{current: routePath.includes('dashboard')}"
+          :class="{
+            'border': routePath.includes('dashboard'),
+            'border-gold-500': routePath.includes('dashboard'),
+          }"
+          class="
+            flex
+            items-center
+            px-4
+            m-2
+            rounded
+            text-gray-700
+            hover:text-gray-200
+            hover:bg-gold-500
+          "
         >
           <span>Dashboard</span>
         </router-link>
         <router-link
           v-else
           to="/"
-          class="item px-4 m-2"
-          :class="{current: routeName === 'Login'}"
+          class="
+            flex
+            items-center
+            px-4
+            m-2
+            rounded
+            text-gray-700
+            hover:text-gray-200
+            hover:bg-gold-500
+            current:border
+            current:border-gold-500
+          "
+          :class="{
+            'border': routePath === '/',
+            'border-gold-500': routePath === '/',
+          }"
         >
           <span>Login</span>
         </router-link>
 
         <router-link
           to="/pricing"
-          class="item px-4 m-2"
-          :class="{current: routeName === 'Pricing' }"
+          class="
+            flex
+            items-center
+            px-4
+            m-2
+            rounded
+            text-gray-700
+            hover:text-gray-200
+            hover:bg-gold-500
+            current:border
+            current:border-gold-500
+          "
+          :class="{
+            'border': routePath.includes('pricing'),
+            'border-gold-500': routePath.includes('pricing'),
+          }"
         >
           <span>Pricing</span>
         </router-link>
@@ -40,7 +80,18 @@
         <a
           href="https://discord.gg/k4rVEWt"
           target="_blank"
-          class="item px-4 m-2"
+          class="
+            flex
+            items-center
+            px-4
+            m-2
+            rounded
+            text-gray-700
+            hover:text-gray-200
+            hover:bg-gold-500
+            current:border
+            current:border-gold-500
+          "
         >
           <FontAwesomeIcon
             :icon="['fab', 'discord']"
@@ -52,13 +103,24 @@
         <a
           href="https://qvault.io/articles"
           target="_blank"
-          class="item px-4 m-2"
+          class="
+            flex
+            items-center
+            px-4
+            m-2
+            rounded
+            text-gray-700
+            hover:text-gray-200
+            hover:bg-gold-500
+            current:border
+            current:border-gold-500
+          "
         >
           <span>Blog</span>
         </a>
       </div>
 
-      <div class="mobile bg-white flex flex-row items-stretch justify-end p-4">
+      <div class="md:hidden bg-white flex flex-row items-stretch justify-end p-4">
         <FontAwesomeIcon
           :icon="['fa', 'bars']"
           class="text-3xl cursor-pointer"
@@ -69,26 +131,45 @@
 
     <div
       v-if="mobileMenuOpen"
-      class="mobile bg-white"
+      class="md:hidden block bg-white"
     >
       <a
         href="/"
-        class="item"
-        :class="{current: routePath.includes('dashboard')}"
+        class="
+          flex
+          items-center
+          p-3
+          text-gray-700
+          hover:text-gray-200
+          hover:bg-gold-500
+        "
       >
         <span>Dashboard</span>
       </a>   
       <a
         href="/pricing"
-        class="item"
-        :class="{current: routeName === 'Pricing' }"
+        class="
+          flex
+          items-center
+          p-3
+          text-gray-700
+          hover:text-gray-200
+          hover:bg-gold-500
+        "
       >
         <span>Pricing</span>
       </a> 
       <a
         href="https://discord.gg/k4rVEWt"
         target="_blank"
-        class="item"
+        class="
+          flex
+          items-center
+          p-3
+          text-gray-700
+          hover:text-gray-200
+          hover:bg-gold-500
+        "
       >
         <FontAwesomeIcon
           :icon="['fab', 'discord']"
@@ -99,7 +180,14 @@
       <a
         href="https://qvault.io/articles"
         target="_blank"
-        class="item"
+        class="
+          flex
+          items-center
+          p-3
+          text-gray-700
+          hover:text-gray-200
+          hover:bg-gold-500
+        "
       >
         <span>Blog</span>
       </a>
@@ -138,48 +226,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-
-.nav {
+<style scoped>
+.top-nav-bar-height {
   height: var(--top-nav-bar-height);
-}
-
-.mobile {
-  display: none !important;
-  @media screen and (max-width: $mobile-size) {
-    display: block !important;
-  }
-}
-
-.desktop {
-  @media screen and (max-width: $mobile-size) {
-    display: none !important;
-  }
-}
-
-.item {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  color: $gray-darker;
-
-  @media screen and (max-width: $mobile-size) {
-    padding: .75em;
-  }
-
-  @media screen and (min-width: $mobile-size) {
-    border-radius: 5px;
-  }
-
-  &.current {
-    border: solid 1px $gold-mid;
-  }
-
-  &:hover{
-    color: $gray-lightest;
-    background-color: $gold-mid;
-  }
 }
 </style>
