@@ -204,6 +204,17 @@
                 </BlockButton>
               </div>
             </form>
+            <div class="border-t border-gray-300 my-4" />
+            <div class="flex justify-center items-center">
+              <span>API key: <code>{{ $store.getters.getUser?.APIKey }}</code></span>
+              <BlockButton
+                class="ml-4"
+                color="red"
+                :click="() => updateUserAPIKey()"
+              >
+                Regenerate key
+              </BlockButton>
+            </div>
           </div>
         </Section>
       </div>
@@ -272,7 +283,8 @@ import {
   updateUserHandle,
   openCustomerPortal,
   deleteUser,
-  confirmOnetimePurchase
+  confirmOnetimePurchase,
+  updateUserAPIKey
 } from '@/lib/cloudClient.js';
 import { loadUser } from '@/lib/cloudStore.js';
 import BlockButton from '@/components/BlockButton.vue';
@@ -370,6 +382,18 @@ export default {
     });
   },
   methods: {
+    async updateUserAPIKey(){
+      try {
+        await updateUserAPIKey();
+        await loadUser(this);
+      } catch (err){
+        notify({
+          type: 'danger',
+          text: 'Unable to regenerate api key'
+        });
+        return;
+      }
+    },
     async handleSuccess(){
       try {
         await loadUser(this);

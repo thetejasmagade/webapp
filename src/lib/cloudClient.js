@@ -241,6 +241,18 @@ export async function updateUserHandle(handle) {
   return handled;
 }
 
+export async function updateUserAPIKey() {
+  const resp = await fetchWithAuth(`${domain}/v1/users/apikey`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function updateUserInterests(interestUUIDs) {
   const resp = await fetchWithAuth(`${domain}/v1/users/interests`, {
     method: 'PUT',

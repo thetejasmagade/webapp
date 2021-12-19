@@ -10,9 +10,8 @@ const Login = () => import('@/views/Login.vue');
 const Playground = () => import('@/views/Playground.vue');
 const Settings = () => import('@/views/Settings.vue');
 const Achievements = () => import('@/views/Achievements.vue');
-const SignupFlowExperience = () => import('@/views/SignupFlowExperience.vue');
+const SignupFlowUsername = () => import('@/views/SignupFlowUsername.vue');
 const SignupFlowCommunity = () => import('@/views/SignupFlowCommunity.vue');
-const SignupFlowInterests = () => import('@/views/SignupFlowInterests.vue');
 const SignupFlowRecruiters = () => import('@/views/SignupFlowRecruiters.vue');
 const SignupFlowRecruitersEnrich = () => import('@/views/SignupFlowRecruitersEnrich.vue');
 const VerifyEmail = () => import('@/views/VerifyEmail.vue');
@@ -40,9 +39,9 @@ const routes = [
     component: VerifyEmail
   },
   {
-    path: '/signup_flow/experience',
-    name: 'SignupFlowExperience',
-    component: SignupFlowExperience
+    path: '/signup_flow/username',
+    name: 'SignupFlowUsername',
+    component: SignupFlowUsername
   },
   {
     path: '/signup_flow/community',
@@ -58,11 +57,6 @@ const routes = [
     path: '/signup_flow/recruit_enrich',
     name: 'SignupFlowRecruitersEnrich',
     component: SignupFlowRecruitersEnrich
-  },
-  {
-    path: '/signup_flow/interests',
-    name: 'SignupFlowInterests',
-    component: SignupFlowInterests
   },
   {
     path: '/dashboard',

@@ -194,7 +194,7 @@ export default {
               this.$router.push({name: 'Recruiters'});
               return;
             }
-            this.$router.push({name: 'SignupFlowExperience', query: { redirect: this.$route.query.redirect}});
+            this.$router.push({name: 'SignupFlowUsername', query: { redirect: this.$route.query.redirect}});
             return;
           } catch (err){
             console.log(err);
