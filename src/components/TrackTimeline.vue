@@ -17,15 +17,13 @@
       :key="i"
     >
       <div
-        class="flex justify-center items-center w-full left-timeline"
+        class="flex justify-center items-center w-full"
         :class="{
-          'left-timeline': i % 2 === 0,
-          'right-timeline': i % 2 !== 0,
           'flex-row-reverse': i % 2 === 0,
           'lg:-mt-48': i > 0,
         }"
       >
-        <div class="order-1 w-1/3 hidden lg:block" />
+        <div class="order-1 w-1/3 lg:w-2/5 hidden lg:block max-w-md" />
         <div
           class="
             z-20
@@ -37,6 +35,7 @@
             rounded-full
             hidden
             lg:flex
+            justify-center
           "
           :class="{ 'bg-gray-400': i > 0, 'bg-blue-500': i === 0 }"
         >
@@ -45,7 +44,7 @@
             {{ i % 2 !== 0 ? "→" : null }}
           </h1>
         </div>
-        <div class="order-1 lg:w-1/3 sm:w-full items-center">
+        <div class="order-1 md:w-1/3 lg:w-2/5 w-full items-center max-w-md flex-1">
           <ImageCardSkeleton v-if="!isUnitsLoaded" />
           <ImageCard
             v-else
