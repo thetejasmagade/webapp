@@ -71,6 +71,7 @@ module.exports = {
     }
   },
   variants: {
+    width: [ 'group-hover' ],
     extend: {
     }
   },

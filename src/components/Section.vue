@@ -1,22 +1,50 @@
 <template>
-  <div class="section bg-white rounded-lg shadow-xl">
+  <div
+    class="
+      group 
+      bg-white
+      rounded-lg
+      shadow-xl
+      sm:p-8
+      p-2
+      text-gray-700
+    "
+  >
     <div
       v-if="title || subtitle"
-      class="titlebox"
     >
       <div
         v-if="title"
-        class="title"
+        class="
+          text-gold-600
+          bold
+          relative
+          mb-2
+          text-2xl
+        "
       >
         {{ title }}
       </div>
       <div
         v-if="subtitle"
-        class="subtitle"
+        class="text-gray-500"
       >
         {{ subtitle }}
       </div>
     </div>
+    <div
+      class="
+        rounded-full
+        bg-blue-400
+        h-1.5
+        w-1/6
+        group-hover:w-1/5
+        mt-2
+        transition-[width]
+        ease-in-out
+        duration-300
+      "
+    />
     <slot />
   </div>
 </template>
@@ -38,48 +66,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-
-.section {
-  padding: 2em;
-  @media (max-width: $mobile-size) {
-    padding: 1em;
-  }
-  color: $gray-darker;
-
-  .titlebox {
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-      position: relative;
-      margin-bottom: 5px;
-      color: $gold-dark;
-    }
-
-    .subtitle {
-      color: $gray-mid;
-    }
-
-    &:after {
-      content: "";
-      background: $purple-light;
-      border-radius: 25px;
-      display: block;
-      height: 5px;
-      margin-top: 14px;
-      width: 30px;
-      transition: 0.7s ease-in-out;
-    }
-  }
-
-  &:hover {
-    .titlebox {
-      &:after {
-        width: 70px;
-      }
-    }
-  }
-}
+<style scoped>
 </style>
