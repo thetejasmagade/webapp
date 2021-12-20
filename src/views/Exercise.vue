@@ -343,6 +343,7 @@ export default {
     },
     async submitTypeInfo() {
       await submitInformationalExercise(this.$route.params.exerciseUUID);
+      eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
       this.isComplete = true;
     },
     async handleRewards(rewardsResponse) {
@@ -418,6 +419,7 @@ export default {
           hash
         );
         this.isComplete = true;
+        eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
         this.handleRewards(rewardsResponse);
       } catch (err) {
         notify({
