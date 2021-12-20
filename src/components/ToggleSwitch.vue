@@ -1,7 +1,15 @@
 <template>
   <div>
     <span
-      class="toggle-wrapper"
+      class="
+        inline-block
+        relative
+        cursor-pointer
+        w-8
+        h-4
+        rounded-full	
+        focus:outline-none
+      "
       role="checkbox"
       :aria-checked="modelValue.toString()"
       tabindex="0"
@@ -9,11 +17,29 @@
       @keydown.space.prevent="toggle"
     >
       <span
-        class="toggle-background"
+        class="
+          toggle-background
+          inline-block
+          rounded-full
+          h-full
+          w-full
+          shadow-inset
+          transition-colors
+        "
         :class="backgroundStyles"
       />
       <span
-        class="toggle-indicator"
+        class="
+          absolute
+          h-3
+          w-3
+          inset-0.5	
+          bg-white
+          rounded-full
+          shadow
+          transition-transform
+          duration-500
+        "
         :style="indicatorStyles" 
       />
     </span>
@@ -32,12 +58,12 @@ export default {
   computed: {
     backgroundStyles() {
       return {
-        'gold-mid': this.modelValue,
-        'gray-lighter': !this.modelValue
+        'bg-gold-500': this.modelValue,
+        'bg-gray-300': !this.modelValue
       };
     },
     indicatorStyles() {
-      return { transform: this.modelValue ? 'translateX(14px)' : 'translateX(0)' };
+      return { transform: this.modelValue ? 'translateX(16px)' : 'translateX(0)' };
     }
   },
   methods: {
@@ -48,48 +74,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import '@/styles/colors.scss';
-
-.gold-mid {
-  background-color: $gold-mid;
-}
-
-.gray-lighter {
-  background-color: $gray-lighter;
-}
-
-.toggle-wrapper {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  width: 32px;
-  height: 18px;
-  border-radius: 9999px;
-
-  &:focus {
-    outline: 0;
-  }
-}
-
-.toggle-background {
-  display: inline-block;
-  border-radius: 9999px;
-  height: 100%;
-  width: 100%;
+<style scoped>
+.shadow-inset {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color .4s ease;
-}
-
-.toggle-indicator {
-  position: absolute;
-  height: 14px;
-  width: 14px;
-  left: 2px;
-  bottom: 2px;
-  background-color: $white;
-  border-radius: 9999px;
-  box-shadow:  0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform .4s ease;
 }
 </style>
