@@ -1,66 +1,141 @@
 <template>
-  <div class="tabs">
-    <div class="tabs-header">
+  <div>
+    <div
+      class="
+      block
+      list-none
+      m-0
+      p-0
+    "
+    >
       <router-link
         v-if="$store.getters.getIsLoggedIn"
-        class="tabs-tab"
-        :class="{'tab-selected': routePath.includes('browse')}"
+        class="
+          text-gray-700
+          py-3
+          px-4
+          rounded-t
+          mr-2
+          inline-block
+          cursor-pointer
+        "
+        :class="{
+          'bg-white': routePath.includes('browse'),
+          'bg-gray-300': !routePath.includes('browse')
+        }"
         to="/dashboard/courses/browse"
       >
         <FontAwesomeIcon
           icon="search"
-          class="icon"
+          class="
+            md:mr-4
+            mx-2
+          "
         />
         <span
-          class="desktop"
+          class="
+            md:inline-block
+            hidden
+          "
         >
           All courses
         </span>
       </router-link>
       <router-link
         v-if="$store.getters.getIsLoggedIn"
-        class="tabs-tab"
-        :class="{'tab-selected': routePath.includes('algos-track')}"
+        class="
+          text-gray-700
+          py-3
+          px-4
+          rounded-t
+          mr-2
+          inline-block
+          cursor-pointer
+        "
+        :class="{
+          'bg-white': routePath.includes('algos-track'),
+          'bg-gray-300': !routePath.includes('algos-track')
+        }"
         to="/dashboard/courses/algos-track"
       >
         <FontAwesomeIcon
           :icon="['fab', 'python']"
-          class="icon"
+          class="
+            md:mr-4
+            mx-2
+          "
         />
         <span
-          class="desktop"
+          class="
+            md:inline-block
+            hidden
+          "
         >
           Algorithms track
         </span>
       </router-link>
       <router-link
         v-if="$store.getters.getIsLoggedIn"
-        class="tabs-tab"
-        :class="{'tab-selected': routePath.includes('cs-track')}"
+        class="
+          text-gray-700
+          py-3
+          px-4
+          rounded-t
+          mr-2
+          inline-block
+          cursor-pointer
+        "
+        :class="{
+          'bg-white': routePath.includes('cs-track'),
+          'bg-gray-300': !routePath.includes('cs-track')
+        }"
         to="/dashboard/courses/cs-track"
       >
         <FontAwesomeIcon
           icon="graduation-cap"
-          class="icon"
+          class="
+            md:mr-4
+            mx-2
+          "
         />
         <span
-          class="desktop"
+          class="
+            md:inline-block
+            hidden
+          "
         >
           CompSci track
         </span>
       </router-link>
       <router-link
         v-if="$store.getters.getIsLoggedIn"
-        class="tabs-tab"
-        :class="{'tab-selected': routePath.includes('golang-track')}"
+        class="
+          text-gray-700
+          py-3
+          px-4
+          rounded-t
+          mr-2
+          inline-block
+          cursor-pointer
+        "
+        :class="{
+          'bg-white': routePath.includes('golang-track'),
+          'bg-gray-300': !routePath.includes('golang-track')
+        }"
         to="/dashboard/courses/golang-track"
       >
         <FontAwesomeIcon
           :icon="['fab', 'golang']"
-          class="icon"
+          class="
+            md:mr-4
+            mx-2
+          "
         />
         <span
-          class="desktop"
+          class="
+            md:inline-block
+            hidden
+          "
         >
           Gopher gang track
         </span>
@@ -88,46 +163,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-
-.tabs-header {
-  display: block;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.tabs-tab {
-  background-color: $gray-lighter;
-  color: $gray-darker;
-  padding: 15px 30px;
-  @media screen and (max-width: $mobile-size) {
-    padding: 10px 20px;
-  }
-  border-radius: 3px 3px 0 0;
-  margin: 0 5px 0 0;
-  display: inline-block;
-  cursor: pointer;
-
-  &.tab-selected {
-    background-color: white
-  }
-}
-
-.icon {
-  margin: 0 10px 0 0;
-  @media screen and (max-width: $mobile-size) {
-    margin: 0 5px 0 5px;
-  }
-}
-
-.desktop {
-  display: none !important;
-  @media screen and (min-width: $mobile-size) {
-    display: inline-block !important;
-  }
-}
-
+<style scoped>
 </style>
