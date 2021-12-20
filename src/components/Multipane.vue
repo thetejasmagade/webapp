@@ -1,5 +1,9 @@
 <template>
   <div
+    class="
+      multipane
+      flex
+    "
     :class="classnames"
     :style="{ cursor, userSelect }"
     @mousedown="onMouseDown"
@@ -32,7 +36,6 @@ export default {
   computed: {
     classnames() {
       return [
-        'multipane',
         'layout-' + this.layout.slice(0, 1),
         this.isResizing ? 'is-resizing' : ''
       ];
@@ -132,19 +135,15 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.multipane {
-  display: flex;
+<style>
+.layout-v {
+  flex-direction: column;
+  height: 100%;
+}
 
-  &.layout-v {
-    flex-direction: column;
-    height: 100%;
-  }
-
-  &.layout-h {
-    flex-direction: row;
-    width: 100%;
-  }
+.layout-h {
+  flex-direction: row;
+  width: 100%;
 }
 
 .multipane > div {
