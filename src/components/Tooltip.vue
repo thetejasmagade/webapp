@@ -1,10 +1,30 @@
 <template>
-  <div class="tooltip-box relative">
+  <div
+    class="
+      tooltip-box
+      relative
+      xs:hidden
+      sm:block
+    "
+  >
     <div>
       <slot />
     </div>
     <div
-      class="tooltip text-white"
+      class="
+        tooltip
+        text-white
+        text-center
+        p-2
+        rounded
+        w-32
+        opacity-0
+        absolute
+        invisible
+        z-50
+        transition-opacity
+        duration-500
+      "
       :class="{
         'bg-gray-500': color === 'gray',
         'bg-red-500': color === 'red',
@@ -62,28 +82,10 @@ export default {
 </script>
 
 <style scoped>
-.tooltip-box:hover .tooltip{
+
+.tooltip-box:hover .tooltip {
   visibility: visible;
   opacity: 1;
-}
-
-.tooltip {
-  text-align: center;
-  padding: 5px;
-  border-radius: 2px;
-  width: 120px;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-  transition-delay: 0.1s;
-  position: absolute;
-  z-index: 9997;
-}
-
-@media (max-width: 600) {
-  .tooltip {
-    display: none;
-  }
 }
 
 .top {

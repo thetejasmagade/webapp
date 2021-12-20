@@ -1,20 +1,21 @@
 <template>
   <div>
     <Section
-      title="All Courses"
-      subtitle="Browse all of Qvault's content. Join the Discord to get recommendations"
+      title="All courses and projects"
+      subtitle="Browse all of our content and hop into our Discord to get personal recommendations"
     >
-      <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
+      <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-4">
         <div
-          v-for="(courseUnit, i) of courseUnits"
+          v-for="(unit, i) of units"
           :key="i"
         >
           <ImageCard
-            :click="() => clickUnit(courseUnit)"
-            :img-src="getUnitData(courseUnit).ImageURL"
+            class="h-full"
+            :click="() => clickUnit(unit)"
+            :img-src="getUnitData(unit).ImageURL"
           >
             <UnitCardBody
-              :unit="courseUnit"
+              :unit="unit"
             />
           </ImageCard>
         </div>
@@ -30,8 +31,7 @@ import UnitCardBody from '@/components/UnitCardBody.vue';
 import {
   unitTypeCourse, 
   getUnitData, 
-  unitTypeProject,
-  createCourseUnit
+  unitTypeProject
 } from '@/lib/unit.js';
 
 import { 
@@ -51,11 +51,10 @@ export default {
     };
   },
   computed:{
-    courseUnits(){
-      let courses = this.$store.getters.getCourses;
-      courses.sort((course1, course2) => { return course1.Difficulty < course2.Difficulty ? -1 : 1;} );
-      courses = courses.map(course => createCourseUnit(course));
-      return courses;
+    units(){
+      let units = this.$store.getters.getUnits;
+      units.sort((unit1, unit2) => { return getUnitData(unit1).Difficulty < getUnitData(unit2).Difficulty ? -1 : 1;} );
+      return units;
     }
   },
   methods: {

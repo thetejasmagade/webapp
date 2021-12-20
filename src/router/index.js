@@ -194,7 +194,7 @@ router.beforeEach((to, from, next) => {
 
   // Dashboard default child redirect
   if (to.fullPath === '/dashboard/courses') {
-    next({name: 'AlgosTrack' });
+    next({name: 'Browse' });
     return;
   }
 

@@ -4,6 +4,22 @@
       <router-link
         v-if="$store.getters.getIsLoggedIn"
         class="tabs-tab"
+        :class="{'tab-selected': routePath.includes('browse')}"
+        to="/dashboard/courses/browse"
+      >
+        <FontAwesomeIcon
+          icon="search"
+          class="icon"
+        />
+        <span
+          class="desktop"
+        >
+          All courses
+        </span>
+      </router-link>
+      <router-link
+        v-if="$store.getters.getIsLoggedIn"
+        class="tabs-tab"
         :class="{'tab-selected': routePath.includes('algos-track')}"
         to="/dashboard/courses/algos-track"
       >
@@ -14,7 +30,7 @@
         <span
           class="desktop"
         >
-          Algorithms Track
+          Algorithms track
         </span>
       </router-link>
       <router-link
@@ -30,7 +46,7 @@
         <span
           class="desktop"
         >
-          CompSci Track
+          CompSci track
         </span>
       </router-link>
       <router-link
@@ -46,23 +62,7 @@
         <span
           class="desktop"
         >
-          Gopher Gang Track
-        </span>
-      </router-link>
-      <router-link
-        v-if="$store.getters.getIsLoggedIn"
-        class="tabs-tab"
-        :class="{'tab-selected': routePath.includes('browse')}"
-        to="/dashboard/courses/browse"
-      >
-        <FontAwesomeIcon
-          icon="search"
-          class="icon"
-        />
-        <span
-          class="desktop"
-        >
-          All Courses
+          Gopher gang track
         </span>
       </router-link>
     </div>

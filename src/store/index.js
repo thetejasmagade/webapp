@@ -95,6 +95,16 @@ export default createStore({
     getProjects(state) {
       return state.projects;
     },
+    getUnits(state) {
+      const units = [];
+      for (const project of state.projects){
+        units.push(createProjectUnit(project));
+      }
+      for (const course of state.courses){
+        units.push(createCourseUnit(course));
+      }
+      return units;
+    },
     getTrackCS(state) {
       let items = [];
       for (const uuid of state.programCS){
