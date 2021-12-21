@@ -332,7 +332,7 @@ export default {
         if (!this.canvasAllowed && this.canvasEnabled){
           notify({
             type: 'danger',
-            text: 'You\'re browser doesn\'t support canvas assignments, try a chrome-based browser or just skip this exercise'
+            text: 'Your browser doesn\'t support canvas exercises, please use Chrome, Edge or Opera'
           });
           return;
         }
