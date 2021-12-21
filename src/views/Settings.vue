@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-root">
+  <div class="flex-wrap flex p-4">
     <ConfirmModal
       ref="deleteUserModal"
       heading="Are you absolutely sure you want to permanently delete your account?"
@@ -10,31 +10,49 @@
       "
       :on-confirm="deleteUser"
     />
-    <div class="sidebar">
+    <div
+      class="
+        w-full
+        md:w-72
+      "
+    >
       <Section
         :title="`${firstName} ${lastName }`"
         :subtitle="email"
       >
-        <div class="body">
-          <div class="tab">
+        <div
+          class="
+            flex
+            flex-col
+            items-center
+          "
+        >
+          <div
+            class="
+            w-3/4
+            mt-8
+            flex
+            flex-col
+          "
+          >
             <BlockButton
               :click="() => currentTab='settings'"
               :color="currentTab==='settings' ? 'blue-light':'gray-light'"
-              class="tabItems"
+              class="m-2"
             >
               Profile
             </BlockButton>
             <BlockButton
               :click="() => currentTab='updatePass'"
               :color="currentTab==='updatePass' ? 'blue-light':'gray-light'"
-              class="tabItems"
+              class="m-2"
             >
               Security
             </BlockButton>
             <BlockButton
               :click="() => {openCustomerPortal()}"
               color="gray-light"
-              class="tabItems"
+              class="m-2"
             >
               Billing
             </BlockButton>
@@ -43,148 +61,156 @@
       </Section>
     </div>
 
-    <div class="profileContent">
+    <div
+      class="
+        flex-1
+        pt-4
+        md:pl-4
+        md:pt-0
+      "
+    >
       <div
         v-if="currentTab === 'settings'"
-        class="visualItems"
       >
         <Section
           title="Edit Your Profile"
           subtitle="Changes will be reflected on your public dev portfolio"
+          class="mb-4"
         >
-          <div class="innerProfile">
-            <form @submit.prevent="updateUser">
-              <div class="row">
-                <div class="col switch-box">
-                  <span>Get notified of job relevant job offers</span>
-                  <ToggleSwitch
-                    v-model="user.recruitersCanContact"
-                    class="switch"
+          <div class="p-4">
+            <form
+              class="
+                grid
+                lg:grid-cols-3 md:grid-cols-2 grid-cols-1
+                gap-4
+              "
+              @submit.prevent="updateUser"
+            >
+              <div class="lg:col-span-3 md:col-span-2 col-span-1 flex justify-center items-center">
+                <span>Get notified of job relevant job offers</span>
+                <ToggleSwitch
+                  v-model="user.recruitersCanContact"
+                  class="
+                    inline-block
+                    leading-3
+                    ml-4
+                  "
+                />
+              </div>
+
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.handle"
+                    class="w-full"
+                    :placeholder="handle"
+                    type="text"
                   />
-                </div>
+                  <label class="text-gold-600 text-xs">Qvault Handle</label>
+                </span>
               </div>
-              <div class="row">
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.handle"
-                      class="inputItems"
-                      :placeholder="handle"
-                      type="text"
-                    />
-                    <label>Qvault Handle</label>
-                  </span>
-                </div>
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.firstName"
-                      class="inputItems"
-                      :placeholder="firstName"
-                      type="text"
-                    />
-                    <label>First Name</label>
-                  </span>
-                </div>
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.lastName"
-                      class="inputItems"
-                      :placeholder="lastName"
-                      type="text"
-                    />
-                    <label>Last Name</label>
-                  </span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.jobTitle"
-                      class="inputItems"
-                      :placeholder="jobTitle"
-                      type="text"
-                    />
-                    <label>Job Title</label>
-                  </span>
-                </div>
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.location"
-                      class="inputItems"
-                      :placeholder="location"
-                      type="text"
-                    />
-                    <label>Location (City, Country)</label>
-                  </span>
-                </div>
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.websiteURL"
-                      class="inputItems"
-                      :placeholder="websiteURL"
-                      type="text"
-                    />
-                    <label>Website</label>
-                  </span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.twitterHandle"
-                      class="inputItems"
-                      :placeholder="twitterHandle"
-                      type="text"
-                    />
-                    <label>Twitter Handle</label>
-                  </span>
-                </div>
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.linkedinURL"
-                      class="inputItems"
-                      :placeholder="linkedinURL"
-                      type="text"
-                    />
-                    <label>Linkedin URL</label>
-                  </span>
-                </div>
-                <div class="col">
-                  <span>
-                    <TextInput
-                      v-model="user.githubHandle"
-                      class="inputItems"
-                      :placeholder="githubHandle"
-                      type="text"
-                    />
-                    <label>Github Username</label>
-                  </span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
-                  <ResumeUploader
-                    class="mb-4"
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.firstName"
+                    class="w-full"
+                    :placeholder="firstName"
+                    type="text"
                   />
-                </div>
+                  <label class="text-gold-600 text-xs">First Name</label>
+                </span>
+              </div>
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.lastName"
+                    class="w-full"
+                    :placeholder="lastName"
+                    type="text"
+                  />
+                  <label class="text-gold-600 text-xs">Last Name</label>
+                </span>
               </div>
 
-              <div class="row">
-                <div class="col">
-                  <textarea
-                    v-model="user.bio"
-                    :placeholder="bio"
-                    class="
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.jobTitle"
+                    class="w-full"
+                    :placeholder="jobTitle"
+                    type="text"
+                  />
+                  <label class="text-gold-600 text-xs">Job Title</label>
+                </span>
+              </div>
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.location"
+                    class="w-full"
+                    :placeholder="location"
+                    type="text"
+                  />
+                  <label class="text-gold-600 text-xs">Location (City, Country)</label>
+                </span>
+              </div>
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.websiteURL"
+                    class="w-full"
+                    :placeholder="websiteURL"
+                    type="text"
+                  />
+                  <label class="text-gold-600 text-xs">Website</label>
+                </span>
+              </div>
+
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.twitterHandle"
+                    class="w-full"
+                    :placeholder="twitterHandle"
+                    type="text"
+                  />
+                  <label class="text-gold-600 text-xs">Twitter Handle</label>
+                </span>
+              </div>
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.linkedinURL"
+                    class="w-full"
+                    :placeholder="linkedinURL"
+                    type="text"
+                  />
+                  <label class="text-gold-600 text-xs">Linkedin URL</label>
+                </span>
+              </div>
+              <div>
+                <span>
+                  <TextInput
+                    v-model="user.githubHandle"
+                    class="w-full"
+                    :placeholder="githubHandle"
+                    type="text"
+                  />
+                  <label class="text-gold-600 text-xs">Github Username</label>
+                </span>
+              </div>
+
+              <div class="flex items-center">
+                <ResumeUploader
+                  class="mb-4"
+                />
+              </div>
+
+              <div class="md:col-span-2 col-span-1">
+                <textarea
+                  v-model="user.bio"
+                  :placeholder="bio"
+                  class="
                       autoexpand
                       tracking-wide
                       py-2 px-4 mb-3
@@ -193,62 +219,70 @@
                       block w-full 
                       border rounded focus:outline-none border-gray-300
                     "
-                    rows="4"
-                  />
-                  <label>Bio</label>
-                </div>
+                  rows="4"
+                />
+                <label class="text-gold-600 text-xs">Bio</label>
               </div>
-              <div class="text-center">
+                
+              <div class="lg:col-span-3 md:col-span-2 col-span-1 text-center">
                 <BlockButton>
                   Update
                 </BlockButton>
               </div>
             </form>
-            <div class="border-t border-gray-300 my-4" />
-            <div class="flex justify-center items-center">
-              <span>API key: <code>{{ $store.getters.getUser?.APIKey }}</code></span>
-              <BlockButton
-                class="ml-4"
-                color="red"
-                :click="() => updateUserAPIKey()"
-              >
-                Regenerate key
-              </BlockButton>
-            </div>
+          </div>
+        </Section>
+        <Section
+          title="API Key"
+        >
+          <div class="flex flex-col justify-center items-center p-4">
+            <span>API key: <code>{{ $store.getters.getUser?.APIKey }}</code></span>
+            <BlockButton
+              class="mt-4"
+              color="red"
+              :click="() => updateUserAPIKey()"
+            >
+              Regenerate key
+            </BlockButton>
           </div>
         </Section>
       </div>
 
       <div
         v-if="currentTab === 'updatePass'"
-        class="visualItems"
       >
         <Section
           title="Update Password"
           class="mb-4"
         >
-          <div class="security-body">
+          <div
+            class="
+              relative
+              flex
+              flex-col
+              justify-center
+              items-center
+            "
+          >
             <form
+              class="max-w-md p-4 flex items-center flex-col w-80"
               @submit.prevent="updatePassword"
             >
-              <p class="title">
-                Change Password
-              </p>
               <TextInput
                 v-model="oldPassword"
                 placeholder="Old Password"
                 type="password"
-                class="inputItems vertical"
+                class="w-full mb-4"
               />
               <TextInput
                 v-model="newPassword"
-                class="inputItems vertical"
+                class="w-full mb-4"
                 placeholder="New Password"
                 type="password"
               />
               <TextInput
                 v-model="confirmPassword"
-                class="inputItems vertical"
+                class="w-full mb-4"
                 placeholder="Confirm Password"
                 type="password"
               />
@@ -261,7 +295,7 @@
         <Section
           title="Permanent account deletion"
         >
-          <div class="security-body">
+          <div class="p-4 flex flex-col items-center">
             <BlockButton
               color="red"
               :click="() => $refs.deleteUserModal.show()"
@@ -481,131 +515,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/colors.scss";
-
-label {
-  font-size: .75em;
-  color: $gold-dark;
-}
-
-.profile-img {
-  width: 175px;
-}
-
-.switch-box {
-  display: flex;
-  align-items: center;
-
-  .switch {
-    margin: 0 0 0 1em;
-    display: inline-block;
-    align-items: center;
-    justify-content: center;
-    line-height: .75em;
-  }
-}
-
-.settings-root {
-  color: $gray-darker;
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
-
-  .sidebar {
-    width: 300px;
-    padding: 15px 0 15px 15px;
-
-    .body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-  }
-
-  .profileContent {
-    flex: 1;
-    padding: 15px;
-    overflow: auto;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-
-    .visualItems {
-
-      .inputItems {
-        line-height: 26px;
-        width: 100%;
-        font-family: 'Roboto', sans-serif;
-
-        &.vertical{
-          margin-bottom: 1em;
-        }
-      }
-
-      .security-body {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        @media (max-width: 768px) {
-          width: 99%;
-        }
-
-        form {
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          padding: 30px;
-          align-items: center;
-          margin: 35px 0;
-          max-width: 400px;
-          width: 100%;
-
-          .title {
-            text-align: center;
-            font-size: 1.4rem;
-            padding: 12px 27px;
-            font-weight: bold;
-            color: $gray-lightest;
-          }
-        }
-      }
-    }
-  }
-}
-
-.innerProfile {
-  padding: 25px;
-
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-
-    .col {
-      flex: 1;
-      padding: 15px;
-    }
-  }
-}
-
-.tab {
-  width: 75%;
-  margin: 50px 0;
-  display: flex;
-  flex-direction: column;
-
-  .tabItems {
-    margin: 0 .5em 1em .5em;
-    font-weight: bold;
-  }
-}
+<style scoped>
 </style>
