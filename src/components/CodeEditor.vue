@@ -365,8 +365,6 @@ export default {
               this.scrollToEnd();
             });
           } else if (this.progLang === 'js'){
-            this.loadingText = 'Setting up your environment...';
-            await awaitWorkerReady(this.worker);
             this.loadingText = 'Running your code...';
             // make it feel like something is running
             await sleep(250);
