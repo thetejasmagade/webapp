@@ -25,21 +25,7 @@
       <div class="flex justify-center mb-2">
         <div class="w-4/5 border-b-2 border-gray-500" />
       </div>
-
-      <Tooltip
-        v-if="$store.getters.getUser ? $store.getters.getUser.IsRecruiter : false"
-        :text="`Recruiters`"
-        position="right"
-        class="mx-4 mb-2"
-        color="gold"
-      >
-        <MenuItemHorizontal
-          icon="search"
-          :click="() => {$router.push({name: 'Recruiters'}) }"
-          :current="pathName === 'Recruiters'"
-        />
-      </Tooltip>
-
+      
       <Tooltip
         :text="`Courses`"
         position="right"

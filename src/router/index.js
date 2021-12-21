@@ -15,7 +15,6 @@ const SignupFlowCommunity = () => import('@/views/SignupFlowCommunity.vue');
 const SignupFlowRecruiters = () => import('@/views/SignupFlowRecruiters.vue');
 const SignupFlowRecruitersEnrich = () => import('@/views/SignupFlowRecruitersEnrich.vue');
 const VerifyEmail = () => import('@/views/VerifyEmail.vue');
-const Recruiters = () => import('@/views/Recruiters.vue');
 const Certificate = () => import('@/views/Certificate.vue');
 const CSTrack = () => import('@/views/CSTrack.vue');
 const AlgosTrack = () => import('@/views/AlgosTrack.vue');
@@ -63,11 +62,6 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     children: [
-      {
-        path: 'recruiters',
-        name: 'Recruiters',
-        component: Recruiters
-      },
       {
         path: 'courses',
         name: 'Courses',

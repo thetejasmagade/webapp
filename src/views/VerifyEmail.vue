@@ -36,8 +36,7 @@ import BlockButton from '@/components/BlockButton.vue';
 
 import {
   sendEmailVerification, 
-  verifyEmail,
-  updateUser
+  verifyEmail
 } from '@/lib/cloudClient.js';
 
 import {
@@ -69,11 +68,6 @@ export default {
       try {
         await verifyEmail(Number(this.validationCode));
         loadLoggedIn(this);
-        if (this.$route.query.recruiter){
-          await updateUser({isRecruiter: true});
-          this.$router.push({name: 'Recruiters'});
-          return;
-        }
         this.$router.push({name: 'SignupFlowUsername', query: {redirect: this.$route.query.redirect}});
       } catch (err){
         notify({

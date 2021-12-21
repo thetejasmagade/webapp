@@ -56,8 +56,7 @@ import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
-  loginGoogle,
-  updateUser
+  loginGoogle
 } from '@/lib/cloudClient.js';
 import { eventRegister, singupMethodGoogle } from '@/lib/analytics.js';
 import { notify } from '@/lib/notification.js';
@@ -129,11 +128,6 @@ export default {
         loadLoggedIn(this);
         if (resp.registered){
           eventRegister(singupMethodGoogle);
-          if (this.$route.query.recruiter){
-            await updateUser({isRecruiter: true});
-            this.$router.push({name: 'Recruiters'});
-            return;
-          }
           this.$router.push({name: 'SignupFlowUsername', query: { redirect: this.$route.query.redirect}});
           return;
         }

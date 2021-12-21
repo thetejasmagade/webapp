@@ -155,7 +155,7 @@ export default {
         await loginManual(this.email, this.password);
         await sendEmailVerification(this.email);
         eventRegister(singupMethodEmail);
-        this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect, recruiter:this.$route.query.recruiter}});
+        this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect}});
       } catch (err){
         notify({
           type: 'danger',
