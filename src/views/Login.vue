@@ -34,7 +34,7 @@
           <div class="text-center">
             <p>
               Don't like integrations? <a
-                class="link"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='register'"
               >
                 Create password
@@ -42,7 +42,7 @@
             </p>
             <p>
               Have a password? <a
-                class="link"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='login'"
               >
                 Login
@@ -58,7 +58,7 @@
           <div class="text-center">
             <p>
               Have an integrated account? <a
-                class="link"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='integration'"
               >
                 Single Sign-On
@@ -66,7 +66,7 @@
             </p>
             <p>
               Have an account? <a
-                class="link"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='login'"
               >
                 Login
@@ -82,7 +82,7 @@
           <div class="text-center">
             <p>
               Need an account? <a
-                class="link"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='register'"
               >
                 Sign Up Free
@@ -90,7 +90,7 @@
             </p>
             <p>
               Have an integrated account? <a
-                class="link"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='integration'"
               >
                 Single Sign-On
@@ -98,7 +98,7 @@
             </p>
             <p>
               <a
-                class="link"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='forgot-password'"
               >
                 Forgot Password?
@@ -126,7 +126,7 @@
         <span class="flex-1 ml-2">
           Need more info? Go
           <a
-            class="link"
+            class="underline cursor-pointer text-gold-600 hover:text-gold-800"
             href="https://qvault.io"
           >
             back to the homepage
