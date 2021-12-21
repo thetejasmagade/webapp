@@ -39,7 +39,7 @@
         <span class="flex-1 ml-2">
           I've read and agree to the 
           <a
-            class="link"
+            class="underline cursor-pointer text-gold-600 hover:text-gold-800"
             href="https://qvault.io/terms-of-service/"
           >
             terms

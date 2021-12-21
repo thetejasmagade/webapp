@@ -300,6 +300,7 @@
           <p>
             We do promotions from time to time, and currently we're offering a <a
               target="_blank"
+              class="underline cursor-pointer text-gold-600 hover:text-gold-800"
               href="https://forms.gle/poQckVBir9XZA7L39"
             >25% discount to anyone who completes this feedback form.</a>
             Our top priority is improving the courses, the app, and your experience so your feedback is super valuable to us.
@@ -332,7 +333,10 @@
           </h2>
           <p>
             We do our best to be transparent about pricing, and never want anyone keeping
-            a subscription they don't use. You can cancel your subscription any time from your <a href="/dashboard/settings">settings page</a>
+            a subscription they don't use. You can cancel your subscription any time from your <a
+              class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+              href="/dashboard/settings"
+            >settings page</a>
             and you won't be billed again.
           </p>
 

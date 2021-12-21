@@ -1,6 +1,10 @@
 <template>
   <div
-    class="h-screen"
+    class="
+      h-screen
+      text-gray-700
+      bg-gray-200
+    "
   >
     <metainfo>
       <template v-slot:title="{ content }">
@@ -135,8 +139,18 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import 'styles/styles.scss';
-@import 'styles/colors.scss';
+<style>
 @import 'styles/index.css';
+
+:root {
+  --red-600: #9E3A46;
+
+  --top-nav-bar-height: 60px;
+}
+
+body {
+  font-family: Apercu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+  height: 100%;
+}
 </style>
