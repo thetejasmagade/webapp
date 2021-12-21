@@ -5,21 +5,35 @@
       name="modal"
     >
       <div
-        class="modal-mask"
+        class="
+          bg-opacity
+          fixed
+          z-40
+          inset-0
+          w-full
+          h-full
+          flex
+          flex-col
+          justify-center
+          transition-opacity
+          duration-300
+        "
         @click.stop="hide"
       >
-        <div class="modal-wrapper">
+        <div class="flex justify-center">
           <div
-            class="modal-container"
+            class="
+              flex-1
+              max-w-xl
+              p-6
+              bg-gray-200
+              text-gray-700
+              rounded
+              shadow
+            "
             @click.stop=""
           >
-            <div class="modal-body">
-              <div>
-                <div
-                  class="close"
-                  @click.stop="hide"
-                />
-              </div>
+            <div class="flex flex-col">
               <slot />
             </div>
           </div>
@@ -55,94 +69,12 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import '@/styles/colors.scss';
-@import '@/styles/consts.scss';
-
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+<style scoped>
+.bg-opacity {
   background-color: rgba(0, 0, 0, 0.75);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transition: opacity 0.3s ease;
-}
-
-.modal-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.modal-container {
-  flex: 1 1 calc(22% - 1em);
-  max-width: 600px;
-  min-width: 250px;
-  padding: 20px 30px;
-  background-color: $gray-lightest;
-  color: $gray-darker;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: column;
 }
 
 .modal-default-button {
   float: right;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.close {
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
-  position: relative;
-  @media screen and (min-width: $mobile-size) {
-    position: absolute;
-  }
-  cursor: pointer;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &:before, &:after {
-    position: absolute;
-    left: 15px;
-    content: ' ';
-    height: 33px;
-    width: 2px;
-    background-color: $white;
-  }
-
-  &:before {
-    transform: rotate(45deg);
-  }
-
-  &:after {
-    transform: rotate(-45deg);
-  }
 }
 </style>

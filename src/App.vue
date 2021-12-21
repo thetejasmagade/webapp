@@ -1,6 +1,6 @@
 <template>
   <div
-    id="app"
+    class="h-full"
   >
     <metainfo>
       <template v-slot:title="{ content }">
@@ -139,8 +139,4 @@ export default {
 @import 'styles/styles.scss';
 @import 'styles/colors.scss';
 @import 'styles/index.css';
-
-#app {
-  height: 100%;
-}
 </style>
