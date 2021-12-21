@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full"
+    class="h-screen"
   >
     <metainfo>
       <template v-slot:title="{ content }">

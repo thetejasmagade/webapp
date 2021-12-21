@@ -1,12 +1,34 @@
 <template>
-  <div class="playground-root">
+  <div
+    class="
+    h-full
+    flex
+    flex-col
+    justify-end
+  "
+  >
     <TopNav :title="`${displayLang} Playground`" />
 
-    <div class="select-container z-10">
+    <div
+      class="
+        z-10
+        right-28
+        top-14
+        flex
+        justify-center
+        flex-row
+        m-4
+        md:block
+        md:absolute
+      "
+    >
       <SelectDropdown
         :options="displayLangsArray"
         :default="displayLangs[lang]"
-        class="select"
+        class="
+          max-w-full
+          md:w-auto
+        "
         @update:modelValue="
           $router.push({ path: `/playground/${displayToKey($event)}` })
         "
@@ -15,7 +37,12 @@
 
     <CodeEditor
       v-model="code"
-      class="editor"
+      class="
+        flex-1
+        bg-gray-200
+        m-full
+        overflow-auto
+      "
       :run-callback="() => {}"
       :reset-callback="setCode"
       :prog-lang="progLang"
@@ -189,57 +216,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/colors.scss";
-@import "@/styles/consts.scss";
-
-.playground-root {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
-
-  .langs {
-    display: flex;
-    flex-direction: row;
-    padding: 1em;
-
-    a {
-      padding-left: 10px;
-    }
-  }
-
-  .editor {
-    flex: 1;
-    background-color: $gray-lightest;
-    max-height: 100%;
-    overflow: auto;
-  }
-
-  .select-container {
-    @media screen and (max-width: $mobile-size) {
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: row;
-      margin: 1em;
-      justify-content: center;
-    }
-    @media screen and (min-width: $mobile-size) {
-      display: block;
-      top: calc(15px + var(--top-nav-bar-height));
-      right: 20px;
-      position: absolute;
-    }
-  }
-
-  .select {
-    @media screen and (max-width: $mobile-size) {
-      max-width: 100%;
-    }
-    @media screen and (min-width: $mobile-size) {
-      width: auto;
-      min-width: 250px;
-    }
-  }
-}
+<style scoped>
 </style>
