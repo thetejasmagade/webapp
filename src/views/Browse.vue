@@ -1,6 +1,7 @@
 <template>
   <div>
     <Section
+      class="section"
       title="All courses and projects"
       subtitle="Browse all of our content and hop into our Discord to get personal recommendations"
     >

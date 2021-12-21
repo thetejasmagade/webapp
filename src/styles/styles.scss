@@ -11,10 +11,6 @@ html {
 	height: 100%;
 }
 
-.bold {
-  font-weight: bold;
-}
-
 body {
   font-family: $default-font-family;
   font-weight: 400;
@@ -37,15 +33,4 @@ a, .link{
       color: $gray-lighter;
     }
   }
-}
-
-.subcontainer {
-  padding: 1em;
-  @media screen and (max-width: $mobile-size) {
-    margin: 0;
-  }
-}
-
-.margin-bottom-1 {
-  margin-bottom: 1em;
 }

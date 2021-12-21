@@ -17,7 +17,7 @@
         v-if="title"
         class="
           text-gold-600
-          bold
+          font-bold
           relative
           mb-2
           text-2xl

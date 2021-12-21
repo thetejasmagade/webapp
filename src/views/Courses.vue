@@ -1,6 +1,6 @@
 <template>
   <div
-    class="subcontainer"
+    class="p-4"
   >
     <TabsNav />
     <router-view />
