@@ -131,6 +131,15 @@ export default {
   color: var(--red-500);
 }
 
+.viewer a {
+  color: var(--gold-600);
+  text-decoration: underline;
+}
+
+.viewer a:hover {
+  color: var(--gold-800);
+}
+
 .viewer img {
   max-width: 100%;
   border-radius: 5px;

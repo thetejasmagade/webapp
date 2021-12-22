@@ -145,6 +145,9 @@ export default {
 :root {
   --red-500: #C05460;
 
+  --gold-600: #9E713A;
+  --gold-800: #48331B;
+
   --top-nav-bar-height: 60px;
 }
 
