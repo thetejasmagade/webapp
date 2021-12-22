@@ -41,11 +41,6 @@ import Sidebar from '@/components/Sidebar.vue';
 import { useRoute } from 'vue-router';
 
 import {
-  getRewards
-} from '@/lib/cloudClient.js';
-import { notify } from '@/lib/notification.js';
-
-import {
   loadTracks,
   loadBalance,
   loadUser
@@ -76,27 +71,7 @@ export default {
     if (!this.$store.getters.getUser){
       loadUser(this);
     }
-
-    await this.loadRewards();
     loadBalance(this);
-  },
-  methods: {
-    async loadRewards(){
-      try {
-        const rewards = await getRewards();
-        for (const reward of rewards.Rewards){
-          notify({
-            type: 'success',
-            text: `${reward.Message} 💎x${reward.GemCredit}`
-          });
-        }
-      } catch (err) {
-        notify({
-          type: 'danger',
-          text: err
-        });
-      }
-    }
   }
 };
 </script>
