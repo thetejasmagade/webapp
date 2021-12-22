@@ -13,9 +13,7 @@
       style="left: 50%"
     />
 
-    <!-- While data is loading, render skeleton cards / placeholder data --> 
-
-    <template v-if="!isUnitsLoaded">
+    <div v-if="!isUnitsLoaded">
       <div
         v-for="(unit, i) of numSkeletonCards"
         :key="i"
@@ -56,14 +54,12 @@
           </div>
         </div>
       </div>
-    </template>
+    </div>
 
-
-    <!-- If data is not finished loading, render this --> 
-
-    <template v-else>
+    <div v-else>
       <div
-        v-for="(unit, i) of unitCards"
+      
+        v-for="(unit, i) of units"
         :key="i"
       >
         <div
@@ -90,13 +86,31 @@
             lg:flex
             justify-center
           "
-            :class="{ 'bg-gray-400': i > 0, 'bg-blue-500': i === 0}"
+          
+            :class="{ 'bg-blue-400': i === firstIncompleteIndex, 
+                      'bg-green-500': isComplete(unit),
+                      'bg-gray-400': !isComplete(unit)}"
           >
             <!-- create green for completed courses (check mark??)
         create blue for current course
         grey otherwise  ✔ -->
           
-            <h1 class="mx-auto text-white font-semibold text-md">
+            <h1
+              v-if="isComplete(unit)"
+              
+              class="
+              mx-auto
+              text-white
+              font-semibold
+              text-md"
+            >
+              {{ "✔" }} 
+            </h1>
+
+            <h1
+              v-else
+              class="mx-auto text-white font-semibold text-md"
+            >
               {{ i % 2 === 0 ? "←" : null }} {{ i + 1 }}
               {{ i % 2 !== 0 ? "→" : null }}
             </h1>
@@ -112,7 +126,7 @@
           </div>
         </div>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -146,24 +160,23 @@ export default {
     }
   },
   computed: {
-    unitCards() {
-      return this.units.length === 0 ? this.numSkeletonCards : this.units;
-    },
     isUnitsLoaded() {
       return this.units.length > 0;
     },
-    checkCompletion(course) {  
-      console.log(course);
-      return !this.getUnitData(course).CompletedAt;
+    firstIncompleteIndex() {
+      for (let i = 0; i < this.units.length; i++) {
+        if (!this.units[i].course.CompletedAt) {
+          return i;
+        }  
+      }
+      return null;
     }
-    // fakeData() {
-    // javascript map (This.unitcards.map(unitcard => {
-    // unitcard.CompletedAt = 123;
-    //}))
-    //}
   },
   methods: {
-    getUnitData
+    getUnitData,
+    isComplete(unit) {
+      return getUnitData(unit).CompletedAt;
+    }
   }
 };
 </script>
