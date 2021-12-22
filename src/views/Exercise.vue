@@ -140,8 +140,6 @@ import { notify } from '@/lib/notification.js';
 import { sleep } from '@/lib/sleep.js';
 
 import {
-  eventEarnGems,
-  eventUnlockAchievement,
   eventFinishCourse,
   eventExecuteCode,
   eventExerciseFailure,
@@ -346,64 +344,28 @@ export default {
       eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
       this.isComplete = true;
     },
-    async handleRewards(rewardsResponse) {
-      if (rewardsResponse.CourseDone) {
+    async handleSubmitResponse(submitResponse) {
+      if (submitResponse.CourseDone) {
         if (!this.courseDone) {
           eventFinishCourse(this.course.Title, false);
         }
         this.courseDone = true;
       }
-      if (
-        (rewardsResponse.GemCredit && rewardsResponse.Message) ||
-        (rewardsResponse.Achievements &&
-          rewardsResponse.Achievements.length > 0)
-      ) {
-        loadBalance(this);
-      }
-
-      if (rewardsResponse.GemCredit) {
-        eventEarnGems(rewardsResponse.GemCredit);
-      }
-
-      let notificationShown = false;
-      if (rewardsResponse.GemCredit && rewardsResponse.Message) {
-        notify({
-          type: 'success',
-          text: `${rewardsResponse.Message} 💎x${rewardsResponse.GemCredit}`
-        });
-        notificationShown = true;
-      }
-      if (rewardsResponse.Achievements) {
-        for (const achievement of rewardsResponse.Achievements) {
-          if (achievement.GemReward) {
-            eventEarnGems(achievement.GemReward);
-          }
-          if (achievement.UUID) {
-            eventUnlockAchievement(achievement.UUID);
-          }
-          notify({
-            type: 'success',
-            text: `${achievement.Title} achievement unlocked! 💎x${achievement.GemReward}`
-          });
-          notificationShown = true;
-        }
-      }
-      if (!notificationShown) {
-        notify({
-          type: 'success',
-          text: 'Correct! Great Job :)'
-        });
-      }
+      loadBalance(this);
+      notify({
+        type: 'success',
+        text: 'Correct! Great Job'
+      });
     },
     async verifyCode({ output }) {
       try {
-        const rewardsResponse = await submitCodeExercise(
+        const submitResponse = await submitCodeExercise(
           this.$route.params.exerciseUUID,
           output
         );
         eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
         this.isComplete = true;
-        this.handleRewards(rewardsResponse);
+        this.handleSubmitResponse(submitResponse);
       } catch (err) {
         eventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleInde);
         notify({
@@ -414,13 +376,13 @@ export default {
     },
     async verifyHash({ hash }) {
       try {
-        const rewardsResponse = await submitCodeCanvasExercise(
+        const submitResponse = await submitCodeCanvasExercise(
           this.$route.params.exerciseUUID,
           hash
         );
         this.isComplete = true;
         eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
-        this.handleRewards(rewardsResponse);
+        this.handleSubmitResponse(submitResponse);
       } catch (err) {
         notify({
           type: 'danger',
@@ -445,13 +407,13 @@ export default {
     async submitTypeChoice(answer) {
       eventSubmitMultipleChoice(this.$route.params.exerciseUUID, this.course.Title);
       try {
-        const rewardsResponse = await submitMultipleChoiceExercise(
+        const submitResponse = await submitMultipleChoiceExercise(
           this.$route.params.exerciseUUID,
           answer
         );
         eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title);
         this.isComplete = true;
-        this.handleRewards(rewardsResponse);
+        this.handleSubmitResponse(submitResponse);
         await sleep(1500);
         if (
           this.isCurrentExercise ||

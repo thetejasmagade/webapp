@@ -94,8 +94,6 @@ import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 import {
-  eventEarnGems,
-  eventUnlockAchievement,
   eventFinishCourse,
   eventClickExerciseNavigation
 } from '@/lib/analytics.js';
@@ -176,63 +174,27 @@ export default {
       this.$refs.feedbackModal.show();
     },
     async submitTypeInfo() {
-      const rewardsResponse = await submitInformationalStep(this.$route.params.stepUUID);
+      const submitResponse = await submitInformationalStep(this.$route.params.stepUUID);
       this.isComplete = true;
-      this.handleRewards(rewardsResponse);
+      this.handleSubmitResponse(submitResponse);
     },
     async submitTypeManual() {
-      const rewardsResponse = await submitManualStep(this.$route.params.stepUUID);
+      const submitResponse = await submitManualStep(this.$route.params.stepUUID);
       this.isComplete = true;
-      this.handleRewards(rewardsResponse);
+      this.handleSubmitResponse(submitResponse);
     },
-    async handleRewards(rewardsResponse) {
-      if (rewardsResponse.ProjectDone) {
+    async handleSubmitResponse(submitResponse) {
+      if (submitResponse.ProjectDone) {
         if (!this.projectDone) {
           eventFinishCourse(this.project.Title, false);
         }
         this.projectDone = true;
       }
-      if (
-        (rewardsResponse.GemCredit && rewardsResponse.Message) ||
-        (rewardsResponse.Achievements &&
-          rewardsResponse.Achievements.length > 0)
-      ) {
-        loadBalance(this);
-      }
-
-      if (rewardsResponse.GemCredit) {
-        eventEarnGems(rewardsResponse.GemCredit);
-      }
-
-      let notificationShown = false;
-      if (rewardsResponse.GemCredit && rewardsResponse.Message) {
-        notify({
-          type: 'success',
-          text: `${rewardsResponse.Message} 💎x${rewardsResponse.GemCredit}`
-        });
-        notificationShown = true;
-      }
-      if (rewardsResponse.Achievements) {
-        for (const achievement of rewardsResponse.Achievements) {
-          if (achievement.GemReward) {
-            eventEarnGems(achievement.GemReward);
-          }
-          if (achievement.UUID) {
-            eventUnlockAchievement(achievement.UUID);
-          }
-          notify({
-            type: 'success',
-            text: `${achievement.Title} achievement unlocked! 💎x${achievement.GemReward}`
-          });
-          notificationShown = true;
-        }
-      }
-      if (!notificationShown) {
-        notify({
-          type: 'success',
-          text: 'Great Job!'
-        });
-      }
+      loadBalance(this);
+      notify({
+        type: 'success',
+        text: 'Great Job!'
+      });
     },
     navToStep(step) {
       this.$router.push({
