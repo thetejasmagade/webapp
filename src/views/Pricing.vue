@@ -3,7 +3,7 @@
     <TopNav title="Pricing" />
     <LoadingOverlay :is-loading="isLoading" />
 
-    <div class="md:p-4 sm:p-0">
+    <div class="md:p-4 sm:p-0 h-full-minus-bar overflow-auto">
       <Section
         class="mb-5"
         title="Pricing"
@@ -474,5 +474,7 @@ export default {
 </script>
 
 <style scoped>
-
+.h-full-minus-bar {
+  height: calc(100vh - var(--top-nav-bar-height));
+}
 </style>

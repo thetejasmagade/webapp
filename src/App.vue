@@ -143,7 +143,7 @@ export default {
 @import 'styles/index.css';
 
 :root {
-  --red-600: #9E3A46;
+  --red-500: #C05460;
 
   --top-nav-bar-height: 60px;
 }

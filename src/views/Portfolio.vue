@@ -2,7 +2,7 @@
   <div>
     <TopNav :title="`Portfolio - ${user.FirstName} ${user.LastName}`" />
 
-    <div class="flex flex-col justify-start items-center">
+    <div class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto">
       <Section
         v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
@@ -258,5 +258,7 @@ export default {
 </script>
 
 <style scoped>
-
+.h-full-minus-bar {
+  height: calc(100vh - var(--top-nav-bar-height));
+}
 </style>

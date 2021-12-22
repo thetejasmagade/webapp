@@ -128,7 +128,7 @@ export default {
 }
 
 .viewer code {
-  color: var(--red-600);
+  color: var(--red-500);
 }
 
 .viewer img {
