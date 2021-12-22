@@ -466,21 +466,6 @@ export async function getRewards() {
   return handled;
 }
 
-export async function useCouponCode(couponCode) {
-  const resp = await fetchWithAuth(`${domain}/v1/coupons/use`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      couponCode
-    })
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function getSubscriptionPlans(){
   const resp = await fetch(`${domain}/v1/subscription_plans`, {
     method: 'GET',
