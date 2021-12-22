@@ -41,8 +41,8 @@
             hidden
             lg:flex
             justify-center
+            bg-gray-400
           "
-            :class="{ 'bg-gray-400': i > 0, 'bg-blue-500': i === 0}"
           >
             <h1 class="mx-auto text-white font-semibold text-md">
               {{ i % 2 === 0 ? "←" : null }} {{ i + 1 }}
@@ -91,10 +91,6 @@
                       'bg-green-500': isComplete(unit),
                       'bg-gray-400': !isComplete(unit)}"
           >
-            <!-- create green for completed courses (check mark??)
-        create blue for current course
-        grey otherwise  ✔ -->
-          
             <h1
               v-if="isComplete(unit)"
               
