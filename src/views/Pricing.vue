@@ -3,13 +3,16 @@
     <TopNav title="Pricing" />
     <LoadingOverlay :is-loading="isLoading" />
 
-    <div class="md:p-4 sm:p-0 h-full-minus-bar overflow-auto">
+    <div
+      class="md:p-4 sm:p-0 h-full-minus-bar overflow-auto"
+    >
       <Section
         class="mb-5"
         title="Pricing"
         subtitle="Love it or your money back! Enjoy a free trial, 30-day money-back guarantee, and feel free to cancel anytime."
       >
-        <header class="flex flex-col items-center my-8">
+        <PricingSkeleton />
+        <!-- <header class="flex flex-col items-center my-8">
           <h2
             v-if="$store.getters.getUserIsSubscribed"
             class="text-2xl text-primary-normal font-bold"
@@ -266,7 +269,7 @@
               </div>
             </article>
           </div>
-        </section>
+        </section> -->
       </Section>
 
       <Section
@@ -360,18 +363,21 @@ import TopNav from '@/components/TopNav.vue';
 import Section from '@/components/Section.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import BlockButton from '@/components/BlockButton.vue';
+import PricingSkeleton from '@/components/PricingSkeleton.vue';
 import { checkout } from '@/lib/stripewrap.js';
 import { loadUser, loadSubscriptionPlans } from '@/lib/cloudStore.js';
 import { trackUserCancelCheckout } from '@/lib/cloudClient.js';
 import { notify } from '@/lib/notification.js';
 import { useMeta } from 'vue-meta';
 
+
 export default {
   components: {
     TopNav,
     LoadingOverlay,
     Section,
-    BlockButton
+    BlockButton,
+    PricingSkeleton
   },
   data() {
     return {
