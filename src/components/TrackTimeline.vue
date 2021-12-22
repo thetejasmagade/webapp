@@ -12,20 +12,69 @@
       "
       style="left: 50%"
     />
-    <div
-      v-for="(unit, i) of unitCards"
-      :key="i"
-    >
+
+    <div v-if="!isUnitsLoaded">
       <div
-        class="flex justify-center items-center w-full"
-        :class="{
-          'flex-row-reverse': i % 2 === 0,
-          'lg:-mt-48': i > 0,
-        }"
+        v-for="(unit, i) of numSkeletonCards"
+        :key="i"
       >
-        <div class="order-1 w-1/3 lg:w-2/5 hidden lg:block max-w-md" />
         <div
-          class="
+          class="flex justify-center items-center w-full"
+          :class="{
+            'flex-row-reverse': i % 2 === 0,
+            'lg:-mt-48': i > 0,
+          }"
+        >
+          <div
+            class="order-1 w-1/3 lg:w-2/5 hidden lg:block max-w-md"
+          />
+
+          <div
+            class="
+            z-20
+            items-center
+            order-1
+            shadow-xl
+            w-12
+            h-12
+            rounded-full
+            hidden
+            lg:flex
+            justify-center
+            bg-gray-400
+          "
+          >
+            <h1 class="mx-auto text-white font-semibold text-md">
+              {{ i % 2 === 0 ? "←" : null }} {{ i + 1 }}
+              {{ i % 2 !== 0 ? "→" : null }}
+            </h1>
+          </div>
+          <div class="order-1 md:w-1/3 lg:w-2/5 w-full items-center max-w-md flex-1">
+            <ImageCardSkeleton v-if="!isUnitsLoaded" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-else>
+      <div
+      
+        v-for="(unit, i) of units"
+        :key="i"
+      >
+        <div
+          class="flex justify-center items-center w-full"
+          :class="{
+            'flex-row-reverse': i % 2 === 0,
+            'lg:-mt-48': i > 0,
+          }"
+        >
+          <div
+            class="order-1 w-1/3 lg:w-2/5 hidden lg:block max-w-md"
+          />
+
+          <div
+            class="
             z-20
             items-center
             order-1
@@ -37,28 +86,46 @@
             lg:flex
             justify-center
           "
-          :class="{ 'bg-gray-400': i > 0, 'bg-blue-500': i === 0 }"
-        >
-          <h1 class="mx-auto text-white font-semibold text-md">
-            {{ i % 2 === 0 ? "←" : null }} {{ i + 1 }}
-            {{ i % 2 !== 0 ? "→" : null }}
-          </h1>
-        </div>
-        <div class="order-1 md:w-1/3 lg:w-2/5 w-full items-center max-w-md flex-1">
-          <ImageCardSkeleton v-if="!isUnitsLoaded" />
-          <ImageCard
-            v-else
-            :img-src="getUnitData(unit).ImageURL"
-            :click="() => clickCallback(unit)"
-            class="lg:mx-8"
+          
+            :class="{ 'bg-blue-400': i === firstIncompleteIndex, 
+                      'bg-green-500': isComplete(unit),
+                      'bg-gray-400': !isComplete(unit)}"
           >
-            <UnitCardBody :unit="unit" />
-          </ImageCard>
+            <h1
+              v-if="isComplete(unit)"
+              
+              class="
+              mx-auto
+              text-white
+              font-semibold
+              text-md"
+            >
+              {{ "✔" }} 
+            </h1>
+
+            <h1
+              v-else
+              class="mx-auto text-white font-semibold text-md"
+            >
+              {{ i % 2 === 0 ? "←" : null }} {{ i + 1 }}
+              {{ i % 2 !== 0 ? "→" : null }}
+            </h1>
+          </div>
+          <div class="order-1 md:w-1/3 lg:w-2/5 w-full items-center max-w-md flex-1">
+            <ImageCard
+              :img-src="getUnitData(unit).ImageURL"
+              :click="() => clickCallback(unit)"
+              class="lg:mx-8"
+            >
+              <UnitCardBody :unit="unit" />
+            </ImageCard>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import ImageCard from '@/components/ImageCard.vue';
@@ -89,15 +156,23 @@ export default {
     }
   },
   computed: {
-    unitCards() {
-      return this.units.length === 0 ? this.numSkeletonCards : this.units;
-    },
     isUnitsLoaded() {
       return this.units.length > 0;
+    },
+    firstIncompleteIndex() {
+      for (let i = 0; i < this.units.length; i++) {
+        if (!this.units[i].course.CompletedAt) {
+          return i;
+        }  
+      }
+      return null;
     }
   },
   methods: {
-    getUnitData
+    getUnitData,
+    isComplete(unit) {
+      return getUnitData(unit).CompletedAt;
+    }
   }
 };
 </script>
