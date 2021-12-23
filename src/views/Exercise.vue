@@ -14,7 +14,7 @@
     />
 
     <AchievementUnlocked
-      v-if="achievementsToShow.length > 0"
+      v-if="achievementsToShow?.length > 0"
       :achievement-earned="achievementsToShow[0]"
       :on-done="onSeenAchievement"
     />
@@ -143,8 +143,6 @@ import AchievementUnlocked from '@/components/AchievementUnlocked.vue';
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
-import { sleep } from '@/lib/sleep.js';
-
 import {
   eventFinishCourse,
   eventExecuteCode,
@@ -208,7 +206,7 @@ export default {
       isComplete: null,
       isFree: null,
       isCheating: false,
-      achievementsToShow: []
+      achievementsToShow: null
     };
   },
   computed: {
@@ -222,7 +220,13 @@ export default {
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
     },
     isContentLoaded() {
-      return this.markdownSource === '' ? false : true;
+      if (this.markdownSource === ''){
+        return false;
+      }
+      if (this.achievementsToShow === null){
+        return false;
+      }
+      return true;
     },
     exerciseIndex() {
       if (!this.module) {
@@ -430,13 +434,6 @@ export default {
           answer
         );
         await this.handleSuccess(submitResponse);
-        await sleep(1500);
-        if (
-          this.isCurrentExercise ||
-          !this.$store.getters.getUserIsSubscribed
-        ) {
-          await this.goForward();
-        }
       } catch (err) {
         eventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title);
         notify({
