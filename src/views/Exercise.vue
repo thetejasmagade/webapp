@@ -13,7 +13,12 @@
       :go-to-beginning-callback="goToBeginning"
     />
 
-    <ExerciseSkeleton v-if="!isContentLoaded" />
+    <AchievementUnlocked
+      v-if="achievementsToShow.length > 0"
+      :achievement-earned="achievementsToShow[0]"
+      :on-done="onSeenAchievement"
+    />
+    <ExerciseSkeleton v-else-if="!isContentLoaded" />
     <div
       v-else
       class="
@@ -133,6 +138,7 @@ import CardExerciseTypeInfo from '@/components/cards/CardExerciseTypeInfo.vue';
 import CardExerciseTypeMultipleChoice from '@/components/cards/CardExerciseTypeMultipleChoice.vue';
 import CardExerciseTypeCode from '@/components/cards/CardExerciseTypeCode.vue';
 import CardExerciseTypeCodeCanvas from '@/components/cards/CardExerciseTypeCodeCanvas.vue';
+import AchievementUnlocked from '@/components/AchievementUnlocked.vue';
 
 import { loadBalance, loadUser } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -161,7 +167,8 @@ import {
   getFirstExercise,
   getCourses,
   getFirstExerciseInModule,
-  getExerciseByID
+  getExerciseByID,
+  getPendingAchievements
 } from '@/lib/cloudClient.js';
 
 import {
@@ -181,7 +188,8 @@ export default {
     ExerciseSkeleton,
     CardExerciseTypeMultipleChoice,
     CardExerciseTypeCode,
-    CardExerciseTypeCodeCanvas
+    CardExerciseTypeCodeCanvas,
+    AchievementUnlocked
   },
   data() {
     return {
@@ -199,7 +207,8 @@ export default {
       courses: null,
       isComplete: null,
       isFree: null,
-      isCheating: false
+      isCheating: false,
+      achievementsToShow: []
     };
   },
   computed: {
@@ -281,7 +290,16 @@ export default {
         this.$route.params.courseUUID,
         this.$route.params.exerciseUUID
       );
-      this.moveToExercise(exercise);
+      this.loadExercise(exercise);
+      try {
+        this.achievementsToShow = await getPendingAchievements();
+      }
+      catch (err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
       return;
     }
 
@@ -316,6 +334,10 @@ export default {
     await this.navToCurrentExercise();
   },
   methods: {
+    async onSeenAchievement(){
+      this.achievementsToShow.shift();
+      await loadBalance(this);
+    },
     showPricingModal() {
       eventOpenProModal();
       this.$refs.pricingModal.show();
@@ -340,18 +362,18 @@ export default {
       this.code = this.defaultCode;
     },
     async submitTypeInfo() {
-      await submitInformationalExercise(this.$route.params.exerciseUUID);
+      const submitResponse = await submitInformationalExercise(this.$route.params.exerciseUUID);
+      await this.handleSuccess(submitResponse);
+    },
+    async handleSuccess(submitResponse) {
       eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
       this.isComplete = true;
-    },
-    async handleSubmitResponse(submitResponse) {
       if (submitResponse.CourseDone) {
         if (!this.courseDone) {
           eventFinishCourse(this.course.Title, false);
         }
         this.courseDone = true;
       }
-      loadBalance(this);
       notify({
         type: 'success',
         text: 'Correct! Great Job'
@@ -363,9 +385,7 @@ export default {
           this.$route.params.exerciseUUID,
           output
         );
-        eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
-        this.isComplete = true;
-        this.handleSubmitResponse(submitResponse);
+        await this.handleSuccess(submitResponse);
       } catch (err) {
         eventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleInde);
         notify({
@@ -380,9 +400,7 @@ export default {
           this.$route.params.exerciseUUID,
           hash
         );
-        this.isComplete = true;
-        eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
-        this.handleSubmitResponse(submitResponse);
+        await this.handleSuccess(submitResponse);
       } catch (err) {
         notify({
           type: 'danger',
@@ -411,15 +429,13 @@ export default {
           this.$route.params.exerciseUUID,
           answer
         );
-        eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title);
-        this.isComplete = true;
-        this.handleSubmitResponse(submitResponse);
+        await this.handleSuccess(submitResponse);
         await sleep(1500);
         if (
           this.isCurrentExercise ||
           !this.$store.getters.getUserIsSubscribed
         ) {
-          await this.navToCurrentExercise();
+          await this.goForward();
         }
       } catch (err) {
         eventExerciseFailure(this.$route.params.exerciseUUID, this.course.Title);
@@ -446,7 +462,7 @@ export default {
         }
       });
     },
-    async moveToExercise(exercise) {
+    async loadExercise(exercise) {
       // should probably get "6" from server
       if (
         this.exerciseIndex === 0 &&

@@ -9,6 +9,8 @@
       py-2
       px-4
       rounded
+      active-scale-101
+      shadow
     "
     :disabled="disabled"
     :style="{'cursor': disabled ? 'not-allowed' : 'pointer'}"
@@ -79,5 +81,7 @@ export default {
 </script>
 
 <style scoped>
-
+.active-scale-101:active {
+  transform: scale(1.01);
+}
 </style>

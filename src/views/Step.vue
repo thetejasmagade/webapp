@@ -175,15 +175,14 @@ export default {
     },
     async submitTypeInfo() {
       const submitResponse = await submitInformationalStep(this.$route.params.stepUUID);
-      this.isComplete = true;
-      this.handleSubmitResponse(submitResponse);
+      await this.handleSuccess(submitResponse);
     },
     async submitTypeManual() {
       const submitResponse = await submitManualStep(this.$route.params.stepUUID);
-      this.isComplete = true;
-      this.handleSubmitResponse(submitResponse);
+      this.handleSuccess(submitResponse);
     },
-    async handleSubmitResponse(submitResponse) {
+    async handleSuccess(submitResponse) {
+      this.isComplete = true;
       if (submitResponse.ProjectDone) {
         if (!this.projectDone) {
           eventFinishCourse(this.project.Title, false);

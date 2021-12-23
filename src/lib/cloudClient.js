@@ -517,6 +517,18 @@ export async function getUserAchievements() {
   return handled;
 }
 
+export async function getPendingAchievements() {
+  const resp = await fetchWithAuth(`${domain}/v1/achievements/pending`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getUserAchievementsPublic(handle) {
   const resp = await fetch(`${domain}/v1/users/achievements/public/${handle}`, {
     method: 'GET',
