@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNav :title="`Portfolio - ${user.FirstName} ${user.LastName}`" />
+    <TopNav :title="`${user.FirstName} ${user.LastName}`" />
 
     <div class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto">
       <Section
@@ -143,11 +143,6 @@
               <p class="text-center">
                 {{ achievement.Description }}
               </p>
-
-              <GemDisplay
-                :size="2"
-                :text="`${achievement.GemReward}`"
-              />
             </div>
           </ImageCard>
         </div>
@@ -162,7 +157,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ProfileImage from '@/components/ProfileImage.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import Section from '@/components/Section.vue';
-import GemDisplay from '@/components/GemDisplay.vue';
 import { useMeta } from 'vue-meta';
 import { computed, reactive, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -180,8 +174,7 @@ export default {
     FontAwesomeIcon,
     ProfileImage,
     ImageCard,
-    Section,
-    GemDisplay
+    Section
   },
   setup(){
     const state = reactive({

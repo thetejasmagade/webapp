@@ -1,29 +1,27 @@
 <template>
   <div>
-    <ProModal ref="proModal" />
-
     <div class="text-gray-700 bg-white h-full text-center shadow relative z-40">
       <div class="profile-box flex flex-col items-center">
         <ProfileImage
-          class="profile-img my-4 w-3/5"
+          class="profile-img my-3 w-3/5"
           :profile-image-u-r-l="$store.getters.getUser ? $store.getters.getUser.ProfileImageURL : null"
           editable
         />
       </div>
 
       <div class="flex justify-center mb-2">
-        <div class="w-4/5 border-b-2 border-gray-500" />
+        <div class="w-3/5 border-b border-gray-300" />
       </div>
 
       <GemDisplay
         :size=".5"
         :text="`${$store.getters.getBalance}`"
         vertical
-        class="mb-4"
+        class="mb-3"
       />
 
       <div class="flex justify-center mb-2">
-        <div class="w-4/5 border-b-2 border-gray-500" />
+        <div class="w-3/5 border-b border-gray-300" />
       </div>
       
       <Tooltip
@@ -56,12 +54,11 @@
         :text="`Portfolio`"
         position="right"
         class="mx-4 mb-2"
-        :color="isSubscribed ? 'gold' : 'red'"
+        color="gold"
       >
         <MenuItemHorizontal
           icon="user-tie"
-          :color="isSubscribed ? 'gold' : 'red'"
-          :click="() => {clickPortfolio()}"
+          :click="() => $router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}})"
           :current="pathName === 'Portfolio'"
         />
       </Tooltip>
@@ -79,6 +76,10 @@
         />
       </Tooltip>
 
+      <div class="flex justify-center mb-2">
+        <div class="w-3/5 border-b border-gray-300" />
+      </div>
+
       <Tooltip
         :text="`Logout`"
         position="right"
@@ -95,7 +96,6 @@
 </template>
 
 <script>
-import ProModal from '@/components/ProModal.vue';
 import MenuItemHorizontal from '@/components/MenuItemHorizontal.vue';
 import GemDisplay from '@/components/GemDisplay.vue';
 import ProfileImage from '@/components/ProfileImage.vue';
@@ -110,7 +110,6 @@ export default {
     MenuItemHorizontal,
     GemDisplay,
     ProfileImage,
-    ProModal,
     Tooltip
   },
   props: {
@@ -123,19 +122,7 @@ export default {
       required: true
     }
   },
-  computed: {
-    isSubscribed(){
-      return this.$store.getters.getUserIsSubscribed;
-    }
-  },
   methods: {
-    clickPortfolio(){
-      if (this.isSubscribed){
-        this.$router.push({name: 'Portfolio', params: {userHandle: this.$store.getters.getUser.Handle}});
-        return;
-      }
-      this.$refs.proModal.show();
-    },
     logout(){
       setLogout(this);
     }
