@@ -234,9 +234,20 @@
         </Section>
         <Section
           title="API Key"
+          subtitle="Send this DM to the Qvault Discord bot to sync your Discord and Qvault accounts"
         >
           <div class="flex flex-col justify-center items-center p-4">
-            <span>API key: <code>{{ $store.getters.getUser?.APIKey }}</code></span>
+            <span>
+              <code
+                class="
+                p-1
+                rounded
+                bg-gray-800
+                text-gray-200"
+              >
+                qv sync {{ $store.getters.getUser?.APIKey }}
+              </code>
+            </span>
             <BlockButton
               class="mt-4"
               color="red"

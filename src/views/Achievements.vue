@@ -3,46 +3,84 @@
     class="root"
   >
     <Section
-      title="Achievements"
-      subtitle="Achievements and gems add clout to your portfolio."
+      title="Speed Achievements"
+      subtitle="Move fast and break things"
       class="m-4"
     >
-      <div class="p-4">
-        <p class="mb-5">
-          <a
-            v-if="!$store.getters.getUserIsSubscribed"
-            @click="$router.push({name: 'Pricing'})"
+      <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8">
+        <ImageCard
+          v-for="(userAchievement, i) of speedAchievements"
+          :key="i"
+          :img-src="userAchievement.ImageURL"
+          :class="{'opacity-25': !userAchievement.UnlockedAt}"
+        >
+          <div
+            :ref="`cardbody${i}`"
+            class="p-4 flex flex-col items-center"
           >
-            Upgrade to a Pro plan to be able to check your answers,
-            earn certifications, unlock achievements and support the project.
-          </a>
-        </p>
-        <div class="grid md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-1 gap-4">
-          <ImageCard
-            v-for="(userAchievement, i) of $store.getters.getUserAchievements"
-            :key="i"
-            :img-src="userAchievement.ImageURL"
-            :class="{'opacity-25': !userAchievement.UnlockedAt}"
+            <p class="text-gold-600 text-xl mb-2">
+              {{ userAchievement.Title }}
+            </p>
+
+            <p class="text-center">
+              {{ userAchievement.Description }}
+            </p>
+          </div>
+        </ImageCard>
+      </div>
+    </Section>
+    <Section
+      title="Streak Achievements"
+      subtitle="How many can you get right in a row?"
+      class="m-4"
+    >
+      <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8">
+        <ImageCard
+          v-for="(userAchievement, i) of streakAchievements"
+          :key="i"
+          :img-src="userAchievement.ImageURL"
+          :class="{'opacity-25': !userAchievement.UnlockedAt}"
+        >
+          <div
+            :ref="`cardbody${i}`"
+            class="p-4 flex flex-col items-center"
           >
-            <div
-              :ref="`cardbody${i}`"
-              class="p-4 flex flex-col items-center"
-            >
-              <p class="text-gold-600 text-xl mb-2">
-                {{ userAchievement.Title }}
-              </p>
+            <p class="text-gold-600 text-xl mb-2">
+              {{ userAchievement.Title }}
+            </p>
 
-              <p class="text-center">
-                {{ userAchievement.Description }}
-              </p>
+            <p class="text-center">
+              {{ userAchievement.Description }}
+            </p>
+          </div>
+        </ImageCard>
+      </div>
+    </Section>
+    <Section
+      title="Devotion Achievements"
+      subtitle="Are you commited to your goals?"
+      class="m-4"
+    >
+      <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8">
+        <ImageCard
+          v-for="(userAchievement, i) of engagementAchievements"
+          :key="i"
+          :img-src="userAchievement.ImageURL"
+          :class="{'opacity-25': !userAchievement.UnlockedAt}"
+        >
+          <div
+            :ref="`cardbody${i}`"
+            class="p-4 flex flex-col items-center"
+          >
+            <p class="text-gold-600 text-xl mb-2">
+              {{ userAchievement.Title }}
+            </p>
 
-              <GemDisplay
-                :size="2"
-                :text="`${userAchievement.GemReward}`"
-              />
-            </div>
-          </ImageCard>
-        </div>
+            <p class="text-center">
+              {{ userAchievement.Description }}
+            </p>
+          </div>
+        </ImageCard>
       </div>
     </Section>
   </div>
@@ -51,7 +89,6 @@
 <script>
 import ImageCard from '@/components/ImageCard.vue';
 import Section from '@/components/Section.vue';
-import GemDisplay from '@/components/GemDisplay.vue';
 import { useMeta } from 'vue-meta';
 
 import { 
@@ -61,8 +98,18 @@ import {
 export default {
   components: {
     ImageCard,
-    GemDisplay,
     Section
+  },
+  computed: {
+    speedAchievements(){
+      return this.$store.getters.getUserAchievements.filter(item => item.Category === 'speed');
+    },
+    streakAchievements(){
+      return this.$store.getters.getUserAchievements.filter(item => item.Category === 'streak');
+    },
+    engagementAchievements(){
+      return this.$store.getters.getUserAchievements.filter(item => item.Category === 'engagement');
+    }
   },
   async mounted(){
     loadUserAchievements(this);
