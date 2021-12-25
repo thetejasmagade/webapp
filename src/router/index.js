@@ -12,6 +12,7 @@ const Settings = () => import('@/views/Settings.vue');
 const Achievements = () => import('@/views/Achievements.vue');
 const SignupFlowUsername = () => import('@/views/SignupFlowUsername.vue');
 const SignupFlowCommunity = () => import('@/views/SignupFlowCommunity.vue');
+const SignupFlowSync = () => import('@/views/SignupFlowSync.vue');
 const SignupFlowRecruiters = () => import('@/views/SignupFlowRecruiters.vue');
 const SignupFlowRecruitersEnrich = () => import('@/views/SignupFlowRecruitersEnrich.vue');
 const VerifyEmail = () => import('@/views/VerifyEmail.vue');
@@ -46,6 +47,11 @@ const routes = [
     path: '/signup_flow/community',
     name: 'SignupFlowCommunity',
     component: SignupFlowCommunity
+  },
+  {
+    path: '/signup_flow/sync',
+    name: 'SignupFlowSync',
+    component: SignupFlowSync
   },
   {
     path: '/signup_flow/recruit',
