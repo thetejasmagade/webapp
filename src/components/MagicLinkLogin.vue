@@ -2,6 +2,7 @@
   <div>
     <div class="flex flex-col justify-evenly w-full items-center">
       <form
+        v-if="!sent"
         class="flex flex-col justify-evenly w-full items-center"
         @submit.prevent="submitLogin"
       >
@@ -13,17 +14,15 @@
           name="email"
           class="mb-4 w-full"
         />
-        <TextInput
-          v-model="password"
-          placeholder="password"
-          type="password"
-          required
-          class="mb-4 w-full"
-        />
         <BlockButton class="mb-4 md:w-1/2 w-full">
-          Login
+          Send me a login link
         </BlockButton>
       </form>
+      <div v-else>
+        <h2 class="my-8 text-xl text-gray-600">
+          Click the link in your email to sign in
+        </h2>
+      </div>
     </div>
   </div>
 </template>
@@ -33,12 +32,9 @@ import BlockButton from '@/components/BlockButton.vue';
 import TextInput from '@/components/TextInput.vue';
 
 import {
-  loginManual
+  sendMagicLink
 } from '@/lib/cloudClient.js';
 
-import {
-  loadLoggedIn
-} from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 export default {
@@ -49,15 +45,14 @@ export default {
   data(){
     return {
       email: null,
-      password: null
+      sent: false
     };
   },
   methods: {
     async submitLogin(){
       try {
-        await loginManual(this.email, this.password);
-        loadLoggedIn(this);
-        this.$router.push({name: 'Courses', query: { redirect: this.$route.query.redirect}});
+        await sendMagicLink(this.email);
+        this.sent = true;
       } catch (err){
         notify({
           type: 'danger',

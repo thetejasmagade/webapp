@@ -11,23 +11,6 @@ export function loginToken(token) {
   saveCloudJWT(token);
 }
 
-export async function loginManual(email, password){
-  const resp = await fetch(`${domain}/v1/auth`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email,
-      password
-    })
-  });
-  const handled = await handleJSONResponse(resp);
-  saveCloudJWT(handled.token);
-  return handled;
-}
-
 export async function loginGoogle(googleJWT, isSubscribedNews, referringUserUUID) {
   const resp = await fetch(`${domain}/v1/auth/google/login`, {
     method: 'POST',
@@ -104,7 +87,7 @@ export async function confirmOnetimePurchase(){
   return handled;
 }
 
-export async function createUserManual(email, password, firstName, lastName, isSubscribedNews, referringUserUUID){
+export async function createUserManual(email, firstName, lastName, isSubscribedNews, referringUserUUID){
   const resp = await fetch(`${domain}/v1/users`, {
     method: 'POST',
     mode: 'cors',
@@ -113,7 +96,6 @@ export async function createUserManual(email, password, firstName, lastName, isS
     },
     body: JSON.stringify({
       email,
-      password, 
       firstName,
       lastName,
       isSubscribedNews,
@@ -344,23 +326,6 @@ export async function updateUserPassword(email, oldPassword, newPassword){
   return handled;
 }
 
-export async function updateUserPasswordCode(email, newPassword, code){
-  const resp = await fetch(`${domain}/v1/users/password`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email,
-      newPassword,
-      code
-    })
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function updateUserProfileImage(formData) {
   const resp = await fetchWithAuth(`${domain}/v1/users/profile_image`, {
     method: 'PUT',
@@ -381,8 +346,8 @@ export async function updateUserResume(formData) {
   return handled;
 }
 
-export async function sendEmailVerification(email){
-  const resp = await fetch(`${domain}/v1/users/email/send_verification`, {
+export async function sendMagicLink(email){
+  const resp = await fetch(`${domain}/v1/users/email/send_magic_link`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -393,22 +358,6 @@ export async function sendEmailVerification(email){
     })
   });
   const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function verifyEmail(code){
-  const resp = await fetchWithAuth(`${domain}/v1/users/email/verify`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      code
-    })
-  });
-  const handled = await handleJSONResponse(resp);
-  saveCloudJWT(handled.token);
   return handled;
 }
 

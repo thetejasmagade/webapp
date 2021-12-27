@@ -3,6 +3,7 @@
     class="flex flex-col justify-evenly w-full items-center"
   >
     <form
+      v-if="!sent"
       class="flex flex-col justify-evenly w-full items-center"
       @submit.prevent="submitRegister"
     >
@@ -32,20 +33,6 @@
           class="flex-1 ml-4"
         />
       </div>
-      <TextInput
-        v-model="password"
-        placeholder="Password"
-        type="password"
-        class="mb-4 w-full"
-        required
-      />
-      <TextInput
-        v-model="passwordConfirm"
-        placeholder="Confirm Password"
-        type="password"
-        class="mb-8 w-full"
-        required
-      />
 
       <div
         class="
@@ -89,9 +76,14 @@
       </div>
 
       <BlockButton class="mb-4">
-        Sign Up Free
+        Email me a login link
       </BlockButton>
     </form>
+    <div v-else>
+      <h2 class="my-8 text-xl text-gray-600">
+        Click the link in your email to sign in
+      </h2>
+    </div>
   </div>
 </template>
 
@@ -101,9 +93,8 @@ import TextInput from '@/components/TextInput.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 
 import {
-  loginManual, 
   createUserManual, 
-  sendEmailVerification
+  sendMagicLink
 } from '@/lib/cloudClient.js';
 
 import { eventRegister, singupMethodEmail } from '@/lib/analytics.js';
@@ -120,11 +111,10 @@ export default {
       email: null,
       firstName: null,
       lastName: null,
-      password: null,
-      passwordConfirm: null,
       subscribeNews: true,
       tosAccepted: true,
-      validationCode: null
+      validationCode: null,
+      sent: false
     };
   },
   methods: {
@@ -136,26 +126,17 @@ export default {
         });
         return;
       }
-      if (this.registerPassword !== this.registerPasswordConfirm){
-        notify({
-          type: 'danger',
-          text: 'Passwords don\'t match'
-        });
-        return;
-      }
       try {
         await createUserManual(
           this.email, 
-          this.password,
           this.firstName,
           this.lastName,
           this.subscribeNews,
           this.$route.query.ruid
         );
-        await loginManual(this.email, this.password);
-        await sendEmailVerification(this.email);
+        await sendMagicLink(this.email);
         eventRegister(singupMethodEmail);
-        this.$router.push({name: 'VerifyEmail', query: { redirect: this.$route.query.redirect}});
+        this.sent = true;
       } catch (err){
         notify({
           type: 'danger',

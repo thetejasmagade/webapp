@@ -15,7 +15,6 @@ const SignupFlowCommunity = () => import('@/views/SignupFlowCommunity.vue');
 const SignupFlowSync = () => import('@/views/SignupFlowSync.vue');
 const SignupFlowRecruiters = () => import('@/views/SignupFlowRecruiters.vue');
 const SignupFlowRecruitersEnrich = () => import('@/views/SignupFlowRecruitersEnrich.vue');
-const VerifyEmail = () => import('@/views/VerifyEmail.vue');
 const Certificate = () => import('@/views/Certificate.vue');
 const CSTrack = () => import('@/views/CSTrack.vue');
 const AlgosTrack = () => import('@/views/AlgosTrack.vue');
@@ -32,11 +31,6 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login
-  },
-  {
-    path: '/verify_email',
-    name: 'VerifyEmail',
-    component: VerifyEmail
   },
   {
     path: '/signup_flow/username',

@@ -43,8 +43,8 @@
               Profile
             </BlockButton>
             <BlockButton
-              :click="() => currentTab='updatePass'"
-              :color="currentTab==='updatePass' ? 'blue-light':'gray-light'"
+              :click="() => currentTab='security'"
+              :color="currentTab==='security' ? 'blue-light':'gray-light'"
               class="m-2"
             >
               Security
@@ -260,49 +260,8 @@
       </div>
 
       <div
-        v-if="currentTab === 'updatePass'"
+        v-if="currentTab === 'security'"
       >
-        <Section
-          title="Update Password"
-          class="mb-4"
-        >
-          <div
-            class="
-              relative
-              flex
-              flex-col
-              justify-center
-              items-center
-            "
-          >
-            <form
-              class="max-w-md p-4 flex items-center flex-col w-80"
-              @submit.prevent="updatePassword"
-            >
-              <TextInput
-                v-model="oldPassword"
-                placeholder="Old Password"
-                type="password"
-                class="w-full mb-4"
-              />
-              <TextInput
-                v-model="newPassword"
-                class="w-full mb-4"
-                placeholder="New Password"
-                type="password"
-              />
-              <TextInput
-                v-model="confirmPassword"
-                class="w-full mb-4"
-                placeholder="Confirm Password"
-                type="password"
-              />
-              <BlockButton>
-                Update
-              </BlockButton>
-            </form>
-          </div>
-        </Section>
         <Section
           title="Permanent account deletion"
         >
@@ -323,7 +282,6 @@
 
 <script>
 import { 
-  updateUserPassword, 
   updateUser, 
   updateUserHandle,
   openCustomerPortal,
@@ -488,33 +446,6 @@ export default {
           type: 'success',
           text: 'Profile updated successfully'
         });
-      } catch (err) {
-        notify({
-          type: 'danger',
-          text: err
-        });
-      }
-    },
-    async updatePassword() {
-      try {
-        if (this.newPassword !== this.confirmPassword){
-          notify({
-            type: 'danger',
-            text: 'Passwords don\'t match'
-          });
-          return;
-        }
-        await updateUserPassword(
-          this.email,
-          this.oldPassword,
-          this.newPassword
-        );
-        notify({
-          type: 'success',
-          text: 'Password changed successfully'
-        });
-        this.oldPassword = null;
-        this.newPassword = null;
       } catch (err) {
         notify({
           type: 'danger',

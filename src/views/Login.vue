@@ -37,15 +37,7 @@
                 class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='register'"
               >
-                Create password
-              </a>
-            </p>
-            <p>
-              Have a password? <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
-                @click="state='login'"
-              >
-                Login
+                Use Magic Link
               </a>
             </p>
           </div>
@@ -54,10 +46,10 @@
         <div
           v-if="state === 'register'"
         >
-          <RegisterForm />
+          <MagicLinkRegister />
           <div class="text-center">
             <p>
-              Have an integrated account? <a
+              Have an integration? <a
                 class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 @click="state='integration'"
               >
@@ -78,7 +70,7 @@
         <div
           v-if="state === 'login'"
         >
-          <LoginForm />
+          <MagicLinkLogin />
           <div class="text-center">
             <p>
               Need an account? <a
@@ -96,23 +88,6 @@
                 Single Sign-On
               </a>
             </p>
-            <p>
-              <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
-                @click="state='forgot-password'"
-              >
-                Forgot Password?
-              </a>
-            </p>
-          </div>
-        </div>
-    
-        <div
-          v-if="state === 'forgot-password'"
-        >
-          <ForgotPasswordForm />
-          <div class="text-center">
-            <span><a @click="state='login'">Back</a></span>
           </div>
         </div>
       </div>
@@ -150,19 +125,17 @@ import {
 } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
-import LoginForm from '@/components/LoginForm.vue';
-import RegisterForm from '@/components/RegisterForm.vue';
+import MagicLinkLogin from '@/components/MagicLinkLogin.vue';
+import MagicLinkRegister from '@/components/MagicLinkRegister.vue';
 import IntegrationLoginForm from '@/components/IntegrationLoginForm.vue';
-import ForgotPasswordForm from '@/components/ForgotPasswordForm.vue';
 import TopNav from '@/components/TopNav.vue';
 import { useMeta } from 'vue-meta';
 
 export default {
   components: {
-    LoginForm,
-    ForgotPasswordForm,
+    MagicLinkRegister,
     IntegrationLoginForm,
-    RegisterForm,
+    MagicLinkLogin,
     TopNav
   },
   data() {

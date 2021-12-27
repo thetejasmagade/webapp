@@ -134,10 +134,6 @@ export async function loadUser(thisComponent) {
 
 export function loadLoggedIn(thisComponent) {
   thisComponent.$store.commit('setJWTClaims', getJWTClaims());
-  if (thisComponent.$store.getters.getIsLoggedIn &&
-    !thisComponent.$store.getters.getIsEmailVerified) {
-    thisComponent.$router.push({ name: 'VerifyEmail' });
-  }
 }
 
 export function setLogout(thisComponent) {
