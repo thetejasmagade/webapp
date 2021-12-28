@@ -3,39 +3,133 @@
     class="
     flex-items
     center
-    justify-center"
+    justify-center
+    grid
+    md:grid-cols-3 sm:grid-cols-1
+    gap-4
+    md:p-4 sm:p-0
+    w-full"
   >
     <div
-      class="group
-  bg-white
-  rounded-lg
-  shadow-xl
-  sm:p-8
-  p-2"
+      class="  
+      grid gap-8 grid-cols-2           
+      shadow-lg
+      px-6
+      py-10
+      text-center
+      rounded-lg
+      bg-white
+      items-center"
     >
       <Skeletor
+        height="1.5vw"
         class="
-              shadow-lg
-              px-6
-              py-8
-              rounded-lg
-              bg-white
-              items-center
-              flex
-              flex-col
-              h-full
-              w-full
-            "
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          shadow-lg
+          bg-white
+          items-center"
       />
     </div>
       
     <div
-      class="group
-  bg-white
-  rounded-lg
-  shadow-xl
-  sm:p-8
-  p-2"
+      class="
+      group
+      bg-white
+      rounded-lg
+      shadow-xl
+      sm:p-8
+      p-2"
     >
       <Skeletor
         class="
@@ -48,8 +142,7 @@
               flex
               flex-col
               h-full
-              w-full
-            "
+              w-full"
       />
     </div>
   </div>
