@@ -102,14 +102,21 @@
             >
               {{ "✔" }} 
             </h1>
-
+            
             <h1
-              v-else
+              v-else-if="i === firstIncompleteIndex"
               class="mx-auto text-white font-semibold text-md"
             >
               {{ i % 2 === 0 ? "←" : null }} {{ i + 1 }}
               {{ i % 2 !== 0 ? "→" : null }}
             </h1>
+
+            <h2
+              v-else-if="!isComplete(unit)"
+              class="mx-auto text-white font-semibold text-md"
+            >
+              {{ i + 1 }}
+            </h2>
           </div>
           <div class="order-1 md:w-1/3 lg:w-2/5 w-full items-center max-w-md flex-1">
             <ImageCard
