@@ -1,9 +1,8 @@
 <template>
   <div
     class="
-    flex-items
     center
-    justify-center
+    item-center
     grid
     md:grid-cols-3 sm:grid-cols-1
     gap-4
@@ -12,138 +11,271 @@
   >
     <div
       class="  
-      grid gap-8 grid-cols-2           
+      grid gap-8 grid-cols-6           
       shadow-lg
       px-6
-      py-10
+      py-14    
       text-center
       rounded-lg
       bg-white
       items-center"
     >
       <Skeletor
-        height="1.5vw"
+        height="2vw"
         class="
+          col-start-3
+          col-span-2
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-1
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-4
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-1
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-4
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+        col-start-1
+        col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-4
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-1
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-4
+          col-span-3
           shadow-lg
-          bg-white
-          items-center"
-      />
-      
-      <Skeletor
-        height="1.5vw"
-        class="
-          shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-1
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-4
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-1
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
       <Skeletor
         height="1.5vw"
         class="
+          col-start-4
+          col-span-3
           shadow-lg
+          rounded-lg
           bg-white
           items-center"
       />
-    </div>
-      
+      <Skeletor
+        height="1.5vw"
+        class="
+          col-start-1
+          col-span-3
+          shadow-lg
+          rounded-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          col-start-4
+          col-span-3
+          shadow-lg
+          rounded-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          col-start-1
+          col-span-3
+          shadow-lg
+          rounded-lg
+          bg-white
+          items-center"
+      />
+      <Skeletor
+        height="1.5vw"
+        class="
+          col-start-4
+          col-span-3
+          shadow-lg
+          rounded-lg
+          bg-white
+          items-center"
+      />
+    </div>  
+    
     <div
       class="
-      group
-      bg-white
-      rounded-lg
-      shadow-xl
-      sm:p-8
-      p-2"
+        lg:col-span-2 md:col-span-2 sm:col-span-1
+        shadow-lg
+        px-6
+        py-14
+        text-center
+        rounded-lg
+        bg-white
+        items-center
+        flex
+        flex-col
+        h-full
+        w-full"
     >
       <Skeletor
+        height="2vw"
+        width="20vw"
         class="
-              shadow-lg
-              px-6
-              py-8
-              rounded-lg
-              bg-white
-              items-center
-              flex
-              flex-col
-              h-full
-              w-full"
+          shadow-lg
+          text-center
+          rounded-lg
+          bg-white
+          items-center
+          flex
+          flex-col
+          h-full
+          w-full"
       />
+      <div class="py-3" />
+      <div
+        class="
+          grid
+          xl:grid-cols-3 lg:grid-cols-1
+          gap-4
+          xl:p-4 md:p-0
+          w-full"
+      >
+        <Skeletor
+          height="14.5vw"
+          class="
+            shadow-lg
+            px-6
+            py-8
+            text-center
+            rounded-lg
+            bg-white
+            items-center
+            flex
+            flex-col
+            h-full
+            w-full"
+        />
+        <Skeletor
+          height="14.5vw"
+          class="
+            shadow-lg
+            px-6
+            py-8
+            text-center
+            rounded-lg
+            bg-white
+            items-center
+            flex
+            flex-col
+            h-full
+            w-full"
+        />
+        <Skeletor
+          height="14.5vw"
+          class="
+            shadow-lg
+            px-6
+            py-8
+            text-center
+            rounded-lg
+            bg-white
+            items-center
+            flex
+            flex-col
+            h-full
+            w-full"
+        />
+      </div>
     </div>
   </div>
 </template>

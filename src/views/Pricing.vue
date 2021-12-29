@@ -11,8 +11,9 @@
         title="Pricing"
         subtitle="Love it or your money back! Enjoy a free trial, 30-day money-back guarantee, and feel free to cancel anytime."
       >
-        <PricingSkeleton />
-        <!-- <header class="flex flex-col items-center my-8">
+        <header
+          class="flex flex-col items-center my-8"
+        >
           <h2
             v-if="$store.getters.getUserIsSubscribed"
             class="text-2xl text-primary-normal font-bold"
@@ -20,6 +21,7 @@
             You're already subscribed. Go take some courses!
           </h2>
         </header>
+        <PricingSkeleton v-if="!subscriptionPlan" />
         <section
           v-if="priceYearly && priceMonthly && priceLifetime"
           class="
@@ -269,7 +271,7 @@
               </div>
             </article>
           </div>
-        </section> -->
+        </section>
       </Section>
 
       <Section
