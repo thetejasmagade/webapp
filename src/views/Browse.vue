@@ -72,7 +72,6 @@ export default {
     units(){
       let units = this.$store.getters.getUnits;
       units.sort((unit1, unit2) => { return getUnitData(unit1).Difficulty < getUnitData(unit2).Difficulty ? -1 : 1;} );
-      console.log(units);
       return units;
     },
     isUnitsLoaded() {
