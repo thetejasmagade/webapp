@@ -31,164 +31,16 @@
           items-center"
       />
       <Skeletor
+        v-for="i in numProRows"
+        :key="i"
         height="1.5vw"
+        :class="{'col-start-1 col-span-3': i % 2 != 0,
+                 'col-start-4 col-span-3': i % 2 == 0}"
         class="
-          col-start-1
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-1
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-        col-start-1
-        col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-1
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-1
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-1
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-1
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-1
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
-      />
-      <Skeletor
-        height="1.5vw"
-        class="
-          col-start-4
-          col-span-3
-          shadow-lg
-          rounded-lg
-          bg-white
-          items-center"
+        shadow-lg
+        rounded-lg
+        bg-white
+        items-center"
       />
     </div>  
     
@@ -231,36 +83,8 @@
           w-full"
       >
         <Skeletor
-          height="14.5vw"
-          class="
-            shadow-lg
-            px-6
-            py-8
-            text-center
-            rounded-lg
-            bg-white
-            items-center
-            flex
-            flex-col
-            h-full
-            w-full"
-        />
-        <Skeletor
-          height="14.5vw"
-          class="
-            shadow-lg
-            px-6
-            py-8
-            text-center
-            rounded-lg
-            bg-white
-            items-center
-            flex
-            flex-col
-            h-full
-            w-full"
-        />
-        <Skeletor
+          v-for="i in 3"
+          :key="i"
           height="14.5vw"
           class="
             shadow-lg
@@ -287,7 +111,11 @@ import 'vue-skeletor/dist/vue-skeletor.css';
 export default {
   components: {
     Skeletor
-
+  }, 
+  data() {
+    return{
+      numProRows: 14
+    };
   }
 };
 </script>
