@@ -5,7 +5,21 @@
       title="All courses and projects"
       subtitle="Browse all of our content and hop into our Discord to get personal recommendations"
     >
-      <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-4">
+      <div
+        v-if="!isUnitsLoaded"
+        class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-4"
+      >
+        <BrowseCardSkeleton
+          v-for="i in numSkeletonCards"
+          :key="i"
+          class="h-full"
+        />
+      </div>
+
+      <div
+        v-else
+        class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-4"
+      >
         <div
           v-for="(unit, i) of units"
           :key="i"
@@ -29,6 +43,7 @@
 import Section from '@/components/Section.vue';
 import ImageCard from '@/components/ImageCard.vue';
 import UnitCardBody from '@/components/UnitCardBody.vue';
+import BrowseCardSkeleton from '@/components/BrowseCardSkeleton.vue';
 import {
   unitTypeCourse, 
   getUnitData, 
@@ -43,19 +58,25 @@ export default {
   components: {
     Section,
     ImageCard,
-    UnitCardBody
+    UnitCardBody,
+    BrowseCardSkeleton
   },
   data() {
     return {
       isLoading: false,
-      initialTabIndex: 0
+      initialTabIndex: 0,
+      numSkeletonCards: 8
     };
   },
   computed:{
     units(){
       let units = this.$store.getters.getUnits;
       units.sort((unit1, unit2) => { return getUnitData(unit1).Difficulty < getUnitData(unit2).Difficulty ? -1 : 1;} );
+      console.log(units);
       return units;
+    },
+    isUnitsLoaded() {
+      return this.units.length > 0;
     }
   },
   methods: {
