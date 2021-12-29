@@ -21,7 +21,7 @@
             You're already subscribed. Go take some courses!
           </h2>
         </header>
-        <PricingSkeleton v-if="subscriptionPlan" />
+        <PricingSkeleton v-if="!subscriptionPlan" />
         <section
           v-if="priceYearly && priceMonthly && priceLifetime"
           class="
