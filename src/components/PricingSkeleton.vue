@@ -31,7 +31,7 @@
           items-center"
       />
       <Skeletor
-        v-for="i in numProRows"
+        v-for="i in 14"
         :key="i"
         height="1.5vw"
         :class="{'col-start-1 col-span-3': i % 2 != 0,
@@ -111,11 +111,6 @@ import 'vue-skeletor/dist/vue-skeletor.css';
 export default {
   components: {
     Skeletor
-  }, 
-  data() {
-    return{
-      numProRows: 14
-    };
   }
 };
 </script>
