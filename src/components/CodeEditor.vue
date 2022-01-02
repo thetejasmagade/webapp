@@ -218,14 +218,14 @@ export default {
         revertButtons: false,
         collapseIdentical: false,
         connect: 'align',
-        readOnly: this.isCheating
+        readOnly: this.isCheating,
+        // this means tab key does an "indent" rather
+        // than blindly inserting tabs
+        extraKeys: {Tab: 'indentMore'}
       };
     },
     indentWithTabs() {
       if (this.progLang === 'go'){
-        return true;
-      }
-      if (this.progLang === 'py'){
         return true;
       }
       return false;
@@ -251,11 +251,6 @@ export default {
         return 4;
       }
       return 2;
-    },
-    insertSpaces(){
-      return this.progLang === 'js' || 
-        this.progLang === 'purs' ||
-        this.progLang === 'py';
     }
   },
   watch: {
