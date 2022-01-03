@@ -59,7 +59,7 @@
     <div v-else>
       <div
       
-        v-for="(unit, i) of fakeData"
+        v-for="(unit, i) of units"
         :key="i"
       >
         <div
@@ -168,27 +168,17 @@ export default {
     },
     firstIncompleteIndex() {
       for (let i = 0; i < this.units.length; i++) {
-        // if (this.units[i].type === 'course'){
-        if (!this.units[i].course.CompletedAt) {
-          return i;
-        }  
-        //}
-        // else if (this.units[i].type === 'project')
-        //   if (!this.units[i].project.CompletedAt) {
-        //     return i;
-        //   } 
+        if (this.units[i].type === 'course'){
+          if (!this.units[i].course.CompletedAt) {
+            return i;
+          }  
+        }
+        else if (this.units[i].type === 'project')
+          if (!this.units[i].project.CompletedAt) {
+            return i;
+          } 
       }
       return null;
-    },
-    fakeData() {
-      let fakeData = [];
-      for (let i = 0; i < this.units.length; i++) {
-        fakeData[i] = this.units[i];
-        if (fakeData[i].type === 'course') {
-          fakeData[i].course.CompletedAt = '123';
-        }
-      }
-      return fakeData;
     }
   },
   methods: {
