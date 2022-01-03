@@ -171,6 +171,8 @@ export default {
         if (!this.units[i].course.CompletedAt) {
           return i;
         }  
+        else if(!this.units[i].project.CompletedAt)
+          return i;
       }
       return null;
     }
