@@ -538,6 +538,42 @@ export async function getCoursesPublic(userHandle){
   return handled;
 }
 
+export async function getCourseProgress(courseUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/course_progress/${courseUUID}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getProjectProgress(projectUUID){
+  const resp = await fetchWithAuth(`${domain}/v1/project_progress/${projectUUID}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getUnitsProgress(){
+  const resp = await fetchWithAuth(`${domain}/v1/units_progress`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getCurrentExercise(courseUUID){
   const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/current`, {
     method: 'GET',
@@ -729,6 +765,7 @@ export async function submitInformationalExercise(exerciseUUID){
   return handled;
 }
 
+
 export async function submitInformationalStep(stepUUID){
   const resp = await fetchWithAuth(`${domain}/v1/steps/${stepUUID}/informational`, {
     method: 'POST',
@@ -767,6 +804,8 @@ export function isLoggedIn(){
     return false;
   }
 }
+
+
 
 export function getJWTClaims(){
   try {

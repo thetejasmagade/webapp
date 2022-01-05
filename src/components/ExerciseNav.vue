@@ -41,7 +41,7 @@
         "
         class="ml-3"
         :options="dropdownOneNames"
-        :default="dropdownOneNames[dropdownOneIndex]"
+        :default="dropdownOneItems[dropdownOneIndex]"
         @update:modelValue="itemName => { selectItem(itemName, dropdownOneItems) }"
       />
       <SelectDropdown
@@ -142,6 +142,11 @@ export default {
       type: Function,
       required: false,
       default: null
+    },
+    color: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   computed: {
@@ -150,7 +155,10 @@ export default {
         return null;
       }
       return this.dropdownOneItems.map(
-        item => item.name
+        item => ({
+          text: item.name,
+          color: item.color
+        })
       );
     },
     dropdownTwoNames() {
@@ -158,14 +166,17 @@ export default {
         return null;
       }
       return this.dropdownTwoItems.map(
-        item => item.name
+        item => ({
+          text: item.name,
+          color: item.color
+        })
       );
     }
   },
   methods: {
-    selectItem(itemName, dropdownItems){
+    selectItem(item, dropdownItems){
       for (const dropdownItem of dropdownItems){
-        if (itemName === dropdownItem.name){
+        if (item.text === dropdownItem.name){
           this.$router.push(dropdownItem.link);
         }
       }

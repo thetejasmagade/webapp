@@ -5,6 +5,7 @@
         class="rounded-md shadow-sm"
       >
         <button
+          :class="colors"
           class="
             inline-flex
             justify-center
@@ -53,6 +54,7 @@
             :key="i"
             href="javascript:void(0)"
             tabindex="0"
+            :class="colors"
             class="
               text-gray-800
               hover:text-gray-300
@@ -79,7 +81,7 @@
 <script>
 export default {
   props:{
-    options:{
+    options: {
       type: Array,
       required: true
     },
@@ -100,12 +102,28 @@ export default {
       selected: this.getSelectionFromDefault(this.default)
     };
   },
+  computed: {
+    colors() {
+      return{
+        'bg-green-400': this.color === 'green',
+        'hover:bg-green-400': this.color === 'green',
+        'hover:text-gray-100' : this.color === 'green'
+      };
+    }
+  },
   watch: {
     default(newDefault){
       this.selected = this.getSelectionFromDefault(newDefault);
     }
   },
   methods: {
+    getColor(colorName){
+      return{
+        'bg-green-400': this.color === 'green',
+        'hover:bg-green-400': this.color === 'green',
+        'hover:text-gray-100' : this.color === 'green'
+      };
+    },
     getSelectionFromDefault(def){
       if (this.options.length === 0) {
         return null;

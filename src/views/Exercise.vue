@@ -37,31 +37,8 @@
           shadow
           z-10
         "
-        :dropdown-one-items="course.Modules.map((mod, i) => {
-          return {
-            name: `Chapter ${i+1}: ${mod.Title}`,
-            link: {
-              name: 'Exercise',
-              params: {
-                courseUUID: $route.params.courseUUID,
-                moduleUUID: mod.UUID
-              }
-            }
-          }
-        })"
-        :dropdown-two-items="exercises.map((ex, i) => {
-          return {
-            name: `Exercise ${i+1} of ${exercises.length}`,
-            link: {
-              name: 'Exercise',
-              params: {
-                courseUUID: $route.params.courseUUID,
-                moduleUUID: module.UUID,
-                exerciseUUID: ex.UUID
-              }
-            }
-          }
-        })"
+        :dropdown-one-items="moduleNav"
+        :dropdown-two-items="exerciseNav"
         :dropdown-one-index="moduleIndex"
         :dropdown-two-index="exerciseIndex"
         :go-back="goBack"
@@ -166,6 +143,7 @@ import {
   getCourses,
   getFirstExerciseInModule,
   getExerciseByID,
+  getCourseProgress,
   getPendingAchievements
 } from '@/lib/cloudClient.js';
 
@@ -218,6 +196,53 @@ export default {
         return null;
       }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
+    },
+    moduleNav() {
+      return this.course?.Modules?.map((mod, i) => {
+        let isChapterComplete = false;
+        if (mod.UUID in this.courseProgress){
+          for (const exerciseUUID in this.courseProgress[mod.UUID]){
+            if (!this.courseProgress[mod.UUID][exerciseUUID].Complete){
+              isChapterComplete = false;
+              break;
+            }
+          }
+          isChapterComplete = true;
+        }
+        return {
+          name: `Chapter ${i+1}: ${mod.Title}`,
+          color: isChapterComplete ? 'green' : null,
+          link: {
+            name: 'Exercise',
+            params: {
+              courseUUID: this.$route.params.courseUUID,
+              moduleUUID: mod.UUID
+            }
+          }
+        };
+      });
+    },
+    exerciseNav(){
+      return this.exercises?.map((ex, i) => {
+        let isExerciseComplete = false;
+        for (let j = 0; j < ex.length; j++) {
+          if (this.courseProgress[this.ModuleUUID][ex.UUID].Complete) {
+            isExerciseComplete = true;
+          }
+        }
+        return {
+          name: `Exercise ${i+1} of ${this.exercises.length}`,
+          color: isExerciseComplete ? 'green' : null,
+          link: {
+            name: 'Exercise',
+            params: {
+              courseUUID: this.$route.params.courseUUID,
+              moduleUUID: this.module.UUID,
+              exerciseUUID: ex.UUID
+            }
+          }
+        };
+      });
     },
     isContentLoaded() {
       if (this.markdownSource === ''){
@@ -288,6 +313,7 @@ export default {
   },
   async mounted() {
     this.courses = await getCourses(this.$route.params.courseUUID);
+    this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
 
     if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID) {
       const exercise = await getExerciseByID(
