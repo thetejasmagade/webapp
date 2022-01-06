@@ -200,15 +200,7 @@ export default {
     moduleNav() {
       return this.course?.Modules?.map((mod, i) => {
         let isChapterComplete = false;
-        if (mod.UUID in this.courseProgress){
-          for (const exerciseUUID in this.courseProgress[mod.UUID]){
-            if (!this.courseProgress[mod.UUID][exerciseUUID].Complete){
-              isChapterComplete = false;
-              break;
-            }
-          }
-          isChapterComplete = true;
-        }
+        isChapterComplete = this.checkModuleCompletion(this.courseProgress, mod.UUID, mod);
         return {
           name: `Chapter ${i+1}: ${mod.Title}`,
           color: isChapterComplete ? 'green' : null,
@@ -225,11 +217,13 @@ export default {
     exerciseNav(){
       return this.exercises?.map((ex, i) => {
         let isExerciseComplete = false;
-        for (let j = 0; j < ex.length; j++) {
-          if (this.courseProgress[this.ModuleUUID][ex.UUID].Complete) {
-            isExerciseComplete = true;
-          }
+        // gaurd clauses
+        if (this.module.UUID in this.courseProgress 
+        && ex.UUID in this.courseProgress[this.module?.UUID]
+        && this.courseProgress[this.module?.UUID][ex.UUID].Completed) {
+          isExerciseComplete = true;
         }
+
         return {
           name: `Exercise ${i+1} of ${this.exercises.length}`,
           color: isExerciseComplete ? 'green' : null,
@@ -367,6 +361,22 @@ export default {
     async onSeenAchievement(){
       this.achievementsToShow.shift();
       await loadBalance(this);
+    },
+    checkExerciseCompletion(courseProgress, exerciseUUID) {
+      if (courseProgress[this.module.UUID][exerciseUUID].Completed) {
+        return true;
+      }
+      return false;
+    },
+    checkModuleCompletion(courseProgress, moduleUUID, mod) {
+      if (moduleUUID in courseProgress){
+        for (const exerciseUUID in mod[moduleUUID]){
+          if (!courseProgress[moduleUUID][exerciseUUID].Completed){
+            return false;
+          }
+        }
+        return true;
+      }
     },
     showPricingModal() {
       eventOpenProModal();
