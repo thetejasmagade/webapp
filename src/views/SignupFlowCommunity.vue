@@ -5,16 +5,16 @@
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
         title="Join the Qvault Discord Community"
-        subtitle="Integrating your Discord account powers our gems and achievements systems"
+        subtitle="Integrating your Discord account gives you full access to community features"
         class="max-w-2xl"
       >
         <div>
           <div class="flex flex-col">
             <ul class="list-disc ml-5 my-4 text-left">
-              <li>You will get personalized help with your resume</li>
-              <li>You will get advice on what you should be learning next</li>
-              <li>You can attend free online workshops and networking events</li>
-              <li>You can get help with your courses and projects</li>
+              <li>Get personalized help with your resume and portfolio</li>
+              <li>Get advice on what you should be learning and building next</li>
+              <li>Attend online meetups and coding events</li>
+              <li>Get techincal help with your courses and projects</li>
             </ul>
 
             <div class="flex justify-center mb-4">
@@ -32,8 +32,7 @@
             <p>
               Click the button above to join our Discord community.
               <b>It's free forever.</b>
-              The majority of the value of Qvault comes from the
-              motivation, help, and mentoring our community provides.
+              Don't miss out on the motivation, help, and mentoring a tight-knit community provides.
             </p>
 
             <div class="flex justify-center my-4">

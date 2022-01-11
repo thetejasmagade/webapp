@@ -16,7 +16,7 @@
               #qvault-bot-cli
             </code> channel to learn how the bot works.
             Send the following command in a DM to the Qvault bot.
-            It's at top user in the user list on the right of the screen in Discord.
+            You can DM the bot in the top of the user list on the right of the screen in Discord.
           </p>
 
           <div class="flex justify-center">
