@@ -162,7 +162,8 @@ export async function updateUser({
   githubHandle,
   websiteURL,
   experienceLevel,
-  recruitersCanContact
+  recruitersCanContact,
+  isSubscribedNews
 }){
   function emptyToNull(s){
     if (s === ''){
@@ -199,7 +200,8 @@ export async function updateUser({
       githubHandle,
       websiteURL,
       experienceLevel,
-      recruitersCanContact
+      recruitersCanContact,
+      isSubscribedNews
     })
   });
   const handled = await handleJSONResponse(resp);

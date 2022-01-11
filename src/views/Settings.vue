@@ -86,16 +86,29 @@
               "
               @submit.prevent="updateUser"
             >
-              <div class="lg:col-span-3 md:col-span-2 col-span-1 flex justify-center items-center">
-                <span>Get notified of job relevant job offers</span>
-                <ToggleSwitch
-                  v-model="user.recruitersCanContact"
-                  class="
+              <div class="lg:col-span-3 md:col-span-2 col-span-1 flex justify-evenly items-center">
+                <div>
+                  <span>Get notified of job relevant job offers</span>
+                  <ToggleSwitch
+                    v-model="user.recruitersCanContact"
+                    class="
                     inline-block
                     leading-3
                     ml-4
                   "
-                />
+                  />
+                </div>
+                <div>
+                  <span>Notify me via email about updates and events</span>
+                  <ToggleSwitch
+                    v-model="user.isSubscribedNews"
+                    class="
+                    inline-block
+                    leading-3
+                    ml-4
+                  "
+                  />
+                </div>
               </div>
 
               <div>
@@ -323,7 +336,8 @@ export default {
       newPassword: null,
       confirmPassword: null,
       user: {
-        recruitersCanContact: false
+        recruitersCanContact: false,
+        isSubscribedNews: false
       }
     };
   },
@@ -363,11 +377,17 @@ export default {
     },
     recruitersCanContact(){
       return this.$store.getters.getUser ? this.$store.getters.getUser.RecruitersCanContact : false;
+    },
+    isSubscribedNews(){
+      return this.$store.getters.getUser ? this.$store.getters.getUser.IsSubscribedNews : false;
     }
   },
   watch: {
     recruitersCanContact(newRecruitersCanContact) {
       this.user.recruitersCanContact = newRecruitersCanContact;
+    },
+    isSubscribedNews(newIsSubscribedNews) {
+      this.user.isSubscribedNews = newIsSubscribedNews;
     }
   },
   async mounted(){
