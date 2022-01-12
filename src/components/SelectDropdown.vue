@@ -5,7 +5,7 @@
         class="rounded-md shadow-sm"
       >
         <button
-          :class="colors"
+          :class="getColor(selected.color)"
           class="
             inline-flex
             justify-center
@@ -28,7 +28,7 @@
           aria-expanded="true"
           aria-controls="headlessui-menu-items-117"
         >
-          <span>{{ selected }}</span>
+          <span>{{ selected.text }}</span>
           <svg
             class="w-5 h-6 ml-2 -mr-1"
             viewBox="0 0 20 20"
@@ -54,7 +54,6 @@
             :key="i"
             href="javascript:void(0)"
             tabindex="0"
-            :class="colors"
             class="
               text-gray-800
               hover:text-gray-300
@@ -67,10 +66,11 @@
               leading-5
               text-left
             "
+            :class="getColor(option.color)"
             role="menuitem"
             @click="selected=option; $emit('update:modelValue', option)"
           >
-            {{ option }}
+            {{ option.text }}
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ export default {
       required: true
     },
     default: {
-      type: String,
+      type: Object,
       required: false,
       default: null
     },
@@ -100,16 +100,8 @@ export default {
   data() {
     return {
       selected: this.getSelectionFromDefault(this.default)
+
     };
-  },
-  computed: {
-    colors() {
-      return{
-        'bg-green-400': this.color === 'green',
-        'hover:bg-green-400': this.color === 'green',
-        'hover:text-gray-100' : this.color === 'green'
-      };
-    }
   },
   watch: {
     default(newDefault){
@@ -119,9 +111,8 @@ export default {
   methods: {
     getColor(colorName){
       return{
-        'bg-green-400': this.color === 'green',
-        'hover:bg-green-400': this.color === 'green',
-        'hover:text-gray-100' : this.color === 'green'
+        'bg-green-400': colorName === 'green',
+        'hover:text-gray-600': colorName = 'green'
       };
     },
     getSelectionFromDefault(def){

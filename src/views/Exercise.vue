@@ -217,7 +217,6 @@ export default {
     exerciseNav(){
       return this.exercises?.map((ex, i) => {
         let isExerciseComplete = false;
-        // gaurd clauses
         if (this.module.UUID in this.courseProgress 
         && ex.UUID in this.courseProgress[this.module?.UUID]
         && this.courseProgress[this.module?.UUID][ex.UUID].Completed) {
@@ -361,12 +360,6 @@ export default {
     async onSeenAchievement(){
       this.achievementsToShow.shift();
       await loadBalance(this);
-    },
-    checkExerciseCompletion(courseProgress, exerciseUUID) {
-      if (courseProgress[this.module.UUID][exerciseUUID].Completed) {
-        return true;
-      }
-      return false;
     },
     checkModuleCompletion(courseProgress, moduleUUID, mod) {
       if (moduleUUID in courseProgress){
