@@ -12,22 +12,28 @@
             px-4
             py-2
             leading-6
-            text-gray-800
             transition
             duration-150
             ease-in-out
-            bg-white border
+            border
             border-gray-300
             rounded-md
-            hover:text-gray-400
             focus:outline-none
-          " 
+          "
+          :class="{
+            'hover:text-gray-400': selected.color !== 'green',
+            'text-gray-800': selected.color !== 'green',
+            'bg-white': selected.color !== 'green',
+            'hover:bg-green-500': selected.color === 'green',
+            'text-gray-200': selected.color === 'green',
+            'bg-green-600': selected.color === 'green'
+          }"
           type="button"
           aria-haspopup="true"
           aria-expanded="true"
           aria-controls="headlessui-menu-items-117"
         >
-          <span>{{ selected }}</span>
+          <span>{{ selected.name }}</span>
           <svg
             class="w-5 h-6 ml-2 -mr-1"
             viewBox="0 0 20 20"
@@ -54,8 +60,6 @@
             href="javascript:void(0)"
             tabindex="0"
             class="
-              text-gray-800
-              hover:text-gray-300
               flex
               justify-between
               w-full
@@ -65,10 +69,18 @@
               leading-5
               text-left
             "
+            :class="{
+              'hover:text-gray-400': option.color !== 'green',
+              'text-gray-800': option.color !== 'green',
+              'bg-white': option.color !== 'green',
+              'hover:bg-green-500': option.color === 'green',
+              'text-gray-200': option.color === 'green',
+              'bg-green-600': option.color === 'green'
+            }"
             role="menuitem"
             @click="selected=option; $emit('update:modelValue', option)"
           >
-            {{ option }}
+            {{ option.name }}
           </div>
         </div>
       </div>
@@ -79,12 +91,12 @@
 <script>
 export default {
   props:{
-    options:{
+    options: {
       type: Array,
       required: true
     },
     default: {
-      type: String,
+      type: Object,
       required: false,
       default: null
     },

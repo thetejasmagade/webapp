@@ -37,38 +37,14 @@
           shadow
           z-10
         "
-        :dropdown-one-items="course.Modules.map((mod, i) => {
-          return {
-            name: `Chapter ${i+1}: ${mod.Title}`,
-            link: {
-              name: 'Exercise',
-              params: {
-                courseUUID: $route.params.courseUUID,
-                moduleUUID: mod.UUID
-              }
-            }
-          }
-        })"
-        :dropdown-two-items="exercises.map((ex, i) => {
-          return {
-            name: `Exercise ${i+1} of ${exercises.length}`,
-            link: {
-              name: 'Exercise',
-              params: {
-                courseUUID: $route.params.courseUUID,
-                moduleUUID: module.UUID,
-                exerciseUUID: ex.UUID
-              }
-            }
-          }
-        })"
+        :dropdown-one-items="dropdownModules"
+        :dropdown-two-items="dropdownExercises"
         :dropdown-one-index="moduleIndex"
         :dropdown-two-index="exerciseIndex"
         :go-back="goBack"
         :go-forward="goForward"
         :can-go-back="!isFirstExercise"
         :can-go-forward="!isLastExercise || courseDone"
-        :is-complete="isComplete"
         :locked="locked"
         :click-comment="() => showFeedbackModal()"
       />
@@ -166,6 +142,7 @@ import {
   getCourses,
   getFirstExerciseInModule,
   getExerciseByID,
+  getCourseProgress,
   getPendingAchievements
 } from '@/lib/cloudClient.js';
 
@@ -206,7 +183,8 @@ export default {
       isComplete: null,
       isFree: null,
       isCheating: false,
-      achievementsToShow: null
+      achievementsToShow: null,
+      courseProgress: null
     };
   },
   computed: {
@@ -218,6 +196,53 @@ export default {
         return null;
       }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
+    },
+    dropdownModules() {
+      return this.course?.Modules?.map((mod, i) => {
+        let isChapterComplete = false; 
+        if (mod.UUID in this.courseProgress){
+          for (const exercise of mod.Exercises){  
+            if (!this.courseProgress[mod.UUID][exercise.UUID]?.Completed){
+              isChapterComplete = false;
+              break;
+            }
+            isChapterComplete = true;
+          }
+        }
+        return {
+          name: `Chapter ${i+1}: ${mod.Title}`,
+          color: isChapterComplete ? 'green' : null,
+          link: {
+            name: 'Exercise',
+            params: {
+              courseUUID: this.$route.params.courseUUID,
+              moduleUUID: mod.UUID
+            }
+          }
+        };
+      });
+    },
+    dropdownExercises(){
+      return this.exercises?.map((ex, i) => {
+        let isExerciseComplete = false;
+        if (this.module.UUID in this.courseProgress
+        && ex.UUID in this.courseProgress[this.module?.UUID]
+        && this.courseProgress[this.module?.UUID][ex.UUID].Completed) {
+          isExerciseComplete = true;
+        }
+        return {
+          name: `Exercise ${i+1} of ${this.exercises.length}`,
+          color: isExerciseComplete ? 'green' : null,
+          link: {
+            name: 'Exercise',
+            params: {
+              courseUUID: this.$route.params.courseUUID,
+              moduleUUID: this.module.UUID,
+              exerciseUUID: ex.UUID
+            }
+          }
+        };
+      });
     },
     isContentLoaded() {
       if (this.markdownSource === ''){
@@ -287,7 +312,15 @@ export default {
     }
   },
   async mounted() {
-    this.courses = await getCourses(this.$route.params.courseUUID);
+    try {
+      this.courses = await getCourses(this.$route.params.courseUUID);
+      this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
+    } catch(err) {
+      notify({
+        type: 'danger',
+        text: err
+      });
+    }
 
     if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID) {
       const exercise = await getExerciseByID(
@@ -382,6 +415,14 @@ export default {
         type: 'success',
         text: 'Correct! Great Job'
       });
+      try {
+        this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
+      } catch(err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
     },
     async verifyCode({ output }) {
       try {

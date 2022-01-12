@@ -8,8 +8,7 @@
       border-gray-400
     "
     :class="{
-      'bg-green-200': isComplete,
-      'bg-red-200': locked,
+      'bg-red-200': locked
     }"
   >
     <div class="flex-1 flex items-center justify-start">
@@ -36,23 +35,23 @@
 
       <SelectDropdown
         v-if="
-          dropdownOneNames && 
+          dropdownOneItems && 
             dropdownOneIndex !== null
         "
         class="ml-3"
-        :options="dropdownOneNames"
-        :default="dropdownOneNames[dropdownOneIndex]"
-        @update:modelValue="itemName => { selectItem(itemName, dropdownOneItems) }"
+        :options="dropdownOneItems"
+        :default="dropdownOneItems[dropdownOneIndex]"
+        @update:modelValue="item => { selectItem(item, dropdownOneItems) }"
       />
       <SelectDropdown
         v-if="
-          dropdownTwoNames &&
+          dropdownTwoItems &&
             dropdownTwoIndex !== null
         "
         class="ml-3"
-        :options="dropdownTwoNames"
-        :default="dropdownTwoNames[dropdownTwoIndex]"
-        @update:modelValue="itemName => { selectItem(itemName, dropdownTwoItems) }"
+        :options="dropdownTwoItems"
+        :default="dropdownTwoItems[dropdownTwoIndex]"
+        @update:modelValue="item => { selectItem(item, dropdownTwoItems) }"
       />
     </div>
 
@@ -115,11 +114,6 @@ export default {
       required: false,
       default: false
     },
-    isComplete: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     goBack:{
       type: Function,
       required: true
@@ -142,30 +136,17 @@ export default {
       type: Function,
       required: false,
       default: null
-    }
-  },
-  computed: {
-    dropdownOneNames() {
-      if (!this.dropdownOneItems){
-        return null;
-      }
-      return this.dropdownOneItems.map(
-        item => item.name
-      );
     },
-    dropdownTwoNames() {
-      if (!this.dropdownTwoItems){
-        return null;
-      }
-      return this.dropdownTwoItems.map(
-        item => item.name
-      );
+    color: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   methods: {
-    selectItem(itemName, dropdownItems){
+    selectItem(item, dropdownItems){
       for (const dropdownItem of dropdownItems){
-        if (itemName === dropdownItem.name){
+        if (item.name === dropdownItem.name){
           this.$router.push(dropdownItem.link);
         }
       }
