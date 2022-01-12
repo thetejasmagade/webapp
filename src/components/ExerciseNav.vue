@@ -114,11 +114,6 @@ export default {
       required: false,
       default: false
     },
-    isComplete: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     goBack:{
       type: Function,
       required: true
