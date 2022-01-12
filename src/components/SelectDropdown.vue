@@ -20,7 +20,14 @@
             rounded-md
             focus:outline-none
           "
-          :class="getColor(selected.color)"
+          :class="{
+            'hover:text-gray-400': selected.color !== 'green',
+            'text-gray-800': selected.color !== 'green',
+            'bg-white': selected.color !== 'green',
+            'hover:bg-green-500': selected.color === 'green',
+            'text-gray-200': selected.color === 'green',
+            'bg-green-600': selected.color === 'green'
+          }"
           type="button"
           aria-haspopup="true"
           aria-expanded="true"
@@ -62,7 +69,14 @@
               leading-5
               text-left
             "
-            :class="getColor(option.color)"
+            :class="{
+              'hover:text-gray-400': option.color !== 'green',
+              'text-gray-800': option.color !== 'green',
+              'bg-white': option.color !== 'green',
+              'hover:bg-green-500': option.color === 'green',
+              'text-gray-200': option.color === 'green',
+              'bg-green-600': option.color === 'green'
+            }"
             role="menuitem"
             @click="selected=option; $emit('update:modelValue', option)"
           >
@@ -96,7 +110,6 @@ export default {
   data() {
     return {
       selected: this.getSelectionFromDefault(this.default)
-
     };
   },
   watch: {
@@ -105,16 +118,6 @@ export default {
     }
   },
   methods: {
-    getColor(colorName){
-      return{
-        'hover:text-gray-400': colorName !== 'green',
-        'text-gray-800': colorName !== 'green',
-        'bg-white': colorName !== 'green',
-        'hover:bg-green-500': colorName === 'green',
-        'text-gray-200': colorName === 'green',
-        'bg-green-600': colorName === 'green'
-      };
-    },
     getSelectionFromDefault(def){
       if (this.options.length === 0) {
         return null;

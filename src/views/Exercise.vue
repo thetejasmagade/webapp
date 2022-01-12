@@ -37,8 +37,8 @@
           shadow
           z-10
         "
-        :dropdown-one-items="moduleNav"
-        :dropdown-two-items="exerciseNav"
+        :dropdown-one-items="dropdownModules"
+        :dropdown-two-items="dropdownExercises"
         :dropdown-one-index="moduleIndex"
         :dropdown-two-index="exerciseIndex"
         :go-back="goBack"
@@ -197,7 +197,7 @@ export default {
       }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
     },
-    moduleNav() {
+    dropdownModules() {
       return this.course?.Modules?.map((mod, i) => {
         let isChapterComplete = false; 
         if (mod.UUID in this.courseProgress){
@@ -222,7 +222,7 @@ export default {
         };
       });
     },
-    exerciseNav(){
+    dropdownExercises(){
       return this.exercises?.map((ex, i) => {
         let isExerciseComplete = false;
         if (this.module.UUID in this.courseProgress 

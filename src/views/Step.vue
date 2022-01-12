@@ -30,7 +30,7 @@
           shadow
           z-10
         "
-        :dropdown-one-items="projectNav"
+        :dropdown-one-items="dropdownSteps"
         :dropdown-one-index="stepIndex"
         :go-back="goBack"
         :go-forward="() => {goForward(false)}"
@@ -143,7 +143,7 @@ export default {
       }
       return true;
     },
-    projectNav() {
+    dropdownSteps() {
       return this.project?.Steps?.map((step, i) => {
         let isStepComplete = false;
         if (step.UUID in this.projectProgress 
@@ -169,10 +169,15 @@ export default {
     }
   },
   async mounted() {
-    this.projects = await getProjects();
-    this.projectProgress = await getProjectProgress(this.$route.params.projectUUID);
-    
-
+    try {
+      this.projects = await getProjects();
+      this.projectProgress = await getProjectProgress(this.$route.params.projectUUID);
+    } catch(err) {
+      notify({
+        type: 'danger',
+        text: err
+      });
+    }
     if (this.$route.params.stepUUID) {
       const step = await getStepByID(
         this.$route.params.projectUUID,
