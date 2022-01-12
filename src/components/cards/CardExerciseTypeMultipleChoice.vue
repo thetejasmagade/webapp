@@ -63,7 +63,7 @@ export default {
       required: true
     },
     question:{
-      type: Array,
+      type: String,
       required: true
     },
     locked: {

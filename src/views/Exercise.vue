@@ -45,7 +45,6 @@
         :go-forward="goForward"
         :can-go-back="!isFirstExercise"
         :can-go-forward="!isLastExercise || courseDone"
-        :is-complete="isComplete"
         :locked="locked"
         :click-comment="() => showFeedbackModal()"
       />
@@ -184,7 +183,8 @@ export default {
       isComplete: null,
       isFree: null,
       isCheating: false,
-      achievementsToShow: null
+      achievementsToShow: null,
+      courseProgress: null
     };
   },
   computed: {
@@ -225,7 +225,7 @@ export default {
     dropdownExercises(){
       return this.exercises?.map((ex, i) => {
         let isExerciseComplete = false;
-        if (this.module.UUID in this.courseProgress 
+        if (this.module.UUID in this.courseProgress
         && ex.UUID in this.courseProgress[this.module?.UUID]
         && this.courseProgress[this.module?.UUID][ex.UUID].Completed) {
           isExerciseComplete = true;
@@ -312,8 +312,15 @@ export default {
     }
   },
   async mounted() {
-    this.courses = await getCourses(this.$route.params.courseUUID);
-    this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
+    try {
+      this.courses = await getCourses(this.$route.params.courseUUID);
+      this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
+    } catch(err) {
+      notify({
+        type: 'danger',
+        text: err
+      });
+    }
 
     if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID) {
       const exercise = await getExerciseByID(
@@ -408,6 +415,14 @@ export default {
         type: 'success',
         text: 'Correct! Great Job'
       });
+      try {
+        this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
+      } catch(err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
     },
     async verifyCode({ output }) {
       try {
