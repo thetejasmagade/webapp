@@ -8,8 +8,7 @@
       border-gray-400
     "
     :class="{
-      'bg-green-200': isComplete,
-      'bg-red-200': locked,
+      'bg-red-200': locked
     }"
   >
     <div class="flex-1 flex items-center justify-start">
@@ -36,23 +35,23 @@
 
       <SelectDropdown
         v-if="
-          dropdownOneNames && 
+          dropdownOneItems && 
             dropdownOneIndex !== null
         "
         class="ml-3"
-        :options="dropdownOneNames"
+        :options="dropdownOneItems"
         :default="dropdownOneItems[dropdownOneIndex]"
-        @update:modelValue="itemName => { selectItem(itemName, dropdownOneItems) }"
+        @update:modelValue="item => { selectItem(item, dropdownOneItems) }"
       />
       <SelectDropdown
         v-if="
-          dropdownTwoNames &&
+          dropdownTwoItems &&
             dropdownTwoIndex !== null
         "
         class="ml-3"
-        :options="dropdownTwoNames"
-        :default="dropdownTwoNames[dropdownTwoIndex]"
-        @update:modelValue="itemName => { selectItem(itemName, dropdownTwoItems) }"
+        :options="dropdownTwoItems"
+        :default="dropdownTwoItems[dropdownTwoIndex]"
+        @update:modelValue="item => { selectItem(item, dropdownTwoItems) }"
       />
     </div>
 
@@ -149,34 +148,10 @@ export default {
       default: null
     }
   },
-  computed: {
-    dropdownOneNames() {
-      if (!this.dropdownOneItems){
-        return null;
-      }
-      return this.dropdownOneItems.map(
-        item => ({
-          text: item.name,
-          color: item.color
-        })
-      );
-    },
-    dropdownTwoNames() {
-      if (!this.dropdownTwoItems){
-        return null;
-      }
-      return this.dropdownTwoItems.map(
-        item => ({
-          text: item.name,
-          color: item.color
-        })
-      );
-    }
-  },
   methods: {
     selectItem(item, dropdownItems){
       for (const dropdownItem of dropdownItems){
-        if (item.text === dropdownItem.name){
+        if (item.name === dropdownItem.name){
           this.$router.push(dropdownItem.link);
         }
       }

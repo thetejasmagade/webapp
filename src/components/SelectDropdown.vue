@@ -5,7 +5,6 @@
         class="rounded-md shadow-sm"
       >
         <button
-          :class="getColor(selected.color)"
           class="
             inline-flex
             justify-center
@@ -13,22 +12,21 @@
             px-4
             py-2
             leading-6
-            text-gray-800
             transition
             duration-150
             ease-in-out
-            bg-white border
+            border
             border-gray-300
             rounded-md
-            hover:text-gray-400
             focus:outline-none
-          " 
+          "
+          :class="getColor(selected.color)"
           type="button"
           aria-haspopup="true"
           aria-expanded="true"
           aria-controls="headlessui-menu-items-117"
         >
-          <span>{{ selected.text }}</span>
+          <span>{{ selected.name }}</span>
           <svg
             class="w-5 h-6 ml-2 -mr-1"
             viewBox="0 0 20 20"
@@ -55,8 +53,6 @@
             href="javascript:void(0)"
             tabindex="0"
             class="
-              text-gray-800
-              hover:text-gray-300
               flex
               justify-between
               w-full
@@ -70,7 +66,7 @@
             role="menuitem"
             @click="selected=option; $emit('update:modelValue', option)"
           >
-            {{ option.text }}
+            {{ option.name }}
           </div>
         </div>
       </div>
@@ -111,8 +107,12 @@ export default {
   methods: {
     getColor(colorName){
       return{
-        'bg-green-400': colorName === 'green',
-        'hover:text-gray-600': colorName = 'green'
+        'hover:text-gray-400': colorName !== 'green',
+        'text-gray-800': colorName !== 'green',
+        'bg-white': colorName !== 'green',
+        'hover:bg-green-500': colorName === 'green',
+        'text-gray-200': colorName === 'green',
+        'bg-green-600': colorName === 'green'
       };
     },
     getSelectionFromDefault(def){

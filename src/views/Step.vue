@@ -21,7 +21,8 @@
         bg-white
       "
     >
-      <ExerciseNav
+      <ExerciseNav 
+        v-if="isContentLoaded"
         class="
           p-3
           w-full
@@ -29,18 +30,7 @@
           shadow
           z-10
         "
-        :dropdown-one-items="project.Steps.map((step, i) => {
-          return {
-            name: `Step ${i+1} of ${project.Steps.length}`,
-            link: {
-              name: 'Step',
-              params: {
-                projectUUID: $route.params.projectUUID,
-                stepUUID: step.UUID
-              }
-            }
-          }
-        })"
+        :dropdown-one-items="projectNav"
         :dropdown-one-index="stepIndex"
         :go-back="goBack"
         :go-forward="() => {goForward(false)}"
@@ -106,6 +96,7 @@ import {
   submitManualStep,
   getFirstStep,
   getProjects,
+  getProjectProgress,
   getStepByID
 } from '@/lib/cloudClient.js';
 
@@ -146,6 +137,32 @@ export default {
       }
       return null;
     },
+    isContentLoaded() {
+      if (this.markdownSource === ''){
+        return false;
+      }
+      return true;
+    },
+    projectNav() {
+      return this.project?.Steps?.map((step, i) => {
+        let isStepComplete = false;
+        if (step.UUID in this.projectProgress 
+        && this.projectProgress[step.UUID].Completed) {
+          isStepComplete = true;
+        }
+        return {
+          name: `Step ${i+1} of ${this.project.Steps.length}`,
+          color: isStepComplete ? 'green' : null,
+          link: {
+            name: 'Step',
+            params: {
+              projectUUID: this.$route.params.projectUUID,
+              stepUUID: step.UUID
+            }
+          }
+        };
+      });
+    },
     project() {
       const project = this.projects?.find(project => project.UUID === this.$route.params.projectUUID);
       return project;
@@ -153,6 +170,8 @@ export default {
   },
   async mounted() {
     this.projects = await getProjects();
+    this.projectProgress = await getProjectProgress(this.$route.params.projectUUID);
+    
 
     if (this.$route.params.stepUUID) {
       const step = await getStepByID(
