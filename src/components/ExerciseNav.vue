@@ -12,27 +12,6 @@
     }"
   >
     <div class="flex-1 flex items-center justify-start">
-      <BlockButton
-        :click="goBack"
-        :disabled="!canGoBack"
-        :color="canGoBack ? 'blue' : 'gray'"
-      >
-        <FontAwesomeIcon
-          icon="arrow-left"
-        />
-      </BlockButton>
-      
-      <BlockButton
-        :disabled="!canGoForward"
-        class="ml-3"
-        :click="goForward"
-        :color="canGoForward ? 'blue' : 'gray'"
-      >
-        <FontAwesomeIcon
-          icon="arrow-right"
-        />
-      </BlockButton>
-
       <SelectDropdown
         v-if="
           dropdownOneItems && 
@@ -54,8 +33,29 @@
         @update:modelValue="item => { selectItem(item, dropdownTwoItems) }"
       />
     </div>
-
-    <div class="flex flex-row flex-end">
+    <div class="flex-1 flex justify-end">
+      <BlockButton
+        :click="goBack"
+        :disabled="!canGoBack"
+        :color="canGoBack ? 'blue' : 'gray'"
+      >
+        <FontAwesomeIcon
+          icon="arrow-left"
+        />
+      </BlockButton>
+      
+      <BlockButton
+        :disabled="!canGoForward"
+        class="ml-3"
+        :click="goForward"
+        :color="canGoForward ? 'blue' : 'gray'"
+      >
+        <FontAwesomeIcon
+          icon="arrow-right"
+        />
+      </BlockButton>
+    </div>
+    <div class="flex mr-6 flex-row items-center flex-end">
       <Tooltip
         :text="`Feedback`"
         position="left"
@@ -63,7 +63,7 @@
         <BlockButton
           :click="clickComment"
           color="gray"
-          class="mr-4"
+          class="ml-4"
         >
           <FontAwesomeIcon
             icon="comment"
