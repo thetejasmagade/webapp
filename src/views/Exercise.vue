@@ -200,7 +200,8 @@ export default {
     dropdownModules() {
       return this.course?.Modules?.map((mod, i) => {
         let isChapterComplete = false; 
-        if (mod.UUID in this.courseProgress){
+        if (this.courseProgress 
+        && mod.UUID in this.courseProgress){
           for (const exercise of mod.Exercises){  
             if (!this.courseProgress[mod.UUID][exercise.UUID]?.Completed){
               isChapterComplete = false;
@@ -225,7 +226,8 @@ export default {
     dropdownExercises(){
       return this.exercises?.map((ex, i) => {
         let isExerciseComplete = false;
-        if (this.module.UUID in this.courseProgress
+        if (this.courseProgress 
+        && this.module.UUID in this.courseProgress
         && ex.UUID in this.courseProgress[this.module?.UUID]
         && this.courseProgress[this.module?.UUID][ex.UUID].Completed) {
           isExerciseComplete = true;
