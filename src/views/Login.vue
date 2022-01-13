@@ -19,7 +19,7 @@
           class="mx-auto w-24 mb-3"
         >
 
-        <h2 class="text-center font-semibold mb-2 text-2xl text-gray-800">
+        <h2 class="text-center font-semibold mb-2 text-2xl">
           Learn coding concepts that <span class="font-bold text-blue-400">get you hired</span>
         </h2>
 

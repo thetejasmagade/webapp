@@ -148,6 +148,8 @@ export default {
   --gold-600: #9E713A;
   --gold-800: #48331B;
 
+  --gray-750: #292929;
+
   --top-nav-bar-height: 60px;
 }
 
@@ -155,5 +157,6 @@ body {
   font-family: Apercu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   margin: 0;
   height: 100%;
+  color: var(--gray-750)
 }
 </style>
