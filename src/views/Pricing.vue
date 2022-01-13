@@ -280,7 +280,7 @@
       >
         <div class="px-4">
           <h2 class="text-xl my-4 text-gold-700">
-            What's the difference between Basic and Pro?
+            What's the difference between a free account and a patron account?
           </h2>
           <p class="mb-4">
             A basic account is, well, basic. You can demo patron-only features on the first 6 exercises of each course, but after that if you're on
@@ -321,7 +321,7 @@
           </p>
 
           <h2 class="text-xl my-4 text-gold-700">
-            Why should I upgrade to Qvault Pro?
+            Why should I become a patron?
           </h2>
           <p class="mb-4">
             I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
