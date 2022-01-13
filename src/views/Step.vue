@@ -146,7 +146,8 @@ export default {
     dropdownSteps() {
       return this.project?.Steps?.map((step, i) => {
         let isStepComplete = false;
-        if (step.UUID in this.projectProgress 
+        if (this.projectProgress
+        && step.UUID in this.projectProgress 
         && this.projectProgress[step.UUID].Completed) {
           isStepComplete = true;
         }
