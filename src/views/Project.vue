@@ -1,78 +1,80 @@
 <template>
-  <div class="h-full">
-    <CourseDoneModal
-      ref="projectDoneModal"
-      :go-to-beginning-callback="goToBeginning"
-    />
-    <FeedbackModal
-      v-if="$route.params.stepUUID"
-      ref="feedbackModal"
-      :uuid="$route.params.stepUUID"
-      unit-type="step"
-    />
+  <ViewNavWrapper>
+    <div class="h-full">
+      <CourseDoneModal
+        ref="projectDoneModal"
+        :go-to-beginning-callback="goToBeginning"
+      />
+      <FeedbackModal
+        v-if="$route.params.stepUUID"
+        ref="feedbackModal"
+        :uuid="$route.params.stepUUID"
+        unit-type="step"
+      />
 
-    <div
-      v-if="project"
-      class="
-        h-full
-        hidden
-        sm:flex
-        flex-col
-        bg-white
-      "
-    >
-      <ExerciseNav 
-        v-if="isContentLoaded"
+      <div
+        v-if="project"
         class="
-          p-3
-          w-full
-          box-border
-          shadow
-          z-10
+          h-full
+          hidden
+          sm:flex
+          flex-col
+          bg-white
         "
-        :dropdown-one-items="dropdownSteps"
-        :dropdown-one-index="stepIndex"
-        :go-back="goBack"
-        :go-forward="() => {goForward(false)}"
-        :can-go-back="!isFirstStep"
-        :can-go-forward="!isLastStep || projectDone"
-        :is-complete="isComplete"
-        :locked="false"
-        :click-comment="() => showFeedbackModal()"
-      />
-      <CardStepTypeInfo
-        v-if="type === 'type_info'"
-        :markdown-source="markdownSource"
-        :project-slug="project.Slug"
-        :step-slug="stepSlug"
-        :done-with-step="() => goForward(true)"
-      />
-      <CardStepTypeManual
-        v-else-if="type === 'type_manual'"
-        :markdown-source="markdownSource"
-        :project-slug="project.Slug"
-        :step-slug="stepSlug"
-        :done-with-step="() => goForward(true)"
-      />
+      >
+        <ExerciseNav 
+          v-if="isContentLoaded"
+          class="
+            p-3
+            w-full
+            box-border
+            shadow
+            z-10
+          "
+          :dropdown-one-items="dropdownSteps"
+          :dropdown-one-index="stepIndex"
+          :go-back="goBack"
+          :go-forward="() => {goForward(false)}"
+          :can-go-back="!isFirstStep"
+          :can-go-forward="!isLastStep || projectDone"
+          :locked="false"
+          :click-comment="() => showFeedbackModal()"
+        />
+        <CardStepTypeInfo
+          v-if="type === 'type_info'"
+          :markdown-source="markdownSource"
+          :project-slug="project.Slug"
+          :step-slug="stepSlug"
+          :done-with-step="() => goForward(true)"
+        />
+        <CardStepTypeManual
+          v-else-if="type === 'type_manual'"
+          :markdown-source="markdownSource"
+          :project-slug="project.Slug"
+          :step-slug="stepSlug"
+          :done-with-step="() => goForward(true)"
+        />
+      </div>
+      <div
+        class="
+          block
+          sm:hidden
+          p-4
+        "
+      >
+        <Section title="Come back on a computer">
+          <p class="p-4">
+            Coding is hard to do on a phone. I want you to have a great
+            experience, so please hurry back on a larger device.
+          </p>
+        </Section>
+      </div>
     </div>
-    <div
-      class="
-        block
-        sm:hidden
-        p-4
-      "
-    >
-      <Section title="Come back on a computer">
-        <p class="p-4">
-          Coding is hard to do on a phone. I want you to have a great
-          experience, so please hurry back on a larger device.
-        </p>
-      </Section>
-    </div>
-  </div>
+  </ViewNavWrapper>
 </template>
 
 <script>
+import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
 import CourseDoneModal from '@/components/CourseDoneModal.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
 import CardStepTypeInfo from '@/components/cards/CardStepTypeInfo.vue';
@@ -80,7 +82,7 @@ import CardStepTypeManual from '@/components/cards/CardStepTypeManual.vue';
 import Section from '@/components/Section.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
 
-import { loadBalance, loadUser } from '@/lib/cloudStore.js';
+import { loadBalance } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 import {
@@ -107,7 +109,8 @@ export default {
     ExerciseNav,
     FeedbackModal,
     CardStepTypeInfo,
-    CardStepTypeManual
+    CardStepTypeManual,
+    ViewNavWrapper
   },
   data() {
     return {
@@ -116,10 +119,8 @@ export default {
       projectDone: false,
       isFirstStep: false,
       isLastStep: false,
-      isCurrentStep: false,
       complete: '',
       projects: null,
-      isComplete: null,
       stepSlug: null
     };
   },
@@ -155,7 +156,7 @@ export default {
           name: `Step ${i+1} of ${this.project.Steps.length}`,
           color: isStepComplete ? 'gold' : null,
           link: {
-            name: 'Step',
+            name: 'Project',
             params: {
               projectUUID: this.$route.params.projectUUID,
               stepUUID: step.UUID
@@ -172,13 +173,15 @@ export default {
   async mounted() {
     try {
       this.projects = await getProjects();
-      this.projectProgress = await getProjectProgress(this.$route.params.projectUUID);
     } catch(err) {
       notify({
         type: 'danger',
         text: err
       });
     }
+
+    this.getProjectProgressIfLoggedIn();
+
     if (this.$route.params.stepUUID) {
       const step = await getStepByID(
         this.$route.params.projectUUID,
@@ -188,13 +191,22 @@ export default {
       return;
     }
 
-    if (!this.$store.getters.getUser) {
-      await loadUser(this);
-    }
-
     await this.navToCurrentStep();
   },
   methods: {
+    async getProjectProgressIfLoggedIn(){
+      if (!this.$store.getters.getIsLoggedIn){
+        return;
+      }
+      try {
+        this.projectProgress = await getProjectProgress(this.$route.params.courseUUID);
+      } catch(err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
+    },
     showFeedbackModal() {
       this.$refs.feedbackModal.show();
     },
@@ -207,7 +219,6 @@ export default {
       this.handleSuccess(submitResponse);
     },
     async handleSuccess(submitResponse) {
-      this.isComplete = true;
       if (submitResponse.ProjectDone) {
         if (!this.projectDone) {
           eventFinishCourse(this.project.Title, false);
@@ -222,7 +233,7 @@ export default {
     },
     navToStep(step) {
       this.$router.push({
-        name: 'Step',
+        name: 'Project',
         params: {
           projectUUID: step.Step.ProjectUUID,
           stepUUID: step.Step.UUID
@@ -236,8 +247,6 @@ export default {
 
       this.isFirstStep = step.Step.IsFirst;
       this.isLastStep = step.Step.IsLast;
-      this.isCurrentStep = step.IsCurrent;
-      this.isComplete = step.IsComplete;
       this.stepSlug = step.Step.Slug;
 
       this.markdownSource = step.Step.Readme;
@@ -272,10 +281,10 @@ export default {
     },
     async goForward(done) {
       eventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
-      if (this.type === 'type_info' && !this.isComplete && done) {
+      if (this.type === 'type_info' && done) {
         await this.submitTypeInfo();
       }
-      if (this.type === 'type_manual' && !this.isComplete && done) {
+      if (this.type === 'type_manual' && done) {
         await this.submitTypeManual();
       }
       if (this.projectDone && this.isLastStep) {

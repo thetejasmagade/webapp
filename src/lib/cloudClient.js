@@ -263,7 +263,7 @@ export async function getUser() {
 }
 
 export async function getTrackCS() {
-  const resp = await fetchWithAuth(`${domain}/v1/tracks/cs`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/cs`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -275,7 +275,7 @@ export async function getTrackCS() {
 }
 
 export async function getTrackDSAlgos() {
-  const resp = await fetchWithAuth(`${domain}/v1/tracks/ds_algos`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/ds_algos`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -288,7 +288,7 @@ export async function getTrackDSAlgos() {
 
 
 export async function getTrackGopherGang() {
-  const resp = await fetchWithAuth(`${domain}/v1/tracks/gopher_gang`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/gopher_gang`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -445,7 +445,7 @@ export async function openCustomerPortal() {
 }
 
 export async function getInterests(){
-  const resp = await fetchWithAuth(`${domain}/v1/interests`, {
+  const resp = await fetch(`${domain}/v1/interests`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -493,7 +493,7 @@ export async function getUserAchievementsPublic(handle) {
 }
 
 export async function getCourses(courseUUID){
-  const resp = await fetchWithAuth(`${domain}/v1/courses?course_uuid=${courseUUID}`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/courses?course_uuid=${courseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -505,7 +505,7 @@ export async function getCourses(courseUUID){
 }
 
 export async function getProjects(){
-  const resp = await fetchWithAuth(`${domain}/v1/projects`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/projects`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -577,7 +577,7 @@ export async function getUnitsProgress(){
 }
 
 export async function getCurrentExercise(courseUUID){
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/current`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/courses/${courseUUID}/exercises/current`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -589,7 +589,7 @@ export async function getCurrentExercise(courseUUID){
 }
 
 export async function getFirstExerciseInModule(courseUUID, moduleUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/modules/${moduleUUID}/exercises/first`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/courses/${courseUUID}/modules/${moduleUUID}/exercises/first`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -601,7 +601,7 @@ export async function getFirstExerciseInModule(courseUUID, moduleUUID) {
 }
 
 export async function getExerciseByID(courseUUID, exerciseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/by_id/${exerciseUUID}`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/courses/${courseUUID}/exercises/by_id/${exerciseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -613,7 +613,7 @@ export async function getExerciseByID(courseUUID, exerciseUUID) {
 }
 
 export async function getFirstExercise(courseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/first`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/courses/${courseUUID}/exercises/first`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -625,7 +625,7 @@ export async function getFirstExercise(courseUUID) {
 }
 
 export async function getPreviousExercise(courseUUID, currentExerciseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/previous/${currentExerciseUUID}`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/courses/${courseUUID}/exercises/previous/${currentExerciseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -637,7 +637,7 @@ export async function getPreviousExercise(courseUUID, currentExerciseUUID) {
 }
 
 export async function getNextExercise(courseUUID, currentExerciseUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/courses/${courseUUID}/exercises/next/${currentExerciseUUID}`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/courses/${courseUUID}/exercises/next/${currentExerciseUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -650,7 +650,7 @@ export async function getNextExercise(courseUUID, currentExerciseUUID) {
 
 
 export async function getCurrentStep(projectUUID){
-  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/current`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/projects/${projectUUID}/steps/current`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -662,7 +662,7 @@ export async function getCurrentStep(projectUUID){
 }
 
 export async function getStepByID(projectUUID, stepUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/by_id/${stepUUID}`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/projects/${projectUUID}/steps/by_id/${stepUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -674,7 +674,7 @@ export async function getStepByID(projectUUID, stepUUID) {
 }
 
 export async function getFirstStep(projectUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/first`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/projects/${projectUUID}/steps/first`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -686,7 +686,7 @@ export async function getFirstStep(projectUUID) {
 }
 
 export async function getPreviousStep(projectUUID, currentStepUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/previous/${currentStepUUID}`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/projects/${projectUUID}/steps/previous/${currentStepUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -698,7 +698,7 @@ export async function getPreviousStep(projectUUID, currentStepUUID) {
 }
 
 export async function getNextStep(projectUUID, currentStepUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/projects/${projectUUID}/steps/next/${currentStepUUID}`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/projects/${projectUUID}/steps/next/${currentStepUUID}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -710,7 +710,7 @@ export async function getNextStep(projectUUID, currentStepUUID) {
 }
 
 export async function submitCodeCanvasExercise(exerciseUUID, canvasHash){
-  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code_canvas`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/exercises/${exerciseUUID}/code_canvas`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -725,7 +725,7 @@ export async function submitCodeCanvasExercise(exerciseUUID, canvasHash){
 }
 
 export async function submitCodeExercise(exerciseUUID, output){
-  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/code`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/exercises/${exerciseUUID}/code`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -740,7 +740,7 @@ export async function submitCodeExercise(exerciseUUID, output){
 }
 
 export async function submitMultipleChoiceExercise(exerciseUUID, answer){
-  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/exercises/${exerciseUUID}/multiple_choice`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -755,7 +755,7 @@ export async function submitMultipleChoiceExercise(exerciseUUID, answer){
 }
 
 export async function submitInformationalExercise(exerciseUUID){
-  const resp = await fetchWithAuth(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/exercises/${exerciseUUID}/informational`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -767,9 +767,8 @@ export async function submitInformationalExercise(exerciseUUID){
   return handled;
 }
 
-
 export async function submitInformationalStep(stepUUID){
-  const resp = await fetchWithAuth(`${domain}/v1/steps/${stepUUID}/informational`, {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/steps/${stepUUID}/informational`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -807,8 +806,6 @@ export function isLoggedIn(){
   }
 }
 
-
-
 export function getJWTClaims(){
   try {
     let token = loadCloudJWT();
@@ -816,6 +813,13 @@ export function getJWTClaims(){
   } catch (err){
     return null;
   }
+}
+
+async function fetchWithAuthIfAuthed(url, params){
+  if (!isLoggedIn()){
+    return await fetch(url, params);
+  }
+  return await fetchWithAuth(url, params);
 }
 
 async function fetchWithAuth(url, params){

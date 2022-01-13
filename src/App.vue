@@ -11,7 +11,7 @@
         {{ content ? `${content} | Qvault` : `Qvault` }}
       </template>
     </metainfo>
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
 
@@ -21,7 +21,6 @@ import {
   faArrowRight,
   faArrowLeft,
   faUserTie,
-  faScroll,
   faSignOutAlt,
   faPlay,
   faCheck,
@@ -71,7 +70,6 @@ import { useMeta } from 'vue-meta';
 library.add(faArrowRight);
 library.add(faArrowLeft);
 library.add(faUserTie);
-library.add(faScroll);
 library.add(faSignOutAlt);
 library.add(faPlay);
 library.add(faCheck);
@@ -158,5 +156,9 @@ body {
   margin: 0;
   height: 100%;
   color: var(--gray-750)
+}
+
+.h-full-minus-bar {
+  height: calc(100vh - var(--top-nav-bar-height));
 }
 </style>

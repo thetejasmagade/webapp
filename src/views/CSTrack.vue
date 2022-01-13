@@ -59,10 +59,10 @@ export default {
       const unitData = getUnitData(unit);
       if (unit.type === unitTypeCourse){
         eventSelectCourse(unitData.UUID, unitData.Title);
-        this.$router.push({name: 'Exercise', params: {courseUUID: unitData.UUID}});
+        this.$router.push({name: 'Course', params: {courseUUID: unitData.UUID}});
       }
       if (unit.type === unitTypeProject){
-        this.$router.push({name: 'Step', params: {projectUUID: unitData.UUID}});
+        this.$router.push({name: 'Project', params: {projectUUID: unitData.UUID}});
       }
     }
   }

@@ -17,39 +17,18 @@ export async function loadAllInterests(thisComponent){
   if (thisComponent.$store.getters.getAllInterests.length !== 0){
     return;
   }
-  try {
-    const interests = await getInterests();
-    thisComponent.$store.commit('setAllInterests', interests);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  const interests = await getInterests();
+  thisComponent.$store.commit('setAllInterests', interests);
 }
 
 export async function loadCourses(thisComponent){
-  try {
-    const courses = await getCourses();
-    thisComponent.$store.commit('setCourses', courses);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  const courses = await getCourses();
+  thisComponent.$store.commit('setCourses', courses);
 }
 
 export async function loadProjects(thisComponent){
-  try {
-    const projects = await getProjects();
-    thisComponent.$store.commit('setProjects', projects);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  const projects = await getProjects();
+  thisComponent.$store.commit('setProjects', projects);
 }
 
 export async function loadTracks(thisComponent){
@@ -60,76 +39,40 @@ export async function loadTracks(thisComponent){
       loadProjects(thisComponent)
     ]);
   }
-  try {
-    await Promise.all([
-      (async()=>{
-        const courses = await getTrackCS();
-        thisComponent.$store.commit('setTrackCS', courses);
-      })(),
-      (async()=>{
-        const courses = await getTrackDSAlgos();
-        thisComponent.$store.commit('setTrackDSAlgos', courses);
-      })(),
-      (async()=>{
-        const courses = await getTrackGopherGang();
-        thisComponent.$store.commit('setTrackGopherGang', courses);
-      })()
-    ]);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  await Promise.all([
+    (async()=>{
+      const courses = await getTrackCS();
+      thisComponent.$store.commit('setTrackCS', courses);
+    })(),
+    (async()=>{
+      const courses = await getTrackDSAlgos();
+      thisComponent.$store.commit('setTrackDSAlgos', courses);
+    })(),
+    (async()=>{
+      const courses = await getTrackGopherGang();
+      thisComponent.$store.commit('setTrackGopherGang', courses);
+    })()
+  ]);
 }
 
 export async function loadUserAchievements(thisComponent) {
-  try {
-    const userAchievements = await getUserAchievements();
-    thisComponent.$store.commit('setUserAchievements', userAchievements);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  const userAchievements = await getUserAchievements();
+  thisComponent.$store.commit('setUserAchievements', userAchievements);
 }
 
 export async function loadBalance(thisComponent) {
-  try {
-    const lastGemTransaction = await getLastGemTransaction();
-    thisComponent.$store.commit('setBalance', lastGemTransaction.Balance);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  const lastGemTransaction = await getLastGemTransaction();
+  thisComponent.$store.commit('setBalance', lastGemTransaction.Balance);
 }
 
 export async function loadSubscriptionPlans(thisComponent) {
-  try {
-    const subscriptionPlans = await getSubscriptionPlans();
-    thisComponent.$store.commit('setSubscriptionPlans', subscriptionPlans);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  const subscriptionPlans = await getSubscriptionPlans();
+  thisComponent.$store.commit('setSubscriptionPlans', subscriptionPlans);
 }
 
-
 export async function loadUser(thisComponent) {
-  try {
-    const user = await getUser();
-    thisComponent.$store.commit('setUser', user);
-  } catch (err) {
-    thisComponent.$notify({
-      type: 'danger',
-      text: err
-    });
-  }
+  const user = await getUser();
+  thisComponent.$store.commit('setUser', user);
 }
 
 export function loadLoggedIn(thisComponent) {

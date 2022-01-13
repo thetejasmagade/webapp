@@ -1,108 +1,111 @@
 <template>
-  <div class="h-full">
-    <ProModal ref="proModal" />
-    <FeedbackModal
-      v-if="$route.params.exerciseUUID"
-      ref="feedbackModal"
-      :uuid="$route.params.exerciseUUID"
-      unit-type="exercise"
-    />
-    <PricingModal ref="pricingModal" />
-    <CourseDoneModal
-      ref="courseDoneModal"
-      :go-to-beginning-callback="goToBeginning"
-    />
+  <ViewNavWrapper>
+    <div class="h-full">
+      <ProModal ref="proModal" />
+      <FeedbackModal
+        v-if="$route.params.exerciseUUID"
+        ref="feedbackModal"
+        :uuid="$route.params.exerciseUUID"
+        unit-type="exercise"
+      />
+      <PricingModal ref="pricingModal" />
+      <CourseDoneModal
+        ref="courseDoneModal"
+        :go-to-beginning-callback="goToBeginning"
+      />
 
-    <AchievementUnlocked
-      v-if="achievementsToShow?.length > 0"
-      :achievement-earned="achievementsToShow[0]"
-      :on-done="onSeenAchievement"
-    />
-    <ExerciseSkeleton v-else-if="!isContentLoaded" />
-    <div
-      v-else
-      class="
-        h-full
-        hidden
-        flex-col
-        sm:flex
-        bg-white
-      "
-    >
-      <ExerciseNav
+      <AchievementUnlocked
+        v-if="achievementsToShow?.length > 0"
+        :achievement-earned="achievementsToShow[0]"
+        :on-done="onSeenAchievement"
+      />
+      <ExerciseSkeleton v-else-if="!isContentLoaded" />
+      <div
+        v-else
         class="
-          p-3
-          w-full
-          box-border
-          shadow
-          z-10
+          h-full
+          hidden
+          flex-col
+          sm:flex
+          bg-white
         "
-        :dropdown-one-items="dropdownModules"
-        :dropdown-two-items="dropdownExercises"
-        :dropdown-one-index="moduleIndex"
-        :dropdown-two-index="exerciseIndex"
-        :go-back="goBack"
-        :go-forward="goForward"
-        :can-go-back="!isFirstExercise"
-        :can-go-forward="!isLastExercise || courseDone"
-        :locked="locked"
-        :click-comment="() => showFeedbackModal()"
-      />
-      <CardExerciseTypeInfo
-        v-if="type === 'type_info'"
-        :markdown-source="markdownSource"
-      />
-      <CardExerciseTypeMultipleChoice
-        v-else-if="type === 'type_choice'"
-        :markdown-source="markdownSource"
-        :answers="question.Answers"
-        :question="question.Question"
-        :locked="locked"
-        :callback="submitTypeChoice"
-      />
-      <CardExerciseTypeCode
-        v-else-if="type === 'type_code'"
-        v-model="code"
-        :markdown-source="markdownSource"
-        :prog-lang="progLang"
-        :solution-code="complete"
-        :run-callback="submitTypeCode"
-        :reset-code-callback="resetCode"
-        :cheat-callback="cheatClick"
-        :upgrade-callback="locked ? upgradeClick : null"
-        :is-cheating="isCheating"
-      />
-      <CardExerciseTypeCodeCanvas
-        v-else-if="type === 'type_code_canvas'"
-        v-model="code"
-        :markdown-source="markdownSource"
-        :prog-lang="progLang"
-        :solution-code="complete"
-        :run-callback="submitTypeCodeCanvas"
-        :reset-code-callback="resetCode"
-        :cheat-callback="cheatClick"
-        :upgrade-callback="locked ? upgradeClick : null"
-        :is-cheating="isCheating"
-      />
+      >
+        <ExerciseNav
+          class="
+            p-3
+            w-full
+            box-border
+            shadow
+            z-10
+          "
+          :dropdown-one-items="dropdownModules"
+          :dropdown-two-items="dropdownExercises"
+          :dropdown-one-index="moduleIndex"
+          :dropdown-two-index="exerciseIndex"
+          :go-back="goBack"
+          :go-forward="goForward"
+          :can-go-back="!isFirstExercise"
+          :can-go-forward="!isLastExercise || courseDone"
+          :locked="locked"
+          :click-comment="() => showFeedbackModal()"
+        />
+        <CardExerciseTypeInfo
+          v-if="type === 'type_info'"
+          :markdown-source="markdownSource"
+        />
+        <CardExerciseTypeMultipleChoice
+          v-else-if="type === 'type_choice'"
+          :markdown-source="markdownSource"
+          :answers="question.Answers"
+          :question="question.Question"
+          :locked="locked"
+          :callback="submitTypeChoice"
+        />
+        <CardExerciseTypeCode
+          v-else-if="type === 'type_code'"
+          v-model="code"
+          :markdown-source="markdownSource"
+          :prog-lang="progLang"
+          :solution-code="complete"
+          :run-callback="submitTypeCode"
+          :reset-code-callback="resetCode"
+          :cheat-callback="cheatClick"
+          :upgrade-callback="locked ? upgradeClick : null"
+          :is-cheating="isCheating"
+        />
+        <CardExerciseTypeCodeCanvas
+          v-else-if="type === 'type_code_canvas'"
+          v-model="code"
+          :markdown-source="markdownSource"
+          :prog-lang="progLang"
+          :solution-code="complete"
+          :run-callback="submitTypeCodeCanvas"
+          :reset-code-callback="resetCode"
+          :cheat-callback="cheatClick"
+          :upgrade-callback="locked ? upgradeClick : null"
+          :is-cheating="isCheating"
+        />
+      </div>
+      <div
+        class="
+          block
+          sm:hidden
+          p-4
+        "
+      >
+        <Section title="Come back on a computer">
+          <p class="p-4">
+            Coding is hard to do on a phone. I want you to have a great
+            experience, so please hurry back on a larger device.
+          </p>
+        </Section>
+      </div>
     </div>
-    <div
-      class="
-        block
-        sm:hidden
-        p-4
-      "
-    >
-      <Section title="Come back on a computer">
-        <p class="p-4">
-          Coding is hard to do on a phone. I want you to have a great
-          experience, so please hurry back on a larger device.
-        </p>
-      </Section>
-    </div>
-  </div>
+  </ViewNavWrapper>
 </template>
 
 <script>
+import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
 import CourseDoneModal from '@/components/CourseDoneModal.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
 import Section from '@/components/Section.vue';
@@ -116,7 +119,7 @@ import CardExerciseTypeCode from '@/components/cards/CardExerciseTypeCode.vue';
 import CardExerciseTypeCodeCanvas from '@/components/cards/CardExerciseTypeCodeCanvas.vue';
 import AchievementUnlocked from '@/components/AchievementUnlocked.vue';
 
-import { loadBalance, loadUser } from '@/lib/cloudStore.js';
+import { loadBalance } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 import {
@@ -146,13 +149,9 @@ import {
   getPendingAchievements
 } from '@/lib/cloudClient.js';
 
-import {
-  saveUnsubscribedProgress,
-  loadUnsubscribedProgress
-} from '@/lib/localStorageLib';
-
 export default {
   components: {
+    ViewNavWrapper,
     CourseDoneModal,
     Section,
     CardExerciseTypeInfo,
@@ -175,12 +174,10 @@ export default {
       courseDone: false,
       isFirstExercise: false,
       isLastExercise: false,
-      isCurrentExercise: false,
       code: '',
       complete: '',
       defaultCode: '',
       courses: null,
-      isComplete: null,
       isFree: null,
       isCheating: false,
       achievementsToShow: null,
@@ -189,12 +186,6 @@ export default {
   },
   computed: {
     locked() {
-      if (
-        this.$store.getters.getUserIsSubscribed === null ||
-        this.isFree === null
-      ) {
-        return null;
-      }
       return !this.$store.getters.getUserIsSubscribed && !this.isFree;
     },
     dropdownModules() {
@@ -214,7 +205,7 @@ export default {
           name: `Chapter ${i+1}: ${mod.Title}`,
           color: isChapterComplete ? 'gold' : null,
           link: {
-            name: 'Exercise',
+            name: 'Course',
             params: {
               courseUUID: this.$route.params.courseUUID,
               moduleUUID: mod.UUID
@@ -236,7 +227,7 @@ export default {
           name: `Exercise ${i+1} of ${this.exercises.length}`,
           color: isExerciseComplete ? 'gold' : null,
           link: {
-            name: 'Exercise',
+            name: 'Course',
             params: {
               courseUUID: this.$route.params.courseUUID,
               moduleUUID: this.module.UUID,
@@ -250,7 +241,7 @@ export default {
       if (this.markdownSource === ''){
         return false;
       }
-      if (this.achievementsToShow === null){
+      if (this.$store.getters.getIsLoggedIn && this.achievementsToShow === null){
         return false;
       }
       return true;
@@ -316,7 +307,6 @@ export default {
   async mounted() {
     try {
       this.courses = await getCourses(this.$route.params.courseUUID);
-      this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
     } catch(err) {
       notify({
         type: 'danger',
@@ -330,14 +320,18 @@ export default {
         this.$route.params.exerciseUUID
       );
       this.loadExercise(exercise);
-      try {
-        this.achievementsToShow = await getPendingAchievements();
-      }
-      catch (err) {
-        notify({
-          type: 'danger',
-          text: err
-        });
+      this.getCourseProgressIfLoggedIn();
+      
+      if (this.$store.getters.getIsLoggedIn){
+        try {
+          this.achievementsToShow = await getPendingAchievements();
+        }
+        catch (err) {
+          notify({
+            type: 'danger',
+            text: err
+          });
+        }
       }
       return;
     }
@@ -351,25 +345,6 @@ export default {
       return;
     }
 
-    if (!this.$store.getters.getUser) {
-      await loadUser(this);
-    }
-
-    if (!this.$store.getters.getUserIsSubscribed) {
-      try {
-        const exerciseUUID = await loadUnsubscribedProgress(
-          this.$route.params.courseUUID
-        );
-        const exercise = await getExerciseByID(
-          this.$route.params.courseUUID,
-          exerciseUUID
-        );
-        this.navToExercise(exercise);
-        return;
-      } catch (err) {
-        console.log(err);
-      }
-    }
     await this.navToCurrentExercise();
   },
   methods: {
@@ -406,17 +381,24 @@ export default {
     },
     async handleSuccess(submitResponse) {
       eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
-      this.isComplete = true;
       if (submitResponse.CourseDone) {
         if (!this.courseDone) {
           eventFinishCourse(this.course.Title, false);
         }
         this.courseDone = true;
       }
-      notify({
-        type: 'success',
-        text: 'Correct! Great Job'
-      });
+      if (this.type !== 'type_info') {
+        notify({
+          type: 'success',
+          text: 'Correct! Great Job'
+        });
+      }
+      this.getCourseProgressIfLoggedIn();
+    },
+    async getCourseProgressIfLoggedIn(){
+      if (!this.$store.getters.getIsLoggedIn){
+        return;
+      }
       try {
         this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
       } catch(err) {
@@ -494,7 +476,7 @@ export default {
     },
     navToExercise(exercise) {
       this.$router.push({
-        name: 'Exercise',
+        name: 'Course',
         params: {
           courseUUID: exercise.Exercise.CourseUUID,
           moduleUUID: exercise.Exercise.ModuleUUID,
@@ -516,15 +498,9 @@ export default {
         this.courseDone = true;
       }
 
-      saveUnsubscribedProgress(
-        this.$route.params.courseUUID,
-        exercise.Exercise.UUID
-      );
       this.isFree = exercise.Exercise.IsFree;
       this.isFirstExercise = exercise.Exercise.IsFirst;
       this.isLastExercise = exercise.Exercise.IsLast;
-      this.isCurrentExercise = exercise.IsCurrent;
-      this.isComplete = exercise.IsComplete;
       this.isCheating = false;
 
       if (exercise.Exercise.Readme !== this.markdownSource) {
@@ -578,7 +554,7 @@ export default {
     },
     async goForward() {
       eventClickExerciseNavigation(this.$route.params.exerciseUUID, this.course.Title);
-      if (this.type === 'type_info' && !this.isComplete) {
+      if (this.type === 'type_info') {
         await this.submitTypeInfo();
       }
       if (this.courseDone && this.isLastExercise) {
