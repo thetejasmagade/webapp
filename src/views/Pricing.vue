@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNav title="Pricing" />
+    <TopNav />
     <LoadingOverlay :is-loading="isLoading" />
 
     <div
@@ -8,7 +8,7 @@
     >
       <Section
         class="mb-5"
-        title="Pricing"
+        title="Support Qvault and enjoy premium features by becoming a patron"
         subtitle="Love it or your money back! Enjoy a free trial, 30-day money-back guarantee, and feel free to cancel anytime."
       >
         <header
@@ -49,7 +49,7 @@
             "
             >
               <h2 class="flex justify-center pb-4 border-gray-200 font-bold">
-                <span class="text-2xl">Pro Features</span>
+                <span class="text-2xl">Patron Rewards</span>
               </h2>
               <table class="table-auto border-collapse w-full">
                 <thead>
@@ -59,70 +59,70 @@
                     <th
                       class="px-4 py-2 bg-gray-200 font-semibold"
                     >
-                      Basic
+                      Free
                     </th>
                     <th
                       class="px-4 py-2 bg-gray-200 font-bold"
                     >
-                      Pro
+                      Patron
                     </th>
                   </tr>
                 </thead>
                 <tbody class="text-sm font-normal text-gray-700">
                   <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
-                    <td class="px-4 py-4">
+                    <td class="px-4 py-2">
                       Read all content
                     </td>
-                    <td class="px-4 py-4 font-bold">
+                    <td class="px-4 py-2 font-bold">
                       Read all content
                     </td>
                   </tr>
                   <tr class="hover:bg-gray-100 border-b border-gray-200 py-4">
-                    <td class="px-4 py-4">
-                      Coding sandbox
+                    <td class="px-4 py-2">
+                      Code sandbox
                     </td>
-                    <td class="px-4 py-4 font-bold">
-                      Coding sandbox
-                    </td>
-                  </tr>
-                  <tr class="hover:bg-gray-100  border-gray-200">
-                    <td class="px-4 py-4">
-                      -
-                    </td>
-                    <td class="px-4 py-4 font-bold">
-                      Instant code verification
+                    <td class="px-4 py-2 font-bold">
+                      Code sandbox
                     </td>
                   </tr>
-                  <tr class="hover:bg-gray-100  border-gray-200">
-                    <td class="px-4 py-4">
+                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                    <td class="px-4 py-2">
                       -
                     </td>
-                    <td class="px-4 py-4 font-bold">
+                    <td class="px-4 py-2 font-bold">
+                      Code verification
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                    <td class="px-4 py-2">
+                      -
+                    </td>
+                    <td class="px-4 py-2 font-bold">
+                      Patron-only chat
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                    <td class="px-4 py-2">
+                      -
+                    </td>
+                    <td class="px-4 py-2 font-bold">
                       Multiple choice quizzes
                     </td>
                   </tr>
-                  <tr class="hover:bg-gray-100  border-gray-200">
-                    <td class="px-4 py-4">
+                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                    <td class="px-4 py-2">
                       -
                     </td>
-                    <td class="px-4 py-4 font-bold">
+                    <td class="px-4 py-2 font-bold">
                       Certificates of completion
                     </td>
                   </tr>
-                  <tr class="hover:bg-gray-100  border-gray-200">
-                    <td class="px-4 py-4">
+                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                    <td class="px-4 py-2">
                       -
                     </td>
-                    <td class="px-4 py-4 font-bold">
+                    <td class="px-4 py-2 font-bold">
                       View full solutions
-                    </td>
-                  </tr>
-                  <tr class="hover:bg-gray-100  border-gray-200">
-                    <td class="px-4 py-4">
-                      -
-                    </td>
-                    <td class="px-4 py-4 font-bold">
-                      Gems and achievements
                     </td>
                   </tr>
                 </tbody>
@@ -145,7 +145,7 @@
             "
             >
               <h2 class="flex justify-center pb-4 border-gray-200 font-bold">
-                <span class="text-2xl">Pricing options for your pro account</span>
+                <span class="text-2xl">Patronage payment options</span>
               </h2>
               <div
                 class="
@@ -176,10 +176,10 @@
                       {{ getCurrencySymbol(priceMonthly.CurrencyCode) }}{{ (priceMonthly.UnitAmountPerMonth) / 100 }} / mo
                     </h3>
                     <p class="mb-4 text-gray-400">
-                      paid monthly
+                      monthly
                     </p>
                     <p class="mb-4">
-                      Learn and practice job-ready skills with small monthly payments
+                      Learn job-ready skills with small monthly payments
                     </p>
                     <BlockButton
                       v-if="$store.getters.getIsLoggedIn && !$store.getters.getUserIsSubscribed"
@@ -210,10 +210,10 @@
                     {{ getCurrencySymbol(priceYearly.CurrencyCode) }}{{ (priceYearly.UnitAmountPerMonth) / 100 }} / mo
                   </h3>
                   <p class="mb-4 text-blue-300">
-                    paid yearly
+                    yearly
                   </p>
                   <p class="mb-4">
-                    Enjoy full access to Qvault pro with {{ (priceMonthly.UnitAmountPerMonth - priceYearly.UnitAmountPerMonth) * 100 / priceMonthly.UnitAmountPerMonth }}% off!
+                    Enjoy full access to Qvault with {{ (priceMonthly.UnitAmountPerMonth - priceYearly.UnitAmountPerMonth) * 100 / priceMonthly.UnitAmountPerMonth }}% off!
                   </p>
                   <BlockButton
                     v-if="$store.getters.getIsLoggedIn && !$store.getters.getUserIsSubscribed"
@@ -244,7 +244,7 @@
                     {{ getCurrencySymbol(priceLifetime.CurrencyCode) }}{{ priceLifetime.UnitAmount / 100 }}
                   </h3>
                   <p class="mb-4 text-gray-400">
-                    paid once
+                    once
                   </p>
                   <p class="mb-4">
                     Don't stress about recurring payments
@@ -283,19 +283,19 @@
             What's the difference between Basic and Pro?
           </h2>
           <p class="mb-4">
-            A basic account is, well, basic. You can demo Pro features on the first 6 exercises of each course, but after that if you're on
+            A basic account is, well, basic. You can demo patron-only features on the first 6 exercises of each course, but after that if you're on
             a basic plan, you'll only be able to read the course material and play in the code sandbox. You won't pass off assignments or know if you
             got the right answers.
           </p>
           <p class="mb-4">
-            Qvault Pro has everything in Basic,
+            PAtrons enjoy all the features in Basic,
             plus all the advanced tools, content, solutions and certifications that you
             need to make your learning faster.
           </p>
           <p>
-            A Pro account lets you practice much more efficiently by getting instant verification of all your code
+            Becoming a patron lets you practice much more efficiently by getting instant verification of all your code
             solutions. If you get stuck, you can use the "cheat" feature to take a look at the solution
-            and quickly see what's holding you up. Additionally, one of the biggest benefits our Pro subscribers get is access to free certificates
+            and quickly see what's holding you up. Additionally, one of the biggest benefits our patrons get is access to free certificates
             of completion when they finish a course. Showing off your work to employers is a quick way to get that high-paying tech job.
           </p>
 
@@ -326,7 +326,7 @@
           <p class="mb-4">
             I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
             to lead you to a high-paying programming job. If you’re ready to accelerate your learning and apply the skills you learn to real-world scenarios,
-            then Qvault Pro is for you.
+            then becoming a Qvault patron is for you.
           </p>
           <p>
             Aside from the direct benefits, if you like what we're building here at Qvault, your support helps us
@@ -346,7 +346,7 @@
           </p>
 
           <h2 class="text-xl my-4 text-gold-700">
-            What if I don't enjoy my Pro account?
+            What if I don't like being a Patron?
           </h2>
           <p>
             Hopefully you can figure out if you're enjoying the content within your 7-day free trial,

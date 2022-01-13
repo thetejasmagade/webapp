@@ -427,13 +427,13 @@ export default {
       } catch (err){
         notify({
           type: 'danger',
-          text: 'Unable to confirm pro account, please contact us'
+          text: 'Unable to confirm patron account, please contact us'
         });
         return;
       }
       notify({
         type: 'success',
-        text: 'Welcome to Qvault Pro!'
+        text: 'Thanks for supporting us!'
       });
       eventFinishCheckout();
     },
