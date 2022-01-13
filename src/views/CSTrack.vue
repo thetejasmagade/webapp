@@ -2,8 +2,8 @@
   <div>
     <Section
       class="section"
-      title="Learn the core skills that bootcamps skip, but employers are dying for"
-      subtitle="This full CS program will take you from absolute beginner to job-worthy"
+      title="Practice the skills that bootcamps skip, but employers are dying to hire for"
+      subtitle="A complete computer science program in your browser"
     >
       <TrackTimeline
         :units="trackCS"
@@ -20,6 +20,7 @@
           <a
             href="https://github.com/qvault/curriculum"
             target="_blank"
+            class="text-gold-600 underline"
           >You can find the roadmap here.</a>
           Buying courses,
           being part of the

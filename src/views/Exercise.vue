@@ -212,7 +212,7 @@ export default {
         }
         return {
           name: `Chapter ${i+1}: ${mod.Title}`,
-          color: isChapterComplete ? 'green' : null,
+          color: isChapterComplete ? 'gold' : null,
           link: {
             name: 'Exercise',
             params: {
@@ -234,7 +234,7 @@ export default {
         }
         return {
           name: `Exercise ${i+1} of ${this.exercises.length}`,
-          color: isExerciseComplete ? 'green' : null,
+          color: isExerciseComplete ? 'gold' : null,
           link: {
             name: 'Exercise',
             params: {

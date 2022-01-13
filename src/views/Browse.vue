@@ -3,7 +3,7 @@
     <Section
       class="section"
       title="All courses and projects"
-      subtitle="Browse all of our content and hop into our Discord to get personal recommendations"
+      subtitle="Looking for recommendations? We can help you out in the Discord"
     >
       <div
         v-if="!isUnitsLoaded"

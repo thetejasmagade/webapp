@@ -2,8 +2,8 @@
   <div>
     <Section
       class="section"
-      title="Learn why Golang is taking over modern tech companies"
-      subtitle="We'll take you through all the fundamentals of the Go programming language"
+      title="Learn why Go is taking over modern web development"
+      subtitle="Everything you need to know to get a job writing Go"
     >
       <TrackTimeline
         :units="trackGopherGangCourses"

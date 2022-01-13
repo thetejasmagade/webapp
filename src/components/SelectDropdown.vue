@@ -21,12 +21,12 @@
             focus:outline-none
           "
           :class="{
-            'hover:text-gray-400': selected.color !== 'green',
-            'text-gray-800': selected.color !== 'green',
-            'bg-white': selected.color !== 'green',
-            'hover:bg-green-500': selected.color === 'green',
-            'text-gray-200': selected.color === 'green',
-            'bg-green-600': selected.color === 'green'
+            'hover:text-gray-400': selected.color !== 'gold',
+            'text-gray-800': selected.color !== 'gold',
+            'bg-white': selected.color !== 'gold',
+            'hover:bg-gold-400': selected.color === 'gold',
+            'text-gray-200': selected.color === 'gold',
+            'bg-gold-500': selected.color === 'gold'
           }"
           type="button"
           aria-haspopup="true"
@@ -50,7 +50,7 @@
       <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-left -translate-y-2 scale-95">
         <div
           id="headlessui-menu-items-117"
-          class="absolute left-0 w-56 mt-2 origin-top-left bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none overflow-y-auto max-h-56"
+          class="absolute left-0 w-56 mt-2 origin-top-left bg-white border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none overflow-y-auto max-h-56"
           aria-labelledby="headlessui-menu-button-1"
           role="menu"
         >
@@ -70,12 +70,12 @@
               text-left
             "
             :class="{
-              'hover:text-gray-400': option.color !== 'green',
-              'text-gray-800': option.color !== 'green',
-              'bg-white': option.color !== 'green',
-              'hover:bg-green-500': option.color === 'green',
-              'text-gray-200': option.color === 'green',
-              'bg-green-600': option.color === 'green'
+              'hover:text-gray-400': option.color !== 'gold',
+              'text-gray-800': option.color !== 'gold',
+              'bg-white': option.color !== 'gold',
+              'hover:bg-gold-400': option.color === 'gold',
+              'text-gray-200': option.color === 'gold',
+              'bg-gold-500': option.color === 'gold'
             }"
             role="menuitem"
             @click="selected=option; $emit('update:modelValue', option)"

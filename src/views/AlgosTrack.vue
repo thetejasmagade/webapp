@@ -3,7 +3,7 @@
     <Section
       class="section"
       title="It's hard to find a job if you don't understand the fundamentals of algorithms"
-      subtitle="These university-quality Python courses will fill in the gaps in your CS knowledge"
+      subtitle="These Python courses will teach you how to ace whiteboard interviews"
     >
       <TrackTimeline
         :units="trackDSAlgosCourses"
