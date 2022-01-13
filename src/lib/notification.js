@@ -6,7 +6,8 @@ export function notify({type, text}){
     {
       type,
       timeout: 3000,
-      toastBackgroundColor: color(type)
+      toastBackgroundColor: color(type),
+      position: 'bottom-right'
     }
   );
 }
