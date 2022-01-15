@@ -7,10 +7,11 @@
       bg-gray-200
       border-gray-400
     "
-    :class="{
-      'bg-red-200': locked
-    }"
   >
+    <SandboxModeModal
+      ref="sandboxModeModal"
+      class="whitespace-normal"
+    />
     <div class="flex-1 flex items-center justify-start">
       <SelectDropdown
         v-if="
@@ -32,6 +33,13 @@
         :default="dropdownTwoItems[dropdownTwoIndex]"
         @update:modelValue="item => { selectItem(item, dropdownTwoItems) }"
       />
+      <span
+        v-if="sandbox"
+        class="ml-4 text-red-500 underline cursor-pointer"
+        @click="$refs.sandboxModeModal.show"
+      >
+        Sandbox Mode ⓘ
+      </span>
     </div>
     <div class="flex-1 flex justify-end">
       <BlockButton
@@ -80,13 +88,16 @@ import Tooltip from '@/components/Tooltip.vue';
 import BlockButton from '@/components/BlockButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import SelectDropdown from '@/components/SelectDropdown.vue';
+import SandboxModeModal from '@/components/SandboxModeModal.vue';
+
 
 export default {
   components: {
     BlockButton,
     FontAwesomeIcon,
     Tooltip,
-    SelectDropdown
+    SelectDropdown,
+    SandboxModeModal
   },
   props: {
     dropdownOneItems: {
@@ -109,7 +120,7 @@ export default {
       required: false,
       default: null
     },
-    locked: {
+    sandbox: {
       type: Boolean,
       required: false,
       default: false

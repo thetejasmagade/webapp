@@ -1,14 +1,13 @@
 <template>
   <ViewNavWrapper>
     <div class="h-full">
-      <ProModal ref="proModal" />
       <FeedbackModal
         v-if="$route.params.exerciseUUID"
         ref="feedbackModal"
         :uuid="$route.params.exerciseUUID"
         unit-type="exercise"
       />
-      <PricingModal ref="pricingModal" />
+      <SandboxModeModal ref="sandboxModeModal" />
       <CourseDoneModal
         ref="courseDoneModal"
         :go-to-beginning-callback="goToBeginning"
@@ -46,7 +45,7 @@
           :go-forward="goForward"
           :can-go-back="!isFirstExercise"
           :can-go-forward="!isLastExercise || courseDone"
-          :locked="locked"
+          :sandbox="sandbox"
           :click-comment="() => showFeedbackModal()"
         />
         <CardExerciseTypeInfo
@@ -58,7 +57,7 @@
           :markdown-source="markdownSource"
           :answers="question.Answers"
           :question="question.Question"
-          :locked="locked"
+          :sandbox="sandbox"
           :callback="submitTypeChoice"
         />
         <CardExerciseTypeCode
@@ -70,7 +69,6 @@
           :run-callback="submitTypeCode"
           :reset-code-callback="resetCode"
           :cheat-callback="cheatClick"
-          :upgrade-callback="locked ? upgradeClick : null"
           :is-cheating="isCheating"
         />
         <CardExerciseTypeCodeCanvas
@@ -82,7 +80,6 @@
           :run-callback="submitTypeCodeCanvas"
           :reset-code-callback="resetCode"
           :cheat-callback="cheatClick"
-          :upgrade-callback="locked ? upgradeClick : null"
           :is-cheating="isCheating"
         />
       </div>
@@ -109,9 +106,8 @@ import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
 import CourseDoneModal from '@/components/CourseDoneModal.vue';
 import ExerciseNav from '@/components/ExerciseNav.vue';
 import Section from '@/components/Section.vue';
-import ProModal from '@/components/ProModal.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
-import PricingModal from '@/components/PricingModal.vue';
+import SandboxModeModal from '@/components/SandboxModeModal.vue';
 import ExerciseSkeleton from '@/components/ExerciseSkeleton.vue';
 import CardExerciseTypeInfo from '@/components/cards/CardExerciseTypeInfo.vue';
 import CardExerciseTypeMultipleChoice from '@/components/cards/CardExerciseTypeMultipleChoice.vue';
@@ -130,7 +126,7 @@ import {
   eventSubmitMultipleChoice,
   eventClickCheat,
   eventClickExerciseNavigation,
-  eventOpenProModal
+  eventOpenSandboxModeModal
 } from '@/lib/analytics.js';
 
 import {
@@ -156,9 +152,8 @@ export default {
     Section,
     CardExerciseTypeInfo,
     ExerciseNav,
-    ProModal,
     FeedbackModal,
-    PricingModal,
+    SandboxModeModal,
     ExerciseSkeleton,
     CardExerciseTypeMultipleChoice,
     CardExerciseTypeCode,
@@ -185,8 +180,8 @@ export default {
     };
   },
   computed: {
-    locked() {
-      return !this.$store.getters.getUserIsSubscribed && !this.isFree;
+    sandbox() {
+      return (!this.$store.getters.getUserIsSubscribed && !this.isFree) || !this.$store.getters.getIsLoggedIn;
     },
     dropdownModules() {
       return this.course?.Modules?.map((mod, i) => {
@@ -352,21 +347,14 @@ export default {
       this.achievementsToShow.shift();
       await loadBalance(this);
     },
-    showPricingModal() {
-      eventOpenProModal();
-      this.$refs.pricingModal.show();
+    sandboxModeModal() {
+      eventOpenSandboxModeModal();
+      this.$refs.sandboxModeModal.show();
     },
     showFeedbackModal() {
       this.$refs.feedbackModal.show();
     },
-    upgradeClick() {
-      this.$router.push({ name: 'Pricing' });
-    },
     cheatClick() {
-      if (this.locked) {
-        this.$refs.proModal.show();
-        return;
-      }
       this.isCheating = !this.isCheating;
       if (this.isCheating){
         eventClickCheat(this.$route.params.exerciseUUID, this.course.Title);
@@ -439,14 +427,14 @@ export default {
     },
     async submitTypeCode({ output }) {
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
-      if (this.locked) {
+      if (this.sandbox) {
         return;
       }
       this.verifyCode({ output });
     },
     async submitTypeCodeCanvas({ hash }) {
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
-      if (this.locked) {
+      if (this.sandbox) {
         return;
       }
       this.verifyHash({ hash });
@@ -485,13 +473,12 @@ export default {
       });
     },
     async loadExercise(exercise) {
-      // should probably get "6" from server
       if (
         this.exerciseIndex === 0 &&
         this.moduleIndex === 1 &&
-        !this.$store.getters.getUserIsSubscribed
+        this.sandbox
       ) {
-        this.showPricingModal();
+        this.sandboxModeModal();
       }
 
       if (exercise.CourseDone) {

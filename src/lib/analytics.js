@@ -169,12 +169,12 @@ export function eventClickExerciseNavigation(exerciseUUID, courseTitle){
   }
 }
 
-export function eventOpenProModal(){
+export function eventOpenSandboxModeModal(){
   try {
     window.dataLayer.push({
       'event': 'open_pro_modal'
     });
-    mixpanel.track('openProModal');
+    mixpanel.track('openSandboxModeModal');
   } catch (err) {
     console.log(err);
   }

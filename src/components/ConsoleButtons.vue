@@ -8,23 +8,6 @@
     "
   >
     <Tooltip
-      v-if="upgradeCallback"
-      :text="`Get pro`"
-      position="bottom"
-    >
-      <BlockButton
-        class="mr-3"
-        :click="upgradeCallback"
-        color="gold"
-      >
-        <FontAwesomeIcon
-          icon="level-up-alt"
-        />
-        Go Pro
-      </BlockButton>
-    </Tooltip>
-
-    <Tooltip
       :text="`Run code`"
       position="bottom"
     >
@@ -92,11 +75,6 @@ export default {
     resetCallback: {
       type: Function,
       required: true
-    },
-    upgradeCallback: {
-      type: Function,
-      required: false,
-      default: null
     },
     cheatCallback: {
       type: Function,

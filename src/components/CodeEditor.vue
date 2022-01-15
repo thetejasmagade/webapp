@@ -51,7 +51,6 @@
           <ConsoleButtons
             :run-callback="isCheating ? null : runCode"
             :reset-callback="() => $refs.resetCodeModal.show()"
-            :upgrade-callback="upgradeCallback"
             :cheat-callback="cheatCallback"
             :is-cheating="isCheating"
           />
@@ -160,11 +159,6 @@ export default {
     resetCallback: {
       type: Function,
       required: true
-    },
-    upgradeCallback: {
-      type: Function,
-      required: false,
-      default: null
     },
     cheatCallback: {
       type: Function,

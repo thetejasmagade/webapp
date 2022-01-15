@@ -20,17 +20,17 @@
       class="text-lg w-4/5 mb-2 max-w-md"
       color="blue-light"
       :click="() => {callback(answer)}"
-      :disabled="locked"
+      :disabled="sandbox"
     >
       <span>{{ answer }}</span>
     </BlockButton>
     <BlockButton
-      v-if="locked"
+      v-if="sandbox"
       class="text-lg w-4/5 m-4 max-w-md"
       :click="() => {$router.push({name: 'Pricing'});}"
       color="gold"
     >
-      <span>Get quiz access</span>
+      <span>Become a patron for quiz access</span>
     </BlockButton>
   </div>
 </template>
@@ -52,7 +52,7 @@ export default {
       required: false,
       default: ''
     },
-    locked: {
+    sandbox: {
       type: Boolean,
       required: false,
       default: false

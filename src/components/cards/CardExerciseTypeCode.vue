@@ -35,7 +35,6 @@
       "
       :run-callback="runCallback"
       :reset-callback="resetCodeCallback"
-      :upgrade-callback="upgradeCallback"
       :cheat-callback="cheatCallback"
       :prog-lang="progLang"
       :canvas-enabled="false"
@@ -87,11 +86,6 @@ export default {
     cheatCallback: {
       type: Function,
       required: true
-    },
-    upgradeCallback: {
-      type: Function,
-      required: false,
-      default: null
     },
     isCheating: {
       type: Boolean,

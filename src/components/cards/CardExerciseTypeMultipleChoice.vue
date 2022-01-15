@@ -35,7 +35,7 @@
       :callback="callback"
       :answers="answers"
       :question="question"
-      :locked="locked"
+      :sandbox="sandbox"
     />
   </Multipane>
 </template>
@@ -66,7 +66,7 @@ export default {
       type: String,
       required: true
     },
-    locked: {
+    sandbox: {
       type: Boolean,
       required: true
     },

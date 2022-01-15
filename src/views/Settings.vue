@@ -30,11 +30,11 @@
           >
             <div
               class="
-            w-3/4
-            mt-8
-            flex
-            flex-col
-          "
+                w-3/4
+                mt-8
+                flex
+                flex-col
+              "
             >
               <BlockButton
                 :click="() => currentTab='settings'"

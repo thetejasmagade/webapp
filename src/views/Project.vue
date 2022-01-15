@@ -37,7 +37,7 @@
           :go-forward="() => {goForward(false)}"
           :can-go-back="!isFirstStep"
           :can-go-forward="!isLastStep || projectDone"
-          :locked="false"
+          :sandbox="false"
           :click-comment="() => showFeedbackModal()"
         />
         <CardStepTypeInfo
