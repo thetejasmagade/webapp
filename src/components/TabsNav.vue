@@ -23,7 +23,7 @@
           'bg-white': routePath.includes('browse'),
           'bg-gray-300': !routePath.includes('browse')
         }"
-        to="/dashboard/courses/browse"
+        :to="{ name: 'Browse'}"
       >
         <FontAwesomeIcon
           icon="search"
@@ -56,7 +56,7 @@
           'bg-white': routePath.includes('algos-track'),
           'bg-gray-300': !routePath.includes('algos-track')
         }"
-        to="/dashboard/courses/algos-track"
+        :to="{ name: 'AlgosTrack'}"
       >
         <FontAwesomeIcon
           :icon="['fab', 'python']"
@@ -89,7 +89,7 @@
           'bg-white': routePath.includes('cs-track'),
           'bg-gray-300': !routePath.includes('cs-track')
         }"
-        to="/dashboard/courses/cs-track"
+        :to="{ name: 'CSTrack'}"
       >
         <FontAwesomeIcon
           icon="graduation-cap"
@@ -122,7 +122,7 @@
           'bg-white': routePath.includes('golang-track'),
           'bg-gray-300': !routePath.includes('golang-track')
         }"
-        to="/dashboard/courses/golang-track"
+        :to="{ name: 'GolangTrack'}"
       >
         <FontAwesomeIcon
           :icon="['fab', 'golang']"

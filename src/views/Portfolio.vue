@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <TopNav :title="`${user.FirstName} ${user.LastName}`" />
-
+  <ViewNavWrapper>
     <div class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto">
       <Section
         v-if="user.Handle"
@@ -148,11 +146,11 @@
         </div>
       </Section>
     </div>
-  </div>
+  </ViewNavWrapper>
 </template>
 
 <script>
-import TopNav from '@/components/TopNav.vue';
+import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ProfileImage from '@/components/ProfileImage.vue';
 import ImageCard from '@/components/ImageCard.vue';
@@ -170,7 +168,7 @@ import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
-    TopNav,
+    ViewNavWrapper,
     FontAwesomeIcon,
     ProfileImage,
     ImageCard,
@@ -251,7 +249,4 @@ export default {
 </script>
 
 <style scoped>
-.h-full-minus-bar {
-  height: calc(100vh - var(--top-nav-bar-height));
-}
 </style>

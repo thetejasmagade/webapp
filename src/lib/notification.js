@@ -16,5 +16,5 @@ function color(type){
   if (type === 'danger'){
     return '#C05460';
   }
-  return '#6FBF54';
+  return '#C08f54';
 }

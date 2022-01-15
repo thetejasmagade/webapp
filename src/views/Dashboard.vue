@@ -8,8 +8,6 @@
       "
     >
       <Sidebar
-        :path-name="routeName"
-        :route-path="routePath"
         class="
           inline-block
           align-top
@@ -75,9 +73,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.h-full-minus-bar {
-  height: calc(100vh - var(--top-nav-bar-height));
-}
-</style>

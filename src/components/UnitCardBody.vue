@@ -79,10 +79,6 @@
 </template>
 
 <script>
-import { 
-  loadAllInterests
-} from '@/lib/cloudStore.js';
-
 import Tooltip from '@/components/Tooltip.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { getUnitData, unitTypeCourse } from '@/lib/unit.js';
@@ -139,9 +135,6 @@ export default {
       }
       return prereqs;
     }
-  },
-  async mounted(){
-    loadAllInterests(this);
   },
   methods: {
     linkClick(url) {

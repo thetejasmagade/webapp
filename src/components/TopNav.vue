@@ -13,27 +13,7 @@
       </div>
       <div class="md:flex flex-row items-stretch justify-end hidden">
         <router-link
-          v-if="$store.getters.getIsLoggedIn"
-          to="/"
-          :class="{
-            'border': routePath.includes('dashboard'),
-            'border-gold-500': routePath.includes('dashboard'),
-          }"
-          class="
-            flex
-            items-center
-            px-4
-            m-2
-            rounded
-            text-gray-700
-            hover:text-gray-200
-            hover:bg-gold-500
-          "
-        >
-          <span>Dashboard</span>
-        </router-link>
-        <router-link
-          v-else
+          v-if="!$store.getters.getIsLoggedIn"
           to="/"
           class="
             flex
@@ -53,6 +33,28 @@
           }"
         >
           <span>Login</span>
+        </router-link>
+
+        <router-link
+          to="/courses"
+          class="
+            flex
+            items-center
+            px-4
+            m-2
+            rounded
+            text-gray-700
+            hover:text-gray-200
+            hover:bg-gold-500
+            current:border
+            current:border-gold-500
+          "
+          :class="{
+            'border': routePath.includes('courses'),
+            'border-gold-500': routePath.includes('courses'),
+          }"
+        >
+          <span>Courses</span>
         </router-link>
 
         <router-link
@@ -134,6 +136,7 @@
       class="md:hidden block bg-white"
     >
       <a
+        v-if="!$store.getters.getIsLoggedIn"
         href="/"
         class="
           flex
@@ -144,8 +147,21 @@
           hover:bg-gold-500
         "
       >
-        <span>Dashboard</span>
-      </a>   
+        <span>Login</span>
+      </a>
+      <a
+        href="/courses"
+        class="
+          flex
+          items-center
+          p-3
+          text-gray-700
+          hover:text-gray-200
+          hover:bg-gold-500
+        "
+      >
+        <span>Courses</span>
+      </a> 
       <a
         href="/pricing"
         class="

@@ -23,19 +23,6 @@
       <div class="flex justify-center mb-2">
         <div class="w-3/5 border-b border-gray-300" />
       </div>
-      
-      <Tooltip
-        :text="`Courses`"
-        position="right"
-        class="mx-4 mb-2"
-        color="gold"
-      >
-        <MenuItemHorizontal
-          icon="scroll"
-          :click="() => {$router.push({name: 'Courses'}) }"
-          :current="routePath.includes('courses')"
-        />
-      </Tooltip>
 
       <Tooltip
         :text="`Settings`"
@@ -46,7 +33,7 @@
         <MenuItemHorizontal
           icon="cog"
           :click="() => {$router.push({name: 'Settings'}) }"
-          :current="pathName === 'Settings'"
+          :current="routeName === 'Settings'"
         />
       </Tooltip>
 
@@ -59,7 +46,7 @@
         <MenuItemHorizontal
           icon="user-tie"
           :click="() => $router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}})"
-          :current="pathName === 'Portfolio'"
+          :current="routeName === 'Portfolio'"
         />
       </Tooltip>
 
@@ -72,7 +59,7 @@
         <MenuItemHorizontal
           icon="trophy"
           :click="() => {$router.push({name: 'Achievements'}) }"
-          :current="pathName === 'Achievements'"
+          :current="routeName === 'Achievements'"
         />
       </Tooltip>
 
@@ -100,6 +87,12 @@ import MenuItemHorizontal from '@/components/MenuItemHorizontal.vue';
 import GemDisplay from '@/components/GemDisplay.vue';
 import ProfileImage from '@/components/ProfileImage.vue';
 import Tooltip from '@/components/Tooltip.vue';
+import { useRoute } from 'vue-router';
+
+import {
+  loadBalance,
+  loadUser
+} from '@/lib/cloudStore.js';
 
 import {
   setLogout
@@ -112,15 +105,19 @@ export default {
     ProfileImage,
     Tooltip
   },
-  props: {
-    pathName: {
-      type: String,
-      required: true
+  computed:{
+    routePath(){
+      return useRoute().path;
     },
-    routePath: {
-      type: String,
-      required: true
+    routeName(){
+      return useRoute().name;
     }
+  },
+  async mounted(){
+    if (!this.$store.getters.getUser){
+      loadUser(this);
+    }
+    loadBalance(this);
   },
   methods: {
     logout(){

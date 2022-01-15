@@ -57,6 +57,7 @@
     </div>
     <div class="flex mr-6 flex-row items-center flex-end">
       <Tooltip
+        v-if="$store.getters.getIsLoggedIn"
         :text="`Feedback`"
         position="left"
       >
@@ -79,7 +80,6 @@ import Tooltip from '@/components/Tooltip.vue';
 import BlockButton from '@/components/BlockButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import SelectDropdown from '@/components/SelectDropdown.vue';
-
 
 export default {
   components: {

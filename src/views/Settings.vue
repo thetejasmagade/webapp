@@ -1,229 +1,230 @@
 <template>
-  <div class="flex-wrap flex p-4">
-    <ConfirmModal
-      ref="deleteUserModal"
-      heading="Are you absolutely sure you want to permanently delete your account?"
-      text="
-      All your user data will be permanently erased!
-      If you want to cancel your subscription please do so first using the billing section.
-      Deleting your account will NOT automatically cancel your subscription.
+  <ViewNavWrapper>
+    <div class="flex-wrap flex p-4">
+      <ConfirmModal
+        ref="deleteUserModal"
+        heading="Are you absolutely sure you want to permanently delete your account?"
+        text="
+        All your user data will be permanently erased!
+        If you want to cancel your subscription please do so first using the billing section.
+        Deleting your account will NOT automatically cancel your subscription.
       "
-      :on-confirm="deleteUser"
-    />
-    <div
-      class="
+        :on-confirm="deleteUser"
+      />
+      <div
+        class="
         w-full
         md:w-72
       "
-    >
-      <Section
-        :title="`${firstName} ${lastName }`"
-        :subtitle="email"
       >
-        <div
-          class="
+        <Section
+          :title="`${firstName} ${lastName }`"
+          :subtitle="email"
+        >
+          <div
+            class="
             flex
             flex-col
             items-center
           "
-        >
-          <div
-            class="
+          >
+            <div
+              class="
             w-3/4
             mt-8
             flex
             flex-col
           "
-          >
-            <BlockButton
-              :click="() => currentTab='settings'"
-              :color="currentTab==='settings' ? 'blue-light':'gray-light'"
-              class="m-2"
             >
-              Profile
-            </BlockButton>
-            <BlockButton
-              :click="() => currentTab='security'"
-              :color="currentTab==='security' ? 'blue-light':'gray-light'"
-              class="m-2"
-            >
-              Security
-            </BlockButton>
-            <BlockButton
-              :click="() => {openCustomerPortal()}"
-              color="gray-light"
-              class="m-2"
-            >
-              Billing
-            </BlockButton>
+              <BlockButton
+                :click="() => currentTab='settings'"
+                :color="currentTab==='settings' ? 'blue-light':'gray-light'"
+                class="m-2"
+              >
+                Profile
+              </BlockButton>
+              <BlockButton
+                :click="() => currentTab='security'"
+                :color="currentTab==='security' ? 'blue-light':'gray-light'"
+                class="m-2"
+              >
+                Security
+              </BlockButton>
+              <BlockButton
+                :click="() => {openCustomerPortal()}"
+                color="gray-light"
+                class="m-2"
+              >
+                Billing
+              </BlockButton>
+            </div>
           </div>
-        </div>
-      </Section>
-    </div>
+        </Section>
+      </div>
 
-    <div
-      class="
+      <div
+        class="
         flex-1
         pt-4
         md:pl-4
         md:pt-0
       "
-    >
-      <div
-        v-if="currentTab === 'settings'"
       >
-        <Section
-          title="Edit Your Profile"
-          subtitle="Changes will be reflected on your public dev portfolio"
-          class="mb-4"
+        <div
+          v-if="currentTab === 'settings'"
         >
-          <div class="p-4">
-            <form
-              class="
+          <Section
+            title="Edit Your Profile"
+            subtitle="Changes will be reflected on your public dev portfolio"
+            class="mb-4"
+          >
+            <div class="p-4">
+              <form
+                class="
                 grid
                 lg:grid-cols-3 md:grid-cols-2 grid-cols-1
                 gap-4
               "
-              @submit.prevent="updateUser"
-            >
-              <div class="lg:col-span-3 md:col-span-2 col-span-1 flex justify-evenly items-center">
-                <div>
-                  <span>Get notified of job relevant job offers</span>
-                  <ToggleSwitch
-                    v-model="user.recruitersCanContact"
-                    class="
+                @submit.prevent="updateUser"
+              >
+                <div class="lg:col-span-3 md:col-span-2 col-span-1 flex justify-evenly items-center">
+                  <div>
+                    <span>Get notified of job relevant job offers</span>
+                    <ToggleSwitch
+                      v-model="user.recruitersCanContact"
+                      class="
                     inline-block
                     leading-3
                     ml-4
                   "
-                  />
-                </div>
-                <div>
-                  <span>Notify me via email about updates and events</span>
-                  <ToggleSwitch
-                    v-model="user.isSubscribedNews"
-                    class="
+                    />
+                  </div>
+                  <div>
+                    <span>Notify me via email about updates and events</span>
+                    <ToggleSwitch
+                      v-model="user.isSubscribedNews"
+                      class="
                     inline-block
                     leading-3
                     ml-4
                   "
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.handle"
+                      class="w-full"
+                      :placeholder="handle"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Qvault Handle</label>
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.firstName"
+                      class="w-full"
+                      :placeholder="firstName"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">First Name</label>
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.lastName"
+                      class="w-full"
+                      :placeholder="lastName"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Last Name</label>
+                  </span>
+                </div>
+
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.jobTitle"
+                      class="w-full"
+                      :placeholder="jobTitle"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Job Title</label>
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.location"
+                      class="w-full"
+                      :placeholder="location"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Location (City, Country)</label>
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.websiteURL"
+                      class="w-full"
+                      :placeholder="websiteURL"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Website</label>
+                  </span>
+                </div>
+
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.twitterHandle"
+                      class="w-full"
+                      :placeholder="twitterHandle"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Twitter Handle</label>
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.linkedinURL"
+                      class="w-full"
+                      :placeholder="linkedinURL"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Linkedin URL</label>
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    <TextInput
+                      v-model="user.githubHandle"
+                      class="w-full"
+                      :placeholder="githubHandle"
+                      type="text"
+                    />
+                    <label class="text-gold-600 text-xs">Github Username</label>
+                  </span>
+                </div>
+
+                <div class="flex items-center">
+                  <ResumeUploader
+                    class="mb-4"
                   />
                 </div>
-              </div>
 
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.handle"
-                    class="w-full"
-                    :placeholder="handle"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Qvault Handle</label>
-                </span>
-              </div>
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.firstName"
-                    class="w-full"
-                    :placeholder="firstName"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">First Name</label>
-                </span>
-              </div>
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.lastName"
-                    class="w-full"
-                    :placeholder="lastName"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Last Name</label>
-                </span>
-              </div>
-
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.jobTitle"
-                    class="w-full"
-                    :placeholder="jobTitle"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Job Title</label>
-                </span>
-              </div>
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.location"
-                    class="w-full"
-                    :placeholder="location"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Location (City, Country)</label>
-                </span>
-              </div>
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.websiteURL"
-                    class="w-full"
-                    :placeholder="websiteURL"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Website</label>
-                </span>
-              </div>
-
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.twitterHandle"
-                    class="w-full"
-                    :placeholder="twitterHandle"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Twitter Handle</label>
-                </span>
-              </div>
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.linkedinURL"
-                    class="w-full"
-                    :placeholder="linkedinURL"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Linkedin URL</label>
-                </span>
-              </div>
-              <div>
-                <span>
-                  <TextInput
-                    v-model="user.githubHandle"
-                    class="w-full"
-                    :placeholder="githubHandle"
-                    type="text"
-                  />
-                  <label class="text-gold-600 text-xs">Github Username</label>
-                </span>
-              </div>
-
-              <div class="flex items-center">
-                <ResumeUploader
-                  class="mb-4"
-                />
-              </div>
-
-              <div class="md:col-span-2 col-span-1">
-                <textarea
-                  v-model="user.bio"
-                  :placeholder="bio"
-                  class="
+                <div class="md:col-span-2 col-span-1">
+                  <textarea
+                    v-model="user.bio"
+                    :placeholder="bio"
+                    class="
                       autoexpand
                       tracking-wide
                       py-2 px-4 mb-3
@@ -232,65 +233,66 @@
                       block w-full 
                       border rounded focus:outline-none border-gray-300
                     "
-                  rows="4"
-                />
-                <label class="text-gold-600 text-xs">Bio</label>
-              </div>
+                    rows="4"
+                  />
+                  <label class="text-gold-600 text-xs">Bio</label>
+                </div>
                 
-              <div class="lg:col-span-3 md:col-span-2 col-span-1 text-center">
-                <BlockButton>
-                  Update
-                </BlockButton>
-              </div>
-            </form>
-          </div>
-        </Section>
-        <Section
-          title="API Key"
-          subtitle="Send this DM to the Qvault Discord bot to sync your Discord and Qvault accounts"
-        >
-          <div class="flex flex-col justify-center items-center p-4">
-            <span>
-              <code
-                class="
+                <div class="lg:col-span-3 md:col-span-2 col-span-1 text-center">
+                  <BlockButton>
+                    Update
+                  </BlockButton>
+                </div>
+              </form>
+            </div>
+          </Section>
+          <Section
+            title="API Key"
+            subtitle="Send this DM to the Qvault Discord bot to sync your Discord and Qvault accounts"
+          >
+            <div class="flex flex-col justify-center items-center p-4">
+              <span>
+                <code
+                  class="
                 p-1
                 rounded
                 bg-gray-800
                 text-gray-200"
+                >
+                  qv sync {{ $store.getters.getUser?.APIKey }}
+                </code>
+              </span>
+              <BlockButton
+                class="mt-4"
+                color="red"
+                :click="() => updateUserAPIKey()"
               >
-                qv sync {{ $store.getters.getUser?.APIKey }}
-              </code>
-            </span>
-            <BlockButton
-              class="mt-4"
-              color="red"
-              :click="() => updateUserAPIKey()"
-            >
-              Regenerate key
-            </BlockButton>
-          </div>
-        </Section>
-      </div>
+                Regenerate key
+              </BlockButton>
+            </div>
+          </Section>
+        </div>
 
-      <div
-        v-if="currentTab === 'security'"
-      >
-        <Section
-          title="Permanent account deletion"
+        <div
+          v-if="currentTab === 'security'"
         >
-          <div class="p-4 flex flex-col items-center">
-            <BlockButton
-              color="red"
-              :click="() => $refs.deleteUserModal.show()"
-            >
-              Delete Account Forever
-            </BlockButton>
-            <hr>
-          </div>
-        </Section>
+          <Section
+            title="Permanent account deletion"
+          >
+            <div class="p-4 flex flex-col items-center">
+              <BlockButton
+                color="red"
+                :click="() => $refs.deleteUserModal.show()"
+              >
+                Delete Account Forever
+              </BlockButton>
+              <hr>
+            </div>
+          </Section>
+        </div>
       </div>
     </div>
-  </div>
+  </ViewNavWrapper>
 </template>
 
 <script>
@@ -309,6 +311,7 @@ import Section from '@/components/Section.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import ConfirmModal from '@/components/ConfirmModal.vue';
 import ResumeUploader from '@/components/ResumeUploader.vue';
+import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
 import { useMeta } from 'vue-meta';
 
 import {
@@ -322,6 +325,7 @@ import { notify } from '@/lib/notification.js';
 
 export default {
   components: {
+    ViewNavWrapper,
     BlockButton,
     TextInput,
     Section,

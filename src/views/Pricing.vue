@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <TopNav />
+  <ViewNavWrapper>
     <LoadingOverlay :is-loading="isLoading" />
 
     <div
@@ -18,7 +17,7 @@
             v-if="$store.getters.getUserIsSubscribed"
             class="text-2xl text-primary-normal font-bold"
           >
-            You're already subscribed. Go take some courses!
+            You're already a patron. Go take some courses!
           </h2>
         </header>
         <PricingSkeleton v-if="!subscriptionPlan" />
@@ -35,7 +34,6 @@
           <div class="flex items-center justify-center">
             <article
               class="
-              shadow-lg
               px-6
               py-8
               text-center
@@ -132,7 +130,6 @@
           <div class="flex items-center justify-center md:col-span-2">
             <article
               class="
-              shadow-lg
               px-6
               py-8
               text-center
@@ -340,7 +337,7 @@
             We do our best to be transparent about pricing, and never want anyone keeping
             a subscription they don't use. You can cancel your subscription any time from your <a
               class="underline cursor-pointer text-gold-600 hover:text-gold-800"
-              href="/dashboard/settings"
+              href="/settings"
             >settings page</a>
             and you won't be billed again.
           </p>
@@ -357,11 +354,11 @@
         </div>
       </Section>
     </div>
-  </div>
+  </ViewNavWrapper>
 </template>
 
 <script>
-import TopNav from '@/components/TopNav.vue';
+import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
 import Section from '@/components/Section.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import BlockButton from '@/components/BlockButton.vue';
@@ -375,7 +372,7 @@ import { useMeta } from 'vue-meta';
 
 export default {
   components: {
-    TopNav,
+    ViewNavWrapper,
     LoadingOverlay,
     Section,
     BlockButton,
@@ -482,7 +479,4 @@ export default {
 </script>
 
 <style scoped>
-.h-full-minus-bar {
-  height: calc(100vh - var(--top-nav-bar-height));
-}
 </style>

@@ -3,9 +3,8 @@ import { eventNavigate } from '@/lib/analytics.js';
 
 const Courses = () => import('@/views/Courses.vue');
 const Portfolio = () => import('@/views/Portfolio.vue');
-const Exercise = () => import('@/views/Exercise.vue');
+const Course = () => import('@/views/Course.vue');
 const Pricing = () => import('@/views/Pricing.vue');
-const Dashboard = () => import('@/views/Dashboard.vue');
 const Login = () => import('@/views/Login.vue');
 const Playground = () => import('@/views/Playground.vue');
 const Settings = () => import('@/views/Settings.vue');
@@ -20,7 +19,7 @@ const CSTrack = () => import('@/views/CSTrack.vue');
 const AlgosTrack = () => import('@/views/AlgosTrack.vue');
 const GolangTrack = () => import('@/views/GolangTrack.vue');
 const Browse = () => import('@/views/Browse.vue');
-const Step = () => import('@/views/Step.vue');
+const Project = () => import('@/views/Project.vue');
 
 import {
   isLoggedIn
@@ -58,58 +57,51 @@ const routes = [
     component: SignupFlowRecruitersEnrich
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard,
+    path: '/courses',
+    name: 'Courses',
+    component: Courses,
     children: [
       {
-        path: 'courses',
-        name: 'Courses',
-        component: Courses,
-        children: [
-          {
-            path: 'algos-track',
-            name: 'AlgosTrack',
-            component: AlgosTrack
-          },
-          {
-            path: 'cs-track',
-            name: 'CSTrack',
-            component: CSTrack
-          },
-          {
-            path: 'golang-track',
-            name: 'GolangTrack',
-            component: GolangTrack
-          },
-          {
-            path: 'browse',
-            name: 'Browse',
-            component: Browse
-          }
-        ]
+        path: 'algos-track',
+        name: 'AlgosTrack',
+        component: AlgosTrack
       },
       {
-        path: 'exercise/:courseUUID/:moduleUUID?/:exerciseUUID?',
-        name: 'Exercise',
-        component: Exercise
+        path: 'cs-track',
+        name: 'CSTrack',
+        component: CSTrack
       },
       {
-        path: 'step/:projectUUID/:stepUUID?',
-        name: 'Step',
-        component: Step
+        path: 'golang-track',
+        name: 'GolangTrack',
+        component: GolangTrack
       },
       {
-        path: 'settings',
-        name: 'Settings',
-        component: Settings
-      },
-      {
-        path: 'achievements',
-        name: 'Achievements',
-        component: Achievements
+        path: 'browse',
+        name: 'Browse',
+        component: Browse
       }
     ]
+  },
+  {
+    path: '/course/:courseUUID/:moduleUUID?/:exerciseUUID?',
+    name: 'Course',
+    component: Course
+  },
+  {
+    path: '/project/:projectUUID/:stepUUID?',
+    name: 'Project',
+    component: Project
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
+  },
+  {
+    path: '/achievements',
+    name: 'Achievements',
+    component: Achievements
   },
   {
     path: '/pricing',
@@ -152,7 +144,7 @@ const routes = [
   },
   {
     path: '/demo/:courseUUID',
-    redirect: '/dashboard/courses/:courseUUID?'
+    redirect: '/courses/:courseUUID?'
   },
   {
     path: '/u/:userHandle',
@@ -177,8 +169,12 @@ router.beforeEach((to, from, next) => {
 });
 
 router.beforeEach((to, from, next) => {
-  // Redirect to login if necessary
-  if (to.fullPath.includes('dashboard') &&
+  // Protected routes that require login
+  // should redirect to login
+  if ((
+    to.fullPath.includes('settings') ||
+    to.fullPath.includes('achievements')
+  ) &&
    !to.fullPath.includes('redirect')  && 
    !isLoggedIn()
   ) {
@@ -187,7 +183,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // Dashboard default child redirect
-  if (to.fullPath === '/dashboard/courses') {
+  if (to.fullPath === '/courses') {
     next({name: 'Browse' });
     return;
   }

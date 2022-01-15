@@ -13,6 +13,7 @@
     >
       <div class="mt-4 w-full flex flex-row justify-end">
         <BlockButton
+          v-if="$store.getters.getIsLoggedIn"
           class="btn mr-3"
           :click="doneWithStep"
         >
