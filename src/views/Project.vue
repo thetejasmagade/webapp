@@ -291,6 +291,9 @@ export default {
         this.$refs.projectDoneModal.show();
         return;
       }
+      if (this.isLastStep) {
+        return;
+      }
       try {
         const step = await getNextStep(
           this.$route.params.projectUUID,

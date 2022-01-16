@@ -120,11 +120,13 @@ export default {
 .viewer ul {
   list-style-type: disc;
   margin-left: 1rem;
+  margin-bottom: 1rem;
 }
 
 .viewer ol {
   list-style-type: decimal;
   margin-left: 1rem;
+  margin-bottom: 1rem;
 }
 
 .viewer code {
