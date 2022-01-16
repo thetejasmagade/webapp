@@ -65,16 +65,6 @@
         <span>Complete</span>
       </div>
     </div>
-
-    <div class="flex flex-row justify-end">
-      <span
-        class="underline cursor-pointer text-gray-400 hover:text-gray-300"
-        target="_blank"
-        @click.stop="() => {linkClick(unitData.LandingPage)}"
-      >
-        More Info
-      </span>
-    </div>
   </div>
 </template>
 
