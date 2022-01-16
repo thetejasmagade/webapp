@@ -199,7 +199,7 @@ export default {
         return;
       }
       try {
-        this.projectProgress = await getProjectProgress(this.$route.params.courseUUID);
+        this.projectProgress = await getProjectProgress(this.$route.params.projectUUID);
       } catch(err) {
         notify({
           type: 'danger',
