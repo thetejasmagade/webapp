@@ -116,7 +116,6 @@ export default {
     return {
       markdownSource: '',
       type: '',
-      projectDone: false,
       isFirstStep: false,
       isLastStep: false,
       complete: '',
@@ -141,6 +140,23 @@ export default {
     isContentLoaded() {
       if (this.markdownSource === ''){
         return false;
+      }
+      return true;
+    },
+    projectDone() {
+      if (!this.project?.Steps){
+        return false;
+      }
+      for(const step of this.project.Steps){
+        if (!this.projectProgress){
+          return false;
+        }
+        if (!(step.UUID in this.projectProgress)){
+          return false;
+        }
+        if (!this.projectProgress[step.UUID]?.Completed){
+          return false;
+        }
       }
       return true;
     },
@@ -218,13 +234,7 @@ export default {
       const submitResponse = await submitManualStep(this.$route.params.stepUUID);
       this.handleSuccess(submitResponse);
     },
-    async handleSuccess(submitResponse) {
-      if (submitResponse.ProjectDone) {
-        if (!this.projectDone) {
-          eventFinishCourse(this.project.Title, false);
-        }
-        this.projectDone = true;
-      }
+    async handleSuccess() {
       loadBalance(this);
       notify({
         type: 'success',
@@ -241,10 +251,6 @@ export default {
       });
     },
     async moveToStep(step) {
-      if (step.ProjectDone) {
-        this.projectDone = true;
-      }
-
       this.isFirstStep = step.Step.IsFirst;
       this.isLastStep = step.Step.IsLast;
       this.stepSlug = step.Step.Slug;
@@ -289,6 +295,7 @@ export default {
       }
       if (this.projectDone && this.isLastStep) {
         this.$refs.projectDoneModal.show();
+        eventFinishCourse(this.project.Title, false);
         return;
       }
       if (this.isLastStep) {

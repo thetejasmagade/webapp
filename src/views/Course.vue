@@ -165,7 +165,6 @@ export default {
       type: '',
       question: {},
       progLang: 'go',
-      courseDone: false,
       isFirstExercise: false,
       isLastExercise: false,
       code: '',
@@ -181,6 +180,25 @@ export default {
   computed: {
     sandbox() {
       return (!this.$store.getters.getUserIsSubscribed && !this.isFree) || !this.$store.getters.getIsLoggedIn;
+    },
+    courseDone() {
+      if (!this.course?.Modules){
+        return false;
+      }
+      for(const mod of this.course.Modules){
+        if (!this.courseProgress){
+          return false;
+        }
+        if (!(mod.UUID in this.courseProgress)){
+          return false;
+        }
+        for (const exercise of mod.Exercises){  
+          if (!this.courseProgress[mod.UUID][exercise.UUID]?.Completed){
+            return false;
+          }
+        }
+      }
+      return true;
     },
     dropdownModules() {
       return this.course?.Modules?.map((mod, i) => {
@@ -365,14 +383,8 @@ export default {
       const submitResponse = await submitInformationalExercise(this.$route.params.exerciseUUID);
       await this.handleSuccess(submitResponse);
     },
-    async handleSuccess(submitResponse) {
+    async handleSuccess() {
       eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
-      if (submitResponse.CourseDone) {
-        if (!this.courseDone) {
-          eventFinishCourse(this.course.Title, false);
-        }
-        this.courseDone = true;
-      }
       if (this.type !== 'type_info') {
         notify({
           type: 'success',
@@ -479,10 +491,6 @@ export default {
         this.sandboxModeModal();
       }
 
-      if (exercise.CourseDone) {
-        this.courseDone = true;
-      }
-
       this.isFree = exercise.Exercise.IsFree;
       this.isFirstExercise = exercise.Exercise.IsFirst;
       this.isLastExercise = exercise.Exercise.IsLast;
@@ -544,6 +552,7 @@ export default {
       }
       if (this.courseDone && this.isLastExercise) {
         this.$refs.courseDoneModal.show();
+        eventFinishCourse(this.course.Title, false);
         return;
       }
       try {
