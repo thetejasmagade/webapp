@@ -115,7 +115,6 @@ import CardExerciseTypeCode from '@/components/cards/CardExerciseTypeCode.vue';
 import CardExerciseTypeCodeCanvas from '@/components/cards/CardExerciseTypeCodeCanvas.vue';
 import AchievementUnlocked from '@/components/AchievementUnlocked.vue';
 
-import { loadBalance } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
 
 import {
@@ -345,7 +344,6 @@ export default {
   methods: {
     async onSeenAchievement(){
       this.achievementsToShow.shift();
-      await loadBalance(this);
     },
     sandboxModeModal() {
       eventOpenSandboxModeModal();

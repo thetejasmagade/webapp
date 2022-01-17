@@ -38,13 +38,6 @@
         >
         <div class="mb-4">
           <h2
-            v-if="spinning"
-            class="text-gold-600 text-xl"
-          >
-            Unlocking your gems
-          </h2>
-          <h2
-            v-else
             class="text-gold-600 text-xl"
           >
             Congragulations!
@@ -53,13 +46,6 @@
 
         <div class="mb-8">
           <h3
-            v-if="spinning"
-            class="text-blue-600 text-3xl font-bold"
-          >
-            {{ gemNum }}...
-          </h3>
-          <h3
-            v-else
             class="text-blue-600 text-3xl font-bold"
           >
             You earned {{ gemNum }} Gems
@@ -67,7 +53,8 @@
         </div>
         <BlockButton
           :click="onClickDone"
-          color="blue"
+          :disabled="spinning"
+          :color="spinning ? 'gray' : 'blue'"
         >
           Continue course
         </BlockButton>
@@ -79,6 +66,10 @@
 <script>
 import Section from '@/components/Section.vue';
 import BlockButton from '@/components/BlockButton.vue';
+import { 
+  sleep
+} from '@/lib/sleep.js';
+import { loadBalance } from '@/lib/cloudStore.js';
 
 export default {
   components: {
@@ -103,17 +94,27 @@ export default {
     };
   },
   methods: {
-    claim(){
+    async claim(){
       this.claimed = true;
       this.spinning = true;
-      const id = setInterval(() => {
-        this.gemNum = Math.floor(Math.random() * (this.achievementEarned?.AchievementGemsEarned * 2));
-      }, 100);
-      setTimeout(() => {
-        clearInterval(id);
-        this.spinning = false;
-        this.gemNum = this.achievementEarned?.AchievementGemsEarned;
-      }, 2000);
+      let nextChangeCount = 0;
+      const totalCentiSec = 250;
+      for (let centiSec = 0; centiSec < totalCentiSec; centiSec++){
+        await sleep(10);
+        const nextChangeAt = Math.floor(centiSec / 10)+1;
+        if (nextChangeCount === nextChangeAt){
+          if (nextChangeAt + centiSec >= totalCentiSec){
+            this.gemNum = this.achievementEarned?.AchievementGemsEarned;
+          } else {
+            this.gemNum = Math.floor(Math.random() * (this.achievementEarned?.AchievementGemsEarned * 2));
+          }
+          nextChangeCount = 0;
+        }
+        nextChangeCount++;
+      }
+      this.gemNum = this.achievementEarned?.AchievementGemsEarned;
+      this.spinning = false;
+      await loadBalance(this);
     },
     onClickDone(){
       this.onDone();
