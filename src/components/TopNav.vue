@@ -3,12 +3,19 @@
     <div class="top-nav-bar-height flex flex-row justify-between">
       <div class="flex flex-row items-stretch justify-end">
         <div class="ml-3 flex items-center">
-          <img
-            alt="Qvault logo"
-            src="../img/qvault-icon-250.png"
-            class="align-middle w-10 h-10 ml-2"
+          <router-link
+            to="/"
+            class="
+            mt-7
+          "
           >
-          <span class="text-xl ml-4">{{ title }}</span>
+            <img
+              alt="Qvault logo"
+              src="../img/qvault-icon-250.png"
+              class="align-middle w-10 h-10 ml-2"
+            >
+            <span class="text-xl ml-4">{{ title }}</span>
+          </router-link>
         </div>
       </div>
       <div class="md:flex flex-row items-stretch justify-end hidden">
