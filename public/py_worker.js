@@ -11,19 +11,6 @@ let pyodideReadyPromise = loadPyodideAndPackages();
 // globally accessible canvas element
 let canvas;
 
-function getHash(toHash) {
-  var hash = 0;
-  if (toHash.length == 0) {
-    return hash;
-  }
-  for (var i = 0; i < toHash.length; i++) {
-    var char = toHash.charCodeAt(i);
-    hash = ((hash<<5)-hash)+char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  return hash;
-}
-
 addEventListener('message', async (e) => {
   if (e.data.type === 'SETUP_CANVAS') {
     canvas = e.data.canvas;
@@ -90,13 +77,6 @@ addEventListener('message', async (e) => {
   `);
 
   let encodedHash;
-  if (canvas){
-    const canvasBlob = await canvas.convertToBlob();
-    const encodedImage = await canvasBlob.text();
-    encodedHash = getHash(encodedImage);
-    console.log('canvas hash:', encodedHash);
-  }
-
   postMessage({
     done: true,
     encodedHash

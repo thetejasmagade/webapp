@@ -4,7 +4,6 @@ function prepareToPrint(obj) {
   }
   return obj;
 }
-
 // globally accessible canvas element
 let canvas;
 let ctx;
@@ -16,17 +15,29 @@ function awaitAnimationFrame() {
   return promise;
 }
 
-function getHash(toHash) {
-  var hash = 0;
-  if (toHash.length == 0) {
-    return hash;
+function getFrameSum(colorData){
+  let sum = 0;
+  for (const colorRgb of colorData){
+    sum += colorRgb;
   }
-  for (var i = 0; i < toHash.length; i++) {
-    var char = toHash.charCodeAt(i);
-    hash = ((hash<<5)-hash)+char;
-    hash = hash & hash; // Convert to 32bit integer
+  const maxSafe = 2147483647;
+  return sum % maxSafe;
+}
+
+async function getEncodedHash(canvas, ctx){
+  let encodedHash = 0;
+  const framesToHash = 3;
+  const framesBetween = 10;
+  if (canvas && ctx){
+    for (let i = 0; i < framesToHash; i++){
+      const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+      encodedHash += getFrameSum(imageData.data);
+      for (let j = 0; j < framesBetween; j++){
+        await awaitAnimationFrame();
+      }
+    }
   }
-  return hash.toString();
+  return encodedHash;
 }
 
 addEventListener('message', async (e) => {
@@ -84,20 +95,8 @@ addEventListener('message', async (e) => {
     return;
   }
 
-  let encodedHash;
-  const framesToHash = 3;
-  const framesBetween = 10;
-  if (canvas){
-    for (let i = 0; i < framesToHash; i++){
-      const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-      const imageDataText = new TextDecoder().decode(imageData.data);
-      encodedHash = getHash(imageDataText + encodedHash);
-      for (let j = 0; j < framesBetween; j++){
-        await awaitAnimationFrame();
-      }
-    }
-    console.log('canvas hash :', encodedHash);
-  }
+  const encodedHash = await getEncodedHash(canvas, ctx);
+  console.log('encodedHash: ', encodedHash);
 
   postMessage({
     done: true,
@@ -105,36 +104,3 @@ addEventListener('message', async (e) => {
   });
 }, false);
 
-/*
-Animation example
-
-var canvasWidth = 1000;
-var canvasHeight = 1000;
-
-var angle = 0;
- 
-function drawCircle() {
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    
-  // color in the background
-  ctx.fillStyle = "#EEEEEE";
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-    
-  // draw the circle
-  ctx.beginPath();
-    
-  var radius = 25 + 150 * Math.abs(Math.cos(angle));
-  ctx.arc(225, 225, radius, 0, Math.PI * 2, false);
-  ctx.closePath();
-    
-  // color in the circle
-  ctx.fillStyle = "#006699";
-  ctx.fill();
-    
-  angle += Math.PI / 64;
-    
-  requestAnimationFrame(drawCircle);
-}
-
-drawCircle();
-*/

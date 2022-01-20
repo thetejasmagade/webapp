@@ -81,8 +81,6 @@
               height="1000"
               width="1000"
               class="
-                border-t
-                border-gray-600
                 bg-white
                 mr-4
               "
