@@ -114,6 +114,7 @@ import CardExerciseTypeMultipleChoice from '@/components/cards/CardExerciseTypeM
 import CardExerciseTypeCode from '@/components/cards/CardExerciseTypeCode.vue';
 import CardExerciseTypeCodeCanvas from '@/components/cards/CardExerciseTypeCodeCanvas.vue';
 import AchievementUnlocked from '@/components/AchievementUnlocked.vue';
+import { loadBalance } from '@/lib/cloudStore.js';
 
 import { notify } from '@/lib/notification.js';
 
@@ -383,13 +384,22 @@ export default {
       const submitResponse = await submitInformationalExercise(this.$route.params.exerciseUUID);
       await this.handleSuccess(submitResponse);
     },
-    async handleSuccess() {
+    async handleSuccess(submitResponse) {
       eventExerciseSuccess(this.$route.params.exerciseUUID, this.course.Title, this.exerciseIndex, this.moduleIndex);
       if (this.type !== 'type_info') {
-        notify({
-          type: 'success',
-          text: 'Correct! Great Job'
-        });
+        if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0){
+          notify({
+            type: 'success',
+            text: `Correct! You unlocked ${submitResponse.GemsEarned} gems 💎`
+          });
+          await loadBalance(this);
+        } else {
+          notify({
+            type: 'success',
+            text: 'Correct! Great Job'
+          });
+        }
+
       }
       this.getCourseProgressIfLoggedIn();
     },
