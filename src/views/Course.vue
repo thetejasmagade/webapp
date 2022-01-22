@@ -50,9 +50,8 @@
         />
         <ProgressBar
           v-if="isContentLoaded && isLoggedIn" 
-          :progress-filled="percentComplete"
+          :percent-complete="percentComplete"
         />
- 
         <CardExerciseTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
@@ -167,7 +166,6 @@ export default {
     CardExerciseTypeCodeCanvas,
     AchievementUnlocked,
     ProgressBar
- 
   },
   data() {
     return {
