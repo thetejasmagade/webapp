@@ -150,6 +150,11 @@ const routes = [
     path: '/u/:userHandle',
     name: 'Portfolio',
     component: Portfolio
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notfound',
+    redirect: '/' 
   }
 ];
 
