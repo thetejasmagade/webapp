@@ -15,6 +15,7 @@
           {{ achievementEarned?.AchievementTitle }}
         </h2>
         <img
+          loading="lazy"
           :src="achievementEarned?.AchievementImageURL"
           class="w-60"
         >
@@ -33,6 +34,7 @@
         class="flex flex-col items-center p-4"
       >
         <img
+          loading="lazy"
           src="@/img/gem-5.png"
           class="w-60	"
         >

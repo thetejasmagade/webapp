@@ -11,6 +11,7 @@
         course
       </p>
       <img
+        loading="lazy"
         src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
       >
       <div class="flex justify-center">

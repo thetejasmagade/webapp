@@ -11,6 +11,7 @@
     >
       <img
         v-if="imgSrc"
+        loading="lazy"
         :src="imgSrc"
         class="rounded object-cover h-full w-full"
         :class="{

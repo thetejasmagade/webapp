@@ -20,6 +20,7 @@
       >
       <label for="profileImage">
         <img
+          loading="lazy"
           :src="profileImageURLWithDefault"
           alt="user avatar"
           class="

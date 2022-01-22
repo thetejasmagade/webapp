@@ -8,6 +8,7 @@
     "
   >
     <img
+      loading="lazy"
       class="w-3/5"
       src="../img/gem-3-150.png"
     >

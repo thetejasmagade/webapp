@@ -10,6 +10,7 @@
           "
           >
             <img
+              loading="lazy"
               alt="Qvault logo"
               src="../img/qvault-icon-250.png"
               class="align-middle w-10 h-10 ml-2"
