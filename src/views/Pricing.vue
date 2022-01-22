@@ -57,7 +57,7 @@
                     <th
                       class="px-4 py-2 bg-gray-200 font-semibold"
                     >
-                      Free
+                      Basic
                     </th>
                     <th
                       class="px-4 py-2 bg-gray-200 font-bold"
@@ -272,85 +272,121 @@
       </Section>
 
       <Section
-        title="Frequently Asked Questions"
-        subtitle="Interested in upgrading but unsure what that entails?"
+        title="Join our network of over 400 patrons"
+        subtitle="We can't wait to see you in the Discord"
+        class="mb-5"
       >
-        <div class="px-4">
-          <h2 class="text-xl my-4 text-gold-700">
-            What's the difference between a free account and a patron account?
-          </h2>
-          <p class="mb-4">
-            A basic account is, well, basic. You can demo patron-only features on the first 6 exercises of each course, but after that if you're on
-            a basic plan, you'll only be able to read the course material and play in the code sandbox. You won't pass off assignments or know if you
-            got the right answers.
-          </p>
-          <p class="mb-4">
-            PAtrons enjoy all the features in Basic,
-            plus all the advanced tools, content, solutions and certifications that you
-            need to make your learning faster.
-          </p>
-          <p>
-            Becoming a patron lets you practice much more efficiently by getting instant verification of all your code
-            solutions. If you get stuck, you can use the "cheat" feature to take a look at the solution
-            and quickly see what's holding you up. Additionally, one of the biggest benefits our patrons get is access to free certificates
-            of completion when they finish a course. Showing off your work to employers is a quick way to get that high-paying tech job.
-          </p>
+        <div class="flex justify-center">
+          <div class="max-w-4xl flex flex-col py-8">
+            <Testimonial
+              class="mb-5"
+              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2022/01/daniel-gerep-300x300.jpeg"
+              title="Daniel Gerep from Cássia, Brazil"
+              description="I’m a senior engineer learning Go, and the pace of Qvault’s courses has been perfect for me. The diverse community in Discord makes the weekly events a blast, and the members are quick to help out with detailed answers and explanations."
+            />
+            <Testimonial
+              class="mb-5"
+              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2021/12/O%CC%88zgu%CC%88r-Yildirim-1-300x300.jpeg"
+              title="Özgür Yildirim from Esslingen, Germany"
+              description="I’m a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren’t an option because of work and wanting time with my kid! I came across Qvault after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I’d made the right decision going with Qvault."
+            />
+            <Testimonial
+              class="mb-5"
+              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2021/12/0-150x150-1.jpeg"
+              title="Ignacio Contreras from Guanajuato, Mexico"
+              description="I love how simple it is to find relevant content on Qvault. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."    
+            />
+            <Testimonial
+              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2020/12/saul_silva-300x300.jpg"
+              title="Saul Silva from Mexico"
+              description="I just finished both of Qvault’s “Basic Intro to Coding” courses. I now feel very confident in my JavaScript skills. I found the courses super easy to follow, and actually engaging enough to stick with."    
+            />
+          </div>
+        </div>
+      </Section>
 
-          <h2 class="text-xl my-4 text-gold-700">
-            Do you offer any discounts?
-          </h2>
-          <p>
-            We do promotions from time to time, and currently we're offering a <a
-              target="_blank"
-              class="underline cursor-pointer text-gold-600 hover:text-gold-800"
-              href="https://forms.gle/poQckVBir9XZA7L39"
-            >25% discount to anyone who completes this feedback form.</a>
-            Our top priority is improving the courses, the app, and your experience so your feedback is super valuable to us.
-            When you're finished with the survey you'll be given a coupon code!
-          </p>
+      <Section
+        title="Frequently Asked Questions"
+        subtitle="Interested in becoming a patron but unsure what that entails?"
+      >
+        <div class="flex justify-center p-4">
+          <div class="px-4 max-w-4xl">
+            <h2 class="text-xl my-4 text-gold-700">
+              What's the difference between a basic account and a patron account?
+            </h2>
+            <p class="mb-4">
+              A basic account is, well, basic. You can demo patron-only features at the beginning of each course, but after that if you're on
+              a basic plan you'll only be able to read the course material and play in the code sandbox. You won't pass off assignments or know if you
+              got the right answers.
+            </p>
+            <p class="mb-4">
+              Patrons enjoy all the features in Basic,
+              plus all the advanced tools, content, solutions and certifications that you
+              need to make your learning faster.
+            </p>
+            <p>
+              Becoming a patron lets you practice much more efficiently by getting instant verification of all your code
+              solutions. If you get stuck, you can use the "cheat" feature to take a look at the solution
+              and quickly see what's holding you up. Additionally, one of the biggest benefits our patrons get is access to free certificates
+              of completion when they finish a course. Showing off your work to employers is a quick way to get that high-paying tech job.
+            </p>
 
-          <h2 class="text-xl my-4 text-gold-700">
-            Do I need to know how to code before signing up?
-          </h2>
-          <p>
-            No, in fact many of our students have zero experience when they sign up.
-            Our "Basic Intro to Coding" courses are built just for you.
-          </p>
+            <h2 class="text-xl my-4 text-gold-700">
+              Do you offer any discounts?
+            </h2>
+            <p>
+              Currently we're offering a <a
+                target="_blank"
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                href="https://forms.gle/poQckVBir9XZA7L39"
+              >25% discount to anyone who completes this feedback form.</a>
+              Our top priority is improving the courses, the app, and your experience so your feedback is super valuable to us.
+              When you're finished with the survey you'll be given a coupon code!
+            </p>
 
-          <h2 class="text-xl my-4 text-gold-700">
-            Why should I become a patron?
-          </h2>
-          <p class="mb-4">
-            I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
-            to lead you to a high-paying programming job. If you’re ready to accelerate your learning and apply the skills you learn to real-world scenarios,
-            then becoming a Qvault patron is for you.
-          </p>
-          <p>
-            Aside from the direct benefits, if you like what we're building here at Qvault, your support helps us
-            improve the platform. We're a small organization that's just starting out, so the more people subscribe, the better the product will be.
-          </p>
+            <h2 class="text-xl my-4 text-gold-700">
+              Do I need to know how to code before signing up?
+            </h2>
+            <p>
+              No, in fact many of our students have zero experience when they sign up.
+              Our "Basic Intro to Coding" courses are built just for you.
+            </p>
 
-          <h2 class="text-xl my-4 text-gold-700">
-            How do I cancel my subscription?
-          </h2>
-          <p>
-            We do our best to be transparent about pricing, and never want anyone keeping
-            a subscription they don't use. You can cancel your subscription any time from your <a
-              class="underline cursor-pointer text-gold-600 hover:text-gold-800"
-              href="/settings"
-            >settings page</a>
-            and you won't be billed again.
-          </p>
+            <h2 class="text-xl my-4 text-gold-700">
+              Why should I become a patron?
+            </h2>
+            <p class="mb-4">
+              I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
+              to lead you to a high-paying programming job. If you’re ready to accelerate your learning and apply the skills you learn to real-world scenarios,
+              then becoming a Qvault patron is for you.
+            </p>
+            <p>
+              Aside from the direct benefits, if you like what we're building here at Qvault, your support helps us
+              improve the platform. We're a small organization that's just starting out, so the more people subscribe, the better the product will be.
+            </p>
 
-          <h2 class="text-xl my-4 text-gold-700">
-            What if I don't like being a Patron?
-          </h2>
-          <p>
-            Hopefully you can figure out if you're enjoying the content within your 7-day free trial,
-            because you can always cancel before you're charged for the first time. That said, if you wait too long,
-            you can take advantage of our <a href="https://qvault.io/return-policy/">return policy.</a>
-            If you contact us within 30 days of your purchase you're entitled to a full refund.
-          </p>
+            <h2 class="text-xl my-4 text-gold-700">
+              How do I cancel my subscription?
+            </h2>
+            <p>
+              We do our best to be transparent about pricing, and never want anyone keeping
+              a subscription they don't use. You can cancel your subscription any time from your <a
+                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                href="/settings"
+              >settings page</a>
+              and you won't be billed again.
+            </p>
+
+            <h2 class="text-xl my-4 text-gold-700">
+              What if I don't like being a Patron?
+            </h2>
+            <p>
+              Hopefully you can figure out if you're enjoying the content within your 7-day free trial,
+              because you can always cancel before you're charged for the first time. That said, if you wait too long,
+              you can take advantage of our <a href="https://qvault.io/return-policy/">return policy.</a>
+              If you contact us within 30 days of your purchase you're entitled to a full refund.
+            </p>
+          </div>
         </div>
       </Section>
     </div>
@@ -360,6 +396,7 @@
 <script>
 import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
 import Section from '@/components/Section.vue';
+import Testimonial from '@/components/Testimonial.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import BlockButton from '@/components/BlockButton.vue';
 import PricingSkeleton from '@/components/PricingSkeleton.vue';
@@ -376,7 +413,8 @@ export default {
     LoadingOverlay,
     Section,
     BlockButton,
-    PricingSkeleton
+    PricingSkeleton,
+    Testimonial
   },
   data() {
     return {
