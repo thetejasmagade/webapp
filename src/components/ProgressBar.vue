@@ -15,7 +15,7 @@ export default {
     percentComplete: {
       type: Number,
       required: false,
-      default: null
+      default: 0
     }
   },
   computed: {

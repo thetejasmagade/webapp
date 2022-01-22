@@ -213,7 +213,14 @@ export default {
       return this.$store.getters.getIsLoggedIn;
     },
     percentComplete() {
-      return (this.unitProgress[this.$route.params.courseUUID].NumDone / this.unitProgress[this.$route.params.courseUUID].NumMax) * 100;
+      if (!this.unitProgress){
+        return 0;
+      }
+      if (!(this.$route.params.courseUUID in this.unitProgress)){
+        return 0;
+      }
+      const courseProgress = this.unitProgress[this.$route.params.courseUUID];
+      return (courseProgress.NumDone / courseProgress.NumMax) * 100;
     },
     dropdownModules() {
       return this.course?.Modules?.map((mod, i) => {
