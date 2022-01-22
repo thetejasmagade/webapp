@@ -15,13 +15,28 @@ function awaitAnimationFrame() {
   return promise;
 }
 
+function seededRandom(seed) {
+  seed = seed & 0xffffffff;
+  seed = (seed + 0x7ed55d16 + (seed << 12)) & 0xffffffff;
+  seed = (seed ^ 0xc761c23c ^ (seed >>> 19)) & 0xffffffff;
+  seed = (seed + 0x165667b1 + (seed << 5)) & 0xffffffff;
+  seed = ((seed + 0xd3a2646c) ^ (seed << 9)) & 0xffffffff;
+  seed = (seed + 0xfd7046c5 + (seed << 3)) & 0xffffffff;
+  seed = (seed ^ 0xb55a4f09 ^ (seed >>> 16)) & 0xffffffff;
+  return (seed & 0xfffffff) / 0x10000000;
+}
+
 function getFrameSum(colorData){
   let sum = 0;
+  let i = 0;
+  const multiplierRange = canvas.width * canvas.height;
   for (const colorRgb of colorData){
-    sum += colorRgb;
+    const multiplier = Math.floor(seededRandom(i) * multiplierRange);
+    sum += colorRgb * multiplier;
+    i++;
   }
-  const maxSafe = 2147483647;
-  return sum % maxSafe;
+  const maxInt64 = 9223372036854775807;
+  return sum % maxInt64;
 }
 
 async function getEncodedHash(canvas, ctx){
@@ -60,6 +75,7 @@ addEventListener('message', async (e) => {
   if (canvas){
     if (!ctx) {
       ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
@@ -103,4 +119,3 @@ addEventListener('message', async (e) => {
     encodedHash
   });
 }, false);
-
