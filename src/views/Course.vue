@@ -48,6 +48,10 @@
           :sandbox="sandbox"
           :click-comment="() => showFeedbackModal()"
         />
+        <ProgressBar
+          v-if="isContentLoaded && isLoggedIn" 
+          :percent-complete="percentComplete"
+        />
         <CardExerciseTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
@@ -113,6 +117,7 @@ import CardExerciseTypeInfo from '@/components/cards/CardExerciseTypeInfo.vue';
 import CardExerciseTypeMultipleChoice from '@/components/cards/CardExerciseTypeMultipleChoice.vue';
 import CardExerciseTypeCode from '@/components/cards/CardExerciseTypeCode.vue';
 import CardExerciseTypeCodeCanvas from '@/components/cards/CardExerciseTypeCodeCanvas.vue';
+import ProgressBar from '@/components/ProgressBar.vue';
 import AchievementUnlocked from '@/components/AchievementUnlocked.vue';
 import { loadBalance } from '@/lib/cloudStore.js';
 
@@ -142,6 +147,7 @@ import {
   getFirstExerciseInModule,
   getExerciseByID,
   getCourseProgress,
+  getUnitsProgress,
   getPendingAchievements
 } from '@/lib/cloudClient.js';
 
@@ -158,7 +164,8 @@ export default {
     CardExerciseTypeMultipleChoice,
     CardExerciseTypeCode,
     CardExerciseTypeCodeCanvas,
-    AchievementUnlocked
+    AchievementUnlocked,
+    ProgressBar
   },
   data() {
     return {
@@ -175,7 +182,8 @@ export default {
       isFree: null,
       isCheating: false,
       achievementsToShow: null,
-      courseProgress: null
+      courseProgress: null,
+      unitProgress: null
     };
   },
   computed: {
@@ -200,6 +208,12 @@ export default {
         }
       }
       return true;
+    },
+    isLoggedIn() {
+      return this.$store.getters.getIsLoggedIn;
+    },
+    percentComplete() {
+      return (this.unitProgress[this.$route.params.courseUUID].NumDone / this.unitProgress[this.$route.params.courseUUID].NumMax) * 100;
     },
     dropdownModules() {
       return this.course?.Modules?.map((mod, i) => {
@@ -334,6 +348,7 @@ export default {
       );
       this.loadExercise(exercise);
       this.getCourseProgressIfLoggedIn();
+      this.getUnitProgressIfLoggedIn();
       
       if (this.$store.getters.getIsLoggedIn){
         try {
@@ -401,6 +416,7 @@ export default {
         }
 
       }
+      this.getUnitProgressIfLoggedIn();
       this.getCourseProgressIfLoggedIn();
     },
     async getCourseProgressIfLoggedIn(){
@@ -409,6 +425,19 @@ export default {
       }
       try {
         this.courseProgress = await getCourseProgress(this.$route.params.courseUUID);
+      } catch(err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
+    },
+    async getUnitProgressIfLoggedIn(){
+      if (!this.$store.getters.getIsLoggedIn){
+        return;
+      }
+      try {
+        this.unitProgress = await getUnitsProgress();
       } catch(err) {
         notify({
           type: 'danger',
