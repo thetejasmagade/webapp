@@ -53,6 +53,8 @@
             :reset-callback="() => $refs.resetCodeModal.show()"
             :cheat-callback="cheatCallback"
             :is-cheating="isCheating"
+            :is-cheat-purchased="isCheatPurchased"
+            :cheat-cost="cheatCost"
           />
         </div>
         <div
@@ -180,6 +182,14 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    isCheatPurchased: {
+      type: Boolean,
+      required: true
+    },
+    cheatCost: {
+      type: Number,
+      required: true
     }
   },
   data() {

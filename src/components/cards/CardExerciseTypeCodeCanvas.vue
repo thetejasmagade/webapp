@@ -40,6 +40,8 @@
       :canvas-enabled="true"
       :solution="solutionCode"
       :is-cheating="isCheating"
+      :is-cheat-purchased="isCheatPurchased"
+      :cheat-cost="cheatCost"
     />
   </Multipane>
 </template>
@@ -89,6 +91,14 @@ export default {
     },
     isCheating: {
       type: Boolean,
+      required: true
+    },
+    isCheatPurchased: {
+      type: Boolean,
+      required: true
+    },
+    cheatCost: {
+      type: Number,
       required: true
     }
   },

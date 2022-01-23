@@ -72,8 +72,10 @@
           :solution-code="complete"
           :run-callback="submitTypeCode"
           :reset-code-callback="resetCode"
-          :cheat-callback="cheatClick"
+          :cheat-callback="cheatCallback"
           :is-cheating="isCheating"
+          :is-cheat-purchased="isCheatPurchased"
+          :cheat-cost="cheatCost"
         />
         <CardExerciseTypeCodeCanvas
           v-else-if="type === 'type_code_canvas'"
@@ -83,8 +85,10 @@
           :solution-code="complete"
           :run-callback="submitTypeCodeCanvas"
           :reset-code-callback="resetCode"
-          :cheat-callback="cheatClick"
+          :cheat-callback="cheatCallback"
           :is-cheating="isCheating"
+          :is-cheat-purchased="isCheatPurchased"
+          :cheat-cost="cheatCost"
         />
       </div>
       <div
@@ -148,7 +152,9 @@ import {
   getExerciseByID,
   getCourseProgress,
   getUnitsProgress,
-  getPendingAchievements
+  getPendingAchievements,
+  getCheatStatus,
+  purchaseCheat
 } from '@/lib/cloudClient.js';
 
 export default {
@@ -183,7 +189,9 @@ export default {
       isCheating: false,
       achievementsToShow: null,
       courseProgress: null,
-      unitProgress: null
+      unitProgress: null,
+      isCheatPurchased: false,
+      cheatCost: 0
     };
   },
   computed: {
@@ -367,6 +375,7 @@ export default {
             text: err
           });
         }
+        this.loadCheatStatus();
       }
       return;
     }
@@ -383,6 +392,19 @@ export default {
     await this.navToCurrentExercise();
   },
   methods: {
+    async loadCheatStatus(){
+      try {
+        const cheatResp = await getCheatStatus(this.$route.params.exerciseUUID);
+        this.isCheatPurchased = cheatResp.PurchasedAt !== null;
+        this.cheatCost = cheatResp.CheatCost;
+      }
+      catch (err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
+    },
     async onSeenAchievement(){
       this.achievementsToShow.shift();
     },
@@ -393,7 +415,15 @@ export default {
     showFeedbackModal() {
       this.$refs.feedbackModal.show();
     },
-    cheatClick() {
+    async cheatCallback() {
+      if (!this.$store.getters.getIsLoggedIn){
+        return;
+      }
+      if (!this.isCheatPurchased) {
+        await purchaseCheat(this.$route.params.exerciseUUID);
+        loadBalance(this);
+        await this.loadCheatStatus();
+      }
       this.isCheating = !this.isCheating;
       if (this.isCheating){
         eventClickCheat(this.$route.params.exerciseUUID, this.course.Title);

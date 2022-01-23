@@ -37,19 +37,20 @@
       </BlockButton>
     </Tooltip>
     <Tooltip
-      v-if="cheatCallback"
-      :text="`Toggle Solution`"
+      v-if="$store.getters.getIsLoggedIn"
+      :text="cheatTooltipText"
       position="bottom"
     >
       <BlockButton
         class="mr-3"
         :click="cheatCallback"
         :color="isCheating ? 'gold' : 'gray'"
+        :disabled="notEnoughGemsToCheat"
       >
         <FontAwesomeIcon
           icon="eye"
         />
-        Cheat
+        {{ isCheatPurchased ? 'Cheat' : `Cheat for 💎${cheatCost}` }}
       </BlockButton>
     </Tooltip>
   </div>
@@ -85,6 +86,28 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isCheatPurchased: {
+      type: Boolean,
+      required: true
+    },
+    cheatCost: {
+      type: Number,
+      required: true
+    }
+  },
+  computed: {
+    cheatTooltipText(){
+      if (this.notEnoughGemsToCheat){
+        return 'You need more gems';
+      } else if (!this.isCheatPurchased){
+        return 'Buy Solution';
+      }
+      return 'Toggle Solution';
+    },
+    notEnoughGemsToCheat(){
+      return (this.cheatCost > this.$store.getters.getBalance) &&
+        !this.isCheatPurchased;
     }
   }
 };

@@ -106,6 +106,34 @@ export async function createUserManual(email, firstName, lastName, isSubscribedN
   return handled;
 }
 
+export async function purchaseCheat(
+  exerciseUUID
+){
+  const resp = await fetchWithAuth(`${domain}/v1/cheat/${exerciseUUID}/purchase`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getCheatStatus(
+  exerciseUUID
+){
+  const resp = await fetchWithAuth(`${domain}/v1/cheat/${exerciseUUID}/status`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function upsertExerciseFeedback(
   exerciseUUID,
   text
