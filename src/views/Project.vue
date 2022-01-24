@@ -40,6 +40,10 @@
           :sandbox="false"
           :click-comment="() => showFeedbackModal()"
         />
+        <ProgressBar
+          v-if="isContentLoaded && isLoggedIn" 
+          :percent-complete="percentComplete"
+        />
         <CardStepTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
@@ -81,6 +85,7 @@ import CardStepTypeInfo from '@/components/cards/CardStepTypeInfo.vue';
 import CardStepTypeManual from '@/components/cards/CardStepTypeManual.vue';
 import Section from '@/components/Section.vue';
 import FeedbackModal from '@/components/FeedbackModal.vue';
+import ProgressBar from '@/components/ProgressBar.vue';
 
 import { loadBalance } from '@/lib/cloudStore.js';
 import { notify } from '@/lib/notification.js';
@@ -99,6 +104,7 @@ import {
   getFirstStep,
   getProjects,
   getProjectProgress,
+  getUnitsProgress,
   getStepByID
 } from '@/lib/cloudClient.js';
 
@@ -110,7 +116,8 @@ export default {
     FeedbackModal,
     CardStepTypeInfo,
     CardStepTypeManual,
-    ViewNavWrapper
+    ViewNavWrapper,
+    ProgressBar
   },
   data() {
     return {
@@ -142,6 +149,19 @@ export default {
         return false;
       }
       return true;
+    },
+    isLoggedIn() {
+      return this.$store.getters.getIsLoggedIn;
+    },
+    percentComplete() {
+      if (!this.unitProgress){
+        return 0;
+      }
+      if (!(this.$route.params.projectUUID in this.unitProgress)){
+        return 0;
+      }
+      const projectProgress = this.unitProgress[this.$route.params.projectUUID];
+      return (projectProgress.NumDone / projectProgress.NumMax) * 100;
     },
     projectDone() {
       if (!this.project?.Steps){
@@ -195,7 +215,7 @@ export default {
         text: err
       });
     }
-
+    this.getUnitProgressIfLoggedIn();
     this.getProjectProgressIfLoggedIn();
 
     if (this.$route.params.stepUUID) {
@@ -216,6 +236,19 @@ export default {
       }
       try {
         this.projectProgress = await getProjectProgress(this.$route.params.projectUUID);
+      } catch(err) {
+        notify({
+          type: 'danger',
+          text: err
+        });
+      }
+    },
+    async getUnitProgressIfLoggedIn(){
+      if (!this.$store.getters.getIsLoggedIn){
+        return;
+      }
+      try {
+        this.unitProgress = await getUnitsProgress();
       } catch(err) {
         notify({
           type: 'danger',
