@@ -13,10 +13,10 @@
               loading="lazy"
               alt="Qvault logo"
               src="../img/qvault-icon-250.png"
-              class="align-middle w-10 h-10 ml-2"
+              class="align-middle w-10 h-10 ml-2 mb-7"
             >
-            <span class="text-xl ml-4">{{ title }}</span>
           </router-link>
+          <span class="text-xl ml-10">{{ title }}</span>
         </div>
       </div>
       <div class="md:flex flex-row items-stretch justify-end hidden">
