@@ -5,15 +5,12 @@
         <div class="ml-3 flex items-center">
           <router-link
             to="/"
-            class="
-            mt-7
-          "
           >
             <img
               loading="lazy"
               alt="Qvault logo"
               src="../img/qvault-icon-250.png"
-              class="align-middle w-10 h-10 ml-2 mb-7"
+              class="align-middle w-10 h-10 ml-2"
             >
           </router-link>
           <span class="text-xl ml-10">{{ title }}</span>
