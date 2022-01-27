@@ -101,6 +101,7 @@ addEventListener('message', async (e) => {
       postMessage({
         error: `${err}`
       });
+      console.log = oldLog;
       return;
     }
     console.log = oldLog;
