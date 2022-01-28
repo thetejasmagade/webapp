@@ -27,10 +27,10 @@
     <BlockButton
       v-if="sandbox"
       class="text-lg w-4/5 m-4 max-w-md"
-      :click="() => {$router.push({name: 'Pricing'});}"
+      :click="sandboxClick"
       color="gold"
     >
-      <span>Become a patron for quiz access</span>
+      <span>{{ buttonText }}</span>
     </BlockButton>
   </div>
 </template>
@@ -61,6 +61,24 @@ export default {
       type: Array,
       required: false,
       default: () => []
+    }
+  },
+  computed: {
+    buttonText(){
+      if (this.$store.getters.getIsLoggedIn){
+        return 'Become a patron for quiz access';
+      }
+      return 'Login for quiz access';
+    }
+  },
+  methods: {
+    sandboxClick(){
+      if (this.$store.getters.getIsLoggedIn){
+        this.$router.push({name: 'Pricing'});
+        return;
+      }
+      this.$router.push({name: 'Login'});
+      return;
     }
   }
 };

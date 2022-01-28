@@ -408,7 +408,7 @@ export default {
     async onSeenAchievement(){
       this.achievementsToShow.shift();
     },
-    sandboxModeModal() {
+    showSandboxModeModal() {
       eventOpenSandboxModeModal();
       this.$refs.sandboxModeModal.show();
     },
@@ -514,6 +514,7 @@ export default {
     async submitTypeCode({ output }) {
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.sandbox) {
+        this.showSandboxModeModal();
         return;
       }
       this.verifyCode({ output });
@@ -521,6 +522,7 @@ export default {
     async submitTypeCodeCanvas({ hash }) {
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.sandbox) {
+        this.showSandboxModeModal();
         return;
       }
       this.verifyHash({ hash });
@@ -559,14 +561,6 @@ export default {
       });
     },
     async loadExercise(exercise) {
-      if (
-        this.exerciseIndex === 0 &&
-        this.moduleIndex === 1 &&
-        this.sandbox
-      ) {
-        this.sandboxModeModal();
-      }
-
       this.isFree = exercise.Exercise.IsFree;
       this.isFirstExercise = exercise.Exercise.IsFirst;
       this.isLastExercise = exercise.Exercise.IsLast;

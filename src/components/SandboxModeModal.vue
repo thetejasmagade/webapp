@@ -7,14 +7,12 @@
         {{ headingText }}
       </h1>
       <p class="text-gray-600 mb-4">
-        You're in sandbox mode! You can read instructions and run code,
-        but to complete assignments,
-        unlock gems, and take quizzes you'll need to become a patron.
+        {{ descriptionText }}
       </p>
       <BlockButton
         :click="btnClick"
       >
-        Become a patron
+        {{ buttonText }}
       </BlockButton>
     </div>
   </Modal>
@@ -25,6 +23,13 @@ import Modal from '@/components/Modal.vue';
 import BlockButton from '@/components/BlockButton.vue';
 
 import { eventOpenSandboxModeModal } from '@/lib/analytics.js';
+
+import {
+  markSeenSandboxModalLoginKey,
+  markSeenSandboxModalPatronKey,
+  hasSeenSandboxModalLoginKey,
+  hasSeendSandboxModalPatronKey
+} from '@/lib/localStorageLib';
 
 export default {
   components:{
@@ -43,10 +48,32 @@ export default {
         return 'Become a patron';
       }
       return 'Login';
+    },
+    descriptionText(){
+      if (this.$store.getters.getIsLoggedIn){
+        return `You're in sandbox mode! You can read instructions and play with the code,
+        but to check your answers, pass-off your assignments,
+        and take quizzes you'll need to become a patron.`;
+      }
+      return `You're in sandbox mode! You can read instructions and play with the code,
+        but to check your answers, pass-off your assignments,
+        and take quizzes you'll need to login.`;
     }
   },
   methods:{
     show(){
+      if (this.$store.getters.getIsLoggedIn && hasSeendSandboxModalPatronKey()){
+        return;
+      }
+      if (!this.$store.getters.getIsLoggedIn && hasSeenSandboxModalLoginKey()){
+        return;
+      }
+
+      if (this.$store.getters.getIsLoggedIn){
+        markSeenSandboxModalPatronKey();
+      } else {
+        markSeenSandboxModalLoginKey();
+      }
       eventOpenSandboxModeModal();
       this.$refs.sandboxModeModal.show();
     },
