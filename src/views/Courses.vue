@@ -16,6 +16,7 @@ import {
   loadAllInterests
 } from '@/lib/cloudStore.js';
 import { useRoute } from 'vue-router';
+import { useMeta } from 'vue-meta';
 
 import {
   loadTracks
@@ -26,17 +27,27 @@ export default {
     TabsNav,
     ViewNavWrapper
   },
-  computed: {
-    routeQuery(){
-      return useRoute().query.redirect;
-    }
-  },
   async mounted(){
-    if (this.routeQuery){
-      this.$router.push({path: this.routeQuery});
+    if (useRoute().query.redirect){
+      this.$router.push({path: useRoute().query.redirect});
     }
     loadTracks(this);
     loadAllInterests(this);
+
+    const title = 'Courses';
+    const description = 'If you’re not sure what to learn next, this is the place to start. Check out our coding courses, projects and tracks';
+    useMeta({
+      title: title,
+      meta: [
+        { vmid:'description', name: 'description', content: description },
+
+        { vmid:'og:title', property: 'og:title', content: title },
+        { vmid:'og:description', property: 'og:description', content: description },
+
+        { vmid:'twitter:title', name: 'twitter:title', content: title },
+        { vmid:'twitter:description', property: 'twitter:description', content: description }
+      ]
+    });
   }
 };
 </script>

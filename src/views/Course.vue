@@ -1,5 +1,5 @@
 <template>
-  <ViewNavWrapper>
+  <ViewNavWrapper :title="course?.Title">
     <div class="h-full">
       <FeedbackModal
         v-if="$route.params.exerciseUUID"

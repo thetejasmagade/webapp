@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNav />
+    <TopNav :title="title" />
     <div
       class="
         flex
@@ -40,6 +40,13 @@ export default {
   components: {
     Sidebar,
     TopNav
+  },
+  props: {
+    title: {
+      type: String,
+      required: false,
+      default: null
+    }
   }
 };
 </script>

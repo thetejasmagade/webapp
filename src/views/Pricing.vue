@@ -406,7 +406,6 @@ import { trackUserCancelCheckout } from '@/lib/cloudClient.js';
 import { notify } from '@/lib/notification.js';
 import { useMeta } from 'vue-meta';
 
-
 export default {
   components: {
     ViewNavWrapper,
@@ -477,7 +476,7 @@ export default {
 
     const title = 'Pricing';
     const featuredImage = 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner-1024x576.jpg';
-    const description = 'Anyone can get a discount on Qvault Pro! Take our feedback survey and we\'ll hook you up with a lower-cost monthly subscribtion.';
+    const description = 'Become a patron to unlock all the courses on content on Qvault';
     useMeta({
       title: title,
       meta: [
