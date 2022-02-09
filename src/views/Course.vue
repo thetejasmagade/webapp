@@ -385,11 +385,13 @@ export default {
         this.$route.params.courseUUID,
         this.$route.params.moduleUUID
       );
-      this.navToExercise(exercise);
+      this.navToExercise(exercise, true);
       return;
     }
 
     await this.navToCurrentExercise();
+
+
   },
   methods: {
     async loadCheatStatus(){
@@ -550,9 +552,10 @@ export default {
         }
       });
     },
-    navToExercise(exercise) {
+    navToExercise(exercise, replace) {
       this.$router.push({
         name: 'Course',
+        replace: replace,
         params: {
           courseUUID: exercise.Exercise.CourseUUID,
           moduleUUID: exercise.Exercise.ModuleUUID,
@@ -588,16 +591,16 @@ export default {
         this.question = exercise.Exercise.Question;
       }
     },
-    async navToCurrentExercise() {
+    async navToCurrentExercise() {  
       try {
         const exercise = await getCurrentExercise(
           this.$route.params.courseUUID
         );
-        this.navToExercise(exercise);
+        this.navToExercise(exercise, true);
       } catch (err) {
         // this probably happens because course is complete
         const exercise = await getFirstExercise(this.$route.params.courseUUID);
-        this.navToExercise(exercise);
+        this.navToExercise(exercise, true);
       }
     },
     async goBack() {
@@ -607,7 +610,7 @@ export default {
           this.$route.params.courseUUID,
           this.$route.params.exerciseUUID
         );
-        this.navToExercise(exercise);
+        this.navToExercise(exercise, true);
       } catch (err) {
         notify({
           type: 'danger',
@@ -641,7 +644,7 @@ export default {
     async goToBeginning() {
       try {
         const exercise = await getFirstExercise(this.$route.params.courseUUID);
-        this.navToExercise(exercise);
+        this.navToExercise(exercise, true);
       } catch (err) {
         notify({
           type: 'danger',

@@ -274,9 +274,10 @@ export default {
         text: 'Great Job!'
       });
     },
-    navToStep(step) {
+    navToStep(step, replace) {
       this.$router.push({
         name: 'Project',
+        replace: replace,
         params: {
           projectUUID: step.Step.ProjectUUID,
           stepUUID: step.Step.UUID
@@ -296,11 +297,11 @@ export default {
         const step = await getCurrentStep(
           this.$route.params.projectUUID
         );
-        this.navToStep(step);
+        this.navToStep(step, true);
       } catch (err) {
         // this probably happens because course is complete
         const step = await getFirstStep(this.$route.params.projectUUID);
-        this.navToStep(step);
+        this.navToStep(step, true);
       }
     },
     async goBack() {
@@ -310,7 +311,7 @@ export default {
           this.$route.params.projectUUID,
           this.$route.params.stepUUID
         );
-        this.navToStep(step);
+        this.navToStep(step, true);
       } catch (err) {
         notify({
           type: 'danger',
@@ -339,7 +340,7 @@ export default {
           this.$route.params.projectUUID,
           this.$route.params.stepUUID
         );
-        this.navToStep(step);
+        this.navToStep(step, true);
       } catch (err) {
         notify({
           type: 'danger',
@@ -350,7 +351,7 @@ export default {
     async goToBeginning() {
       try {
         const step = await getFirstStep(this.$route.params.projectUUID);
-        this.navToStep(step);
+        this.navToStep(step, true);
       } catch (err) {
         notify({
           type: 'danger',
