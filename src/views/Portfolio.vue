@@ -115,7 +115,7 @@
         >
           <router-link 
             :to="{name: 'Certificate', params: {userHandle: user.Handle, courseUUID: course.UUID}}"
-            target="_blanK"
+            target="_blank"
           >
             <ImageCard
               :img-src="course.ImageURL"
