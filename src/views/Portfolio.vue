@@ -108,15 +108,19 @@
         subtitle="Download and share Qvault certificates with potential employers to show off your skills"
         class="max-w-4xl mb-5"
       >
-        <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
-          <ImageCard
-            v-for="(course, i) of filteredCourses"
-            :key="i"
-            :img-src="course.ImageURL"
-            :click="() => {
-              $router.push({name: 'Certificate', params: {userHandle: user.Handle, courseUUID: course.UUID}});
-            }"
-          />
+        <div 
+          v-for="(course, i) of filteredCourses"
+          :key="i"
+          class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-4 p-4"
+        >
+          <router-link 
+            :to="{name: 'Certificate', params: {userHandle: user.Handle, courseUUID: course.UUID}}"
+            target="_blanK"
+          >
+            <ImageCard
+              :img-src="course.ImageURL"
+            />
+          </router-link>
         </div>
       </Section>
 
