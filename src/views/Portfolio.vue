@@ -1,11 +1,11 @@
 <template>
   <ViewNavWrapper>
-    <div class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto">
+    <div class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4">
       <Section
         v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
         :subtitle="user.JobTitle"
-        class="max-w-4xl mb-5 mt-4"
+        class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-4 grid grid-cols-2 xs:grid-cols-1 gap-4">
           <div class="flex flex-col items-center">
@@ -106,7 +106,7 @@
       <Section
         title="Certifications"
         subtitle="Download and share Qvault certificates with potential employers to show off your skills"
-        class="max-w-4xl mb-5"
+        class="max-w-4xl w-full mb-5"
       >
         <div 
           v-for="(course, i) of filteredCourses"
@@ -127,7 +127,7 @@
       <Section
         v-if="filteredAchievements.length>0"
         title="Achievements"
-        class="max-w-4xl mb-5"
+        class="max-w-4xl w-full mb-5"
       >
         <div class="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
           <ImageCard
