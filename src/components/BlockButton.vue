@@ -1,17 +1,16 @@
 <template>
   <button
     type="submit"
-    :class="colors"
     class="
       disabled:cursor-not-allowed
       focus:outline-none
-      text-white
       py-2
       px-4
       rounded
-      active-scale-101
+      active-scale-103
       shadow
     "
+    :class="colors"
     :disabled="disabled"
     :style="{'cursor': disabled ? 'not-allowed' : 'pointer'}"
     @click.stop="click"
@@ -42,6 +41,8 @@ export default {
   computed: {
     colors(){
       return {
+        'text-white': this.color !== 'white',
+
         'bg-gray-500': this.color === 'gray',
         'hover:bg-gray-700': this.color === 'gray',
         'disabled:bg-gray-500': this.color === 'gray',
@@ -81,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-.active-scale-101:active {
-  transform: scale(1.01);
+.active-scale-103:hover {
+  transform: scale(1.03);
 }
 </style>

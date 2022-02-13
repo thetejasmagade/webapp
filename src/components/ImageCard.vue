@@ -3,7 +3,7 @@
     class="bg-white shadow-lg rounded mb-6 tracking-wide"
   >
     <div
-      class="md:flex-shrink-0 rounded"
+      class="md:shrink-0 rounded"
       :class="{
         'bg-white': click,
         'rounded-b-none': hasSlots

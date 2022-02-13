@@ -1,8 +1,7 @@
 const { colors: defaultColors } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: [ './index.html', './src/**/*.{vue,js,ts,jsx,tsx}' ],
-  darkMode: false,
+  content: [ './index.html', './src/**/*.{vue,js,ts,jsx,tsx}' ],
   theme: {
     extend: {},
     boxShadow: {
@@ -16,8 +15,9 @@ module.exports = {
       'inner': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       'none': 'none'
     },
-    colors: {
-      ...defaultColors,
+    colors: ({ colors }) => ({
+      black: colors.black,
+      white: colors.white,
       blue: {
         '200': '#C2C6E8',
         '300': '#9DA4DB',
@@ -68,12 +68,7 @@ module.exports = {
         '700': '#732A33',
         '800': '#481B20'
       }
-    }
-  },
-  variants: {
-    width: [ 'group-hover', 'responsive' ],
-    extend: {
-    }
+    }),
   },
   plugins: [
     require('@tailwindcss/forms')({
