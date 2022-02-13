@@ -315,20 +315,34 @@
               What's the difference between a basic account and a patron account?
             </h2>
             <p class="mb-4">
-              A basic account is, well, basic. You can demo patron-only features at the beginning of each course, but after that if you're on
-              a basic plan you'll only be able to read the course material and play in the code sandbox. You won't pass off assignments or know if you
-              got the right answers.
+              You can demo patron-only features at the beginning of each course, but after that you'll be in read-only mode.
+              You won't pass off assignments or know if you got the correct answers. You also won't earn achievements and certifications without a patron account.
             </p>
             <p class="mb-4">
-              Patrons enjoy all the features in Basic,
-              plus all the advanced tools, content, solutions and certifications that you
-              need to make your learning faster.
+              Patrons enjoy all the features in the basic plan,
+              plus the ability to pass off exercises, view solutions, complete quizzes, earn certifications, and chat in the patron-only lounge.
             </p>
-            <p>
-              Becoming a patron lets you practice much more efficiently by getting instant verification of all your code
-              solutions. If you get stuck, you can use the "cheat" feature to take a look at the solution
-              and quickly see what's holding you up. Additionally, one of the biggest benefits our patrons get is access to free certificates
-              of completion when they finish a course. Showing off your work to employers is a quick way to get that high-paying tech job.
+
+            <h2 class="text-xl my-4 text-gold-700">
+              Why aren't all the features on Qvault free?
+            </h2>
+            <p class="mb-4">
+              Free options use ads to pay for ongoing development, or don't have the resources to offer an amazing experience. We're a small team that would love to quit
+              our full-time jobs and work exclusively on Qvault. The only for us to do that is for our fans are willing to support us directly. We don't want to make you thr product
+              by runing ads.
+            </p>
+            <p class="mb-4">
+              That said, we make all of our content free to read, and open our community to everyone so that those who are unable to support us can still find a lot of value.
+            </p>
+
+            <h2 class="text-xl my-4 text-gold-700">
+              What makes Qvault different?
+            </h2>
+            <p class="mb-4">
+              I built Qvault based on the lessons I've been learning as an engineering hiring manager. You can read about 
+              <a class="underline cursor-pointer text-gold-600 hover:text-gold-800" href="https://qvault.io/method" target="_blank">our methodology here</a>,
+              but in a nutshell I've learned that entry-level developers don't learn enough computer science, and that is a the biggest obstacle on their way
+              to a successful coding career.
             </p>
 
             <h2 class="text-xl my-4 text-gold-700">
@@ -340,7 +354,7 @@
                 class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 href="https://forms.gle/poQckVBir9XZA7L39"
               >25% discount to anyone who completes this feedback form.</a>
-              Our top priority is improving the courses, the app, and your experience so your feedback is super valuable to us.
+              Our top priority is improving the courses and the community so your feedback is super valuable to us.
               When you're finished with the survey you'll be given a coupon code!
             </p>
 
@@ -353,24 +367,11 @@
             </p>
 
             <h2 class="text-xl my-4 text-gold-700">
-              Why should I become a patron?
-            </h2>
-            <p class="mb-4">
-              I built Qvault based on the lessons I've been learning as a technical hiring manager, so everything we do here is designed
-              to lead you to a high-paying programming job. If you’re ready to accelerate your learning and apply the skills you learn to real-world scenarios,
-              then becoming a Qvault patron is for you.
-            </p>
-            <p>
-              Aside from the direct benefits, if you like what we're building here at Qvault, your support helps us
-              improve the platform. We're a small organization that's just starting out, so the more people subscribe, the better the product will be.
-            </p>
-
-            <h2 class="text-xl my-4 text-gold-700">
-              How do I cancel my subscription?
+              How do I cancel my patronage?
             </h2>
             <p>
-              We do our best to be transparent about pricing, and never want anyone keeping
-              a subscription they don't use. You can cancel your subscription any time from your <a
+              We do our best to be transparent about pricing, and never want you to feel obligated to keep
+              supporting us if you don't want to. You can cancel your patron account any time from your <a
                 class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 href="/settings"
               >settings page</a>
@@ -381,9 +382,9 @@
               What if I don't like being a Patron?
             </h2>
             <p>
-              Hopefully you can figure out if you're enjoying the content within your 7-day free trial,
+              Hopefully you can figure out if you're enjoying the platform within your 7-day free trial,
               because you can always cancel before you're charged for the first time. That said, if you wait too long,
-              you can take advantage of our <a href="https://qvault.io/return-policy/">return policy.</a>
+              you can take advantage of our <a class="underline cursor-pointer text-gold-600 hover:text-gold-800" href="https://qvault.io/return-policy/">return policy.</a>
               If you contact us within 30 days of your purchase you're entitled to a full refund.
             </p>
           </div>
