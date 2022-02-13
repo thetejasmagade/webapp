@@ -328,8 +328,8 @@
             </h2>
             <p class="mb-4">
               Free options use ads to pay for ongoing development, or don't have the resources to offer an amazing experience. We're a small team that would love to quit
-              our full-time jobs and work exclusively on Qvault. The only for us to do that is for our fans are willing to support us directly. We don't want to make you thr product
-              by runing ads.
+              our full-time jobs and work exclusively on Qvault. The only way for us to do that is if our fans to support us directly. We don't want to make our students the product
+              by running ads.
             </p>
             <p class="mb-4">
               That said, we make all of our content free to read, and open our community to everyone so that those who are unable to support us can still find a lot of value.
