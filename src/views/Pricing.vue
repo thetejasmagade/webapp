@@ -210,7 +210,7 @@
                     yearly
                   </p>
                   <p class="mb-4">
-                    Enjoy full access to Qvault with {{ (priceMonthly.UnitAmountPerMonth - priceYearly.UnitAmountPerMonth) * 100 / priceMonthly.UnitAmountPerMonth }}% off!
+                    Enjoy full access to Qvault with {{ Math.round((priceMonthly.UnitAmountPerMonth - priceYearly.UnitAmountPerMonth) * 100 / priceMonthly.UnitAmountPerMonth) }}% off!
                   </p>
                   <BlockButton
                     v-if="$store.getters.getIsLoggedIn && !$store.getters.getUserIsSubscribed"
