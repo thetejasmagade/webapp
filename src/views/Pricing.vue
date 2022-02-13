@@ -341,7 +341,7 @@
             <p class="mb-4">
               I built Qvault based on the lessons I've been learning as an engineering hiring manager. You can read about 
               <a class="underline cursor-pointer text-gold-600 hover:text-gold-800" href="https://qvault.io/method" target="_blank">our methodology here</a>,
-              but in a nutshell I've learned that entry-level developers don't learn enough computer science, and that is a the biggest obstacle on their way
+              but in a nutshell I've learned that entry-level developers don't learn enough computer science, and that is the biggest obstacle on their way
               to a successful coding career.
             </p>
 
