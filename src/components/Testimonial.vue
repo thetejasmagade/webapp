@@ -6,7 +6,7 @@
         class="rounded-full"
         loading="lazy"
         :src="profileImageURL"
-      >
+      />
     </div>
     <div class="flex-1">
       <h2 class="text-xl mb-4 text-gold-700">
@@ -20,24 +20,22 @@
 </template>
 
 <script>
-
 export default {
-  props: { 
-    profileImageURL:{
+  props: {
+    profileImageURL: {
       type: String,
-      required: true
+      required: true,
     },
-    title:{
+    title: {
       type: String,
-      required: true
+      required: true,
     },
-    description:{
+    description: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

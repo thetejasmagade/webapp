@@ -1,36 +1,13 @@
 <template>
   <div>
-    <transition
-      v-if="showModal"
-      name="modal"
-    >
+    <transition v-if="showModal" name="modal">
       <div
-        class="
-          bg-opacity
-          fixed
-          z-40
-          inset-0
-          w-full
-          h-full
-          flex
-          flex-col
-          justify-center
-          transition-opacity
-          duration-300
-        "
+        class="bg-opacity fixed z-40 inset-0 w-full h-full flex flex-col justify-center transition-opacity duration-300"
         @click.stop="hide"
       >
         <div class="flex justify-center">
           <div
-            class="
-              flex-1
-              max-w-xl
-              p-6
-              bg-gray-200
-              text-gray-700
-              rounded
-              shadow
-            "
+            class="flex-1 max-w-xl p-6 bg-gray-200 text-gray-700 rounded shadow"
             @click.stop=""
           >
             <div class="flex flex-col">
@@ -49,23 +26,23 @@ export default {
     onClose: {
       type: Function,
       required: false,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
-      showModal: false
+      showModal: false,
     };
   },
-  methods:{
-    show(){
+  methods: {
+    show() {
       this.showModal = true;
     },
-    hide(){
+    hide() {
       this.showModal = false;
       this.onClose();
-    }
-  }
+    },
+  },
 };
 </script>
 

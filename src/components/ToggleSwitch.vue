@@ -1,15 +1,7 @@
 <template>
   <div>
     <span
-      class="
-        inline-block
-        relative
-        cursor-pointer
-        w-8
-        h-4
-        rounded-full	
-        focus:outline-none
-      "
+      class="inline-block relative cursor-pointer w-8 h-4 rounded-full focus:outline-none"
       role="checkbox"
       :aria-checked="modelValue.toString()"
       tabindex="0"
@@ -17,30 +9,12 @@
       @keydown.space.prevent="toggle"
     >
       <span
-        class="
-          toggle-background
-          inline-block
-          rounded-full
-          h-full
-          w-full
-          shadow-inset
-          transition-colors
-        "
+        class="toggle-background inline-block rounded-full h-full w-full shadow-inset transition-colors"
         :class="backgroundStyles"
       />
       <span
-        class="
-          absolute
-          h-3
-          w-3
-          inset-0.5	
-          bg-white
-          rounded-full
-          shadow
-          transition-transform
-          duration-500
-        "
-        :style="indicatorStyles" 
+        class="absolute h-3 w-3 inset-0.5 bg-white rounded-full shadow transition-transform duration-500"
+        :style="indicatorStyles"
       />
     </span>
   </div>
@@ -49,28 +23,30 @@
 <script>
 export default {
   props: {
-    modelValue:{
+    modelValue: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
-  emits: [ 'update:modelValue' ],
+  emits: ["update:modelValue"],
   computed: {
     backgroundStyles() {
       return {
-        'bg-gold-500': this.modelValue,
-        'bg-gray-300': !this.modelValue
+        "bg-gold-500": this.modelValue,
+        "bg-gray-300": !this.modelValue,
       };
     },
     indicatorStyles() {
-      return { transform: this.modelValue ? 'translateX(16px)' : 'translateX(0)' };
-    }
+      return {
+        transform: this.modelValue ? "translateX(16px)" : "translateX(0)",
+      };
+    },
   },
   methods: {
     toggle() {
-      this.$emit('update:modelValue', !this.modelValue);
-    }
-  }
+      this.$emit("update:modelValue", !this.modelValue);
+    },
+  },
 };
 </script>
 

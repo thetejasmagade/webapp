@@ -15,15 +15,14 @@ export default {
     percentComplete: {
       type: Number,
       required: false,
-      default: 0
-    }
+      default: 0,
+    },
   },
   computed: {
     styleWidth() {
       let amountFilled = this.percentComplete;
       return amountFilled;
-    }
-  }
+    },
+  },
 };
-
 </script>

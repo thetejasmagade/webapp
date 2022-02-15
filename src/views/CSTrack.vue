@@ -10,25 +10,21 @@
         :click-callback="clickUnit"
         :num-skeleton-cards="5"
       />
-      <h2 class="text-gold-600 text-xl">
-        Notes
-      </h2>
+      <h2 class="text-gold-600 text-xl">Notes</h2>
       <p class="max-width">
         <i>
-          This curriculum is a work-in-progress
-          while we build towards an unaccredited university-level CS degree.
+          This curriculum is a work-in-progress while we build towards an
+          unaccredited university-level CS degree.
           <a
             href="https://github.com/qvault/curriculum"
             target="_blank"
             class="text-gold-600 underline"
-          >You can find the roadmap here.</a>
-          Buying courses,
-          being part of the
-          <a
-            href="https://discord.gg/k4rVEWt"
-            target="_blank"
-          >Discord community</a>,
-          and providing great feedback will help us get the project finished.
+            >You can find the roadmap here.</a
+          >
+          Buying courses, being part of the
+          <a href="https://discord.gg/k4rVEWt" target="_blank"
+            >Discord community</a
+          >, and providing great feedback will help us get the project finished.
         </i>
       </p>
     </Section>
@@ -36,43 +32,45 @@
 </template>
 
 <script>
-import Section from '@/components/Section.vue';
-import TrackTimeline from '@/components/TrackTimeline.vue';
-import {unitTypeCourse, getUnitData, unitTypeProject} from '@/lib/unit.js';
+import Section from "@/components/Section.vue";
+import TrackTimeline from "@/components/TrackTimeline.vue";
+import { unitTypeCourse, getUnitData, unitTypeProject } from "@/lib/unit.js";
 
-import { 
-  eventSelectCourse
-} from '@/lib/analytics.js';
+import { eventSelectCourse } from "@/lib/analytics.js";
 
 export default {
   components: {
     TrackTimeline,
-    Section
+    Section,
   },
-  computed:{
-    trackCS(){
+  computed: {
+    trackCS() {
       return this.$store.getters.getTrackCS;
-    }
+    },
   },
   methods: {
-    clickUnit(unit){
+    clickUnit(unit) {
       const unitData = getUnitData(unit);
-      if (unit.type === unitTypeCourse){
+      if (unit.type === unitTypeCourse) {
         eventSelectCourse(unitData.UUID, unitData.Title);
-        this.$router.push({name: 'Course', params: {courseUUID: unitData.UUID}});
+        this.$router.push({
+          name: "Course",
+          params: { courseUUID: unitData.UUID },
+        });
       }
-      if (unit.type === unitTypeProject){
-        this.$router.push({name: 'Project', params: {projectUUID: unitData.UUID}});
+      if (unit.type === unitTypeProject) {
+        this.$router.push({
+          name: "Project",
+          params: { projectUUID: unitData.UUID },
+        });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 .section {
-  border-radius: 0 .5rem .5rem .5rem;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
 }
-
 </style>

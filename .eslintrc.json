@@ -8,43 +8,9 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/recommended"
+    "plugin:vue/recommended",
+    "plugin:prettier/recommended"
   ],
-  "rules": {
-    "comma-dangle": "error",
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "array-bracket-spacing": [
-      "error",
-      "always"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "eol-last": [
-      "error",
-      "always"
-    ],
-    "indent": [
-      "error",
-      2
-    ],
-    "vue/multiline-html-element-content-newline": [
-      "error",
-      {
-        "ignores": [
-          "p"
-        ]
-      }
-    ]
-  },
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true,

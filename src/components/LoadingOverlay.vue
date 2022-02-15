@@ -1,69 +1,55 @@
 <template>
   <div>
     <VueLoadingOverlay
-      :active="isLoading" 
+      :active="isLoading"
       :is-full-page="false"
       :can-cancel="false"
       :enforce-focus="true"
-      :opacity=".8"
+      :opacity="0.8"
       :loader="'bars'"
     >
-      <template
-        v-if="cancel"
-        v-slot:before
-      >
+      <template v-if="cancel" #before>
         <div>
-          <h2
-            v-if="displayText"
-            class="text-2xl text-gold-600"
-          >
+          <h2 v-if="displayText" class="text-2xl text-gold-600">
             {{ displayText }}
           </h2>
         </div>
       </template>
-      <template
-        v-if="cancel" 
-        v-slot:after
-      >
-        <BlockButton
-          :click="cancel"
-          color="gray"
-        >
-          Cancel
-        </BlockButton>
+      <template v-if="cancel" #after>
+        <BlockButton :click="cancel" color="gray"> Cancel </BlockButton>
       </template>
     </VueLoadingOverlay>
   </div>
 </template>
- 
+
 <script>
-import BlockButton from '@/components/BlockButton.vue';
-import VueLoadingOverlay from 'vue3-loading-overlay';
-import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
-    
+import BlockButton from "@/components/BlockButton.vue";
+import VueLoadingOverlay from "vue3-loading-overlay";
+import "vue3-loading-overlay/dist/vue3-loading-overlay.css";
+
 export default {
   components: {
     VueLoadingOverlay,
-    BlockButton
+    BlockButton,
   },
-  props: { 
-    isLoading:{
+  props: {
+    isLoading: {
       type: Boolean,
-      required: true
+      required: true,
     },
     cancel: {
       type: Function,
       required: false,
-      default: null
+      default: null,
     },
     displayText: {
       type: String,
       required: false,
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 };
-</script> 
+</script>
 
 <style>
 .vld-icon {

@@ -28,41 +28,38 @@
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton.vue';
-import TextInput from '@/components/TextInput.vue';
+import BlockButton from "@/components/BlockButton.vue";
+import TextInput from "@/components/TextInput.vue";
 
-import {
-  sendMagicLink
-} from '@/lib/cloudClient.js';
+import { sendMagicLink } from "@/lib/cloudClient.js";
 
-import { notify } from '@/lib/notification.js';
+import { notify } from "@/lib/notification.js";
 
 export default {
   components: {
     BlockButton,
-    TextInput
+    TextInput,
   },
-  data(){
+  data() {
     return {
       email: null,
-      sent: false
+      sent: false,
     };
   },
   methods: {
-    async submitLogin(){
+    async submitLogin() {
       try {
         await sendMagicLink(this.email);
         this.sent = true;
-      } catch (err){
+      } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

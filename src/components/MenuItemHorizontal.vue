@@ -3,7 +3,7 @@
     <div
       class="hover:text-gray-200 cursor-pointer rounded-lg text-lg h-12 flex flex-col justify-center items-center"
       :class="{
-        'border': current,
+        border: current,
         'border-gold-500': color === 'gold',
         'border-red-500': color === 'red',
         'hover:bg-red-500': color === 'red',
@@ -11,44 +11,40 @@
       }"
       @click="click"
     >
-      <FontAwesomeIcon
-        :icon="['fas', icon]" 
-        class="mx-2"
-      />
+      <FontAwesomeIcon :icon="['fas', icon]" class="mx-2" />
     </div>
   </div>
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
-  props: { 
-    click:{
+  props: {
+    click: {
       type: Function,
       required: false,
-      default: () => {}
+      default: () => {},
     },
-    icon:{
+    icon: {
       type: String,
-      required: true
+      required: true,
     },
-    current:{
+    current: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
-    color:{
+    color: {
       type: String,
       required: false,
-      default: 'gold'
-    }
-  }
+      default: "gold",
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

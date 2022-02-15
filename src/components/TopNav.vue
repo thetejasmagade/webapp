@@ -3,15 +3,13 @@
     <div class="top-nav-bar-height flex flex-row justify-between">
       <div class="flex flex-row items-stretch justify-end">
         <div class="ml-3 flex items-center">
-          <router-link
-            to="/"
-          >
+          <router-link to="/">
             <img
               loading="lazy"
               alt="Qvault logo"
               src="../img/qvault-icon-250.png"
               class="align-middle w-10 h-10 ml-2"
-            >
+            />
           </router-link>
           <span class="text-xl ml-10">{{ title }}</span>
         </div>
@@ -20,20 +18,9 @@
         <router-link
           v-if="!$store.getters.getIsLoggedIn"
           to="/"
-          class="
-            flex
-            items-center
-            px-4
-            m-2
-            rounded
-            text-gray-700
-            hover:text-gray-200
-            hover:bg-gold-500
-            current:border
-            current:border-gold-500
-          "
+          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
           :class="{
-            'border': routePath === '/',
+            border: routePath === '/',
             'border-gold-500': routePath === '/',
           }"
         >
@@ -42,20 +29,9 @@
 
         <router-link
           to="/courses"
-          class="
-            flex
-            items-center
-            px-4
-            m-2
-            rounded
-            text-gray-700
-            hover:text-gray-200
-            hover:bg-gold-500
-            current:border
-            current:border-gold-500
-          "
+          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
           :class="{
-            'border': routePath.includes('courses'),
+            border: routePath.includes('courses'),
             'border-gold-500': routePath.includes('courses'),
           }"
         >
@@ -64,20 +40,9 @@
 
         <router-link
           to="/pricing"
-          class="
-            flex
-            items-center
-            px-4
-            m-2
-            rounded
-            text-gray-700
-            hover:text-gray-200
-            hover:bg-gold-500
-            current:border
-            current:border-gold-500
-          "
+          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
           :class="{
-            'border': routePath.includes('pricing'),
+            border: routePath.includes('pricing'),
             'border-gold-500': routePath.includes('pricing'),
           }"
         >
@@ -87,41 +52,16 @@
         <a
           href="https://discord.gg/k4rVEWt"
           target="_blank"
-          class="
-            flex
-            items-center
-            px-4
-            m-2
-            rounded
-            text-gray-700
-            hover:text-gray-200
-            hover:bg-gold-500
-            current:border
-            current:border-gold-500
-          "
+          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
         >
-          <FontAwesomeIcon
-            :icon="['fab', 'discord']"
-            class="icon mr-2"
-          />
+          <FontAwesomeIcon :icon="['fab', 'discord']" class="icon mr-2" />
           <span>Community</span>
         </a>
 
         <a
           href="https://qvault.io/method"
           target="_blank"
-          class="
-            flex
-            items-center
-            px-4
-            m-2
-            rounded
-            text-gray-700
-            hover:text-gray-200
-            hover:bg-gold-500
-            current:border
-            current:border-gold-500
-          "
+          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
         >
           <span>Method</span>
         </a>
@@ -129,24 +69,15 @@
         <a
           href="https://qvault.io/articles"
           target="_blank"
-          class="
-            flex
-            items-center
-            px-4
-            m-2
-            rounded
-            text-gray-700
-            hover:text-gray-200
-            hover:bg-gold-500
-            current:border
-            current:border-gold-500
-          "
+          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
         >
           <span>Blog</span>
         </a>
       </div>
 
-      <div class="md:hidden bg-white flex flex-row items-stretch justify-end p-4">
+      <div
+        class="md:hidden bg-white flex flex-row items-stretch justify-end p-4"
+      >
         <FontAwesomeIcon
           :icon="['fa', 'bars']"
           class="text-3xl cursor-pointer"
@@ -155,93 +86,45 @@
       </div>
     </div>
 
-    <div
-      v-if="mobileMenuOpen"
-      class="md:hidden block bg-white"
-    >
+    <div v-if="mobileMenuOpen" class="md:hidden block bg-white">
       <a
         v-if="!$store.getters.getIsLoggedIn"
         href="/"
-        class="
-          flex
-          items-center
-          p-3
-          text-gray-700
-          hover:text-gray-200
-          hover:bg-gold-500
-        "
+        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
       >
         <span>Login</span>
       </a>
       <a
         href="/courses"
-        class="
-          flex
-          items-center
-          p-3
-          text-gray-700
-          hover:text-gray-200
-          hover:bg-gold-500
-        "
+        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
       >
         <span>Courses</span>
-      </a> 
+      </a>
       <a
         href="/pricing"
-        class="
-          flex
-          items-center
-          p-3
-          text-gray-700
-          hover:text-gray-200
-          hover:bg-gold-500
-        "
+        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
       >
         <span>Pricing</span>
-      </a> 
+      </a>
       <a
         href="https://discord.gg/k4rVEWt"
         target="_blank"
-        class="
-          flex
-          items-center
-          p-3
-          text-gray-700
-          hover:text-gray-200
-          hover:bg-gold-500
-        "
+        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
       >
-        <FontAwesomeIcon
-          :icon="['fab', 'discord']"
-          class="icon mr-2"
-        />
+        <FontAwesomeIcon :icon="['fab', 'discord']" class="icon mr-2" />
         <span>Community</span>
       </a>
       <a
         href="https://qvault.io/method"
         target="_blank"
-        class="
-          flex
-          items-center
-          p-3
-          text-gray-700
-          hover:text-gray-200
-          hover:bg-gold-500
-        "
+        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
       >
         <span>Method</span>
       </a>
       <a
         href="https://qvault.io/articles"
         target="_blank"
-        class="
-          flex
-          items-center
-          p-3
-          text-gray-700
-          hover:text-gray-200
-          hover:bg-gold-500
-        "
+        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
       >
         <span>Blog</span>
       </a>
@@ -250,33 +133,33 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { useRoute } from 'vue-router';
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { useRoute } from "vue-router";
 
 export default {
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
   props: {
     title: {
       default: null,
       required: false,
-      type: String
-    }
+      type: String,
+    },
   },
-  data(){
+  data() {
     return {
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
     };
   },
-  computed:{
-    routePath(){
+  computed: {
+    routePath() {
       return useRoute().path;
     },
-    routeName(){
+    routeName() {
       return useRoute().name;
-    }
-  }
+    },
+  },
 };
 </script>
 

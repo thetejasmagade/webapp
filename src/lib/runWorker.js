@@ -1,23 +1,23 @@
 export function getWorker(lang, canvasElement) {
   const worker = new window.Worker(`/${lang}_worker.js`);
-  if (canvasElement){
-    if (!canvasElement.transferControlToOffscreen){
-      throw 'You\'re browser doesn\'t support canvas assignments, try a chrome-based browser or just skip this exercise';
+  if (canvasElement) {
+    if (!canvasElement.transferControlToOffscreen) {
+      throw "You're browser doesn't support canvas assignments, try a chrome-based browser or just skip this exercise";
     }
     const offscreenControl = canvasElement.transferControlToOffscreen();
     worker.postMessage(
       {
-        type: 'SETUP_CANVAS',
+        type: "SETUP_CANVAS",
         canvas: offscreenControl,
-        pixelRatio: window.devicePixelRatio
+        pixelRatio: window.devicePixelRatio,
       },
-      [ offscreenControl ]
+      [offscreenControl]
     );
   }
 
   return {
     webWorker: worker,
-    lang
+    lang,
   };
 }
 
@@ -34,7 +34,7 @@ export function awaitWorkerReady(worker) {
       }
     };
   });
-  worker.webWorker.postMessage({type: 'WORKER_READY'});
+  worker.webWorker.postMessage({ type: "WORKER_READY" });
   return promise;
 }
 
@@ -42,7 +42,7 @@ export function useWorker(worker, code, callback) {
   const promise = new Promise((resolve, reject) => {
     worker.webWorker.onmessage = (event) => {
       if (event.data.done) {
-        resolve({hash: event.data.encodedHash});
+        resolve({ hash: event.data.encodedHash });
         return;
       }
       if (event.data.error) {
@@ -52,7 +52,7 @@ export function useWorker(worker, code, callback) {
       callback(event.data.message);
     };
   });
-  worker.webWorker.postMessage({type: 'EXEC_CODE', code});
+  worker.webWorker.postMessage({ type: "EXEC_CODE", code });
   return promise;
 }
 

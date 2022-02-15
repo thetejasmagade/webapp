@@ -1,21 +1,7 @@
 <template>
-  <div
-    class="
-      flex
-      justify-center
-      items-center
-      flex-col
-    "
-  >
-    <img
-      loading="lazy"
-      class="w-3/5"
-      src="../img/gem-3-150.png"
-    >
-    <span
-      v-if="text"
-      class="text-gray-600 text-md"
-    >
+  <div class="flex justify-center items-center flex-col">
+    <img loading="lazy" class="w-3/5" src="../img/gem-3-150.png" />
+    <span v-if="text" class="text-gray-600 text-md">
       {{ text }}
     </span>
   </div>
@@ -23,16 +9,14 @@
 
 <script>
 export default {
-  props: { 
+  props: {
     text: {
       type: String,
       required: false,
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

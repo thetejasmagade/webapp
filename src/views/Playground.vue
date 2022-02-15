@@ -1,34 +1,14 @@
 <template>
-  <div
-    class="
-    h-full
-    flex
-    flex-col
-    justify-end
-  "
-  >
+  <div class="h-full flex flex-col justify-end">
     <TopNav :title="`${displayLang} Playground`" />
 
     <div
-      class="
-        z-10
-        right-28
-        top-14
-        flex
-        justify-center
-        flex-row
-        m-4
-        md:block
-        md:absolute
-      "
+      class="z-10 right-28 top-14 flex justify-center flex-row m-4 md:block md:absolute"
     >
       <SelectDropdown
         :options="displayLangsArray"
         :default="displayLangs[lang]"
-        class="
-          max-w-full
-          md:w-auto
-        "
+        class="max-w-full md:w-auto"
         @update:modelValue="
           $router.push({ path: `/playground/${displayToKey($event)}` })
         "
@@ -37,12 +17,7 @@
 
     <CodeEditor
       v-model="code"
-      class="
-        flex-1
-        bg-gray-200
-        m-full
-        overflow-auto
-      "
+      class="flex-1 bg-gray-200 m-full overflow-auto"
       :run-callback="() => {}"
       :reset-callback="setCode"
       :prog-lang="progLang"
@@ -52,16 +27,16 @@
 </template>
 
 <script>
-import CodeEditor from '@/components/CodeEditor.vue';
-import TopNav from '@/components/TopNav.vue';
-import SelectDropdown from '@/components/SelectDropdown.vue';
+import CodeEditor from "@/components/CodeEditor.vue";
+import TopNav from "@/components/TopNav.vue";
+import SelectDropdown from "@/components/SelectDropdown.vue";
 
-import { reactive, computed, onMounted } from 'vue';
-import { useRoute, onBeforeRouteUpdate } from 'vue-router';
-import { useMeta } from 'vue-meta';
+import { reactive, computed, onMounted } from "vue";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
+import { useMeta } from "vue-meta";
 
 function getCode(lang) {
-  if (lang === 'go') {
+  if (lang === "go") {
     return `package main
 
 import "fmt"
@@ -77,12 +52,12 @@ func main(){
 // https://qvault.io/golang/running-go-in-the-browser-with-web-assembly-wasm`;
   }
 
-  if (lang === 'js') {
+  if (lang === "js") {
     return `
 console.log("hello, world")
 `;
   }
-  if (lang === 'jsCanvas') {
+  if (lang === "jsCanvas") {
     return `ctx.fillStyle = 'rgb(200, 0, 0)';
 ctx.fillRect(100, 100, 500, 500);
 
@@ -98,7 +73,7 @@ console.log("hello, world")
 // and stretch the image, it won't change your logic.
 `;
   }
-  if (lang === 'py') {
+  if (lang === "py") {
     return `print("hello, world")
 
 # We use a Python interpreter that's compiled to Web Assembly
@@ -107,7 +82,7 @@ console.log("hello, world")
 # https://qvault.io/python/running-python-in-the-browser-with-web-assembly
         `;
   }
-  if (lang === 'purs') {
+  if (lang === "purs") {
     return `module Main where
 
 import Prelude
@@ -118,63 +93,63 @@ main = do
   logShow "hello, world"
 `;
   }
-  return 'unknown language';
+  return "unknown language";
 }
 
 export default {
   components: {
     SelectDropdown,
     TopNav,
-    CodeEditor
+    CodeEditor,
   },
   setup() {
     const route = useRoute();
 
     const state = reactive({
-      code: '',
+      code: "",
       lang: route.params.lang,
       displayLangs: {
-        go: 'Golang',
-        js: 'JavaScript',
-        jsCanvas: 'JavaScript Canvas',
-        py: 'Python',
-        purs: 'PureScript'
+        go: "Golang",
+        js: "JavaScript",
+        jsCanvas: "JavaScript Canvas",
+        py: "Python",
+        purs: "PureScript",
       },
-      displayLang: '',
+      displayLang: "",
       displayLangsArray: [],
-      progLang: ''
+      progLang: "",
     });
 
     const computedMeta = computed(() => {
       const description = `Run ${state.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
       const featuredImage =
-        'https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg';
+        "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg";
       const title = `${state.displayLang} Playground`;
       return {
         title: title,
         meta: [
-          { vmid: 'description', name: 'description', content: description },
+          { vmid: "description", name: "description", content: description },
 
-          { vmid: 'og:title', property: 'og:title', content: title },
+          { vmid: "og:title", property: "og:title", content: title },
           {
-            vmid: 'og:description',
-            property: 'og:description',
-            content: description
+            vmid: "og:description",
+            property: "og:description",
+            content: description,
           },
-          { vmid: 'og:image', property: 'og:image', content: featuredImage },
+          { vmid: "og:image", property: "og:image", content: featuredImage },
 
-          { vmid: 'twitter:title', name: 'twitter:title', content: title },
+          { vmid: "twitter:title", name: "twitter:title", content: title },
           {
-            vmid: 'twitter:description',
-            property: 'twitter:description',
-            content: description
+            vmid: "twitter:description",
+            property: "twitter:description",
+            content: description,
           },
           {
-            vmid: 'twitter:image',
-            name: 'twitter:image',
-            content: featuredImage
-          }
-        ]
+            vmid: "twitter:image",
+            name: "twitter:image",
+            content: featuredImage,
+          },
+        ],
       };
     });
     useMeta(computedMeta);
@@ -186,8 +161,8 @@ export default {
       return Object.values(state.displayLangs);
     });
     state.progLang = computed(() => {
-      if (state.lang === 'jsCanvas') {
-        return 'js';
+      if (state.lang === "jsCanvas") {
+        return "js";
       }
       return state.lang;
     });
@@ -212,9 +187,8 @@ export default {
     };
 
     return state;
-  }
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

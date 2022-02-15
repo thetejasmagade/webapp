@@ -1,37 +1,15 @@
 <template>
-  <Multipane
-    layout="horizontal"
-    class="flex-1 overflow-y-auto"
-  >
-    <div
-      class="
-        flex
-        flex-col
-        w-1/2
-        bg-white
-        border-r
-        border-gray-300
-      "
-    >
+  <Multipane layout="horizontal" class="flex-1 overflow-y-auto">
+    <div class="flex flex-col w-1/2 bg-white border-r border-gray-300">
       <MarkdownViewer
         ref="viewer"
-        class="
-          flex-1
-          overflow-y-auto
-        "
+        class="flex-1 overflow-y-auto"
         :source="markdownSource"
       />
     </div>
     <MultipaneResizer layout="horizontal" />
     <MultipleChoice
-      class="
-        h-full
-        flex
-        flex-col
-        flex-1
-        overflow-auto
-        bg-white
-      "
+      class="h-full flex flex-col flex-1 overflow-auto bg-white"
       :callback="callback"
       :answers="answers"
       :question="question"
@@ -41,39 +19,39 @@
 </template>
 
 <script>
-import MarkdownViewer from '@/components/MarkdownViewer.vue';
-import MultipleChoice from '@/components/MultipleChoice.vue';
-import Multipane from '@/components/Multipane.vue';
-import MultipaneResizer from '@/components/MultipaneResizer.vue';
+import MarkdownViewer from "@/components/MarkdownViewer.vue";
+import MultipleChoice from "@/components/MultipleChoice.vue";
+import Multipane from "@/components/Multipane.vue";
+import MultipaneResizer from "@/components/MultipaneResizer.vue";
 
 export default {
   components: {
     MarkdownViewer,
     MultipleChoice,
     Multipane,
-    MultipaneResizer
+    MultipaneResizer,
   },
-  props:{
-    markdownSource:{
+  props: {
+    markdownSource: {
       type: String,
-      required: true
+      required: true,
     },
-    answers:{
+    answers: {
       type: Array,
-      required: true
+      required: true,
     },
-    question:{
+    question: {
       type: String,
-      required: true
+      required: true,
     },
     sandbox: {
       type: Boolean,
-      required: true
+      required: true,
     },
     callback: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   async mounted() {
     this.scrollMarkdownToTop();
@@ -85,10 +63,9 @@ export default {
           this.$refs.viewer.$el.scrollTop = 0;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

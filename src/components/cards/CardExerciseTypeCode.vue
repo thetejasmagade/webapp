@@ -1,38 +1,17 @@
 <template>
-  <Multipane
-    layout="horizontal"
-    class="flex-1 overflow-y-auto"
-  >
-    <div
-      class="
-        flex
-        flex-col
-        w-1/2
-        bg-white
-        border-r
-        border-gray-300
-      "
-    >
+  <Multipane layout="horizontal" class="flex-1 overflow-y-auto">
+    <div class="flex flex-col w-1/2 bg-white border-r border-gray-300">
       <MarkdownViewer
         ref="viewer"
-        class="
-          flex-1
-          overflow-y-auto
-        "
+        class="flex-1 overflow-y-auto"
         :source="markdownSource"
       />
     </div>
     <MultipaneResizer layout="horizontal" />
     <CodeEditor
       :key="isCheating"
-      v-model="modelValue"
-      class="
-        h-full
-        flex
-        flex-col
-        flex-1
-        overflow-auto
-      "
+      :model-value="modelValue"
+      class="h-full flex flex-col flex-1 overflow-auto"
       :run-callback="runCallback"
       :reset-callback="resetCodeCallback"
       :cheat-callback="cheatCallback"
@@ -42,70 +21,71 @@
       :is-cheating="isCheating"
       :is-cheat-purchased="isCheatPurchased"
       :cheat-cost="cheatCost"
+      @update:modelValue="(value) => $emit('update:modelValue', value)"
     />
   </Multipane>
 </template>
 
 <script>
-import MarkdownViewer from '@/components/MarkdownViewer.vue';
-import CodeEditor from '@/components/CodeEditor.vue';
-import Multipane from '@/components/Multipane.vue';
-import MultipaneResizer from '@/components/MultipaneResizer.vue';
+import MarkdownViewer from "@/components/MarkdownViewer.vue";
+import CodeEditor from "@/components/CodeEditor.vue";
+import Multipane from "@/components/Multipane.vue";
+import MultipaneResizer from "@/components/MultipaneResizer.vue";
 
 export default {
   components: {
     MarkdownViewer,
     CodeEditor,
     Multipane,
-    MultipaneResizer
+    MultipaneResizer,
   },
-  emits: [ 'update:modelValue' ],
-  props:{
+  props: {
     markdownSource: {
       type: String,
-      required: true
+      required: true,
     },
     modelValue: {
       type: String,
-      required: true
+      required: true,
     },
     progLang: {
       type: String,
-      required: true
+      required: true,
     },
     solutionCode: {
       type: String,
-      required: true
+      required: true,
     },
     runCallback: {
       type: Function,
-      required: true
+      required: true,
     },
     resetCodeCallback: {
       type: Function,
-      required: true
+      required: true,
     },
     cheatCallback: {
       type: Function,
-      required: true
+      required: true,
     },
     isCheating: {
       type: Boolean,
-      required: true
+      required: true,
     },
     isCheatPurchased: {
       type: Boolean,
-      required: true
+      required: true,
     },
     cheatCost: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
+  emits: ["update:modelValue"],
   watch: {
-    modelValue(newModelValue){
-      this.$emit('update:modelValue', newModelValue);
-    }
+    modelValue(newModelValue) {
+      this.$emit("update:modelValue", newModelValue);
+    },
   },
   async mounted() {
     this.scrollMarkdownToTop();
@@ -117,10 +97,9 @@ export default {
           this.$refs.viewer.$el.scrollTop = 0;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,30 +1,10 @@
 <template>
-  <div
-    class="
-      tooltip-box
-      relative
-      xs:hidden
-      sm:block
-    "
-  >
+  <div class="tooltip-box relative xs:hidden sm:block">
     <div>
       <slot />
     </div>
     <div
-      class="
-        tooltip
-        text-white
-        text-center
-        p-2
-        rounded
-        w-32
-        opacity-0
-        absolute
-        invisible
-        z-50
-        transition-opacity
-        duration-500
-      "
+      class="tooltip text-white text-center p-2 rounded w-32 opacity-0 absolute invisible z-50 transition-opacity duration-500"
       :class="{
         'bg-gray-500': color === 'gray',
         'bg-red-500': color === 'red',
@@ -34,17 +14,14 @@
         top: position === 'top',
         right: position === 'right',
         bottom: position === 'bottom',
-        left: position === 'left'
+        left: position === 'left',
       }"
     >
-      <div
-        v-for="(line, i) of lines"
-        :key="i"
-      >
+      <div v-for="(line, i) of lines" :key="i">
         <span class="text">
           {{ line }}
         </span>
-        <br>
+        <br />
       </div>
     </div>
   </div>
@@ -52,37 +29,36 @@
 
 <script>
 export default {
-  props: { 
+  props: {
     text: {
       type: String,
-      required: true
+      required: true,
     },
-    color:{
+    color: {
       type: String,
       required: false,
-      default: 'gray'
+      default: "gray",
     },
-    position:{
+    position: {
       type: String,
       required: false,
-      default: 'top'
+      default: "top",
     },
     itemMargin: {
       type: Number,
       required: false,
-      default: 0
-    }
+      default: 0,
+    },
   },
   computed: {
-    lines(){
-      return this.text.split('\n');
-    }
-  }
+    lines() {
+      return this.text.split("\n");
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 .tooltip-box:hover .tooltip {
   visibility: visible;
   opacity: 1;

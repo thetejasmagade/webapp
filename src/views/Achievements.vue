@@ -6,17 +6,16 @@
         subtitle="Move fast and break things"
         class="m-4"
       >
-        <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8">
+        <div
+          class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
+        >
           <ImageCard
             v-for="(userAchievement, i) of speedAchievements"
             :key="i"
             :img-src="userAchievement.ImageURL"
-            :class="{'opacity-25': !userAchievement.UnlockedAt}"
+            :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
-            <div
-              :ref="`cardbody${i}`"
-              class="p-4 flex flex-col items-center"
-            >
+            <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
               <p class="text-gold-600 text-xl mb-2">
                 {{ userAchievement.Title }}
               </p>
@@ -33,17 +32,16 @@
         subtitle="How many can you get right in a row?"
         class="m-4"
       >
-        <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8">
+        <div
+          class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
+        >
           <ImageCard
             v-for="(userAchievement, i) of streakAchievements"
             :key="i"
             :img-src="userAchievement.ImageURL"
-            :class="{'opacity-25': !userAchievement.UnlockedAt}"
+            :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
-            <div
-              :ref="`cardbody${i}`"
-              class="p-4 flex flex-col items-center"
-            >
+            <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
               <p class="text-gold-600 text-xl mb-2">
                 {{ userAchievement.Title }}
               </p>
@@ -60,17 +58,16 @@
         subtitle="Are you commited to your goals?"
         class="m-4"
       >
-        <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8">
+        <div
+          class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
+        >
           <ImageCard
             v-for="(userAchievement, i) of engagementAchievements"
             :key="i"
             :img-src="userAchievement.ImageURL"
-            :class="{'opacity-25': !userAchievement.UnlockedAt}"
+            :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
-            <div
-              :ref="`cardbody${i}`"
-              class="p-4 flex flex-col items-center"
-            >
+            <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
               <p class="text-gold-600 text-xl mb-2">
                 {{ userAchievement.Title }}
               </p>
@@ -87,47 +84,49 @@
 </template>
 
 <script>
-import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
-import ImageCard from '@/components/ImageCard.vue';
-import Section from '@/components/Section.vue';
-import { useMeta } from 'vue-meta';
+import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
+import ImageCard from "@/components/ImageCard.vue";
+import Section from "@/components/Section.vue";
+import { useMeta } from "vue-meta";
 
-import { 
-  loadUserAchievements
-} from '@/lib/cloudStore.js';
+import { loadUserAchievements } from "@/lib/cloudStore.js";
 
 export default {
   components: {
     ViewNavWrapper,
     ImageCard,
-    Section
+    Section,
   },
   computed: {
-    speedAchievements(){
-      return this.$store.getters.getUserAchievements.filter(item => item.Category === 'speed');
+    speedAchievements() {
+      return this.$store.getters.getUserAchievements.filter(
+        (item) => item.Category === "speed"
+      );
     },
-    streakAchievements(){
-      return this.$store.getters.getUserAchievements.filter(item => item.Category === 'streak');
+    streakAchievements() {
+      return this.$store.getters.getUserAchievements.filter(
+        (item) => item.Category === "streak"
+      );
     },
-    engagementAchievements(){
-      return this.$store.getters.getUserAchievements.filter(item => item.Category === 'engagement');
-    }
+    engagementAchievements() {
+      return this.$store.getters.getUserAchievements.filter(
+        (item) => item.Category === "engagement"
+      );
+    },
   },
-  async mounted(){
+  async mounted() {
     loadUserAchievements(this);
 
-    const title = 'Achievements';
+    const title = "Achievements";
     useMeta({
       title: title,
       meta: [
-        { vmid:'og:title', property: 'og:title', content: title },
-        { vmid:'twitter:title', name: 'twitter:title', content: title }
-      ]
+        { vmid: "og:title", property: "og:title", content: title },
+        { vmid: "twitter:title", name: "twitter:title", content: title },
+      ],
     });
-  }
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,7 +1,5 @@
 <template>
-  <Modal
-    ref="sandboxModeModal"
-  >
+  <Modal ref="sandboxModeModal">
     <div>
       <h1 class="text-2xl text-gold-600 mb-4">
         {{ headingText }}
@@ -9,9 +7,7 @@
       <p class="text-gray-600 mb-4">
         {{ descriptionText }}
       </p>
-      <BlockButton
-        :click="btnClick"
-      >
+      <BlockButton :click="btnClick">
         {{ buttonText }}
       </BlockButton>
     </div>
@@ -19,38 +15,38 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal.vue';
-import BlockButton from '@/components/BlockButton.vue';
+import Modal from "@/components/Modal.vue";
+import BlockButton from "@/components/BlockButton.vue";
 
-import { eventOpenSandboxModeModal } from '@/lib/analytics.js';
+import { eventOpenSandboxModeModal } from "@/lib/analytics.js";
 
 import {
   markSeenSandboxModalLoginKey,
   markSeenSandboxModalPatronKey,
   hasSeenSandboxModalLoginKey,
-  hasSeendSandboxModalPatronKey
-} from '@/lib/localStorageLib';
+  hasSeendSandboxModalPatronKey,
+} from "@/lib/localStorageLib";
 
 export default {
-  components:{
+  components: {
     Modal,
-    BlockButton
+    BlockButton,
   },
   computed: {
-    headingText(){
-      if (this.$store.getters.getIsLoggedIn){
-        return 'Become a patron for full access';
+    headingText() {
+      if (this.$store.getters.getIsLoggedIn) {
+        return "Become a patron for full access";
       }
-      return 'Login for full access';
+      return "Login for full access";
     },
-    buttonText(){
-      if (this.$store.getters.getIsLoggedIn){
-        return 'Become a patron';
+    buttonText() {
+      if (this.$store.getters.getIsLoggedIn) {
+        return "Become a patron";
       }
-      return 'Login';
+      return "Login";
     },
-    descriptionText(){
-      if (this.$store.getters.getIsLoggedIn){
+    descriptionText() {
+      if (this.$store.getters.getIsLoggedIn) {
         return `You're in sandbox mode! You can read instructions and play with the code,
         but to check your answers, pass-off your assignments,
         and take quizzes you'll need to become a patron.`;
@@ -58,18 +54,21 @@ export default {
       return `You're in sandbox mode! You can read instructions and play with the code,
         but to check your answers, pass-off your assignments,
         and take quizzes you'll need to login.`;
-    }
+    },
   },
-  methods:{
-    show(){
-      if (this.$store.getters.getIsLoggedIn && hasSeendSandboxModalPatronKey()){
+  methods: {
+    show() {
+      if (
+        this.$store.getters.getIsLoggedIn &&
+        hasSeendSandboxModalPatronKey()
+      ) {
         return;
       }
-      if (!this.$store.getters.getIsLoggedIn && hasSeenSandboxModalLoginKey()){
+      if (!this.$store.getters.getIsLoggedIn && hasSeenSandboxModalLoginKey()) {
         return;
       }
 
-      if (this.$store.getters.getIsLoggedIn){
+      if (this.$store.getters.getIsLoggedIn) {
         markSeenSandboxModalPatronKey();
       } else {
         markSeenSandboxModalLoginKey();
@@ -77,22 +76,21 @@ export default {
       eventOpenSandboxModeModal();
       this.$refs.sandboxModeModal.show();
     },
-    hide(){
+    hide() {
       this.$refs.sandboxModeModal.hide();
     },
-    btnClick(){
-      if (this.$store.getters.getIsLoggedIn){
-        this.$router.push({name: 'Pricing'});
+    btnClick() {
+      if (this.$store.getters.getIsLoggedIn) {
+        this.$router.push({ name: "Pricing" });
         this.hide();
         return;
       }
-      this.$router.push({name: 'Login'});
+      this.$router.push({ name: "Login" });
       this.hide();
       return;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

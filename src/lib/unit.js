@@ -1,27 +1,27 @@
-export const unitTypeCourse = 'course';
+export const unitTypeCourse = "course";
 
-export const unitTypeProject = 'project';
+export const unitTypeProject = "project";
 
-export function createProjectUnit(project){
+export function createProjectUnit(project) {
   return {
     type: unitTypeProject,
-    project
+    project,
   };
 }
 
-export function createCourseUnit(course){
+export function createCourseUnit(course) {
   return {
     type: unitTypeCourse,
-    course
+    course,
   };
 }
 
-export function getUnitData(unit){
-  if (unit.type === unitTypeCourse){
+export function getUnitData(unit) {
+  if (unit.type === unitTypeCourse) {
     return unit.course;
   }
-  if (unit.type === unitTypeProject){
+  if (unit.type === unitTypeProject) {
     return unit.project;
   }
-  throw 'bad unit type';
+  throw "bad unit type";
 }

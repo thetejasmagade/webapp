@@ -1,7 +1,5 @@
 <template>
-  <Modal
-    ref="courseDoneModal"
-  >
+  <Modal ref="courseDoneModal">
     <div>
       <h1 class="text-2xl text-gold-600 mb-4">
         Congragulations! You've completed the course
@@ -13,12 +11,9 @@
       <img
         loading="lazy"
         src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
-      >
+      />
       <div class="flex justify-center">
-        <BlockButton
-          class="m-4"
-          :click="clickNextCourse"
-        >
+        <BlockButton class="m-4" :click="clickNextCourse">
           Next Course
         </BlockButton>
         <BlockButton
@@ -35,11 +30,7 @@
         >
           View Portfolio
         </BlockButton>
-        <BlockButton
-          class="m-4"
-          :click="goToBeginning"
-          color="gray"
-        >
+        <BlockButton class="m-4" :click="goToBeginning" color="gray">
           Restart
         </BlockButton>
       </div>
@@ -48,47 +39,45 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal.vue';
-import BlockButton from '@/components/BlockButton.vue';
-import { loadTracks } from '@/lib/cloudStore.js';
+import Modal from "@/components/Modal.vue";
+import BlockButton from "@/components/BlockButton.vue";
+import { loadTracks } from "@/lib/cloudStore.js";
 
 export default {
-  components:{
+  components: {
     Modal,
-    BlockButton
+    BlockButton,
   },
   props: {
     goToBeginningCallback: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       commentText: null,
       rating: null,
-      stars: 3
+      stars: 3,
     };
   },
-  methods:{
+  methods: {
     async clickNextCourse() {
       await loadTracks(this);
-      this.$router.push({ name: 'Courses' });
+      this.$router.push({ name: "Courses" });
     },
     async goToBeginning() {
       await this.goToBeginningCallback();
       this.hide();
     },
-    show(){
+    show() {
       this.$refs.courseDoneModal.show();
     },
-    hide(){
+    hide() {
       this.$refs.courseDoneModal.hide();
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

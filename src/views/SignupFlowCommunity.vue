@@ -12,19 +12,16 @@
           <div class="flex flex-col">
             <ul class="list-disc ml-5 my-4 text-left">
               <li>Get personalized help with your resume and portfolio</li>
-              <li>Get advice on what you should be learning and building next</li>
+              <li>
+                Get advice on what you should be learning and building next
+              </li>
               <li>Attend online meetups and coding events</li>
               <li>Get techincal help with your courses and projects</li>
             </ul>
 
             <div class="flex justify-center mb-4">
-              <BlockButton
-                :click="discordClick"
-              >
-                <FontAwesomeIcon
-                  :icon="['fab', 'discord']"
-                  class="icon"
-                />
+              <BlockButton :click="discordClick">
+                <FontAwesomeIcon :icon="['fab', 'discord']" class="icon" />
                 Join the Discord community
               </BlockButton>
             </div>
@@ -32,7 +29,8 @@
             <p>
               Click the button above to join our Discord community.
               <b>It's free forever.</b>
-              Don't miss out on the motivation, help, and mentoring a tight-knit community provides.
+              Don't miss out on the motivation, help, and mentoring a tight-knit
+              community provides.
             </p>
 
             <div class="flex justify-center my-4">
@@ -62,36 +60,40 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import TopNav from '@/components/TopNav.vue';
-import Section from '@/components/Section.vue';
-import BlockButton from '@/components/BlockButton.vue';
-import { loadUser } from '@/lib/cloudStore.js';
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import TopNav from "@/components/TopNav.vue";
+import Section from "@/components/Section.vue";
+import BlockButton from "@/components/BlockButton.vue";
+import { loadUser } from "@/lib/cloudStore.js";
 
 export default {
   components: {
     TopNav,
     Section,
     BlockButton,
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
-  async mounted(){
+  async mounted() {
     await loadUser(this);
   },
-  methods:{
+  methods: {
     discordClick() {
-      window.open('https://discord.gg/k4rVEWt', '_blank');
+      window.open("https://discord.gg/k4rVEWt", "_blank");
     },
-    continueClick(){
-      this.$router.push({name: 'SignupFlowSync', query: {redirect: this.$route.query.redirect}});
+    continueClick() {
+      this.$router.push({
+        name: "SignupFlowSync",
+        query: { redirect: this.$route.query.redirect },
+      });
     },
-    skipClick(){
-      this.$router.push({name: 'SignupFlowRecruiters', query: {redirect: this.$route.query.redirect}});
-    }
-  }
+    skipClick() {
+      this.$router.push({
+        name: "SignupFlowRecruiters",
+        query: { redirect: this.$route.query.redirect },
+      });
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

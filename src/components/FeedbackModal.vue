@@ -1,7 +1,5 @@
 <template>
-  <Modal
-    ref="feedbackModal"
-  >
+  <Modal ref="feedbackModal">
     <div>
       <h1 class="text-2xl text-gold-600 mb-4">
         What do you think of this exercise?
@@ -9,92 +7,81 @@
       <textarea
         v-model="commentText"
         placeholder="Let us know how to improve this page"
-        class="
-          autoexpand
-          tracking-wide
-          py-2 px-4 mb-4
-          leading-relaxed
-          appearance-none
-          block w-full 
-        bg-gray-200
-          border rounded focus:outline-none border-gray-300
-        "
+        class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-200 border rounded focus:outline-none border-gray-300"
         rows="4"
       />
       <BlockButton
-        :click="() => {btnClick()}"
+        :click="
+          () => {
+            btnClick();
+          }
+        "
         class="mb-4"
       >
         Submit
       </BlockButton>
 
       <p>
-        If you'd rather speak to the authors and other students directly
-        join our <a
-          href="https://discord.gg/k4rVEWt"
-          target="_blank"
-        >Discord community instead.</a>
+        If you'd rather speak to the authors and other students directly join
+        our
+        <a href="https://discord.gg/k4rVEWt" target="_blank"
+          >Discord community instead.</a
+        >
       </p>
     </div>
   </Modal>
 </template>
 
 <script>
-import Modal from '@/components/Modal.vue';
-import BlockButton from '@/components/BlockButton.vue';
+import Modal from "@/components/Modal.vue";
+import BlockButton from "@/components/BlockButton.vue";
 
-import { notify } from '@/lib/notification.js';
+import { notify } from "@/lib/notification.js";
 
 import {
   upsertExerciseFeedback,
-  upsertStepFeedback
-} from '@/lib/cloudClient.js';
+  upsertStepFeedback,
+} from "@/lib/cloudClient.js";
 
 export default {
-  components:{
+  components: {
     Modal,
-    BlockButton
+    BlockButton,
   },
   props: {
     uuid: {
       type: String,
-      required: true
+      required: true,
     },
     unitType: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       commentText: null,
       rating: null,
-      stars: 3
+      stars: 3,
     };
   },
-  methods:{
-    show(){
+  methods: {
+    show() {
       this.$refs.feedbackModal.show();
     },
-    hide(){
+    hide() {
       this.$refs.feedbackModal.hide();
     },
-    async btnClick(){
+    async btnClick() {
       try {
-        if (this.unitType === 'exercise'){
-          await upsertExerciseFeedback(
-            this.uuid,
-            this.commentText
-          );
+        if (this.unitType === "exercise") {
+          await upsertExerciseFeedback(this.uuid, this.commentText);
         } else {
-          await upsertStepFeedback(
-            this.uuid,
-            this.commentText
-          );
+          await upsertStepFeedback(this.uuid, this.commentText);
         }
         notify({
-          type: 'success',
-          text: 'Thanks for your feedback!'
+          type: "success",
+          text: "Thanks for your feedback!",
         });
 
         this.commentText = null;
@@ -104,15 +91,13 @@ export default {
         this.hide();
       } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

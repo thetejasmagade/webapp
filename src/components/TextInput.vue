@@ -1,43 +1,34 @@
 <template>
   <input
-    class="
-      outline-none
-      border-b
-      border-gray-300
-      bg-transparent
-      pb-px
-      focus:outline-none
-      focus:border-blue-500
-    "
+    class="outline-none border-b border-gray-300 bg-transparent pb-px focus:outline-none focus:border-blue-500"
     :placeholder="placeholder"
     :type="type"
     :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)" 
-  >
+    @input="$emit('update:modelValue', $event.target.value)"
+  />
 </template>
 
 <script>
 export default {
-  props: { 
-    modelValue:{
+  props: {
+    modelValue: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
-    placeholder:{
+    placeholder: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
-    type:{
+    type: {
       type: String,
       required: false,
-      default: 'text'
-    }
+      default: "text",
+    },
   },
-  emits: [ 'update:modelValue' ]
+  emits: ["update:modelValue"],
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,32 +1,16 @@
 <template>
   <div class="flex items-center justify-center">
     <div class="relative inline-block text-left dropdown cursor-pointer">
-      <span
-        class="rounded-md shadow-sm"
-      >
+      <span class="rounded-md shadow-sm">
         <button
-          class="
-            inline-flex
-            justify-center
-            w-full
-            px-4
-            py-2
-            leading-6
-            transition
-            duration-150
-            ease-in-out
-            border
-            border-gray-300
-            rounded-md
-            focus:outline-none
-          "
+          class="inline-flex justify-center w-full px-4 py-2 leading-6 transition duration-150 ease-in-out border border-gray-300 rounded-md focus:outline-none"
           :class="{
             'hover:text-gray-400': selected.color !== 'gold',
             'text-gray-800': selected.color !== 'gold',
             'bg-white': selected.color !== 'gold',
             'hover:bg-gold-400': selected.color === 'gold',
             'text-gray-200': selected.color === 'gold',
-            'bg-gold-500': selected.color === 'gold'
+            'bg-gold-500': selected.color === 'gold',
           }"
           type="button"
           aria-haspopup="true"
@@ -47,7 +31,9 @@
           </svg>
         </button>
       </span>
-      <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-left -translate-y-2 scale-95">
+      <div
+        class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-left -translate-y-2 scale-95"
+      >
         <div
           id="headlessui-menu-items-117"
           class="absolute left-0 w-56 mt-2 origin-top-left bg-white border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none overflow-y-auto max-h-56"
@@ -59,26 +45,20 @@
             :key="i"
             href="javascript:void(0)"
             tabindex="0"
-            class="
-              flex
-              justify-between
-              w-full
-              px-4
-              py-2
-              text-sm
-              leading-5
-              text-left
-            "
+            class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
             :class="{
               'hover:text-gray-400': option.color !== 'gold',
               'text-gray-800': option.color !== 'gold',
               'bg-white': option.color !== 'gold',
               'hover:bg-gold-400': option.color === 'gold',
               'text-gray-200': option.color === 'gold',
-              'bg-gold-500': option.color === 'gold'
+              'bg-gold-500': option.color === 'gold',
             }"
             role="menuitem"
-            @click="selected=option; $emit('update:modelValue', option)"
+            @click="
+              selected = option;
+              $emit('update:modelValue', option);
+            "
           >
             {{ option.name }}
           </div>
@@ -90,35 +70,35 @@
 
 <script>
 export default {
-  props:{
+  props: {
     options: {
       type: Array,
-      required: true
+      required: true,
     },
     default: {
       type: Object,
       required: false,
-      default: null
+      default: null,
     },
-    tabindex:{
+    tabindex: {
       type: Number,
       required: false,
-      default: 0
-    }
+      default: 0,
+    },
   },
-  emits: [ 'update:modelValue' ],
+  emits: ["update:modelValue"],
   data() {
     return {
-      selected: this.getSelectionFromDefault(this.default)
+      selected: this.getSelectionFromDefault(this.default),
     };
   },
   watch: {
-    default(newDefault){
+    default(newDefault) {
       this.selected = this.getSelectionFromDefault(newDefault);
-    }
+    },
   },
   methods: {
-    getSelectionFromDefault(def){
+    getSelectionFromDefault(def) {
       if (this.options.length === 0) {
         return null;
       }
@@ -126,14 +106,14 @@ export default {
         return this.options[0];
       }
       return def;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
 .dropdown:focus-within .dropdown-menu {
-  opacity:1;
+  opacity: 1;
   transform: translate(0) scale(1);
   visibility: visible;
 }

@@ -1,39 +1,18 @@
 <template>
   <div class="relative">
-    <form
-      enctype="multipart/form-data"
-      class="flex flex-row"
-    >
+    <form enctype="multipart/form-data" class="flex flex-row">
       <input
         id="resume"
         type="file"
         accept="application/pdf"
-        class="
-          opacity-0
-          overflow-hidden
-          absolute
-          z-0
-          h-px
-          w-px
-        "
+        class="opacity-0 overflow-hidden absolute z-0 h-px w-px"
         @change="editResume"
-      >
+      />
       <label
         for="resume"
-        class="
-          cursor-pointer
-          border-none
-          text-xl
-          flex
-          text-blue-500
-          items-center
-          justify-center
-          focus:outline-none
-        "
+        class="cursor-pointer border-none text-xl flex text-blue-500 items-center justify-center focus:outline-none"
       >
-        <FontAwesomeIcon
-          icon="upload"
-        />
+        <FontAwesomeIcon icon="upload" />
       </label>
       <span class="ml-3"> Upload Resume (.pdf) </span>
       <a
@@ -49,51 +28,45 @@
 </template>
 
 <script>
-import { 
-  updateUserResume
-} from '@/lib/cloudClient.js';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { updateUserResume } from "@/lib/cloudClient.js";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import { 
-  sleep
-} from '@/lib/sleep.js';
-import { notify } from '@/lib/notification.js';
+import { sleep } from "@/lib/sleep.js";
+import { notify } from "@/lib/notification.js";
 
-import {
-  loadUser
-} from '@/lib/cloudStore.js';
+import { loadUser } from "@/lib/cloudStore.js";
 
 export default {
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
   },
   computed: {
-    currentResume(){
-      if (!this.$store.getters.getUser){
+    currentResume() {
+      if (!this.$store.getters.getUser) {
         return null;
       }
       return this.$store.getters.getUser.ResumeURL;
     },
-    currentUserFirstName(){
-      if (!this.$store.getters.getUser){
+    currentUserFirstName() {
+      if (!this.$store.getters.getUser) {
         return null;
       }
       return this.$store.getters.getUser.FirstName;
-    }
+    },
   },
-  async mounted(){
-    if (!this.$store.getters.getUser){
+  async mounted() {
+    if (!this.$store.getters.getUser) {
       loadUser(this);
     }
   },
   methods: {
-    async editResume(e){
+    async editResume(e) {
       var files = e.target.files || e.dataTransfer.files;
-      if (!files.length){
+      if (!files.length) {
         return;
       }
       const formData = new FormData();
-      formData.append('resume', files[0]);
+      formData.append("resume", files[0]);
       try {
         await updateUserResume(formData);
 
@@ -102,24 +75,22 @@ export default {
 
         // cache break to reload pdf
         const user = this.$store.getters.getUser;
-        user.ResumeURL += '?' + Date.now();
-        this.$store.commit('setUser', user);
-        
+        user.ResumeURL += "?" + Date.now();
+        this.$store.commit("setUser", user);
+
         notify({
-          type: 'success',
-          text: 'ResumeURL updated successfully'
+          type: "success",
+          text: "ResumeURL updated successfully",
         });
-      } catch (err){
+      } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,46 +1,44 @@
 <template>
-  <div
-    ref="codemirror"
-  />
+  <div ref="codemirror" />
 </template>
 
 <script>
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/javascript/javascript.js';
-import '@/lib/codemirrorModeGo.js';
-import 'codemirror/mode/python/python.js';
-import 'codemirror/mode/haskell/haskell.js';
-import '@/styles/codemirror-darcula.css';
-import 'codemirror/addon/edit/matchbrackets.js';
-import 'codemirror/addon/edit/closebrackets.js';
-import DiffMatchPatch from 'diff-match-patch';
+import "codemirror/lib/codemirror.css";
+import "codemirror/mode/javascript/javascript.js";
+import "@/lib/codemirrorModeGo.js";
+import "codemirror/mode/python/python.js";
+import "codemirror/mode/haskell/haskell.js";
+import "@/styles/codemirror-darcula.css";
+import "codemirror/addon/edit/matchbrackets.js";
+import "codemirror/addon/edit/closebrackets.js";
+import DiffMatchPatch from "diff-match-patch";
 window.diff_match_patch = DiffMatchPatch;
 window.DIFF_DELETE = DiffMatchPatch.DIFF_DELETE;
 window.DIFF_INSERT = DiffMatchPatch.DIFF_INSERT;
 window.DIFF_EQUAL = DiffMatchPatch.DIFF_EQUAL;
-import 'codemirror/addon/merge/merge.js';
-import 'codemirror/addon/selection/active-line.js';
-import CodeMirror from 'codemirror';
-import { markRaw } from 'vue';
+import "codemirror/addon/merge/merge.js";
+import "codemirror/addon/selection/active-line.js";
+import CodeMirror from "codemirror";
+import { markRaw } from "vue";
 
 export default {
   props: {
     code: {
       type: String,
-      required: true
+      required: true,
     },
     solution: {
       type: String,
-      required: true
+      required: true,
     },
     options: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
-      codemirror: null
+      codemirror: null,
     };
   },
   watch: {
@@ -51,23 +49,23 @@ export default {
         for (const key in options) {
           this.codemirror.setOption(key, options[key]);
         }
-      }
+      },
     },
     solution: {
-      handler(){
+      handler() {
         this.init();
-      }
+      },
     },
     code: {
-      handler(){
+      handler() {
         this.init();
-      }
-    }
+      },
+    },
   },
   mounted() {
     this.init();
   },
-  beforeUnmount(){
+  beforeUnmount() {
     this.codemirror = null;
   },
   methods: {
@@ -76,13 +74,10 @@ export default {
       opts.value = this.code;
       opts.origRight = this.solution;
       this.codemirror = markRaw(
-        CodeMirror.MergeView(
-          this.$refs.codemirror,
-          opts
-        )
+        CodeMirror.MergeView(this.$refs.codemirror, opts)
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -4,7 +4,11 @@
       <div class="profile-box flex flex-col items-center">
         <ProfileImage
           class="profile-img my-3 w-3/5"
-          :profile-image-u-r-l="$store.getters.getUser ? $store.getters.getUser.ProfileImageURL : null"
+          :profile-image-u-r-l="
+            $store.getters.getUser
+              ? $store.getters.getUser.ProfileImageURL
+              : null
+          "
           editable
         />
       </div>
@@ -14,7 +18,7 @@
       </div>
 
       <GemDisplay
-        :size=".5"
+        :size="0.5"
         :text="`${$store.getters.getBalance}`"
         vertical
         class="mb-3"
@@ -32,7 +36,11 @@
       >
         <MenuItemHorizontal
           icon="cog"
-          :click="() => {$router.push({name: 'Settings'}) }"
+          :click="
+            () => {
+              $router.push({ name: 'Settings' });
+            }
+          "
           :current="routeName === 'Settings'"
         />
       </Tooltip>
@@ -45,7 +53,13 @@
       >
         <MenuItemHorizontal
           icon="user-tie"
-          :click="() => $router.push({name: 'Portfolio', params: {userHandle: $store.getters.getUser.Handle}})"
+          :click="
+            () =>
+              $router.push({
+                name: 'Portfolio',
+                params: { userHandle: $store.getters.getUser.Handle },
+              })
+          "
           :current="routeName === 'Portfolio'"
         />
       </Tooltip>
@@ -58,7 +72,11 @@
       >
         <MenuItemHorizontal
           icon="trophy"
-          :click="() => {$router.push({name: 'Achievements'}) }"
+          :click="
+            () => {
+              $router.push({ name: 'Achievements' });
+            }
+          "
           :current="routeName === 'Achievements'"
         />
       </Tooltip>
@@ -67,66 +85,51 @@
         <div class="w-3/5 border-b border-gray-300" />
       </div>
 
-      <Tooltip
-        :text="`Logout`"
-        position="right"
-        class="mx-4 mb-2"
-        color="gold"
-      >
-        <MenuItemHorizontal
-          icon="sign-out-alt"
-          :click="logout"
-        />
+      <Tooltip :text="`Logout`" position="right" class="mx-4 mb-2" color="gold">
+        <MenuItemHorizontal icon="sign-out-alt" :click="logout" />
       </Tooltip>
     </div>
   </div>
 </template>
 
 <script>
-import MenuItemHorizontal from '@/components/MenuItemHorizontal.vue';
-import GemDisplay from '@/components/GemDisplay.vue';
-import ProfileImage from '@/components/ProfileImage.vue';
-import Tooltip from '@/components/Tooltip.vue';
-import { useRoute } from 'vue-router';
+import MenuItemHorizontal from "@/components/MenuItemHorizontal.vue";
+import GemDisplay from "@/components/GemDisplay.vue";
+import ProfileImage from "@/components/ProfileImage.vue";
+import Tooltip from "@/components/Tooltip.vue";
+import { useRoute } from "vue-router";
 
-import {
-  loadBalance,
-  loadUser
-} from '@/lib/cloudStore.js';
+import { loadBalance, loadUser } from "@/lib/cloudStore.js";
 
-import {
-  setLogout
-} from '@/lib/cloudStore.js';
+import { setLogout } from "@/lib/cloudStore.js";
 
 export default {
   components: {
     MenuItemHorizontal,
     GemDisplay,
     ProfileImage,
-    Tooltip
+    Tooltip,
   },
-  computed:{
-    routePath(){
+  computed: {
+    routePath() {
       return useRoute().path;
     },
-    routeName(){
+    routeName() {
       return useRoute().name;
-    }
+    },
   },
-  async mounted(){
-    if (!this.$store.getters.getUser){
+  async mounted() {
+    if (!this.$store.getters.getUser) {
       loadUser(this);
     }
     loadBalance(this);
   },
   methods: {
-    logout(){
+    logout() {
       setLogout(this);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

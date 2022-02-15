@@ -1,7 +1,5 @@
 <template>
-  <Modal
-    ref="confirmModal"
-  >
+  <Modal ref="confirmModal">
     <div>
       <h1 class="text-2xl text-gold-600 mb-4">
         {{ heading }}
@@ -10,17 +8,23 @@
         {{ text }}
       </p>
       <BlockButton
-        :click="() => {
-          onConfirm()
-          hide()
-        }"
+        :click="
+          () => {
+            onConfirm();
+            hide();
+          }
+        "
         color="blue"
         class="mr-4"
       >
         Confirm
       </BlockButton>
       <BlockButton
-        :click="() => {hide()}"
+        :click="
+          () => {
+            hide();
+          }
+        "
         color="gray"
       >
         Cancel
@@ -30,40 +34,38 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal.vue';
-import BlockButton from '@/components/BlockButton.vue';
+import Modal from "@/components/Modal.vue";
+import BlockButton from "@/components/BlockButton.vue";
 
 export default {
-  components:{
+  components: {
     Modal,
-    BlockButton
+    BlockButton,
   },
   props: {
     heading: {
       type: String,
-      required: true
+      required: true,
     },
     text: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     onConfirm: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
-  methods:{
-    show(){
+  methods: {
+    show() {
       this.$refs.confirmModal.show();
     },
-    hide(){
+    hide() {
       this.$refs.confirmModal.hide();
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,84 +1,66 @@
 <template>
   <div>
-    <form
-      enctype="multipart/form-data"
-    >
+    <form enctype="multipart/form-data">
       <input
         id="profileImage"
         type="file"
         accept="image/*"
         :disabled="!editable"
-        class="
-          opacity-0
-          overflow-hidden
-          absolute
-          z-0
-          h-px
-          w-px
-        "
+        class="opacity-0 overflow-hidden absolute z-0 h-px w-px"
         @change="editProfileImage"
-      >
+      />
       <label for="profileImage">
         <img
           loading="lazy"
           :src="profileImageURLWithDefault"
           alt="user avatar"
-          class="
-          rounded-full
-          w-full
-          h-full
-          cover
-        "
-          :class="{'cursor-pointer': editable}"
-        >
+          class="rounded-full w-full h-full cover"
+          :class="{ 'cursor-pointer': editable }"
+        />
       </label>
     </form>
   </div>
 </template>
 
 <script>
-import { 
-  updateUserProfileImage
-} from '@/lib/cloudClient.js';
+import { updateUserProfileImage } from "@/lib/cloudClient.js";
 
-import { 
-  sleep
-} from '@/lib/sleep.js';
-import { notify } from '@/lib/notification.js';
+import { sleep } from "@/lib/sleep.js";
+import { notify } from "@/lib/notification.js";
 
 export default {
-  props: { 
-    profileImageURL:{
+  props: {
+    profileImageURL: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
-    editable:{
+    editable: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
-    profileImageURLWithDefault(){
-      if (this.profileImageURL){
+    profileImageURLWithDefault() {
+      if (this.profileImageURL) {
         return this.profileImageURL;
       }
-      return 'https://orbitermag.com/wp-content/uploads/2017/03/default-user-image-300x300.png';
-    }
+      return "https://orbitermag.com/wp-content/uploads/2017/03/default-user-image-300x300.png";
+    },
   },
   methods: {
-    async editProfileImage(e){
-      if (!this.editable){
-        return; 
+    async editProfileImage(e) {
+      if (!this.editable) {
+        return;
       }
-      
+
       var files = e.target.files || e.dataTransfer.files;
-      if (!files.length){
+      if (!files.length) {
         return;
       }
       const formData = new FormData();
-      formData.append('profileImage', files[0]);
+      formData.append("profileImage", files[0]);
       try {
         await updateUserProfileImage(formData);
 
@@ -87,24 +69,22 @@ export default {
 
         // cache break to reload image
         const user = this.$store.getters.getUser;
-        user.ProfileImageURL += '?' + Date.now();
-        this.$store.commit('setUser', user);
-        
+        user.ProfileImageURL += "?" + Date.now();
+        this.$store.commit("setUser", user);
+
         notify({
-          type: 'success',
-          text: 'Profile image updated successfully'
+          type: "success",
+          text: "Profile image updated successfully",
         });
-      } catch (err){
+      } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

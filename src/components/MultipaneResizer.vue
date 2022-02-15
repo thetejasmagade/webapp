@@ -1,14 +1,9 @@
 <template>
   <div
-    class="
-      multipane-resizer
-      block
-      relative
-      z-10
-    "
+    class="multipane-resizer block relative z-10"
     :class="{
-      'vertical': layout === 'vertical',
-      'horizontal': layout === 'horizontal'
+      vertical: layout === 'vertical',
+      horizontal: layout === 'horizontal',
     }"
   >
     <slot />
@@ -16,19 +11,17 @@
 </template>
 
 <script>
-
 // taken from https://github.com/yansern/vue-multipane
 export default {
-  name: 'Multipane',
-  emits: [ 'paneResizeStart', 'paneResize', 'paneResizeStop' ],
+  name: "Multipane",
   props: {
     layout: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
+  emits: ["paneResizeStart", "paneResize", "paneResizeStop"],
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

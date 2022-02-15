@@ -15,43 +15,45 @@
 </template>
 
 <script>
-import Section from '@/components/Section.vue';
-import TrackTimeline from '@/components/TrackTimeline.vue';
-import {unitTypeCourse, getUnitData, unitTypeProject} from '@/lib/unit.js';
+import Section from "@/components/Section.vue";
+import TrackTimeline from "@/components/TrackTimeline.vue";
+import { unitTypeCourse, getUnitData, unitTypeProject } from "@/lib/unit.js";
 
-import { 
-  eventSelectCourse
-} from '@/lib/analytics.js';
+import { eventSelectCourse } from "@/lib/analytics.js";
 
 export default {
   components: {
     TrackTimeline,
-    Section
+    Section,
   },
-  computed:{
-    trackGopherGangCourses(){
+  computed: {
+    trackGopherGangCourses() {
       return this.$store.getters.getTrackGopherGang;
-    }
+    },
   },
   methods: {
-    clickUnit(unit){
+    clickUnit(unit) {
       const unitData = getUnitData(unit);
-      if (unit.type === unitTypeCourse){
+      if (unit.type === unitTypeCourse) {
         eventSelectCourse(unitData.UUID, unitData.Title);
-        this.$router.push({name: 'Course', params: {courseUUID: unitData.UUID}});
+        this.$router.push({
+          name: "Course",
+          params: { courseUUID: unitData.UUID },
+        });
       }
-      if (unit.type === unitTypeProject){
-        this.$router.push({name: 'Project', params: {projectUUID: unitData.UUID}});
+      if (unit.type === unitTypeProject) {
+        this.$router.push({
+          name: "Project",
+          params: { projectUUID: unitData.UUID },
+        });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 .section {
-  border-radius: 0 .5rem .5rem .5rem;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
 }
-
 </style>

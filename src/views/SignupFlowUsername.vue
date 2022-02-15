@@ -9,16 +9,9 @@
         class="max-w-2xl"
       >
         <div class="flex flex-row justify-center items-center mb-2">
-          <TextInput
-            v-model="handle"
-            placeholder="username"
-            type="text"
-          />
+          <TextInput v-model="handle" placeholder="username" type="text" />
 
-          <BlockButton
-            :click="updateUserHandle"
-            class="ml-4"
-          >
+          <BlockButton :click="updateUserHandle" class="ml-4">
             Save
           </BlockButton>
         </div>
@@ -28,43 +21,42 @@
 </template>
 
 <script>
-import TopNav from '@/components/TopNav.vue';
-import Section from '@/components/Section.vue';
-import BlockButton from '@/components/BlockButton.vue';
-import TextInput from '@/components/TextInput.vue';
-import {
-  updateUserHandle
-} from '@/lib/cloudClient.js';
-import { notify } from '@/lib/notification.js';
+import TopNav from "@/components/TopNav.vue";
+import Section from "@/components/Section.vue";
+import BlockButton from "@/components/BlockButton.vue";
+import TextInput from "@/components/TextInput.vue";
+import { updateUserHandle } from "@/lib/cloudClient.js";
+import { notify } from "@/lib/notification.js";
 
 export default {
   components: {
     TopNav,
     Section,
     BlockButton,
-    TextInput
+    TextInput,
   },
-  data(){
+  data() {
     return {
-      handle: ''
+      handle: "",
     };
   },
-  methods:{
-    async updateUserHandle(){
+  methods: {
+    async updateUserHandle() {
       try {
         await updateUserHandle(this.handle);
-        this.$router.push({name: 'SignupFlowCommunity', query: {redirect: this.$route.query.redirect}});
-      } catch (err){
+        this.$router.push({
+          name: "SignupFlowCommunity",
+          query: { redirect: this.$route.query.redirect },
+        });
+      } catch (err) {
         notify({
-          type: 'danger',
-          text: 'Couldn\'t update handle'
+          type: "danger",
+          text: "Couldn't update handle",
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

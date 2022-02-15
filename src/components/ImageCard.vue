@@ -1,12 +1,10 @@
 <template>
-  <div
-    class="bg-white shadow-lg rounded mb-6 tracking-wide"
-  >
+  <div class="bg-white shadow-lg rounded mb-6 tracking-wide">
     <div
       class="md:shrink-0 rounded"
       :class="{
         'bg-white': click,
-        'rounded-b-none': hasSlots
+        'rounded-b-none': hasSlots,
       }"
     >
       <img
@@ -17,15 +15,12 @@
         :class="{
           'cursor-pointer': click,
           'hover:opacity-50': click,
-          'rounded-b-none': hasSlots
+          'rounded-b-none': hasSlots,
         }"
         @click="onClick"
-      >
+      />
     </div>
-    <div
-      v-if="hasSlots"
-      class="px-4 py-2 mt-2"
-    >
+    <div v-if="hasSlots" class="px-4 py-2 mt-2">
       <slot />
     </div>
   </div>
@@ -33,33 +28,31 @@
 
 <script>
 export default {
-  props: { 
+  props: {
     imgSrc: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     click: {
       type: Function,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
   computed: {
-    hasSlots(){
+    hasSlots() {
       return this.$slots.default;
-    }
+    },
   },
   methods: {
-    onClick(){
-      if (this.click){
+    onClick() {
+      if (this.click) {
         this.click();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

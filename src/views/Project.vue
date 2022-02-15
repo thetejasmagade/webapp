@@ -12,36 +12,25 @@
         unit-type="step"
       />
 
-      <div
-        v-if="project"
-        class="
-          h-full
-          hidden
-          sm:flex
-          flex-col
-          bg-white
-        "
-      >
-        <ExerciseNav 
+      <div v-if="project" class="h-full hidden sm:flex flex-col bg-white">
+        <ExerciseNav
           v-if="isContentLoaded"
-          class="
-            p-3
-            w-full
-            box-border
-            shadow
-            z-10
-          "
+          class="p-3 w-full box-border shadow z-10"
           :dropdown-one-items="dropdownSteps"
           :dropdown-one-index="stepIndex"
           :go-back="goBack"
-          :go-forward="() => {goForward(false)}"
+          :go-forward="
+            () => {
+              goForward(false);
+            }
+          "
           :can-go-back="!isFirstStep"
           :can-go-forward="!isLastStep || projectDone"
           :sandbox="false"
           :click-comment="() => showFeedbackModal()"
         />
         <ProgressBar
-          v-if="isContentLoaded && isLoggedIn" 
+          v-if="isContentLoaded && isLoggedIn"
           :percent-complete="percentComplete"
         />
         <CardStepTypeInfo
@@ -59,13 +48,7 @@
           :done-with-step="() => goForward(true)"
         />
       </div>
-      <div
-        class="
-          block
-          sm:hidden
-          p-4
-        "
-      >
+      <div class="block sm:hidden p-4">
         <Section title="Come back on a computer">
           <p class="p-4">
             Coding is hard to do on a phone. I want you to have a great
@@ -78,22 +61,22 @@
 </template>
 
 <script>
-import ViewNavWrapper from '@/components/ViewNavWrapper.vue';
-import CourseDoneModal from '@/components/CourseDoneModal.vue';
-import ExerciseNav from '@/components/ExerciseNav.vue';
-import CardStepTypeInfo from '@/components/cards/CardStepTypeInfo.vue';
-import CardStepTypeManual from '@/components/cards/CardStepTypeManual.vue';
-import Section from '@/components/Section.vue';
-import FeedbackModal from '@/components/FeedbackModal.vue';
-import ProgressBar from '@/components/ProgressBar.vue';
+import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
+import CourseDoneModal from "@/components/CourseDoneModal.vue";
+import ExerciseNav from "@/components/ExerciseNav.vue";
+import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
+import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
+import Section from "@/components/Section.vue";
+import FeedbackModal from "@/components/FeedbackModal.vue";
+import ProgressBar from "@/components/ProgressBar.vue";
 
-import { loadBalance } from '@/lib/cloudStore.js';
-import { notify } from '@/lib/notification.js';
+import { loadBalance } from "@/lib/cloudStore.js";
+import { notify } from "@/lib/notification.js";
 
 import {
   eventFinishCourse,
-  eventClickExerciseNavigation
-} from '@/lib/analytics.js';
+  eventClickExerciseNavigation,
+} from "@/lib/analytics.js";
 
 import {
   getCurrentStep,
@@ -105,8 +88,8 @@ import {
   getProjects,
   getProjectProgress,
   getUnitsProgress,
-  getStepByID
-} from '@/lib/cloudClient.js';
+  getStepByID,
+} from "@/lib/cloudClient.js";
 
 export default {
   components: {
@@ -117,17 +100,17 @@ export default {
     CardStepTypeInfo,
     CardStepTypeManual,
     ViewNavWrapper,
-    ProgressBar
+    ProgressBar,
   },
   data() {
     return {
-      markdownSource: '',
-      type: '',
+      markdownSource: "",
+      type: "",
       isFirstStep: false,
       isLastStep: false,
-      complete: '',
+      complete: "",
       projects: null,
-      stepSlug: null
+      stepSlug: null,
     };
   },
   computed: {
@@ -145,7 +128,7 @@ export default {
       return null;
     },
     isContentLoaded() {
-      if (this.markdownSource === ''){
+      if (this.markdownSource === "") {
         return false;
       }
       return true;
@@ -154,27 +137,27 @@ export default {
       return this.$store.getters.getIsLoggedIn;
     },
     percentComplete() {
-      if (!this.unitProgress){
+      if (!this.unitProgress) {
         return 0;
       }
-      if (!(this.$route.params.projectUUID in this.unitProgress)){
+      if (!(this.$route.params.projectUUID in this.unitProgress)) {
         return 0;
       }
       const projectProgress = this.unitProgress[this.$route.params.projectUUID];
       return (projectProgress.NumDone / projectProgress.NumMax) * 100;
     },
     projectDone() {
-      if (!this.project?.Steps){
+      if (!this.project?.Steps) {
         return false;
       }
-      for(const step of this.project.Steps){
-        if (!this.projectProgress){
+      for (const step of this.project.Steps) {
+        if (!this.projectProgress) {
           return false;
         }
-        if (!(step.UUID in this.projectProgress)){
+        if (!(step.UUID in this.projectProgress)) {
           return false;
         }
-        if (!this.projectProgress[step.UUID]?.Completed){
+        if (!this.projectProgress[step.UUID]?.Completed) {
           return false;
         }
       }
@@ -183,36 +166,40 @@ export default {
     dropdownSteps() {
       return this.project?.Steps?.map((step, i) => {
         let isStepComplete = false;
-        if (this.projectProgress
-        && step.UUID in this.projectProgress 
-        && this.projectProgress[step.UUID].Completed) {
+        if (
+          this.projectProgress &&
+          step.UUID in this.projectProgress &&
+          this.projectProgress[step.UUID].Completed
+        ) {
           isStepComplete = true;
         }
         return {
-          name: `Step ${i+1} of ${this.project.Steps.length}`,
-          color: isStepComplete ? 'gold' : null,
+          name: `Step ${i + 1} of ${this.project.Steps.length}`,
+          color: isStepComplete ? "gold" : null,
           link: {
-            name: 'Project',
+            name: "Project",
             params: {
               projectUUID: this.$route.params.projectUUID,
-              stepUUID: step.UUID
-            }
-          }
+              stepUUID: step.UUID,
+            },
+          },
         };
       });
     },
     project() {
-      const project = this.projects?.find(project => project.UUID === this.$route.params.projectUUID);
+      const project = this.projects?.find(
+        (project) => project.UUID === this.$route.params.projectUUID
+      );
       return project;
-    }
+    },
   },
   async mounted() {
     try {
       this.projects = await getProjects();
-    } catch(err) {
+    } catch (err) {
       notify({
-        type: 'danger',
-        text: err
+        type: "danger",
+        text: err,
       });
     }
     this.getUnitProgressIfLoggedIn();
@@ -230,29 +217,31 @@ export default {
     await this.navToCurrentStep();
   },
   methods: {
-    async getProjectProgressIfLoggedIn(){
-      if (!this.$store.getters.getIsLoggedIn){
+    async getProjectProgressIfLoggedIn() {
+      if (!this.$store.getters.getIsLoggedIn) {
         return;
       }
       try {
-        this.projectProgress = await getProjectProgress(this.$route.params.projectUUID);
-      } catch(err) {
+        this.projectProgress = await getProjectProgress(
+          this.$route.params.projectUUID
+        );
+      } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
     },
-    async getUnitProgressIfLoggedIn(){
-      if (!this.$store.getters.getIsLoggedIn){
+    async getUnitProgressIfLoggedIn() {
+      if (!this.$store.getters.getIsLoggedIn) {
         return;
       }
       try {
         this.unitProgress = await getUnitsProgress();
-      } catch(err) {
+      } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
     },
@@ -260,28 +249,32 @@ export default {
       this.$refs.feedbackModal.show();
     },
     async submitTypeInfo() {
-      const submitResponse = await submitInformationalStep(this.$route.params.stepUUID);
+      const submitResponse = await submitInformationalStep(
+        this.$route.params.stepUUID
+      );
       await this.handleSuccess(submitResponse);
     },
     async submitTypeManual() {
-      const submitResponse = await submitManualStep(this.$route.params.stepUUID);
+      const submitResponse = await submitManualStep(
+        this.$route.params.stepUUID
+      );
       this.handleSuccess(submitResponse);
     },
     async handleSuccess() {
       loadBalance(this);
       notify({
-        type: 'success',
-        text: 'Great Job!'
+        type: "success",
+        text: "Great Job!",
       });
     },
     navToStep(step, replace) {
       this.$router.push({
-        name: 'Project',
+        name: "Project",
         replace: replace,
         params: {
           projectUUID: step.Step.ProjectUUID,
-          stepUUID: step.Step.UUID
-        }
+          stepUUID: step.Step.UUID,
+        },
       });
     },
     async moveToStep(step) {
@@ -294,9 +287,7 @@ export default {
     },
     async navToCurrentStep() {
       try {
-        const step = await getCurrentStep(
-          this.$route.params.projectUUID
-        );
+        const step = await getCurrentStep(this.$route.params.projectUUID);
         this.navToStep(step, true);
       } catch (err) {
         // this probably happens because course is complete
@@ -305,7 +296,10 @@ export default {
       }
     },
     async goBack() {
-      eventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
+      eventClickExerciseNavigation(
+        this.$route.params.stepUUID,
+        this.project.Title
+      );
       try {
         const step = await getPreviousStep(
           this.$route.params.projectUUID,
@@ -314,17 +308,20 @@ export default {
         this.navToStep(step, true);
       } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
     },
     async goForward(done) {
-      eventClickExerciseNavigation(this.$route.params.stepUUID, this.project.Title);
-      if (this.type === 'type_info' && done) {
+      eventClickExerciseNavigation(
+        this.$route.params.stepUUID,
+        this.project.Title
+      );
+      if (this.type === "type_info" && done) {
         await this.submitTypeInfo();
       }
-      if (this.type === 'type_manual' && done) {
+      if (this.type === "type_manual" && done) {
         await this.submitTypeManual();
       }
       if (this.projectDone && this.isLastStep) {
@@ -343,8 +340,8 @@ export default {
         this.navToStep(step, true);
       } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
     },
@@ -354,14 +351,13 @@ export default {
         this.navToStep(step, true);
       } catch (err) {
         notify({
-          type: 'danger',
-          text: err
+          type: "danger",
+          text: err,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

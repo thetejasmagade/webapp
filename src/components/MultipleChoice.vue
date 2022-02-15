@@ -1,15 +1,6 @@
 <template>
   <div class="flex flex-col items-center">
-    <div
-      class="
-        rounded
-        w-4/5
-        max-w-md
-        bg-blue-800
-        text-gray-200
-        my-8
-      "
-    >
+    <div class="rounded w-4/5 max-w-md bg-blue-800 text-gray-200 my-8">
       <h2 class="my-4 text-lg px-4 max-w-xl">
         {{ question }}
       </h2>
@@ -19,7 +10,11 @@
       :key="i"
       class="text-lg w-4/5 mb-2 max-w-md"
       color="blue-light"
-      :click="() => {callback(answer)}"
+      :click="
+        () => {
+          callback(answer);
+        }
+      "
       :disabled="sandbox"
     >
       <span>{{ answer }}</span>
@@ -36,54 +31,52 @@
 </template>
 
 <script>
-import BlockButton from '@/components/BlockButton.vue';
+import BlockButton from "@/components/BlockButton.vue";
 
 export default {
   components: {
-    BlockButton
+    BlockButton,
   },
   props: {
     callback: {
       type: Function,
-      required: true
+      required: true,
     },
     question: {
       type: String,
       required: false,
-      default: ''
+      default: "",
     },
     sandbox: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     answers: {
       type: Array,
       required: false,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   computed: {
-    buttonText(){
-      if (this.$store.getters.getIsLoggedIn){
-        return 'Become a patron for quiz access';
+    buttonText() {
+      if (this.$store.getters.getIsLoggedIn) {
+        return "Become a patron for quiz access";
       }
-      return 'Login for quiz access';
-    }
+      return "Login for quiz access";
+    },
   },
   methods: {
-    sandboxClick(){
-      if (this.$store.getters.getIsLoggedIn){
-        this.$router.push({name: 'Pricing'});
+    sandboxClick() {
+      if (this.$store.getters.getIsLoggedIn) {
+        this.$router.push({ name: "Pricing" });
         return;
       }
-      this.$router.push({name: 'Login'});
+      this.$router.push({ name: "Login" });
       return;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

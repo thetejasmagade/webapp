@@ -1,13 +1,7 @@
 <template>
-  <div
-    class="
-      h-screen
-      text-gray-700
-      bg-gray-200
-    "
-  >
+  <div class="h-screen text-gray-700 bg-gray-200">
     <metainfo>
-      <template v-slot:title="{ content }">
+      <template #title="{ content }">
         {{ content ? `${content} | Qvault` : `Qvault` }}
       </template>
     </metainfo>
@@ -16,7 +10,7 @@
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faArrowRight,
   faArrowLeft,
@@ -49,8 +43,8 @@ import {
   faRibbon,
   faDownload,
   faPuzzlePiece,
-  faServer
-} from '@fortawesome/free-solid-svg-icons';
+  faServer,
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   faTwitter,
@@ -59,13 +53,11 @@ import {
   faLinkedin,
   faPython,
   faGolang,
-  faDiscord
-} from '@fortawesome/free-brands-svg-icons';
+  faDiscord,
+} from "@fortawesome/free-brands-svg-icons";
 
-import {
-  loadLoggedIn
-} from '@/lib/cloudStore.js';
-import { useMeta } from 'vue-meta';
+import { loadLoggedIn } from "@/lib/cloudStore.js";
+import { useMeta } from "vue-meta";
 
 library.add(faArrowRight);
 library.add(faArrowLeft);
@@ -108,43 +100,70 @@ library.add(faGolang);
 library.add(faDiscord);
 
 export default {
-  setup () {
-    const description = 'Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.';
+  setup() {
+    const description =
+      "Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.";
     useMeta({
-      title: 'Coding Courses',
+      title: "Coding Courses",
       description,
       meta: [
-        { vmid:'description', name: 'description', content: description },
+        { vmid: "description", name: "description", content: description },
 
-        { vmid:'og:title', property: 'og:title', content: 'Qvault' },
-        { vmid:'og:description', property: 'og:description', content: description },
-        { vmid:'og:image', property: 'og:image', content: 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg' },
-        { vmid:'og:locale', property: 'og:locale', content: 'en_US' },
-        { vmid:'og:type', property: 'og:type', content: 'website' },
+        { vmid: "og:title", property: "og:title", content: "Qvault" },
+        {
+          vmid: "og:description",
+          property: "og:description",
+          content: description,
+        },
+        {
+          vmid: "og:image",
+          property: "og:image",
+          content:
+            "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
+        },
+        { vmid: "og:locale", property: "og:locale", content: "en_US" },
+        { vmid: "og:type", property: "og:type", content: "website" },
 
-        { vmid:'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { vmid:'twitter:site', name: 'twitter:site', content: '@q_vault' },
-        { vmid:'twitter:creator', name: 'twitter:creator', content: '@q_vault' },
-        { vmid:'twitter:title', name: 'twitter:title', content: 'Qvault' },
-        { vmid:'twitter:description', property: 'twitter:description', content: description },
-        { vmid:'twitter:image', name: 'twitter:image', content: 'https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg' }
-      ]
+        {
+          vmid: "twitter:card",
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        { vmid: "twitter:site", name: "twitter:site", content: "@q_vault" },
+        {
+          vmid: "twitter:creator",
+          name: "twitter:creator",
+          content: "@q_vault",
+        },
+        { vmid: "twitter:title", name: "twitter:title", content: "Qvault" },
+        {
+          vmid: "twitter:description",
+          property: "twitter:description",
+          content: description,
+        },
+        {
+          vmid: "twitter:image",
+          name: "twitter:image",
+          content:
+            "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
+        },
+      ],
     });
   },
-  created(){
+  created() {
     loadLoggedIn(this);
-  }
+  },
 };
 </script>
 
 <style>
-@import 'styles/index.css';
+@import "styles/index.css";
 
 :root {
-  --red-500: #C05460;
+  --red-500: #c05460;
 
-  --gold-600: #9E713A;
-  --gold-800: #48331B;
+  --gold-600: #9e713a;
+  --gold-800: #48331b;
 
   --gray-750: #292929;
 
@@ -152,10 +171,11 @@ export default {
 }
 
 body {
-  font-family: Apercu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: Apercu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   margin: 0;
   height: 100%;
-  color: var(--gray-750)
+  color: var(--gray-750);
 }
 
 .h-full-minus-bar {

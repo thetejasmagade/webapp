@@ -1,59 +1,51 @@
 <template>
   <div>
     <div class="min-h-full">
-      <div
-        ref="viewer"
-        class="
-          viewer
-          md:p-4 p-2
-          overflow-auto
-          min-h-full
-        "
-      />
+      <div ref="viewer" class="viewer md:p-4 p-2 overflow-auto min-h-full" />
     </div>
   </div>
 </template>
 
 <script>
-import MarkdownIt from 'markdown-it';
-import MarkdownItEmoji from 'markdown-it-emoji';
-import MarkdownItSubscript from 'markdown-it-sub';
-import MarkdownItSuperscript from 'markdown-it-sup';
-import MarkdownItLinkAttributes from 'markdown-it-link-attributes';
-import Prism from 'prismjs';
+import MarkdownIt from "markdown-it";
+import MarkdownItEmoji from "markdown-it-emoji";
+import MarkdownItSubscript from "markdown-it-sub";
+import MarkdownItSuperscript from "markdown-it-sup";
+import MarkdownItLinkAttributes from "markdown-it-link-attributes";
+import Prism from "prismjs";
 
-import '@/styles/prism-darcula.css';
+import "@/styles/prism-darcula.css";
 
-import 'prismjs/components/prism-go.js';
-import 'prismjs/components/prism-bash.js';
-import 'prismjs/components/prism-javascript.js';
-import 'prismjs/components/prism-haskell.js'; // required for purescript
-import 'prismjs/components/prism-purescript.js';
-import 'prismjs/components/prism-python.js';
+import "prismjs/components/prism-go.js";
+import "prismjs/components/prism-bash.js";
+import "prismjs/components/prism-javascript.js";
+import "prismjs/components/prism-haskell.js"; // required for purescript
+import "prismjs/components/prism-purescript.js";
+import "prismjs/components/prism-python.js";
 
 export default {
-  props: { 
-    source:{
+  props: {
+    source: {
       type: String,
       required: false,
-      default: ''
-    }
+      default: "",
+    },
   },
-  data(){
-    const md = new MarkdownIt('default', {
-      breaks: true
+  data() {
+    const md = new MarkdownIt("default", {
+      breaks: true,
     });
     md.use(MarkdownItEmoji);
     md.use(MarkdownItSubscript);
     md.use(MarkdownItSuperscript);
     md.use(MarkdownItLinkAttributes, {
       attrs: {
-        target: '_blank',
-        rel: 'noopener nofollow'
-      }
+        target: "_blank",
+        rel: "noopener nofollow",
+      },
     });
     return {
-      md
+      md,
     };
   },
   watch: {
@@ -61,20 +53,16 @@ export default {
       immediate: true,
       handler(newSource) {
         this.$nextTick(() => {
-          this.$refs.viewer.innerHTML = this.md.render(
-            newSource
-          );
+          this.$refs.viewer.innerHTML = this.md.render(newSource);
           Prism.highlightAll();
         });
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 
-
 <style>
-
 .viewer {
   background-color: inherit;
 }
