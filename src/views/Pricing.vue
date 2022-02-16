@@ -200,6 +200,12 @@
         <div class="flex justify-center">
           <div class="max-w-4xl flex flex-col py-8">
             <Testimonial
+              class="mb-10"
+              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2022/02/megan_astraus-300x300.jpeg"
+              title="Megan Astraus from Arizona, USA"
+              description="My first interaction with Qvault was through a resume event where Lane and the community spent a great deal of time combing through my resume and helping me make updates. The wealth of knowledge from the hungry programmers in the Discord helped me land my first software developer job just a month after that resume event!"
+            />
+            <Testimonial
               class="mb-5"
               profile-image-u-r-l="https://qvault.io/wp-content/uploads/2022/01/daniel-gerep-300x300.jpeg"
               title="Daniel Gerep from Cássia, Brazil"
@@ -212,15 +218,9 @@
               description="I’m a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren’t an option because of work and wanting time with my kid! I came across Qvault after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I’d made the right decision going with Qvault."
             />
             <Testimonial
-              class="mb-5"
               profile-image-u-r-l="https://qvault.io/wp-content/uploads/2021/12/0-150x150-1.jpeg"
               title="Ignacio Contreras from Guanajuato, Mexico"
               description="I love how simple it is to find relevant content on Qvault. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."
-            />
-            <Testimonial
-              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2020/12/saul_silva-300x300.jpg"
-              title="Saul Silva from Mexico"
-              description="I just finished both of Qvault’s “Basic Intro to Coding” courses. I now feel very confident in my JavaScript skills. I found the courses super easy to follow, and actually engaging enough to stick with."
             />
           </div>
         </div>
