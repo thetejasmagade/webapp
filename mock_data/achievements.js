@@ -5,6 +5,8 @@ export const streakBronzeAchievement = [
     AchievementDescription: "Get 3 exercises correct in a row",
     AchievementImageURL:
       "https://qvault.io/wp-content/uploads/2020/11/streak-bronze-min-300x300.png",
+    AchievementImageGifURL:
+      "https://qvault.io/wp-content/uploads/2022/02/speed_bronze_250.gif",
     AchievementCategory: "streak",
     AchievementGemsEarned: 7,
   },

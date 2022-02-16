@@ -12,7 +12,11 @@
           <ImageCard
             v-for="(userAchievement, i) of speedAchievements"
             :key="i"
-            :img-src="userAchievement.ImageURL"
+            :img-src="
+              userAchievement.ImageGifURL && userAchievement.UnlockedAt
+                ? userAchievement.ImageGifURL
+                : userAchievement.ImageURL
+            "
             :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
             <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
@@ -38,7 +42,11 @@
           <ImageCard
             v-for="(userAchievement, i) of streakAchievements"
             :key="i"
-            :img-src="userAchievement.ImageURL"
+            :img-src="
+              userAchievement.ImageGifURL && userAchievement.UnlockedAt
+                ? userAchievement.ImageGifURL
+                : userAchievement.ImageURL
+            "
             :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
             <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
@@ -64,7 +72,11 @@
           <ImageCard
             v-for="(userAchievement, i) of engagementAchievements"
             :key="i"
-            :img-src="userAchievement.ImageURL"
+            :img-src="
+              userAchievement.ImageGifURL && userAchievement.UnlockedAt
+                ? userAchievement.ImageGifURL
+                : userAchievement.ImageURL
+            "
             :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
             <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
