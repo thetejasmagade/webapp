@@ -21,6 +21,7 @@
     :style="{
       cursor: disabled ? 'not-allowed' : 'pointer',
     }"
+    @click.stop="click"
   >
     <slot />
   </button>
