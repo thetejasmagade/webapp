@@ -19,6 +19,8 @@
           :dropdown-one-items="dropdownSteps"
           :dropdown-one-index="stepIndex"
           :go-back="goBack"
+          :back-link="backLink"
+          :forward-link="forwardLink"
           :go-forward="
             () => {
               goForward(false);
@@ -111,6 +113,8 @@ export default {
       complete: "",
       projects: null,
       stepSlug: null,
+      nextStep: null,
+      previousStep: null,
     };
   },
   computed: {
@@ -126,6 +130,30 @@ export default {
         count++;
       }
       return null;
+    },
+    forwardLink() {
+      if (!this.nextStep) return null;
+      let step = this.nextStep.Step;
+      let forwardLink = {
+        name: "Project",
+        params: {
+          projectUUID: step.ProjectUUID,
+          stepUUID: step.UUID,
+        },
+      };
+      return forwardLink;
+    },
+    backLink() {
+      if (!this.previousStep) return null;
+      let step = this.previousStep.Step;
+      let backLink = {
+        name: "Project",
+        params: {
+          projectUUID: step.ProjectUUID,
+          stepUUID: step.UUID,
+        },
+      };
+      return backLink;
     },
     isContentLoaded() {
       if (this.markdownSource === "") {
@@ -204,6 +232,20 @@ export default {
     }
     this.getUnitProgressIfLoggedIn();
     this.getProjectProgressIfLoggedIn();
+
+    try {
+      this.nextStep = await getNextStep(
+        this.$route.params.projectUUID,
+        this.$route.params.stepUUID
+      );
+      this.previousStep = await getPreviousStep(
+        this.$route.params.projectUUID,
+        this.$route.params.stepUUID
+      );
+      console.log(JSON.stringify(this.previousStep));
+    } catch (err) {
+      // dont display toast error
+    }
 
     if (this.$route.params.stepUUID) {
       const step = await getStepByID(

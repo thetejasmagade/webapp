@@ -35,6 +35,7 @@
     <div class="flex-1 flex justify-end">
       <BlockButton
         :click="goBack"
+        :link="backLink"
         :disabled="!canGoBack"
         :color="canGoBack ? 'blue' : 'gray'"
       >
@@ -45,6 +46,7 @@
         :disabled="!canGoForward"
         class="ml-3"
         :click="goForward"
+        :link="forwardLink"
         :color="canGoForward ? 'blue' : 'gray'"
       >
         <FontAwesomeIcon icon="arrow-right" />
@@ -130,6 +132,16 @@ export default {
     },
     color: {
       type: String,
+      required: false,
+      default: null,
+    },
+    backLink: {
+      type: Object,
+      required: false,
+      default: null,
+    },
+    forwardLink: {
+      type: Object,
       required: false,
       default: null,
     },
