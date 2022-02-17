@@ -11,7 +11,11 @@
         </h2>
         <img
           loading="lazy"
-          :src="achievementEarned?.AchievementImageURL"
+          :src="
+            achievementEarned.AchievementImageGifURL
+              ? achievementEarned.AchievementImageGifURL
+              : achievementEarned.AchievementImageURL
+          "
           class="w-60"
         />
         <h3 class="text-gray-600 text-xl mb-8">
