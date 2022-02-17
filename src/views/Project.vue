@@ -242,7 +242,6 @@ export default {
         this.$route.params.projectUUID,
         this.$route.params.stepUUID
       );
-      console.log(JSON.stringify(this.previousStep));
     } catch (err) {
       // dont display toast error
     }
