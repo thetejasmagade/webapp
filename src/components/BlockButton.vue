@@ -1,11 +1,26 @@
 <template>
+  <router-link
+    v-if="link"
+    :to="link"
+    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 shadow"
+    :class="colors"
+    :disabled="disabled"
+    :style="{
+      cursor: disabled ? 'not-allowed' : 'pointer',
+    }"
+  >
+    <slot />
+  </router-link>
+
   <button
+    v-else
     type="submit"
     class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 shadow"
     :class="colors"
     :disabled="disabled"
-    :style="{ cursor: disabled ? 'not-allowed' : 'pointer' }"
-    @click.stop="click"
+    :style="{
+      cursor: disabled ? 'not-allowed' : 'pointer',
+    }"
   >
     <slot />
   </button>
@@ -28,6 +43,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    link: {
+      type: Object,
+      required: false,
+      default: null,
     },
   },
   computed: {

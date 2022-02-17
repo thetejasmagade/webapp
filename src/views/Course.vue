@@ -28,6 +28,8 @@
           :dropdown-two-index="exerciseIndex"
           :go-back="goBack"
           :go-forward="goForward"
+          :back-link="backLink"
+          :forward-link="forwardLink"
           :can-go-back="!isFirstExercise"
           :can-go-forward="!isLastExercise || courseDone"
           :sandbox="sandbox"
@@ -171,6 +173,8 @@ export default {
       unitProgress: null,
       isCheatPurchased: false,
       cheatCost: 0,
+      nextExercise: null,
+      previousExercise: null,
     };
   },
   computed: {
@@ -198,6 +202,32 @@ export default {
         }
       }
       return true;
+    },
+    forwardLink() {
+      if (!this.nextExercise) return null;
+      let exercise = this.nextExercise.Exercise;
+      let forwardLink = {
+        name: "Course",
+        params: {
+          courseUUID: exercise.CourseUUID,
+          moduleUUID: exercise.ModuleUUID,
+          exerciseUUID: exercise.UUID,
+        },
+      };
+      return forwardLink;
+    },
+    backLink() {
+      if (!this.previousExercise) return null;
+      let exercise = this.previousExercise.Exercise;
+      let backLink = {
+        name: "Course",
+        params: {
+          courseUUID: exercise.CourseUUID,
+          moduleUUID: exercise.ModuleUUID,
+          exerciseUUID: exercise.UUID,
+        },
+      };
+      return backLink;
     },
     isLoggedIn() {
       return this.$store.getters.getIsLoggedIn;
@@ -340,6 +370,18 @@ export default {
         type: "danger",
         text: err,
       });
+    }
+    try {
+      this.nextExercise = await getNextExercise(
+        this.$route.params.courseUUID,
+        this.$route.params.exerciseUUID
+      );
+      this.previousExercise = await getPreviousExercise(
+        this.$route.params.courseUUID,
+        this.$route.params.exerciseUUID
+      );
+    } catch (err) {
+      // ignore toast error
     }
 
     if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID) {
