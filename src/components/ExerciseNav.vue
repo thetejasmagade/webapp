@@ -34,7 +34,6 @@
     </div>
     <div class="flex-1 flex justify-end">
       <BlockButton
-        :click="goBack"
         :link="backLink"
         :disabled="!canGoBack"
         :color="canGoBack ? 'blue' : 'gray'"
@@ -45,7 +44,6 @@
       <BlockButton
         :disabled="!canGoForward"
         class="ml-3"
-        :click="goForward"
         :link="forwardLink"
         :color="canGoForward ? 'blue' : 'gray'"
       >
@@ -106,14 +104,6 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    },
-    goBack: {
-      type: Function,
-      required: true,
-    },
-    goForward: {
-      type: Function,
-      required: true,
     },
     canGoBack: {
       type: Boolean,

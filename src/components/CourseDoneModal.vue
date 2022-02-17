@@ -43,6 +43,11 @@ import Modal from "@/components/Modal.vue";
 import BlockButton from "@/components/BlockButton.vue";
 import { loadTracks } from "@/lib/cloudStore.js";
 
+import {
+  markSeenCourseDoneModal,
+  hasSeenCourseDoneModal,
+} from "@/lib/localStorageLib";
+
 export default {
   components: {
     Modal,
@@ -51,6 +56,10 @@ export default {
   props: {
     goToBeginningCallback: {
       type: Function,
+      required: true,
+    },
+    courseUUID: {
+      type: String,
       required: true,
     },
   },
@@ -71,6 +80,10 @@ export default {
       this.hide();
     },
     show() {
+      if (hasSeenCourseDoneModal(this.courseUUID)) {
+        return;
+      }
+      markSeenCourseDoneModal(this.courseUUID);
       this.$refs.courseDoneModal.show();
     },
     hide() {

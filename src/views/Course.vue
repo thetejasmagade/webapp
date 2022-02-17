@@ -9,7 +9,9 @@
       />
       <SandboxModeModal ref="sandboxModeModal" />
       <CourseDoneModal
+        v-if="course"
         ref="courseDoneModal"
+        :course-u-u-i-d="course.UUID"
         :go-to-beginning-callback="goToBeginning"
       />
 
@@ -26,8 +28,6 @@
           :dropdown-two-items="dropdownExercises"
           :dropdown-one-index="moduleIndex"
           :dropdown-two-index="exerciseIndex"
-          :go-back="goBack"
-          :go-forward="goForward"
           :back-link="backLink"
           :forward-link="forwardLink"
           :can-go-back="!isFirstExercise"
@@ -115,7 +115,6 @@ import {
   eventExerciseSuccess,
   eventSubmitMultipleChoice,
   eventClickCheat,
-  eventClickExerciseNavigation,
   eventOpenSandboxModeModal,
 } from "@/lib/analytics.js";
 
@@ -371,11 +370,16 @@ export default {
         text: err,
       });
     }
+
     try {
       this.nextExercise = await getNextExercise(
         this.$route.params.courseUUID,
         this.$route.params.exerciseUUID
       );
+    } catch (err) {
+      // ignore toast error
+    }
+    try {
       this.previousExercise = await getPreviousExercise(
         this.$route.params.courseUUID,
         this.$route.params.exerciseUUID
@@ -390,8 +394,24 @@ export default {
         this.$route.params.exerciseUUID
       );
       this.loadExercise(exercise);
-      this.getCourseProgressIfLoggedIn();
       this.getUnitProgressIfLoggedIn();
+
+      try {
+        if (this.type === "type_info") {
+          await this.submitTypeInfo();
+        }
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+
+      await this.getCourseProgressIfLoggedIn();
+      if (this.courseDone) {
+        this.$refs.courseDoneModal.show();
+        eventFinishCourse(this.course.Title, false);
+      }
 
       if (this.$store.getters.getIsLoggedIn) {
         try {
@@ -644,50 +664,6 @@ export default {
         // this probably happens because course is complete
         const exercise = await getFirstExercise(this.$route.params.courseUUID);
         this.navToExercise(exercise, true);
-      }
-    },
-    async goBack() {
-      eventClickExerciseNavigation(
-        this.$route.params.exerciseUUID,
-        this.course.Title
-      );
-      try {
-        const exercise = await getPreviousExercise(
-          this.$route.params.courseUUID,
-          this.$route.params.exerciseUUID
-        );
-        this.navToExercise(exercise, true);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-    },
-    async goForward() {
-      eventClickExerciseNavigation(
-        this.$route.params.exerciseUUID,
-        this.course.Title
-      );
-      if (this.type === "type_info") {
-        await this.submitTypeInfo();
-      }
-      if (this.courseDone && this.isLastExercise) {
-        this.$refs.courseDoneModal.show();
-        eventFinishCourse(this.course.Title, false);
-        return;
-      }
-      try {
-        const exercise = await getNextExercise(
-          this.$route.params.courseUUID,
-          this.$route.params.exerciseUUID
-        );
-        this.navToExercise(exercise);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
       }
     },
     async goToBeginning() {

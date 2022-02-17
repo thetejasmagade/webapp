@@ -1,10 +1,6 @@
 <template>
   <ViewNavWrapper>
     <div class="h-full">
-      <CourseDoneModal
-        ref="projectDoneModal"
-        :go-to-beginning-callback="goToBeginning"
-      />
       <FeedbackModal
         v-if="$route.params.stepUUID"
         ref="feedbackModal"
@@ -18,14 +14,8 @@
           class="p-3 w-full box-border shadow z-10"
           :dropdown-one-items="dropdownSteps"
           :dropdown-one-index="stepIndex"
-          :go-back="goBack"
           :back-link="backLink"
           :forward-link="forwardLink"
-          :go-forward="
-            () => {
-              goForward(false);
-            }
-          "
           :can-go-back="!isFirstStep"
           :can-go-forward="!isLastStep || projectDone"
           :sandbox="false"
@@ -40,14 +30,14 @@
           :markdown-source="markdownSource"
           :project-slug="project.Slug"
           :step-slug="stepSlug"
-          :done-with-step="() => goForward(true)"
+          :done-with-step="completeStep"
         />
         <CardStepTypeManual
           v-else-if="type === 'type_manual'"
           :markdown-source="markdownSource"
           :project-slug="project.Slug"
           :step-slug="stepSlug"
-          :done-with-step="() => goForward(true)"
+          :done-with-step="completeStep"
         />
       </div>
       <div class="block sm:hidden p-4">
@@ -64,7 +54,6 @@
 
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
-import CourseDoneModal from "@/components/CourseDoneModal.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
@@ -75,10 +64,7 @@ import ProgressBar from "@/components/ProgressBar.vue";
 import { loadBalance } from "@/lib/cloudStore.js";
 import { notify } from "@/lib/notification.js";
 
-import {
-  eventFinishCourse,
-  eventClickExerciseNavigation,
-} from "@/lib/analytics.js";
+import { eventClickExerciseNavigation } from "@/lib/analytics.js";
 
 import {
   getCurrentStep,
@@ -95,7 +81,6 @@ import {
 
 export default {
   components: {
-    CourseDoneModal,
     Section,
     ExerciseNav,
     FeedbackModal,
@@ -238,6 +223,10 @@ export default {
         this.$route.params.projectUUID,
         this.$route.params.stepUUID
       );
+    } catch (err) {
+      // dont display toast error
+    }
+    try {
       this.previousStep = await getPreviousStep(
         this.$route.params.projectUUID,
         this.$route.params.stepUUID
@@ -336,39 +325,16 @@ export default {
         this.navToStep(step, true);
       }
     },
-    async goBack() {
+    async completeStep() {
       eventClickExerciseNavigation(
         this.$route.params.stepUUID,
         this.project.Title
       );
-      try {
-        const step = await getPreviousStep(
-          this.$route.params.projectUUID,
-          this.$route.params.stepUUID
-        );
-        this.navToStep(step, true);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-    },
-    async goForward(done) {
-      eventClickExerciseNavigation(
-        this.$route.params.stepUUID,
-        this.project.Title
-      );
-      if (this.type === "type_info" && done) {
+      if (this.type === "type_info") {
         await this.submitTypeInfo();
       }
-      if (this.type === "type_manual" && done) {
+      if (this.type === "type_manual") {
         await this.submitTypeManual();
-      }
-      if (this.projectDone && this.isLastStep) {
-        this.$refs.projectDoneModal.show();
-        eventFinishCourse(this.project.Title, false);
-        return;
       }
       if (this.isLastStep) {
         return;
