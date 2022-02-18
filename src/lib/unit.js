@@ -25,3 +25,17 @@ export function getUnitData(unit) {
   }
   throw "bad unit type";
 }
+
+export function getUnitLink(unit) {
+  const unitData = getUnitData(unit);
+  if (unit.type === unitTypeCourse) {
+    return {
+      name: "Course",
+      params: { courseUUID: unitData.UUID },
+    };
+  }
+  return {
+    name: "Project",
+    params: { projectUUID: unitData.UUID },
+  };
+}
