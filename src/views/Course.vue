@@ -42,6 +42,7 @@
         <CardExerciseTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
+          :done-with-exercise="doneWithExercise"
         />
         <CardExerciseTypeMultipleChoice
           v-else-if="type === 'type_choice'"
@@ -396,17 +397,6 @@ export default {
       this.loadExercise(exercise);
       this.getUnitProgressIfLoggedIn();
 
-      try {
-        if (this.type === "type_info") {
-          await this.submitTypeInfo();
-        }
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-
       await this.getCourseProgressIfLoggedIn();
       if (this.courseDone) {
         this.$refs.courseDoneModal.show();
@@ -439,6 +429,21 @@ export default {
     await this.navToCurrentExercise();
   },
   methods: {
+    async doneWithExercise() {
+      try {
+        await this.submitTypeInfo();
+        const nextExercise = await getNextExercise(
+          this.$route.params.courseUUID,
+          this.$route.params.exerciseUUID
+        );
+        this.navToExercise(nextExercise, false);
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    },
     async loadCheatStatus() {
       try {
         const cheatResp = await getCheatStatus(this.$route.params.exerciseUUID);

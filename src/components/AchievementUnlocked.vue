@@ -2,7 +2,7 @@
   <div class="p-4 flex justify-center items-center h-full">
     <Section
       title="Achievement unlocked!"
-      subtitle="If you're in Discord, we've published your accomplishment in #achievements"
+      subtitle="Great job, keep going"
       class="max-w-4xl"
     >
       <div v-if="!claimed" class="flex flex-col items-center p-4">
