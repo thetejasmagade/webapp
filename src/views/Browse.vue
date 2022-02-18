@@ -23,8 +23,8 @@
         <div v-for="(unit, i) of units" :key="i">
           <ImageCard
             class="h-full"
-            :click="() => clickUnit(unit)"
             :img-src="getUnitData(unit).ImageURL"
+            :link="getUnitLink(unit)"
           >
             <UnitCardBody :unit="unit" />
           </ImageCard>
@@ -39,9 +39,7 @@ import Section from "@/components/Section.vue";
 import ImageCard from "@/components/ImageCard.vue";
 import UnitCardBody from "@/components/UnitCardBody.vue";
 import BrowseCardSkeleton from "@/components/BrowseCardSkeleton.vue";
-import { unitTypeCourse, getUnitData, unitTypeProject } from "@/lib/unit.js";
-
-import { eventSelectCourse } from "@/lib/analytics.js";
+import { getUnitLink, getUnitData } from "@/lib/unit.js";
 
 export default {
   components: {
@@ -73,22 +71,7 @@ export default {
   },
   methods: {
     getUnitData,
-    clickUnit(unit) {
-      const unitData = getUnitData(unit);
-      if (unit.type === unitTypeCourse) {
-        eventSelectCourse(unitData.UUID, unitData.Title);
-        this.$router.push({
-          name: "Course",
-          params: { courseUUID: unitData.UUID },
-        });
-      }
-      if (unit.type === unitTypeProject) {
-        this.$router.push({
-          name: "Project",
-          params: { projectUUID: unitData.UUID },
-        });
-      }
-    },
+    getUnitLink,
   },
 };
 </script>

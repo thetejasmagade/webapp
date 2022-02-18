@@ -7,18 +7,20 @@
         'rounded-b-none': hasSlots,
       }"
     >
-      <img
-        v-if="imgSrc"
-        loading="lazy"
-        :src="imgSrc"
-        class="rounded object-cover h-full w-full"
-        :class="{
-          'cursor-pointer': click,
-          'hover:opacity-50': click,
-          'rounded-b-none': hasSlots,
-        }"
-        @click="onClick"
-      />
+      <router-link :to="link">
+        <img
+          v-if="imgSrc"
+          loading="lazy"
+          :src="imgSrc"
+          class="rounded object-cover h-full w-full"
+          :class="{
+            'cursor-pointer': click,
+            'hover:opacity-50': click,
+            'rounded-b-none': hasSlots,
+          }"
+          @click="link ? null : click"
+        />
+      </router-link>
     </div>
     <div v-if="hasSlots" class="px-4 py-2 mt-2">
       <slot />
@@ -37,19 +39,17 @@ export default {
     click: {
       type: Function,
       required: false,
+      default: () => {},
+    },
+    link: {
+      type: Object,
+      required: false,
       default: null,
     },
   },
   computed: {
     hasSlots() {
       return this.$slots.default;
-    },
-  },
-  methods: {
-    onClick() {
-      if (this.click) {
-        this.click();
-      }
     },
   },
 };

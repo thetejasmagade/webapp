@@ -5,11 +5,7 @@
       title="Practice the skills that bootcamps skip, but employers are dying to hire for"
       subtitle="A complete computer science program in your browser"
     >
-      <TrackTimeline
-        :units="trackCS"
-        :click-callback="clickUnit"
-        :num-skeleton-cards="5"
-      />
+      <TrackTimeline :units="trackCS" :num-skeleton-cards="5" />
       <h2 class="text-gold-600 text-xl">Notes</h2>
       <p class="max-width">
         <i>
@@ -34,9 +30,6 @@
 <script>
 import Section from "@/components/Section.vue";
 import TrackTimeline from "@/components/TrackTimeline.vue";
-import { unitTypeCourse, getUnitData, unitTypeProject } from "@/lib/unit.js";
-
-import { eventSelectCourse } from "@/lib/analytics.js";
 
 export default {
   components: {
@@ -46,24 +39,6 @@ export default {
   computed: {
     trackCS() {
       return this.$store.getters.getTrackCS;
-    },
-  },
-  methods: {
-    clickUnit(unit) {
-      const unitData = getUnitData(unit);
-      if (unit.type === unitTypeCourse) {
-        eventSelectCourse(unitData.UUID, unitData.Title);
-        this.$router.push({
-          name: "Course",
-          params: { courseUUID: unitData.UUID },
-        });
-      }
-      if (unit.type === unitTypeProject) {
-        this.$router.push({
-          name: "Project",
-          params: { projectUUID: unitData.UUID },
-        });
-      }
     },
   },
 };

@@ -79,7 +79,7 @@
           >
             <ImageCard
               :img-src="getUnitData(unit).ImageURL"
-              :click="() => clickCallback(unit)"
+              :link="getUnitLink(unit)"
               class="lg:mx-8"
             >
               <UnitCardBody :unit="unit" />
@@ -94,7 +94,7 @@
 <script>
 import ImageCard from "@/components/ImageCard.vue";
 import UnitCardBody from "@/components/UnitCardBody.vue";
-import { getUnitData } from "@/lib/unit.js";
+import { getUnitLink, getUnitData } from "@/lib/unit.js";
 import ImageCardSkeleton from "@/components/ImageCardSkeleton.vue";
 
 export default {
@@ -104,11 +104,6 @@ export default {
     ImageCardSkeleton,
   },
   props: {
-    clickCallback: {
-      type: Function,
-      required: false,
-      default: () => {},
-    },
     numSkeletonCards: {
       type: Number,
       required: false,
@@ -139,6 +134,7 @@ export default {
   },
   methods: {
     getUnitData,
+    getUnitLink,
     isComplete(unit) {
       return getUnitData(unit).CompletedAt;
     },
