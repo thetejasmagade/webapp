@@ -1,26 +1,35 @@
 <template>
   <div class="bg-white shadow-lg rounded mb-6 tracking-wide">
     <div
+      v-if="imgSrc"
       class="md:shrink-0 rounded"
       :class="{
         'bg-white': click,
         'rounded-b-none': hasSlots,
       }"
     >
-      <router-link :to="link">
+      <router-link v-if="link" :to="link">
         <img
-          v-if="imgSrc"
           loading="lazy"
           :src="imgSrc"
-          class="rounded object-cover h-full w-full"
+          class="rounded object-cover h-full w-full cursor-pointer hover:opacity-50"
           :class="{
-            'cursor-pointer': click,
-            'hover:opacity-50': click,
             'rounded-b-none': hasSlots,
           }"
-          @click="link ? null : click"
         />
       </router-link>
+      <img
+        v-else
+        loading="lazy"
+        :src="imgSrc"
+        class="rounded object-cover h-full w-full"
+        :class="{
+          'cursor-pointer': click,
+          'hover:opacity-50': click,
+          'rounded-b-none': hasSlots,
+        }"
+        @click="click"
+      />
     </div>
     <div v-if="hasSlots" class="px-4 py-2 mt-2">
       <slot />
@@ -39,7 +48,7 @@ export default {
     click: {
       type: Function,
       required: false,
-      default: () => {},
+      default: null,
     },
     link: {
       type: Object,
