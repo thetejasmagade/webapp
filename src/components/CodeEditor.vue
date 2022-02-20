@@ -43,6 +43,7 @@
             :is-cheating="isCheating"
             :is-cheat-purchased="isCheatPurchased"
             :cheat-cost="cheatCost"
+            :render-button="renderButton"
           />
         </div>
         <div
@@ -152,6 +153,10 @@ export default {
     },
     cheatCost: {
       type: Number,
+      required: true,
+    },
+    renderButton: {
+      type: Boolean,
       required: true,
     },
   },
