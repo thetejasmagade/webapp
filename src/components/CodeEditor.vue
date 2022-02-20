@@ -157,7 +157,8 @@ export default {
     },
     renderButton: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: true,
     },
   },
   emits: ["update:modelValue"],

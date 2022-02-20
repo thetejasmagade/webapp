@@ -71,7 +71,7 @@ export default {
     },
     renderButton: {
       type: Boolean,
-      required: true,
+      required: false,
     },
   },
   computed: {
