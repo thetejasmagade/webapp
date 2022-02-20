@@ -78,7 +78,8 @@ export default {
     },
     cheatCost: {
       type: Number,
-      required: true,
+      required: false,
+      default: null,
     },
   },
   emits: ["update:modelValue"],

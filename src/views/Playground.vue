@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex flex-col justify-end">
-    <TopNav :title="`${displayLang} Playground`" />
+    <TopNav :title="`${displayLang.name} Playground`" />
 
     <div
       class="z-10 right-28 top-14 flex justify-center flex-row m-4 md:block md:absolute"
@@ -22,6 +22,7 @@
       :reset-callback="setCode"
       :prog-lang="progLang"
       :canvas-enabled="lang === 'jsCanvas'"
+      :is-cheat-purchased="true"
     />
   </div>
 </template>
@@ -109,11 +110,26 @@ export default {
       code: "",
       lang: route.params.lang,
       displayLangs: {
-        go: "Golang",
-        js: "JavaScript",
-        jsCanvas: "JavaScript Canvas",
-        py: "Python",
-        purs: "PureScript",
+        go: {
+          name: "Golang",
+          color: null,
+        },
+        js: {
+          name: "JavaScript",
+          color: null,
+        },
+        jsCanvas: {
+          name: "JavaScript Canvas",
+          color: null,
+        },
+        py: {
+          name: "Python",
+          color: null,
+        },
+        purs: {
+          name: "PureScript",
+          color: null,
+        },
       },
       displayLang: "",
       displayLangsArray: [],
@@ -124,7 +140,7 @@ export default {
       const description = `Run ${state.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
       const featuredImage =
         "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg";
-      const title = `${state.displayLang} Playground`;
+      const title = `${state.displayLang.name} Playground`;
       return {
         title: title,
         meta: [
