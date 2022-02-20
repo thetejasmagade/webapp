@@ -22,8 +22,6 @@
       :reset-callback="setCode"
       :prog-lang="progLang"
       :canvas-enabled="lang === 'jsCanvas'"
-      :render-button="false"
-      :cheat-cost="0"
       :is-cheat-purchased="true"
     />
   </div>

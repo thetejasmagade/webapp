@@ -17,7 +17,7 @@
       position="bottom"
     >
       <BlockButton
-        v-if="renderButton"
+        v-if="cheatCost != null"
         class="mr-3"
         :click="cheatCallback"
         :color="isCheating ? 'gold' : 'gray'"
@@ -67,11 +67,8 @@ export default {
     },
     cheatCost: {
       type: Number,
-      required: true,
-    },
-    renderButton: {
-      type: Boolean,
       required: false,
+      default: null,
     },
   },
   computed: {

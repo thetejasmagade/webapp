@@ -21,7 +21,6 @@
       :is-cheating="isCheating"
       :is-cheat-purchased="isCheatPurchased"
       :cheat-cost="cheatCost"
-      :render-button="true"
       @update:modelValue="(value) => $emit('update:modelValue', value)"
     />
   </Multipane>
@@ -79,7 +78,8 @@ export default {
     },
     cheatCost: {
       type: Number,
-      required: true,
+      required: false,
+      default: null,
     },
   },
   emits: ["update:modelValue"],
