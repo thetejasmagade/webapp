@@ -4,11 +4,11 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="Create a unique username"
-        subtitle="This will determine the link to your portfolio"
-        class="max-w-2xl"
+        title="Claim a username"
+        subtitle="Your username will be used to create a personal portfolio link for you"
+        class="max-w-2xl w-full"
       >
-        <div class="flex flex-row justify-center items-center mb-2">
+        <div class="p-4 flex flex-row justify-center items-center">
           <TextInput v-model="handle" placeholder="username" type="text" />
 
           <BlockButton :click="updateUserHandle" class="ml-4">

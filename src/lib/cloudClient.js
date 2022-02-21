@@ -386,7 +386,7 @@ export async function updateUserResume(formData) {
   return handled;
 }
 
-export async function sendMagicLink(email) {
+export async function sendMagicLink(email, newUser) {
   const resp = await fetch(`${domain}/v1/users/email/send_magic_link`, {
     method: "POST",
     mode: "cors",
@@ -395,6 +395,7 @@ export async function sendMagicLink(email) {
     },
     body: JSON.stringify({
       email,
+      newUser,
     }),
   });
   const handled = await handleJSONResponse(resp);

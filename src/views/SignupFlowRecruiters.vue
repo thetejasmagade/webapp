@@ -4,29 +4,22 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="Qvault is about achieving career goals"
-        subtitle="Do you want help finding your next dev job?"
+        title="We are all about achieving career goals"
+        subtitle="Do you want help finding your next coding job?"
         class="section"
       >
         <div class="max-w-xl p-4">
           <p class="mb-2">
             We have partnerships with organizations that are dedicated to
             finding great coding jobs for our community. If you're interested in
-            <b class="text-gold-700"> getting hired now or in the future </b>
-            then opt-in below. You can also update your settings any time, your
-            privacy is an absolute priority to us.
+            getting hired now or in the future then opt-in below.
           </p>
 
-          <h2 class="text-xl text-gold-600 mt-4 mb-4">
-            If a partner finds a coding job that seems like a great match, can
-            they reach out to you via email?
-          </h2>
-
           <div class="text-center">
-            <BlockButton class="mr-4" :click="success">
-              Yes! Contact me
+            <BlockButton class="mr-4" :click="() => done(true)">
+              Yes! I'd like to hear about jobs
             </BlockButton>
-            <BlockButton class="btn" color="gray" :click="cancel">
+            <BlockButton class="btn" color="gray" :click="() => done(false)">
               No thanks
             </BlockButton>
           </div>
@@ -53,21 +46,17 @@ export default {
     BlockButton,
   },
   methods: {
-    async success() {
-      try {
-        await updateUser({ recruitersCanContact: true });
-        this.$router.push({
-          name: "SignupFlowRecruitersEnrich",
-          query: { redirect: this.$route.query.redirect },
-        });
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
+    async done(accept) {
+      if (accept) {
+        try {
+          await updateUser({ recruitersCanContact: true });
+        } catch (err) {
+          notify({
+            type: "danger",
+            text: err,
+          });
+        }
       }
-    },
-    async cancel() {
       eventTutorialComplete();
       this.$router.push({
         name: "Courses",

@@ -24,7 +24,7 @@
       <p>
         If you'd rather speak to the authors and other students directly join
         our
-        <a href="https://discord.gg/k4rVEWt" target="_blank"
+        <a href="https://discord.gg/EEkFwbv" target="_blank"
           >Discord community instead.</a
         >
       </p>

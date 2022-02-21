@@ -103,7 +103,7 @@ export default {
           this.subscribeNews,
           this.$route.query.ruid
         );
-        await sendMagicLink(this.email);
+        await sendMagicLink(this.email, true);
         eventRegister(singupMethodEmail);
         this.sent = true;
       } catch (err) {

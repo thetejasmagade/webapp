@@ -28,8 +28,6 @@ export function eventRegister(method) {
     window.dataLayer.push({
       event: "sign_up",
       method: method,
-      value: ".25",
-      currency: "USD",
     });
     mixpanel.track("signUp", {
       method,
@@ -47,7 +45,7 @@ export function eventBeginCheckout() {
       event: "begin_checkout",
       ecommerce: {
         currency: "USD",
-        value: 25.0,
+        value: 39.0,
         items: [
           {
             item_id: "pro_sub_id",
@@ -69,7 +67,7 @@ export function eventFinishCheckout() {
     window.dataLayer.push({
       event: "purchase",
       ecommerce: {
-        value: 25.0,
+        value: 39.0,
         transaction_id: Math.floor(Math.random() * 100000000).toString(),
         currency: "USD",
         items: [

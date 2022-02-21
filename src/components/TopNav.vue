@@ -50,7 +50,7 @@
         </router-link>
 
         <a
-          href="https://discord.gg/k4rVEWt"
+          href="https://discord.gg/EEkFwbv"
           target="_blank"
           class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
         >
@@ -107,7 +107,7 @@
         <span>Pricing</span>
       </a>
       <a
-        href="https://discord.gg/k4rVEWt"
+        href="https://discord.gg/EEkFwbv"
         target="_blank"
         class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
       >

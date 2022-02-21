@@ -11,10 +11,7 @@ const Settings = () => import("@/views/Settings.vue");
 const Achievements = () => import("@/views/Achievements.vue");
 const SignupFlowUsername = () => import("@/views/SignupFlowUsername.vue");
 const SignupFlowCommunity = () => import("@/views/SignupFlowCommunity.vue");
-const SignupFlowSync = () => import("@/views/SignupFlowSync.vue");
 const SignupFlowRecruiters = () => import("@/views/SignupFlowRecruiters.vue");
-const SignupFlowRecruitersEnrich = () =>
-  import("@/views/SignupFlowRecruitersEnrich.vue");
 const Certificate = () => import("@/views/Certificate.vue");
 const CSTrack = () => import("@/views/CSTrack.vue");
 const AlgosTrack = () => import("@/views/AlgosTrack.vue");
@@ -41,19 +38,9 @@ const routes = [
     component: SignupFlowCommunity,
   },
   {
-    path: "/signup_flow/sync",
-    name: "SignupFlowSync",
-    component: SignupFlowSync,
-  },
-  {
     path: "/signup_flow/recruit",
     name: "SignupFlowRecruiters",
     component: SignupFlowRecruiters,
-  },
-  {
-    path: "/signup_flow/recruit_enrich",
-    name: "SignupFlowRecruitersEnrich",
-    component: SignupFlowRecruitersEnrich,
   },
   {
     path: "/courses",

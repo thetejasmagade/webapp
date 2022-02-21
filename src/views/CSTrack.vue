@@ -18,7 +18,7 @@
             >You can find the roadmap here.</a
           >
           Buying courses, being part of the
-          <a href="https://discord.gg/k4rVEWt" target="_blank"
+          <a href="https://discord.gg/EEkFwbv" target="_blank"
             >Discord community</a
           >, and providing great feedback will help us get the project finished.
         </i>

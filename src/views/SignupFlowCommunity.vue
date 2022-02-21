@@ -4,8 +4,8 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="Join the Qvault Discord Community"
-        subtitle="Integrating your Discord account gives you full access to community features"
+        title="Join our Discord community"
+        subtitle="This is where you'll find mentors, workshops, job opportunities and more"
         class="max-w-2xl"
       >
         <div>
@@ -15,8 +15,8 @@
               <li>
                 Get advice on what you should be learning and building next
               </li>
-              <li>Attend online meetups and coding events</li>
-              <li>Get techincal help with your courses and projects</li>
+              <li>Attend online workshops and coding events</li>
+              <li>Get help with your courses and projects</li>
             </ul>
 
             <div class="flex justify-center mb-4">
@@ -27,14 +27,16 @@
             </div>
 
             <p>
-              Click the button above to join our Discord community.
-              <b>It's free forever.</b>
-              Don't miss out on the motivation, help, and mentoring a tight-knit
-              community provides.
+              After joining, send this direct message to the Qvault bot to sync
+              your account.
             </p>
 
-            <div class="flex justify-center my-4">
-              <div class="w-3/5 border-b border-gray-300" />
+            <div class="flex justify-center">
+              <code
+                class="text-gray-200 bg-gray-800 py-1 px-2 rounded overflow-auto my-4"
+              >
+                qvault sync {{ $store.getters.getUser?.APIKey }}
+              </code>
             </div>
 
             <div class="flex justify-center">
@@ -43,14 +45,8 @@
                 class="max-w-xs mb-4"
                 :click="continueClick"
               >
-                Done! I'm in the Discord
+                I've joined and synced my account
               </BlockButton>
-            </div>
-            <div
-              class="flex justify-center underline cursor-pointer text-gold-600 hover:text-gold-800"
-              @click="skipClick"
-            >
-              I'll skip, I don't want the full experience
             </div>
           </div>
         </div>
@@ -78,15 +74,9 @@ export default {
   },
   methods: {
     discordClick() {
-      window.open("https://discord.gg/k4rVEWt", "_blank");
+      window.open("https://discord.gg/EEkFwbv", "_blank");
     },
     continueClick() {
-      this.$router.push({
-        name: "SignupFlowSync",
-        query: { redirect: this.$route.query.redirect },
-      });
-    },
-    skipClick() {
       this.$router.push({
         name: "SignupFlowRecruiters",
         query: { redirect: this.$route.query.redirect },

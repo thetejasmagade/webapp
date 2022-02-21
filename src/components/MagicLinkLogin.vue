@@ -49,7 +49,7 @@ export default {
   methods: {
     async submitLogin() {
       try {
-        await sendMagicLink(this.email);
+        await sendMagicLink(this.email, false);
         this.sent = true;
       } catch (err) {
         notify({
