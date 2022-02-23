@@ -205,7 +205,6 @@ export function eventEarnGems(numGems) {
     window.dataLayer.push({
       event: "earn_virtual_currency",
       virtual_currency_name: "Gems",
-      value: numGems,
     });
     mixpanel.track("earnVirtualCurrency", {
       numGems,
