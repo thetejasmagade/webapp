@@ -15,7 +15,7 @@
         class="mb-2 flex flex-row items-center justify-center text-sm text-gray-400 leading-none"
       >
         <ToggleSwitch v-model="subscribeNews" />
-        <span class="flex-1 ml-2">Get coding articles and news</span>
+        <span class="flex-1 ml-2">Get news and workshop announcements</span>
       </div>
 
       <div
