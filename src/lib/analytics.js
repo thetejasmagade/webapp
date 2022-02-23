@@ -50,6 +50,9 @@ export function eventBeginCheckout() {
           {
             item_id: "pro_sub_id",
             item_name: "pro_sub",
+            price: 39.0,
+            quantity: 1,
+            currency: "USD",
           },
         ],
       },
