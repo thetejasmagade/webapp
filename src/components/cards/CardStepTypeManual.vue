@@ -37,6 +37,7 @@
 <script>
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import BlockButton from "@/components/BlockButton.vue";
+import HintButton from "@/components/HintButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
@@ -44,6 +45,7 @@ export default {
     MarkdownViewer,
     BlockButton,
     FontAwesomeIcon,
+    HintButton,
   },
   props: {
     markdownSource: {
@@ -70,7 +72,7 @@ export default {
     hintMarkdownSource: {
       type: String,
       required: false,
-      default: "",
+      default: null,
     },
     hintCost: {
       type: Number,
@@ -85,7 +87,7 @@ export default {
   },
   computed: {
     isHintAvailable() {
-      if (this.hintMarkdownSource === "") {
+      if (!this.hintMarkdownSource) {
         return false;
       }
       return true;

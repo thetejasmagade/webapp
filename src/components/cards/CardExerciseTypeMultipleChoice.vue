@@ -72,7 +72,7 @@ export default {
     hintMarkdownSource: {
       type: String,
       required: false,
-      default: "",
+      default: null,
     },
     hintCost: {
       type: Number,
@@ -92,7 +92,7 @@ export default {
   },
   computed: {
     isHintAvailable() {
-      if (this.hintMarkdownSource === "") {
+      if (!this.hintMarkdownSource) {
         return false;
       }
 

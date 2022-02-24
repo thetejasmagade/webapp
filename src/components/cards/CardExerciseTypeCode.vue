@@ -64,7 +64,7 @@ export default {
     hintMarkdownSource: {
       type: String,
       required: false,
-      default: "",
+      default: null,
     },
     modelValue: {
       type: String,
@@ -122,7 +122,7 @@ export default {
   emits: ["update:modelValue"],
   computed: {
     isHintAvailable() {
-      if (this.hintMarkdownSource === "") {
+      if (!this.hintMarkdownSource) {
         return false;
       }
       return true;
