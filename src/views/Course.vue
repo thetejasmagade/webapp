@@ -138,6 +138,12 @@ import {
   purchaseCheat,
 } from "@/lib/cloudClient.js";
 
+import {
+  cacheExerciseCode,
+  hasCachedCode,
+  deleteCachedCode,
+} from "@/lib/localStorageLib.js";
+
 export default {
   components: {
     ViewNavWrapper,
@@ -482,6 +488,7 @@ export default {
     },
     resetCode() {
       this.code = this.defaultCode;
+      deleteCachedCode(this.$route.params.exerciseUUID);
     },
     async submitTypeInfo() {
       const submitResponse = await submitInformationalExercise(
@@ -576,6 +583,7 @@ export default {
       }
     },
     async submitTypeCode({ output }) {
+      cacheExerciseCode(this.$route.params.exerciseUUID, this.code);
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.sandbox) {
         this.showSandboxModeModal();
@@ -584,6 +592,7 @@ export default {
       this.verifyCode({ output });
     },
     async submitTypeCodeCanvas({ hash }) {
+      cacheExerciseCode(this.$route.params.exerciseUUID, this.code);
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.sandbox) {
         this.showSandboxModeModal();
@@ -657,6 +666,9 @@ export default {
         this.progLang = exercise.Exercise.ProgLang;
       } else if (this.type === "type_choice") {
         this.question = exercise.Exercise.Question;
+      }
+      if (hasCachedCode(this.$route.params.exerciseUUID)) {
+        this.code = hasCachedCode(this.$route.params.exerciseUUID);
       }
     },
     async navToCurrentExercise() {

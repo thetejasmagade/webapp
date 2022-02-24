@@ -52,3 +52,21 @@ export function hasSeenCourseDoneModal(courseUUID) {
   const val = localStorage.getItem(key);
   return val === trueString;
 }
+
+export function cacheExerciseCode(exerciseUUID, codeToCache) {
+  const key = `cachedCode-${exerciseUUID}`;
+  const val = codeToCache;
+  localStorage.setItem(key, val);
+}
+
+export function hasCachedCode(exerciseUUID) {
+  const cachedCode = localStorage.getItem(`cachedCode-${exerciseUUID}`);
+  if (!cachedCode) {
+    throw "No cached code found";
+  }
+  return cachedCode;
+}
+
+export function deleteCachedCode(exerciseUUID) {
+  localStorage.removeItem(`cachedCode-${exerciseUUID}`);
+}
