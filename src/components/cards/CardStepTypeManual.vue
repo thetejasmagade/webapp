@@ -15,8 +15,21 @@
           Cheat
         </BlockButton>
       </div>
-
-      <MarkdownViewer ref="viewer" :source="markdownSource" />
+      <div>
+        <MarkdownViewer ref="viewer" :source="markdownSource" />
+        <HintButton
+          v-if="!isHintPurchased && isHintAvailable"
+          class="mr-3"
+          :hint-cost="hintCost"
+          :hint-callback="hintCallback"
+          :is-hint-available="isHintAvailable"
+        />
+        <MarkdownViewer
+          v-if="isHintAvailable"
+          ref="viewer"
+          :source="hintMarkdownSource"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -45,9 +58,37 @@ export default {
       type: String,
       required: true,
     },
+    hintCallback: {
+      type: Function,
+      required: false,
+      default: null,
+    },
     doneWithStep: {
       type: Function,
       required: true,
+    },
+    hintMarkdownSource: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    hintCost: {
+      type: Number,
+      required: false,
+      default: null,
+    },
+    isHintPurchased: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+  computed: {
+    isHintAvailable() {
+      if (this.hintMarkdownSource === "") {
+        return false;
+      }
+      return true;
     },
   },
   async mounted() {

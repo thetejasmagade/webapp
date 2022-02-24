@@ -47,15 +47,20 @@
         <CardExerciseTypeMultipleChoice
           v-else-if="type === 'type_choice'"
           :markdown-source="markdownSource"
+          :hint-markdown-source="hintMarkdownSource"
           :answers="question.Answers"
           :question="question.Question"
           :sandbox="sandbox"
           :callback="submitTypeChoice"
+          :hint-callback="hintCallback"
+          :is-hint-purchased="isHintPurchased"
+          :hint-cost="hintCost"
         />
         <CardExerciseTypeCode
           v-else-if="type === 'type_code'"
           v-model="code"
           :markdown-source="markdownSource"
+          :hint-markdown-source="hintMarkdownSource"
           :prog-lang="progLang"
           :solution-code="complete"
           :run-callback="submitTypeCode"
@@ -64,16 +69,23 @@
           :is-cheating="isCheating"
           :is-cheat-purchased="isCheatPurchased"
           :cheat-cost="cheatCost"
+          :hint-callback="hintCallback"
+          :is-hint-purchased="isHintPurchased"
+          :hint-cost="hintCost"
         />
         <CardExerciseTypeCodeCanvas
           v-else-if="type === 'type_code_canvas'"
           v-model="code"
           :markdown-source="markdownSource"
+          :hint-markdown-source="hintMarkdownSource"
           :prog-lang="progLang"
           :solution-code="complete"
           :run-callback="submitTypeCodeCanvas"
           :reset-code-callback="resetCode"
           :cheat-callback="cheatCallback"
+          :hint-callback="hintCallback"
+          :is-hint-purchased="isHintPurchased"
+          :hint-cost="hintCost"
           :is-cheating="isCheating"
           :is-cheat-purchased="isCheatPurchased"
           :cheat-cost="cheatCost"
@@ -134,6 +146,8 @@ import {
   getCourseProgress,
   getUnitsProgress,
   getPendingAchievements,
+  getHintStatus,
+  purchaseHint,
   getCheatStatus,
   purchaseCheat,
 } from "@/lib/cloudClient.js";
@@ -163,6 +177,7 @@ export default {
   data() {
     return {
       markdownSource: "",
+      hintMarkdownSource: "",
       type: "",
       question: {},
       progLang: "go",
@@ -178,7 +193,9 @@ export default {
       courseProgress: null,
       unitProgress: null,
       isCheatPurchased: false,
+      isHintPurchased: false,
       cheatCost: 0,
+      hintCost: 0,
       nextExercise: null,
       previousExercise: null,
     };
@@ -418,6 +435,7 @@ export default {
             text: err,
           });
         }
+        this.loadHintStatus();
         this.loadCheatStatus();
       }
       return;
@@ -450,6 +468,19 @@ export default {
         });
       }
     },
+    async loadHintStatus() {
+      try {
+        const hintResp = await getHintStatus(this.$route.params.exerciseUUID);
+        this.isHintPurchased = hintResp.PurchasedAt !== null;
+        this.hintCost = hintResp.HintCost;
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    },
+
     async loadCheatStatus() {
       try {
         const cheatResp = await getCheatStatus(this.$route.params.exerciseUUID);
@@ -471,6 +502,16 @@ export default {
     },
     showFeedbackModal() {
       this.$refs.feedbackModal.show();
+    },
+    async hintCallback() {
+      if (!this.$store.getters.getIsLoggedIn) {
+        return;
+      }
+      if (!this.isHintPurchased) {
+        await purchaseHint(this.$route.params.exerciseUUID);
+        loadBalance(this);
+        await this.loadHintStatus();
+      }
     },
     async cheatCallback() {
       if (!this.$store.getters.getIsLoggedIn) {
@@ -651,6 +692,7 @@ export default {
       }
 
       this.markdownSource = exercise.Exercise.Readme;
+      this.hintMarkdownSource = exercise.Exercise.HintMarkdown;
       this.type = exercise.Exercise.Type;
       this.$store.commit("setCurrentModuleUUID", this.$route.params.moduleUUID);
 

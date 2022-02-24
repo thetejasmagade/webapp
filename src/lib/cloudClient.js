@@ -118,6 +118,39 @@ export async function createUserManual(
   return handled;
 }
 
+//TODO POST PURCHASE HINT
+//TODO GET STATUS
+
+export async function purchaseHint(exerciseUUID) {
+  const resp = await fetchWithAuth(
+    `${domain}/v1/hints/${exerciseUUID}/purchase`,
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getHintStatus(exerciseUUID) {
+  const resp = await fetchWithAuth(
+    `${domain}/v1/hints/${exerciseUUID}/status`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function purchaseCheat(exerciseUUID) {
   const resp = await fetchWithAuth(
     `${domain}/v1/cheat/${exerciseUUID}/purchase`,
