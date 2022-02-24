@@ -8,6 +8,10 @@ function getSeenCourseDoneModalKey(courseUUID) {
   return `seenCourseDoneModal-${courseUUID}`;
 }
 
+function getExerciseCodeKey(exerciseUUID) {
+  return `cachedCode-${exerciseUUID}`;
+}
+
 export function saveCloudJWT(token) {
   localStorage.setItem(jwtKey, token);
 }
@@ -51,4 +55,22 @@ export function hasSeenCourseDoneModal(courseUUID) {
   const key = getSeenCourseDoneModalKey(courseUUID);
   const val = localStorage.getItem(key);
   return val === trueString;
+}
+
+export function cacheExerciseCode(exerciseUUID, codeToCache) {
+  const key = getExerciseCodeKey(exerciseUUID);
+  const val = codeToCache;
+  localStorage.setItem(key, val);
+}
+
+export function hasCachedCode(exerciseUUID) {
+  const cachedCode = localStorage.getItem(getExerciseCodeKey(exerciseUUID));
+  if (!cachedCode) {
+    return false;
+  }
+  return cachedCode;
+}
+
+export function deleteCachedCode(exerciseUUID) {
+  localStorage.removeItem(getExerciseCodeKey(exerciseUUID));
 }
