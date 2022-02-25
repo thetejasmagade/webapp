@@ -1,27 +1,13 @@
 <template>
   <Multipane layout="horizontal" class="flex-1 overflow-y-auto">
-    <div class="flex flex-col w-1/2 bg-white border-r border-gray-300">
-      <div>
-        <MarkdownViewer
-          ref="viewer"
-          class="flex-1 overflow-y-auto"
-          :source="markdownSource"
-        />
-        <HintButton
-          v-if="!isHintPurchased && isHintAvailable"
-          class="mr-3"
-          :hint-cost="hintCost"
-          :hint-callback="hintCallback"
-          :is-hint-available="isHintAvailable"
-        />
-        <MarkdownViewer
-          v-if="isHintAvailable & isHintPurchased"
-          ref="viewer"
-          class="flex-1 overflow-y-auto"
-          :source="hintMarkdownSource"
-        />
-      </div>
-    </div>
+    <MarkdownWithHint
+      class="flex flex-col w-1/2 bg-white border-r border-gray-300"
+      :markdown-source="markdownSource"
+      :hint-markdown-source="hintMarkdownSource"
+      :hint-callback="hintCallback"
+      :is-hint-purchased="isHintPurchased"
+      :hint-cost="hintCost"
+    />
     <MultipaneResizer layout="horizontal" />
     <MultipleChoice
       class="h-full flex flex-col flex-1 overflow-auto bg-white"
@@ -34,19 +20,17 @@
 </template>
 
 <script>
-import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import MultipleChoice from "@/components/MultipleChoice.vue";
 import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
-import HintButton from "@/components/BlockButton.vue";
+import MarkdownWithHint from "@/components/MarkdownWithHint.vue";
 
 export default {
   components: {
-    MarkdownViewer,
+    MarkdownWithHint,
     MultipleChoice,
     Multipane,
     MultipaneResizer,
-    HintButton,
   },
   props: {
     markdownSource: {
@@ -88,27 +72,6 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    },
-  },
-  computed: {
-    isHintAvailable() {
-      if (!this.hintMarkdownSource) {
-        return false;
-      }
-
-      return true;
-    },
-  },
-  async mounted() {
-    this.scrollMarkdownToTop();
-  },
-  methods: {
-    scrollMarkdownToTop() {
-      requestAnimationFrame(() => {
-        if (this.$refs.viewer && this.$refs.viewer.$el) {
-          this.$refs.viewer.$el.scrollTop = 0;
-        }
-      });
     },
   },
 };
