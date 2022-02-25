@@ -20,8 +20,10 @@ export default {
   },
   computed: {
     styleWidth() {
-      let amountFilled = this.percentComplete;
-      return amountFilled;
+      if (this.percentComplete > 100) {
+        return 100;
+      }
+      return this.percentComplete;
     },
   },
 };
