@@ -10,6 +10,7 @@ const Playground = () => import("@/views/Playground.vue");
 const Settings = () => import("@/views/Settings.vue");
 const Achievements = () => import("@/views/Achievements.vue");
 const SignupFlowUsername = () => import("@/views/SignupFlowUsername.vue");
+const SignupFlowCode = () => import("@/views/SignupFlowCode.vue");
 const SignupFlowCommunity = () => import("@/views/SignupFlowCommunity.vue");
 const SignupFlowRecruiters = () => import("@/views/SignupFlowRecruiters.vue");
 const Certificate = () => import("@/views/Certificate.vue");
@@ -41,6 +42,11 @@ const routes = [
     path: "/signup_flow/recruit",
     name: "SignupFlowRecruiters",
     component: SignupFlowRecruiters,
+  },
+  {
+    path: "/signup_flow/code",
+    name: "SignupFlowCode",
+    component: SignupFlowCode,
   },
   {
     path: "/courses",

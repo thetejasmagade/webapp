@@ -4,7 +4,7 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="We are all about achieving career goals"
+        title="Connecting you to a meaningful career is our mission"
         subtitle="Do you want help finding your next coding job?"
         class="section"
       >
@@ -12,7 +12,7 @@
           <p class="mb-2">
             We have partnerships with organizations that are dedicated to
             finding great coding jobs for our community. If you're interested in
-            getting hired now or in the future then opt-in below.
+            getting hired now or in the future opt-in below.
           </p>
 
           <div class="text-center">
@@ -20,7 +20,7 @@
               Yes! I'd like to hear about jobs
             </BlockButton>
             <BlockButton class="btn" color="gray" :click="() => done(false)">
-              No thanks
+              Maybe later
             </BlockButton>
           </div>
         </div>

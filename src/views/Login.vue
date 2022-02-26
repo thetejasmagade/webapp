@@ -149,7 +149,7 @@ export default {
             eventRegister(singupMethodGithub);
             loadLoggedIn(this);
             this.$router.push({
-              name: "SignupFlowUsername",
+              name: "SignupFlowCode",
               query: { redirect: this.$route.query.redirect },
             });
             return;

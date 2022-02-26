@@ -148,7 +148,8 @@ export default {
     },
     isCheatPurchased: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: null,
     },
     cheatCost: {
       type: Number,
