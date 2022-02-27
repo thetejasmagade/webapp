@@ -1,16 +1,15 @@
 <template>
-  <div class="flex flex-col justify-start h-full">
+  <div class="flex flex-col justify-start h-full overflow-auto">
     <TopNav title="Getting Started" />
 
-    <div class="flex flex-col justify-center items-center flex-1">
+    <div class="flex flex-col justify-center items-center flex-1 p-4">
       <Section
-        title="Join our free Discord community"
-        subtitle="Weekly live workshops, mentors, job opportunities and more"
-        class="max-w-2xl"
+        title="1. Install Discord"
+        subtitle="Free access to live workshops, mentors, job opportunities and more"
+        class="max-w-2xl mb-4 w-full"
       >
         <div>
           <div class="flex flex-col p-4">
-            <h3 class="text-xl font-bold">1. Install Discord</h3>
             <p>
               <a
                 class="underline text-gold-600"
@@ -21,16 +20,25 @@
               Keep the Discord chat and the Qvault website open in separate
               windows for the best experience.
             </p>
-
-            <h3 class="text-xl font-bold mt-4">2. Join our community server</h3>
-            <div class="flex justify-center my-4">
-              <BlockButton :click="discordClick">
-                <FontAwesomeIcon :icon="['fab', 'discord']" class="icon" />
-                Join Qvault on Discord
-              </BlockButton>
-            </div>
-
-            <h3 class="text-xl font-bold">3. Sync your accounts</h3>
+          </div>
+        </div>
+      </Section>
+      <Section
+        title="2. Join our community server"
+        class="max-w-2xl mb-4 w-full"
+      >
+        <div class="flex flex-col pt-4">
+          <div class="flex justify-center">
+            <BlockButton :click="discordClick">
+              <FontAwesomeIcon :icon="['fab', 'discord']" class="icon" />
+              Join Qvault on Discord
+            </BlockButton>
+          </div>
+        </div>
+      </Section>
+      <Section title="3. Sync your account" class="max-w-2xl w-full">
+        <div>
+          <div class="flex flex-col p-4">
             <p>
               Once you're in, read the
               <a
@@ -51,15 +59,16 @@
               </code>
             </div>
 
-            <router-link
-              class="flex justify-center text-gold-600 underline my-2"
-              :to="{
-                name: 'SignupFlowRecruiters',
-                query: { redirect: $route.query.redirect },
-              }"
-            >
-              Done! I've joined and synced my account
-            </router-link>
+            <div class="text-center mt-2">
+              <BlockButton
+                :link="{
+                  name: 'SignupFlowRecruiters',
+                  query: { redirect: $route.query.redirect },
+                }"
+              >
+                Done, I'm connected!
+              </BlockButton>
+            </div>
           </div>
         </div>
       </Section>

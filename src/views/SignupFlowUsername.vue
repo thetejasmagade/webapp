@@ -5,7 +5,7 @@
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
         title="Claim a username"
-        subtitle="Your username will be used to create a personal portfolio link for you"
+        subtitle="Your username will be used to create a link to your portfolio"
         class="max-w-2xl w-full"
       >
         <div class="p-4 flex flex-row justify-center items-center">

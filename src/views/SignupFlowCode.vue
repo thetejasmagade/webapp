@@ -77,7 +77,7 @@ export default {
       });
       setTimeout(() => {
         router.push({
-          name: "SignupFlowUsername",
+          name: "SignupFlowMethod",
           query: { redirect: route.query.redirect },
         });
       }, 3000);
