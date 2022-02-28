@@ -7,7 +7,7 @@
           class="btn mr-3"
           :click="doneWithStep"
         >
-          I'm done with this step
+          Continue
         </BlockButton>
       </div>
 
