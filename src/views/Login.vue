@@ -21,7 +21,7 @@
         </h2>
 
         <h3 class="text-center text-gray-500 mb-3">
-          Create an account to track your progress
+          Create a free account to track your progress
         </h3>
 
         <div v-if="state === 'integration'">
