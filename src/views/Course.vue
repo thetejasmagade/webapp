@@ -265,10 +265,10 @@ export default {
       let total = 0;
       for (const exercise in this.courseProgress[this.module?.UUID]) {
         if (this.courseProgress[this.module?.UUID][exercise].Completed) {
-          complete += 1;
-          total += 1;
+          complete++;
+          total++;
         } else {
-          total += 1;
+          total++;
         }
       }
       return (complete / total) * 100;
