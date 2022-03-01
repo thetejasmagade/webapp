@@ -20,6 +20,9 @@
           :can-go-forward="!isLastStep || projectDone"
           :sandbox="false"
           :click-comment="() => showFeedbackModal()"
+          :forward-click="
+            type === 'type_info' && isLoggedIn ? completeStep : null
+          "
         />
         <ProgressBar
           v-if="isContentLoaded && isLoggedIn"
@@ -30,7 +33,6 @@
           :markdown-source="markdownSource"
           :project-slug="project.Slug"
           :step-slug="stepSlug"
-          :done-with-step="completeStep"
         />
         <CardStepTypeManual
           v-else-if="type === 'type_manual'"

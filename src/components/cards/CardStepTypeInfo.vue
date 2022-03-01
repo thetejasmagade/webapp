@@ -1,16 +1,6 @@
 <template>
   <div class="overflow-y-auto w-full flex flex-col items-center">
     <div class="max-w-4xl">
-      <div class="mt-4 w-full flex flex-row justify-end">
-        <BlockButton
-          v-if="$store.getters.getIsLoggedIn"
-          class="btn mr-3"
-          :click="doneWithStep"
-        >
-          Continue
-        </BlockButton>
-      </div>
-
       <MarkdownViewer ref="viewer" :source="markdownSource" />
     </div>
   </div>
@@ -18,12 +8,10 @@
 
 <script>
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
-import BlockButton from "@/components/BlockButton.vue";
 
 export default {
   components: {
     MarkdownViewer,
-    BlockButton,
   },
   props: {
     markdownSource: {
@@ -36,10 +24,6 @@ export default {
     },
     stepSlug: {
       type: String,
-      required: true,
-    },
-    doneWithStep: {
-      type: Function,
       required: true,
     },
   },

@@ -32,6 +32,9 @@
           :forward-link="forwardLink"
           :can-go-back="!isFirstExercise"
           :can-go-forward="!isLastExercise || courseDone"
+          :forward-click="
+            type === 'type_info' && isLoggedIn ? doneWithExercise : null
+          "
           :sandbox="sandbox"
           :click-comment="() => showFeedbackModal()"
         />
@@ -42,7 +45,6 @@
         <CardExerciseTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
-          :done-with-exercise="doneWithExercise"
         />
         <CardExerciseTypeMultipleChoice
           v-else-if="type === 'type_choice'"
