@@ -258,14 +258,20 @@ export default {
       return this.$store.getters.getIsLoggedIn;
     },
     percentComplete() {
-      if (!this.unitProgress) {
+      if (!this.courseProgress) {
         return 0;
       }
-      if (!(this.$route.params.courseUUID in this.unitProgress)) {
-        return 0;
+      let complete = 0;
+      let total = 0;
+      for (const exercise in this.courseProgress[this.module?.UUID]) {
+        if (this.courseProgress[this.module?.UUID][exercise].Completed) {
+          complete++;
+          total++;
+        } else {
+          total++;
+        }
       }
-      const courseProgress = this.unitProgress[this.$route.params.courseUUID];
-      return (courseProgress.NumDone / courseProgress.NumMax) * 100;
+      return (complete / total) * 100;
     },
     dropdownModules() {
       return this.course?.Modules?.map((mod, i) => {
