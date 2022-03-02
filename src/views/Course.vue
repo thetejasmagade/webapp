@@ -67,6 +67,7 @@
           :solution-code="complete"
           :run-callback="submitTypeCode"
           :reset-code-callback="resetCode"
+          :sandbox="sandbox"
           :cheat-callback="cheatCallback"
           :is-cheating="isCheating"
           :is-cheat-purchased="isCheatPurchased"

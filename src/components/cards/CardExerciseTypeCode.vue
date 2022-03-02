@@ -17,6 +17,7 @@
       :reset-callback="resetCodeCallback"
       :cheat-callback="cheatCallback"
       :prog-lang="progLang"
+      :sandbox="sandbox"
       :canvas-enabled="false"
       :solution="solutionCode"
       :is-cheating="isCheating"
@@ -101,6 +102,11 @@ export default {
       type: Number,
       required: false,
       default: null,
+    },
+    sandbox: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   emits: ["update:modelValue"],

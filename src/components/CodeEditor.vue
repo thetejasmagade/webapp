@@ -156,6 +156,11 @@ export default {
       required: false,
       default: null,
     },
+    sandbox: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   emits: ["update:modelValue"],
   data() {
@@ -292,7 +297,12 @@ export default {
       try {
         this.output = [];
         let hash = null;
-
+        if (this.sandbox) {
+          notify({
+            type: "danger",
+            text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
+          });
+        }
         // we need to get a new worker each time because
         // we need to transfer a new canvas because the last animation
         // is still running
