@@ -5,39 +5,42 @@
       title="Practice the skills that bootcamps skip, but employers are dying to hire for"
       subtitle="A complete computer science program in your browser"
     >
-      <TrackTimeline :units="trackCS" :num-skeleton-cards="5" />
-      <h2 class="text-gold-600 text-xl">Notes</h2>
-      <p class="max-width">
-        <i>
-          This curriculum is a work-in-progress while we build towards an
-          unaccredited university-level CS degree.
-          <a
-            href="https://github.com/qvault/curriculum"
-            target="_blank"
-            class="text-gold-600 underline"
-            >You can find the roadmap here.</a
-          >
-          Buying courses, being part of the
-          <a href="https://discord.gg/EEkFwbv" target="_blank"
-            >Discord community</a
-          >, and providing great feedback will help us get the project finished.
-        </i>
-      </p>
+      <div class="p-4">
+        <CourseTable :units="units" />
+        <h2 class="text-gold-600 text-xl">Notes</h2>
+        <p class="max-width">
+          <i>
+            This curriculum is a work-in-progress while we build towards an
+            unaccredited university-level CS degree.
+            <a
+              href="https://github.com/qvault/curriculum"
+              target="_blank"
+              class="text-gold-600 underline"
+              >You can find the roadmap here.</a
+            >
+            Buying courses, being part of the
+            <a href="https://discord.gg/EEkFwbv" target="_blank"
+              >Discord community</a
+            >, and providing great feedback will help us get the project
+            finished.
+          </i>
+        </p>
+      </div>
     </Section>
   </div>
 </template>
 
 <script>
 import Section from "@/components/Section.vue";
-import TrackTimeline from "@/components/TrackTimeline.vue";
+import CourseTable from "@/components/CourseTable.vue";
 
 export default {
   components: {
-    TrackTimeline,
+    CourseTable,
     Section,
   },
   computed: {
-    trackCS() {
+    units() {
       return this.$store.getters.getTrackCS;
     },
   },
