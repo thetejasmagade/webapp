@@ -5,22 +5,24 @@
       title="It's hard to find a job if you don't understand the fundamentals of algorithms"
       subtitle="These Python courses will teach you how to ace whiteboard interviews"
     >
-      <TrackTimeline :units="trackDSAlgosCourses" :num-skeleton-cards="5" />
+      <div class="p-4">
+        <CourseTable :units="units" />
+      </div>
     </Section>
   </div>
 </template>
 
 <script>
 import Section from "@/components/Section.vue";
-import TrackTimeline from "@/components/TrackTimeline.vue";
+import CourseTable from "@/components/CourseTable.vue";
 
 export default {
   components: {
-    TrackTimeline,
+    CourseTable,
     Section,
   },
   computed: {
-    trackDSAlgosCourses() {
+    units() {
       return this.$store.getters.getTrackDSAlgos;
     },
   },

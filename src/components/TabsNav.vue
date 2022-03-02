@@ -10,7 +10,7 @@
         }"
         :to="{ name: 'Browse' }"
       >
-        <FontAwesomeIcon icon="search" class="md:mr-4 mx-2" />
+        <FontAwesomeIcon icon="search" class="md:mr-4 mx-1" />
         <span class="md:inline-block hidden"> All courses </span>
       </router-link>
       <router-link
@@ -22,7 +22,7 @@
         }"
         :to="{ name: 'AlgosTrack' }"
       >
-        <FontAwesomeIcon :icon="['fab', 'python']" class="md:mr-4 mx-2" />
+        <FontAwesomeIcon :icon="['fab', 'python']" class="md:mr-4 mx-1" />
         <span class="md:inline-block hidden"> Algorithms track </span>
       </router-link>
       <router-link
@@ -34,7 +34,7 @@
         }"
         :to="{ name: 'CSTrack' }"
       >
-        <FontAwesomeIcon icon="graduation-cap" class="md:mr-4 mx-2" />
+        <FontAwesomeIcon icon="graduation-cap" class="md:mr-4 mx-1" />
         <span class="md:inline-block hidden"> CompSci track </span>
       </router-link>
       <router-link
@@ -46,7 +46,7 @@
         }"
         :to="{ name: 'GolangTrack' }"
       >
-        <FontAwesomeIcon :icon="['fab', 'golang']" class="md:mr-4 mx-2" />
+        <FontAwesomeIcon :icon="['fab', 'golang']" class="md:mr-4 mx-1" />
         <span class="md:inline-block hidden"> Gopher gang track </span>
       </router-link>
     </div>
