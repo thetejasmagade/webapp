@@ -2,7 +2,6 @@
   <div>
     <div class="block list-none m-0 p-0">
       <router-link
-        v-if="$store.getters.getIsLoggedIn"
         class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
         :class="{
           'bg-white': routePath.includes('browse'),
@@ -14,7 +13,6 @@
         <span class="md:inline-block hidden"> All courses </span>
       </router-link>
       <router-link
-        v-if="$store.getters.getIsLoggedIn"
         class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
         :class="{
           'bg-white': routePath.includes('algos-track'),
@@ -26,7 +24,6 @@
         <span class="md:inline-block hidden"> Algorithms track </span>
       </router-link>
       <router-link
-        v-if="$store.getters.getIsLoggedIn"
         class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
         :class="{
           'bg-white': routePath.includes('cs-track'),
@@ -38,7 +35,6 @@
         <span class="md:inline-block hidden"> CompSci track </span>
       </router-link>
       <router-link
-        v-if="$store.getters.getIsLoggedIn"
         class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
         :class="{
           'bg-white': routePath.includes('golang-track'),

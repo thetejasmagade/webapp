@@ -18,10 +18,6 @@ export default {
       type: String,
       required: true,
     },
-    doneWithExercise: {
-      type: Function,
-      required: true,
-    },
   },
   emits: ["update:modelValue"],
   async mounted() {
