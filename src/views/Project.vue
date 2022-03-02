@@ -294,10 +294,14 @@ export default {
     },
     async handleSuccess() {
       loadBalance(this);
-      notify({
-        type: "success",
-        text: "Great Job!",
-      });
+      if (this.projectProgress[this.$route.params.stepUUID].Completed) {
+        return;
+      } else {
+        notify({
+          type: "success",
+          text: "Great Job!",
+        });
+      }
     },
     navToStep(step, replace) {
       this.$router.push({

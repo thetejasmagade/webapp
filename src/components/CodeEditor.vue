@@ -292,7 +292,6 @@ export default {
       try {
         this.output = [];
         let hash = null;
-
         // we need to get a new worker each time because
         // we need to transfer a new canvas because the last animation
         // is still running

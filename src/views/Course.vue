@@ -636,6 +636,10 @@ export default {
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.sandbox) {
         this.showSandboxModeModal();
+        notify({
+          type: "danger",
+          text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
+        });
         return;
       }
       this.verifyCode({ output });
@@ -645,6 +649,10 @@ export default {
       eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
       if (this.sandbox) {
         this.showSandboxModeModal();
+        notify({
+          type: "danger",
+          text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
+        });
         return;
       }
       this.verifyHash({ hash });
