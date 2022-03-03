@@ -1,5 +1,8 @@
 <template>
   <tr>
+    <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+      <ProgressRadial :percent="calcPercent" />
+    </td>
     <td class="px-6 py-4 whitespace-nowrap">
       <router-link :to="getUnitLink(unit)">
         <div class="flex items-center hover:opacity-50">
@@ -38,16 +41,25 @@
 <script>
 import { getUnitData, unitTypeCourse, getUnitLink } from "@/lib/unit.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { getUnitsProgress } from "@/lib/cloudClient.js";
+import ProgressRadial from "@/components/ProgressRadial.vue";
 
 export default {
   components: {
     FontAwesomeIcon,
+    ProgressRadial,
   },
   props: {
     unit: {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      unitProgress: null,
+      percent: null,
+    };
   },
   computed: {
     iconUrl() {
@@ -85,9 +97,40 @@ export default {
       }
       return interests;
     },
+    calcPercent() {
+      if (!this.unitProgress) {
+        return 0;
+      }
+      const unitData = getUnitData(this.unit);
+      unitData.UUID;
+      if (!this.unitProgress[unitData.UUID]) {
+        return 0;
+      }
+      return (
+        (this.unitProgress[unitData.UUID].NumDone /
+          this.unitProgress[unitData.UUID].NumMax) *
+        100
+      );
+    },
+  },
+  async mounted() {
+    this.unitProgress = this.getUnitsProgressIfLoggedIn();
   },
   methods: {
     getUnitLink,
+    async getUnitsProgressIfLoggedIn() {
+      if (!this.$store.getters.getIsLoggedIn) {
+        return;
+      }
+      try {
+        this.unitProgress = await getUnitsProgress();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    calcOffset() {
+      return this.circumference - (this.calcPercent / 100) * this.circumference;
+    },
   },
 };
 </script>
