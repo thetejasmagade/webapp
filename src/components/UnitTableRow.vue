@@ -1,6 +1,47 @@
 <template>
   <tr>
     <td class="px-6 py-4 whitespace-nowrap">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 h-10 w-10 items-center rounded-full">
+          <svg class="w-20 h-20">
+            <circle
+              class="text-gray-300"
+              stroke-width="5"
+              stroke="currentColor"
+              fill="transparent"
+              r="20"
+              cx="33"
+              cy="23"
+            />
+            <circle
+              class="text-gold-600"
+              stroke-width="5"
+              :stroke-dasharray="circumference"
+              :stroke-dashoffset="offset"
+              stroke-linecap="round"
+              stroke="currentColor"
+              fill="transparent"
+              r="20"
+              cx="33"
+              cy="23"
+            />
+            <!-- comment this text tag out to remove the inner number -->
+            <text
+              x="41%"
+              y="30%"
+              stroke="black"
+              stroke-width=".6px"
+              dy=".3em"
+              font-size="12"
+              text-anchor="middle"
+            >
+              {{ calcPercent }}%
+            </text>
+          </svg>
+        </div>
+      </div>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap">
       <router-link :to="getUnitLink(unit)">
         <div class="flex items-center hover:opacity-50">
           <div class="flex-shrink-0 h-10 w-10">
@@ -38,6 +79,7 @@
 <script>
 import { getUnitData, unitTypeCourse, getUnitLink } from "@/lib/unit.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { getUnitsProgress } from "@/lib/cloudClient.js";
 
 export default {
   components: {
@@ -48,6 +90,12 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      unitProgress: null,
+      percent: null,
+    };
   },
   computed: {
     iconUrl() {
@@ -85,9 +133,50 @@ export default {
       }
       return interests;
     },
+    calcPercent() {
+      if (!this.unit || !this.unitProgress) {
+        return 0;
+      }
+      let progress = this.unitProgress;
+      if (this.unit.type === "project") {
+        let project = this.unit.project.UUID;
+        if (!progress[project]) return 0;
+        return Math.round(
+          (progress[project].NumDone / progress[project].NumMax) * 100
+        );
+      } else {
+        let course = this.unit.course.UUID;
+        if (!progress[course]) return 0;
+        return Math.round(
+          (progress[course].NumDone / progress[course].NumMax) * 100
+        );
+      }
+    },
+    circumference() {
+      return 20 * 2 * Math.PI;
+    },
+    offset() {
+      return this.calcOffset();
+    },
+  },
+  async mounted() {
+    this.unitProgress = this.getUnitsProgressIfLoggedIn();
   },
   methods: {
     getUnitLink,
+    async getUnitsProgressIfLoggedIn() {
+      if (!this.$store.getters.getIsLoggedIn) {
+        return;
+      }
+      try {
+        this.unitProgress = await getUnitsProgress();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    calcOffset() {
+      return this.circumference - (this.calcPercent / 100) * this.circumference;
+    },
   },
 };
 </script>
