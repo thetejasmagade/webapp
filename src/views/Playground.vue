@@ -137,27 +137,27 @@ export default {
     });
 
     const computedMeta = computed(() => {
-      const description = `Run ${state.displayLang} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
+      const description = `Run ${state.displayLang?.name} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
       const featuredImage =
         "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg";
-      const title = `${state.displayLang.name} Playground`;
+      const title = `${state.displayLang?.name} Playground`;
       return {
         title: title,
         meta: [
           { vmid: "description", name: "description", content: description },
 
-          { vmid: "og:title", property: "og:title", content: title },
+          { vmid: "og:title", name: "og:title", content: title },
           {
             vmid: "og:description",
-            property: "og:description",
+            name: "og:description",
             content: description,
           },
-          { vmid: "og:image", property: "og:image", content: featuredImage },
+          { vmid: "og:image", name: "og:image", content: featuredImage },
 
           { vmid: "twitter:title", name: "twitter:title", content: title },
           {
             vmid: "twitter:description",
-            property: "twitter:description",
+            name: "twitter:description",
             content: description,
           },
           {

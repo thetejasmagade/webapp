@@ -109,20 +109,20 @@ export default {
       meta: [
         { vmid: "description", name: "description", content: description },
 
-        { vmid: "og:title", property: "og:title", content: "Qvault" },
+        { vmid: "og:title", name: "og:title", content: "Qvault" },
         {
           vmid: "og:description",
-          property: "og:description",
+          name: "og:description",
           content: description,
         },
         {
           vmid: "og:image",
-          property: "og:image",
+          name: "og:image",
           content:
             "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
         },
-        { vmid: "og:locale", property: "og:locale", content: "en_US" },
-        { vmid: "og:type", property: "og:type", content: "website" },
+        { vmid: "og:locale", name: "og:locale", content: "en_US" },
+        { vmid: "og:type", name: "og:type", content: "website" },
 
         {
           vmid: "twitter:card",
@@ -138,7 +138,7 @@ export default {
         { vmid: "twitter:title", name: "twitter:title", content: "Qvault" },
         {
           vmid: "twitter:description",
-          property: "twitter:description",
+          name: "twitter:description",
           content: description,
         },
         {

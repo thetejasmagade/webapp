@@ -133,7 +133,7 @@ export default {
     useMeta({
       title: title,
       meta: [
-        { vmid: "og:title", property: "og:title", content: title },
+        { vmid: "og:title", name: "og:title", content: title },
         { vmid: "twitter:title", name: "twitter:title", content: title },
       ],
     });

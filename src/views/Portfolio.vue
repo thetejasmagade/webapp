@@ -178,17 +178,17 @@ export default {
 
           {
             vmid: "og:title",
-            property: "og:title",
+            name: "og:title",
             content: `Qvault Portfolio - ${state.user.Handle}`,
           },
           {
             vmid: "og:description",
-            property: "og:description",
+            name: "og:description",
             content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
           },
           {
             vmid: "og:image",
-            property: "og:image",
+            name: "og:image",
             content: state.user.ProfileImageURL,
           },
 
@@ -199,7 +199,7 @@ export default {
           },
           {
             vmid: "twitter:description",
-            property: "twitter:description",
+            name: "twitter:description",
             content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
           },
           {

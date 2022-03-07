@@ -36,17 +36,17 @@ export default {
       meta: [
         { vmid: "description", name: "description", content: description },
 
-        { vmid: "og:title", property: "og:title", content: title },
+        { vmid: "og:title", name: "og:title", content: title },
         {
           vmid: "og:description",
-          property: "og:description",
+          name: "og:description",
           content: description,
         },
 
         { vmid: "twitter:title", name: "twitter:title", content: title },
         {
           vmid: "twitter:description",
-          property: "twitter:description",
+          name: "twitter:description",
           content: description,
         },
       ],
