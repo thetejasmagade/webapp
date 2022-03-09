@@ -3,9 +3,9 @@ const seenSandboxModalLoginKey = "seenSandboxModalLogin";
 const seenSandboxModalPatronKey = "seenSandboxModalPatron";
 const trueString = "true";
 
-// add the courseUUID to the end
-function getSeenCourseDoneModalKey(courseUUID) {
-  return `seenCourseDoneModal-${courseUUID}`;
+// add the courseUUID / project UUID to the end
+function getSeenUnitDoneModalKey(unitUUID) {
+  return `seenUnitDoneModal-${unitUUID}`;
 }
 
 function getExerciseCodeKey(exerciseUUID) {
@@ -46,13 +46,13 @@ export function hasSeendSandboxModalPatronKey() {
   return val === trueString;
 }
 
-export function markSeenCourseDoneModal(courseUUID) {
-  const key = getSeenCourseDoneModalKey(courseUUID);
+export function markSeenUnitDoneModal(courseUUID) {
+  const key = getSeenUnitDoneModalKey(courseUUID);
   localStorage.setItem(key, trueString);
 }
 
-export function hasSeenCourseDoneModal(courseUUID) {
-  const key = getSeenCourseDoneModalKey(courseUUID);
+export function hasSeenUnitDoneModal(courseUUID) {
+  const key = getSeenUnitDoneModalKey(courseUUID);
   const val = localStorage.getItem(key);
   return val === trueString;
 }

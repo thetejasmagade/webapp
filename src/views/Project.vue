@@ -7,6 +7,12 @@
         :uuid="$route.params.stepUUID"
         unit-type="step"
       />
+      <UnitDoneModal
+        v-if="project"
+        ref="unitDoneModal"
+        :unit-u-u-i-d="project.UUID"
+        :type="'project'"
+      />
 
       <div v-if="project" class="h-full hidden sm:flex flex-col bg-white">
         <ExerciseNav
@@ -17,7 +23,7 @@
           :back-link="backLink"
           :forward-link="forwardLink"
           :can-go-back="!isFirstStep"
-          :can-go-forward="!isLastStep || projectDone"
+          :can-go-forward="!isLastStep || !projectDone"
           :sandbox="false"
           :click-comment="() => showFeedbackModal()"
           :forward-click="
@@ -57,6 +63,7 @@
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
+import UnitDoneModal from "@/components/UnitDoneModal.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
 import Section from "@/components/Section.vue";
@@ -85,6 +92,7 @@ export default {
   components: {
     Section,
     ExerciseNav,
+    UnitDoneModal,
     FeedbackModal,
     CardStepTypeInfo,
     CardStepTypeManual,
@@ -102,6 +110,8 @@ export default {
       stepSlug: null,
       nextStep: null,
       previousStep: null,
+      projectProgress: null,
+      unitProgress: null,
     };
   },
   computed: {
@@ -165,10 +175,10 @@ export default {
       if (!this.project?.Steps) {
         return false;
       }
+      if (!this.projectProgress) {
+        return false;
+      }
       for (const step of this.project.Steps) {
-        if (!this.projectProgress) {
-          return false;
-        }
         if (!(step.UUID in this.projectProgress)) {
           return false;
         }
@@ -206,6 +216,13 @@ export default {
         (project) => project.UUID === this.$route.params.projectUUID
       );
       return project;
+    },
+  },
+  watch: {
+    projectDone(projectDone) {
+      if (projectDone) {
+        this.$refs.unitDoneModal.show();
+      }
     },
   },
   async mounted() {
@@ -302,6 +319,8 @@ export default {
           text: "Great Job!",
         });
       }
+      this.getUnitProgressIfLoggedIn();
+      this.getProjectProgressIfLoggedIn();
     },
     navToStep(step, replace) {
       this.$router.push({
@@ -342,7 +361,7 @@ export default {
       if (this.type === "type_manual") {
         await this.submitTypeManual();
       }
-      if (this.isLastStep) {
+      if (this.isLastStep && this.projectDone) {
         return;
       }
       try {

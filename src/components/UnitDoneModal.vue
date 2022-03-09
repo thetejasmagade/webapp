@@ -1,10 +1,13 @@
 <template>
-  <Modal ref="courseDoneModal">
+  <Modal ref="unitDoneModal">
     <div>
-      <h1 class="text-2xl text-gold-600 mb-4">
+      <h1 v-if="type === 'course'" class="text-2xl text-gold-600 mb-4">
         Congragulations! You've completed the course
       </h1>
-      <p class="text-gray-600 mb-4">
+      <h1 v-else class="text-2xl text-gold-600 mb-4">
+        Congragulations! You've completed the Project!
+      </h1>
+      <p v-if="type === 'course'" class="text-gray-600 mb-4">
         Check out the new certificate on your portfolio then start your next
         course
       </p>
@@ -13,8 +16,15 @@
         src="https://qvault.io/wp-content/uploads/2020/08/gatsby_toast.gif"
       />
       <div class="flex justify-center">
-        <BlockButton class="m-4" :click="clickNextCourse">
+        <BlockButton
+          v-if="type === 'course'"
+          class="m-4"
+          :click="clickNextCourse"
+        >
           Next Course
+        </BlockButton>
+        <BlockButton v-else class="m-4" :click="clickNextCourse">
+          Dashboard
         </BlockButton>
         <BlockButton
           class="m-4"
@@ -30,7 +40,12 @@
         >
           View Portfolio
         </BlockButton>
-        <BlockButton class="m-4" :click="goToBeginning" color="gray">
+        <BlockButton
+          v-if="goToBeginning"
+          class="m-4"
+          :click="goToBeginning"
+          color="gray"
+        >
           Restart
         </BlockButton>
       </div>
@@ -44,8 +59,8 @@ import BlockButton from "@/components/BlockButton.vue";
 import { loadTracks } from "@/lib/cloudStore.js";
 
 import {
-  markSeenCourseDoneModal,
-  hasSeenCourseDoneModal,
+  markSeenUnitDoneModal,
+  hasSeenUnitDoneModal,
 } from "@/lib/localStorageLib";
 
 export default {
@@ -56,9 +71,14 @@ export default {
   props: {
     goToBeginningCallback: {
       type: Function,
+      required: false,
+      default: null,
+    },
+    unitUUID: {
+      type: String,
       required: true,
     },
-    courseUUID: {
+    type: {
       type: String,
       required: true,
     },
@@ -80,14 +100,14 @@ export default {
       this.hide();
     },
     show() {
-      if (hasSeenCourseDoneModal(this.courseUUID)) {
+      if (hasSeenUnitDoneModal(this.unitUUID)) {
         return;
       }
-      markSeenCourseDoneModal(this.courseUUID);
-      this.$refs.courseDoneModal.show();
+      markSeenUnitDoneModal(this.unitUUID);
+      this.$refs.unitDoneModal.show();
     },
     hide() {
-      this.$refs.courseDoneModal.hide();
+      this.$refs.unitDoneModal.hide();
     },
   },
 };
