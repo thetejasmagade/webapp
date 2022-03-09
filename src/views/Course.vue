@@ -8,11 +8,12 @@
         unit-type="exercise"
       />
       <SandboxModeModal ref="sandboxModeModal" />
-      <CourseDoneModal
+      <UnitDoneModal
         v-if="course"
-        ref="courseDoneModal"
-        :course-u-u-i-d="course.UUID"
+        ref="unitDoneModal"
+        :unit-u-u-i-d="course.UUID"
         :go-to-beginning-callback="goToBeginning"
+        :type="'course'"
       />
 
       <AchievementUnlocked
@@ -107,7 +108,7 @@
 
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
-import CourseDoneModal from "@/components/CourseDoneModal.vue";
+import UnitDoneModal from "@/components/UnitDoneModal.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
 import Section from "@/components/Section.vue";
 import FeedbackModal from "@/components/FeedbackModal.vue";
@@ -163,7 +164,7 @@ import {
 export default {
   components: {
     ViewNavWrapper,
-    CourseDoneModal,
+    UnitDoneModal,
     Section,
     CardExerciseTypeInfo,
     ExerciseNav,
@@ -393,6 +394,14 @@ export default {
       return null;
     },
   },
+  watch: {
+    courseDone(courseDone) {
+      if (courseDone) {
+        this.$refs.unitDoneModal.show();
+        eventFinishCourse(this.course.Title, false);
+      }
+    },
+  },
   async mounted() {
     try {
       this.courses = await getCourses(this.$route.params.courseUUID);
@@ -429,11 +438,6 @@ export default {
       this.getUnitProgressIfLoggedIn();
 
       await this.getCourseProgressIfLoggedIn();
-      if (this.courseDone) {
-        this.$refs.courseDoneModal.show();
-        eventFinishCourse(this.course.Title, false);
-      }
-
       if (this.$store.getters.getIsLoggedIn) {
         try {
           this.achievementsToShow = await getPendingAchievements();
