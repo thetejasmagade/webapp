@@ -207,7 +207,7 @@
             <div class="flex flex-col justify-center items-center p-4">
               <span>
                 <code class="p-1 rounded bg-gray-800 text-gray-200">
-                  qv sync {{ $store.getters.getUser?.APIKey }}
+                  /sync {{ $store.getters.getUser?.APIKey }}
                 </code>
               </span>
               <BlockButton

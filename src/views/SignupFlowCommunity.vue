@@ -47,15 +47,14 @@
                 target="_blank"
                 >#start-here channel.</a
               >
-              You'll be asked to send the following message to the Qvault bot to
-              sync your account.
+              You'll be asked to use the following command to sync your account
             </p>
 
             <div class="flex justify-center">
               <code
                 class="text-gray-200 bg-gray-700 py-1 px-2 rounded overflow-auto my-2"
               >
-                qvault sync {{ $store.getters.getUser?.APIKey }}
+                /sync {{ $store.getters.getUser?.APIKey }}
               </code>
             </div>
 
