@@ -202,7 +202,7 @@
           </Section>
           <Section
             title="API Key"
-            subtitle="Send this DM to the Qvault Discord bot to sync your Discord and Qvault accounts"
+            subtitle="Use this command in the Discord to sync your Qvault account"
           >
             <div class="flex flex-col justify-center items-center p-4">
               <span>
