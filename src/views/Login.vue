@@ -116,7 +116,7 @@ import MagicLinkLogin from "@/components/MagicLinkLogin.vue";
 import MagicLinkRegister from "@/components/MagicLinkRegister.vue";
 import IntegrationLoginForm from "@/components/IntegrationLoginForm.vue";
 import TopNav from "@/components/TopNav.vue";
-import { useMeta } from "vue-meta";
+import { useCalculatedMeta } from "@/lib/meta.js";
 
 export default {
   components: {
@@ -176,36 +176,12 @@ export default {
       });
     }
 
-    const description =
-      "Login or sign up for Qvault's computer science and coding courses. All my courses are free to audit, get started today.";
-    const featuredImage =
-      "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg";
-    const title = "Login";
-    useMeta({
-      title: title,
-      meta: [
-        { vmid: "description", name: "description", content: description },
-
-        { vmid: "og:title", name: "og:title", content: title },
-        {
-          vmid: "og:description",
-          name: "og:description",
-          content: description,
-        },
-        { vmid: "og:image", name: "og:image", content: featuredImage },
-
-        { vmid: "twitter:title", name: "twitter:title", content: title },
-        {
-          vmid: "twitter:description",
-          name: "twitter:description",
-          content: description,
-        },
-        {
-          vmid: "twitter:image",
-          name: "twitter:image",
-          content: featuredImage,
-        },
-      ],
+    useCalculatedMeta({
+      title: "Login",
+      description:
+        "Login or sign up for Qvault's computer science and coding courses. All my courses are free to audit, get started today.",
+      image:
+        "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
     });
   },
 };

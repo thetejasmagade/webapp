@@ -138,7 +138,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import ProfileImage from "@/components/ProfileImage.vue";
 import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
-import { useMeta } from "vue-meta";
+import { useCalculatedMeta } from "@/lib/meta.js";
 import { computed, reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
@@ -164,51 +164,6 @@ export default {
       achievements: [],
       filteredCourses: [],
       filteredAchievements: [],
-    });
-
-    const computedMeta = computed(() => {
-      return {
-        title: `${state.user.FirstName}'s Portfolio`,
-        meta: [
-          {
-            vmid: "description",
-            name: "description",
-            content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
-          },
-
-          {
-            vmid: "og:title",
-            name: "og:title",
-            content: `Qvault Portfolio - ${state.user.Handle}`,
-          },
-          {
-            vmid: "og:description",
-            name: "og:description",
-            content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
-          },
-          {
-            vmid: "og:image",
-            name: "og:image",
-            content: state.user.ProfileImageURL,
-          },
-
-          {
-            vmid: "twitter:title",
-            name: "twitter:title",
-            content: `Qvault Portfolio - ${state.user.Handle}`,
-          },
-          {
-            vmid: "twitter:description",
-            name: "twitter:description",
-            content: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
-          },
-          {
-            vmid: "twitter:image",
-            name: "twitter:image",
-            content: state.user.ProfileImageURL,
-          },
-        ],
-      };
     });
 
     state.filteredCourses = computed(() => {
@@ -254,7 +209,11 @@ export default {
       }
     });
 
-    useMeta(computedMeta);
+    useCalculatedMeta({
+      title: `${state.user.FirstName}'s Portfolio`,
+      description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
+      image: state.user.ProfileImageURL,
+    });
     return state;
   },
   methods: {

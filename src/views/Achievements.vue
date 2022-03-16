@@ -99,7 +99,7 @@
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
-import { useMeta } from "vue-meta";
+import { useCalculatedMeta } from "@/lib/meta.js";
 
 import { loadUserAchievements } from "@/lib/cloudStore.js";
 
@@ -129,13 +129,9 @@ export default {
   async mounted() {
     loadUserAchievements(this);
 
-    const title = "Achievements";
-    useMeta({
-      title: title,
-      meta: [
-        { vmid: "og:title", name: "og:title", content: title },
-        { vmid: "twitter:title", name: "twitter:title", content: title },
-      ],
+    useCalculatedMeta({
+      title: "Achievements",
+      description: "View your Qvault achievements",
     });
   },
 };

@@ -51,7 +51,7 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { useMeta } from "vue-meta";
+import { useCalculatedMeta } from "@/lib/meta.js";
 import { computed, reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import BlockButton from "@/components/BlockButton.vue";
@@ -69,41 +69,6 @@ export default {
     const state = reactive({
       user: {},
       course: {},
-    });
-
-    const computedMeta = computed(() => {
-      const title = `${state.user.FirstName}'s Certificate of Completion`;
-      const description = `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`;
-      return {
-        title,
-        meta: [
-          { vmid: "description", name: "description", content: description },
-
-          { vmid: "og:title", name: "og:title", content: title },
-          {
-            vmid: "og:description",
-            name: "og:description",
-            content: description,
-          },
-          {
-            vmid: "og:image",
-            name: "og:image",
-            content: state.user.ProfileImageURL,
-          },
-
-          { vmid: "twitter:title", name: "twitter:title", content: title },
-          {
-            vmid: "twitter:description",
-            name: "twitter:description",
-            content: description,
-          },
-          {
-            vmid: "twitter:image",
-            name: "twitter:image",
-            content: state.user.ProfileImageURL,
-          },
-        ],
-      };
     });
 
     state.computedDate = computed(() => {
@@ -145,7 +110,11 @@ export default {
       downloadURI(dataUrl, "qvault_certificate.png");
     };
 
-    useMeta(computedMeta);
+    useCalculatedMeta({
+      title: `${state.user.FirstName}'s Certificate of Completion`,
+      description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
+      image: state.user.ProfileImageURL,
+    });
     return state;
   },
 };
