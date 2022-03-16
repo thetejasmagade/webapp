@@ -45,16 +45,23 @@
                 class="text-gold-600 underline"
                 href="https://discord.com/channels/551921866173054977/920160977788502036"
                 target="_blank"
-                >#start-here channel.</a
+                >#start-here</a
               >
-              You'll be asked to use the following command to sync your account
+              channel. You'll be asked to type the "/sync" command in the
+              <a
+                class="text-gold-600 underline"
+                href="https://discord.com/channels/551921866173054977/921896108853178398"
+                target="_blank"
+                >#bot-cli</a
+              >
+              channel, then to paste in your API key from below.
             </p>
 
             <div class="flex justify-center">
               <code
                 class="text-gray-200 bg-gray-700 py-1 px-2 rounded overflow-auto my-2"
               >
-                /sync {{ $store.getters.getUser?.APIKey }}
+                {{ $store.getters.getUser?.APIKey }}
               </code>
             </div>
 

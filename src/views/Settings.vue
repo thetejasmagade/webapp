@@ -202,21 +202,33 @@
           </Section>
           <Section
             title="API Key"
-            subtitle="Use this command in the Discord to sync your Qvault account"
+            subtitle="Sync your Discord and Qvault accounts"
           >
-            <div class="flex flex-col justify-center items-center p-4">
-              <span>
-                <code class="p-1 rounded bg-gray-800 text-gray-200">
-                  /sync {{ $store.getters.getUser?.APIKey }}
-                </code>
-              </span>
-              <BlockButton
-                class="mt-4"
-                color="red"
-                :click="() => updateUserAPIKey()"
-              >
-                Regenerate key
-              </BlockButton>
+            <div class="p-4">
+              <p>
+                To sync or re-sync your account, type the "/sync" command in the
+                <a
+                  class="text-gold-600 underline"
+                  href="https://discord.com/channels/551921866173054977/921896108853178398"
+                  target="_blank"
+                  >#bot-cli</a
+                >
+                channel, then to paste in your API key from below.
+              </p>
+              <div class="flex flex-col justify-center items-center p-4">
+                <span>
+                  <code class="p-1 rounded bg-gray-800 text-gray-200">
+                    {{ $store.getters.getUser?.APIKey }}
+                  </code>
+                </span>
+                <BlockButton
+                  class="mt-4"
+                  color="red"
+                  :click="() => updateUserAPIKey()"
+                >
+                  Regenerate key
+                </BlockButton>
+              </div>
             </div>
           </Section>
         </div>
