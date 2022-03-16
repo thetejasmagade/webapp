@@ -34,7 +34,7 @@ import SelectDropdown from "@/components/SelectDropdown.vue";
 
 import { reactive, computed, onMounted } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { useMeta } from "vue-meta";
+import { useCalculatedMeta } from "@/lib/meta.js";
 
 function getCode(lang) {
   if (lang === "go") {
@@ -136,39 +136,12 @@ export default {
       progLang: "",
     });
 
-    const computedMeta = computed(() => {
-      const description = `Run ${state.displayLang?.name} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`;
-      const featuredImage =
-        "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg";
-      const title = `${state.displayLang?.name} Playground`;
-      return {
-        title: title,
-        meta: [
-          { vmid: "description", name: "description", content: description },
-
-          { vmid: "og:title", name: "og:title", content: title },
-          {
-            vmid: "og:description",
-            name: "og:description",
-            content: description,
-          },
-          { vmid: "og:image", name: "og:image", content: featuredImage },
-
-          { vmid: "twitter:title", name: "twitter:title", content: title },
-          {
-            vmid: "twitter:description",
-            name: "twitter:description",
-            content: description,
-          },
-          {
-            vmid: "twitter:image",
-            name: "twitter:image",
-            content: featuredImage,
-          },
-        ],
-      };
+    useCalculatedMeta({
+      title: `${state.displayLang?.name} Playground`,
+      description: `Run ${state.displayLang?.name} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`,
+      image:
+        "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg",
     });
-    useMeta(computedMeta);
 
     state.displayLang = computed(() => {
       return state.displayLangs[state.lang];

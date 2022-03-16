@@ -11,6 +11,7 @@
 
 <script>
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { useCalculatedMeta } from "@/lib/meta.js";
 import {
   faArrowRight,
   faArrowLeft,
@@ -57,7 +58,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import { loadLoggedIn } from "@/lib/cloudStore.js";
-import { useMeta } from "vue-meta";
 
 library.add(faArrowRight);
 library.add(faArrowLeft);
@@ -101,53 +101,12 @@ library.add(faDiscord);
 
 export default {
   setup() {
-    const description =
-      "Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.";
-    useMeta({
+    useCalculatedMeta({
       title: "Coding Courses",
-      description,
-      meta: [
-        { vmid: "description", name: "description", content: description },
-
-        { vmid: "og:title", name: "og:title", content: "Qvault" },
-        {
-          vmid: "og:description",
-          name: "og:description",
-          content: description,
-        },
-        {
-          vmid: "og:image",
-          name: "og:image",
-          content:
-            "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
-        },
-        { vmid: "og:locale", name: "og:locale", content: "en_US" },
-        { vmid: "og:type", name: "og:type", content: "website" },
-
-        {
-          vmid: "twitter:card",
-          name: "twitter:card",
-          content: "summary_large_image",
-        },
-        { vmid: "twitter:site", name: "twitter:site", content: "@q_vault" },
-        {
-          vmid: "twitter:creator",
-          name: "twitter:creator",
-          content: "@q_vault",
-        },
-        { vmid: "twitter:title", name: "twitter:title", content: "Qvault" },
-        {
-          vmid: "twitter:description",
-          name: "twitter:description",
-          content: description,
-        },
-        {
-          vmid: "twitter:image",
-          name: "twitter:image",
-          content:
-            "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
-        },
-      ],
+      description:
+        "Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.",
+      image:
+        "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
     });
   },
   created() {
