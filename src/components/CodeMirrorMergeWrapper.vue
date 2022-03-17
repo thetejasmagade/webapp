@@ -23,7 +23,7 @@ import { markRaw } from "vue";
 
 export default {
   props: {
-    code: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -36,6 +36,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ["update:modelValue"],
   data() {
     return {
       mergeView: null,
@@ -50,7 +51,7 @@ export default {
         }
       },
     },
-    code: {
+    modelValue: {
       handler(newValue) {
         this.updateCode(newValue);
       },
@@ -58,9 +59,12 @@ export default {
   },
   mounted() {
     let opts = this.options;
-    opts.value = this.code;
+    opts.value = this.modelValue;
     opts.origRight = this.solution;
     this.mergeView = markRaw(CodeMirror.MergeView(this.$refs.codemirror, opts));
+    this.mergeView.edit.on("change", (cm) => {
+      this.$emit("update:modelValue", cm.getValue());
+    });
   },
   beforeUnmount() {
     this.mergeView = null;
