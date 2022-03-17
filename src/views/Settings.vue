@@ -268,7 +268,8 @@ import ToggleSwitch from "@/components/ToggleSwitch.vue";
 import ConfirmModal from "@/components/ConfirmModal.vue";
 import ResumeUploader from "@/components/ResumeUploader.vue";
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 
 import { setLogout } from "@/lib/cloudStore.js";
 
@@ -377,10 +378,11 @@ export default {
       this.handleSuccess();
     }
 
-    useCalculatedMeta({
+    const computedMeta = getComputedMeta({
       title: "Settings",
       description: "Manage your Qvault settings",
     });
+    useMeta(computedMeta);
   },
   methods: {
     async updateUserAPIKey() {

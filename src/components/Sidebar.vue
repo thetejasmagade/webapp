@@ -122,7 +122,7 @@ export default {
     if (!this.$store.getters.getUser) {
       loadUser(this);
     }
-    loadBalance(this);
+    loadBalance(this.$store.commit);
   },
   methods: {
     logout() {

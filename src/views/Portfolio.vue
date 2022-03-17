@@ -138,7 +138,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import ProfileImage from "@/components/ProfileImage.vue";
 import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 import { computed, reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
@@ -209,11 +210,14 @@ export default {
       }
     });
 
-    useCalculatedMeta({
-      title: `${state.user.FirstName}'s Portfolio`,
-      description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
-      image: state.user.ProfileImageURL,
+    const computedMeta = computed(() => {
+      return getComputedMeta({
+        title: `${state.user.FirstName}'s Portfolio`,
+        description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
+        image: state.user.ProfileImageURL,
+      });
     });
+    useMeta(computedMeta);
     return state;
   },
   methods: {

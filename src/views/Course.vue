@@ -2,9 +2,9 @@
   <ViewNavWrapper :title="course?.Title">
     <div class="h-full">
       <FeedbackModal
-        v-if="$route.params.exerciseUUID"
+        v-if="route.params.exerciseUUID"
         ref="feedbackModal"
-        :uuid="$route.params.exerciseUUID"
+        :uuid="route.params.exerciseUUID"
         unit-type="exercise"
       />
       <SandboxModeModal ref="sandboxModeModal" />
@@ -93,6 +93,7 @@
           :is-cheat-purchased="isCheatPurchased"
           :cheat-cost="cheatCost"
         />
+        <p v-else>something went wrong</p>
       </div>
       <div class="block sm:hidden p-4">
         <Section title="Come back on a computer">
@@ -121,8 +122,15 @@ import CardExerciseTypeCodeCanvas from "@/components/cards/CardExerciseTypeCodeC
 import ProgressBar from "@/components/ProgressBar.vue";
 import AchievementUnlocked from "@/components/AchievementUnlocked.vue";
 import { loadBalance } from "@/lib/cloudStore.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useRoute, useRouter } from "vue-router";
+import { useMeta } from "vue-meta";
 
 import { notify } from "@/lib/notification.js";
+
+import { useStore } from "vuex";
+
+import { reactive, computed, onMounted, ref, watchEffect, toRefs } from "vue";
 
 import {
   eventFinishCourse,
@@ -177,8 +185,8 @@ export default {
     AchievementUnlocked,
     ProgressBar,
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       markdownSource: "",
       hintMarkdownSource: "",
       type: "",
@@ -201,37 +209,46 @@ export default {
       hintCost: 0,
       nextExercise: null,
       previousExercise: null,
-    };
-  },
-  computed: {
-    sandbox() {
+    });
+
+    const router = useRouter();
+    const route = useRoute();
+    const store = useStore();
+
+    const sandboxModeModal = ref(null);
+    const feedbackModal = ref(null);
+    const unitDoneModal = ref(null);
+
+    const sandbox = computed(() => {
       return (
-        (!this.$store.getters.getUserIsSubscribed && !this.isFree) ||
-        !this.$store.getters.getIsLoggedIn
+        (!store.getters.getUserIsSubscribed && !state.isFree) ||
+        !store.getters.getIsLoggedIn
       );
-    },
-    courseDone() {
-      if (!this.course?.Modules) {
+    });
+
+    const courseDone = computed(() => {
+      if (!course?.value?.Modules) {
         return false;
       }
-      for (const mod of this.course.Modules) {
-        if (!this.courseProgress) {
+      for (const mod of course.value.Modules) {
+        if (!state.courseProgress) {
           return false;
         }
-        if (!(mod.UUID in this.courseProgress)) {
+        if (!(mod.UUID in state.courseProgress)) {
           return false;
         }
         for (const exercise of mod.Exercises) {
-          if (!this.courseProgress[mod.UUID][exercise.UUID]?.Completed) {
+          if (!state.courseProgress[mod.UUID][exercise.UUID]?.Completed) {
             return false;
           }
         }
       }
       return true;
-    },
-    forwardLink() {
-      if (!this.nextExercise) return null;
-      let exercise = this.nextExercise.Exercise;
+    });
+
+    const forwardLink = computed(() => {
+      if (!state.nextExercise) return null;
+      let exercise = state.nextExercise.Exercise;
       let forwardLink = {
         name: "Course",
         params: {
@@ -241,10 +258,11 @@ export default {
         },
       };
       return forwardLink;
-    },
-    backLink() {
-      if (!this.previousExercise) return null;
-      let exercise = this.previousExercise.Exercise;
+    });
+
+    const backLink = computed(() => {
+      if (!state.previousExercise) return null;
+      let exercise = state.previousExercise.Exercise;
       let backLink = {
         name: "Course",
         params: {
@@ -254,18 +272,20 @@ export default {
         },
       };
       return backLink;
-    },
-    isLoggedIn() {
-      return this.$store.getters.getIsLoggedIn;
-    },
-    percentComplete() {
-      if (!this.courseProgress) {
+    });
+
+    const isLoggedIn = computed(() => {
+      return store.getters.getIsLoggedIn;
+    });
+
+    const percentComplete = computed(() => {
+      if (!state.courseProgress) {
         return 0;
       }
       let complete = 0;
       let total = 0;
-      for (const exercise in this.courseProgress[this.module?.UUID]) {
-        if (this.courseProgress[this.module?.UUID][exercise].Completed) {
+      for (const exercise in state.courseProgress[module?.value?.UUID]) {
+        if (state.courseProgress[module?.value?.UUID][exercise].Completed) {
           complete++;
           total++;
         } else {
@@ -273,13 +293,14 @@ export default {
         }
       }
       return (complete / total) * 100;
-    },
-    dropdownModules() {
-      return this.course?.Modules?.map((mod, i) => {
+    });
+
+    const dropdownModules = computed(() => {
+      return course?.value?.Modules.map((mod, i) => {
         let isChapterComplete = false;
-        if (this.courseProgress && mod.UUID in this.courseProgress) {
+        if (state.courseProgress && mod.UUID in state.courseProgress) {
           for (const exercise of mod.Exercises) {
-            if (!this.courseProgress[mod.UUID][exercise.UUID]?.Completed) {
+            if (!state.courseProgress[mod.UUID][exercise.UUID]?.Completed) {
               isChapterComplete = false;
               break;
             }
@@ -292,277 +313,291 @@ export default {
           link: {
             name: "Course",
             params: {
-              courseUUID: this.$route.params.courseUUID,
+              courseUUID: route.params.courseUUID,
               moduleUUID: mod.UUID,
             },
           },
         };
       });
-    },
-    dropdownExercises() {
-      return this.exercises?.map((ex, i) => {
+    });
+
+    const dropdownExercises = computed(() => {
+      return exercises?.value?.map((ex, i) => {
         let isExerciseComplete = false;
         if (
-          this.courseProgress &&
-          this.module.UUID in this.courseProgress &&
-          ex.UUID in this.courseProgress[this.module?.UUID] &&
-          this.courseProgress[this.module?.UUID][ex.UUID].Completed
+          state.courseProgress &&
+          module?.value?.UUID in state.courseProgress &&
+          ex.UUID in state.courseProgress[module?.value?.UUID] &&
+          state.courseProgress[module?.value?.UUID][ex.UUID].Completed
         ) {
           isExerciseComplete = true;
         }
         return {
-          name: `Exercise ${i + 1} of ${this.exercises.length}`,
+          name: `Exercise ${i + 1} of ${exercises.value.length}`,
           color: isExerciseComplete ? "gold" : null,
           link: {
             name: "Course",
             params: {
-              courseUUID: this.$route.params.courseUUID,
-              moduleUUID: this.module.UUID,
+              courseUUID: route.params.courseUUID,
+              moduleUUID: module.value?.UUID,
               exerciseUUID: ex.UUID,
             },
           },
         };
       });
-    },
-    isContentLoaded() {
-      if (this.markdownSource === "") {
+    });
+
+    const isContentLoaded = computed(() => {
+      if (state.markdownSource === "") {
         return false;
       }
-      if (
-        this.$store.getters.getIsLoggedIn &&
-        this.achievementsToShow === null
-      ) {
+      if (store.getters.getIsLoggedIn && state.achievementsToShow === null) {
         return false;
       }
       return true;
-    },
-    exerciseIndex() {
-      if (!this.module) {
+    });
+
+    const exerciseIndex = computed(() => {
+      if (!module.value) {
         return null;
       }
-      if (!this.module.Exercises) {
+      if (!module.value?.Exercises) {
         return null;
       }
       let count = 0;
-      for (const exercise of this.module.Exercises) {
-        if (exercise.UUID === this.$route.params.exerciseUUID) {
+      for (const exercise of module.value?.Exercises) {
+        if (exercise.UUID === route.params.exerciseUUID) {
           return count;
         }
         count++;
       }
       return null;
-    },
-    exercises() {
-      if (!this.module) {
+    });
+
+    const exercises = computed(() => {
+      if (!module.value) {
         return null;
       }
-      return this.module.Exercises;
-    },
-    module() {
-      if (!this.course || !this.course.Modules) {
+      return module.value?.Exercises;
+    });
+
+    const module = computed(() => {
+      if (!course || !course.value?.Modules) {
         return null;
       }
-      for (const mod of this.course.Modules) {
-        if (mod.UUID === this.$route.params.moduleUUID) {
+      for (const mod of course.value?.Modules) {
+        if (mod.UUID === route.params.moduleUUID) {
           return mod;
         }
       }
       return null;
-    },
-    moduleIndex() {
-      if (!this.course || !this.course.Modules) {
+    });
+
+    const moduleIndex = computed(() => {
+      if (!course || !course.value?.Modules) {
         return null;
       }
       let index = 0;
-      for (const mod of this.course.Modules) {
-        if (mod.UUID === this.$route.params.moduleUUID) {
+      for (const mod of course.value?.Modules) {
+        if (mod.UUID === route.params.moduleUUID) {
           return index;
         }
         index++;
       }
       return null;
-    },
-    course() {
-      if (!this.courses) {
+    });
+
+    const course = computed(() => {
+      if (!state.courses) {
         return null;
       }
-      for (const course of this.courses) {
-        if (course.UUID === this.$route.params.courseUUID) {
+      for (const course of state.courses) {
+        if (course.UUID === route.params.courseUUID) {
           return course;
         }
       }
       return null;
-    },
-  },
-  watch: {
-    courseDone(courseDone) {
-      if (courseDone) {
-        this.$refs.unitDoneModal.show();
-        eventFinishCourse(this.course.Title, false);
-      }
-    },
-  },
-  async mounted() {
-    try {
-      this.courses = await getCourses(this.$route.params.courseUUID);
-    } catch (err) {
-      notify({
-        type: "danger",
-        text: err,
+    });
+
+    const computedMeta = computed(() => {
+      return getComputedMeta({
+        title: `${course.value?.Title} Course`,
+        description: course.value?.Description,
+        image: course.value?.ImageURL,
       });
-    }
+    });
+    useMeta(computedMeta);
 
-    try {
-      this.nextExercise = await getNextExercise(
-        this.$route.params.courseUUID,
-        this.$route.params.exerciseUUID
-      );
-    } catch (err) {
-      // ignore toast error
-    }
-    try {
-      this.previousExercise = await getPreviousExercise(
-        this.$route.params.courseUUID,
-        this.$route.params.exerciseUUID
-      );
-    } catch (err) {
-      // ignore toast error
-    }
-
-    if (this.$route.params.moduleUUID && this.$route.params.exerciseUUID) {
-      const exercise = await getExerciseByID(
-        this.$route.params.courseUUID,
-        this.$route.params.exerciseUUID
-      );
-      this.loadExercise(exercise);
-      this.getUnitProgressIfLoggedIn();
-
-      await this.getCourseProgressIfLoggedIn();
-      if (this.$store.getters.getIsLoggedIn) {
-        try {
-          this.achievementsToShow = await getPendingAchievements();
-        } catch (err) {
-          notify({
-            type: "danger",
-            text: err,
-          });
-        }
-        this.loadHintStatus();
-        this.loadCheatStatus();
-      }
-      return;
-    }
-
-    if (this.$route.params.moduleUUID) {
-      const exercise = await getFirstExerciseInModule(
-        this.$route.params.courseUUID,
-        this.$route.params.moduleUUID
-      );
-      this.navToExercise(exercise, true);
-      return;
-    }
-
-    await this.navToCurrentExercise();
-  },
-  methods: {
-    async doneWithExercise() {
+    onMounted(async () => {
       try {
-        await this.submitTypeInfo();
-        const nextExercise = await getNextExercise(
-          this.$route.params.courseUUID,
-          this.$route.params.exerciseUUID
+        state.courses = await getCourses(route.params.courseUUID);
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+
+      try {
+        state.nextExercise = await getNextExercise(
+          route.params.courseUUID,
+          route.params.exerciseUUID
         );
-        this.navToExercise(nextExercise, false);
       } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
+        // ignore toast error
       }
-    },
-    async loadHintStatus() {
       try {
-        const hintResp = await getHintStatus(this.$route.params.exerciseUUID);
-        this.isHintPurchased = hintResp.PurchasedAt !== null;
-        this.hintCost = hintResp.HintCost;
+        state.previousExercise = await getPreviousExercise(
+          route.params.courseUUID,
+          route.params.exerciseUUID
+        );
       } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
+        // ignore toast error
       }
-    },
 
-    async loadCheatStatus() {
+      if (route.params.moduleUUID && route.params.exerciseUUID) {
+        const exercise = await getExerciseByID(
+          route.params.courseUUID,
+          route.params.exerciseUUID
+        );
+        loadExercise(exercise);
+        getUnitProgressIfLoggedIn();
+
+        await getCourseProgressIfLoggedIn();
+        if (store.getters.getIsLoggedIn) {
+          try {
+            state.achievementsToShow = await getPendingAchievements();
+          } catch (err) {
+            notify({
+              type: "danger",
+              text: err,
+            });
+          }
+          loadHintStatus();
+          loadCheatStatus();
+        }
+        return;
+      }
+
+      if (route.params.moduleUUID) {
+        const exercise = await getFirstExerciseInModule(
+          route.params.courseUUID,
+          route.params.moduleUUID
+        );
+        navToExercise(exercise, true);
+        return;
+      }
+
+      await navToCurrentExercise();
+    });
+
+    const doneWithExercise = async () => {
       try {
-        const cheatResp = await getCheatStatus(this.$route.params.exerciseUUID);
-        this.isCheatPurchased = cheatResp.PurchasedAt !== null;
-        this.cheatCost = cheatResp.CheatCost;
+        await submitTypeInfo();
+        const nextExercise = await getNextExercise(
+          route.params.courseUUID,
+          route.params.exerciseUUID
+        );
+        navToExercise(nextExercise, false);
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    async onSeenAchievement() {
-      this.achievementsToShow.shift();
-    },
-    showSandboxModeModal() {
+    };
+
+    const loadHintStatus = async () => {
+      try {
+        const hintResp = await getHintStatus(route.params.exerciseUUID);
+        state.isHintPurchased = hintResp.PurchasedAt !== null;
+        state.hintCost = hintResp.HintCost;
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    };
+
+    const loadCheatStatus = async () => {
+      try {
+        const cheatResp = await getCheatStatus(route.params.exerciseUUID);
+        state.isCheatPurchased = cheatResp.PurchasedAt !== null;
+        state.cheatCost = cheatResp.CheatCost;
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    };
+
+    const onSeenAchievement = () => {
+      state.achievementsToShow.shift();
+    };
+
+    const showSandboxModeModal = () => {
       eventOpenSandboxModeModal();
-      this.$refs.sandboxModeModal.show();
-    },
-    showFeedbackModal() {
-      this.$refs.feedbackModal.show();
-    },
-    async hintCallback() {
-      if (!this.$store.getters.getIsLoggedIn) {
+      sandboxModeModal.value.show();
+    };
+
+    const showFeedbackModal = () => {
+      feedbackModal.value.show();
+    };
+
+    const hintCallback = async () => {
+      if (!store.getters.getIsLoggedIn) {
         return;
       }
-      if (!this.isHintPurchased) {
-        await purchaseHint(this.$route.params.exerciseUUID);
-        loadBalance(this);
-        await this.loadHintStatus();
+      if (!state.isHintPurchased) {
+        await purchaseHint(route.params.exerciseUUID);
+        loadBalance(store.commit);
+        await loadHintStatus();
       }
-    },
-    async cheatCallback() {
-      if (!this.$store.getters.getIsLoggedIn) {
+    };
+
+    const cheatCallback = async () => {
+      if (!store.getters.getIsLoggedIn) {
         return;
       }
-      if (!this.isCheatPurchased) {
-        await purchaseCheat(this.$route.params.exerciseUUID);
-        loadBalance(this);
-        await this.loadCheatStatus();
+      if (!state.isCheatPurchased) {
+        await purchaseCheat(route.params.exerciseUUID);
+        loadBalance(store.commit);
+        await loadCheatStatus();
       }
-      this.isCheating = !this.isCheating;
-      if (this.isCheating) {
-        eventClickCheat(this.$route.params.exerciseUUID, this.course.Title);
+      state.isCheating = !state.isCheating;
+      if (state.isCheating) {
+        eventClickCheat(route.params.exerciseUUID, course.value?.Title);
       }
-    },
-    resetCode() {
-      this.code = this.defaultCode;
-      deleteCachedCode(this.$route.params.exerciseUUID);
-    },
-    async submitTypeInfo() {
+    };
+
+    const resetCode = () => {
+      state.code = state.defaultCode;
+      deleteCachedCode(route.params.exerciseUUID);
+    };
+
+    const submitTypeInfo = async () => {
       const submitResponse = await submitInformationalExercise(
-        this.$route.params.exerciseUUID
+        route.params.exerciseUUID
       );
-      await this.handleSuccess(submitResponse);
-    },
-    async handleSuccess(submitResponse) {
+      await handleSuccess(submitResponse);
+    };
+
+    const handleSuccess = async (submitResponse) => {
       eventExerciseSuccess(
-        this.$route.params.exerciseUUID,
-        this.course.Title,
-        this.exerciseIndex,
-        this.moduleIndex
+        route.params.exerciseUUID,
+        course?.value?.Title,
+        exerciseIndex.value,
+        moduleIndex.value
       );
-      if (this.type !== "type_info") {
+      if (state.type !== "type_info") {
         if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
           notify({
             type: "success",
             text: `Correct! You unlocked ${submitResponse.GemsEarned} gems 💎`,
           });
-          await loadBalance(this);
+          await loadBalance(store.commit);
         } else {
           notify({
             type: "success",
@@ -570,128 +605,121 @@ export default {
           });
         }
       }
-      this.getUnitProgressIfLoggedIn();
-      this.getCourseProgressIfLoggedIn();
-    },
-    async getCourseProgressIfLoggedIn() {
-      if (!this.$store.getters.getIsLoggedIn) {
+      getUnitProgressIfLoggedIn();
+      getCourseProgressIfLoggedIn();
+    };
+
+    const getCourseProgressIfLoggedIn = async () => {
+      if (!store.getters.getIsLoggedIn) {
         return;
       }
       try {
-        this.courseProgress = await getCourseProgress(
-          this.$route.params.courseUUID
-        );
+        state.courseProgress = await getCourseProgress(route.params.courseUUID);
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    async getUnitProgressIfLoggedIn() {
-      if (!this.$store.getters.getIsLoggedIn) {
+    };
+
+    const getUnitProgressIfLoggedIn = async () => {
+      if (!store.getters.getIsLoggedIn) {
         return;
       }
       try {
-        this.unitProgress = await getUnitsProgress();
+        state.unitProgress = await getUnitsProgress();
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    async verifyCode({ output }) {
+    };
+
+    const verifyCode = async ({ output }) => {
       try {
         const submitResponse = await submitCodeExercise(
-          this.$route.params.exerciseUUID,
+          route.params.exerciseUUID,
           output
         );
-        await this.handleSuccess(submitResponse);
+        await handleSuccess(submitResponse);
       } catch (err) {
         eventExerciseFailure(
-          this.$route.params.exerciseUUID,
-          this.course.Title,
-          this.exerciseIndex,
-          this.moduleInde
+          route.params.exerciseUUID,
+          course.value?.Title,
+          exerciseIndex.value,
+          moduleIndex.value
         );
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    async verifyHash({ hash }) {
+    };
+
+    const verifyHash = async ({ hash }) => {
       try {
         const submitResponse = await submitCodeCanvasExercise(
-          this.$route.params.exerciseUUID,
+          route.params.exerciseUUID,
           hash
         );
-        await this.handleSuccess(submitResponse);
+        await handleSuccess(submitResponse);
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    async submitTypeCode({ output }) {
-      cacheExerciseCode(this.$route.params.exerciseUUID, this.code);
-      eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
-      if (this.sandbox) {
-        this.showSandboxModeModal();
+    };
+
+    const submitTypeCode = ({ output }) => {
+      cacheExerciseCode(route.params.exerciseUUID, state.code);
+      eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
+      if (sandbox.value) {
+        showSandboxModeModal();
         notify({
           type: "danger",
           text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
         });
         return;
       }
-      this.verifyCode({ output });
-    },
-    async submitTypeCodeCanvas({ hash }) {
-      cacheExerciseCode(this.$route.params.exerciseUUID, this.code);
-      eventExecuteCode(this.$route.params.exerciseUUID, this.course.Title);
-      if (this.sandbox) {
-        this.showSandboxModeModal();
+      verifyCode({ output });
+    };
+
+    const submitTypeCodeCanvas = ({ hash }) => {
+      cacheExerciseCode(route.params.exerciseUUID, state.code);
+      eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
+      if (sandbox.value) {
+        showSandboxModeModal();
         notify({
           type: "danger",
           text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
         });
         return;
       }
-      this.verifyHash({ hash });
-    },
-    async submitTypeChoice(answer) {
-      eventSubmitMultipleChoice(
-        this.$route.params.exerciseUUID,
-        this.course.Title
-      );
+      verifyHash({ hash });
+    };
+
+    const submitTypeChoice = async (answer) => {
+      eventSubmitMultipleChoice(route.params.exerciseUUID, course.value?.Title);
       try {
         const submitResponse = await submitMultipleChoiceExercise(
-          this.$route.params.exerciseUUID,
+          route.params.exerciseUUID,
           answer
         );
-        await this.handleSuccess(submitResponse);
+        await handleSuccess(submitResponse);
       } catch (err) {
-        eventExerciseFailure(
-          this.$route.params.exerciseUUID,
-          this.course.Title
-        );
+        eventExerciseFailure(route.params.exerciseUUID, course.value?.Title);
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    scrollMarkdownToTop() {
-      requestAnimationFrame(() => {
-        if (this.$refs.viewer && this.$refs.viewer.$el) {
-          this.$refs.viewer.$el.scrollTop = 0;
-        }
-      });
-    },
-    navToExercise(exercise, replace) {
-      this.$router.push({
+    };
+
+    const navToExercise = (exercise, replace) => {
+      router.push({
         name: "Course",
         replace: replace,
         params: {
@@ -700,62 +728,100 @@ export default {
           exerciseUUID: exercise.Exercise.UUID,
         },
       });
-    },
-    async loadExercise(exercise) {
-      this.isFree = exercise.Exercise.IsFree;
-      this.isFirstExercise = exercise.Exercise.IsFirst;
-      this.isLastExercise = exercise.Exercise.IsLast;
-      this.isCheating = false;
+    };
 
-      if (exercise.Exercise.Readme !== this.markdownSource) {
-        this.scrollMarkdownToTop();
-      }
+    const loadExercise = (exercise) => {
+      state.isFree = exercise.Exercise.IsFree;
+      state.isFirstExercise = exercise.Exercise.IsFirst;
+      state.isLastExercise = exercise.Exercise.IsLast;
+      state.isCheating = false;
 
-      this.markdownSource = exercise.Exercise.Readme;
-      this.hintMarkdownSource = exercise.Exercise.HintMarkdown;
-      this.type = exercise.Exercise.Type;
-      this.$store.commit("setCurrentModuleUUID", this.$route.params.moduleUUID);
+      state.markdownSource = exercise.Exercise.Readme;
+      state.hintMarkdownSource = exercise.Exercise.HintMarkdown;
+      state.type = exercise.Exercise.Type;
+      store.commit("setCurrentModuleUUID", route.params.moduleUUID);
 
-      if (this.type === "type_code") {
-        this.code = exercise.Exercise.Code;
-        this.complete = exercise.Exercise.Complete;
-        this.defaultCode = exercise.Exercise.Code;
-        this.progLang = exercise.Exercise.ProgLang;
-      } else if (this.type === "type_code_canvas") {
-        this.code = exercise.Exercise.Code;
-        this.complete = exercise.Exercise.Complete;
-        this.defaultCode = exercise.Exercise.Code;
-        this.progLang = exercise.Exercise.ProgLang;
-      } else if (this.type === "type_choice") {
-        this.question = exercise.Exercise.Question;
+      if (state.type === "type_code") {
+        state.code = exercise.Exercise.Code;
+        state.complete = exercise.Exercise.Complete;
+        state.defaultCode = exercise.Exercise.Code;
+        state.progLang = exercise.Exercise.ProgLang;
+      } else if (state.type === "type_code_canvas") {
+        state.code = exercise.Exercise.Code;
+        state.complete = exercise.Exercise.Complete;
+        state.defaultCode = exercise.Exercise.Code;
+        state.progLang = exercise.Exercise.ProgLang;
+      } else if (state.type === "type_choice") {
+        state.question = exercise.Exercise.Question;
       }
-      if (hasCachedCode(this.$route.params.exerciseUUID)) {
-        this.code = hasCachedCode(this.$route.params.exerciseUUID);
+      if (hasCachedCode(route.params.exerciseUUID)) {
+        state.code = hasCachedCode(route.params.exerciseUUID);
       }
-    },
-    async navToCurrentExercise() {
+    };
+
+    const navToCurrentExercise = async () => {
       try {
-        const exercise = await getCurrentExercise(
-          this.$route.params.courseUUID
-        );
-        this.navToExercise(exercise, true);
+        const exercise = await getCurrentExercise(route.params.courseUUID);
+        navToExercise(exercise, true);
       } catch (err) {
         // this probably happens because course is complete
-        const exercise = await getFirstExercise(this.$route.params.courseUUID);
-        this.navToExercise(exercise, true);
+        const exercise = await getFirstExercise(route.params.courseUUID);
+        navToExercise(exercise, true);
       }
-    },
-    async goToBeginning() {
+    };
+
+    const goToBeginning = async () => {
       try {
-        const exercise = await getFirstExercise(this.$route.params.courseUUID);
-        this.navToExercise(exercise, true);
+        const exercise = await getFirstExercise(route.params.courseUUID);
+        navToExercise(exercise, true);
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
+    };
+
+    watchEffect(() => {
+      if (courseDone.value) {
+        unitDoneModal.value.show();
+        eventFinishCourse(course.value?.Title, false);
+      }
+    });
+
+    return {
+      ...toRefs(state),
+      sandboxModeModal,
+      feedbackModal,
+      unitDoneModal,
+      isContentLoaded,
+      sandbox,
+      courseDone,
+      forwardLink,
+      backLink,
+      isLoggedIn,
+      percentComplete,
+      dropdownModules,
+      dropdownExercises,
+      exerciseIndex,
+      exercises,
+      module,
+      moduleIndex,
+      course,
+      doneWithExercise,
+      onSeenAchievement,
+      showSandboxModeModal,
+      showFeedbackModal,
+      hintCallback,
+      cheatCallback,
+      resetCode,
+      submitTypeInfo,
+      submitTypeCode,
+      submitTypeCodeCanvas,
+      submitTypeChoice,
+      goToBeginning,
+      route,
+    };
   },
 };
 </script>

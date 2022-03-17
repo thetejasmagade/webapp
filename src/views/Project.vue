@@ -260,6 +260,7 @@ export default {
         this.$route.params.stepUUID
       );
       this.moveToStep(step);
+
       return;
     }
 
@@ -310,7 +311,7 @@ export default {
       this.handleSuccess(submitResponse);
     },
     async handleSuccess() {
-      loadBalance(this);
+      loadBalance(this.$store.commit);
       if (this.projectProgress[this.$route.params.stepUUID].Completed) {
         return;
       } else {

@@ -100,7 +100,7 @@ export default {
       }
       this.gemNum = this.achievementEarned?.AchievementGemsEarned;
       this.spinning = false;
-      await loadBalance(this);
+      await loadBalance(this.$store.commit);
     },
     onClickDone() {
       this.onDone();

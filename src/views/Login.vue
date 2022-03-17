@@ -116,7 +116,8 @@ import MagicLinkLogin from "@/components/MagicLinkLogin.vue";
 import MagicLinkRegister from "@/components/MagicLinkRegister.vue";
 import IntegrationLoginForm from "@/components/IntegrationLoginForm.vue";
 import TopNav from "@/components/TopNav.vue";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 
 export default {
   components: {
@@ -176,13 +177,14 @@ export default {
       });
     }
 
-    useCalculatedMeta({
+    const computedMeta = getComputedMeta({
       title: "Login",
       description:
         "Login or sign up for Qvault's computer science and coding courses. All my courses are free to audit, get started today.",
       image:
         "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
     });
+    useMeta(computedMeta);
   },
 };
 </script>

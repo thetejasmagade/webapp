@@ -51,11 +51,12 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
 import { computed, reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import BlockButton from "@/components/BlockButton.vue";
 import { toPng } from "html-to-image";
+import { useMeta } from "vue-meta";
 
 import { getCoursesPublic, getUserPublic } from "@/lib/cloudClient.js";
 import { notify } from "@/lib/notification.js";
@@ -110,11 +111,14 @@ export default {
       downloadURI(dataUrl, "qvault_certificate.png");
     };
 
-    useCalculatedMeta({
-      title: `${state.user.FirstName}'s Certificate of Completion`,
-      description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
-      image: state.user.ProfileImageURL,
+    const computedMeta = computed(() => {
+      return getComputedMeta({
+        title: `${state.user.FirstName}'s Certificate of Completion`,
+        description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
+        image: state.user.ProfileImageURL,
+      });
     });
+    useMeta(computedMeta);
     return state;
   },
 };

@@ -11,7 +11,8 @@
 
 <script>
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 import {
   faArrowRight,
   faArrowLeft,
@@ -101,13 +102,14 @@ library.add(faDiscord);
 
 export default {
   setup() {
-    useCalculatedMeta({
+    const computedMeta = getComputedMeta({
       title: "Coding Courses",
       description:
         "Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.",
       image:
         "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
     });
+    useMeta(computedMeta);
   },
   created() {
     loadLoggedIn(this);

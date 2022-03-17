@@ -12,7 +12,8 @@ import TabsNav from "@/components/TabsNav.vue";
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import { loadAllInterests } from "@/lib/cloudStore.js";
 import { useRoute } from "vue-router";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 
 import { loadTracks } from "@/lib/cloudStore.js";
 
@@ -28,11 +29,12 @@ export default {
     loadTracks(this);
     loadAllInterests(this);
 
-    useCalculatedMeta({
+    const computedMeta = getComputedMeta({
       title: "Courses",
       description:
         "If you’re not sure what to learn next, this is the place to start. Check out our coding courses, projects and tracks",
     });
+    useMeta(computedMeta);
   },
 };
 </script>

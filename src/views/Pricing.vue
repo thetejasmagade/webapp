@@ -355,7 +355,8 @@ import { checkout } from "@/lib/stripewrap.js";
 import { loadUser, loadSubscriptionPlans } from "@/lib/cloudStore.js";
 import { trackUserCancelCheckout } from "@/lib/cloudClient.js";
 import { notify } from "@/lib/notification.js";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 
 export default {
   components: {
@@ -425,13 +426,14 @@ export default {
       }
     }
 
-    useCalculatedMeta({
+    const computedMeta = getComputedMeta({
       title: "Pricing",
       description:
         "Become a patron to unlock all the courses on content on Qvault",
       image:
         "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner-1024x576.jpg",
     });
+    useMeta(computedMeta);
   },
   methods: {
     getCurrencySymbol(code) {

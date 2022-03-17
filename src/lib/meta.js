@@ -1,6 +1,4 @@
-import { useMeta } from "vue-meta";
-
-export function useCalculatedMeta({ title, description, featuredImageURL }) {
+export function getComputedMeta({ title, description, featuredImageURL }) {
   const meta = {
     meta: [
       { vmid: "og:locale", name: "og:locale", content: "en_US" },
@@ -52,5 +50,5 @@ export function useCalculatedMeta({ title, description, featuredImageURL }) {
     });
   }
 
-  useMeta(meta);
+  return meta;
 }

@@ -62,9 +62,9 @@ export async function loadUserAchievements(thisComponent) {
   thisComponent.$store.commit("setUserAchievements", userAchievements);
 }
 
-export async function loadBalance(thisComponent) {
+export async function loadBalance(commit) {
   const lastGemTransaction = await getLastGemTransaction();
-  thisComponent.$store.commit("setBalance", lastGemTransaction.Balance);
+  commit("setBalance", lastGemTransaction.Balance);
 }
 
 export async function loadSubscriptionPlans(thisComponent) {

@@ -31,7 +31,7 @@
     "mosha-vue-toastify": "^1.0.23",
     "prismjs": "^1.26.0",
     "vue": "^3.2.31",
-    "vue-meta": "^3.0.0-alpha.7",
+    "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.0.8",
     "vue-skeletor": "^1.0.6",
     "vue3-google-auth": "^0.0.2",

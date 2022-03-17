@@ -34,7 +34,8 @@ import SelectDropdown from "@/components/SelectDropdown.vue";
 
 import { reactive, computed, onMounted } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { useCalculatedMeta } from "@/lib/meta.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 
 function getCode(lang) {
   if (lang === "go") {
@@ -131,17 +132,19 @@ export default {
           color: null,
         },
       },
-      displayLang: "",
+      displayLang: {},
       displayLangsArray: [],
       progLang: "",
     });
-
-    useCalculatedMeta({
-      title: `${state.displayLang?.name} Playground`,
-      description: `Run ${state.displayLang?.name} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`,
-      image:
-        "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg",
+    const computedMeta = computed(() => {
+      return getComputedMeta({
+        title: `${state.displayLang?.name} Playground`,
+        description: `Run ${state.displayLang?.name} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`,
+        image:
+          "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg",
+      });
     });
+    useMeta(computedMeta);
 
     state.displayLang = computed(() => {
       return state.displayLangs[state.lang];
