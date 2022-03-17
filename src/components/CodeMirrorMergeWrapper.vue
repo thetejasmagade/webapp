@@ -46,7 +46,7 @@ export default {
       deep: true,
       handler(options) {
         for (const key in options) {
-          this.codemirror.setOption(key, options[key]);
+          this.mergeView.edit.setOption(key, options[key]);
         }
       },
     },
