@@ -38,44 +38,39 @@ export default {
   },
   data() {
     return {
-      codemirror: null,
+      mergeView: null,
     };
   },
   watch: {
     options: {
       deep: true,
       handler(options) {
-        this.init();
         for (const key in options) {
-          this.codemirror.setOption(key, options[key]);
+          this.mergeView.edit.setOption(key, options[key]);
         }
       },
     },
-    solution: {
-      handler() {
-        this.init();
-      },
-    },
     code: {
-      handler() {
-        this.init();
+      handler(newValue) {
+        this.updateCode(newValue);
       },
     },
   },
   mounted() {
-    this.init();
+    let opts = this.options;
+    opts.value = this.code;
+    opts.origRight = this.solution;
+    this.mergeView = markRaw(CodeMirror.MergeView(this.$refs.codemirror, opts));
   },
   beforeUnmount() {
-    this.codemirror = null;
+    this.mergeView = null;
   },
   methods: {
-    init() {
-      let opts = this.options;
-      opts.value = this.code;
-      opts.origRight = this.solution;
-      this.codemirror = markRaw(
-        CodeMirror.MergeView(this.$refs.codemirror, opts)
-      );
+    updateCode(newVal) {
+      const currentVal = this.mergeView.edit.getValue();
+      if (newVal !== currentVal) {
+        this.mergeView.edit.setValue(newVal);
+      }
     },
   },
 };
