@@ -187,7 +187,6 @@ export default {
         revertButtons: false,
         collapseIdentical: false,
         connect: "align",
-        //readOnly: this.isCheating,
         // this means tab key does an "indent" rather
         // than blindly inserting tabs
         extraKeys: { Tab: "indentMore" },
