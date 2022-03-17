@@ -27,9 +27,10 @@
           <CodeMirrorMergeWrapper
             v-else
             class="h-full"
-            :code="modelValue"
+            :model-value="modelValue"
             :solution="solution"
             :options="codeMirrorOptions"
+            @update:modelValue="(value) => $emit('update:modelValue', value)"
           />
         </div>
         <MultipaneResizer layout="vertical" />
@@ -186,7 +187,7 @@ export default {
         revertButtons: false,
         collapseIdentical: false,
         connect: "align",
-        readOnly: this.isCheating,
+        //readOnly: this.isCheating,
         // this means tab key does an "indent" rather
         // than blindly inserting tabs
         extraKeys: { Tab: "indentMore" },
