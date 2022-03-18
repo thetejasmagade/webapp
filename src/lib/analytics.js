@@ -32,6 +32,8 @@ export function eventRegister(method) {
     mixpanel.track("signUp", {
       method,
     });
+    window.uetq = window.uetq || [];
+    window.uetq.push("event", "signup", {});
   } catch (err) {
     console.log(err);
   }
@@ -58,6 +60,8 @@ export function eventBeginCheckout() {
       },
     });
     mixpanel.track("beginCheckout");
+    window.uetq = window.uetq || [];
+    window.uetq.push("event", "begin_checkout", {});
   } catch (err) {
     console.log(err);
   }
