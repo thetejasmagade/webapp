@@ -6,7 +6,7 @@
       <Section
         class="mb-5"
         title="Support Qvault and enjoy premium features by becoming a patron"
-        subtitle="Love it or your money back! Enjoy a free trial, 30-day money-back guarantee, and feel free to cancel anytime."
+        subtitle="Love it or your money back! Enjoy a 30-day money-back guarantee, and feel free to cancel anytime."
       >
         <header class="flex flex-col items-center my-8">
           <h2
@@ -89,9 +89,7 @@
                       }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
                     </h3>
                     <p class="mb-4 text-gray-400">monthly</p>
-                    <p class="mb-4">
-                      Learn job-ready skills with small monthly payments
-                    </p>
+                    <p class="mb-4">Small monthly payments</p>
                     <BlockButton
                       v-if="
                         $store.getters.getIsLoggedIn &&
@@ -104,7 +102,7 @@
                         }
                       "
                     >
-                      Start 7-day free trial
+                      Monthly Plan
                     </BlockButton>
                   </div>
                 </div>
@@ -117,7 +115,7 @@
                   </h3>
                   <p class="mb-4 text-blue-300">yearly</p>
                   <p class="mb-4">
-                    Enjoy full access to Qvault with
+                    Full access at a
                     {{
                       Math.round(
                         ((priceMonthly.UnitAmountPerMonth -
@@ -125,7 +123,7 @@
                           100) /
                           priceMonthly.UnitAmountPerMonth
                       )
-                    }}% off!
+                    }}% discount
                   </p>
                   <BlockButton
                     v-if="
@@ -140,7 +138,7 @@
                       }
                     "
                   >
-                    Start 7-day free trial
+                    Yearly Plan
                   </BlockButton>
                   <span
                     class="rounded-lg border-gold-200 border text-gold-200 px-2"
@@ -155,7 +153,7 @@
                     }}{{ priceLifetime.UnitAmount / 100 }}
                   </h3>
                   <p class="mb-4 text-gray-400">once</p>
-                  <p class="mb-4">Don't stress about recurring payments</p>
+                  <p class="mb-4">Never be charged again</p>
                   <BlockButton
                     v-if="
                       $store.getters.getIsLoggedIn &&
@@ -168,7 +166,7 @@
                       }
                     "
                   >
-                    Lock-in lifetime price
+                    Lifetime
                   </BlockButton>
                 </div>
               </div>
@@ -326,9 +324,9 @@
             </h2>
             <p>
               Hopefully you can figure out if you're enjoying the platform
-              within your 7-day free trial, because you can always cancel before
-              you're charged for the first time. That said, if you wait too
-              long, you can take advantage of our
+              within the first several free exercises of each course. That said,
+              if you become a patron and no longer want to support us you can
+              take advantage of our
               <a
                 class="underline cursor-pointer text-gold-600 hover:text-gold-800"
                 href="https://qvault.io/return-policy/"
