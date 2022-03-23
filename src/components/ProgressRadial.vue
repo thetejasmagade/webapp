@@ -1,39 +1,64 @@
 <template>
-  <svg :width="cx * 2" :height="cy * 2">
-    <circle
-      class="text-gray-300"
-      :stroke-width="strokeWidth"
-      stroke="currentColor"
-      fill="transparent"
-      :r="radius"
-      :cx="cx"
-      :cy="cy"
-    />
-    <circle
-      class="text-gold-500"
-      :stroke-width="strokeWidth"
-      :stroke-dasharray="circumference"
-      :stroke-dashoffset="offset"
-      stroke-linecap="round"
-      stroke="currentColor"
-      fill="transparent"
-      :r="radius"
-      :cx="cx"
-      :cy="cy"
-    />
-    <text
-      class="text-gray-500"
-      :x="cx"
-      :y="cy"
-      stroke="currentColor"
-      stroke-width=".6px"
-      dy=".3em"
-      font-size="12"
-      text-anchor="middle"
-    >
-      {{ normalizedPercent }}%
-    </text>
-  </svg>
+  <div>
+    <svg :width="cx * 2" :height="cy * 2">
+      <circle
+        class="text-gray-300"
+        :stroke-width="strokeWidth"
+        stroke="currentColor"
+        fill="transparent"
+        :r="radius"
+        :cx="cx"
+        :cy="cy"
+      />
+      <circle
+        class="text-gold-500"
+        :stroke-width="strokeWidth"
+        :stroke-dasharray="circumference"
+        :stroke-dashoffset="offset"
+        stroke-linecap="round"
+        stroke="currentColor"
+        fill="transparent"
+        :r="radius"
+        :cx="cx"
+        :cy="cy"
+      />
+      <text
+        v-if="normalizedPercent < 100"
+        class="text-blue-500"
+        :x="cx"
+        :y="cy"
+        stroke="currentColor"
+        stroke-width=".6px"
+        dy=".3em"
+        font-size="12"
+        text-anchor="middle"
+      >
+        {{ normalizedPercent }}%
+      </text>
+      <line
+        v-if="normalizedPercent === 100"
+        class="text-gold-500"
+        stroke="currentColor"
+        :x1="cx * 0.65"
+        :y1="cy * 1.05"
+        :x2="cx * 0.9"
+        :y2="cy * 1.3"
+        stroke-linecap="round"
+        :stroke-width="4"
+      />
+      <line
+        v-if="normalizedPercent === 100"
+        class="text-gold-500"
+        stroke="currentColor"
+        :x1="cx * 0.9"
+        :y1="cy * 1.3"
+        :x2="cx * 1.45"
+        :y2="cy * 0.75"
+        stroke-linecap="round"
+        :stroke-width="4"
+      />
+    </svg>
+  </div>
 </template>
 
 <script>
