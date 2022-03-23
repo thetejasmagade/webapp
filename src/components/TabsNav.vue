@@ -2,48 +2,17 @@
   <div>
     <div class="block list-none m-0 p-0">
       <router-link
+        v-for="(tab, i) of tabs"
+        :key="i"
         class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
         :class="{
-          'bg-white': routePath.includes('browse'),
-          'bg-gray-300': !routePath.includes('browse'),
+          'bg-white': routePath.includes(tab.route),
+          'bg-gray-300': !routePath.includes(tab.route),
         }"
-        :to="{ name: 'Browse' }"
+        :to="{ name: tab.componentName }"
       >
-        <FontAwesomeIcon icon="search" class="md:mr-4 mx-1" />
-        <span class="md:inline-block hidden"> All courses </span>
-      </router-link>
-      <router-link
-        class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
-        :class="{
-          'bg-white': routePath.includes('algos-track'),
-          'bg-gray-300': !routePath.includes('algos-track'),
-        }"
-        :to="{ name: 'AlgosTrack' }"
-      >
-        <FontAwesomeIcon :icon="['fab', 'python']" class="md:mr-4 mx-1" />
-        <span class="md:inline-block hidden"> Algorithms track </span>
-      </router-link>
-      <router-link
-        class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
-        :class="{
-          'bg-white': routePath.includes('cs-track'),
-          'bg-gray-300': !routePath.includes('cs-track'),
-        }"
-        :to="{ name: 'CSTrack' }"
-      >
-        <FontAwesomeIcon icon="graduation-cap" class="md:mr-4 mx-1" />
-        <span class="md:inline-block hidden"> CompSci track </span>
-      </router-link>
-      <router-link
-        class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
-        :class="{
-          'bg-white': routePath.includes('golang-track'),
-          'bg-gray-300': !routePath.includes('golang-track'),
-        }"
-        :to="{ name: 'GolangTrack' }"
-      >
-        <FontAwesomeIcon :icon="['fab', 'golang']" class="md:mr-4 mx-1" />
-        <span class="md:inline-block hidden"> Gopher gang track </span>
+        <FontAwesomeIcon :icon="tab.icon" class="md:mr-4 mx-1" />
+        <span class="md:inline-block hidden"> {{ tab.name }} </span>
       </router-link>
     </div>
   </div>
@@ -52,18 +21,30 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { useRoute } from "vue-router";
+import { computed } from "vue";
 
 export default {
   components: {
     FontAwesomeIcon,
   },
-  computed: {
-    routePath() {
+  props: {
+    tabs: {
+      type: Array,
+      required: true,
+    },
+  },
+  setup() {
+    const routePath = computed(() => {
       return useRoute().path;
-    },
-    routeName() {
+    });
+    const routeName = computed(() => {
       return useRoute().name;
-    },
+    });
+
+    return {
+      routePath,
+      routeName,
+    };
   },
 };
 </script>

@@ -1,7 +1,34 @@
 <template>
   <ViewNavWrapper>
     <div class="p-4">
-      <TabsNav />
+      <TabsNav
+        :tabs="[
+          {
+            route: 'cs-track',
+            componentName: 'CSTrack',
+            icon: 'graduation-cap',
+            name: 'CompSci track ',
+          },
+          {
+            route: 'golang-track',
+            componentName: 'GolangTrack',
+            icon: ['fab', 'golang'],
+            name: 'Gopher gang track',
+          },
+          {
+            route: 'algos-track',
+            componentName: 'AlgosTrack',
+            icon: ['fab', 'python'],
+            name: 'Algorithms track',
+          },
+          {
+            route: 'browse',
+            componentName: 'Browse',
+            icon: 'search',
+            name: 'All courses',
+          },
+        ]"
+      />
       <router-view />
     </div>
   </ViewNavWrapper>
