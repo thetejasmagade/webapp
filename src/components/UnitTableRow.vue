@@ -1,9 +1,17 @@
 <template>
   <tr>
-    <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
+    <td class="px-2 py-4 whitespace-nowrap hidden lg:table-cell">
+      <span
+        v-if="isNext"
+        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-200 text-blue-700"
+      >
+        Next →
+      </span>
+    </td>
+    <td class="px-4 py-4 whitespace-nowrap hidden lg:table-cell text-center">
       <ProgressRadial :percent="calcPercent" />
     </td>
-    <td class="px-6 py-4 whitespace-nowrap">
+    <td class="px-4 py-4 whitespace-nowrap">
       <router-link :to="getUnitLink(unit)">
         <div class="flex items-center hover:opacity-50">
           <div class="flex-shrink-0 h-10 w-10">
@@ -20,10 +28,10 @@
         </div>
       </router-link>
     </td>
-    <td class="px-6 py-4 hidden lg:table-cell">
+    <td class="px-4 py-4 hidden lg:table-cell">
       <div class="text-sm text-gray-500">{{ unitData.Description }}</div>
     </td>
-    <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
+    <td class="px-4 py-4 whitespace-nowrap hidden lg:table-cell">
       <span
         class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-200 text-blue-700"
       >
@@ -31,7 +39,7 @@
       </span>
     </td>
     <td
-      class="px-6 py-4 whitespace-nowrap text-md text-gray-500 hidden lg:table-cell"
+      class="px-4 py-4 whitespace-nowrap text-md text-gray-500 hidden lg:table-cell"
     >
       <FontAwesomeIcon icon="hourglass" /> {{ durationText }}
     </td>
@@ -53,6 +61,11 @@ export default {
     unit: {
       type: Object,
       required: true,
+    },
+    isNext: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {

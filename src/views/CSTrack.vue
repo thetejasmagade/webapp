@@ -6,7 +6,7 @@
       subtitle="A complete computer science program in your browser"
     >
       <div class="p-4">
-        <CourseTable :units="units" />
+        <UnitTable :units="units" />
         <h2 class="text-gold-600 text-xl">Notes</h2>
         <p class="max-width">
           <i>
@@ -32,11 +32,11 @@
 
 <script>
 import Section from "@/components/Section.vue";
-import CourseTable from "@/components/CourseTable.vue";
+import UnitTable from "@/components/UnitTable.vue";
 
 export default {
   components: {
-    CourseTable,
+    UnitTable,
     Section,
   },
   computed: {

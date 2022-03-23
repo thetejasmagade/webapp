@@ -19,31 +19,33 @@
                 <tr>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
-                  >
-                    Progress
-                  </th>
+                    class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                  ></th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                  ></th>
+                  <th
+                    scope="col"
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Title
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
                   >
                     Description
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
                   >
                     Difficulty
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
                   >
                     Avg Time
                   </th>
@@ -54,6 +56,7 @@
                   v-for="(unit, i) of units"
                   :key="i"
                   :unit="unit"
+                  :is-next="i === firstIncompleteIndex"
                 />
               </tbody>
             </table>
@@ -68,6 +71,7 @@
 import UnitTableRow from "@/components/UnitTableRow.vue";
 import { getUnitData } from "@/lib/unit.js";
 import { Skeletor } from "vue-skeletor";
+import { computed, toRefs } from "vue";
 import "vue-skeletor/dist/vue-skeletor.css";
 
 export default {
@@ -82,8 +86,20 @@ export default {
       default: null,
     },
   },
-  methods: {
-    getUnitData,
+  setup(props) {
+    const { units } = toRefs(props);
+    const firstIncompleteIndex = computed(() => {
+      for (let i = 0; i < units.value.length; i++) {
+        if (!getUnitData(units.value[i]).CompletedAt) {
+          return i;
+        }
+      }
+      return null;
+    });
+    return {
+      getUnitData,
+      firstIncompleteIndex,
+    };
   },
 };
 </script>
