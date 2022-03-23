@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+    <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
       <ProgressRadial :percent="calcPercent" />
     </td>
     <td class="px-6 py-4 whitespace-nowrap">
@@ -20,10 +20,10 @@
         </div>
       </router-link>
     </td>
-    <td class="px-6 py-4 text-ellipsis max-w-md hidden md:table-cell">
+    <td class="px-6 py-4 hidden lg:table-cell">
       <div class="text-sm text-gray-500">{{ unitData.Description }}</div>
     </td>
-    <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+    <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
       <span
         class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-200 text-blue-700"
       >
@@ -31,7 +31,7 @@
       </span>
     </td>
     <td
-      class="px-6 py-4 whitespace-nowrap text-md text-gray-500 hidden md:table-cell"
+      class="px-6 py-4 whitespace-nowrap text-md text-gray-500 hidden lg:table-cell"
     >
       <FontAwesomeIcon icon="hourglass" /> {{ durationText }}
     </td>

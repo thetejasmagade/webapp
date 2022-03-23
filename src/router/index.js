@@ -186,7 +186,7 @@ router.beforeEach((to, from, next) => {
 
   // Dashboard default child redirect
   if (to.fullPath === "/courses") {
-    next({ name: "Browse" });
+    next({ name: "CSTrack" });
     return;
   }
 
