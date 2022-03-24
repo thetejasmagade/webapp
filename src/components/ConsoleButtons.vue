@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row justify-start content-center">
     <Tooltip :text="`Run code`" position="bottom">
-      <BlockButton class="mr-3" :click="runCallback" :disabled="!runCallback">
+      <BlockButton class="mr-3" :click="runCallback">
         <FontAwesomeIcon icon="play" />
         Run
       </BlockButton>
