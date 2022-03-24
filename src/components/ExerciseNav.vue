@@ -4,7 +4,7 @@
     <div class="flex-1 flex items-center justify-start">
       <SelectDropdown
         v-if="dropdownOneItems && dropdownOneIndex !== null"
-        class="ml-3"
+        class="hidden lg:block ml-3"
         :options="dropdownOneItems"
         :default="dropdownOneItems[dropdownOneIndex]"
         @update:modelValue="
@@ -15,7 +15,7 @@
       />
       <SelectDropdown
         v-if="dropdownTwoItems && dropdownTwoIndex !== null"
-        class="ml-3"
+        class="hidden lg:block ml-3"
         :options="dropdownTwoItems"
         :default="dropdownTwoItems[dropdownTwoIndex]"
         @update:modelValue="

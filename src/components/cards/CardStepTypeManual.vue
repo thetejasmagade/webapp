@@ -1,21 +1,34 @@
 <template>
-  <div class="overflow-y-auto w-full flex flex-col items-center">
-    <div class="max-w-4xl">
-      <div class="mt-4 w-full flex flex-row justify-end">
-        <BlockButton
-          v-if="$store.getters.getIsLoggedIn"
-          class="btn mr-3"
-          :click="doneWithStep"
-        >
-          I'm done with this step
-        </BlockButton>
+  <div>
+    <div class="overflow-y-auto w-full flex flex-col items-center">
+      <div class="hidden lg:block max-w-4xl">
+        <div class="mt-4 w-full flex flex-row justify-end">
+          <BlockButton
+            v-if="$store.getters.getIsLoggedIn"
+            class="btn mr-3"
+            :click="doneWithStep"
+          >
+            I'm done with this step
+          </BlockButton>
 
-        <BlockButton :click="linkClick" color="gray">
-          <FontAwesomeIcon icon="eye" />
-          Cheat
-        </BlockButton>
+          <BlockButton :click="linkClick" color="gray">
+            <FontAwesomeIcon icon="eye" />
+            Cheat
+          </BlockButton>
+        </div>
+        <MarkdownViewer ref="viewer" :source="markdownSource" />
       </div>
-      <MarkdownViewer ref="viewer" :source="markdownSource" />
+    </div>
+    <div>
+      <div class="block lg:hidden">
+        <MarkdownViewer ref="viewer" :source="markdownSource" />
+        <Section class="block lg:hidden" title="Come back on a computer">
+          <p class="p-4">
+            Coding is hard to do on a phone. I want you to have a great
+            experience, so please hurry back on a larger device.
+          </p>
+        </Section>
+      </div>
     </div>
   </div>
 </template>
@@ -24,12 +37,14 @@
 import BlockButton from "@/components/BlockButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Section from "@/components/Section.vue";
 
 export default {
   components: {
     MarkdownViewer,
     BlockButton,
     FontAwesomeIcon,
+    Section,
   },
   props: {
     markdownSource: {

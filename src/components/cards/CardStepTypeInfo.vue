@@ -3,15 +3,23 @@
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
     </div>
+    <Section class="block lg:hidden" title="Come back on a computer">
+      <p class="p-4">
+        Coding is hard to do on a phone. I want you to have a great experience,
+        so please hurry back on a larger device.
+      </p>
+    </Section>
   </div>
 </template>
 
 <script>
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
+import Section from "@/components/Section.vue";
 
 export default {
   components: {
     MarkdownViewer,
+    Section,
   },
   props: {
     markdownSource: {

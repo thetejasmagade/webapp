@@ -1,30 +1,50 @@
 <template>
-  <Multipane layout="horizontal" class="flex-1 overflow-y-auto">
-    <MarkdownWithHint
-      class="flex flex-col w-1/2 bg-white border-r border-gray-300"
-      :markdown-source="markdownSource"
-      :hint-markdown-source="hintMarkdownSource"
-      :hint-callback="hintCallback"
-      :is-hint-purchased="isHintPurchased"
-      :hint-cost="hintCost"
-    />
-    <MultipaneResizer layout="horizontal" />
-    <CodeEditor
-      :key="isCheating"
-      :model-value="modelValue"
-      class="h-full flex flex-col flex-1 overflow-auto"
-      :run-callback="runCallback"
-      :reset-callback="resetCodeCallback"
-      :cheat-callback="cheatCallback"
-      :prog-lang="progLang"
-      :canvas-enabled="true"
-      :solution="solutionCode"
-      :is-cheating="isCheating"
-      :is-cheat-purchased="isCheatPurchased"
-      :cheat-cost="cheatCost"
-      @update:modelValue="(value) => $emit('update:modelValue', value)"
-    />
-  </Multipane>
+  <div class="h-full overflow-auto">
+    <div class="h-full hidden lg:block">
+      <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
+        <MarkdownWithHint
+          class="flex flex-col w-1/2 bg-white border-r border-gray-300"
+          :markdown-source="markdownSource"
+          :hint-markdown-source="hintMarkdownSource"
+          :hint-callback="hintCallback"
+          :is-hint-purchased="isHintPurchased"
+          :hint-cost="hintCost"
+        />
+        <MultipaneResizer layout="horizontal" />
+        <CodeEditor
+          :key="isCheating"
+          :model-value="modelValue"
+          class="h-full flex flex-col flex-1 overflow-auto"
+          :run-callback="runCallback"
+          :reset-callback="resetCodeCallback"
+          :cheat-callback="cheatCallback"
+          :prog-lang="progLang"
+          :canvas-enabled="true"
+          :solution="solutionCode"
+          :is-cheating="isCheating"
+          :is-cheat-purchased="isCheatPurchased"
+          :cheat-cost="cheatCost"
+          @update:modelValue="(value) => $emit('update:modelValue', value)"
+        />
+      </Multipane>
+    </div>
+    <div class="h-full block lg:hidden overflow-auto">
+      <MarkdownWithHint
+        class="bg-white border-r border-gray-300"
+        :markdown-source="markdownSource"
+        :hint-markdown-source="hintMarkdownSource"
+        :hint-callback="hintCallback"
+        :is-hint-purchased="isHintPurchased"
+        :hint-cost="hintCost"
+      />
+      <Section title="Come back on a computer">
+        <p class="h-full p-4 overflow-auto">
+          Coding is hard to do on a phone. I want you to have a great
+          experience, so please hurry back on a larger device.
+        </p>
+      </Section>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -32,11 +52,13 @@ import MarkdownWithHint from "@/components/MarkdownWithHint.vue";
 import CodeEditor from "@/components/CodeEditor.vue";
 import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
+import Section from "@/components/Section.vue";
 
 export default {
   components: {
     CodeEditor,
     Multipane,
+    Section,
     MultipaneResizer,
     MarkdownWithHint,
   },

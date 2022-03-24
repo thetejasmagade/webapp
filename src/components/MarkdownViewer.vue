@@ -98,11 +98,13 @@ export default {
 
 .viewer pre {
   border-radius: 4px;
+  overflow-x: auto;
 }
 
 .viewer pre code {
   color: inherit;
   background-color: inherit;
+  overflow-x: auto;
 }
 
 .viewer ul {

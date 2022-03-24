@@ -14,7 +14,7 @@
         :type="'project'"
       />
 
-      <div v-if="project" class="h-full hidden sm:flex flex-col bg-white">
+      <div v-if="project" class="h-full sm:flex flex-col bg-white">
         <ExerciseNav
           v-if="isContentLoaded"
           class="p-3 w-full box-border shadow z-10"
@@ -48,14 +48,6 @@
           :done-with-step="completeStep"
         />
       </div>
-      <div class="block sm:hidden p-4">
-        <Section title="Come back on a computer">
-          <p class="p-4">
-            Coding is hard to do on a phone. I want you to have a great
-            experience, so please hurry back on a larger device.
-          </p>
-        </Section>
-      </div>
     </div>
   </ViewNavWrapper>
 </template>
@@ -66,7 +58,6 @@ import ExerciseNav from "@/components/ExerciseNav.vue";
 import UnitDoneModal from "@/components/UnitDoneModal.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
-import Section from "@/components/Section.vue";
 import FeedbackModal from "@/components/FeedbackModal.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 
@@ -90,7 +81,6 @@ import {
 
 export default {
   components: {
-    Section,
     ExerciseNav,
     UnitDoneModal,
     FeedbackModal,

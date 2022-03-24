@@ -22,7 +22,7 @@
         :on-done="onSeenAchievement"
       />
       <ExerciseSkeleton v-else-if="!isContentLoaded" />
-      <div v-else class="h-full hidden flex-col sm:flex bg-white">
+      <div v-else class="h-full flex-col sm:flex bg-white">
         <ExerciseNav
           class="p-3 w-full box-border shadow z-10"
           :dropdown-one-items="dropdownModules"
@@ -95,14 +95,6 @@
         />
         <p v-else>something went wrong</p>
       </div>
-      <div class="block sm:hidden p-4">
-        <Section title="Come back on a computer">
-          <p class="p-4">
-            Coding is hard to do on a phone. I want you to have a great
-            experience, so please hurry back on a larger device.
-          </p>
-        </Section>
-      </div>
     </div>
   </ViewNavWrapper>
 </template>
@@ -111,7 +103,6 @@
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import UnitDoneModal from "@/components/UnitDoneModal.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
-import Section from "@/components/Section.vue";
 import FeedbackModal from "@/components/FeedbackModal.vue";
 import SandboxModeModal from "@/components/SandboxModeModal.vue";
 import ExerciseSkeleton from "@/components/ExerciseSkeleton.vue";
@@ -173,7 +164,6 @@ export default {
   components: {
     ViewNavWrapper,
     UnitDoneModal,
-    Section,
     CardExerciseTypeInfo,
     ExerciseNav,
     FeedbackModal,
