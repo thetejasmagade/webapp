@@ -6,7 +6,7 @@
       subtitle="Looking for recommendations? We can help you out in the Discord"
     >
       <div class="p-4">
-        <CourseTable :units="units" />
+        <UnitTable :units="units" />
       </div>
     </Section>
   </div>
@@ -14,13 +14,13 @@
 
 <script>
 import Section from "@/components/Section.vue";
-import CourseTable from "@/components/CourseTable.vue";
+import UnitTable from "@/components/UnitTable.vue";
 import { getUnitData } from "@/lib/unit.js";
 
 export default {
   components: {
     Section,
-    CourseTable,
+    UnitTable,
   },
   computed: {
     units() {
