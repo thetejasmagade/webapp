@@ -25,7 +25,7 @@
           :can-go-back="!isFirstStep"
           :can-go-forward="!isLastStep || !projectDone"
           :sandbox="false"
-          :click-comment="() => showFeedbackModal()"
+          :click-comment="showFeedbackModal"
           :forward-click="
             type === 'type_info' && isLoggedIn ? completeStep : null
           "
@@ -88,6 +88,15 @@ import {
   getStepByID,
 } from "@/lib/cloudClient.js";
 
+import { useStore } from "vuex";
+
+import { reactive, toRefs, computed, ref, watchEffect, onMounted } from "vue";
+
+import { useRoute, useRouter } from "vue-router";
+
+import { useMeta } from "vue-meta";
+import { getComputedMeta } from "@/lib/meta.js";
+
 export default {
   components: {
     Section,
@@ -99,8 +108,8 @@ export default {
     ViewNavWrapper,
     ProgressBar,
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       markdownSource: "",
       type: "",
       isFirstStep: false,
@@ -112,26 +121,74 @@ export default {
       previousStep: null,
       projectProgress: null,
       unitProgress: null,
-    };
-  },
-  computed: {
-    stepIndex() {
-      if (!this.project?.Steps) {
+    });
+    const store = useStore();
+    const route = useRoute();
+    const router = useRouter();
+
+    const unitDoneModal = ref(null);
+    const feedbackModal = ref(null);
+
+    onMounted(async () => {
+      try {
+        state.projects = await getProjects();
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+      getUnitProgressIfLoggedIn();
+      getProjectProgressIfLoggedIn();
+
+      try {
+        state.nextStep = await getNextStep(
+          route.params.projectUUID,
+          route.params.stepUUID
+        );
+      } catch (err) {
+        // dont display toast error
+      }
+      try {
+        state.previousStep = await getPreviousStep(
+          route.params.projectUUID,
+          route.params.stepUUID
+        );
+      } catch (err) {
+        // dont display toast error
+      }
+
+      if (route.params.stepUUID) {
+        const step = await getStepByID(
+          route.params.projectUUID,
+          route.params.stepUUID
+        );
+        moveToStep(step);
+
+        return;
+      }
+
+      await navToCurrentStep();
+    });
+
+    const stepIndex = computed(() => {
+      if (!project.value?.Steps) {
         return null;
       }
       let count = 0;
-      for (const step of this.project.Steps) {
-        if (step.UUID === this.$route.params.stepUUID) {
+      for (const step of project.value?.Steps) {
+        if (step.UUID === route.params.stepUUID) {
           return count;
         }
         count++;
       }
       return null;
-    },
-    forwardLink() {
-      if (!this.nextStep) return null;
-      let step = this.nextStep.Step;
-      let forwardLink = {
+    });
+
+    const forwardLink = computed(() => {
+      if (!state.nextStep) return null;
+      const step = state.nextStep.Step;
+      const forwardLink = {
         name: "Project",
         params: {
           projectUUID: step.ProjectUUID,
@@ -139,11 +196,12 @@ export default {
         },
       };
       return forwardLink;
-    },
-    backLink() {
-      if (!this.previousStep) return null;
-      let step = this.previousStep.Step;
-      let backLink = {
+    });
+
+    const backLink = computed(() => {
+      if (!state.previousStep) return null;
+      const step = state.previousStep?.Step;
+      const backLink = {
         name: "Project",
         params: {
           projectUUID: step.ProjectUUID,
@@ -151,129 +209,91 @@ export default {
         },
       };
       return backLink;
-    },
-    isContentLoaded() {
-      if (this.markdownSource === "") {
-        return false;
-      }
-      return true;
-    },
-    isLoggedIn() {
-      return this.$store.getters.getIsLoggedIn;
-    },
-    percentComplete() {
-      if (!this.unitProgress) {
+    });
+
+    const isContentLoaded = computed(() => {
+      return state.markdownSource !== "";
+    });
+
+    const isLoggedIn = computed(() => {
+      return store.getters.getIsLoggedIn;
+    });
+
+    const project = computed(() => {
+      return state.projects?.find(
+        (project) => project.UUID === route.params.projectUUID
+      );
+    });
+
+    const percentComplete = computed(() => {
+      if (!state.unitProgress) {
         return 0;
       }
-      if (!(this.$route.params.projectUUID in this.unitProgress)) {
+      if (!(route.params.projectUUID in state.unitProgress)) {
         return 0;
       }
-      const projectProgress = this.unitProgress[this.$route.params.projectUUID];
-      return (projectProgress.NumDone / projectProgress.NumMax) * 100;
-    },
-    projectDone() {
-      if (!this.project?.Steps) {
+      const pProgress = state.unitProgress[route.params.projectUUID];
+      return (pProgress.NumDone / pProgress.NumMax) * 100;
+    });
+
+    const projectDone = computed(() => {
+      if (!project.value?.Steps) {
         return false;
       }
-      if (!this.projectProgress) {
+      if (!state.projectProgress) {
         return false;
       }
-      for (const step of this.project.Steps) {
-        if (!(step.UUID in this.projectProgress)) {
+      for (const step of project.value.Steps) {
+        if (!(step.UUID in state.projectProgress)) {
           return false;
         }
-        if (!this.projectProgress[step.UUID]?.Completed) {
+        if (!state.projectProgress[step.UUID]?.Completed) {
           return false;
         }
       }
       return true;
-    },
-    dropdownSteps() {
-      return this.project?.Steps?.map((step, i) => {
+    });
+
+    const dropdownSteps = computed(() => {
+      return project.value?.Steps?.map((step, i) => {
         let isStepComplete = false;
         if (
-          this.projectProgress &&
-          step.UUID in this.projectProgress &&
-          this.projectProgress[step.UUID].Completed
+          state.projectProgress &&
+          step.UUID in state.projectProgress &&
+          state.projectProgress[step.UUID].Completed
         ) {
           isStepComplete = true;
         }
         return {
-          name: `Step ${i + 1} of ${this.project.Steps.length}`,
+          name: `Step ${i + 1} of ${project.value?.Steps.length}`,
           color: isStepComplete ? "gold" : null,
           link: {
             name: "Project",
             params: {
-              projectUUID: this.$route.params.projectUUID,
+              projectUUID: route.params.projectUUID,
               stepUUID: step.UUID,
             },
           },
         };
       });
-    },
-    project() {
-      const project = this.projects?.find(
-        (project) => project.UUID === this.$route.params.projectUUID
-      );
-      return project;
-    },
-  },
-  watch: {
-    projectDone(projectDone) {
-      if (projectDone) {
-        this.$refs.unitDoneModal.show();
-      }
-    },
-  },
-  async mounted() {
-    try {
-      this.projects = await getProjects();
-    } catch (err) {
-      notify({
-        type: "danger",
-        text: err,
+    });
+
+    const computedMeta = computed(() => {
+      return getComputedMeta({
+        title: `${project.value?.Title}`,
+        description: project.value?.Description,
+        image: project.value?.ImageURL,
       });
-    }
-    this.getUnitProgressIfLoggedIn();
-    this.getProjectProgressIfLoggedIn();
+    });
+    useMeta(computedMeta);
 
-    try {
-      this.nextStep = await getNextStep(
-        this.$route.params.projectUUID,
-        this.$route.params.stepUUID
-      );
-    } catch (err) {
-      // dont display toast error
-    }
-    try {
-      this.previousStep = await getPreviousStep(
-        this.$route.params.projectUUID,
-        this.$route.params.stepUUID
-      );
-    } catch (err) {
-      // dont display toast error
-    }
-
-    if (this.$route.params.stepUUID) {
-      const step = await getStepByID(
-        this.$route.params.projectUUID,
-        this.$route.params.stepUUID
-      );
-      this.moveToStep(step);
-
-      return;
-    }
-
-    await this.navToCurrentStep();
-  },
-  methods: {
-    async getProjectProgressIfLoggedIn() {
-      if (!this.$store.getters.getIsLoggedIn) {
+    const getProjectProgressIfLoggedIn = async () => {
+      if (!store.getters.getIsLoggedIn) {
         return;
       }
       try {
-        this.projectProgress = await getProjectProgress(
-          this.$route.params.projectUUID
+        state.projectProgress = await getProjectProgress(
+          route.params.projectUUID
         );
       } catch (err) {
         notify({
@@ -281,38 +301,41 @@ export default {
           text: err,
         });
       }
-    },
-    async getUnitProgressIfLoggedIn() {
-      if (!this.$store.getters.getIsLoggedIn) {
+    };
+
+    const getUnitProgressIfLoggedIn = async () => {
+      if (!store.getters.getIsLoggedIn) {
         return;
       }
       try {
-        this.unitProgress = await getUnitsProgress();
+        state.unitProgress = await getUnitsProgress();
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    showFeedbackModal() {
-      this.$refs.feedbackModal.show();
-    },
-    async submitTypeInfo() {
+    };
+
+    const showFeedbackModal = () => {
+      feedbackModal.value.show();
+    };
+
+    const submitTypeInfo = async () => {
       const submitResponse = await submitInformationalStep(
-        this.$route.params.stepUUID
+        route.params.stepUUID
       );
-      await this.handleSuccess(submitResponse);
-    },
-    async submitTypeManual() {
-      const submitResponse = await submitManualStep(
-        this.$route.params.stepUUID
-      );
-      this.handleSuccess(submitResponse);
-    },
-    async handleSuccess() {
-      loadBalance(this.$store.commit);
-      if (this.projectProgress[this.$route.params.stepUUID].Completed) {
+      await handleSuccess(submitResponse);
+    };
+
+    const submitTypeManual = async () => {
+      const submitResponse = await submitManualStep(route.params.stepUUID);
+      handleSuccess(submitResponse);
+    };
+
+    const handleSuccess = async () => {
+      loadBalance(store.commit);
+      if (state.projectProgress[route.params.stepUUID].Completed) {
         return;
       } else {
         notify({
@@ -320,11 +343,12 @@ export default {
           text: "Great Job!",
         });
       }
-      this.getUnitProgressIfLoggedIn();
-      this.getProjectProgressIfLoggedIn();
-    },
-    navToStep(step, replace) {
-      this.$router.push({
+      getUnitProgressIfLoggedIn();
+      getProjectProgressIfLoggedIn();
+    };
+
+    const navToStep = (step, replace) => {
+      router.push({
         name: "Project",
         replace: replace,
         params: {
@@ -332,63 +356,90 @@ export default {
           stepUUID: step.Step.UUID,
         },
       });
-    },
-    async moveToStep(step) {
-      this.isFirstStep = step.Step.IsFirst;
-      this.isLastStep = step.Step.IsLast;
-      this.stepSlug = step.Step.Slug;
+    };
 
-      this.markdownSource = step.Step.Readme;
-      this.type = step.Step.Type;
-    },
-    async navToCurrentStep() {
+    const moveToStep = (step) => {
+      state.isFirstStep = step.Step.IsFirst;
+      state.isLastStep = step.Step.IsLast;
+      state.stepSlug = step.Step.Slug;
+
+      state.markdownSource = step.Step.Readme;
+      state.type = step.Step.Type;
+    };
+
+    const navToCurrentStep = async () => {
       try {
-        const step = await getCurrentStep(this.$route.params.projectUUID);
-        this.navToStep(step, true);
+        const step = await getCurrentStep(route.params.projectUUID);
+        navToStep(step, true);
       } catch (err) {
         // this probably happens because course is complete
-        const step = await getFirstStep(this.$route.params.projectUUID);
-        this.navToStep(step, true);
+        const step = await getFirstStep(route.params.projectUUID);
+        navToStep(step, true);
       }
-    },
-    async completeStep() {
-      eventClickExerciseNavigation(
-        this.$route.params.stepUUID,
-        this.project.Title
-      );
-      if (this.type === "type_info") {
-        await this.submitTypeInfo();
+    };
+
+    const completeStep = async () => {
+      eventClickExerciseNavigation(route.params.stepUUID, project.value?.Title);
+      if (state.type === "type_info") {
+        await submitTypeInfo();
       }
-      if (this.type === "type_manual") {
-        await this.submitTypeManual();
+      if (state.type === "type_manual") {
+        await submitTypeManual();
       }
-      if (this.isLastStep && this.projectDone) {
+      if (state.isLastStep && projectDone.value) {
         return;
       }
       try {
         const step = await getNextStep(
-          this.$route.params.projectUUID,
-          this.$route.params.stepUUID
+          route.params.projectUUID,
+          route.params.stepUUID
         );
-        this.navToStep(step, true);
+        navToStep(step, true);
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
-    async goToBeginning() {
+    };
+
+    const goToBeginning = async () => {
       try {
-        const step = await getFirstStep(this.$route.params.projectUUID);
-        this.navToStep(step, true);
+        const step = await getFirstStep(route.params.projectUUID);
+        navToStep(step, true);
       } catch (err) {
         notify({
           type: "danger",
           text: err,
         });
       }
-    },
+    };
+
+    watchEffect(() => {
+      if (projectDone.value) {
+        unitDoneModal.value.show();
+      }
+    });
+
+    return {
+      ...toRefs(state),
+      stepIndex,
+      forwardLink,
+      backLink,
+      project,
+      isContentLoaded,
+      percentComplete,
+      isLoggedIn,
+      projectDone,
+      dropdownSteps,
+      showFeedbackModal,
+      submitTypeInfo,
+      submitTypeManual,
+      goToBeginning,
+      completeStep,
+      feedbackModal,
+      unitDoneModal,
+    };
   },
 };
 </script>
