@@ -1,22 +1,42 @@
 <template>
-  <Multipane layout="horizontal" class="flex-1 overflow-y-auto">
-    <MarkdownWithHint
-      class="flex flex-col w-1/2 bg-white border-r border-gray-300"
-      :markdown-source="markdownSource"
-      :hint-markdown-source="hintMarkdownSource"
-      :hint-callback="hintCallback"
-      :is-hint-purchased="isHintPurchased"
-      :hint-cost="hintCost"
-    />
-    <MultipaneResizer layout="horizontal" />
-    <MultipleChoice
-      class="h-full flex flex-col flex-1 overflow-auto bg-white"
-      :callback="callback"
-      :answers="answers"
-      :question="question"
-      :sandbox="sandbox"
-    />
-  </Multipane>
+  <div>
+    <div class="hidden lg:block">
+      <Multipane layout="horizontal" class="flex-1 overflow-y-auto">
+        <MarkdownWithHint
+          class="flex flex-col w-1/2 bg-white border-r border-gray-300"
+          :markdown-source="markdownSource"
+          :hint-markdown-source="hintMarkdownSource"
+          :hint-callback="hintCallback"
+          :is-hint-purchased="isHintPurchased"
+          :hint-cost="hintCost"
+        />
+        <MultipaneResizer layout="horizontal" />
+        <MultipleChoice
+          class="h-full flex flex-col flex-1 overflow-auto bg-white"
+          :callback="callback"
+          :answers="answers"
+          :question="question"
+          :sandbox="sandbox"
+        />
+      </Multipane>
+    </div>
+    <div class="block lg:hidden">
+      <MarkdownWithHint
+        class="bg-white border-r border-gray-300"
+        :markdown-source="markdownSource"
+        :hint-markdown-source="hintMarkdownSource"
+        :hint-callback="hintCallback"
+        :is-hint-purchased="isHintPurchased"
+        :hint-cost="hintCost"
+      />
+      <Section title="Come back on a computer">
+        <p class="p-4">
+          Coding is hard to do on a phone. I want you to have a great
+          experience, so please hurry back on a larger device.
+        </p>
+      </Section>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,10 +44,12 @@ import MultipleChoice from "@/components/MultipleChoice.vue";
 import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
 import MarkdownWithHint from "@/components/MarkdownWithHint.vue";
+import Section from "@/components/Section.vue";
 
 export default {
   components: {
     MarkdownWithHint,
+    Section,
     MultipleChoice,
     Multipane,
     MultipaneResizer,
