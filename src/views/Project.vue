@@ -100,6 +100,8 @@ export default {
   },
   setup() {
     const state = reactive({
+      stepTitle: null,
+      stepDescription: null,
       markdownSource: "",
       type: "",
       isFirstStep: false,
@@ -270,8 +272,8 @@ export default {
 
     const computedMeta = computed(() => {
       return getComputedMeta({
-        title: `${project.value?.Title}`,
-        description: project.value?.Description,
+        title: state.stepTitle,
+        description: state.stepDescription,
         image: project.value?.ImageURL,
       });
     });
@@ -354,6 +356,8 @@ export default {
       state.stepSlug = step.Step.Slug;
 
       state.markdownSource = step.Step.Readme;
+      state.stepTitle = step.Step.Title;
+      state.stepDescription = step.Step.Description;
       state.type = step.Step.Type;
     };
 

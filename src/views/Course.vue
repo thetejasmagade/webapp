@@ -177,6 +177,8 @@ export default {
   },
   setup() {
     const state = reactive({
+      exerciseTitle: null,
+      exerciseDescription: null,
       markdownSource: "",
       hintMarkdownSource: "",
       type: "",
@@ -411,8 +413,8 @@ export default {
 
     const computedMeta = computed(() => {
       return getComputedMeta({
-        title: `${course.value?.Title} Course`,
-        description: course.value?.Description,
+        title: state.exerciseTitle,
+        description: state.exerciseDescription,
         image: course.value?.ImageURL,
       });
     });
@@ -725,6 +727,8 @@ export default {
       state.isFirstExercise = exercise.Exercise.IsFirst;
       state.isLastExercise = exercise.Exercise.IsLast;
       state.isCheating = false;
+      state.exerciseTitle = exercise.Exercise.Title;
+      state.exerciseDescription = exercise.Exercise.Description;
 
       state.markdownSource = exercise.Exercise.Readme;
       state.hintMarkdownSource = exercise.Exercise.HintMarkdown;
