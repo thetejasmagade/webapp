@@ -586,7 +586,7 @@ export default {
           notify({
             type: "success",
             text: `Correct! You unlocked ${submitResponse.GemsEarned} ${
-              submitResponse.GemsEarned === 1 ? "gem " : "gems "
+              submitResponse.GemsEarned === 1 ? "gem" : "gems"
             } 💎`,
           });
           await loadBalance(store.commit);
