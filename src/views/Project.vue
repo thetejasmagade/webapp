@@ -14,7 +14,7 @@
         :type="'project'"
       />
 
-      <div v-if="project" class="h-full sm:flex flex-col bg-white">
+      <div v-if="project" class="h-full flex flex-col bg-white">
         <ExerciseNav
           v-if="isContentLoaded"
           class="p-3 w-full box-border shadow z-10"
