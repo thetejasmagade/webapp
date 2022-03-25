@@ -585,7 +585,9 @@ export default {
         if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
           notify({
             type: "success",
-            text: `Correct! You unlocked ${submitResponse.GemsEarned} gems 💎`,
+            text: `Correct! You unlocked ${submitResponse.GemsEarned} ${
+              submitResponse.GemsEarned === 1 ? "gem" : "gems"
+            } 💎`,
           });
           await loadBalance(store.commit);
         } else {
