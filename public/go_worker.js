@@ -2,45 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+"use strict";
+
 (() => {
-  // Map multiple JavaScript environments to a single common API,
-  // preferring web standards over Node.js API.
-  //
-  // Environments considered:
-  // - Browsers
-  // - Node.js
-  // - Electron
-  // - Parcel
-
-  if (typeof global !== "undefined") {
-    // global already exists
-  } else if (typeof window !== "undefined") {
-    window.global = window;
-  } else if (typeof self !== "undefined") {
-    self.global = self;
-  } else {
-    throw new Error(
-      "cannot export Go (neither global, window nor self is defined)"
-    );
-  }
-
-  if (!global.require && typeof require !== "undefined") {
-    global.require = require;
-  }
-
-  if (!global.fs && global.require) {
-    global.fs = require("fs");
-  }
-
   const enosys = () => {
     const err = new Error("not implemented");
     err.code = "ENOSYS";
     return err;
   };
 
-  if (!global.fs) {
+  if (!globalThis.fs) {
     let outputBuf = "";
-    global.fs = {
+    globalThis.fs = {
       constants: {
         O_WRONLY: -1,
         O_RDWR: -1,
@@ -138,8 +111,8 @@
     };
   }
 
-  if (!global.process) {
-    global.process = {
+  if (!globalThis.process) {
+    globalThis.process = {
       getuid() {
         return -1;
       },
@@ -169,38 +142,34 @@
     };
   }
 
-  if (!global.crypto) {
-    const nodeCrypto = require("crypto");
-    global.crypto = {
-      getRandomValues(b) {
-        nodeCrypto.randomFillSync(b);
-      },
-    };
+  if (!globalThis.crypto) {
+    throw new Error(
+      "globalThis.crypto is not available, polyfill required (crypto.getRandomValues only)"
+    );
   }
 
-  if (!global.performance) {
-    global.performance = {
-      now() {
-        const [sec, nsec] = process.hrtime();
-        return sec * 1000 + nsec / 1000000;
-      },
-    };
+  if (!globalThis.performance) {
+    throw new Error(
+      "globalThis.performance is not available, polyfill required (performance.now only)"
+    );
   }
 
-  if (!global.TextEncoder) {
-    global.TextEncoder = require("util").TextEncoder;
+  if (!globalThis.TextEncoder) {
+    throw new Error(
+      "globalThis.TextEncoder is not available, polyfill required"
+    );
   }
 
-  if (!global.TextDecoder) {
-    global.TextDecoder = require("util").TextDecoder;
+  if (!globalThis.TextDecoder) {
+    throw new Error(
+      "globalThis.TextDecoder is not available, polyfill required"
+    );
   }
-
-  // End of polyfills for common API.
 
   const encoder = new TextEncoder("utf-8");
   const decoder = new TextDecoder("utf-8");
 
-  global.Go = class {
+  globalThis.Go = class {
     constructor() {
       this.argv = ["js"];
       this.env = {};
@@ -243,37 +212,19 @@
       const storeValue = (addr, v) => {
         const nanHead = 0x7ff80000;
 
-        if (typeof v === "number") {
+        if (typeof v === "number" && v !== 0) {
           if (isNaN(v)) {
             this.mem.setUint32(addr + 4, nanHead, true);
             this.mem.setUint32(addr, 0, true);
-            return;
-          }
-          if (v === 0) {
-            this.mem.setUint32(addr + 4, nanHead, true);
-            this.mem.setUint32(addr, 1, true);
             return;
           }
           this.mem.setFloat64(addr, v, true);
           return;
         }
 
-        switch (v) {
-          case undefined:
-            this.mem.setFloat64(addr, 0, true);
-            return;
-          case null:
-            this.mem.setUint32(addr + 4, nanHead, true);
-            this.mem.setUint32(addr, 2, true);
-            return;
-          case true:
-            this.mem.setUint32(addr + 4, nanHead, true);
-            this.mem.setUint32(addr, 3, true);
-            return;
-          case false:
-            this.mem.setUint32(addr + 4, nanHead, true);
-            this.mem.setUint32(addr, 4, true);
-            return;
+        if (v === undefined) {
+          this.mem.setFloat64(addr, 0, true);
+          return;
         }
 
         let id = this._ids.get(v);
@@ -287,8 +238,13 @@
           this._ids.set(v, id);
         }
         this._goRefCounts[id]++;
-        let typeFlag = 1;
+        let typeFlag = 0;
         switch (typeof v) {
+          case "object":
+            if (v !== null) {
+              typeFlag = 1;
+            }
+            break;
           case "string":
             typeFlag = 2;
             break;
@@ -337,6 +293,7 @@
 
           // func wasmExit(code int32)
           "runtime.wasmExit": (sp) => {
+            sp >>>= 0;
             const code = this.mem.getInt32(sp + 8, true);
             this.exited = true;
             delete this._inst;
@@ -349,27 +306,31 @@
 
           // func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
           "runtime.wasmWrite": (sp) => {
+            sp >>>= 0;
             const fd = getInt64(sp + 8);
             const p = getInt64(sp + 16);
             const n = this.mem.getInt32(sp + 24, true);
-            global.fs.writeSync(
+            fs.writeSync(
               fd,
               new Uint8Array(this._inst.exports.mem.buffer, p, n)
             );
           },
 
           // func resetMemoryDataView()
-          "runtime.resetMemoryDataView": () => {
+          "runtime.resetMemoryDataView": (sp) => {
+            sp >>>= 0;
             this.mem = new DataView(this._inst.exports.mem.buffer);
           },
 
           // func nanotime1() int64
           "runtime.nanotime1": (sp) => {
+            sp >>>= 0;
             setInt64(sp + 8, (timeOrigin + performance.now()) * 1000000);
           },
 
-          // func walltime1() (sec int64, nsec int32)
-          "runtime.walltime1": (sp) => {
+          // func walltime() (sec int64, nsec int32)
+          "runtime.walltime": (sp) => {
+            sp >>>= 0;
             const msec = new Date().getTime();
             setInt64(sp + 8, msec / 1000);
             this.mem.setInt32(sp + 16, (msec % 1000) * 1000000, true);
@@ -377,6 +338,7 @@
 
           // func scheduleTimeoutEvent(delay int64) int32
           "runtime.scheduleTimeoutEvent": (sp) => {
+            sp >>>= 0;
             const id = this._nextCallbackTimeoutID;
             this._nextCallbackTimeoutID++;
             this._scheduledTimeouts.set(
@@ -399,6 +361,7 @@
 
           // func clearTimeoutEvent(id int32)
           "runtime.clearTimeoutEvent": (sp) => {
+            sp >>>= 0;
             const id = this.mem.getInt32(sp + 8, true);
             clearTimeout(this._scheduledTimeouts.get(id));
             this._scheduledTimeouts.delete(id);
@@ -406,11 +369,13 @@
 
           // func getRandomData(r []byte)
           "runtime.getRandomData": (sp) => {
+            sp >>>= 0;
             crypto.getRandomValues(loadSlice(sp + 8));
           },
 
           // func finalizeRef(v ref)
           "syscall/js.finalizeRef": (sp) => {
+            sp >>>= 0;
             const id = this.mem.getUint32(sp + 8, true);
             this._goRefCounts[id]--;
             if (this._goRefCounts[id] === 0) {
@@ -423,18 +388,21 @@
 
           // func stringVal(value string) ref
           "syscall/js.stringVal": (sp) => {
+            sp >>>= 0;
             storeValue(sp + 24, loadString(sp + 8));
           },
 
           // func valueGet(v ref, p string) ref
           "syscall/js.valueGet": (sp) => {
+            sp >>>= 0;
             const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));
-            sp = this._inst.exports.getsp(); // see comment above
+            sp = this._inst.exports.getsp() >>> 0; // see comment above
             storeValue(sp + 32, result);
           },
 
           // func valueSet(v ref, p string, x ref)
           "syscall/js.valueSet": (sp) => {
+            sp >>>= 0;
             Reflect.set(
               loadValue(sp + 8),
               loadString(sp + 16),
@@ -444,11 +412,13 @@
 
           // func valueDelete(v ref, p string)
           "syscall/js.valueDelete": (sp) => {
+            sp >>>= 0;
             Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));
           },
 
           // func valueIndex(v ref, i int) ref
           "syscall/js.valueIndex": (sp) => {
+            sp >>>= 0;
             storeValue(
               sp + 24,
               Reflect.get(loadValue(sp + 8), getInt64(sp + 16))
@@ -457,6 +427,7 @@
 
           // valueSetIndex(v ref, i int, x ref)
           "syscall/js.valueSetIndex": (sp) => {
+            sp >>>= 0;
             Reflect.set(
               loadValue(sp + 8),
               getInt64(sp + 16),
@@ -466,15 +437,17 @@
 
           // func valueCall(v ref, m string, args []ref) (ref, bool)
           "syscall/js.valueCall": (sp) => {
+            sp >>>= 0;
             try {
               const v = loadValue(sp + 8);
               const m = Reflect.get(v, loadString(sp + 16));
               const args = loadSliceOfValues(sp + 32);
               const result = Reflect.apply(m, v, args);
-              sp = this._inst.exports.getsp(); // see comment above
+              sp = this._inst.exports.getsp() >>> 0; // see comment above
               storeValue(sp + 56, result);
               this.mem.setUint8(sp + 64, 1);
             } catch (err) {
+              sp = this._inst.exports.getsp() >>> 0; // see comment above
               storeValue(sp + 56, err);
               this.mem.setUint8(sp + 64, 0);
             }
@@ -482,14 +455,16 @@
 
           // func valueInvoke(v ref, args []ref) (ref, bool)
           "syscall/js.valueInvoke": (sp) => {
+            sp >>>= 0;
             try {
               const v = loadValue(sp + 8);
               const args = loadSliceOfValues(sp + 16);
               const result = Reflect.apply(v, undefined, args);
-              sp = this._inst.exports.getsp(); // see comment above
+              sp = this._inst.exports.getsp() >>> 0; // see comment above
               storeValue(sp + 40, result);
               this.mem.setUint8(sp + 48, 1);
             } catch (err) {
+              sp = this._inst.exports.getsp() >>> 0; // see comment above
               storeValue(sp + 40, err);
               this.mem.setUint8(sp + 48, 0);
             }
@@ -497,14 +472,16 @@
 
           // func valueNew(v ref, args []ref) (ref, bool)
           "syscall/js.valueNew": (sp) => {
+            sp >>>= 0;
             try {
               const v = loadValue(sp + 8);
               const args = loadSliceOfValues(sp + 16);
               const result = Reflect.construct(v, args);
-              sp = this._inst.exports.getsp(); // see comment above
+              sp = this._inst.exports.getsp() >>> 0; // see comment above
               storeValue(sp + 40, result);
               this.mem.setUint8(sp + 48, 1);
             } catch (err) {
+              sp = this._inst.exports.getsp() >>> 0; // see comment above
               storeValue(sp + 40, err);
               this.mem.setUint8(sp + 48, 0);
             }
@@ -512,11 +489,13 @@
 
           // func valueLength(v ref) int
           "syscall/js.valueLength": (sp) => {
+            sp >>>= 0;
             setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
           },
 
           // valuePrepareString(v ref) (ref, int)
           "syscall/js.valuePrepareString": (sp) => {
+            sp >>>= 0;
             const str = encoder.encode(String(loadValue(sp + 8)));
             storeValue(sp + 16, str);
             setInt64(sp + 24, str.length);
@@ -524,23 +503,28 @@
 
           // valueLoadString(v ref, b []byte)
           "syscall/js.valueLoadString": (sp) => {
+            sp >>>= 0;
             const str = loadValue(sp + 8);
             loadSlice(sp + 16).set(str);
           },
 
           // func valueInstanceOf(v ref, t ref) bool
           "syscall/js.valueInstanceOf": (sp) => {
+            sp >>>= 0;
             this.mem.setUint8(
               sp + 24,
-              loadValue(sp + 8) instanceof loadValue(sp + 16)
+              loadValue(sp + 8) instanceof loadValue(sp + 16) ? 1 : 0
             );
           },
 
           // func copyBytesToGo(dst []byte, src ref) (int, bool)
           "syscall/js.copyBytesToGo": (sp) => {
+            sp >>>= 0;
             const dst = loadSlice(sp + 8);
             const src = loadValue(sp + 32);
-            if (!(src instanceof Uint8Array)) {
+            if (
+              !(src instanceof Uint8Array || src instanceof Uint8ClampedArray)
+            ) {
               this.mem.setUint8(sp + 48, 0);
               return;
             }
@@ -552,9 +536,12 @@
 
           // func copyBytesToJS(dst ref, src []byte) (int, bool)
           "syscall/js.copyBytesToJS": (sp) => {
+            sp >>>= 0;
             const dst = loadValue(sp + 8);
             const src = loadSlice(sp + 16);
-            if (!(dst instanceof Uint8Array)) {
+            if (
+              !(dst instanceof Uint8Array || dst instanceof Uint8ClampedArray)
+            ) {
               this.mem.setUint8(sp + 48, 0);
               return;
             }
@@ -572,6 +559,9 @@
     }
 
     async run(instance) {
+      if (!(instance instanceof WebAssembly.Instance)) {
+        throw new Error("Go.run: WebAssembly.Instance expected");
+      }
       this._inst = instance;
       this.mem = new DataView(this._inst.exports.mem.buffer);
       this._values = [
@@ -581,11 +571,19 @@
         null,
         true,
         false,
-        global,
+        globalThis,
         this,
       ];
-      this._goRefCounts = []; // number of references that Go has to a JS value, indexed by reference id
-      this._ids = new Map(); // mapping from JS values to reference ids
+      this._goRefCounts = new Array(this._values.length).fill(Infinity); // number of references that Go has to a JS value, indexed by reference id
+      this._ids = new Map([
+        // mapping from JS values to reference ids
+        [0, 1],
+        [null, 2],
+        [true, 3],
+        [false, 4],
+        [globalThis, 5],
+        [this, 6],
+      ]);
       this._idPool = []; // unused ids that have been garbage collected
       this.exited = false; // whether the Go program has exited
 
@@ -624,6 +622,15 @@
         offset += 8;
       });
 
+      // The linker guarantees global data starts from at least wasmMinDataAddr.
+      // Keep in sync with cmd/link/internal/ld/data.go:wasmMinDataAddr.
+      const wasmMinDataAddr = 4096 + 8192;
+      if (offset >= wasmMinDataAddr) {
+        throw new Error(
+          "total length of command line and environment variables exceeds limit"
+        );
+      }
+
       this._inst.exports.run(argc, argv);
       if (this.exited) {
         this._resolveExitPromise();
@@ -651,44 +658,6 @@
       };
     }
   };
-
-  if (
-    global.require &&
-    global.require.main === module &&
-    global.process &&
-    global.process.versions &&
-    !global.process.versions.electron
-  ) {
-    if (process.argv.length < 3) {
-      console.error("usage: go_js_wasm_exec [wasm binary] [arguments]");
-      process.exit(1);
-    }
-
-    // eslint-disable-next-line no-undef
-    const go = new Go();
-    go.argv = process.argv.slice(2);
-    go.env = Object.assign({ TMPDIR: require("os").tmpdir() }, process.env);
-    go.exit = process.exit;
-    WebAssembly.instantiate(
-      global.fs.readFileSync(process.argv[2]),
-      go.importObject
-    )
-      .then((result) => {
-        process.on("exit", (code) => {
-          // Node.js exits if no event handler is pending
-          if (code === 0 && !go.exited) {
-            // deadlock, make Go print error and stack traces
-            go._pendingEvent = { id: 0 };
-            go._resume();
-          }
-        });
-        return go.run(result.instance);
-      })
-      .catch((err) => {
-        console.error(err);
-        process.exit(1);
-      });
-  }
 })();
 
 let canvas;
@@ -720,7 +689,7 @@ addEventListener(
     }
 
     // clear the persistent stdout buffer
-    global.fs.writeSync(null, new TextEncoder("utf-8").encode("\n"));
+    globalThis.fs.writeSync(null, new TextEncoder("utf-8").encode("\n"));
 
     const result = await WebAssembly.instantiate(e.data.code, go.importObject);
     let oldLog = console.log;
