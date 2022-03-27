@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+/* disable for wasm_exec.js */
+/* eslint-disable */
 "use strict";
 
 (() => {
@@ -660,6 +662,9 @@
   };
 })();
 
+/* enable after wasm_exec.js */
+/* eslint-enable */
+
 let canvas;
 
 addEventListener(
@@ -689,6 +694,8 @@ addEventListener(
     }
 
     // clear the persistent stdout buffer
+    // using var from wasm_exec.js
+    // eslint-disable-next-line
     globalThis.fs.writeSync(null, new TextEncoder("utf-8").encode("\n"));
 
     const result = await WebAssembly.instantiate(e.data.code, go.importObject);
