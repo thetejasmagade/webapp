@@ -16,10 +16,18 @@
         :type="'course'"
       />
 
-      <AchievementUnlocked
-        v-if="achievementsToShow?.length > 0"
-        :achievement-earned="achievementsToShow[0]"
-        :on-done="onSeenAchievement"
+      <InsertTypeAchievement
+        v-if="
+          insertsToShow?.length > 0 && insertsToShow[0].type === 'achievement'
+        "
+        :achievement-earned="insertsToShow[0].data"
+        :on-done="onSeenInsert"
+      />
+      <InsertTypeDiscordSync
+        v-else-if="
+          insertsToShow?.length > 0 && insertsToShow[0].type === 'discord'
+        "
+        :on-done="onSeenInsert"
       />
       <ExerciseSkeleton v-else-if="!isContentLoaded" />
       <div v-else class="h-full flex-col sm:flex bg-white">
@@ -111,7 +119,8 @@ import CardExerciseTypeMultipleChoice from "@/components/cards/CardExerciseTypeM
 import CardExerciseTypeCode from "@/components/cards/CardExerciseTypeCode.vue";
 import CardExerciseTypeCodeCanvas from "@/components/cards/CardExerciseTypeCodeCanvas.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
-import AchievementUnlocked from "@/components/AchievementUnlocked.vue";
+import InsertTypeAchievement from "@/components/inserts/InsertTypeAchievement.vue";
+import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vue";
 import { loadBalance } from "@/lib/cloudStore.js";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useRoute, useRouter } from "vue-router";
@@ -148,6 +157,7 @@ import {
   getCourseProgress,
   getUnitsProgress,
   getPendingAchievements,
+  getUser,
   getHintStatus,
   purchaseHint,
   getCheatStatus,
@@ -172,8 +182,9 @@ export default {
     CardExerciseTypeMultipleChoice,
     CardExerciseTypeCode,
     CardExerciseTypeCodeCanvas,
-    AchievementUnlocked,
     ProgressBar,
+    InsertTypeAchievement,
+    InsertTypeDiscordSync,
   },
   setup() {
     const state = reactive({
@@ -192,7 +203,7 @@ export default {
       courses: null,
       isFree: null,
       isCheating: false,
-      achievementsToShow: null,
+      insertsToShow: [],
       courseProgress: null,
       unitProgress: null,
       isCheatPurchased: false,
@@ -201,6 +212,7 @@ export default {
       hintCost: 0,
       nextExercise: null,
       previousExercise: null,
+      chapterCompleted: false,
     });
 
     const router = useRouter();
@@ -343,7 +355,7 @@ export default {
       if (state.markdownSource === "") {
         return false;
       }
-      if (store.getters.getIsLoggedIn && state.achievementsToShow === null) {
+      if (store.getters.getIsLoggedIn && state.insertsToShow === null) {
         return false;
       }
       return true;
@@ -458,7 +470,21 @@ export default {
         await getCourseProgressIfLoggedIn();
         if (store.getters.getIsLoggedIn) {
           try {
-            state.achievementsToShow = await getPendingAchievements();
+            let pendingAchievements = await getPendingAchievements();
+            let user = await getUser();
+            if (user.DiscordUserID === null && percentComplete.value === 100) {
+              state.insertsToShow.push({
+                type: "discord",
+              });
+            }
+            if (pendingAchievements.length > 0) {
+              for (const achievement of pendingAchievements) {
+                state.insertsToShow.push({
+                  type: "achievement",
+                  data: achievement,
+                });
+              }
+            }
           } catch (err) {
             notify({
               type: "danger",
@@ -525,8 +551,8 @@ export default {
       }
     };
 
-    const onSeenAchievement = () => {
-      state.achievementsToShow.shift();
+    const onSeenInsert = () => {
+      state.insertsToShow.shift();
     };
 
     const showSandboxModeModal = () => {
@@ -805,7 +831,7 @@ export default {
       moduleIndex,
       course,
       doneWithExercise,
-      onSeenAchievement,
+      onSeenInsert,
       showSandboxModeModal,
       showFeedbackModal,
       hintCallback,
