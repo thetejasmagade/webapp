@@ -6,7 +6,7 @@
         Sign in with Google
       </BlockButton>
 
-      <BlockButton :click="clickGithub" color="gold" class="mb-12">
+      <BlockButton :click="clickGithub" color="gray" class="mb-12">
         <FontAwesomeIcon :icon="['fab', 'github']" class="mr-3" />
         Sign in with Github
       </BlockButton>

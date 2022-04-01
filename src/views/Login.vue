@@ -6,7 +6,7 @@
 
     <div class="grid place-items-center mx-2 my-20 sm:my-auto">
       <div
-        class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 px-6 py-10 sm:px-10 sm:py-6 bg-white rounded-lg shadow-md lg:shadow-lg mb-8"
+        class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 px-6 py-10 sm:px-10 sm:py-6 bg-gray-800 rounded-lg mb-8"
       >
         <img
           loading="lazy"
@@ -30,7 +30,7 @@
             <p>
               Don't like integrations?
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 @click="state = 'register'"
               >
                 Use Magic Link
@@ -45,7 +45,7 @@
             <p>
               Have an integration?
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 @click="state = 'integration'"
               >
                 Single Sign-On
@@ -54,7 +54,7 @@
             <p>
               Have an account?
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 @click="state = 'login'"
               >
                 Login
@@ -69,7 +69,7 @@
             <p>
               Need an account?
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 @click="state = 'register'"
               >
                 Sign Up Free
@@ -78,7 +78,7 @@
             <p>
               Have an integrated account?
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 @click="state = 'integration'"
               >
                 Single Sign-On
@@ -86,20 +86,6 @@
             </p>
           </div>
         </div>
-      </div>
-
-      <div
-        class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 px-6 py-10 sm:px-10 sm:py-6 bg-white rounded-lg shadow-md lg:shadow-lg mb-4"
-      >
-        <span class="flex-1 ml-2">
-          Need more info? Go
-          <a
-            class="underline cursor-pointer text-gold-600 hover:text-gold-800"
-            href="https://qvault.io"
-          >
-            back to the homepage
-          </a>
-        </span>
       </div>
     </div>
   </div>

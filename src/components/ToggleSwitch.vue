@@ -32,8 +32,8 @@ export default {
   computed: {
     backgroundStyles() {
       return {
-        "bg-gold-500": this.modelValue,
-        "bg-gray-300": !this.modelValue,
+        "bg-blue-500": this.modelValue,
+        "bg-gray-500": !this.modelValue,
       };
     },
     indicatorStyles() {
