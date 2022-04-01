@@ -388,7 +388,7 @@ export default {
     async updateUserAPIKey() {
       try {
         await updateUserAPIKey();
-        await loadUser(this);
+        await loadUser(this.$store.commit);
       } catch (err) {
         notify({
           type: "danger",
@@ -399,10 +399,10 @@ export default {
     },
     async handleSuccess() {
       try {
-        await loadUser(this);
+        await loadUser(this.$store.commit);
         if (!this.$store.getters.getUserIsSubscribed) {
           await confirmOnetimePurchase();
-          await loadUser(this);
+          await loadUser(this.$store.commit);
         }
       } catch (err) {
         notify({
@@ -441,7 +441,7 @@ export default {
           await updateUserHandle(this.user.handle);
         }
         await updateUser(this.user);
-        await loadUser(this);
+        await loadUser(this.$store.commit);
         notify({
           type: "success",
           text: "Profile updated successfully",

@@ -414,7 +414,7 @@ export default {
   async mounted() {
     loadSubscriptionPlans(this);
     if (this.$store.getters.getIsLoggedIn) {
-      loadUser(this);
+      loadUser(this.$store.commit);
     }
     if (this.$route.query.cancel && this.$route.query.cancel === "true") {
       try {

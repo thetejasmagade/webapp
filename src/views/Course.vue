@@ -121,7 +121,7 @@ import CardExerciseTypeCodeCanvas from "@/components/cards/CardExerciseTypeCodeC
 import ProgressBar from "@/components/ProgressBar.vue";
 import InsertTypeAchievement from "@/components/inserts/InsertTypeAchievement.vue";
 import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vue";
-import { loadBalance } from "@/lib/cloudStore.js";
+import { loadBalance, loadUser } from "@/lib/cloudStore.js";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useRoute, useRouter } from "vue-router";
 import { useMeta } from "vue-meta";
@@ -157,7 +157,6 @@ import {
   getCourseProgress,
   getUnitsProgress,
   getPendingAchievements,
-  getUser,
   getHintStatus,
   purchaseHint,
   getCheatStatus,
@@ -441,6 +440,9 @@ export default {
           text: err,
         });
       }
+      if (!store.getters.getUser) {
+        loadUser(store.commit);
+      }
 
       try {
         state.nextExercise = await getNextExercise(
@@ -471,8 +473,12 @@ export default {
         if (store.getters.getIsLoggedIn) {
           try {
             let pendingAchievements = await getPendingAchievements();
-            let user = await getUser();
-            if (user.DiscordUserID === null && percentComplete.value === 100) {
+            const user = store.getters.getUser;
+            if (
+              user.DiscordUserID === null &&
+              moduleIndex.value != 0 &&
+              exerciseIndex.value === 0
+            ) {
               state.insertsToShow.push({
                 type: "discord",
               });

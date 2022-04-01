@@ -56,7 +56,7 @@ export default {
   },
   async mounted() {
     if (!this.$store.getters.getUser) {
-      loadUser(this);
+      loadUser(this.$store.commit);
     }
   },
   methods: {

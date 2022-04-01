@@ -97,7 +97,7 @@ export default {
     FontAwesomeIcon,
   },
   async mounted() {
-    await loadUser(this);
+    await loadUser(this.$store.commit);
   },
   methods: {
     discordClick() {
