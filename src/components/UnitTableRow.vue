@@ -3,7 +3,7 @@
     <td class="px-2 py-4 whitespace-nowrap hidden lg:table-cell">
       <span
         v-if="isNext"
-        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-600 text-blue-100"
+        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-900 text-blue-100"
       >
         Next →
       </span>
@@ -33,7 +33,7 @@
     </td>
     <td class="px-4 py-4 whitespace-nowrap hidden lg:table-cell">
       <span
-        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-600 text-blue-100"
+        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-gray-900 text-blue-100"
       >
         {{ `${unitData.Difficulty}%` }}
       </span>

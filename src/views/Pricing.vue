@@ -13,7 +13,7 @@
             v-if="$store.getters.getUserIsSubscribed"
             class="text-2xl text-primary-normal font-bold"
           >
-            You're already a patron. Go take some courses!
+            You are already a patron. Go take some courses!
           </h2>
         </header>
         <PricingSkeleton v-if="!subscriptionPlan" />
@@ -23,46 +23,43 @@
         >
           <div class="flex items-center justify-center">
             <article
-              class="px-6 py-8 text-center rounded-lg bg-white items-center flex flex-col h-full w-full"
+              class="text-center items-center flex flex-col w-full rounded border border-gray-600 overflow-hidden"
             >
-              <h2 class="flex justify-center pb-4 border-gray-200 font-bold">
-                <span class="text-2xl">Patron Rewards</span>
-              </h2>
               <table class="table-auto border-collapse w-full">
                 <thead>
-                  <tr class="rounded-sm text-lg text-gray-700">
-                    <th class="px-4 py-2 bg-gray-200 font-semibold">Basic</th>
-                    <th class="px-4 py-2 bg-gray-200 font-bold">Patron</th>
+                  <tr class="text-xl bg-gray-700">
+                    <th class="px-4 py-2 font-semibold">Basic</th>
+                    <th class="px-4 py-2 font-bold">Patron</th>
                   </tr>
                 </thead>
-                <tbody class="text-sm font-normal text-gray-700">
-                  <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
+                <tbody class="text-sm font-normal">
+                  <tr class="border-b border-gray-500 py-10">
                     <td class="px-4 py-2">Read all content</td>
                     <td class="px-4 py-2 font-bold">Read all content</td>
                   </tr>
-                  <tr class="hover:bg-gray-100 border-b border-gray-200 py-4">
+                  <tr class="border-b border-gray-500 py-4">
                     <td class="px-4 py-2">Code sandbox</td>
                     <td class="px-4 py-2 font-bold">Code sandbox</td>
                   </tr>
-                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                  <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
                     <td class="px-4 py-2 font-bold">Code verification</td>
                   </tr>
-                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                  <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
                     <td class="px-4 py-2 font-bold">Patron-only chat</td>
                   </tr>
-                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                  <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
                     <td class="px-4 py-2 font-bold">Multiple choice quizzes</td>
                   </tr>
-                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                  <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
                     <td class="px-4 py-2 font-bold">
                       Certificates of completion
                     </td>
                   </tr>
-                  <tr class="hover:bg-gray-100 border-b border-gray-200">
+                  <tr>
                     <td class="px-4 py-2">-</td>
                     <td class="px-4 py-2 font-bold">View full solutions</td>
                   </tr>
@@ -72,17 +69,12 @@
           </div>
           <div class="flex items-center justify-center md:col-span-2">
             <article
-              class="px-6 py-8 text-center rounded-lg items-center flex flex-col h-full w-full"
+              class="px-6 text-center rounded items-center flex flex-col w-full"
             >
-              <h2 class="flex justify-center pb-4 border-gray-200 font-bold">
-                <span class="text-2xl">Patronage payment options</span>
-              </h2>
-              <div
-                class="grid xl:grid-cols-3 lg:grid-cols-1 gap-4 xl:p-4 md:p-0 w-full"
-              >
+              <div class="grid xl:grid-cols-3 lg:grid-cols-1 gap-4 w-full">
                 <div>
                   <div
-                    class="shadow-lg px-6 py-8 text-center rounded-lg bg-white items-center flex flex-col h-full w-full"
+                    class="px-6 py-8 text-center rounded bg-gray-700 items-center flex flex-col h-full w-full"
                   >
                     <h3 class="text-4xl font-bold">
                       {{ getCurrencySymbol(priceMonthly.CurrencyCode)
@@ -107,7 +99,7 @@
                   </div>
                 </div>
                 <div
-                  class="shadow-lg px-6 py-8 text-center rounded-lg bg-blue-800 text-white items-center flex flex-col h-full w-full"
+                  class="px-6 py-8 text-center rounded bg-blue-500 text-white items-center flex flex-col h-full w-full"
                 >
                   <h3 class="text-4xl font-bold">
                     {{ getCurrencySymbol(priceYearly.CurrencyCode)
@@ -140,13 +132,12 @@
                   >
                     Yearly Plan
                   </BlockButton>
-                  <span
-                    class="rounded-lg border-gold-200 border text-gold-200 px-2"
+                  <span class="rounded-lg border-white border-2 text-white px-2"
                     >Most Popular</span
                   >
                 </div>
                 <div
-                  class="shadow-lg px-6 py-8 text-center rounded-lg bg-white items-center flex flex-col h-full w-full"
+                  class="px-6 py-8 text-center rounded bg-gray-700 items-center flex flex-col h-full w-full"
                 >
                   <h3 class="text-4xl font-bold">
                     {{ getCurrencySymbol(priceLifetime.CurrencyCode)
@@ -230,7 +221,7 @@
       >
         <div class="flex justify-center p-4">
           <div class="px-4 max-w-4xl">
-            <h2 class="text-xl my-4 text-gold-700">
+            <h2 class="text-xl my-4 text-blue-400">
               What's the difference between a basic account and a patron
               account?
             </h2>
@@ -246,7 +237,7 @@
               certifications, and chat in the patron-only lounge.
             </p>
 
-            <h2 class="text-xl my-4 text-gold-700">
+            <h2 class="text-xl my-4 text-blue-400">
               Why aren't all the features on Qvault free?
             </h2>
             <p class="mb-4">
@@ -263,7 +254,7 @@
               can still find a lot of value.
             </p>
 
-            <h2 class="text-xl my-4 text-gold-700">
+            <h2 class="text-xl my-4 text-blue-400">
               What makes Qvault different?
             </h2>
             <p class="mb-4">
@@ -279,7 +270,7 @@
               obstacle on their way to a successful coding career.
             </p>
 
-            <h2 class="text-xl my-4 text-gold-700">
+            <h2 class="text-xl my-4 text-blue-400">
               Do you offer any discounts?
             </h2>
             <p>
@@ -295,7 +286,7 @@
               the survey you'll be given a coupon code!
             </p>
 
-            <h2 class="text-xl my-4 text-gold-700">
+            <h2 class="text-xl my-4 text-blue-400">
               Do I need to know how to code before signing up?
             </h2>
             <p>
@@ -304,7 +295,7 @@
               you.
             </p>
 
-            <h2 class="text-xl my-4 text-gold-700">
+            <h2 class="text-xl my-4 text-blue-400">
               How do I cancel my patronage?
             </h2>
             <p>
@@ -312,14 +303,14 @@
               to feel obligated to keep supporting us if you don't want to. You
               can cancel your patron account any time from your
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 href="/settings"
                 >settings page</a
               >
               and you won't be billed again.
             </p>
 
-            <h2 class="text-xl my-4 text-gold-700">
+            <h2 class="text-xl my-4 text-blue-400">
               What if I don't like being a Patron?
             </h2>
             <p>
@@ -328,7 +319,7 @@
               if you become a patron and no longer want to support us you can
               take advantage of our
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 href="https://qvault.io/return-policy/"
                 >return policy.</a
               >
