@@ -11,7 +11,7 @@
         <div class="flex flex-col p-4">
           <CodeEditor
             v-model="code"
-            class="h-full flex flex-col flex-1 overflow-auto rounded"
+            class="h-full flex flex-col flex-1 overflow-auto rounded border-2 border-gray-500"
             :run-callback="runCode"
             :reset-callback="setCode"
             prog-lang="js"
