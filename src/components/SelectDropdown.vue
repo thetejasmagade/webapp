@@ -3,14 +3,14 @@
     <div class="relative inline-block text-left dropdown cursor-pointer">
       <span class="rounded-md shadow-sm">
         <button
-          class="inline-flex justify-center w-full px-4 py-2 leading-6 transition duration-150 ease-in-out border border-gray-300 rounded-md focus:outline-none"
+          class="inline-flex justify-center w-full px-4 py-2 leading-6 transition duration-150 ease-in-out rounded-md focus:outline-none"
           :class="{
             'hover:text-gray-400': selected.color !== 'gold',
             'text-gray-800': selected.color !== 'gold',
-            'bg-white': selected.color !== 'gold',
-            'hover:bg-gold-400': selected.color === 'gold',
+            'bg-gray-200': selected.color !== 'gold',
+            'hover:bg-blue-400': selected.color === 'gold',
             'text-gray-200': selected.color === 'gold',
-            'bg-gold-500': selected.color === 'gold',
+            'bg-blue-500': selected.color === 'gold',
           }"
           type="button"
           aria-haspopup="true"
@@ -36,7 +36,7 @@
       >
         <div
           id="headlessui-menu-items-117"
-          class="absolute left-0 w-56 mt-2 origin-top-left bg-white border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none overflow-y-auto max-h-56"
+          class="absolute left-0 w-56 mt-2 origin-top-left bg-gray-700 border-gray-200 divide-y divide-gray-300 rounded-md shadow-lg outline-none overflow-y-auto max-h-56"
           aria-labelledby="headlessui-menu-button-1"
           role="menu"
         >
@@ -49,10 +49,10 @@
             :class="{
               'hover:text-gray-400': option.color !== 'gold',
               'text-gray-800': option.color !== 'gold',
-              'bg-white': option.color !== 'gold',
-              'hover:bg-gold-400': option.color === 'gold',
+              'bg-gray-200': option.color !== 'gold',
+              'hover:bg-blue-400': option.color === 'gold',
               'text-gray-200': option.color === 'gold',
-              'bg-gold-500': option.color === 'gold',
+              'bg-blue-500': option.color === 'gold',
             }"
             role="menuitem"
             @click="

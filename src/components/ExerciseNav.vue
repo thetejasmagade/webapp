@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row whitespace-nowrap bg-gray-200 border-gray-400">
+  <div class="flex flex-row whitespace-nowrap bg-gray-700 border-gray-400">
     <SandboxModeModal ref="sandboxModeModal" class="whitespace-normal" />
     <div class="flex-1 flex items-center justify-start">
       <SelectDropdown
