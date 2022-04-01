@@ -3,7 +3,7 @@
     <td class="px-2 py-4 whitespace-nowrap hidden lg:table-cell">
       <span
         v-if="isNext"
-        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-200 text-blue-700"
+        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-600 text-blue-100"
       >
         Next →
       </span>
@@ -18,10 +18,10 @@
             <img class="h-10 w-10 rounded" :src="iconUrl" />
           </div>
           <div class="ml-4">
-            <div class="text-md font-medium text-gold-600">
+            <div class="text-md font-medium text-blue-400">
               {{ unitData.Title }}
             </div>
-            <div class="text-sm text-gray-500">
+            <div class="text-sm text-gray-400">
               {{ unit.project ? "Personal Project" : "Guided Course" }}
             </div>
           </div>
@@ -29,18 +29,16 @@
       </router-link>
     </td>
     <td class="px-4 py-4 hidden lg:table-cell">
-      <div class="text-sm text-gray-500">{{ unitData.Description }}</div>
+      <div class="text-sm">{{ unitData.Description }}</div>
     </td>
     <td class="px-4 py-4 whitespace-nowrap hidden lg:table-cell">
       <span
-        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-200 text-blue-700"
+        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-600 text-blue-100"
       >
         {{ `${unitData.Difficulty}%` }}
       </span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-md text-gray-500 hidden lg:table-cell"
-    >
+    <td class="px-4 py-4 whitespace-nowrap text-md hidden lg:table-cell">
       <FontAwesomeIcon icon="hourglass" /> {{ durationText }}
     </td>
   </tr>

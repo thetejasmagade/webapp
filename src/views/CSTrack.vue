@@ -7,19 +7,22 @@
     >
       <div class="p-4">
         <UnitTable :units="units" />
-        <h2 class="text-gold-600 text-xl">Notes</h2>
+        <h2 class="text-blue-400 text-xl">Notes</h2>
         <p class="max-width">
           <i>
             This curriculum is a work-in-progress while we build towards an
             unaccredited university-level CS degree.
             <a
-              href="https://github.com/qvault/curriculum"
+              href="https://github.com/bootdotdev/curriculum"
               target="_blank"
-              class="text-gold-600 underline"
+              class="text-blue-400 hover:text-blue-300 underline"
               >You can find the roadmap here.</a
             >
             Buying courses, being part of the
-            <a href="https://discord.gg/EEkFwbv" target="_blank"
+            <a
+              href="https://discord.gg/EEkFwbv"
+              target="_blank"
+              class="text-blue-400 hover:text-blue-300 underline"
               >Discord community</a
             >, and providing great feedback will help us get the project
             finished.

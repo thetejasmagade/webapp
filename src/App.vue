@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen text-gray-700 bg-gray-200">
+  <div class="h-screen text-gray-200 bg-gray-700">
     <metainfo>
       <template #title="{ content }">
         {{ content ? `${content} | Qvault` : `Qvault` }}
@@ -137,8 +137,6 @@ body {
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   margin: 0;
   height: 100%;
-  color: var(--gray-200);
-  background: var(--gray-700);
 }
 
 .h-full-minus-bar {

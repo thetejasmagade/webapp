@@ -2,7 +2,7 @@
   <div>
     <svg :width="cx * 2" :height="cy * 2">
       <circle
-        class="text-gray-300"
+        class="text-gray-700"
         :stroke-width="strokeWidth"
         stroke="currentColor"
         fill="transparent"
@@ -11,7 +11,7 @@
         :cy="cy"
       />
       <circle
-        class="text-gold-500"
+        class="text-blue-500"
         :stroke-width="strokeWidth"
         :stroke-dasharray="circumference"
         :stroke-dashoffset="offset"
@@ -24,20 +24,19 @@
       />
       <text
         v-if="normalizedPercent < 100"
-        class="text-blue-500"
+        class="text-blue-300"
         :x="cx"
         :y="cy"
         stroke="currentColor"
-        stroke-width=".6px"
         dy=".3em"
-        font-size="12"
+        font-size="14"
         text-anchor="middle"
       >
         {{ normalizedPercent }}%
       </text>
       <line
         v-if="normalizedPercent === 100"
-        class="text-gold-500"
+        class="text-blue-500"
         stroke="currentColor"
         :x1="cx * 0.65"
         :y1="cy * 1.05"
@@ -48,7 +47,7 @@
       />
       <line
         v-if="normalizedPercent === 100"
-        class="text-gold-500"
+        class="text-blue-500"
         stroke="currentColor"
         :x1="cx * 0.9"
         :y1="cy * 1.3"

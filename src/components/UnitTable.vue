@@ -14,44 +14,44 @@
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div class="overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
+            <table class="min-w-full divide-y divide-gray-400">
+              <thead class="text-gray-400">
                 <tr>
                   <th
                     scope="col"
-                    class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
                   ></th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
                   ></th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
                   >
                     Title
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
                   >
                     Description
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
                   >
                     Difficulty
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
                   >
                     Avg Time
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
+              <tbody class="divide-y divide-gray-400">
                 <UnitTableRow
                   v-for="(unit, i) of units"
                   :key="i"

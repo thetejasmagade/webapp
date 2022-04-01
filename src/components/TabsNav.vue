@@ -4,10 +4,10 @@
       <router-link
         v-for="(tab, i) of tabs"
         :key="i"
-        class="text-gray-700 py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
+        class="py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
         :class="{
-          'bg-white': routePath.includes(tab.route),
-          'bg-gray-300': !routePath.includes(tab.route),
+          'bg-gray-800': routePath.includes(tab.route),
+          'bg-gray-600': !routePath.includes(tab.route),
         }"
         :to="{ name: tab.componentName }"
       >
