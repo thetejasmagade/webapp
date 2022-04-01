@@ -1,145 +1,177 @@
 <template>
-  <div class="bg-white shadow flex flex-col text-gray-700 relative z-50">
-    <div class="top-nav-bar-height flex flex-row justify-between">
-      <div class="flex flex-row items-stretch justify-end">
-        <div class="ml-3 flex items-center">
-          <router-link to="/">
-            <img
-              loading="lazy"
-              alt="Qvault logo"
-              src="../img/qvault-icon-250.png"
-              class="align-middle w-10 h-10 ml-2"
-            />
-          </router-link>
-          <span class="text-xl ml-10">{{ title }}</span>
+  <nav class="bg-gray-800 z-50">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 top-nav-bar-height">
+      <div class="relative flex items-center justify-between h-16">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <button
+            type="button"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            @click="clickMobileMenuToggle"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="block h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+            <svg
+              class="hidden h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+        >
+          <div class="flex-shrink-0 flex items-center">
+            <router-link to="/">
+              <img
+                class="block lg:hidden h-8 w-auto"
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                alt="Workflow"
+              />
+              <img
+                class="hidden lg:block h-8 w-auto"
+                src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                alt="Workflow"
+              />
+            </router-link>
+          </div>
+          <div class="hidden sm:block sm:ml-6">
+            <div class="flex space-x-4">
+              <router-link
+                v-if="!$store.getters.getIsLoggedIn"
+                to="/"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Login
+              </router-link>
+
+              <router-link
+                to="/courses"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Courses
+              </router-link>
+
+              <router-link
+                to="/pricing"
+                href="https://app.qvault.io/pricing"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Pricing
+              </router-link>
+
+              <a
+                href="https://discord.gg/EEkFwbv"
+                target="_blank"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Community
+              </a>
+
+              <a
+                href="https://blog.boot.dev/about"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                About
+              </a>
+
+              <a
+                href="https://blog.boot.dev"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Blog
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="md:flex flex-row items-stretch justify-end hidden">
+    </div>
+
+    <div
+      id="mobile-menu"
+      :class="{ hidden: !mobileMenuOpen, block: mobileMenuOpen }"
+      class="sm:hidden"
+    >
+      <div class="px-2 pt-2 pb-3 space-y-1">
         <router-link
           v-if="!$store.getters.getIsLoggedIn"
           to="/"
-          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
-          :class="{
-            border: routePath === '/',
-            'border-gold-500': routePath === '/',
-          }"
+          class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+          aria-current="page"
         >
-          <span>Login</span>
+          Login
         </router-link>
 
         <router-link
           to="/courses"
-          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
-          :class="{
-            border: routePath.includes('courses'),
-            'border-gold-500': routePath.includes('courses'),
-          }"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >
-          <span>Courses</span>
+          Courses
         </router-link>
 
         <router-link
           to="/pricing"
-          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
-          :class="{
-            border: routePath.includes('pricing'),
-            'border-gold-500': routePath.includes('pricing'),
-          }"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >
-          <span>Pricing</span>
+          Pricing
         </router-link>
 
         <a
           href="https://discord.gg/EEkFwbv"
           target="_blank"
-          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >
-          <FontAwesomeIcon :icon="['fab', 'discord']" class="icon mr-2" />
-          <span>Community</span>
+          Community
         </a>
 
         <a
-          href="https://qvault.io/method"
-          target="_blank"
-          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
+          href="https://blog.boot.dev/about"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >
-          <span>Method</span>
+          About
         </a>
 
         <a
-          href="https://qvault.io/articles"
-          target="_blank"
-          class="flex items-center px-4 m-2 rounded text-gray-700 hover:text-gray-200 hover:bg-gold-500 current:border current:border-gold-500"
+          href="https://blog.boot.dev/about"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >
-          <span>Blog</span>
+          Blog
         </a>
       </div>
-
-      <div
-        class="md:hidden bg-white flex flex-row items-stretch justify-end p-4"
-      >
-        <FontAwesomeIcon
-          :icon="['fa', 'bars']"
-          class="text-3xl cursor-pointer"
-          @click="mobileMenuOpen = !mobileMenuOpen"
-        />
-      </div>
     </div>
-
-    <div v-if="mobileMenuOpen" class="md:hidden block bg-white">
-      <a
-        v-if="!$store.getters.getIsLoggedIn"
-        href="/"
-        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
-      >
-        <span>Login</span>
-      </a>
-      <a
-        href="/courses"
-        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
-      >
-        <span>Courses</span>
-      </a>
-      <a
-        href="/pricing"
-        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
-      >
-        <span>Pricing</span>
-      </a>
-      <a
-        href="https://discord.gg/EEkFwbv"
-        target="_blank"
-        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
-      >
-        <FontAwesomeIcon :icon="['fab', 'discord']" class="icon mr-2" />
-        <span>Community</span>
-      </a>
-      <a
-        href="https://qvault.io/method"
-        target="_blank"
-        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
-      >
-        <span>Method</span>
-      </a>
-      <a
-        href="https://qvault.io/articles"
-        target="_blank"
-        class="flex items-center p-3 text-gray-700 hover:text-gray-200 hover:bg-gold-500"
-      >
-        <span>Blog</span>
-      </a>
-    </div>
-  </div>
+  </nav>
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { useRoute } from "vue-router";
+import { toRefs, reactive } from "vue";
 
 export default {
-  components: {
-    FontAwesomeIcon,
-  },
   props: {
     title: {
       default: null,
@@ -147,18 +179,19 @@ export default {
       type: String,
     },
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       mobileMenuOpen: false,
+    });
+
+    const clickMobileMenuToggle = () => {
+      state.mobileMenuOpen = !state.mobileMenuOpen;
     };
-  },
-  computed: {
-    routePath() {
-      return useRoute().path;
-    },
-    routeName() {
-      return useRoute().name;
-    },
+
+    return {
+      ...toRefs(state),
+      clickMobileMenuToggle,
+    };
   },
 };
 </script>
