@@ -6,9 +6,9 @@
     <div
       class="tooltip text-white text-center p-2 rounded w-32 opacity-0 absolute invisible z-50 transition-opacity duration-500"
       :class="{
-        'bg-gray-500': color === 'gray',
+        'bg-gray-600': color === 'gray',
         'bg-red-500': color === 'red',
-        'bg-gold-600': color === 'gold',
+        'bg-yellow-600': color === 'yellow',
         'bg-blue-500': color === 'blue',
         'bg-green-500': color === 'green',
         top: position === 'top',

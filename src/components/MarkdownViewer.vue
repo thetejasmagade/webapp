@@ -124,12 +124,12 @@ export default {
 }
 
 .viewer a {
-  color: var(--gold-600);
+  color: var(--yellow-600);
   text-decoration: underline;
 }
 
 .viewer a:hover {
-  color: var(--gold-800);
+  color: var(--yellow-800);
 }
 
 .viewer img {

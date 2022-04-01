@@ -121,12 +121,13 @@ export default {
 @import "styles/index.css";
 
 :root {
-  --red-500: #c05460;
+  --red-500: #ed4245;
 
-  --gold-600: #9e713a;
-  --gold-800: #48331b;
+  --yellow-600: #fee034;
+  --yellow-800: #dfbe01;
 
-  --gray-750: #292929;
+  --gray-200: #e5e5e5;
+  --gray-700: #1123e4;
 
   --top-nav-bar-height: 60px;
 }
@@ -136,7 +137,8 @@ body {
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   margin: 0;
   height: 100%;
-  color: var(--gray-750);
+  color: var(--gray-200);
+  background: var(--gray-700);
 }
 
 .h-full-minus-bar {

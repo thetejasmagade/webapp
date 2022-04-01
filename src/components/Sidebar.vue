@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="text-gray-700 bg-white h-full text-center shadow relative z-40">
+    <div
+      class="text-gray-200 bg-gray-800 border-t border-gray-500 h-full text-center shadow relative z-40"
+    >
       <div class="profile-box flex flex-col items-center">
         <ProfileImage
           class="profile-img my-3 w-3/5"
@@ -32,9 +34,9 @@
         :text="`Settings`"
         position="right"
         class="mx-4 mb-2"
-        color="gold"
+        color="gray"
       >
-        <MenuItemHorizontal
+        <SidebarItem
           icon="cog"
           :click="
             () => {
@@ -49,9 +51,9 @@
         :text="`Portfolio`"
         position="right"
         class="mx-4 mb-2"
-        color="gold"
+        color="gray"
       >
-        <MenuItemHorizontal
+        <SidebarItem
           icon="user-tie"
           :click="
             () =>
@@ -68,9 +70,9 @@
         :text="`Achievements`"
         position="right"
         class="mx-4 mb-2"
-        color="gold"
+        color="gray"
       >
-        <MenuItemHorizontal
+        <SidebarItem
           icon="trophy"
           :click="
             () => {
@@ -85,15 +87,15 @@
         <div class="w-3/5 border-b border-gray-300" />
       </div>
 
-      <Tooltip :text="`Logout`" position="right" class="mx-4 mb-2" color="gold">
-        <MenuItemHorizontal icon="sign-out-alt" :click="logout" />
+      <Tooltip :text="`Logout`" position="right" class="mx-4 mb-2" color="gray">
+        <SidebarItem icon="sign-out-alt" :click="logout" />
       </Tooltip>
     </div>
   </div>
 </template>
 
 <script>
-import MenuItemHorizontal from "@/components/MenuItemHorizontal.vue";
+import SidebarItem from "@/components/SidebarItem.vue";
 import GemDisplay from "@/components/GemDisplay.vue";
 import ProfileImage from "@/components/ProfileImage.vue";
 import Tooltip from "@/components/Tooltip.vue";
@@ -105,7 +107,7 @@ import { setLogout } from "@/lib/cloudStore.js";
 
 export default {
   components: {
-    MenuItemHorizontal,
+    SidebarItem,
     GemDisplay,
     ProfileImage,
     Tooltip,

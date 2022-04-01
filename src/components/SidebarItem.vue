@@ -1,14 +1,7 @@
 <template>
   <div>
     <div
-      class="hover:text-gray-200 cursor-pointer rounded-lg text-lg h-12 flex flex-col justify-center items-center"
-      :class="{
-        border: current,
-        'border-gold-500': color === 'gold',
-        'border-red-500': color === 'red',
-        'hover:bg-red-500': color === 'red',
-        'hover:bg-gold-500': color === 'gold',
-      }"
+      class="hover:bg-gray-700 cursor-pointer rounded-lg text-lg h-12 flex flex-col justify-center items-center"
       @click="click"
     >
       <FontAwesomeIcon :icon="['fas', icon]" class="mx-2" />
@@ -37,11 +30,6 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    },
-    color: {
-      type: String,
-      required: false,
-      default: "gold",
     },
   },
 };
