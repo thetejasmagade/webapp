@@ -11,7 +11,7 @@
         :cy="cy"
       />
       <circle
-        class="text-blue-500"
+        class="text-blue-400"
         :stroke-width="strokeWidth"
         :stroke-dasharray="circumference"
         :stroke-dashoffset="offset"
@@ -36,7 +36,7 @@
       </text>
       <line
         v-if="normalizedPercent === 100"
-        class="text-blue-500"
+        class="text-blue-400"
         stroke="currentColor"
         :x1="cx * 0.65"
         :y1="cy * 1.05"
@@ -47,7 +47,7 @@
       />
       <line
         v-if="normalizedPercent === 100"
-        class="text-blue-500"
+        class="text-blue-400"
         stroke="currentColor"
         :x1="cx * 0.9"
         :y1="cy * 1.3"

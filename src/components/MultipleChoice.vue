@@ -9,7 +9,7 @@
       v-for="(answer, i) of answers"
       :key="i"
       class="text-lg w-4/5 mb-2 max-w-md"
-      color="blue-light"
+      color="blue"
       :click="
         () => {
           callback(answer);

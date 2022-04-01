@@ -1,11 +1,10 @@
 <template>
   <div>
-    <form enctype="multipart/form-data">
+    <form v-if="editable" enctype="multipart/form-data">
       <input
         id="profileImage"
         type="file"
         accept="image/*"
-        :disabled="!editable"
         class="opacity-0 overflow-hidden absolute z-0 h-px w-px"
         @change="editProfileImage"
       />
@@ -14,11 +13,19 @@
           loading="lazy"
           :src="profileImageURLWithDefault"
           alt="user avatar"
-          class="rounded-full w-full h-full cover"
+          class="rounded-full w-full h-full cover border-2"
           :class="{ 'cursor-pointer': editable }"
         />
       </label>
     </form>
+    <img
+      v-else
+      loading="lazy"
+      :src="profileImageURLWithDefault"
+      alt="user avatar"
+      class="rounded-full w-full h-full cover border-2"
+      :class="{ 'cursor-pointer': editable }"
+    />
   </div>
 </template>
 

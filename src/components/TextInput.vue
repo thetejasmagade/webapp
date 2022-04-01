@@ -1,9 +1,10 @@
 <template>
   <input
-    class="outline-none border-b border-gray-300 bg-transparent pb-px focus:outline-none focus:border-blue-500"
+    class="outline-none border-b border-gray-500 pb-px focus:outline-none focus:border-white"
     :placeholder="placeholder"
     :type="type"
     :value="modelValue"
+    style="background: transparent"
     @input="$emit('update:modelValue', $event.target.value)"
   />
 </template>

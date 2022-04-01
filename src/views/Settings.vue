@@ -17,14 +17,14 @@
             <div class="w-3/4 mt-8 flex flex-col">
               <BlockButton
                 :click="() => (currentTab = 'settings')"
-                :color="currentTab === 'settings' ? 'blue-light' : 'gray-light'"
+                :color="currentTab === 'settings' ? 'blue' : 'gray'"
                 class="m-2"
               >
                 Profile
               </BlockButton>
               <BlockButton
                 :click="() => (currentTab = 'security')"
-                :color="currentTab === 'security' ? 'blue-light' : 'gray-light'"
+                :color="currentTab === 'security' ? 'blue' : 'gray'"
                 class="m-2"
               >
                 Security
@@ -35,7 +35,7 @@
                     openCustomerPortal();
                   }
                 "
-                color="gray-light"
+                color="gray"
                 class="m-2"
               >
                 Billing
@@ -84,7 +84,7 @@
                       :placeholder="handle"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">Qvault Handle</label>
+                    <label class="text-blue-400 text-xs">Qvault Handle</label>
                   </span>
                 </div>
                 <div>
@@ -95,7 +95,7 @@
                       :placeholder="firstName"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">First Name</label>
+                    <label class="text-blue-400 text-xs">First Name</label>
                   </span>
                 </div>
                 <div>
@@ -106,7 +106,7 @@
                       :placeholder="lastName"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">Last Name</label>
+                    <label class="text-blue-400 text-xs">Last Name</label>
                   </span>
                 </div>
 
@@ -118,7 +118,7 @@
                       :placeholder="jobTitle"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">Job Title</label>
+                    <label class="text-blue-400 text-xs">Job Title</label>
                   </span>
                 </div>
                 <div>
@@ -129,7 +129,7 @@
                       :placeholder="location"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs"
+                    <label class="text-blue-400 text-xs"
                       >Location (City, Country)</label
                     >
                   </span>
@@ -142,7 +142,7 @@
                       :placeholder="websiteURL"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">Website</label>
+                    <label class="text-blue-400 text-xs">Website</label>
                   </span>
                 </div>
 
@@ -154,7 +154,7 @@
                       :placeholder="twitterHandle"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">Twitter Handle</label>
+                    <label class="text-blue-400 text-xs">Twitter Handle</label>
                   </span>
                 </div>
                 <div>
@@ -165,7 +165,7 @@
                       :placeholder="linkedinURL"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">Linkedin URL</label>
+                    <label class="text-blue-400 text-xs">Linkedin URL</label>
                   </span>
                 </div>
                 <div>
@@ -176,7 +176,7 @@
                       :placeholder="githubHandle"
                       type="text"
                     />
-                    <label class="text-gold-600 text-xs">Github Username</label>
+                    <label class="text-blue-400 text-xs">Github Username</label>
                   </span>
                 </div>
 
@@ -188,10 +188,10 @@
                   <textarea
                     v-model="user.bio"
                     :placeholder="bio"
-                    class="autoexpand tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full border rounded focus:outline-none border-gray-300"
+                    class="bg-gray-700 autoexpand tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full rounded focus:outline-none"
                     rows="4"
                   />
-                  <label class="text-gold-600 text-xs">Bio</label>
+                  <label class="text-blue-400 text-xs">Bio</label>
                 </div>
 
                 <div class="lg:col-span-3 md:col-span-2 col-span-1 text-center">
@@ -208,7 +208,7 @@
               <p>
                 To sync or re-sync your account, type the "/sync" command in the
                 <a
-                  class="text-gold-600 underline"
+                  class="text-blue-400 underline"
                   href="https://discord.com/channels/551921866173054977/921896108853178398"
                   target="_blank"
                   >#bot-cli</a
@@ -217,7 +217,7 @@
               </p>
               <div class="flex flex-col justify-center items-center p-4">
                 <span>
-                  <code class="p-1 rounded bg-gray-800 text-gray-200">
+                  <code class="p-1 rounded bg-gray-700 text-gray-200">
                     {{ $store.getters.getUser?.APIKey }}
                   </code>
                 </span>
