@@ -1,11 +1,9 @@
 <template>
   <div class="flex flex-col justify-start h-full overflow-auto">
-    <TopNav title="Getting Started" />
-
     <div class="flex flex-col justify-center items-center flex-1 p-4">
       <Section
         title="1. Install Discord"
-        subtitle="Free access to live workshops, mentors, job opportunities and more"
+        subtitle="We noticed you weren't synced! For free access to live workshops, mentors, job opportunities and more"
         class="max-w-2xl mb-4 w-full"
       >
         <div>
@@ -66,12 +64,7 @@
             </div>
 
             <div class="text-center mt-2">
-              <BlockButton
-                :link="{
-                  name: 'SignupFlowRecruiters',
-                  query: { redirect: $route.query.redirect },
-                }"
-              >
+              <BlockButton :click="onClickDone">
                 Done, I'm connected!
               </BlockButton>
             </div>
@@ -81,20 +74,23 @@
     </div>
   </div>
 </template>
-
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import TopNav from "@/components/TopNav.vue";
 import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
 import { loadUser } from "@/lib/cloudStore.js";
 
 export default {
   components: {
-    TopNav,
     Section,
     BlockButton,
     FontAwesomeIcon,
+  },
+  props: {
+    onDone: {
+      type: Function,
+      required: true,
+    },
   },
   async mounted() {
     await loadUser(this.$store.commit);
@@ -102,6 +98,9 @@ export default {
   methods: {
     discordClick() {
       window.open("https://discord.gg/EEkFwbv", "_blank");
+    },
+    onClickDone() {
+      this.onDone();
     },
   },
 };

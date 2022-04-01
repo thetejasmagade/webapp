@@ -72,9 +72,9 @@ export async function loadSubscriptionPlans(thisComponent) {
   thisComponent.$store.commit("setSubscriptionPlans", subscriptionPlans);
 }
 
-export async function loadUser(thisComponent) {
+export async function loadUser(commit) {
   const user = await getUser();
-  thisComponent.$store.commit("setUser", user);
+  commit("setUser", user);
 }
 
 export function loadLoggedIn(thisComponent) {
