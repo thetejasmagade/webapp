@@ -6,7 +6,7 @@
       class="max-w-4xl"
     >
       <div v-if="!claimed" class="flex flex-col items-center p-4">
-        <h2 class="text-gold-600 text-2xl font-bold">
+        <h2 class="text-blue-400 text-2xl font-bold">
           {{ achievementEarned?.AchievementTitle }}
         </h2>
         <img
@@ -28,11 +28,11 @@
       <div v-else class="flex flex-col items-center p-4">
         <img loading="lazy" src="@/img/gem-5.png" class="w-60" />
         <div class="mb-4">
-          <h2 class="text-gold-600 text-xl">Congragulations!</h2>
+          <h2 class="text-blue-400 text-xl">Congragulations!</h2>
         </div>
 
         <div class="mb-8">
-          <h3 class="text-blue-600 text-3xl font-bold">
+          <h3 class="text-blue-400 text-3xl font-bold">
             You earned {{ gemNum }} Gems
           </h3>
         </div>

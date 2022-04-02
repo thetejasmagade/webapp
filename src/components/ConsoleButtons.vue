@@ -20,7 +20,7 @@
         v-if="cheatCost != null"
         class="mr-3"
         :click="cheatCallback"
-        :color="isCheating ? 'gold' : 'gray'"
+        :color="isCheating ? 'blue' : 'gray'"
         :disabled="notEnoughGemsToCheat"
       >
         <FontAwesomeIcon icon="eye" />

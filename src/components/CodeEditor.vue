@@ -35,7 +35,7 @@
         </div>
         <MultipaneResizer layout="vertical" />
         <div
-          class="w-full p-2 flex-0 bg-gray-800 border-t-2 border-b border-gray-600"
+          class="w-full p-2 flex-0 bg-gray-800 border-t border-b border-gray-600"
         >
           <ConsoleButtons
             :run-callback="runCode"

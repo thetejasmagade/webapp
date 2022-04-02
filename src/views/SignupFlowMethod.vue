@@ -32,7 +32,7 @@
           <p class="mb-4 text-center">
             You can read more about our
             <a
-              class="text-gold-600 underline"
+              class="text-blue-400 underline hover:text-blue-300"
               href="https://qvault.io/method"
               target="_blank"
               >method here</a

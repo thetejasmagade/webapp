@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center">
-    <div class="rounded w-4/5 max-w-md bg-blue-800 text-gray-200 my-8">
+    <div class="rounded w-4/5 max-w-md bg-gray-900 text-gray-200 my-8">
       <h2 class="my-4 text-lg px-4 max-w-xl">
         {{ question }}
       </h2>
@@ -23,7 +23,7 @@
       v-if="sandbox"
       class="text-lg w-4/5 m-4 max-w-md"
       :click="sandboxClick"
-      color="gold"
+      color="blue"
     >
       <span>{{ buttonText }}</span>
     </BlockButton>

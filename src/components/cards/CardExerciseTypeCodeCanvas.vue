@@ -3,7 +3,7 @@
     <div class="h-full hidden lg:block">
       <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
         <MarkdownWithHint
-          class="flex flex-col w-1/2 bg-white border-r border-gray-300"
+          class="flex flex-col w-1/2 border-r border-gray-500"
           :markdown-source="markdownSource"
           :hint-markdown-source="hintMarkdownSource"
           :hint-callback="hintCallback"

@@ -12,7 +12,7 @@
           <div class="flex flex-col p-4">
             <p>
               <a
-                class="underline text-gold-600"
+                class="underline text-blue-400 hover:text-blue-300"
                 href="https://discord.com/download"
                 target="_blank"
                 >Download the free Discord desktop client.</a
@@ -42,14 +42,14 @@
             <p>
               Once you're in, read the
               <a
-                class="text-gold-600 underline"
+                class="text-blue-400 underline hover:text-blue-300"
                 href="https://discord.com/channels/551921866173054977/920160977788502036"
                 target="_blank"
                 >#start-here</a
               >
               channel. You'll be asked to type the "/sync" command in the
               <a
-                class="text-gold-600 underline"
+                class="text-blue-400 underline hover:text-blue-300"
                 href="https://discord.com/channels/551921866173054977/921896108853178398"
                 target="_blank"
                 >#bot-cli</a

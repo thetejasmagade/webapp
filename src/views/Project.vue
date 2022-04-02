@@ -258,7 +258,7 @@ export default {
         }
         return {
           name: `Step ${i + 1} of ${project.value?.Steps.length}`,
-          color: isStepComplete ? "gold" : null,
+          color: isStepComplete ? "blue" : null,
           link: {
             name: "Project",
             params: {

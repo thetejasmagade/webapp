@@ -1,10 +1,10 @@
 <template>
   <Modal ref="confirmModal">
     <div>
-      <h1 class="text-2xl text-gold-600 mb-4">
+      <h1 class="text-2xl text-blue-400 mb-4">
         {{ heading }}
       </h1>
-      <p class="text-gray-600 mb-4">
+      <p class="mb-4">
         {{ text }}
       </p>
       <BlockButton

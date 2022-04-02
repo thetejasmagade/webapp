@@ -30,7 +30,7 @@
         :on-done="onSeenInsert"
       />
       <ExerciseSkeleton v-else-if="!isContentLoaded" />
-      <div v-else class="h-full flex-col sm:flex bg-white">
+      <div v-else class="h-full flex-col sm:flex">
         <ExerciseNav
           class="p-3 w-full box-border shadow z-10"
           :dropdown-one-items="dropdownModules"
@@ -312,7 +312,7 @@ export default {
         }
         return {
           name: `Chapter ${i + 1}: ${mod.Title}`,
-          color: isChapterComplete ? "gold" : null,
+          color: isChapterComplete ? "blue" : null,
           link: {
             name: "Course",
             params: {
@@ -337,7 +337,7 @@ export default {
         }
         return {
           name: `Exercise ${i + 1} of ${exercises.value.length}`,
-          color: isExerciseComplete ? "gold" : null,
+          color: isExerciseComplete ? "blue" : null,
           link: {
             name: "Course",
             params: {

@@ -7,7 +7,7 @@
         class="py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
         :class="{
           'bg-gray-800': routePath.includes(tab.route),
-          'bg-gray-600': !routePath.includes(tab.route),
+          'bg-gray-750': !routePath.includes(tab.route),
         }"
         :to="{ name: tab.componentName }"
       >

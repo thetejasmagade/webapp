@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="hidden lg:block">
-      <Multipane layout="horizontal" class="flex-1 overflow-y-auto">
+  <div class="h-full overflow-auto bg-gray-750">
+    <div class="h-full hidden lg:block">
+      <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
         <MarkdownWithHint
-          class="flex flex-col w-1/2 bg-white border-r border-gray-300"
+          class="flex flex-col w-1/2 border-r border-gray-500"
           :markdown-source="markdownSource"
           :hint-markdown-source="hintMarkdownSource"
           :hint-callback="hintCallback"
@@ -12,7 +12,7 @@
         />
         <MultipaneResizer layout="horizontal" />
         <MultipleChoice
-          class="h-full flex flex-col flex-1 overflow-auto bg-white"
+          class="h-full flex flex-col flex-1 overflow-auto"
           :callback="callback"
           :answers="answers"
           :question="question"

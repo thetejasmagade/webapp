@@ -122,12 +122,18 @@ export default {
 
 :root {
   --red-500: #ed4245;
+  --red-700: #cd1316;
 
   --yellow-600: #fee034;
   --yellow-800: #dfbe01;
 
+  --blue-300: #b4baf8;
+  --blue-400: #8d96f6;
+
   --gray-200: #e5e5e5;
-  --gray-700: #1123e4;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
 
   --top-nav-bar-height: 60px;
 }

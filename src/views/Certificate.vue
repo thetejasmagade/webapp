@@ -1,6 +1,6 @@
 <template>
   <div class="page h-full">
-    <BlockButton :click="download" color="gold" class="absolute top-4 left-4">
+    <BlockButton :click="download" color="blue" class="absolute top-4 left-4">
       <FontAwesomeIcon icon="download" />
       Download
     </BlockButton>
@@ -8,30 +8,26 @@
       <div class="cert flex justify-center p-8">
         <div
           id="cert"
-          class="flex justify-center p-4 w-11/12 bg-gray-200 border-gold-500 border-2"
+          class="flex justify-center p-4 w-11/12 bg-gray-700 text-gray-200"
         >
           <div
-            class="inner-content border-gold-500 border-2 p-4 w-full text-center"
+            class="inner-content border-gray-500 border-2 p-4 w-full text-center rounded"
           >
-            <h1 class="text-6xl mt-4 text-gold-600 font-light">
+            <h1 class="text-6xl mt-4 text-blue-400 font-light">
               CERTIFICATE OF COMPLETION
             </h1>
-            <p
-              class="text-lg border-gold-500 border-b-2 pb-2 text-gray-800 font-thin"
-            >
-              FROM QVAULT.IO IN THE AREA OF COMPUTER SCIENCE
+            <p class="text-lg border-blue-400 border-b-2 pb-2 font-thin">
+              FROM BOOT.DEV IN THE AREA OF COMPUTER SCIENCE
             </p>
-            <div class="border-gold-500 border-b-2 pb-2 mb-8" />
+            <div class="border-blue-400 border-b-2 pb-2 mb-8" />
             <p class="text-xl mb-2 font-light">
               This Certificate Is Proudly Presented To
             </p>
-            <p class="text-6xl mb-8 text-blue-700 font-bold">
+            <p class="text-6xl mb-8 text-blue-400 font-bold">
               {{ user.FirstName }} {{ user.LastName }}
             </p>
-            <p class="text-xl mb-2 font-light">Who Has Completed</p>
-            <p class="text-4xl mb-8 font-bold text-gray-600">
-              Qvault's {{ course.Title }} Course
-            </p>
+            <p class="text-xl mb-2 font-light">Who Has Completed Boot.dev's</p>
+            <p class="text-4xl mb-8 font-bold">{{ course.Title }} Course</p>
             <p class="text-2xl font-light">On {{ computedDate }}</p>
             <div class="flex justify-around p-8">
               <img
@@ -40,7 +36,6 @@
                 src="../img/qvault-icon-250.png"
                 class="align-middle w-24 h-24 ml-2"
               />
-              <FontAwesomeIcon icon="ribbon" class="text-gold-500 text-8xl" />
             </div>
           </div>
         </div>

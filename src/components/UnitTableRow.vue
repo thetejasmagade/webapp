@@ -81,7 +81,7 @@ export default {
         return "https://cdn.iconscout.com/icon/free/png-256/javascript-2752148-2284965.png";
       }
       if (this.interests.includes("Golang")) {
-        return "https://styles.redditmedia.com/t5_2rc7j/styles/communityIcon_wy4riduoe9k11.png";
+        return "https://user-images.githubusercontent.com/19890545/150690287-d7a7a4c0-ce89-4c49-8043-5af0348e615e.png";
       }
       return null;
     },

@@ -14,7 +14,7 @@ export function notify({ type, text }) {
 
 function color(type) {
   if (type === "danger") {
-    return "#C05460";
+    return "#ED4245";
   }
-  return "#C08f54";
+  return "#5865F2";
 }

@@ -9,7 +9,7 @@
       />
     </div>
     <div class="flex-1">
-      <h2 class="text-xl mb-4 text-gold-700">
+      <h2 class="text-xl mb-4 text-blue-400">
         {{ title }}
       </h2>
       <p class="mb-4">

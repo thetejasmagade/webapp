@@ -10,7 +10,7 @@
     >
       <svg
         class="blockh-8 w-8"
-        :class="[modelValue >= i ? 'text-gold-500' : 'text-gray-500']"
+        :class="[modelValue >= i ? 'text-blue-500' : 'text-gray-500']"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"

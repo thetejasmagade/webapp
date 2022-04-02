@@ -261,7 +261,7 @@
               I built Qvault based on the lessons I've been learning as an
               engineering hiring manager. You can read about
               <a
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 href="https://qvault.io/method"
                 target="_blank"
                 >our methodology here</a
@@ -277,7 +277,7 @@
               Currently we're offering a
               <a
                 target="_blank"
-                class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
                 href="https://forms.gle/poQckVBir9XZA7L39"
                 >25% discount to anyone who completes this feedback form.</a
               >

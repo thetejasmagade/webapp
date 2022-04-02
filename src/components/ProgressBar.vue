@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="w-full bg-gray-200 h-full">
+    <div class="w-full bg-gray-800 h-full">
       <div
-        class="bg-gold-400 h-2 transition"
+        class="bg-blue-400 h-2 transition"
         :style="`width: ${styleWidth}%; transition: width 2s;`"
       />
     </div>

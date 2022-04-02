@@ -7,16 +7,18 @@
       :enforce-focus="true"
       :opacity="0.8"
       :loader="'bars'"
+      background-color="#000"
+      color="#e5e5e5"
     >
       <template v-if="cancel" #before>
         <div>
-          <h2 v-if="displayText" class="text-2xl text-gold-600">
+          <h2 v-if="displayText" class="text-2xl text-blue-400">
             {{ displayText }}
           </h2>
         </div>
       </template>
       <template v-if="cancel" #after>
-        <BlockButton :click="cancel" color="gray"> Cancel </BlockButton>
+        <BlockButton :click="cancel" color="gray">Cancel</BlockButton>
       </template>
     </VueLoadingOverlay>
   </div>

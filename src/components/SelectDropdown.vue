@@ -5,12 +5,12 @@
         <button
           class="inline-flex justify-center w-full px-4 py-2 leading-6 transition duration-150 ease-in-out rounded-md focus:outline-none"
           :class="{
-            'hover:text-gray-400': selected.color !== 'gold',
-            'text-gray-800': selected.color !== 'gold',
-            'bg-gray-200': selected.color !== 'gold',
-            'hover:bg-blue-400': selected.color === 'gold',
-            'text-gray-200': selected.color === 'gold',
-            'bg-blue-500': selected.color === 'gold',
+            'hover:text-gray-400': selected.color !== 'blue',
+            'text-gray-800': selected.color !== 'blue',
+            'bg-gray-200': selected.color !== 'blue',
+            'hover:bg-blue-400': selected.color === 'blue',
+            'text-gray-200': selected.color === 'blue',
+            'bg-blue-500': selected.color === 'blue',
           }"
           type="button"
           aria-haspopup="true"
@@ -47,12 +47,12 @@
             tabindex="0"
             class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
             :class="{
-              'hover:text-gray-400': option.color !== 'gold',
-              'text-gray-800': option.color !== 'gold',
-              'bg-gray-200': option.color !== 'gold',
-              'hover:bg-blue-400': option.color === 'gold',
-              'text-gray-200': option.color === 'gold',
-              'bg-blue-500': option.color === 'gold',
+              'hover:text-gray-400': option.color !== 'blue',
+              'text-gray-800': option.color !== 'blue',
+              'bg-gray-200': option.color !== 'blue',
+              'hover:bg-blue-400': option.color === 'blue',
+              'text-gray-200': option.color === 'blue',
+              'bg-blue-500': option.color === 'blue',
             }"
             role="menuitem"
             @click="

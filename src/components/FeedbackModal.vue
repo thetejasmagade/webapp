@@ -1,13 +1,11 @@
 <template>
   <Modal ref="feedbackModal">
     <div>
-      <h1 class="text-2xl text-gold-600 mb-4">
-        What do you think of this exercise?
-      </h1>
+      <h1 class="text-2xl mb-4">What do you think of this exercise?</h1>
       <textarea
         v-model="commentText"
         placeholder="Let us know how to improve this page"
-        class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-200 border rounded focus:outline-none border-gray-300"
+        class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-800 rounded focus:outline-none"
         rows="4"
       />
       <BlockButton

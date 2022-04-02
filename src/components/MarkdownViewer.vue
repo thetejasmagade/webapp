@@ -120,16 +120,18 @@ export default {
 }
 
 .viewer code {
-  color: var(--red-500);
+  background: var(--gray-800);
+  padding: 3px 6px 3px 6px;
+  border-radius: 4px;
 }
 
 .viewer a {
-  color: var(--yellow-600);
+  color: var(--blue-400);
   text-decoration: underline;
 }
 
 .viewer a:hover {
-  color: var(--yellow-800);
+  color: var(--blue-300);
 }
 
 .viewer img {

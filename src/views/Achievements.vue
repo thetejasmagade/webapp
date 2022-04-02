@@ -20,11 +20,11 @@
             :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
             <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
-              <p class="text-gold-600 text-xl mb-2">
+              <p class="text-blue-400 text-lg mb-2">
                 {{ userAchievement.Title }}
               </p>
 
-              <p class="text-center">
+              <p class="text-center text-sm">
                 {{ userAchievement.Description }}
               </p>
             </div>
@@ -50,11 +50,11 @@
             :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
             <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
-              <p class="text-gold-600 text-xl mb-2">
+              <p class="text-blue-400 text-lg mb-2">
                 {{ userAchievement.Title }}
               </p>
 
-              <p class="text-center">
+              <p class="text-center text-sm">
                 {{ userAchievement.Description }}
               </p>
             </div>
@@ -80,11 +80,11 @@
             :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
           >
             <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
-              <p class="text-gold-600 text-xl mb-2">
+              <p class="text-blue-400 text-lg mb-2">
                 {{ userAchievement.Title }}
               </p>
 
-              <p class="text-center">
+              <p class="text-center text-sm">
                 {{ userAchievement.Description }}
               </p>
             </div>

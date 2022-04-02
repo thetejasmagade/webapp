@@ -25,7 +25,7 @@
         <span class="flex-1 ml-2">
           I've read and agree to the
           <a
-            class="underline cursor-pointer text-gold-600 hover:text-gold-800"
+            class="underline cursor-pointer text-blue-400 hover:text-blue-300"
             href="https://qvault.io/terms-of-service/"
           >
             terms
