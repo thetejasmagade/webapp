@@ -45,7 +45,7 @@
         <ToggleSwitch v-model="tosAccepted" />
         <span class="ml-2">
           I've read and agree to the
-          <a href="https://qvault.io/terms-of-service/">terms</a>
+          <a href="https://blog.boot.dev/terms">terms</a>
         </span>
       </div>
 

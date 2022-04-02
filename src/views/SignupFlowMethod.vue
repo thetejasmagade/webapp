@@ -33,7 +33,7 @@
             You can read more about our
             <a
               class="text-blue-400 underline hover:text-blue-300"
-              href="https://qvault.io/method"
+              href="https://blog.boot.dev/about"
               target="_blank"
               >method here</a
             >

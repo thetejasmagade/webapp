@@ -8,7 +8,7 @@
     "build": "vite build --out-dir dist && echo '/* /index.html 200' >> dist/_redirects",
     "lint": "eslint . --ext .js,.ts,.tsx,.vue",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx,.vue",
-    "sitemap": "node ./node_modules/sitemap-generator-cli https://app.qvault.io --user-agent Googlebot --max-concurrency 100 --filepath public/sitemap.xml"
+    "sitemap": "node ./node_modules/sitemap-generator-cli https://boot.dev --user-agent Googlebot --max-concurrency 100 --filepath public/sitemap.xml"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.3.0",

@@ -80,7 +80,6 @@
 
               <router-link
                 to="/pricing"
-                href="https://app.qvault.io/pricing"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Pricing

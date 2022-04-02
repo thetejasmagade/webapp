@@ -262,7 +262,7 @@
               engineering hiring manager. You can read about
               <a
                 class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                href="https://qvault.io/method"
+                href="https://blog.boot.dev/about"
                 target="_blank"
                 >our methodology here</a
               >, but in a nutshell I've learned that entry-level developers
@@ -320,7 +320,7 @@
               take advantage of our
               <a
                 class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                href="https://qvault.io/return-policy/"
+                href="https://blog.boot.dev/return-policy/"
                 >return policy.</a
               >
               If you contact us within 30 days of your purchase you're entitled

@@ -1,8 +1,8 @@
 # webapp
 
-Qvault's web app frontend - https://app.qvault.io
+Boot.dev's web app frontend - https://boot.dev
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1e61fa8a-eb49-4d5b-96e0-b1696a617e58/deploy-status)](https://app.netlify.com/sites/qvaultclassroom/deploys) ![Tests](https://github.com/qvault/webapp/workflows/Tests/badge.svg)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1e61fa8a-eb49-4d5b-96e0-b1696a617e58/deploy-status)](https://app.netlify.com/sites/qvaultclassroom/deploys) ![Tests](https://github.com/bootdotdev/webapp/workflows/Tests/badge.svg)
 
 ## 🚀 Quick Start
 

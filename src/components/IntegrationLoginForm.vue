@@ -26,7 +26,7 @@
           I've read and agree to the
           <a
             class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-            href="https://qvault.io/terms-of-service/"
+            href="https://blog.boot.dev/terms"
           >
             terms
           </a>
