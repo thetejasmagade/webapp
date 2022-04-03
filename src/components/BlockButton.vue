@@ -2,7 +2,7 @@
   <button
     v-if="click"
     type="submit"
-    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 shadow"
+    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103"
     :class="colors"
     :disabled="disabled"
     :style="{
@@ -15,7 +15,7 @@
   <router-link
     v-else-if="link"
     :to="link"
-    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 shadow"
+    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103"
     :class="colors"
     :disabled="disabled"
     :style="{
@@ -27,7 +27,7 @@
   <button
     v-else
     type="submit"
-    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 shadow"
+    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103"
     :class="colors"
     :disabled="disabled"
     :style="{
