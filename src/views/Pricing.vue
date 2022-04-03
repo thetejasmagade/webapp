@@ -190,24 +190,24 @@
           <div class="max-w-4xl flex flex-col py-8">
             <Testimonial
               class="mb-10"
-              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2022/02/megan_astraus-300x300.jpeg"
+              profile-image-u-r-l="/src/img/megan_astraus-300x300.webp"
               title="Megan Astraus from Arizona, USA"
               description="My first interaction with Qvault was through a resume event where Lane and the community spent a great deal of time combing through my resume and helping me make updates. The wealth of knowledge from the hungry programmers in the Discord helped me land my first software developer job just a month after that resume event!"
             />
             <Testimonial
               class="mb-5"
-              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2022/01/daniel-gerep-300x300.jpeg"
+              profile-image-u-r-l="/src/img/daniel-gerep-300x300.webp"
               title="Daniel Gerep from Cássia, Brazil"
               description="I’m a senior engineer learning Go, and the pace of Qvault’s courses has been perfect for me. The diverse community in Discord makes the weekly events a blast, and the members are quick to help out with detailed answers and explanations."
             />
             <Testimonial
               class="mb-5"
-              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2021/12/O%CC%88zgu%CC%88r-Yildirim-1-300x300.jpeg"
+              profile-image-u-r-l="/src/img/ozy-300x300.webp"
               title="Özgür Yildirim from Esslingen, Germany"
               description="I’m a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren’t an option because of work and wanting time with my kid! I came across Qvault after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I’d made the right decision going with Qvault."
             />
             <Testimonial
-              profile-image-u-r-l="https://qvault.io/wp-content/uploads/2021/12/0-150x150-1.jpeg"
+              profile-image-u-r-l="/src/img/0-150x150-1.webp"
               title="Ignacio Contreras from Guanajuato, Mexico"
               description="I love how simple it is to find relevant content on Qvault. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."
             />

@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center items-center flex-col">
-    <img loading="lazy" class="w-3/5" src="../img/gem-3-150.png" />
+    <img loading="lazy" class="w-3/5" src="/src/img/gem-3-150.png" />
     <span v-if="text" class="text-md">
       {{ text }}
     </span>

@@ -51,7 +51,7 @@ func main(){
 // on Qvault's servers then
 // executes on your machine
 // read about it on my blog:
-// https://qvault.io/golang/running-go-in-the-browser-with-web-assembly-wasm`;
+// https://blog.boot.dev/golang/running-go-in-the-browser-with-web-assembly-wasm`;
   }
 
   if (lang === "js") {
@@ -81,7 +81,7 @@ console.log("hello, world")
 # We use a Python interpreter that's compiled to Web Assembly
 # to run code right in your browser using a Web Worker
 # read about it on my blog: 
-# https://qvault.io/python/running-python-in-the-browser-with-web-assembly
+# https://blog.boot.dev/python/running-python-in-the-browser-with-web-assembly
         `;
   }
   if (lang === "purs") {

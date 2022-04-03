@@ -11,7 +11,7 @@
         <img
           loading="lazy"
           alt="Qvault logo"
-          src="../img/qvault-icon-250.png"
+          src="/src/img/qvault-icon-250.png"
           class="mx-auto w-24 mb-3"
         />
 

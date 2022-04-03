@@ -33,7 +33,7 @@
               <img
                 loading="lazy"
                 alt="Qvault logo"
-                src="../img/qvault-icon-250.png"
+                src="/src/img/qvault-icon-250.png"
                 class="align-middle w-24 h-24 ml-2"
               />
             </div>
