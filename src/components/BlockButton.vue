@@ -69,7 +69,7 @@ export default {
         "text-white": this.color !== "white",
 
         "bg-gray-500": this.color === "gray",
-        "hover:bg-gray-700": this.color === "gray",
+        "hover:bg-gray-600": this.color === "gray",
         "disabled:bg-gray-500": this.color === "gray",
 
         "bg-green-800": this.color === "green",
