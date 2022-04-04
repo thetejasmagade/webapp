@@ -83,6 +83,49 @@
       </Section>
 
       <Section
+        :title="`What will I learn?`"
+        :subtitle="`Practice computer science fundamentals by writing modern code`"
+        class="max-w-4xl w-full mb-5 mt-4"
+      >
+        <div class="p-4">
+          <div
+            class="flex flex-row justify-evenly p-4 bg-gray-900 rounded mb-4"
+          >
+            <img
+              class="rounded w-36"
+              src="https://richstone.github.io/assets/images/logos/python-logo-small.png"
+            />
+            <img
+              class="rounded w-36"
+              src="https://cdn.iconscout.com/icon/free/png-256/javascript-2752148-2284965.png"
+            />
+            <img
+              class="rounded w-36"
+              src="https://user-images.githubusercontent.com/19890545/150690287-d7a7a4c0-ce89-4c49-8043-5af0348e615e.png"
+            />
+          </div>
+
+          <p class="mb-4">
+            We have a variety of courses written in Python, Golang, and
+            JavaScript, with more languages coming in the future. Each course
+            emphasizes CS principles, not simply frameworks and technologies.
+          </p>
+          <p class="mb-4">
+            Computer science concepts and engineering best practices rarely
+            change. Popular languages and frameworks come and go.
+          </p>
+          <p class="mb-4">
+            You can check out all of our
+            <router-link
+              class="underline cursor-pointer text-blue-400 hover:text-blue-300"
+              to="/courses"
+              >courses and tracks here.</router-link
+            >
+          </p>
+        </div>
+      </Section>
+
+      <Section
         :title="`What students say about Boot.dev`"
         :subtitle="`Join over 12,000 developers learning on Boot.dev`"
         class="max-w-4xl w-full mb-5 mt-4"
@@ -115,12 +158,101 @@
       </Section>
 
       <Section
-        :title="`Principles that guide our unique methodology`"
-        :subtitle="`We have some strong opinions that will make your life easier`"
+        :title="`We have strong beliefs about the best way to learn to code`"
+        :subtitle="`Traditional education options for programmers have a lot of problems`"
         class="max-w-4xl w-full mb-5 mt-4"
       >
-        <div class="p-4"></div>
+        <div class="p-4">
+          <ul class="list-disc mb-4">
+            <li>
+              Finding information is easy. Finding the best information is hard.
+            </li>
+            <li>
+              As programming becomes easier, differentiating yourself becomes
+              harder.
+            </li>
+            <li>A mix of guided and unguided learning is essential.</li>
+            <li>Boot camps are too fast, degrees are too slow.</li>
+            <li>
+              Learning the “soft lessons” from mentors is as important as
+              grokking cold-hard facts.
+            </li>
+            <li>Mastery is important, grades are not.</li>
+            <li>The future of learning is online.</li>
+            <li>
+              It’s only enjoyable to solve problems that you have the tools to
+              solve.
+            </li>
+            <li>T-shaped developers are the most successful.</li>
+            <li>You need to have the skills and be able to prove them too.</li>
+            <li>
+              If you don’t define your career goals, you’ll never know when
+              you’re ready for your first job.
+            </li>
+            <li>The ideal first coding job is not freelancing.</li>
+          </ul>
+          <div class="text-center w-full">
+            <a
+              href="https://blog.boot.dev/about"
+              class="underline text-blue-400 hover:text-blue-300"
+            >
+              Read more about the details on our guiding principles here.
+            </a>
+          </div>
+        </div>
       </Section>
+
+      <Section
+        :title="`Community is key`"
+        :subtitle="`The primary reason students don't make it through their online education is a lack of social support`"
+        class="max-w-4xl w-full mb-5 mt-4"
+      >
+        <div class="p-4">
+          <div class="flex justify-center mb-4">
+            <img
+              loading="lazy"
+              src="/src/img/undraw_Community_re_cyrm-768x578.webp"
+              width="400"
+              class="rounded object-cover"
+              :class="{
+                'rounded-b-none': hasSlots,
+              }"
+            />
+          </div>
+          <ul class="list-disc mb-4">
+            <li>
+              Participate in our weekly coding workshops to improve your
+              interviewing skills and learn about interesting applications of
+              computer science
+            </li>
+            <li>
+              Share your career goals and get advice from mentors and peers
+            </li>
+            <li>
+              Bring your resume to our resume review sessions and we’ll help you
+              shine on paper
+            </li>
+            <li>
+              Build projects and work on courses with other members to build an
+              outstanding portfolio
+            </li>
+            <li>
+              Leverage our community to find the jobs you want to apply for
+            </li>
+          </ul>
+          <a
+            href="https://discord.gg/EEkFwbv"
+            target="_blank"
+            class="underline text-blue-400 hover:text-blue-300"
+          >
+            Join the Discord community here
+          </a>
+        </div>
+      </Section>
+
+      <div class="max-w-4xl mb-4">
+        <FAQ />
+      </div>
     </div>
   </div>
 </template>
@@ -140,6 +272,7 @@ import TopNav from "@/components/TopNav.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
 import Testimonial from "@/components/Testimonial.vue";
+import FAQ from "@/components/FAQ.vue";
 
 export default {
   components: {
@@ -149,6 +282,7 @@ export default {
     TopNav,
     Section,
     Testimonial,
+    FAQ,
   },
   data() {
     return {

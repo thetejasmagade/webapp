@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen text-gray-200 bg-gray-700">
+  <div class="h-screen text-gray-200 bg-gray-700 text-lg">
     <metainfo>
       <template #title="{ content }">
         {{ content ? `${content} | Qvault` : `Qvault` }}
