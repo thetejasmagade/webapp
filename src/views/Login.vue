@@ -4,89 +4,123 @@
       <TopNav />
     </div>
 
-    <div class="grid place-items-center mx-2 my-20 sm:my-auto">
-      <div
-        class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 px-6 py-10 sm:px-10 sm:py-6 bg-gray-800 rounded-lg mb-8"
+    <div
+      class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
+    >
+      <Section class="max-w-4xl w-full mb-5 mt-4">
+        <div class="p-4">
+          <h1 class="text-blue-400 font-bold text-4xl mb-2">
+            Real code. Modern programming languages.
+          </h1>
+          <h2 class="text-xl mb-2">
+            We teach computer science through hands-on coding projects. We’re
+            built for developers who want to advance their careers.
+          </h2>
+
+          <div v-if="state === 'integration'">
+            <IntegrationLoginForm />
+            <div class="text-center">
+              <p>
+                Don't like integrations?
+                <a
+                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
+                  @click="state = 'register'"
+                >
+                  Use a magic link
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <div v-if="state === 'register'">
+            <MagicLinkRegister />
+            <div class="text-center">
+              <p>
+                Have an integration?
+                <a
+                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
+                  @click="state = 'integration'"
+                >
+                  Sign in with a third party
+                </a>
+              </p>
+              <p>
+                Have an account?
+                <a
+                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
+                  @click="state = 'login'"
+                >
+                  Login
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <div v-if="state === 'login'">
+            <MagicLinkLogin />
+            <div class="text-center">
+              <p>
+                Need an account?
+                <a
+                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
+                  @click="state = 'register'"
+                >
+                  Sign up free
+                </a>
+              </p>
+              <p>
+                Have an integrated account?
+                <a
+                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
+                  @click="state = 'integration'"
+                >
+                  Sign in with a third party
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section
+        :title="`What students say about Boot.dev`"
+        :subtitle="`Join over 12,000 developers learning on Boot.dev`"
+        class="max-w-4xl w-full mb-5 mt-4"
       >
-        <img
-          loading="lazy"
-          alt="Qvault logo"
-          src="/src/img/qvault-icon-250.png"
-          class="mx-auto w-24 mb-3"
-        />
-
-        <h2 class="text-center font-semibold mb-2 text-2xl">
-          Learn coding concepts that
-          <span class="font-bold text-blue-400">get you hired</span>
-        </h2>
-
-        <h3 class="text-center text-gray-500 mb-3">
-          Create a free account to track your progress
-        </h3>
-
-        <div v-if="state === 'integration'">
-          <IntegrationLoginForm />
-          <div class="text-center">
-            <p>
-              Don't like integrations?
-              <a
-                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                @click="state = 'register'"
-              >
-                Use Magic Link
-              </a>
-            </p>
-          </div>
+        <div class="p-4">
+          <Testimonial
+            class="mb-10"
+            profile-image-u-r-l="/src/img/megan_astraus-300x300.webp"
+            title="Megan Astraus from Arizona, USA"
+            description="My first interaction with Boot.dev was through a resume event where Lane and the community spent a great deal of time combing through my resume and helping me make updates. The wealth of knowledge from the hungry programmers in the Discord helped me land my first software developer job just a month after that resume event!"
+          />
+          <Testimonial
+            class="mb-5"
+            profile-image-u-r-l="/src/img/daniel-gerep-300x300.webp"
+            title="Daniel Gerep from Cássia, Brazil"
+            description="I’m a senior engineer learning Go, and the pace of Boot.dev’s courses has been perfect for me. The diverse community in Discord makes the weekly events a blast, and the members are quick to help out with detailed answers and explanations."
+          />
+          <Testimonial
+            class="mb-5"
+            profile-image-u-r-l="/src/img/ozy-300x300.webp"
+            title="Özgür Yildirim from Esslingen, Germany"
+            description="I’m a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren’t an option because of work and wanting time with my kid! I came across Boot.dev after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I’d made the right decision going with Boot.dev."
+          />
+          <Testimonial
+            profile-image-u-r-l="/src/img/0-150x150-1.webp"
+            title="Ignacio Contreras from Guanajuato, Mexico"
+            description="I love how simple it is to find relevant content on Boot.dev. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."
+          />
         </div>
+      </Section>
 
-        <div v-if="state === 'register'">
-          <MagicLinkRegister />
-          <div class="text-center">
-            <p>
-              Have an integration?
-              <a
-                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                @click="state = 'integration'"
-              >
-                Single Sign-On
-              </a>
-            </p>
-            <p>
-              Have an account?
-              <a
-                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                @click="state = 'login'"
-              >
-                Login
-              </a>
-            </p>
-          </div>
-        </div>
-
-        <div v-if="state === 'login'">
-          <MagicLinkLogin />
-          <div class="text-center">
-            <p>
-              Need an account?
-              <a
-                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                @click="state = 'register'"
-              >
-                Sign Up Free
-              </a>
-            </p>
-            <p>
-              Have an integrated account?
-              <a
-                class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                @click="state = 'integration'"
-              >
-                Single Sign-On
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
+      <Section
+        :title="`Principles that guide our unique methodology`"
+        :subtitle="`We have some strong opinions that will make your life easier`"
+        class="max-w-4xl w-full mb-5 mt-4"
+      >
+        <div class="p-4"></div>
+      </Section>
     </div>
   </div>
 </template>
@@ -98,12 +132,14 @@ import { eventRegister, singupMethodGithub } from "@/lib/analytics.js";
 import { loadLoggedIn } from "@/lib/cloudStore.js";
 import { notify } from "@/lib/notification.js";
 
+import Section from "@/components/Section.vue";
 import MagicLinkLogin from "@/components/MagicLinkLogin.vue";
 import MagicLinkRegister from "@/components/MagicLinkRegister.vue";
 import IntegrationLoginForm from "@/components/IntegrationLoginForm.vue";
 import TopNav from "@/components/TopNav.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
+import Testimonial from "@/components/Testimonial.vue";
 
 export default {
   components: {
@@ -111,6 +147,8 @@ export default {
     IntegrationLoginForm,
     MagicLinkLogin,
     TopNav,
+    Section,
+    Testimonial,
   },
   data() {
     return {
@@ -166,7 +204,7 @@ export default {
     const computedMeta = getComputedMeta({
       title: "Login",
       description:
-        "Login or sign up for Qvault's computer science and coding courses. All my courses are free to audit, get started today.",
+        "Login or sign up for Boot.dev's computer science and coding courses. All my courses are free to audit, get started today.",
       image:
         "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
     });

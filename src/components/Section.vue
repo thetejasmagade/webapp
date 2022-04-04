@@ -1,5 +1,5 @@
 <template>
-  <div class="group bg-gray-800 rounded sm:p-8 p-2">
+  <div class="group bg-gray-800 rounded sm:p-8 p-4">
     <div v-if="title || subtitle">
       <div v-if="title" class="text-blue-400 font-bold relative mb-2 text-2xl">
         {{ title }}

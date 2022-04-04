@@ -1,14 +1,9 @@
 <template>
-  <div class="flex flex-row">
-    <div class="mr-4 flex-2 flex items-center">
-      <img
-        width="150"
-        class="rounded-full"
-        loading="lazy"
-        :src="profileImageURL"
-      />
+  <div class="grid sm:grid-cols-[150px_minmax(0,_1fr)] xs:grid-cols-1 gap-4">
+    <div class="flex items-center justify-center">
+      <img width="150" class="rounded" loading="lazy" :src="profileImageURL" />
     </div>
-    <div class="flex-1">
+    <div class="">
       <h2 class="text-xl mb-4 text-blue-400">
         {{ title }}
       </h2>
