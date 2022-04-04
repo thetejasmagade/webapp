@@ -15,7 +15,7 @@
                 target="_blank"
                 >Download the free Discord desktop client.</a
               >
-              Keep the Discord chat and the Qvault website open in separate
+              Keep the Discord chat and the Boot.dev website open in separate
               windows for the best experience.
             </p>
           </div>
@@ -29,7 +29,7 @@
           <div class="flex justify-center">
             <BlockButton :click="discordClick">
               <FontAwesomeIcon :icon="['fab', 'discord']" class="icon" />
-              Join Qvault on Discord
+              Join Boot.dev on Discord
             </BlockButton>
           </div>
         </div>

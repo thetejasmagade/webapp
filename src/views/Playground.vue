@@ -48,7 +48,7 @@ func main(){
 }
 
 // code is compiled to WASM
-// on Qvault's servers then
+// on Boot.dev's servers then
 // executes on your machine
 // read about it on my blog:
 // https://blog.boot.dev/golang/running-go-in-the-browser-with-web-assembly-wasm`;
@@ -68,7 +68,7 @@ ctx.fillRect(300, 300, 500, 500);
 
 console.log("hello, world")
 
-// 'ctx' is predefined by Qvault as a 2d context for drawing
+// 'ctx' is predefined by Boot.dev as a 2d context for drawing
 // The canvas will always be 1000x1000 pixels
 // for the purpose of drawing. You can
 // resize your screen and the canvas will grow/shrink

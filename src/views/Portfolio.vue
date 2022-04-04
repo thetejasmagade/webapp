@@ -89,7 +89,7 @@
 
       <Section
         title="Certifications"
-        subtitle="Download and share Qvault certificates with potential employers to show off your skills"
+        subtitle="Download and share Boot.dev certificates with potential employers to show off your skills"
         class="max-w-2xl w-full mb-5"
       >
         <div
@@ -217,7 +217,7 @@ export default {
     const computedMeta = computed(() => {
       return getComputedMeta({
         title: `${state.user.FirstName}'s Portfolio`,
-        description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
+        description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Boot.dev`,
         image: state.user.ProfileImageURL,
       });
     });

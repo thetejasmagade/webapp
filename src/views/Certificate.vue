@@ -32,7 +32,7 @@
             <div class="flex justify-around p-8">
               <img
                 loading="lazy"
-                alt="Qvault logo"
+                alt="Boot.dev logo"
                 src="/src/img/qvault-icon-250.png"
                 class="align-middle w-24 h-24 ml-2"
               />
@@ -109,7 +109,7 @@ export default {
     const computedMeta = computed(() => {
       return getComputedMeta({
         title: `${state.user.FirstName}'s Certificate of Completion`,
-        description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Qvault`,
+        description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Boot.dev`,
         image: state.user.ProfileImageURL,
       });
     });

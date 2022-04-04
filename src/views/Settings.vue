@@ -84,7 +84,7 @@
                       :placeholder="handle"
                       type="text"
                     />
-                    <label class="text-blue-400 text-xs">Qvault Handle</label>
+                    <label class="text-blue-400 text-xs">Boot.dev Handle</label>
                   </span>
                 </div>
                 <div>
@@ -202,7 +202,7 @@
           </Section>
           <Section
             title="API Key"
-            subtitle="Sync your Discord and Qvault accounts"
+            subtitle="Sync your Discord and Boot.dev accounts"
           >
             <div class="p-4">
               <p>
@@ -380,7 +380,7 @@ export default {
 
     const computedMeta = getComputedMeta({
       title: "Settings",
-      description: "Manage your Qvault settings",
+      description: "Manage your Boot.dev settings",
     });
     useMeta(computedMeta);
   },

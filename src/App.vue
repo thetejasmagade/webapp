@@ -2,7 +2,7 @@
   <div class="h-screen text-gray-200 bg-gray-700 text-lg">
     <metainfo>
       <template #title="{ content }">
-        {{ content ? `${content} | Qvault` : `Qvault` }}
+        {{ content ? `${content} | Boot.dev` : `Boot.dev` }}
       </template>
     </metainfo>
     <router-view :key="$route.fullPath" />

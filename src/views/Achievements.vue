@@ -132,7 +132,7 @@ export default {
 
     const computedMeta = getComputedMeta({
       title: "Achievements",
-      description: "View your Qvault achievements",
+      description: "View your Boot.dev achievements",
     });
     useMeta(computedMeta);
   },
