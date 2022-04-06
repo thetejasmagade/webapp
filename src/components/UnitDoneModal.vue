@@ -11,7 +11,7 @@
         Check out the new certificate on your portfolio then start your next
         course
       </p>
-      <img loading="lazy" src="/src/img/gatsby_toast.gif" />
+      <img loading="lazy" src="/src/img/gatsby_toast.webp" />
       <div class="flex justify-center">
         <BlockButton
           v-if="type === 'course'"
