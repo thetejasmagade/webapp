@@ -133,24 +133,24 @@
         <div class="p-4">
           <Testimonial
             class="mb-10"
-            profile-image-u-r-l="/src/img/megan_astraus-300x300.webp"
+            :profile-image-u-r-l="meganImage"
             title="Megan Astraus from Arizona, USA"
             description="My first interaction with Boot.dev was through a resume event where Lane and the community spent a great deal of time combing through my resume and helping me make updates. The wealth of knowledge from the hungry programmers in the Discord helped me land my first software developer job just a month after that resume event!"
           />
           <Testimonial
             class="mb-5"
-            profile-image-u-r-l="/src/img/daniel-gerep-300x300.webp"
+            :profile-image-u-r-l="danielImage"
             title="Daniel Gerep from Cássia, Brazil"
-            description="I’m a senior engineer learning Go, and the pace of Boot.dev’s courses has been perfect for me. The diverse community in Discord makes the weekly events a blast, and the members are quick to help out with detailed answers and explanations."
+            description="I’m a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord makes the weekly events a blast, and the members are quick to help out with detailed answers and explanations."
           />
           <Testimonial
             class="mb-5"
-            profile-image-u-r-l="/src/img/ozy-300x300.webp"
+            :profile-image-u-r-l="ozyImage"
             title="Özgür Yildirim from Esslingen, Germany"
             description="I’m a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren’t an option because of work and wanting time with my kid! I came across Boot.dev after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I’d made the right decision going with Boot.dev."
           />
           <Testimonial
-            profile-image-u-r-l="/src/img/0-150x150-1.webp"
+            :profile-image-u-r-l="ignacioImage"
             title="Ignacio Contreras from Guanajuato, Mexico"
             description="I love how simple it is to find relevant content on Boot.dev. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."
           />
@@ -274,6 +274,11 @@ import { useMeta } from "vue-meta";
 import Testimonial from "@/components/Testimonial.vue";
 import FAQ from "@/components/FAQ.vue";
 
+import meganImage from "@/img/megan_astraus-300x300.webp";
+import danielImage from "@/img/daniel-gerep-300x300.webp";
+import ozyImage from "@/img/ozy-300x300.webp";
+import ignacioImage from "@/img/0-150x150-1.webp";
+
 export default {
   components: {
     MagicLinkRegister,
@@ -288,6 +293,20 @@ export default {
     return {
       state: "integration",
     };
+  },
+  computed: {
+    meganImage() {
+      return meganImage;
+    },
+    danielImage() {
+      return danielImage;
+    },
+    ozyImage() {
+      return ozyImage;
+    },
+    ignacioImage() {
+      return ignacioImage;
+    },
   },
   async mounted() {
     if (this.$route.query.error) {
