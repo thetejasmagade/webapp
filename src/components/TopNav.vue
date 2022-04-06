@@ -45,7 +45,7 @@
         </div>
 
         <div
-          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-evenly"
         >
           <div class="flex-shrink-0">
             <router-link to="/">
@@ -106,6 +106,16 @@
               >
                 Blog
               </a>
+            </div>
+          </div>
+          <div class="">
+            <div class="flex flex-row items-center">
+              <img
+                class="block h-10 w-auto mr-2"
+                src="/src/img/qvault-icon-250.png"
+                alt="Qvault Logo"
+              />
+              <h2 class="text-md mr-2">formerly Qvault.io</h2>
             </div>
           </div>
         </div>
