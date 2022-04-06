@@ -139,8 +139,7 @@ export default {
 }
 
 body {
-  font-family: Apercu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
   margin: 0;
   height: 100%;
 }
