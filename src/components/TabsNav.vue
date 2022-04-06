@@ -12,7 +12,7 @@
         :to="{ name: tab.componentName }"
       >
         <FontAwesomeIcon :icon="tab.icon" class="md:mr-4 mx-1" />
-        <span class="md:inline-block hidden"> {{ tab.name }} </span>
+        <span class="md:inline-block hidden text-sm"> {{ tab.name }} </span>
       </router-link>
     </div>
   </div>

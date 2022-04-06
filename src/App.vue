@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen text-gray-200 bg-gray-700 text-lg">
+  <div class="h-screen text-gray-200 bg-gray-700">
     <metainfo>
       <template #title="{ content }">
         {{ content ? `${content} | Boot.dev` : `Boot.dev` }}

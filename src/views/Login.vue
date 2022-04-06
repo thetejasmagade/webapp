@@ -9,10 +9,10 @@
     >
       <Section class="max-w-4xl w-full mb-5 mt-4">
         <div class="p-4">
-          <h1 class="text-blue-400 font-bold text-4xl mb-2">
+          <h1 class="text-blue-400 font-bold text-3xl mb-2">
             Real code. Modern programming languages.
           </h1>
-          <h2 class="text-xl mb-2">
+          <h2 class="mb-2 text-lg">
             We teach computer science through hands-on coding projects. We’re
             built for developers who want to advance their careers.
           </h2>
