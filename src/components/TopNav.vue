@@ -109,7 +109,7 @@
             </div>
           </div>
           <div class="">
-            <div class="flex flex-row items-center">
+            <div class="hidden md:flex flex-row items-center">
               <img
                 class="block h-10 w-auto mr-2"
                 src="/src/img/qvault-icon-250.png"
