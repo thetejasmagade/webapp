@@ -115,7 +115,7 @@
                 src="/src/img/qvault-icon-250.png"
                 alt="Qvault Logo"
               />
-              <h2 class="text-md mr-2">formerly Qvault.io</h2>
+              <h2 class="text-md mr-2 font-bold">Formerly Qvault.io</h2>
             </div>
           </div>
         </div>
