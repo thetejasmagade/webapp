@@ -92,15 +92,15 @@
             class="flex flex-row justify-evenly p-4 bg-gray-900 rounded mb-4"
           >
             <img
-              class="rounded w-36"
+              class="rounded md:w-36 w-16"
               src="https://richstone.github.io/assets/images/logos/python-logo-small.png"
             />
             <img
-              class="rounded w-36"
+              class="rounded md:w-36 w-16"
               src="https://cdn.iconscout.com/icon/free/png-256/javascript-2752148-2284965.png"
             />
             <img
-              class="rounded w-36"
+              class="rounded md:w-36 w-16"
               src="https://user-images.githubusercontent.com/19890545/150690287-d7a7a4c0-ce89-4c49-8043-5af0348e615e.png"
             />
           </div>
