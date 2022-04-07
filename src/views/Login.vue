@@ -214,9 +214,6 @@
               src="/src/img/undraw_Community_re_cyrm-768x578.webp"
               width="400"
               class="rounded object-cover"
-              :class="{
-                'rounded-b-none': hasSlots,
-              }"
             />
           </div>
           <ul class="list-disc mb-4">
