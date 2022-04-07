@@ -30,7 +30,6 @@
     </div>
     <div class="h-full block lg:hidden">
       <MarkdownWithHint
-        class="bg-white border-r border-gray-300"
         :markdown-source="markdownSource"
         :hint-markdown-source="hintMarkdownSource"
         :hint-callback="hintCallback"
