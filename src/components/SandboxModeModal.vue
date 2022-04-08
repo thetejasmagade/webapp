@@ -58,6 +58,15 @@ export default {
   },
   methods: {
     show() {
+      if (this.$store.getters.getIsLoggedIn) {
+        markSeenSandboxModalPatronKey();
+      } else {
+        markSeenSandboxModalLoginKey();
+      }
+      eventOpenSandboxModeModal();
+      this.$refs.sandboxModeModal.show();
+    },
+    showWithCache() {
       if (
         this.$store.getters.getIsLoggedIn &&
         hasSeendSandboxModalPatronKey()
@@ -67,14 +76,7 @@ export default {
       if (!this.$store.getters.getIsLoggedIn && hasSeenSandboxModalLoginKey()) {
         return;
       }
-
-      if (this.$store.getters.getIsLoggedIn) {
-        markSeenSandboxModalPatronKey();
-      } else {
-        markSeenSandboxModalLoginKey();
-      }
-      eventOpenSandboxModeModal();
-      this.$refs.sandboxModeModal.show();
+      this.show();
     },
     hide() {
       this.$refs.sandboxModeModal.hide();

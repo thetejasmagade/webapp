@@ -563,7 +563,7 @@ export default {
 
     const showSandboxModeModal = () => {
       eventOpenSandboxModeModal();
-      sandboxModeModal.value.show();
+      sandboxModeModal.value.showWithCache();
     };
 
     const showFeedbackModal = () => {
