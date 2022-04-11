@@ -4,7 +4,7 @@
       <router-link
         v-for="(tab, i) of tabs"
         :key="i"
-        class="py-3 px-4 rounded-t mr-2 inline-block cursor-pointer"
+        class="py-3 px-4 rounded-t mr-2 inline-block cursor-pointer hover:bg-gray-800"
         :class="{
           'bg-gray-800': routePath.includes(tab.route),
           'bg-gray-750': !routePath.includes(tab.route),
