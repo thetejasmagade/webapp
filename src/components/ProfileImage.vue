@@ -13,7 +13,7 @@
           loading="lazy"
           :src="profileImageURLWithDefault"
           alt="user avatar"
-          class="rounded w-full h-full cover"
+          class="rounded w-full h-full cover hover:opacity-75"
           :class="{ 'cursor-pointer': editable }"
         />
       </label>
