@@ -13,7 +13,7 @@
           loading="lazy"
           :src="profileImageURLWithDefault"
           alt="user avatar"
-          class="rounded-full w-full h-full cover border-2"
+          class="rounded w-full h-full cover"
           :class="{ 'cursor-pointer': editable }"
         />
       </label>
@@ -23,7 +23,7 @@
       loading="lazy"
       :src="profileImageURLWithDefault"
       alt="user avatar"
-      class="rounded-full w-full h-full cover border-2"
+      class="rounded w-full h-full cover"
       :class="{ 'cursor-pointer': editable }"
     />
   </div>

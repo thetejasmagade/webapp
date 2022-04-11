@@ -9,7 +9,7 @@
         :subtitle="`@${user.Handle}`"
         class="max-w-2xl w-full mb-5 mt-4"
       >
-        <div class="p-4 flex flex-col">
+        <div class="p-4 flex flex-col min-h-[150px]">
           <div class="flex justify-end">
             <ProfileImage
               class="w-32 mb-4 -mt-16"
