@@ -101,8 +101,11 @@ import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
+import { computed } from "vue";
 
 import { loadUserAchievements } from "@/lib/cloudStore.js";
+
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -110,31 +113,38 @@ export default {
     ImageCard,
     Section,
   },
-  computed: {
-    speedAchievements() {
-      return this.$store.getters.getUserAchievements.filter(
+  setup() {
+    const store = useStore();
+
+    const speedAchievements = computed(() => {
+      return store.getters.getUserAchievements.filter(
         (item) => item.Category === "speed"
       );
-    },
-    streakAchievements() {
-      return this.$store.getters.getUserAchievements.filter(
+    });
+    const streakAchievements = computed(() => {
+      return store.getters.getUserAchievements.filter(
         (item) => item.Category === "streak"
       );
-    },
-    engagementAchievements() {
-      return this.$store.getters.getUserAchievements.filter(
+    });
+    const engagementAchievements = computed(() => {
+      return store.getters.getUserAchievements.filter(
         (item) => item.Category === "engagement"
       );
-    },
-  },
-  async mounted() {
-    loadUserAchievements(this);
+    });
 
     const computedMeta = getComputedMeta({
       title: "Achievements",
       description: "View your Boot.dev achievements",
     });
     useMeta(computedMeta);
+
+    loadUserAchievements(store.commit);
+
+    return {
+      speedAchievements,
+      streakAchievements,
+      engagementAchievements,
+    };
   },
 };
 </script>

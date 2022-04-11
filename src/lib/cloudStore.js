@@ -57,9 +57,9 @@ export async function loadTracks(thisComponent) {
   ]);
 }
 
-export async function loadUserAchievements(thisComponent) {
+export async function loadUserAchievements(commit) {
   const userAchievements = await getUserAchievements();
-  thisComponent.$store.commit("setUserAchievements", userAchievements);
+  commit("setUserAchievements", userAchievements);
 }
 
 export async function loadBalance(commit) {
