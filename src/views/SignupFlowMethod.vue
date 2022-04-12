@@ -4,29 +4,40 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
-        title="How do I get my first job as a developer?"
-        subtitle="Well, we have some strong feelings about that"
+        title="How do I learn enough to succeed as a developer?"
+        subtitle="We are developers passionate about coding education. Here are some of our beliefs about how you should learn to code."
         class="max-w-2xl w-full"
       >
         <div class="max-w-xl p-4">
-          <p class="mb-4">
-            We are a small team of passionate developers who believe:
-          </p>
-
           <ul class="list-disc mb-4">
+            <li>You can't learn to code if you aren't writing code.</li>
             <li>
               Mastering computer science fundamentals is the best way to
-              differentiate yourself from other junior developers.
+              differentiate yourself in the job market.
             </li>
-            <li>A mix of courses and real life projects is best.</li>
-            <li>Finding courses is easy. Finding the best courses is hard.</li>
-            <li>Boot camps are too fast, degrees are too slow.</li>
-            <li>Mastery of concepts is important, grades are not.</li>
             <li>
-              Being able to prove your skills is as important as having them.
+              Your time is best spent learning modern programming languages and
+              practices.
             </li>
-            <li>There is something magical about learning with others.</li>
-            <li>We can make learning as addictive as gaming.</li>
+            <li>
+              A mix of guided courses and projects that put them into practice
+              is best.
+            </li>
+            <li>
+              It's not hard to find coding courses online, but it's hard to find
+              good ones.
+            </li>
+            <li>
+              Traditional boot camps are too fast, CS degrees are too slow.
+            </li>
+            <li>
+              Understanding and retaining information is important, grades are
+              not.
+            </li>
+            <li>
+              Your coding skills don't matter if you don't know how to show them
+              off to a potential employer.
+            </li>
           </ul>
 
           <p class="mb-4 text-center">

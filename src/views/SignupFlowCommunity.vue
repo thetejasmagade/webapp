@@ -4,8 +4,8 @@
 
     <div class="flex flex-col justify-center items-center flex-1 p-4">
       <Section
-        title="1. Install Discord"
-        subtitle="Free access to live workshops, mentors, job opportunities and more"
+        title="1. Install Discord if you don't already have it"
+        subtitle="Get help with courses, say hi to the creators, and hang out with other devs"
         class="max-w-2xl mb-4 w-full"
       >
         <div>
@@ -17,8 +17,8 @@
                 target="_blank"
                 >Download the free Discord desktop client.</a
               >
-              Keep the Discord chat and the Boot.dev website open in separate
-              windows for the best experience.
+              Keep our Discord server and this website open in separate windows
+              for the best experience.
             </p>
           </div>
         </div>
@@ -67,12 +67,22 @@
 
             <div class="text-center mt-2">
               <BlockButton
+                class="mr-2"
                 :link="{
                   name: 'SignupFlowRecruiters',
                   query: { redirect: $route.query.redirect },
                 }"
               >
                 Done, I'm connected!
+              </BlockButton>
+              <BlockButton
+                :link="{
+                  name: 'SignupFlowRecruiters',
+                  query: { redirect: $route.query.redirect },
+                }"
+                color="gray"
+              >
+                I'll sync later
               </BlockButton>
             </div>
           </div>

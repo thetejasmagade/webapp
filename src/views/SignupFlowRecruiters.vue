@@ -6,9 +6,9 @@
       <Section
         title="Connecting you to a meaningful career is our mission"
         subtitle="Do you want help finding your next coding job?"
-        class="section"
+        class="max-w-2xl mb-4 w-full"
       >
-        <div class="max-w-xl p-4">
+        <div class="p-4">
           <p class="mb-2">
             We have partnerships with organizations that are dedicated to
             finding great coding jobs for our community. If you're interested in

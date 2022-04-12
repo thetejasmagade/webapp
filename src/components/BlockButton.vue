@@ -13,7 +13,7 @@
     <slot />
   </button>
   <router-link
-    v-else-if="link"
+    v-else-if="link && !disabled"
     :to="link"
     class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103"
     :class="colors"

@@ -5,18 +5,27 @@
     <div class="flex flex-col justify-center items-center flex-1">
       <Section
         title="Writing real code is the only way to learn"
-        subtitle="Run the code to move forward"
+        subtitle="Run the code to move on"
         class="max-w-2xl w-full"
       >
-        <div class="flex flex-col p-4">
+        <div class="flex flex-col p-4 items-center" style="min-height: 500px">
           <CodeEditor
             v-model="code"
-            class="h-full flex flex-col flex-1 overflow-auto rounded border-2 border-gray-500"
+            class="flex flex-col flex-1 overflow-auto rounded border-2 border-gray-500 mb-4"
             :run-callback="runCode"
             :reset-callback="setCode"
             prog-lang="js"
             :canvas-enabled="false"
           />
+          <BlockButton
+            :disabled="!done"
+            :link="{
+              name: 'SignupFlowMethod',
+              query: { redirect: $route.query.redirect },
+            }"
+          >
+            Continue
+          </BlockButton>
         </div>
       </Section>
     </div>
@@ -27,9 +36,9 @@
 import TopNav from "@/components/TopNav.vue";
 import Section from "@/components/Section.vue";
 import CodeEditor from "@/components/CodeEditor.vue";
-import { reactive } from "vue";
+import BlockButton from "@/components/BlockButton.vue";
+import { reactive, toRefs } from "vue";
 import { notify } from "@/lib/notification.js";
-import { useRouter, useRoute } from "vue-router";
 
 function getCode() {
   return `const words = ['videos', 'bore', 'me', 'to', 'death']
@@ -49,6 +58,7 @@ export default {
     TopNav,
     Section,
     CodeEditor,
+    BlockButton,
   },
   setup() {
     const state = reactive({
@@ -56,13 +66,11 @@ export default {
       done: false,
     });
 
-    state.setCode = () => {
+    const setCode = () => {
       state.code = getCode(state.lang);
     };
 
-    const router = useRouter();
-    const route = useRoute();
-    state.runCode = ({ output }) => {
+    const runCode = ({ output }) => {
       if (output !== expectedOutput) {
         notify({
           type: "danger",
@@ -75,15 +83,13 @@ export default {
         type: "success",
         text: "Great work!",
       });
-      setTimeout(() => {
-        router.push({
-          name: "SignupFlowMethod",
-          query: { redirect: route.query.redirect },
-        });
-      }, 3000);
     };
 
-    return state;
+    return {
+      ...toRefs(state),
+      setCode,
+      runCode,
+    };
   },
 };
 </script>
