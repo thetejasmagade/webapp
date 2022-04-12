@@ -250,6 +250,52 @@
       <div class="max-w-4xl mb-4">
         <FAQ />
       </div>
+
+      <footer>
+        <div class="py-4">
+          <div class="border-t-2 border-blue-500 w-full"></div>
+        </div>
+
+        <main class="mb-4 flex justify-center flex-wrap">
+          <span>© Boot.dev 2022</span>
+          <span class="mx-2">|</span>
+          <a
+            class="text-blue-400 hover:text-blue-300 underline"
+            href="/sitemap.xml"
+            ><span>Sitemap</span></a
+          >
+          <span class="mx-2">|</span>
+          <a
+            class="text-blue-400 hover:text-blue-300 underline"
+            href="https://blog.boot.dev/affiliates"
+            ><span>Affiliates</span></a
+          >
+          <span class="mx-2">|</span>
+          <a
+            class="text-blue-400 hover:text-blue-300 underline"
+            href="/playground/go"
+            ><span>Playground</span></a
+          >
+          <span class="mx-2">|</span>
+          <a
+            class="text-blue-400 hover:text-blue-300 underline"
+            href="https://blog.boot.dev/terms"
+            ><span>TOS</span></a
+          >
+          <span class="mx-2">|</span>
+          <a
+            class="text-blue-400 hover:text-blue-300 underline"
+            href="https://blog.boot.dev/privacy"
+            ><span>Privacy</span></a
+          >
+          <span class="mx-2">|</span>
+          <a
+            class="text-blue-400 hover:text-blue-300 underline"
+            href="https://blog.boot.dev/contact"
+            ><span>Contact</span></a
+          >
+        </main>
+      </footer>
     </div>
   </div>
 </template>
