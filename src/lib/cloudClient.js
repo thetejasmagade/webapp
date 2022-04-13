@@ -960,7 +960,7 @@ async function fetchWithAuth(url, params) {
   try {
     if (!isLoggedIn()) {
       logout();
-      Window.location.replace = "/?redirect=Login";
+      window.location.href = `/?redirect=${window.location.pathname}`;
     }
     let token = loadCloudJWT();
     let decodedToken = decodeJWT(token);
@@ -973,8 +973,8 @@ async function fetchWithAuth(url, params) {
     }
     params.headers.Authorization = `Bearer ${token}`;
     return await fetch(url, params);
-  } catch {
-    throw "You're not logged in, please logout and back in";
+  } catch (err) {
+    console.log(err);
   }
 }
 
