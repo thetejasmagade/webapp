@@ -94,8 +94,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.active-scale-103:hover {
-  transform: scale(1.03);
-}
-</style>
+<style scoped></style>

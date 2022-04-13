@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active-scale-103:hover {
+  transform: scale(1.03);
+}
