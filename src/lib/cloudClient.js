@@ -957,21 +957,25 @@ async function fetchWithAuthIfAuthed(url, params) {
 }
 
 async function fetchWithAuth(url, params) {
-  if (!isLoggedIn()) {
-    throw "You're not logged in, please logout and back in";
+  try {
+    if (!isLoggedIn()) {
+      logout();
+      window.location.href = `/?redirect=${window.location.pathname}`;
+    }
+    let token = loadCloudJWT();
+    let decodedToken = decodeJWT(token);
+    const hoursDelta = 24;
+    if (decodedToken.exp < (Date.now() + hoursDelta * 60 * 60) / 1000) {
+      refreshToken();
+    }
+    if (!params.headers) {
+      params.headers = {};
+    }
+    params.headers.Authorization = `Bearer ${token}`;
+    return await fetch(url, params);
+  } catch (err) {
+    console.log(err);
   }
-  let token = loadCloudJWT();
-  let decodedToken = decodeJWT(token);
-  const hoursDelta = 24;
-  if (decodedToken.exp < (Date.now() + hoursDelta * 60 * 60) / 1000) {
-    refreshToken();
-  }
-
-  if (!params.headers) {
-    params.headers = {};
-  }
-  params.headers.Authorization = `Bearer ${token}`;
-  return await fetch(url, params);
 }
 
 async function handleWasmResponse(response) {
