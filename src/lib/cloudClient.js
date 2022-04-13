@@ -958,7 +958,8 @@ async function fetchWithAuthIfAuthed(url, params) {
 
 async function fetchWithAuth(url, params) {
   if (!isLoggedIn()) {
-    throw "You're not logged in, please logout and back in";
+    logout();
+    Window.location.replace = "/?redirect=Login";
   }
   let token = loadCloudJWT();
   let decodedToken = decodeJWT(token);
