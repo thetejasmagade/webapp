@@ -116,6 +116,8 @@
                 class="block h-10 w-auto mr-2"
                 src="/src/img/qvault-icon-250.png"
                 alt="Qvault Logo"
+                width="10"
+                height="10"
               />
               <h2 class="text-md mr-2 font-bold">Formerly Qvault.io</h2>
             </div>
