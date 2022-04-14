@@ -17,6 +17,7 @@
       </div>
       <MarkdownViewer ref="viewer" :source="markdownSource" />
       <TabsNavInline
+        v-if="isLoggedIn"
         class="mb-"
         :tabs="[
           {
@@ -24,11 +25,8 @@
             name: 'Report Issue',
           },
         ]"
-        :hint-markdown-source="hintMarkdownSource"
-        :hint-callback="hintCallback"
-        :is-hint-purchased="isHintPurchased"
-        :hint-cost="hintCost"
         :uuid="uuid"
+        unit-type="step"
       />
     </div>
     <div class="block lg:hidden w-full">
@@ -61,6 +59,10 @@ export default {
   props: {
     markdownSource: {
       type: String,
+      required: true,
+    },
+    isLoggedIn: {
+      type: Boolean,
       required: true,
     },
     projectSlug: {

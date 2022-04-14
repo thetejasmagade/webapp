@@ -4,6 +4,7 @@
       <MarkdownViewer ref="viewer" :source="markdownSource" />
       <div class="p-4">
         <TabsNavInline
+          v-if="isLoggedIn"
           class="mb-"
           :tabs="[
             {
@@ -41,6 +42,10 @@ export default {
   props: {
     markdownSource: {
       type: String,
+      required: true,
+    },
+    isLoggedIn: {
+      type: Boolean,
       required: true,
     },
     uuid: {

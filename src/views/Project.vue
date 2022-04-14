@@ -1,12 +1,6 @@
 <template>
   <ViewNavWrapper>
     <div class="h-full">
-      <FeedbackModal
-        v-if="$route.params.stepUUID"
-        ref="feedbackModal"
-        :uuid="$route.params.stepUUID"
-        unit-type="step"
-      />
       <UnitDoneModal
         v-if="project"
         ref="unitDoneModal"
@@ -25,7 +19,6 @@
           :can-go-back="!isFirstStep"
           :can-go-forward="!isLastStep || !projectDone"
           :sandbox="false"
-          :click-comment="showFeedbackModal"
           :forward-click="
             type === 'type_info' && isLoggedIn ? completeStep : null
           "
@@ -35,17 +28,23 @@
           :percent-complete="percentComplete"
         />
         <CardStepTypeInfo
-          v-if="type === 'type_info'"
+          v-if="type === 'type_info' && $route.params.stepUUID"
           :markdown-source="markdownSource"
           :project-slug="project.Slug"
           :step-slug="stepSlug"
+          :uuid="$route.params.stepUUID"
+          unit-type="step"
+          :is-logged-in="isLoggedIn"
         />
         <CardStepTypeManual
-          v-else-if="type === 'type_manual'"
+          v-else-if="type === 'type_manual' && $route.params.stepUUID"
           :markdown-source="markdownSource"
           :project-slug="project.Slug"
           :step-slug="stepSlug"
           :done-with-step="completeStep"
+          :uuid="$route.params.stepUUID"
+          unit-type="step"
+          :is-logged-in="isLoggedIn"
         />
       </div>
     </div>
@@ -58,7 +57,6 @@ import ExerciseNav from "@/components/ExerciseNav.vue";
 import UnitDoneModal from "@/components/UnitDoneModal.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
-import FeedbackModal from "@/components/FeedbackModal.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 
 import { loadBalance } from "@/lib/cloudStore.js";
@@ -92,7 +90,6 @@ export default {
   components: {
     ExerciseNav,
     UnitDoneModal,
-    FeedbackModal,
     CardStepTypeInfo,
     CardStepTypeManual,
     ViewNavWrapper,
@@ -119,7 +116,6 @@ export default {
     const router = useRouter();
 
     const unitDoneModal = ref(null);
-    const feedbackModal = ref(null);
 
     onMounted(async () => {
       try {
@@ -309,10 +305,6 @@ export default {
       }
     };
 
-    const showFeedbackModal = () => {
-      feedbackModal.value.show();
-    };
-
     const submitTypeInfo = async () => {
       const submitResponse = await submitInformationalStep(
         route.params.stepUUID
@@ -426,12 +418,10 @@ export default {
       isLoggedIn,
       projectDone,
       dropdownSteps,
-      showFeedbackModal,
       submitTypeInfo,
       submitTypeManual,
       goToBeginning,
       completeStep,
-      feedbackModal,
       unitDoneModal,
     };
   },

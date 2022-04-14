@@ -32,7 +32,7 @@
         Sandbox Mode ⓘ
       </span>
     </div>
-    <div class="flex-1 flex justify-end">
+    <div class="flex-1 flex justify-end mr-5">
       <BlockButton
         :link="backLink"
         :disabled="!canGoBack"
@@ -51,22 +51,10 @@
         <FontAwesomeIcon icon="arrow-right" />
       </BlockButton>
     </div>
-    <div class="flex mr-6 flex-row items-center flex-end">
-      <Tooltip
-        v-if="$store.getters.getIsLoggedIn"
-        :text="`Feedback`"
-        position="left"
-      >
-        <BlockButton :click="clickComment" color="gray" class="ml-4">
-          <FontAwesomeIcon icon="comment" />
-        </BlockButton>
-      </Tooltip>
-    </div>
   </div>
 </template>
 
 <script>
-import Tooltip from "@/components/Tooltip.vue";
 import BlockButton from "@/components/BlockButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SelectDropdown from "@/components/SelectDropdown.vue";
@@ -76,7 +64,6 @@ export default {
   components: {
     BlockButton,
     FontAwesomeIcon,
-    Tooltip,
     SelectDropdown,
     SandboxModeModal,
   },

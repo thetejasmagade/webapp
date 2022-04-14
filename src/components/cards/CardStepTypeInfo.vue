@@ -2,21 +2,19 @@
   <div class="overflow-y-auto w-full flex flex-col items-center">
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
+      <TabsNavInline
+        v-if="isLoggedIn"
+        class="mb-"
+        :tabs="[
+          {
+            icon: 'comment',
+            name: 'Report Issue',
+          },
+        ]"
+        :uuid="uuid"
+        unit-type="step"
+      />
     </div>
-    <TabsNavInline
-      class="mb-"
-      :tabs="[
-        {
-          icon: 'comment',
-          name: 'Report Issue',
-        },
-      ]"
-      :hint-markdown-source="hintMarkdownSource"
-      :hint-callback="hintCallback"
-      :is-hint-purchased="isHintPurchased"
-      :hint-cost="hintCost"
-      :uuid="uuid"
-    />
     <Section class="block lg:hidden" title="Come back on a computer">
       <p class="p-4">
         Coding is hard to do on a phone. I want you to have a great experience,
@@ -40,6 +38,10 @@ export default {
   props: {
     markdownSource: {
       type: String,
+      required: true,
+    },
+    isLoggedIn: {
+      type: Boolean,
       required: true,
     },
     projectSlug: {

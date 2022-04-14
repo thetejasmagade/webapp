@@ -8,13 +8,11 @@
         'bg-gray-800': tab.name === currentTab,
         'bg-gray-750': tab.name !== currentTab,
       }"
+      @click="setCurrentTab(tab.name)"
     >
       <FontAwesomeIcon :icon="tab.icon" class="md:mr-4 mx-1" />
 
-      <span
-        class="md:inline-block hidden text-sm"
-        @click="setCurrentTab(tab.name)"
-      >
+      <span class="md:inline-block hidden text-sm">
         {{ tab.name }}
       </span>
     </div>
