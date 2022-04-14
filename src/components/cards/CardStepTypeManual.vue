@@ -16,6 +16,20 @@
         </BlockButton>
       </div>
       <MarkdownViewer ref="viewer" :source="markdownSource" />
+      <TabsNavInline
+        class="mb-"
+        :tabs="[
+          {
+            icon: 'comment',
+            name: 'Report Issue',
+          },
+        ]"
+        :hint-markdown-source="hintMarkdownSource"
+        :hint-callback="hintCallback"
+        :is-hint-purchased="isHintPurchased"
+        :hint-cost="hintCost"
+        :uuid="uuid"
+      />
     </div>
     <div class="block lg:hidden w-full">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
@@ -34,6 +48,7 @@ import BlockButton from "@/components/BlockButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
@@ -41,6 +56,7 @@ export default {
     BlockButton,
     FontAwesomeIcon,
     Section,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
@@ -57,6 +73,10 @@ export default {
     },
     doneWithStep: {
       type: Function,
+      required: true,
+    },
+    uuid: {
+      type: String,
       required: true,
     },
   },

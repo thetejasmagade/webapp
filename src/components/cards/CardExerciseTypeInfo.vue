@@ -2,6 +2,21 @@
   <div class="overflow-y-auto w-full flex flex-col items-center">
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
+      <div class="p-4">
+        <TabsNavInline
+          class="mb-"
+          :tabs="[
+            {
+              route: 'cs-track',
+              componentName: 'CSTrack',
+              icon: 'comment',
+              name: 'Report Issue',
+            },
+          ]"
+          :uuid="uuid"
+          unit-type="exercise"
+        />
+      </div>
     </div>
     <Section class="block lg:hidden" title="Come back on a computer">
       <p class="p-4">
@@ -15,14 +30,20 @@
 <script>
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
     MarkdownViewer,
     Section,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
+      type: String,
+      required: true,
+    },
+    uuid: {
       type: String,
       required: true,
     },

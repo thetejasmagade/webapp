@@ -3,6 +3,20 @@
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
     </div>
+    <TabsNavInline
+      class="mb-"
+      :tabs="[
+        {
+          icon: 'comment',
+          name: 'Report Issue',
+        },
+      ]"
+      :hint-markdown-source="hintMarkdownSource"
+      :hint-callback="hintCallback"
+      :is-hint-purchased="isHintPurchased"
+      :hint-cost="hintCost"
+      :uuid="uuid"
+    />
     <Section class="block lg:hidden" title="Come back on a computer">
       <p class="p-4">
         Coding is hard to do on a phone. I want you to have a great experience,
@@ -15,11 +29,13 @@
 <script>
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
     MarkdownViewer,
     Section,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
@@ -31,6 +47,10 @@ export default {
       required: true,
     },
     stepSlug: {
+      type: String,
+      required: true,
+    },
+    uuid: {
       type: String,
       required: true,
     },

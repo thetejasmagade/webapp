@@ -54,6 +54,8 @@
         <CardExerciseTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
         />
         <CardExerciseTypeMultipleChoice
           v-else-if="type === 'type_choice'"
@@ -66,6 +68,8 @@
           :hint-callback="hintCallback"
           :is-hint-purchased="isHintPurchased"
           :hint-cost="hintCost"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
         />
         <CardExerciseTypeCode
           v-else-if="type === 'type_code'"
@@ -83,6 +87,8 @@
           :hint-callback="hintCallback"
           :is-hint-purchased="isHintPurchased"
           :hint-cost="hintCost"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
         />
         <CardExerciseTypeCodeCanvas
           v-else-if="type === 'type_code_canvas'"
@@ -100,6 +106,8 @@
           :is-cheating="isCheating"
           :is-cheat-purchased="isCheatPurchased"
           :cheat-cost="cheatCost"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
         />
         <p v-else>something went wrong</p>
       </div>

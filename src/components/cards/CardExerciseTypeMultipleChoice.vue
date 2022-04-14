@@ -2,14 +2,32 @@
   <div class="h-full overflow-auto bg-gray-750">
     <div class="h-full hidden lg:block">
       <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
-        <MarkdownWithHint
-          class="flex flex-col w-1/2 border-r border-gray-500"
-          :markdown-source="markdownSource"
-          :hint-markdown-source="hintMarkdownSource"
-          :hint-callback="hintCallback"
-          :is-hint-purchased="isHintPurchased"
-          :hint-cost="hintCost"
-        />
+        <div class="flex flex-col w-1/2 border-r border-gray-500 overflow-auto">
+          <MarkdownWithHint
+            :markdown-source="markdownSource"
+            :hint-markdown-source="hintMarkdownSource"
+            :hint-callback="hintCallback"
+            :is-hint-purchased="isHintPurchased"
+            :hint-cost="hintCost"
+          />
+          <TabsNavInline
+            class="mb-"
+            :tabs="
+              isHintAvailable
+                ? [
+                    { icon: 'comment', name: 'Report Issue' },
+                    { icon: 'eye', name: 'Buy/View Hint' },
+                  ]
+                : [{ icon: 'comment', name: 'Report Issue' }]
+            "
+            :hint-markdown-source="hintMarkdownSource"
+            :hint-callback="hintCallback"
+            :is-hint-purchased="isHintPurchased"
+            :hint-cost="hintCost"
+            :uuid="uuid"
+            unit-type="exercise"
+          />
+        </div>
         <MultipaneResizer layout="horizontal" />
         <MultipleChoice
           class="h-full flex flex-col flex-1 overflow-auto"
@@ -44,6 +62,7 @@ import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
 import MarkdownWithHint from "@/components/MarkdownWithHint.vue";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
@@ -52,6 +71,7 @@ export default {
     MultipleChoice,
     Multipane,
     MultipaneResizer,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
@@ -93,6 +113,18 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    uuid: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    isHintAvailable() {
+      if (!this.hintMarkdownSource) {
+        return false;
+      }
+      return true;
     },
   },
 };
