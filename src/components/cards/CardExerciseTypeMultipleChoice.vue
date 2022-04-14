@@ -6,12 +6,15 @@
           <MarkdownViewer :source="markdownSource" />
           <TabsNavInline
             v-if="isLoggedIn"
-            class="mb-"
+            class="mb-2"
             :tabs="
               isHintAvailable
                 ? [
                     { icon: 'comment', name: 'Report Issue' },
-                    { icon: 'eye', name: 'Buy/View Hint' },
+                    {
+                      icon: 'eye',
+                      name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
+                    },
                   ]
                 : [{ icon: 'comment', name: 'Report Issue' }]
             "

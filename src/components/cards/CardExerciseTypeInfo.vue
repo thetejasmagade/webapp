@@ -5,7 +5,7 @@
       <div class="p-4">
         <TabsNavInline
           v-if="isLoggedIn"
-          class="mb-"
+          class="mb-2"
           :tabs="[
             {
               route: 'cs-track',
