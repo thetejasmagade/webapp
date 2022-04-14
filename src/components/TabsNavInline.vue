@@ -47,11 +47,7 @@
           :hint-callback="hintCallback"
           :is-hint-available="isHintAvailable"
         />
-        <MarkdownViewer
-          v-if="isHintPurchased"
-          :source="hintMarkdownSource"
-          class="rounded bg-gray-700"
-        />
+        <MarkdownViewer v-if="isHintPurchased" :source="hintMarkdownSource" />
       </div>
     </div>
   </div>
