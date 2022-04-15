@@ -1,12 +1,6 @@
 <template>
   <ViewNavWrapper :title="course?.Title">
     <div class="h-full">
-      <FeedbackModal
-        v-if="route.params.exerciseUUID"
-        ref="feedbackModal"
-        :uuid="route.params.exerciseUUID"
-        unit-type="exercise"
-      />
       <SandboxModeModal ref="sandboxModeModal" />
       <UnitDoneModal
         v-if="course"
@@ -45,7 +39,6 @@
             type === 'type_info' && isLoggedIn ? doneWithExercise : null
           "
           :sandbox="sandbox"
-          :click-comment="() => showFeedbackModal()"
         />
         <ProgressBar
           v-if="isContentLoaded && isLoggedIn"
@@ -54,6 +47,9 @@
         <CardExerciseTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
+          :is-logged-in="isLoggedIn"
         />
         <CardExerciseTypeMultipleChoice
           v-else-if="type === 'type_choice'"
@@ -66,6 +62,9 @@
           :hint-callback="hintCallback"
           :is-hint-purchased="isHintPurchased"
           :hint-cost="hintCost"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
+          :is-logged-in="isLoggedIn"
         />
         <CardExerciseTypeCode
           v-else-if="type === 'type_code'"
@@ -83,6 +82,9 @@
           :hint-callback="hintCallback"
           :is-hint-purchased="isHintPurchased"
           :hint-cost="hintCost"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
+          :is-logged-in="isLoggedIn"
         />
         <CardExerciseTypeCodeCanvas
           v-else-if="type === 'type_code_canvas'"
@@ -100,6 +102,9 @@
           :is-cheating="isCheating"
           :is-cheat-purchased="isCheatPurchased"
           :cheat-cost="cheatCost"
+          :uuid="route.params.exerciseUUID"
+          unit-type="exercise"
+          :is-logged-in="isLoggedIn"
         />
         <p v-else>something went wrong</p>
       </div>
@@ -111,7 +116,6 @@
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import UnitDoneModal from "@/components/UnitDoneModal.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
-import FeedbackModal from "@/components/FeedbackModal.vue";
 import SandboxModeModal from "@/components/SandboxModeModal.vue";
 import ExerciseSkeleton from "@/components/ExerciseSkeleton.vue";
 import CardExerciseTypeInfo from "@/components/cards/CardExerciseTypeInfo.vue";
@@ -175,7 +179,6 @@ export default {
     UnitDoneModal,
     CardExerciseTypeInfo,
     ExerciseNav,
-    FeedbackModal,
     SandboxModeModal,
     ExerciseSkeleton,
     CardExerciseTypeMultipleChoice,
@@ -219,7 +222,6 @@ export default {
     const store = useStore();
 
     const sandboxModeModal = ref(null);
-    const feedbackModal = ref(null);
     const unitDoneModal = ref(null);
 
     const sandbox = computed(() => {
@@ -566,10 +568,6 @@ export default {
       sandboxModeModal.value.showWithCache();
     };
 
-    const showFeedbackModal = () => {
-      feedbackModal.value.show();
-    };
-
     const hintCallback = async () => {
       if (!store.getters.getIsLoggedIn) {
         return;
@@ -820,7 +818,6 @@ export default {
     return {
       ...toRefs(state),
       sandboxModeModal,
-      feedbackModal,
       unitDoneModal,
       isContentLoaded,
       sandbox,
@@ -839,7 +836,6 @@ export default {
       doneWithExercise,
       onSeenInsert,
       showSandboxModeModal,
-      showFeedbackModal,
       hintCallback,
       cheatCallback,
       resetCode,
