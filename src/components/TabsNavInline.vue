@@ -5,10 +5,10 @@
       :key="i"
       class="py-3 px-4 rounded-t mr-2 inline-block cursor-pointer hover:bg-gray-800"
       :class="{
-        'bg-gray-800': tab.name === currentTab,
-        'bg-gray-750': tab.name !== currentTab,
+        'bg-gray-800': i === currentTabIndex,
+        'bg-gray-750': i !== currentTabIndex,
       }"
-      @click="setCurrentTab(tab.name)"
+      @click="setCurrentTabindex(i)"
     >
       <FontAwesomeIcon :icon="tab.icon" class="md:mr-4 mx-1" />
 
@@ -16,45 +16,39 @@
         {{ tab.name }}
       </span>
     </div>
-    <div v-if="currentTab === 'Report Issue'" class="bg-gray-800">
-      <h1 class="text-2xl mb-4 ml-4 pt-4">
-        What do you think of this exercise?
-      </h1>
-      <textarea
-        v-model="commentText"
-        placeholder="Let us know how to improve this page"
-        class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-800 rounded focus:outline-none"
-        rows="4"
-      />
-      <BlockButton
-        :click="
-          () => {
-            btnClick();
-          }
-        "
-        class="mb-4 ml-4"
-      >
-        Submit
-      </BlockButton>
-      <!-- <p class="ml-4">
-        If you'd rather speak to the authors and other students directly join
-        our
-        <a href="https://discord.gg/EEkFwbv" target="_blank"
-          >Discord community instead.</a
-        >
-      </p> -->
-    </div>
-    <div v-else class="bg-gray-800">
-      <HintButton
-        v-if="
-          !isHintPurchased && isHintAvailable && currentTab === 'Buy/View Hint'
-        "
-        class="bg-gray-800 pt-5 pb-5 justify-center items-center"
-        :hint-cost="hintCost"
-        :hint-callback="hintCallback"
-        :is-hint-available="isHintAvailable"
-      />
-      <MarkdownViewer v-if="isHintPurchased" :source="hintMarkdownSource" />
+    <div class="bg-gray-800 p-4 rounded-r rounded-b">
+      <div v-if="currentTabIndex === 0">
+        <h1 class="text-2xl mb-4 ml-4 pt-4">
+          Is there something we can do to make this exercise better?
+        </h1>
+        <textarea
+          v-model="commentText"
+          placeholder="Let us know how to improve this page"
+          class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
+          rows="4"
+        />
+        <BlockButton :click="btnClick" class="mb-4 ml-4"> Submit </BlockButton>
+        <p class="ml-4">
+          If you'd rather have a conversation with the authors and other
+          students directly join our
+          <a
+            href="https://discord.gg/EEkFwbv"
+            target="_blank"
+            class="underline text-blue-400 hover:text-blue-300"
+            >Discord community instead.</a
+          >
+        </p>
+      </div>
+      <div v-else>
+        <HintButton
+          v-if="!isHintPurchased && isHintAvailable && currentTabIndex === 1"
+          class="bg-gray-800 pt-5 pb-5 justify-center items-center"
+          :hint-cost="hintCost"
+          :hint-callback="hintCallback"
+          :is-hint-available="isHintAvailable"
+        />
+        <MarkdownViewer v-if="isHintPurchased" :source="hintMarkdownSource" />
+      </div>
     </div>
   </div>
 </template>
@@ -118,14 +112,10 @@ export default {
       commentText: null,
       rating: null,
       stars: 3,
-      currentTab: "Report Issue",
+      currentTabIndex: 0,
     };
   },
   computed: {
-    clearTextArea() {
-      let nullText = "";
-      return nullText;
-    },
     isHintAvailable() {
       if (!this.hintMarkdownSource) {
         return false;
@@ -148,7 +138,7 @@ export default {
           type: "success",
           text: "Thanks for your feedback!",
         });
-        this.commentText = this.clearTextArea;
+        this.commentText = null;
         this.rating = null;
         this.stars = 3;
       } catch (err) {
@@ -158,8 +148,8 @@ export default {
         });
       }
     },
-    setCurrentTab(tab) {
-      this.currentTab = tab;
+    setCurrentTabindex(i) {
+      this.currentTabIndex = i;
     },
   },
 };

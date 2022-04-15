@@ -4,7 +4,7 @@
       <MarkdownViewer ref="viewer" :source="markdownSource" />
       <TabsNavInline
         v-if="isLoggedIn"
-        class="mb-"
+        class="mb-2"
         :tabs="[
           {
             icon: 'comment',
