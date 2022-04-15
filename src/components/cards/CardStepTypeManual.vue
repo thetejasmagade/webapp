@@ -16,7 +16,7 @@
         </BlockButton>
       </div>
       <MarkdownViewer ref="viewer" :source="markdownSource" />
-      <TabsNavInline
+      <BottomOfMarkdownTabsNav
         v-if="isLoggedIn"
         class="mb-2"
         :tabs="[
@@ -46,7 +46,7 @@ import BlockButton from "@/components/BlockButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Section from "@/components/Section.vue";
-import TabsNavInline from "@/components/TabsNavInline.vue";
+import BottomOfMarkdownTabsNav from "@/components/BottomOfMarkdownTabsNav.vue";
 
 export default {
   components: {
@@ -54,7 +54,7 @@ export default {
     BlockButton,
     FontAwesomeIcon,
     Section,
-    TabsNavInline,
+    BottomOfMarkdownTabsNav,
   },
   props: {
     markdownSource: {
