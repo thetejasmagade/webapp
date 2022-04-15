@@ -442,9 +442,6 @@ export default {
           text: err,
         });
       }
-      if (!store.getters.getUser) {
-        loadUser(store.commit);
-      }
 
       try {
         state.nextExercise = await getNextExercise(
@@ -475,6 +472,9 @@ export default {
         if (store.getters.getIsLoggedIn) {
           try {
             let pendingAchievements = await getPendingAchievements();
+            if (!store.getters.getUser) {
+              loadUser(store.commit);
+            }
             const user = store.getters.getUser;
             if (
               user.DiscordUserID === null &&
