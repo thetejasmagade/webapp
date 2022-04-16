@@ -2,19 +2,35 @@
   <div class="h-full overflow-auto">
     <div class="h-full hidden lg:block">
       <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
-        <MarkdownWithHint
-          class="flex flex-col w-1/2 border-r border-gray-500"
-          :markdown-source="markdownSource"
-          :hint-markdown-source="hintMarkdownSource"
-          :hint-callback="hintCallback"
-          :is-hint-purchased="isHintPurchased"
-          :hint-cost="hintCost"
-        />
+        <div class="flex flex-col w-1/2 border-r border-gray-500 overflow-auto">
+          <MarkdownViewer :source="markdownSource" />
+          <TabsNavInline
+            v-if="isLoggedIn"
+            class="mb-2"
+            :tabs="
+              isHintAvailable
+                ? [
+                    { icon: 'comment', name: 'Report Issue' },
+                    {
+                      icon: 'eye',
+                      name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
+                    },
+                  ]
+                : [{ icon: 'comment', name: 'Report Issue' }]
+            "
+            :hint-markdown-source="hintMarkdownSource"
+            :hint-callback="hintCallback"
+            :is-hint-purchased="isHintPurchased"
+            :hint-cost="hintCost"
+            :uuid="uuid"
+            unit-type="exercise"
+          />
+        </div>
         <MultipaneResizer layout="horizontal" />
         <CodeEditor
           :key="isCheating"
           :model-value="modelValue"
-          class="h-full flex flex-col flex-1 overflow-auto"
+          class="h-full flex flex-col flex-1 overflow-y-auto"
           :run-callback="runCallback"
           :reset-callback="resetCodeCallback"
           :cheat-callback="cheatCallback"
@@ -29,13 +45,7 @@
       </Multipane>
     </div>
     <div class="h-full block lg:hidden overflow-auto">
-      <MarkdownWithHint
-        :markdown-source="markdownSource"
-        :hint-markdown-source="hintMarkdownSource"
-        :hint-callback="hintCallback"
-        :is-hint-purchased="isHintPurchased"
-        :hint-cost="hintCost"
-      />
+      <MarkdownViewer :source="markdownSource" />
       <Section title="Come back on a computer">
         <p class="h-full p-4 overflow-auto">
           Coding is hard to do on a phone. I want you to have a great
@@ -47,11 +57,12 @@
 </template>
 
 <script>
-import MarkdownWithHint from "@/components/MarkdownWithHint.vue";
+import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import CodeEditor from "@/components/CodeEditor.vue";
 import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
@@ -59,11 +70,16 @@ export default {
     Multipane,
     Section,
     MultipaneResizer,
-    MarkdownWithHint,
+    MarkdownViewer,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
       type: String,
+      required: true,
+    },
+    isLoggedIn: {
+      type: Boolean,
       required: true,
     },
     modelValue: {
@@ -123,8 +139,20 @@ export default {
       required: false,
       default: false,
     },
+    uuid: {
+      type: String,
+      required: true,
+    },
   },
   emits: ["update:modelValue"],
+  computed: {
+    isHintAvailable() {
+      if (!this.hintMarkdownSource) {
+        return false;
+      }
+      return true;
+    },
+  },
   watch: {
     modelValue(newModelValue) {
       this.$emit("update:modelValue", newModelValue);

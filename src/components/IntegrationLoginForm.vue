@@ -2,18 +2,15 @@
   <div>
     <div class="flex flex-col justify-evenly w-full items-center">
       <div class="mb-12 mt-4 w-60">
-        <img
-          src="/src/img/btn_google_signin_dark_normal_web@2x.png"
-          class="mb-2 rounded w-full hover:brightness-75 cursor-pointer active-scale-103"
-          @click="clickGoogle"
-        />
+        <BlockButton :click="clickGoogle" color="blue" class="w-full mb-4">
+          <FontAwesomeIcon :icon="['fab', 'google']" class="mr-3" />
+          Sign in with Google
+        </BlockButton>
 
-        <div class="px-1">
-          <BlockButton :click="clickGithub" color="gray" class="w-full">
-            <FontAwesomeIcon :icon="['fab', 'github']" class="mr-3" />
-            Sign in with Github
-          </BlockButton>
-        </div>
+        <BlockButton :click="clickGithub" color="gray" class="w-full">
+          <FontAwesomeIcon :icon="['fab', 'github']" class="mr-3" />
+          Sign in with Github
+        </BlockButton>
       </div>
 
       <div

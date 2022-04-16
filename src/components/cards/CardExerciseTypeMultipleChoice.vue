@@ -2,14 +2,30 @@
   <div class="h-full overflow-auto bg-gray-750">
     <div class="h-full hidden lg:block">
       <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
-        <MarkdownWithHint
-          class="flex flex-col w-1/2 border-r border-gray-500"
-          :markdown-source="markdownSource"
-          :hint-markdown-source="hintMarkdownSource"
-          :hint-callback="hintCallback"
-          :is-hint-purchased="isHintPurchased"
-          :hint-cost="hintCost"
-        />
+        <div class="flex flex-col w-1/2 border-r border-gray-500 overflow-auto">
+          <MarkdownViewer :source="markdownSource" />
+          <TabsNavInline
+            v-if="isLoggedIn"
+            class="mb-2"
+            :tabs="
+              isHintAvailable
+                ? [
+                    { icon: 'comment', name: 'Report Issue' },
+                    {
+                      icon: 'eye',
+                      name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
+                    },
+                  ]
+                : [{ icon: 'comment', name: 'Report Issue' }]
+            "
+            :hint-markdown-source="hintMarkdownSource"
+            :hint-callback="hintCallback"
+            :is-hint-purchased="isHintPurchased"
+            :hint-cost="hintCost"
+            :uuid="uuid"
+            unit-type="exercise"
+          />
+        </div>
         <MultipaneResizer layout="horizontal" />
         <MultipleChoice
           class="h-full flex flex-col flex-1 overflow-auto"
@@ -21,13 +37,7 @@
       </Multipane>
     </div>
     <div class="block lg:hidden">
-      <MarkdownWithHint
-        :markdown-source="markdownSource"
-        :hint-markdown-source="hintMarkdownSource"
-        :hint-callback="hintCallback"
-        :is-hint-purchased="isHintPurchased"
-        :hint-cost="hintCost"
-      />
+      <MarkdownViewer :source="markdownSource" />
       <Section title="Come back on a computer">
         <p class="p-4">
           Coding is hard to do on a phone. I want you to have a great
@@ -42,16 +52,18 @@
 import MultipleChoice from "@/components/MultipleChoice.vue";
 import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
-import MarkdownWithHint from "@/components/MarkdownWithHint.vue";
+import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
-    MarkdownWithHint,
+    MarkdownViewer,
     Section,
     MultipleChoice,
     Multipane,
     MultipaneResizer,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
@@ -64,6 +76,10 @@ export default {
     },
     question: {
       type: String,
+      required: true,
+    },
+    isLoggedIn: {
+      type: Boolean,
       required: true,
     },
     sandbox: {
@@ -93,6 +109,18 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    uuid: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    isHintAvailable() {
+      if (!this.hintMarkdownSource) {
+        return false;
+      }
+      return true;
     },
   },
 };

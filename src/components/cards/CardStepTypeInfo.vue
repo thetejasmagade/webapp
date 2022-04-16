@@ -2,6 +2,18 @@
   <div class="overflow-y-auto w-full flex flex-col items-center">
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
+      <TabsNavInline
+        v-if="isLoggedIn"
+        class="mb-2"
+        :tabs="[
+          {
+            icon: 'comment',
+            name: 'Report Issue',
+          },
+        ]"
+        :uuid="uuid"
+        unit-type="step"
+      />
     </div>
     <Section class="block lg:hidden" title="Come back on a computer">
       <p class="p-4">
@@ -15,15 +27,21 @@
 <script>
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
     MarkdownViewer,
     Section,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
       type: String,
+      required: true,
+    },
+    isLoggedIn: {
+      type: Boolean,
       required: true,
     },
     projectSlug: {
@@ -31,6 +49,10 @@ export default {
       required: true,
     },
     stepSlug: {
+      type: String,
+      required: true,
+    },
+    uuid: {
       type: String,
       required: true,
     },

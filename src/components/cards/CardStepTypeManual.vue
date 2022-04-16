@@ -16,6 +16,18 @@
         </BlockButton>
       </div>
       <MarkdownViewer ref="viewer" :source="markdownSource" />
+      <TabsNavInline
+        v-if="isLoggedIn"
+        class="mb-2"
+        :tabs="[
+          {
+            icon: 'comment',
+            name: 'Report Issue',
+          },
+        ]"
+        :uuid="uuid"
+        unit-type="step"
+      />
     </div>
     <div class="block lg:hidden w-full">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
@@ -34,6 +46,7 @@ import BlockButton from "@/components/BlockButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Section from "@/components/Section.vue";
+import TabsNavInline from "@/components/TabsNavInline.vue";
 
 export default {
   components: {
@@ -41,10 +54,15 @@ export default {
     BlockButton,
     FontAwesomeIcon,
     Section,
+    TabsNavInline,
   },
   props: {
     markdownSource: {
       type: String,
+      required: true,
+    },
+    isLoggedIn: {
+      type: Boolean,
       required: true,
     },
     projectSlug: {
@@ -57,6 +75,10 @@ export default {
     },
     doneWithStep: {
       type: Function,
+      required: true,
+    },
+    uuid: {
+      type: String,
       required: true,
     },
   },
