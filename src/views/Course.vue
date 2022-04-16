@@ -26,7 +26,7 @@
       <ExerciseSkeleton v-else-if="!isContentLoaded" />
       <div v-else class="h-full flex-col sm:flex">
         <ExerciseNav
-          class="p-3 w-full box-border shadow z-10"
+          class="p-3 w-full box-border z-10"
           :dropdown-one-items="dropdownModules"
           :dropdown-two-items="dropdownExercises"
           :dropdown-one-index="moduleIndex"

@@ -71,23 +71,27 @@ export default {
   font-weight: 600;
   font-size: 2rem;
   margin-bottom: 1rem;
+  color: var(--blue-400);
 }
 
 .viewer h2 {
   font-weight: 600;
   font-size: 1.6rem;
   margin-bottom: 1rem;
+  color: var(--blue-400);
 }
 
 .viewer h3 {
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 1rem;
+  color: var(--blue-400);
 }
 
 .viewer h4 {
   font-weight: 600;
   margin-bottom: 1rem;
+  color: var(--blue-400);
 }
 
 .viewer p {
@@ -120,7 +124,7 @@ export default {
 }
 
 .viewer code {
-  background: var(--gray-800);
+  background: var(--gray-700);
   padding: 3px 6px 3px 6px;
   border-radius: 4px;
 }

@@ -2,7 +2,9 @@
   <div class="h-full overflow-auto bg-gray-750">
     <div class="h-full hidden lg:block">
       <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
-        <div class="flex flex-col w-1/2 border-r border-gray-500 overflow-auto">
+        <div
+          class="flex flex-col w-1/2 border-r border-gray-500 bg-gray-800 overflow-auto"
+        >
           <MarkdownViewer :source="markdownSource" />
           <BottomOfMarkdownTabsNav
             v-if="isLoggedIn"

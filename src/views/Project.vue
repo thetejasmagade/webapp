@@ -11,7 +11,7 @@
       <div v-if="project" class="h-full flex flex-col">
         <ExerciseNav
           v-if="isContentLoaded"
-          class="p-3 w-full box-border shadow z-10"
+          class="p-3 w-full box-border z-10"
           :dropdown-one-items="dropdownSteps"
           :dropdown-one-index="stepIndex"
           :back-link="backLink"

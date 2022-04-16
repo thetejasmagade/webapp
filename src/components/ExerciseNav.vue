@@ -24,13 +24,13 @@
           }
         "
       />
-      <span
-        v-if="sandbox"
-        class="ml-4 text-red-500 underline cursor-pointer"
-        @click="$refs.sandboxModeModal.show"
+      <BlockButton
+        class="ml-4"
+        :click="$refs.sandboxModeModal.show"
+        color="red"
       >
-        Sandbox Mode ⓘ
-      </span>
+        You're in Sandbox Mode
+      </BlockButton>
     </div>
     <div class="flex-1 flex justify-end mr-5">
       <BlockButton

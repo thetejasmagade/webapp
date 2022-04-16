@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-auto w-full flex flex-col items-center">
+  <div class="overflow-y-auto w-full flex flex-col items-center bg-gray-800">
     <div class="hidden lg:block max-w-4xl">
       <div class="mt-4 w-full flex flex-row justify-end">
         <BlockButton

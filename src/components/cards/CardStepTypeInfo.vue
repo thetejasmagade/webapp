@@ -1,5 +1,7 @@
 <template>
-  <div class="overflow-y-auto w-full flex flex-col items-center">
+  <div
+    class="overflow-y-auto w-full flex flex-col items-center bg-gray-800 h-full"
+  >
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
       <BottomOfMarkdownTabsNav
