@@ -4,7 +4,7 @@
       <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
         <div class="flex flex-col w-1/2 border-r border-gray-500 overflow-auto">
           <MarkdownViewer :source="markdownSource" />
-          <TabsNavInline
+          <BottomOfMarkdownTabsNav
             v-if="isLoggedIn"
             class="mb-2"
             :tabs="
@@ -62,7 +62,7 @@ import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
-import TabsNavInline from "@/components/TabsNavInline.vue";
+import BottomOfMarkdownTabsNav from "@/components/BottomOfMarkdownTabsNav.vue";
 
 export default {
   components: {
@@ -71,7 +71,7 @@ export default {
     MultipaneResizer,
     MarkdownViewer,
     Section,
-    TabsNavInline,
+    BottomOfMarkdownTabsNav,
   },
   props: {
     uuid: {

@@ -2,7 +2,7 @@
   <div class="overflow-y-auto w-full flex flex-col items-center">
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
-      <TabsNavInline
+      <BottomOfMarkdownTabsNav
         v-if="isLoggedIn"
         class="mb-2"
         :tabs="[
@@ -27,13 +27,13 @@
 <script>
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
-import TabsNavInline from "@/components/TabsNavInline.vue";
+import BottomOfMarkdownTabsNav from "@/components/BottomOfMarkdownTabsNav.vue";
 
 export default {
   components: {
     MarkdownViewer,
     Section,
-    TabsNavInline,
+    BottomOfMarkdownTabsNav,
   },
   props: {
     markdownSource: {
