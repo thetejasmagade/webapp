@@ -24,11 +24,7 @@
           }
         "
       />
-      <BlockButton
-        class="ml-4"
-        :click="$refs.sandboxModeModal.show"
-        color="red"
-      >
+      <BlockButton v-if="sandbox" class="ml-4" :click="showSandbox" color="red">
         You're in Sandbox Mode
       </BlockButton>
     </div>
@@ -136,6 +132,9 @@ export default {
           this.$router.push(dropdownItem.link);
         }
       }
+    },
+    showSandbox() {
+      this.$refs.sandboxModeModal.show();
     },
   },
 };
