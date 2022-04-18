@@ -14,7 +14,7 @@
       <ExerciseSkeleton v-if="!isContentLoaded" />
 
       <div v-if="isContentLoaded" class="h-full flex-col sm:flex">
-        <ExerciseNav
+        <UnitTopNav
           class="p-3 w-full box-border z-10"
           :dropdown-one-items="dropdownModules"
           :dropdown-two-items="dropdownExercises"
@@ -101,7 +101,7 @@
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
-import ExerciseNav from "@/components/ExerciseNav.vue";
+import UnitTopNav from "@/components/navs/UnitTopNav.vue";
 import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
 import ExerciseSkeleton from "@/components/skeletons/ExerciseSkeleton.vue";
 import CardExerciseTypeInfo from "@/components/cards/CardExerciseTypeInfo.vue";
@@ -162,7 +162,7 @@ export default {
     ViewNavWrapper,
     UnitDoneModal,
     CardExerciseTypeInfo,
-    ExerciseNav,
+    UnitTopNav,
     SandboxModeModal,
     ExerciseSkeleton,
     CardExerciseTypeMultipleChoice,

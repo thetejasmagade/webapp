@@ -17,7 +17,7 @@
 <script>
 import InsertTypeAchievement from "@/components/inserts/InsertTypeAchievement.vue";
 import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vue";
-import Modal from "@/components/Modal.vue";
+import Modal from "@/components/modals/Modal.vue";
 
 import { notify } from "@/lib/notification.js";
 

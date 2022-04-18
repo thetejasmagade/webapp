@@ -36,7 +36,7 @@
         class="mx-4 mb-2"
         color="gray"
       >
-        <SidebarItem
+        <SideNavItem
           icon="cog"
           :click="
             () => {
@@ -53,7 +53,7 @@
         class="mx-4 mb-2"
         color="gray"
       >
-        <SidebarItem
+        <SideNavItem
           icon="user-tie"
           :click="
             () =>
@@ -72,7 +72,7 @@
         class="mx-4 mb-2"
         color="gray"
       >
-        <SidebarItem
+        <SideNavItem
           icon="trophy"
           :click="
             () => {
@@ -88,14 +88,14 @@
       </div>
 
       <Tooltip :text="`Logout`" position="right" class="mx-4 mb-2" color="gray">
-        <SidebarItem icon="sign-out-alt" :click="logout" />
+        <SideNavItem icon="sign-out-alt" :click="logout" />
       </Tooltip>
     </div>
   </div>
 </template>
 
 <script>
-import SidebarItem from "@/components/SidebarItem.vue";
+import SideNavItem from "@/components/navs/SideNav/SideNavItem.vue";
 import GemDisplay from "@/components/GemDisplay.vue";
 import ProfileImage from "@/components/ProfileImage.vue";
 import Tooltip from "@/components/Tooltip.vue";
@@ -107,7 +107,7 @@ import { setLogout } from "@/lib/cloudStore.js";
 
 export default {
   components: {
-    SidebarItem,
+    SideNavItem,
     GemDisplay,
     ProfileImage,
     Tooltip,

@@ -29,7 +29,7 @@
 
 <script>
 import CodeEditor from "@/components/CodeEditor.vue";
-import TopNav from "@/components/TopNav.vue";
+import TopNav from "@/components/navs/TopNav.vue";
 import SelectDropdown from "@/components/SelectDropdown.vue";
 
 import { reactive, computed, onMounted } from "vue";

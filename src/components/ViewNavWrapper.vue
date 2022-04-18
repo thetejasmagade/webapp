@@ -2,7 +2,7 @@
   <div>
     <TopNav :title="title" />
     <div class="flex h-full-minus-bar">
-      <Sidebar
+      <SideNav
         v-if="$store.getters.getIsLoggedIn"
         class="inline-block align-top w-20"
       />
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import TopNav from "@/components/TopNav.vue";
-import Sidebar from "@/components/Sidebar.vue";
+import TopNav from "@/components/navs/TopNav.vue";
+import SideNav from "@/components/navs/SideNav.vue";
 
 export default {
   components: {
-    Sidebar,
+    SideNav,
     TopNav,
   },
   props: {

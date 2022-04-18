@@ -9,7 +9,7 @@
       />
 
       <div v-if="project" class="h-full flex flex-col">
-        <ExerciseNav
+        <UnitTopNav
           v-if="isContentLoaded"
           class="p-3 w-full box-border z-10"
           :dropdown-one-items="dropdownSteps"
@@ -53,7 +53,7 @@
 
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
-import ExerciseNav from "@/components/ExerciseNav.vue";
+import UnitTopNav from "@/components/navs/UnitTopNav.vue";
 import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
@@ -88,7 +88,7 @@ import { getComputedMeta } from "@/lib/meta.js";
 
 export default {
   components: {
-    ExerciseNav,
+    UnitTopNav,
     UnitDoneModal,
     CardStepTypeInfo,
     CardStepTypeManual,

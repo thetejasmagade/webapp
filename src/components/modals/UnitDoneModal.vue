@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
+import Modal from "@/components/modals/Modal.vue";
 import BlockButton from "@/components/BlockButton.vue";
 import { loadTracks } from "@/lib/cloudStore.js";
 

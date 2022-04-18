@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import TopNav from "@/components/TopNav.vue";
+import TopNav from "@/components/navs/TopNav.vue";
 import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
 

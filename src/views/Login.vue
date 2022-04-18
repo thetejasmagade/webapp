@@ -311,7 +311,7 @@ import Section from "@/components/Section.vue";
 import MagicLinkLogin from "@/components/MagicLinkLogin.vue";
 import MagicLinkRegister from "@/components/MagicLinkRegister.vue";
 import IntegrationLoginForm from "@/components/IntegrationLoginForm.vue";
-import TopNav from "@/components/TopNav.vue";
+import TopNav from "@/components/navs/TopNav.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
 import Testimonial from "@/components/Testimonial.vue";

@@ -94,7 +94,7 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import TopNav from "@/components/TopNav.vue";
+import TopNav from "@/components/navs/TopNav.vue";
 import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
 import { loadUser } from "@/lib/cloudStore.js";

@@ -46,7 +46,7 @@ import BlockButton from "@/components/BlockButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Section from "@/components/Section.vue";
-import BottomOfMarkdownTabsNav from "@/components/BottomOfMarkdownTabsNav.vue";
+import BottomOfMarkdownTabsNav from "@/components/navs/BottomOfMarkdownTabsNav.vue";
 
 export default {
   components: {

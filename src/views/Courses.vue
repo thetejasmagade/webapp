@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import TabsNav from "@/components/TabsNav.vue";
+import TabsNav from "@/components/navs/TabsNav.vue";
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import { loadAllInterests } from "@/lib/cloudStore.js";
 import { useRoute } from "vue-router";

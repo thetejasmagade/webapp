@@ -64,7 +64,7 @@ import Multipane from "@/components/Multipane.vue";
 import MultipaneResizer from "@/components/MultipaneResizer.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
-import BottomOfMarkdownTabsNav from "@/components/BottomOfMarkdownTabsNav.vue";
+import BottomOfMarkdownTabsNav from "@/components/navs/BottomOfMarkdownTabsNav.vue";
 
 export default {
   components: {
