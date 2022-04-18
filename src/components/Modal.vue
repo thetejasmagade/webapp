@@ -7,7 +7,7 @@
       >
         <div class="flex justify-center">
           <div
-            class="flex-1 max-w-xl p-6 bg-gray-700 text-gray-200 rounded"
+            class="flex-1 max-w-2xl max-h-screen p-6 bg-gray-700 text-gray-200 rounded overflow-auto"
             @click.stop=""
           >
             <div class="flex flex-col">

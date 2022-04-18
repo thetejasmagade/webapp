@@ -3,7 +3,7 @@
     <Section
       title="Achievement unlocked!"
       subtitle="Great job, keep going"
-      class="max-w-4xl"
+      class="w-full"
     >
       <div v-if="!claimed" class="flex flex-col items-center p-4">
         <h2 class="text-blue-400 text-2xl font-bold">
@@ -18,7 +18,7 @@
           "
           class="w-60"
         />
-        <h3 class="text-gray-600 text-xl mb-8">
+        <h3 class="text-gray-200 text-xl mb-8">
           {{ achievementEarned?.AchievementDescription }}
         </h3>
         <BlockButton :click="claim" color="blue">

@@ -9,22 +9,11 @@
         :go-to-beginning-callback="goToBeginning"
         :type="'course'"
       />
+      <CourseInsertsModal v-if="user" ref="courseInsertsModal" :user="user" />
 
-      <InsertTypeAchievement
-        v-if="
-          insertsToShow?.length > 0 && insertsToShow[0].type === 'achievement'
-        "
-        :achievement-earned="insertsToShow[0].data"
-        :on-done="onSeenInsert"
-      />
-      <InsertTypeDiscordSync
-        v-else-if="
-          insertsToShow?.length > 0 && insertsToShow[0].type === 'discord'
-        "
-        :on-done="onSeenInsert"
-      />
-      <ExerciseSkeleton v-else-if="!isContentLoaded" />
-      <div v-else class="h-full flex-col sm:flex">
+      <ExerciseSkeleton v-if="!isContentLoaded" />
+
+      <div v-if="isContentLoaded" class="h-full flex-col sm:flex">
         <ExerciseNav
           class="p-3 w-full box-border z-10"
           :dropdown-one-items="dropdownModules"
@@ -40,10 +29,7 @@
           "
           :sandbox="sandbox"
         />
-        <ProgressBar
-          v-if="isContentLoaded && isLoggedIn"
-          :percent-complete="percentComplete"
-        />
+        <ProgressBar v-if="isLoggedIn" :percent-complete="percentComplete" />
         <CardExerciseTypeInfo
           v-if="type === 'type_info'"
           :markdown-source="markdownSource"
@@ -123,8 +109,7 @@ import CardExerciseTypeMultipleChoice from "@/components/cards/CardExerciseTypeM
 import CardExerciseTypeCode from "@/components/cards/CardExerciseTypeCode.vue";
 import CardExerciseTypeCodeCanvas from "@/components/cards/CardExerciseTypeCodeCanvas.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
-import InsertTypeAchievement from "@/components/inserts/InsertTypeAchievement.vue";
-import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vue";
+import CourseInsertsModal from "@/components/CourseInsertsModal.vue";
 import { loadBalance, loadUser } from "@/lib/cloudStore.js";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useRoute, useRouter } from "vue-router";
@@ -160,7 +145,6 @@ import {
   getExerciseByID,
   getCourseProgress,
   getUnitsProgress,
-  getPendingAchievements,
   getHintStatus,
   purchaseHint,
   getCheatStatus,
@@ -185,8 +169,7 @@ export default {
     CardExerciseTypeCode,
     CardExerciseTypeCodeCanvas,
     ProgressBar,
-    InsertTypeAchievement,
-    InsertTypeDiscordSync,
+    CourseInsertsModal,
   },
   setup() {
     const state = reactive({
@@ -205,7 +188,6 @@ export default {
       courses: null,
       isFree: null,
       isCheating: false,
-      insertsToShow: [],
       courseProgress: null,
       unitProgress: null,
       isCheatPurchased: false,
@@ -223,6 +205,7 @@ export default {
 
     const sandboxModeModal = ref(null);
     const unitDoneModal = ref(null);
+    const courseInsertsModal = ref(null);
 
     const sandbox = computed(() => {
       return (
@@ -356,9 +339,6 @@ export default {
       if (state.markdownSource === "") {
         return false;
       }
-      if (store.getters.getIsLoggedIn && state.insertsToShow === null) {
-        return false;
-      }
       return true;
     });
 
@@ -471,27 +451,8 @@ export default {
         await getCourseProgressIfLoggedIn();
         if (store.getters.getIsLoggedIn) {
           try {
-            let pendingAchievements = await getPendingAchievements();
             if (!store.getters.getUser) {
-              loadUser(store.commit);
-            }
-            const user = store.getters.getUser;
-            if (
-              user.DiscordUserID === null &&
-              moduleIndex.value != 0 &&
-              exerciseIndex.value === 0
-            ) {
-              state.insertsToShow.push({
-                type: "discord",
-              });
-            }
-            if (pendingAchievements.length > 0) {
-              for (const achievement of pendingAchievements) {
-                state.insertsToShow.push({
-                  type: "achievement",
-                  data: achievement,
-                });
-              }
+              await loadUser(store.commit);
             }
           } catch (err) {
             notify({
@@ -559,10 +520,6 @@ export default {
       }
     };
 
-    const onSeenInsert = () => {
-      state.insertsToShow.shift();
-    };
-
     const showSandboxModeModal = () => {
       eventOpenSandboxModeModal();
       sandboxModeModal.value.showWithCache();
@@ -614,6 +571,7 @@ export default {
         moduleIndex.value
       );
       if (state.type !== "type_info") {
+        courseInsertsModal.value.show();
         if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
           notify({
             type: "success",
@@ -834,7 +792,6 @@ export default {
       moduleIndex,
       course,
       doneWithExercise,
-      onSeenInsert,
       showSandboxModeModal,
       hintCallback,
       cheatCallback,
@@ -845,6 +802,8 @@ export default {
       submitTypeChoice,
       goToBeginning,
       route,
+      user: computed(() => store.getters.getUser),
+      courseInsertsModal,
     };
   },
 };

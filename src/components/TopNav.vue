@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-gray-800 z-50">
+  <nav class="bg-gray-800 z-50 border-b border-gray-600">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 top-nav-bar-height">
       <div class="relative flex items-center justify-between h-full">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">

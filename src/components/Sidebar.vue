@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="text-gray-200 bg-gray-800 border-t border-gray-500 h-full text-center shadow relative z-10"
+      class="text-gray-200 bg-gray-800 border-gray-600 h-full text-center border-r relative z-10"
     >
       <div class="profile-box flex flex-col items-center">
         <ProfileImage
