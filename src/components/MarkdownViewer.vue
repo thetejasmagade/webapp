@@ -103,12 +103,15 @@ export default {
 .viewer pre {
   border-radius: 4px;
   overflow-x: auto;
+  background-color: var(--gray-700);
+  padding: 1em;
 }
 
 .viewer pre code {
   color: inherit;
   background-color: inherit;
   overflow-x: auto;
+  padding: 0;
 }
 
 .viewer ul {
