@@ -145,6 +145,9 @@ body {
 }
 
 .h-full-minus-bar {
-  height: calc(100vh - var(--top-nav-bar-height));
+  height: calc(100vh - var(--top-nav-bar-height) - 1px);
+}
+.top-nav-bar-height {
+  height: var(--top-nav-bar-height);
 }
 </style>

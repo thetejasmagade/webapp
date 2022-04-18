@@ -209,8 +209,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.top-nav-bar-height {
-  height: var(--top-nav-bar-height);
-}
-</style>
+<style></style>
