@@ -9,7 +9,12 @@
         :go-to-beginning-callback="goToBeginning"
         :type="'course'"
       />
-      <CourseInsertsModal v-if="user" ref="courseInsertsModal" :user="user" />
+      <CourseInsertsModal
+        v-if="user && exerciseIndex"
+        ref="courseInsertsModal"
+        :user="user"
+        :exercise-index="exerciseIndex"
+      />
 
       <ExerciseSkeleton v-if="!isContentLoaded" />
 

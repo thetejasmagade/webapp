@@ -52,7 +52,7 @@
       <BlockButton class="mb-4"> Email me a login link </BlockButton>
     </form>
     <div v-else>
-      <h2 class="my-8 text-xl text-gray-600">
+      <h2 class="my-8 text-xl text-gray-400">
         Click the link in your email to sign in
       </h2>
     </div>

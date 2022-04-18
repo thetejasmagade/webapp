@@ -1,6 +1,7 @@
 const jwtKey = "cloudJWT";
 const seenSandboxModalLoginKey = "seenSandboxModalLogin";
 const seenSandboxModalPatronKey = "seenSandboxModalPatron";
+const seenDiscordSyncInsertKey = "seenDiscordSyncInsert";
 const trueString = "true";
 
 // add the courseUUID / project UUID to the end
@@ -73,4 +74,13 @@ export function hasCachedCode(exerciseUUID) {
 
 export function deleteCachedCode(exerciseUUID) {
   localStorage.removeItem(getExerciseCodeKey(exerciseUUID));
+}
+
+export function markSeenDiscordSyncInsert() {
+  localStorage.setItem(seenDiscordSyncInsertKey, trueString);
+}
+
+export function hasSeenDiscordSyncInsert() {
+  const val = localStorage.getItem(seenDiscordSyncInsertKey);
+  return val === trueString;
 }

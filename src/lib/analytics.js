@@ -22,6 +22,12 @@ export function eventOpenPricingModal() {
   mixpanel.track("openPricingModal");
 }
 
+export function eventCompleteSignupFlow(index) {
+  mixpanel.track("completeSignupFlow", {
+    index,
+  });
+}
+
 // method can be 'email', 'google', etc
 export function eventRegister(method) {
   try {

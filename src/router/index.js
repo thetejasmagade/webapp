@@ -9,11 +9,7 @@ const Login = () => import("@/views/Login.vue");
 const Playground = () => import("@/views/Playground.vue");
 const Settings = () => import("@/views/Settings.vue");
 const Achievements = () => import("@/views/Achievements.vue");
-const SignupFlowUsername = () => import("@/views/SignupFlowUsername.vue");
-const SignupFlowMethod = () => import("@/views/SignupFlowMethod.vue");
-const SignupFlowCode = () => import("@/views/SignupFlowCode.vue");
-const SignupFlowCommunity = () => import("@/views/SignupFlowCommunity.vue");
-const SignupFlowRecruiters = () => import("@/views/SignupFlowRecruiters.vue");
+const SignupFlow = () => import("@/views/SignupFlow.vue");
 const Certificate = () => import("@/views/Certificate.vue");
 const CSTrack = () => import("@/views/CSTrack.vue");
 const AlgosTrack = () => import("@/views/AlgosTrack.vue");
@@ -30,29 +26,9 @@ const routes = [
     component: Login,
   },
   {
-    path: "/signup_flow/username",
-    name: "SignupFlowUsername",
-    component: SignupFlowUsername,
-  },
-  {
-    path: "/signup_flow/method",
-    name: "SignupFlowMethod",
-    component: SignupFlowMethod,
-  },
-  {
-    path: "/signup_flow/community",
-    name: "SignupFlowCommunity",
-    component: SignupFlowCommunity,
-  },
-  {
-    path: "/signup_flow/recruit",
-    name: "SignupFlowRecruiters",
-    component: SignupFlowRecruiters,
-  },
-  {
-    path: "/signup_flow/code",
-    name: "SignupFlowCode",
-    component: SignupFlowCode,
+    path: "/signup-flow",
+    name: "SignupFlow",
+    component: SignupFlow,
   },
   {
     path: "/courses",

@@ -112,7 +112,7 @@ export default {
         if (resp.registered) {
           eventRegister(singupMethodGoogle);
           this.$router.push({
-            name: "SignupFlowCode",
+            name: "SignupFlow",
             query: { redirect: this.$route.query.redirect },
           });
           return;

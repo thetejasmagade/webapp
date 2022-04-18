@@ -25,6 +25,8 @@ import { onMounted, toRefs, ref, reactive } from "vue";
 
 import { getPendingAchievements } from "@/lib/cloudClient.js";
 
+import { hasSeenDiscordSyncInsert } from "@/lib/localStorageLib";
+
 export default {
   components: {
     Modal,
@@ -36,23 +38,34 @@ export default {
       type: Object,
       required: true,
     },
+    exerciseIndex: {
+      type: Number,
+      required: true,
+    },
   },
   setup(props) {
-    const { user } = toRefs(props);
+    const { user, exerciseIndex } = toRefs(props);
     const state = reactive({
       courseInserts: [],
     });
 
-    const getRandomInt = (min, max) => {
-      return Math.floor(Math.random() * max + min);
+    const showDiscordSyncIfNecessary = () => {
+      if (user.value.DiscordUserID !== null) {
+        return;
+      }
+      if (hasSeenDiscordSyncInsert()) {
+        return;
+      }
+      if (exerciseIndex.value !== 5) {
+        return;
+      }
+      state.courseInserts.push({
+        type: "discord",
+      });
     };
 
     onMounted(async () => {
-      if (user.value.DiscordUserID === null && getRandomInt(0, 10) === 0) {
-        state.courseInserts.push({
-          type: "discord",
-        });
-      }
+      showDiscordSyncIfNecessary();
 
       try {
         let pendingAchievements = await getPendingAchievements();
@@ -72,7 +85,6 @@ export default {
 
     const onSeenInsert = () => {
       state.courseInserts.shift();
-      console.log(state.courseInserts.length);
       if (state.courseInserts.length === 0) {
         hide();
       }
