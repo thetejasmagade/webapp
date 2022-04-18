@@ -48,9 +48,6 @@ export default {
     };
 
     onMounted(async () => {
-      state.courseInserts.push({
-        type: "discord",
-      });
       if (user.value.DiscordUserID === null && getRandomInt(0, 10) === 0) {
         state.courseInserts.push({
           type: "discord",
