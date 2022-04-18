@@ -3,10 +3,10 @@
     <div
       v-for="(tab, i) of tabs"
       :key="i"
-      class="py-3 px-4 rounded-t mr-2 inline-block cursor-pointer hover:bg-gray-800"
+      class="py-3 px-4 rounded-t mr-2 inline-block cursor-pointer hover:bg-gray-750"
       :class="{
-        'bg-gray-800': i === currentTabIndex,
-        'bg-gray-750': i !== currentTabIndex,
+        'bg-gray-750': i === currentTabIndex,
+        'bg-gray-700': i !== currentTabIndex,
       }"
       @click="setCurrentTabindex(i)"
     >
@@ -16,7 +16,7 @@
         {{ tab.name }}
       </span>
     </div>
-    <div class="bg-gray-800 p-4 rounded-r rounded-b">
+    <div class="bg-gray-750 p-4 rounded-r rounded-b">
       <div v-if="currentTabIndex === 0">
         <h1 class="text-2xl mb-4 ml-4 pt-4">
           Is there something we can do to make this exercise better?
