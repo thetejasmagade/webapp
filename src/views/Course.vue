@@ -100,16 +100,16 @@
 
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
-import UnitDoneModal from "@/components/UnitDoneModal.vue";
+import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
-import SandboxModeModal from "@/components/SandboxModeModal.vue";
+import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
 import ExerciseSkeleton from "@/components/ExerciseSkeleton.vue";
 import CardExerciseTypeInfo from "@/components/cards/CardExerciseTypeInfo.vue";
 import CardExerciseTypeMultipleChoice from "@/components/cards/CardExerciseTypeMultipleChoice.vue";
 import CardExerciseTypeCode from "@/components/cards/CardExerciseTypeCode.vue";
 import CardExerciseTypeCodeCanvas from "@/components/cards/CardExerciseTypeCodeCanvas.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
-import CourseInsertsModal from "@/components/CourseInsertsModal.vue";
+import CourseInsertsModal from "@/components/modals/CourseInsertsModal.vue";
 import { loadBalance, loadUser } from "@/lib/cloudStore.js";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useRoute, useRouter } from "vue-router";

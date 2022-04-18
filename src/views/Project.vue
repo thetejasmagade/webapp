@@ -54,7 +54,7 @@
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
-import UnitDoneModal from "@/components/UnitDoneModal.vue";
+import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
 import ProgressBar from "@/components/ProgressBar.vue";

@@ -54,7 +54,7 @@
 import BlockButton from "@/components/BlockButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SelectDropdown from "@/components/SelectDropdown.vue";
-import SandboxModeModal from "@/components/SandboxModeModal.vue";
+import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
 
 export default {
   components: {

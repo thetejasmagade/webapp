@@ -265,7 +265,7 @@ import BlockButton from "@/components/BlockButton.vue";
 import TextInput from "@/components/TextInput.vue";
 import Section from "@/components/Section.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
-import ConfirmModal from "@/components/ConfirmModal.vue";
+import ConfirmModal from "@/components/modals/ConfirmModal.vue";
 import ResumeUploader from "@/components/ResumeUploader.vue";
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import { getComputedMeta } from "@/lib/meta.js";

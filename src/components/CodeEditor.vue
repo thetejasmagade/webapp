@@ -89,7 +89,7 @@ import { compileGo, compilePureScript } from "@/lib/cloudClient.js";
 
 import { sleep } from "@/lib/sleep.js";
 
-import ConfirmModal from "@/components/ConfirmModal.vue";
+import ConfirmModal from "@/components/modals/ConfirmModal.vue";
 import CodeMirrorWrapper from "@/components/CodeMirrorWrapper.vue";
 import CodeMirrorMergeWrapper from "@/components/CodeMirrorMergeWrapper.vue";
 import LoadingOverlay from "@/components/LoadingOverlay.vue";
