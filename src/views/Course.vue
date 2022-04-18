@@ -103,7 +103,7 @@ import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
 import ExerciseNav from "@/components/ExerciseNav.vue";
 import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
-import ExerciseSkeleton from "@/components/ExerciseSkeleton.vue";
+import ExerciseSkeleton from "@/components/skeletons/ExerciseSkeleton.vue";
 import CardExerciseTypeInfo from "@/components/cards/CardExerciseTypeInfo.vue";
 import CardExerciseTypeMultipleChoice from "@/components/cards/CardExerciseTypeMultipleChoice.vue";
 import CardExerciseTypeCode from "@/components/cards/CardExerciseTypeCode.vue";

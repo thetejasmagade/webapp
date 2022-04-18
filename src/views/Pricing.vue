@@ -227,7 +227,7 @@ import FAQ from "@/components/FAQ.vue";
 import Testimonial from "@/components/Testimonial.vue";
 import LoadingOverlay from "@/components/LoadingOverlay.vue";
 import BlockButton from "@/components/BlockButton.vue";
-import PricingSkeleton from "@/components/PricingSkeleton.vue";
+import PricingSkeleton from "@/components/skeletons/PricingSkeleton.vue";
 import { checkout } from "@/lib/stripewrap.js";
 import { loadUser, loadSubscriptionPlans } from "@/lib/cloudStore.js";
 import { trackUserCancelCheckout } from "@/lib/cloudClient.js";
