@@ -39,7 +39,7 @@
         >
           <ConsoleButtons
             :run-callback="runCode"
-            :reset-callback="() => $refs.resetCodeModal.show()"
+            :reset-callback="() => $refs.resetCodeModal?.show()"
             :cheat-callback="cheatCallback"
             :is-cheating="isCheating"
             :is-cheat-purchased="isCheatPurchased"

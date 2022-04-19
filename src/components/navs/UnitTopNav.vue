@@ -134,7 +134,7 @@ export default {
       }
     },
     showSandbox() {
-      this.$refs.sandboxModeModal.show();
+      this.$refs.sandboxModeModal?.show();
     },
   },
 };

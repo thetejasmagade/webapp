@@ -64,7 +64,7 @@ export default {
         markSeenSandboxModalLoginKey();
       }
       eventOpenSandboxModeModal();
-      this.$refs.sandboxModeModal.show();
+      this.$refs.sandboxModeModal?.show();
     },
     showWithCache() {
       if (
@@ -79,7 +79,7 @@ export default {
       this.show();
     },
     hide() {
-      this.$refs.sandboxModeModal.hide();
+      this.$refs.sandboxModeModal?.hide();
     },
     btnClick() {
       if (this.$store.getters.getIsLoggedIn) {

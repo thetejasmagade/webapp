@@ -101,10 +101,10 @@ export default {
         return;
       }
       markSeenUnitDoneModal(this.unitUUID);
-      this.$refs.unitDoneModal.show();
+      this.$refs.unitDoneModal?.show();
     },
     hide() {
-      this.$refs.unitDoneModal.hide();
+      this.$refs.unitDoneModal?.hide();
     },
   },
 };
