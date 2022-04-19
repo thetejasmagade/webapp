@@ -218,7 +218,7 @@ export default {
       return getComputedMeta({
         title: `${state.user.FirstName}'s Portfolio`,
         description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Boot.dev`,
-        image: state.user.ProfileImageURL,
+        featuredImageURL: state.user.ProfileImageURL,
       });
     });
     useMeta(computedMeta);

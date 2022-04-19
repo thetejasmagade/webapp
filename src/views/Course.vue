@@ -413,7 +413,7 @@ export default {
       return getComputedMeta({
         title: state.exerciseTitle,
         description: state.exerciseDescription,
-        image: course.value?.ImageURL,
+        featuredImageURL: course.value?.ImageURL,
       });
     });
     useMeta(computedMeta);

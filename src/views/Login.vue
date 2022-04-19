@@ -401,8 +401,6 @@ export default {
       title: "Login",
       description:
         "Login or sign up for Boot.dev's computer science and coding courses. All my courses are free to audit, get started today.",
-      image:
-        "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
     });
     useMeta(computedMeta);
   },

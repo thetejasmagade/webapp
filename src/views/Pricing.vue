@@ -325,8 +325,6 @@ export default {
       title: "Pricing",
       description:
         "Become a patron to unlock all the courses on content on Boot.dev",
-      image:
-        "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner-1024x576.jpg",
     });
     useMeta(computedMeta);
   },

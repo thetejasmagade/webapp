@@ -140,8 +140,7 @@ export default {
       return getComputedMeta({
         title: `${state.displayLang?.name} Playground`,
         description: `Run ${state.displayLang?.name} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`,
-        image:
-          "https://qvault.io/wp-content/uploads/2021/04/qvault-coding-playground.jpg",
+        featuredImageURL: "/src/img/code_playground-boot.png",
       });
     });
     useMeta(computedMeta);

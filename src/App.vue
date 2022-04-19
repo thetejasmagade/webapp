@@ -106,8 +106,7 @@ export default {
       title: "Coding Courses",
       description:
         "Learning computer science can be complicated. We make it simple. Unlock free content, courses, certificates and achievements as you learn.",
-      image:
-        "https://qvault.io/wp-content/uploads/2021/04/qvault-social-banner.jpg",
+      featuredImageURL: "/src/img/the_modern_cs_bootcamp-boot.png",
     });
     useMeta(computedMeta);
   },

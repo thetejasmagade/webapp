@@ -270,7 +270,7 @@ export default {
       return getComputedMeta({
         title: state.stepTitle,
         description: state.stepDescription,
-        image: project.value?.ImageURL,
+        featuredImageURL: project.value?.ImageURL,
       });
     });
     useMeta(computedMeta);
