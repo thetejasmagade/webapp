@@ -238,7 +238,7 @@
             <div class="p-4 flex flex-col items-center">
               <BlockButton
                 color="red"
-                :click="() => $refs.deleteUserModal.show()"
+                :click="() => $refs.deleteUserModal?.show()"
               >
                 Delete Account Forever
               </BlockButton>

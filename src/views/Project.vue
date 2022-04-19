@@ -403,7 +403,7 @@ export default {
 
     watchEffect(() => {
       if (projectDone.value) {
-        unitDoneModal.value.show();
+        unitDoneModal.value?.show();
       }
     });
 

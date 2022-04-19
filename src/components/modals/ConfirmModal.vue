@@ -59,10 +59,10 @@ export default {
   },
   methods: {
     show() {
-      this.$refs.confirmModal.show();
+      this.$refs.confirmModal?.show();
     },
     hide() {
-      this.$refs.confirmModal.hide();
+      this.$refs.confirmModal?.hide();
     },
   },
 };
