@@ -527,7 +527,7 @@ export default {
 
     const showSandboxModeModal = () => {
       eventOpenSandboxModeModal();
-      sandboxModeModal.value.showWithCache();
+      sandboxModeModal.value?.showWithCache();
     };
 
     const hintCallback = async () => {
@@ -576,7 +576,7 @@ export default {
         moduleIndex.value
       );
       if (state.type !== "type_info") {
-        courseInsertsModal.value.show();
+        courseInsertsModal.value?.show();
         if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
           notify({
             type: "success",
@@ -773,7 +773,7 @@ export default {
 
     watchEffect(() => {
       if (courseDone.value) {
-        unitDoneModal.value.show();
+        unitDoneModal.value?.show();
         eventFinishCourse(course.value?.Title, false);
       }
     });
