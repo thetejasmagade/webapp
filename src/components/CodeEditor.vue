@@ -47,7 +47,6 @@
           />
         </div>
         <div
-          ref="console"
           class="text-md flex-1 flex-row overflow-auto w-full bg-gray-800 text-gray-200 py-4 pl-4"
         >
           <Multipane layout="horizontal" class="h-full flex flex-row">
@@ -61,7 +60,7 @@
               class="bg-white mr-4"
             />
             <MultipaneResizer layout="horizontal" />
-            <div class="overflow-auto h-full flex-1 pr-4">
+            <div ref="console" class="overflow-auto h-full flex-1 pr-4">
               <p
                 v-for="(line, i) of output"
                 :key="i"
@@ -278,7 +277,7 @@ export default {
     },
     scrollToEnd() {
       requestAnimationFrame(() => {
-        var content = this.$refs.console;
+        const content = this.$refs.console;
         content.scrollTop = Number.MAX_SAFE_INTEGER;
       });
     },
