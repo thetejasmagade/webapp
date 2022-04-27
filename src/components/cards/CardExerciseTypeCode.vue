@@ -12,13 +12,17 @@
             :tabs="
               isHintAvailable
                 ? [
-                    { icon: 'comment', name: 'Report Issue' },
+                    { icon: 'pencil', name: 'Insights' },
                     {
                       icon: 'eye',
                       name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
                     },
+                    { icon: 'comment', name: 'Report Issue' },
                   ]
-                : [{ icon: 'comment', name: 'Report Issue' }]
+                : [
+                    { icon: 'pencil', name: 'Insights' },
+                    { icon: 'comment', name: 'Report Issue' },
+                  ]
             "
             :hint-markdown-source="hintMarkdownSource"
             :hint-callback="hintCallback"

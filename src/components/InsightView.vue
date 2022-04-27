@@ -1,0 +1,128 @@
+<template>
+  <div>
+    <div class="body overflow-y-auto w-full h-full">
+      <!-- 
+      TODO: Sort users insights to the top
+      -->
+      <UserInsight
+        v-for="(insight, i) of sortedInsights"
+        :key="i"
+        :insight-text="insight.Text"
+        :fname="insight.AuthorUser.FirstName"
+        :lname="insight.AuthorUser.LastName"
+        :handle="insight.AuthorUser.Handle"
+        :author-u-u-i-d="insight.AuthorUserUUID"
+        :uuid="insight.UUID"
+        :get-insights="getExerciseInsights"
+        :profile-image-u-r-l="insight.AuthorUser.ProfileImageURL"
+      />
+    </div>
+    <h1 class="text-2xl mb-4 ml-4 pt-4">
+      Do you have any additional thoughts about this concept that would be
+      useful to other students?
+    </h1>
+    <textarea
+      v-model="insightText"
+      placeholder="Remember to not give hints about the assignment or report bugs here. Use the other tabs for that."
+      class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
+      rows="4"
+    />
+    <BlockButton :click="btnClick" class="mb-4 ml-4"> Submit </BlockButton>
+    <div class="w-96 mx-auto text-gray-700 rounded">
+      <div class="buttons ml-auto flex text-xs"></div>
+    </div>
+  </div>
+</template>
+<script>
+import UserInsight from "@/components/UserInsight.vue";
+import BlockButton from "@/components/BlockButton.vue";
+import { notify } from "@/lib/notification.js";
+import { loadUser } from "@/lib/cloudStore.js";
+
+import { createInsight, getInsights } from "@/lib/cloudClient.js";
+
+export default {
+  components: {
+    UserInsight,
+    BlockButton,
+  },
+  props: {
+    uuid: {
+      type: String,
+      required: true,
+      default: null,
+      insights: [],
+    },
+  },
+  data() {
+    return {
+      insightText: null,
+      insights: [],
+    };
+  },
+  computed: {
+    sortedInsights() {
+      let sortedInsights = [];
+      if (!this.$store.getters.getUser) {
+        return null;
+      }
+      if (!this.insights) {
+        return [];
+      }
+      for (let i = 0; i < this.insights.length; i++) {
+        if (
+          this.insights[i].AuthorUserUUID === this.$store.getters.getUser.UUID
+        ) {
+          sortedInsights.push(this.insights[i]);
+        }
+      }
+      for (let i = 0; i < this.insights.length; i++) {
+        if (
+          this.insights[i].AuthorUserUUID != this.$store.getters.getUser.UUID
+        ) {
+          sortedInsights.push(this.insights[i]);
+        }
+      }
+      return sortedInsights;
+    },
+  },
+  async mounted() {
+    if (!this.$store.getters.getUser) {
+      loadUser(this.$store.commit);
+    }
+    await this.getExerciseInsights();
+  },
+
+  methods: {
+    async getExerciseInsights() {
+      try {
+        this.insights = await getInsights(this.uuid);
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    },
+    async btnClick() {
+      try {
+        if (this.insightText === null || "") {
+          throw "Please enter your insights before submitting.";
+        }
+        await createInsight(this.uuid, this.insightText);
+        notify({
+          type: "success",
+          text: "Thanks for adding your insight!",
+        });
+        this.insightText = null;
+        this.getExerciseInsights();
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    },
+  },
+};
+</script>
