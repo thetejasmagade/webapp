@@ -5,15 +5,13 @@
       heading="Are you sure you want to delete your insight?"
       :on-confirm="deleteUserInsight"
     />
-    <div
-      class="mt-6 ml-4 cursor-pointer flex col-3"
-      @click="
-        () =>
-          $router.push({
-            name: 'Portfolio',
-            params: { userHandle: handle },
-          })
-      "
+    <router-link
+      class="mt-6 ml-4 cursor-pointer flex col-3 hover:opacity-70"
+      :to="{
+        name: 'Portfolio',
+        params: { userHandle: handle },
+      }"
+      target="_blank"
     >
       <ProfileImage
         class="w-10 rounded-full ml-4 flex"
@@ -23,7 +21,7 @@
         <h1>{{ fname }} {{ lname }}</h1>
         <h2 class="text-sm text-gray-400 font-light">@{{ handle }}</h2>
       </div>
-    </div>
+    </router-link>
     <div class="border-b border-gray-400">
       <div class="px-4 py-4 rounded flex text-md shadow-sm text-gray-600">
         <div
@@ -75,7 +73,6 @@ import ConfirmModal from "@/components/modals/ConfirmModal.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import ProfileImage from "@/components/ProfileImage.vue";
 import { updateInsight, deleteInsight } from "@/lib/cloudClient.js";
-import { useRoute } from "vue-router";
 
 export default {
   components: {
@@ -143,12 +140,6 @@ export default {
         return null;
       }
       return this.insightText;
-    },
-    routePath() {
-      return useRoute().path;
-    },
-    routeName() {
-      return useRoute().name;
     },
   },
   methods: {
