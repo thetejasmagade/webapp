@@ -188,7 +188,7 @@
                   <textarea
                     v-model="user.bio"
                     :placeholder="bio"
-                    class="bg-gray-700 autoexpand tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full rounded focus:outline-none"
+                    class="bg-gray-700 autoexpand tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full rounded focus:outline-none resize-none"
                     rows="4"
                   />
                   <label class="text-blue-400 text-xs">Bio</label>

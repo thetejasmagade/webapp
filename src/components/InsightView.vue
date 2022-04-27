@@ -14,14 +14,14 @@
         :profile-image-u-r-l="insight.AuthorUser.ProfileImageURL"
       />
     </div>
-    <h1 class="text-2xl mb-4 ml-4 pt-4">
+    <h1 class="text-lg mb-4 ml-4 pt-4">
       Do you have any additional thoughts about this concept that would be
       useful to other students?
     </h1>
     <textarea
       v-model="insightText"
       placeholder="Remember to not give hints about the assignment or report bugs here. Use the other tabs for that."
-      class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
+      class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none resize-none"
       rows="4"
     />
     <BlockButton :click="btnClick" class="mb-4 ml-4"> Submit </BlockButton>

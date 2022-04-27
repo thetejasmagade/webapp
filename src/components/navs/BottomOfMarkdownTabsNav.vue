@@ -21,7 +21,7 @@
       <div v-if="currentTabIndex === 1 && isHintAvailable">
         <HintButton
           v-if="!isHintPurchased && isHintAvailable"
-          class="bg-gray-800 pt-5 pb-5 justify-center items-center"
+          class="pt-5 pb-5 justify-center items-center"
           :hint-cost="hintCost"
           :hint-callback="hintCallback"
           :is-hint-available="isHintAvailable"
@@ -33,7 +33,7 @@
           currentTabIndex === 2 || (currentTabIndex === 1 && !isHintAvailable)
         "
       >
-        <h1 class="text-2xl mb-4 ml-4 pt-4">
+        <h1 class="text-lg mb-4 ml-4 pt-4">
           Is there something we can do to make this exercise better?
         </h1>
         <textarea

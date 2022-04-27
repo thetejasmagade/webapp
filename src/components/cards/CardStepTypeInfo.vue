@@ -4,9 +4,10 @@
   >
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
+      <div class="border-b mx-4 mb-8"></div>
       <BottomOfMarkdownTabsNav
         v-if="isLoggedIn"
-        class="mb-2"
+        class="mb-4"
         :tabs="[
           {
             icon: 'comment',

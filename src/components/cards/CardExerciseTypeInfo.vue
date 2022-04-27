@@ -2,21 +2,20 @@
   <div class="overflow-y-auto w-full flex flex-col items-center bg-gray-800">
     <div class="max-w-4xl">
       <MarkdownViewer ref="viewer" :source="markdownSource" />
-      <div class="p-4">
-        <BottomOfMarkdownTabsNav
-          v-if="isLoggedIn"
-          class="mb-2"
-          :tabs="[
-            { icon: 'pencil', name: 'Insights' },
-            {
-              icon: 'comment',
-              name: 'Report Issue',
-            },
-          ]"
-          :uuid="uuid"
-          unit-type="exercise"
-        />
-      </div>
+      <div class="border-b mx-4 mb-8"></div>
+      <BottomOfMarkdownTabsNav
+        v-if="isLoggedIn"
+        class="mb-4"
+        :tabs="[
+          { icon: 'pencil', name: 'Insights' },
+          {
+            icon: 'comment',
+            name: 'Report Issue',
+          },
+        ]"
+        :uuid="uuid"
+        unit-type="exercise"
+      />
     </div>
     <Section class="block lg:hidden" title="Come back on a computer">
       <p class="p-4">

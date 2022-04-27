@@ -6,9 +6,10 @@
           class="flex flex-col w-1/2 border-r border-gray-500 bg-gray-800 overflow-auto"
         >
           <MarkdownViewer :source="markdownSource" />
+          <div class="border-b mx-4 mb-8"></div>
           <BottomOfMarkdownTabsNav
             v-if="isLoggedIn"
-            class="mb-2"
+            class="mb-4"
             :tabs="
               isHintAvailable
                 ? [
