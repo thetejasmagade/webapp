@@ -7,9 +7,8 @@
           v-if="isLoggedIn"
           class="mb-2"
           :tabs="[
+            { icon: 'pencil', name: 'Insights' },
             {
-              route: 'cs-track',
-              componentName: 'CSTrack',
               icon: 'comment',
               name: 'Report Issue',
             },
