@@ -42,7 +42,13 @@
           class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
           rows="4"
         />
-        <BlockButton :click="btnClick" class="mb-4 ml-4"> Submit </BlockButton>
+        <BlockButton
+          :disabled="!commentText"
+          :click="btnClick"
+          class="mb-4 ml-4"
+        >
+          Submit
+        </BlockButton>
         <p class="ml-4">
           If you'd rather have a conversation with the authors and other
           students directly join our
@@ -133,7 +139,7 @@ export default {
   methods: {
     async btnClick() {
       try {
-        if (this.commentText === null || "") {
+        if (!this.commentText === null) {
           throw "Please enter some feedback before submitting.";
         }
         if (this.unitType === "exercise") {

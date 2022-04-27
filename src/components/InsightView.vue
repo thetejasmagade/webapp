@@ -24,7 +24,9 @@
       class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none resize-none"
       rows="4"
     />
-    <BlockButton :click="btnClick" class="mb-4 ml-4"> Submit </BlockButton>
+    <BlockButton :disabled="!insightText" :click="btnClick" class="mb-4 ml-4">
+      Submit
+    </BlockButton>
     <div class="w-96 mx-auto text-gray-700 rounded">
       <div class="buttons ml-auto flex text-xs"></div>
     </div>
@@ -99,7 +101,7 @@ export default {
     },
     async btnClick() {
       try {
-        if (this.insightText === null || this.insightText === "") {
+        if (!this.insightText) {
           throw "Please enter your insights before submitting.";
         }
         await createInsight(this.exerciseUUID, this.insightText);
