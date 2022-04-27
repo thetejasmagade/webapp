@@ -24,7 +24,7 @@
         :disabled="notEnoughGemsToCheat"
       >
         <FontAwesomeIcon icon="eye" />
-        {{ isCheatPurchased ? "Cheat" : `Cheat for ${cheatCost} gems` }}
+        {{ isCheatPurchased ? "Peek Solution" : `Peek Solution: 20 Gems` }}
       </BlockButton>
     </Tooltip>
   </div>

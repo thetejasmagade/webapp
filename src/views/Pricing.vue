@@ -323,8 +323,7 @@ export default {
 
     const computedMeta = getComputedMeta({
       title: "Pricing",
-      description:
-        "Become a patron to unlock all the courses on content on Boot.dev",
+      description: "Become a patron to unlock all the courses on Boot.dev",
     });
     useMeta(computedMeta);
   },
