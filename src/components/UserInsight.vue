@@ -28,7 +28,7 @@
       <div class="px-4 py-4 rounded flex text-md shadow-sm text-gray-600">
         <div
           v-if="!isEditing"
-          class="whitespace-pre ml-4 text-white tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
+          class="ml-4 whitespace-pre-wrap text-white tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
         >
           {{ renderTextArea }}
         </div>
