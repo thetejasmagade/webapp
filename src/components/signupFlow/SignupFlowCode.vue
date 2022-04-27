@@ -1,7 +1,7 @@
 <template>
   <Section
-    title="Writing real code is the only way to learn"
-    subtitle="Run the code to move on"
+    title='Click the "Run" button to move on'
+    subtitle="Writing real code is the only way to learn"
     class="max-w-2xl w-full"
   >
     <div class="flex flex-col p-4 items-center" style="min-height: 500px">
@@ -36,8 +36,6 @@ function speakTruth(){
 speakTruth()
 `;
 }
-const expectedOutput = "videos bore me to death!";
-
 export default {
   components: {
     Section,
@@ -60,14 +58,7 @@ export default {
       state.code = getCode(state.lang);
     };
 
-    const runCode = ({ output }) => {
-      if (output !== expectedOutput) {
-        notify({
-          type: "danger",
-          text: "Try again!",
-        });
-        return;
-      }
+    const runCode = () => {
       state.done = true;
       notify({
         type: "success",

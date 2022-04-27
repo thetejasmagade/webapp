@@ -59,7 +59,7 @@
           <a
             target="_blank"
             class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-            href="https://forms.gle/poQckVBir9XZA7L39"
+            href="https://forms.gle/JUJBzwhVvgikAczq5"
             >25% discount to anyone who completes this feedback form.</a
           >
           Our top priority is improving the courses and the community so your

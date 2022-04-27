@@ -66,7 +66,6 @@ import ToggleSwitch from "@/components/ToggleSwitch.vue";
 
 import { createUserManual, sendMagicLink } from "@/lib/cloudClient.js";
 
-import { eventRegister, singupMethodEmail } from "@/lib/analytics.js";
 import { notify } from "@/lib/notification.js";
 
 export default {
@@ -104,7 +103,6 @@ export default {
           this.$route.query.ruid
         );
         await sendMagicLink(this.email, true);
-        eventRegister(singupMethodEmail);
         this.sent = true;
       } catch (err) {
         notify({
