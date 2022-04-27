@@ -13,16 +13,16 @@
             :tabs="
               isHintAvailable
                 ? [
-                    { icon: 'pencil', name: 'Insights' },
+                    { icon: 'comment', name: 'Insights' },
                     {
                       icon: 'eye',
                       name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
                     },
-                    { icon: 'comment', name: 'Report Issue' },
+                    { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
                 : [
-                    { icon: 'pencil', name: 'Insights' },
-                    { icon: 'comment', name: 'Report Issue' },
+                    { icon: 'comment', name: 'Insights' },
+                    { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
             "
             :hint-markdown-source="hintMarkdownSource"

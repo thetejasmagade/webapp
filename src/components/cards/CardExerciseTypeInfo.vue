@@ -7,9 +7,9 @@
         v-if="isLoggedIn"
         class="mb-4"
         :tabs="[
-          { icon: 'pencil', name: 'Insights' },
+          { icon: 'comment', name: 'Insights' },
           {
-            icon: 'comment',
+            icon: 'exclamation-triangle',
             name: 'Report Issue',
           },
         ]"

@@ -22,7 +22,7 @@
         class="mb-4"
         :tabs="[
           {
-            icon: 'comment',
+            icon: 'exclamation-triangle',
             name: 'Report Issue',
           },
         ]"

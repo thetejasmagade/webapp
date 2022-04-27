@@ -49,6 +49,7 @@ import {
   faPencil,
   faTrash,
   faX,
+  faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -105,6 +106,7 @@ library.add(faGolang);
 library.add(faDiscord);
 library.add(faPencil);
 library.add(faTrash);
+library.add(faExclamationTriangle);
 
 export default {
   setup() {

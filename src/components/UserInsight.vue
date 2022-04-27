@@ -26,16 +26,16 @@
     </div>
     <div class="border-b border-gray-400">
       <div class="px-4 py-4 rounded flex text-md shadow-sm text-gray-600">
-        <textarea
+        <div
           v-if="!isEditing"
-          v-model="renderTextArea"
-          readonly
-          class="ml-4 text-white tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
+          class="whitespace-pre ml-4 text-white tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
         >
-        </textarea>
+          {{ renderTextArea }}
+        </div>
         <textarea
           v-if="isAuthor && isEditing"
           v-model="editInsightTextarea"
+          rows="6"
           class="ml-4 text-white tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
         >
         </textarea>
@@ -43,13 +43,13 @@
       <div v-if="isAuthor && !isEditing" class="flex justify-end">
         <FontAwesomeIcon
           icon="pencil"
-          class="flex w-4 h-4 rounded mb-6 hover:text-blue-600 mr-10 cursor-pointer"
+          class="flex w-4 h-4 rounded mb-6 hover:text-blue-500 mr-10 cursor-pointer"
           @click="startEditing"
         />
 
         <FontAwesomeIcon
           icon="trash"
-          class="flex w-4 h-4 rounded hover:text-blue-600 mb-6 mr-10 cursor-pointer"
+          class="flex w-4 h-4 rounded hover:text-red-500 mb-6 mr-10 cursor-pointer"
           @click="deleteConfirmation"
         />
       </div>
@@ -57,12 +57,12 @@
         <div v-if="isAuthor && isEditing" class="flex justify-end">
           <FontAwesomeIcon
             icon="check"
-            class="flex w-4 h-4 text-white hover:text-blue-600 rounded mr-10 cursor-pointer"
+            class="flex w-4 h-4 text-white hover:text-blue-500 rounded mr-10 cursor-pointer"
             @click="editUserInsight"
           />
           <FontAwesomeIcon
             icon="x"
-            class="flex w-4 h-4 text-white hover:text-blue-600 mb-6 mr-10 rounded cursor-pointer"
+            class="flex w-4 h-4 text-white hover:text-red-500 mb-6 mr-10 rounded cursor-pointer"
             @click="endEditing"
           />
         </div>
