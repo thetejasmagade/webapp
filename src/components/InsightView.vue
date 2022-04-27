@@ -1,9 +1,6 @@
 <template>
   <div>
     <div class="body overflow-y-auto w-full h-full">
-      <!-- 
-      TODO: Sort users insights to the top
-      -->
       <UserInsight
         v-for="(insight, i) of sortedInsights"
         :key="i"
@@ -47,7 +44,7 @@ export default {
     BlockButton,
   },
   props: {
-    uuid: {
+    exerciseUUID: {
       type: String,
       required: true,
       default: null,
@@ -62,25 +59,21 @@ export default {
   },
   computed: {
     sortedInsights() {
-      let sortedInsights = [];
+      const sortedInsights = [];
       if (!this.$store.getters.getUser) {
         return null;
       }
       if (!this.insights) {
         return [];
       }
-      for (let i = 0; i < this.insights.length; i++) {
-        if (
-          this.insights[i].AuthorUserUUID === this.$store.getters.getUser.UUID
-        ) {
-          sortedInsights.push(this.insights[i]);
+      for (const insight of this.insights) {
+        if (insight.AuthorUserUUID === this.$store.getters.getUser.UUID) {
+          sortedInsights.push(insight);
         }
       }
-      for (let i = 0; i < this.insights.length; i++) {
-        if (
-          this.insights[i].AuthorUserUUID != this.$store.getters.getUser.UUID
-        ) {
-          sortedInsights.push(this.insights[i]);
+      for (const insight of this.insights) {
+        if (insight.AuthorUserUUID != this.$store.getters.getUser.UUID) {
+          sortedInsights.push(insight);
         }
       }
       return sortedInsights;
@@ -96,7 +89,7 @@ export default {
   methods: {
     async getExerciseInsights() {
       try {
-        this.insights = await getInsights(this.uuid);
+        this.insights = await getInsights(this.exerciseUUID);
       } catch (err) {
         notify({
           type: "danger",
@@ -106,10 +99,10 @@ export default {
     },
     async btnClick() {
       try {
-        if (this.insightText === null || "") {
+        if (this.insightText === null || this.insightText === "") {
           throw "Please enter your insights before submitting.";
         }
-        await createInsight(this.uuid, this.insightText);
+        await createInsight(this.exerciseUUID, this.insightText);
         notify({
           type: "success",
           text: "Thanks for adding your insight!",

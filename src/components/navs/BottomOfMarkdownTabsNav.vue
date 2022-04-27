@@ -17,7 +17,7 @@
       </span>
     </div>
     <div class="bg-gray-750 p-4 rounded-r rounded-b">
-      <InsightView v-if="currentTabIndex === 0" :uuid="uuid" />
+      <InsightView v-if="currentTabIndex === 0" :exercise-u-u-i-d="uuid" />
       <div v-if="currentTabIndex === 1 && isHintAvailable">
         <HintButton
           v-if="!isHintPurchased && isHintAvailable"

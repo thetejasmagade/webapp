@@ -136,10 +136,7 @@ export default {
   },
   computed: {
     isAuthor() {
-      if (this.authorUUID === this.$store.getters.getUser.UUID) {
-        return true;
-      }
-      return false;
+      return this.authorUUID === this.$store.getters.getUser.UUID;
     },
     renderTextArea() {
       if (!this.insightText) {
