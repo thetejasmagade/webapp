@@ -20,7 +20,7 @@
     </h1>
     <textarea
       v-model="insightText"
-      placeholder="Do not report bugs, ask questions, or give hints here. Use the other tabs for that."
+      placeholder="Do not report issues, ask questions, or give hints here. Use the other tabs for that."
       class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none resize-none"
       rows="4"
     />
