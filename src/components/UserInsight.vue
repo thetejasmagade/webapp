@@ -51,19 +51,27 @@
           @click="deleteConfirmation"
         />
       </div>
-      <div v-if="isAuthor && isEditing">
-        <div v-if="isAuthor && isEditing" class="flex justify-end">
-          <FontAwesomeIcon
-            icon="check"
-            class="flex w-4 h-4 text-white hover:text-blue-500 rounded mr-10 cursor-pointer"
-            @click="editUserInsight"
-          />
-          <FontAwesomeIcon
-            icon="x"
-            class="flex w-4 h-4 text-white hover:text-red-500 mb-6 mr-10 rounded cursor-pointer"
-            @click="endEditing"
-          />
-        </div>
+      <div
+        v-else-if="$store.getters.getUser.IsAdmin && !isEditing"
+        class="flex justify-end"
+      >
+        <FontAwesomeIcon
+          icon="trash"
+          class="flex w-4 h-4 rounded hover:text-red-500 mb-6 mr-10 cursor-pointer"
+          @click="deleteConfirmation"
+        />
+      </div>
+      <div v-else-if="isAuthor && isEditing" class="flex justify-end">
+        <FontAwesomeIcon
+          icon="check"
+          class="flex w-4 h-4 text-white hover:text-blue-500 rounded mr-10 cursor-pointer"
+          @click="editUserInsight"
+        />
+        <FontAwesomeIcon
+          icon="x"
+          class="flex w-4 h-4 text-white hover:text-red-500 mb-6 mr-10 rounded cursor-pointer"
+          @click="endEditing"
+        />
       </div>
     </div>
   </div>
