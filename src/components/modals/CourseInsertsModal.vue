@@ -10,6 +10,10 @@
         v-else-if="courseInserts[0].type === 'discord'"
         :on-done="onSeenInsert"
       />
+      <InsertTypeInviteFriends
+        v-else-if="courseInserts[0].type === 'friends'"
+        :on-done="onSeenInsert"
+      />
     </div>
   </Modal>
 </template>
@@ -17,6 +21,7 @@
 <script>
 import InsertTypeAchievement from "@/components/inserts/InsertTypeAchievement.vue";
 import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vue";
+import InsertTypeInviteFriends from "@/components/inserts/InsertTypeInviteFriends.vue";
 import Modal from "@/components/modals/Modal.vue";
 
 import { notify } from "@/lib/notification.js";
@@ -25,13 +30,18 @@ import { onMounted, toRefs, ref, reactive } from "vue";
 
 import { getPendingAchievements } from "@/lib/cloudClient.js";
 
-import { hasSeenDiscordSyncInsert } from "@/lib/localStorageLib";
+import {
+  seenDiscordSyncInsertKey,
+  seenFriendsInsertKey,
+  hasSeen,
+} from "@/lib/localStorageLib";
 
 export default {
   components: {
     Modal,
     InsertTypeAchievement,
     InsertTypeDiscordSync,
+    InsertTypeInviteFriends,
   },
   props: {
     user: {
@@ -50,10 +60,10 @@ export default {
     });
 
     const showDiscordSyncIfNecessary = () => {
-      if (user.value.DiscordUserID !== null) {
+      if (user.value.DiscordUserID) {
         return;
       }
-      if (hasSeenDiscordSyncInsert()) {
+      if (hasSeen(seenDiscordSyncInsertKey)) {
         return;
       }
       if (exerciseIndex.value !== 5) {
@@ -64,8 +74,21 @@ export default {
       });
     };
 
+    const showFriendsIfNecessary = () => {
+      if (hasSeen(seenFriendsInsertKey)) {
+        return;
+      }
+      if (exerciseIndex.value !== 8) {
+        return;
+      }
+      state.courseInserts.push({
+        type: "friends",
+      });
+    };
+
     onMounted(async () => {
       showDiscordSyncIfNecessary();
+      showFriendsIfNecessary();
 
       try {
         let pendingAchievements = await getPendingAchievements();

@@ -56,8 +56,9 @@ import BlockButton from "@/components/BlockButton.vue";
 import { loadTracks } from "@/lib/cloudStore.js";
 
 import {
-  markSeenUnitDoneModal,
-  hasSeenUnitDoneModal,
+  markSeen,
+  getSeenUnitDoneModalKey,
+  hasSeen,
 } from "@/lib/localStorageLib";
 
 export default {
@@ -97,10 +98,10 @@ export default {
       this.hide();
     },
     show() {
-      if (hasSeenUnitDoneModal(this.unitUUID)) {
+      if (hasSeen(getSeenUnitDoneModalKey(this.unitUUID))) {
         return;
       }
-      markSeenUnitDoneModal(this.unitUUID);
+      markSeen(getSeenUnitDoneModalKey(this.unitUUID));
       this.$refs.unitDoneModal?.show();
     },
     hide() {

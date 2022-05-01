@@ -73,7 +73,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
 import { loadUser } from "@/lib/cloudStore.js";
-import { markSeenDiscordSyncInsert } from "@/lib/localStorageLib";
+import { markSeen, seenDiscordSyncInsertKey } from "@/lib/localStorageLib";
 
 export default {
   components: {
@@ -88,7 +88,7 @@ export default {
     },
   },
   async mounted() {
-    markSeenDiscordSyncInsert();
+    markSeen(seenDiscordSyncInsertKey);
     await loadUser(this.$store.commit);
   },
   methods: {
