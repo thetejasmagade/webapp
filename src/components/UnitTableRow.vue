@@ -87,7 +87,7 @@ export default {
     },
     durationText() {
       if (this.unit.type === unitTypeCourse) {
-        return `~${this.unitData.Modules.length * 6} Hours`;
+        return `~${this.unitData.Modules.length * 3} Hours`;
       }
       return `~${this.unitData.Steps.length} Hours`;
     },
