@@ -7,16 +7,13 @@
     <div
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
     >
-      <Section class="max-w-4xl w-full mb-5 mt-4">
+      <Section
+        title="Real code. Modern programming languages."
+        subtitle="We teach computer science through hands-on coding projects. We’re
+            built for developers who want to advance their careers."
+        class="max-w-4xl w-full mb-5 mt-4"
+      >
         <div class="p-4">
-          <h1 class="text-blue-400 font-bold text-3xl mb-2">
-            Real code. Modern programming languages.
-          </h1>
-          <h2 class="mb-2 text-lg">
-            We teach computer science through hands-on coding projects. We’re
-            built for developers who want to advance their careers.
-          </h2>
-
           <div v-if="state === 'integration'">
             <IntegrationLoginForm />
             <div class="text-center">
@@ -159,7 +156,7 @@
 
       <Section
         :title="`We have strong beliefs about the best way to learn to code`"
-        :subtitle="`Traditional education options for programmers have a lot of problems`"
+        :subtitle="`Don't waste time, learn to code the right way`"
         class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-4">
@@ -204,7 +201,7 @@
 
       <Section
         :title="`Community is key`"
-        :subtitle="`The primary reason students don't make it through their online education is a lack of social support`"
+        :subtitle="`Don't struggle due to a lack of social support`"
         class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-4">
