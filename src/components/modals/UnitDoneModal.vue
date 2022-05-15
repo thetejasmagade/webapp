@@ -53,7 +53,6 @@
 <script>
 import Modal from "@/components/modals/Modal.vue";
 import BlockButton from "@/components/BlockButton.vue";
-import { loadTracks } from "@/lib/cloudStore.js";
 
 import {
   markSeen,
@@ -90,8 +89,7 @@ export default {
   },
   methods: {
     async clickNextCourse() {
-      await loadTracks(this);
-      this.$router.push({ name: "Courses" });
+      this.$router.push({ name: "Tracks" });
     },
     async goToBeginning() {
       await this.goToBeginningCallback();

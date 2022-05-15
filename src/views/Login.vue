@@ -389,7 +389,7 @@ export default {
       this.$store.getters.getIsEmailVerified
     ) {
       this.$router.push({
-        name: "Courses",
+        name: "Tracks",
         query: { redirect: this.$route.query.redirect },
       });
     }

@@ -389,32 +389,8 @@ export async function getUser() {
   return handled;
 }
 
-export async function getTrackCS() {
-  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/cs`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getTrackDSAlgos() {
-  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/ds_algos`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getTrackGopherGang() {
-  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/gopher_gang`, {
+export async function getTrack(trackSlug) {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/${trackSlug}`, {
     method: "GET",
     mode: "cors",
     headers: {

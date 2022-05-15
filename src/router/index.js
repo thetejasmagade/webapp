@@ -11,13 +11,59 @@ const Settings = () => import("@/views/Settings.vue");
 const Achievements = () => import("@/views/Achievements.vue");
 const SignupFlow = () => import("@/views/SignupFlow.vue");
 const Certificate = () => import("@/views/Certificate.vue");
-const CSTrack = () => import("@/views/CSTrack.vue");
-const AlgosTrack = () => import("@/views/AlgosTrack.vue");
-const GolangTrack = () => import("@/views/GolangTrack.vue");
+const Track = () => import("@/views/Track.vue");
 const Browse = () => import("@/views/Browse.vue");
 const Project = () => import("@/views/Project.vue");
 
 import { isLoggedIn } from "@/lib/cloudClient.js";
+import { slugCS, slugAlgos, slugGolang } from "../lib/trackSlugs";
+
+const redirects = [
+  {
+    path: "/portfolio/:userHandle",
+    redirect: "/u/:userHandle",
+  },
+  {
+    path: "/demo/:courseUUID",
+    redirect: "/courses/:courseUUID?",
+  },
+  {
+    path: "/playground",
+    redirect: { path: "/playground/go" },
+  },
+  {
+    path: "/playground/golang",
+    redirect: { path: "/playground/go" },
+  },
+  {
+    path: "/playground/javascript",
+    redirect: { path: "/playground/js" },
+  },
+  {
+    path: "/playground/python",
+    redirect: { path: "/playground/py" },
+  },
+  {
+    path: "/playground/purescript",
+    redirect: { path: "/playground/purs" },
+  },
+  {
+    path: "/courses/golang-track",
+    redirect: { path: `/tracks/${slugGolang}` },
+  },
+  {
+    path: "/courses/cs",
+    redirect: { path: `/tracks/${slugCS}` },
+  },
+  {
+    path: "/courses/algos-track",
+    redirect: { path: `/tracks/${slugAlgos}` },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/",
+  },
+];
 
 const routes = [
   {
@@ -31,25 +77,31 @@ const routes = [
     component: SignupFlow,
   },
   {
+    path: "/tracks",
+    name: "Tracks",
+    component: Courses,
+    redirect: {
+      name: "Track",
+      params: {
+        trackSlug: slugCS,
+      },
+    },
+    children: [
+      {
+        path: ":trackSlug",
+        name: "Track",
+        component: Track,
+      },
+    ],
+  },
+  {
     path: "/courses",
     name: "Courses",
     component: Courses,
+    redirect: {
+      name: "Browse",
+    },
     children: [
-      {
-        path: "algos-track",
-        name: "AlgosTrack",
-        component: AlgosTrack,
-      },
-      {
-        path: "cs-track",
-        name: "CSTrack",
-        component: CSTrack,
-      },
-      {
-        path: "golang-track",
-        name: "GolangTrack",
-        component: GolangTrack,
-      },
       {
         path: "browse",
         name: "Browse",
@@ -88,49 +140,19 @@ const routes = [
     component: Certificate,
   },
   {
-    path: "/playground",
-    redirect: { path: "playground/go" },
-  },
-  {
-    path: "/playground/golang",
-    redirect: { path: "playground/go" },
-  },
-  {
-    path: "/playground/javascript",
-    redirect: { path: "playground/js" },
-  },
-  {
-    path: "/playground/python",
-    redirect: { path: "playground/py" },
-  },
-  {
-    path: "/playground/purescript",
-    redirect: { path: "playground/purs" },
-  },
-  {
     path: "/playground/:lang",
     name: "Playground",
     component: Playground,
-  },
-  {
-    path: "/portfolio/:userHandle",
-    redirect: "/u/:userHandle",
-  },
-  {
-    path: "/demo/:courseUUID",
-    redirect: "/courses/:courseUUID?",
   },
   {
     path: "/u/:userHandle",
     name: "Portfolio",
     component: Portfolio,
   },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "notfound",
-    redirect: "/",
-  },
+  ...redirects,
 ];
+
+console.log(routes);
 
 const router = createRouter({
   history: createWebHistory(),
@@ -157,12 +179,6 @@ router.beforeEach((to, from, next) => {
     !isLoggedIn()
   ) {
     next({ name: "Login", query: { redirect: to.fullPath } });
-    return;
-  }
-
-  // Dashboard default child redirect
-  if (to.fullPath === "/courses") {
-    next({ name: "CSTrack" });
     return;
   }
 

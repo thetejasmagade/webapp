@@ -8,9 +8,7 @@ function getDefaultState() {
     jwtClaims: null,
     courses: [],
     projects: [],
-    programCS: [],
-    trackDSAlgos: [],
-    trackGopherGang: [],
+    tracks: {},
     userAchievements: [],
     user: null,
     currentModuleUUID: null,
@@ -44,14 +42,8 @@ export default createStore({
       newProjects.sort((p1, p2) => (p1.Title < p2.Title ? -1 : 1));
       state.projects = newProjects;
     },
-    setTrackCS(state, newProgramCS) {
-      state.programCS = newProgramCS;
-    },
-    setTrackDSAlgos(state, newTrackDSAlgos) {
-      state.trackDSAlgos = newTrackDSAlgos;
-    },
-    setTrackGopherGang(state, newTrackGopherGang) {
-      state.trackGopherGang = newTrackGopherGang;
+    setTrack(state, { courses, trackSlug }) {
+      state.tracks[trackSlug] = courses;
     },
     setUserAchievements(state, newUserAchievements) {
       newUserAchievements.sort((ua1, ua2) => {
@@ -107,41 +99,12 @@ export default createStore({
       }
       return units;
     },
-    getTrackCS(state) {
+    getTrack: (state) => (trackSlug) => {
       let items = [];
-      for (const uuid of state.programCS) {
-        for (const course of state.courses) {
-          if (course.UUID === uuid) {
-            items.push(createCourseUnit(course));
-          }
-        }
-        for (const project of state.projects) {
-          if (project.UUID === uuid) {
-            items.push(createProjectUnit(project));
-          }
-        }
+      if (!(trackSlug in state.tracks)) {
+        return null;
       }
-      return items;
-    },
-    getTrackDSAlgos(state) {
-      let items = [];
-      for (const uuid of state.trackDSAlgos) {
-        for (const course of state.courses) {
-          if (course.UUID === uuid) {
-            items.push(createCourseUnit(course));
-          }
-        }
-        for (const project of state.projects) {
-          if (project.UUID === uuid) {
-            items.push(createProjectUnit(project));
-          }
-        }
-      }
-      return items;
-    },
-    getTrackGopherGang(state) {
-      let items = [];
-      for (const uuid of state.trackGopherGang) {
+      for (const uuid of state.tracks[trackSlug]) {
         for (const course of state.courses) {
           if (course.UUID === uuid) {
             items.push(createCourseUnit(course));

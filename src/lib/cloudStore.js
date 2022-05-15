@@ -1,8 +1,5 @@
 import {
   getCourses,
-  getTrackCS,
-  getTrackDSAlgos,
-  getTrackGopherGang,
   getLastGemTransaction,
   getUser,
   getSubscriptionPlans,
@@ -11,50 +8,27 @@ import {
   getUserAchievements,
   getInterests,
   getProjects,
+  getTrack,
 } from "@/lib/cloudClient.js";
 
-export async function loadAllInterests(thisComponent) {
-  if (thisComponent.$store.getters.getAllInterests.length !== 0) {
-    return;
-  }
+export async function loadAllInterests(commit) {
   const interests = await getInterests();
-  thisComponent.$store.commit("setAllInterests", interests);
+  commit("setAllInterests", interests);
 }
 
-export async function loadCourses(thisComponent) {
+export async function loadCourses(commit) {
   const courses = await getCourses();
-  thisComponent.$store.commit("setCourses", courses);
+  commit("setCourses", courses);
 }
 
-export async function loadProjects(thisComponent) {
+export async function loadProjects(commit) {
   const projects = await getProjects();
-  thisComponent.$store.commit("setProjects", projects);
+  commit("setProjects", projects);
 }
 
-export async function loadTracks(thisComponent) {
-  if (
-    !thisComponent.$store.getters.getCourses ||
-    thisComponent.$store.getters.getCourses.length === 0
-  ) {
-    await Promise.all([
-      loadCourses(thisComponent),
-      loadProjects(thisComponent),
-    ]);
-  }
-  await Promise.all([
-    (async () => {
-      const courses = await getTrackCS();
-      thisComponent.$store.commit("setTrackCS", courses);
-    })(),
-    (async () => {
-      const courses = await getTrackDSAlgos();
-      thisComponent.$store.commit("setTrackDSAlgos", courses);
-    })(),
-    (async () => {
-      const courses = await getTrackGopherGang();
-      thisComponent.$store.commit("setTrackGopherGang", courses);
-    })(),
-  ]);
+export async function loadTrack(commit, trackSlug) {
+  const courses = await getTrack(trackSlug);
+  commit("setTrack", { courses, trackSlug });
 }
 
 export async function loadUserAchievements(commit) {

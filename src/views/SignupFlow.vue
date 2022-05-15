@@ -46,7 +46,7 @@ export default {
       if (state.flowIndex > 3) {
         eventTutorialComplete();
         router.push({
-          name: "Courses",
+          name: "Tracks",
           query: { redirect: route.query.redirect },
         });
         return;
