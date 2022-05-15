@@ -59,12 +59,12 @@ export default {
       {
         route: `/tracks/${slugCS}`,
         icon: "graduation-cap",
-        name: "CompSci track ",
+        name: "CS track",
       },
       {
         route: `/tracks/${slugGolang}`,
         icon: ["fab", "golang"],
-        name: "Gopher gang track",
+        name: "Golang track",
       },
       {
         route: `/tracks/${slugAlgos}`,

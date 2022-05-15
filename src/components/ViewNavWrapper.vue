@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNav :title="title" />
+    <TopNav />
     <div class="flex h-full-minus-bar">
       <SideNav
         v-if="$store.getters.getIsLoggedIn"
@@ -22,13 +22,6 @@ export default {
   components: {
     SideNav,
     TopNav,
-  },
-  props: {
-    title: {
-      type: String,
-      required: false,
-      default: null,
-    },
   },
 };
 </script>

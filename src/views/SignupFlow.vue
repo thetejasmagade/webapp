@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-start h-full">
-    <TopNav title="Getting Started" />
+    <TopNav />
 
     <div class="flex flex-col justify-center items-center flex-1">
       <SignupFlowCode v-if="flowIndex === 0" :on-done="onDone" />

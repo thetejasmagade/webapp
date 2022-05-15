@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Section class="section" :title="sectionTitle" :subtitle="sectionSubtitle">
+    <Section
+      h1
+      class="section"
+      :title="sectionTitle"
+      :subtitle="sectionSubtitle"
+    >
       <div class="p-4">
         <UnitTable :units="units" />
         <h2 class="text-blue-400 text-xl">Notes</h2>
@@ -60,22 +65,22 @@ export default {
 
     const sectionTitle = computed(() => {
       if (trackSlug === slugCS) {
-        return "Practice the skills that bootcamps skip, but employers are dying to hire for";
+        return "Computer Science Track";
       } else if (trackSlug === slugAlgos) {
-        return "It's hard to find a job if you don't understand the fundamentals of algorithms";
+        return "Data Structures and Algorithms Track";
       } else if (trackSlug === slugGolang) {
-        return "Learn why Go is taking over modern web development";
+        return "Golang Track";
       }
       return "null";
     });
 
     const sectionSubtitle = computed(() => {
       if (trackSlug === slugCS) {
-        return "A complete computer science program in your browser";
+        return "Learn the skills that bootcamps skip, but employers are dying to hire for";
       } else if (trackSlug === slugAlgos) {
-        return "These Python courses will teach you how to ace whiteboard interviews";
+        return "It's hard to find a job if you don't understand the fundamentals of algorithms";
       } else if (trackSlug === slugGolang) {
-        return "Everything you need to know to get a job writing Go";
+        return "Learn why Go is taking over backend development";
       }
       return "null";
     });

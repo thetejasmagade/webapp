@@ -185,13 +185,6 @@
 import { toRefs, reactive } from "vue";
 
 export default {
-  props: {
-    title: {
-      default: null,
-      required: false,
-      type: String,
-    },
-  },
   setup() {
     const state = reactive({
       mobileMenuOpen: false,

@@ -1,5 +1,5 @@
 <template>
-  <ViewNavWrapper :title="course?.Title">
+  <ViewNavWrapper>
     <div class="h-full">
       <SandboxModeModal ref="sandboxModeModal" />
       <UnitDoneModal

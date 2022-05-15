@@ -12,6 +12,7 @@
         subtitle="We teach computer science through hands-on coding projects. We’re
             built for developers who want to advance their careers."
         class="max-w-4xl w-full mb-5 mt-4"
+        h1
       >
         <div class="p-4">
           <div v-if="state === 'integration'">
