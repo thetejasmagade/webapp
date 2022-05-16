@@ -152,8 +152,6 @@ const routes = [
   ...redirects,
 ];
 
-console.log(routes);
-
 const router = createRouter({
   history: createWebHistory(),
   routes,

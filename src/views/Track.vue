@@ -37,6 +37,8 @@ import { loadTrack } from "@/lib/cloudStore.js";
 import { useStore } from "vuex";
 import { notify } from "@/lib/notification.js";
 import { slugCS, slugGolang, slugAlgos } from "@/lib/trackSlugs.js";
+import { getComputedMeta } from "@/lib/meta.js";
+import { useMeta } from "vue-meta";
 
 export default {
   components: {
@@ -84,6 +86,14 @@ export default {
       }
       return "null";
     });
+
+    const computedMeta = computed(() => {
+      return getComputedMeta({
+        title: sectionTitle.value,
+        description: sectionSubtitle.value,
+      });
+    });
+    useMeta(computedMeta);
 
     return {
       sectionTitle,
