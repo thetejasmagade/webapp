@@ -3,17 +3,23 @@
     <div
       class="text-gray-200 bg-gray-800 border-gray-600 h-full text-center border-r relative z-10"
     >
-      <div class="profile-box flex flex-col items-center">
+      <router-link
+        v-if="$store.getters.getUser"
+        class="profile-box flex flex-col items-center"
+        :to="{
+          name: 'Portfolio',
+          params: { userHandle: $store.getters.getUser.Handle },
+        }"
+      >
         <ProfileImage
-          class="profile-img my-3 w-3/5"
+          class="profile-img my-3 w-3/5 hover:opacity-75"
           :profile-image-u-r-l="
             $store.getters.getUser
               ? $store.getters.getUser.ProfileImageURL
               : null
           "
-          editable
         />
-      </div>
+      </router-link>
 
       <div class="flex justify-center mb-2">
         <div class="w-3/5 border-b border-gray-300" />
@@ -44,25 +50,6 @@
             }
           "
           :current="routeName === 'Settings'"
-        />
-      </Tooltip>
-
-      <Tooltip
-        :text="`Portfolio`"
-        position="right"
-        class="mx-4 mb-2"
-        color="gray"
-      >
-        <SideNavItem
-          icon="user-tie"
-          :click="
-            () =>
-              $router.push({
-                name: 'Portfolio',
-                params: { userHandle: $store.getters.getUser.Handle },
-              })
-          "
-          :current="routeName === 'Portfolio'"
         />
       </Tooltip>
 
