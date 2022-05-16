@@ -7,7 +7,7 @@
       :subtitle="sectionSubtitle"
     >
       <div class="p-4">
-        <UnitTable :units="units" />
+        <UnitTable :units="units" is-ordered />
         <h2 class="text-blue-400 text-xl">Notes</h2>
         <p class="max-width">
           <i>

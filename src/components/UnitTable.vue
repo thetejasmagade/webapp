@@ -56,6 +56,7 @@
                   v-for="(unit, i) of units"
                   :key="i"
                   :unit="unit"
+                  :index="isOrdered ? i + 1 : null"
                   :is-next="i === firstIncompleteIndex"
                 />
               </tbody>
@@ -84,6 +85,11 @@ export default {
       type: Array,
       required: false,
       default: null,
+    },
+    isOrdered: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   setup(props) {

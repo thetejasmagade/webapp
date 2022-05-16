@@ -14,7 +14,10 @@
     <td class="px-4 py-4 whitespace-nowrap">
       <router-link :to="getUnitLink(unit)">
         <div class="flex items-center hover:opacity-50">
-          <div class="flex-shrink-0 h-10 w-10">
+          <span v-if="index" class="text-3xl text-gray-300 mr-4">{{
+            index
+          }}</span>
+          <div class="flex-shrink-0 h-10 w-10 mx-2">
             <img class="h-10 w-10 rounded" :src="iconUrl" />
           </div>
           <div class="ml-4">
@@ -22,6 +25,7 @@
               {{ unitData.Title }}
             </div>
             <div class="text-sm text-gray-400">
+              <FontAwesomeIcon :icon="unit.project ? 'tools' : 'book'" />
               {{ unit.project ? "Personal Project" : "Guided Course" }}
             </div>
           </div>
@@ -64,6 +68,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: null,
     },
   },
   data() {
