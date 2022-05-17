@@ -1,13 +1,13 @@
 <template>
   <ViewNavWrapper>
     <div
-      class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
+      class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto p-4"
     >
       <Section
         v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
         :subtitle="`@${user.Handle}`"
-        class="max-w-2xl w-full mb-5 mt-4"
+        class="max-w-2xl w-full mb-5"
       >
         <div class="p-4 flex flex-col min-h-[150px]">
           <div class="flex justify-end">

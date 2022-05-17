@@ -43,13 +43,14 @@
       </span>
     </td>
     <td class="px-4 py-4 whitespace-nowrap text-md hidden lg:table-cell">
-      <FontAwesomeIcon icon="hourglass" /> {{ durationText }}
+      <FontAwesomeIcon icon="hourglass" />
+      {{ unitData.EstimatedCompletionTimeHours }} hours
     </td>
   </tr>
 </template>
 
 <script>
-import { getUnitData, unitTypeCourse, getUnitLink } from "@/lib/unit.js";
+import { getUnitData, getUnitLink } from "@/lib/unit.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { getUnitsProgress } from "@/lib/cloudClient.js";
 import ProgressRadial from "@/components/ProgressRadial.vue";
@@ -93,12 +94,6 @@ export default {
         return "https://user-images.githubusercontent.com/19890545/150690287-d7a7a4c0-ce89-4c49-8043-5af0348e615e.png";
       }
       return null;
-    },
-    durationText() {
-      if (this.unit.type === unitTypeCourse) {
-        return `~${this.unitData.Modules.length * 3} Hours`;
-      }
-      return `~${this.unitData.Steps.length} Hours`;
     },
     unitData() {
       return getUnitData(this.unit);

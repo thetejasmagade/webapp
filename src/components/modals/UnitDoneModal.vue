@@ -2,10 +2,10 @@
   <Modal ref="unitDoneModal">
     <div>
       <h1 v-if="type === 'course'" class="text-2xl text-blue-400 mb-4">
-        Congragulations! You've completed the course!
+        Congratulations! You've completed the course!
       </h1>
       <h1 v-else class="text-2xl text-blue-400 mb-4">
-        Congragulations! You've completed the project!
+        Congratulations! You've completed the project!
       </h1>
       <p v-if="type === 'course'" class="mb-4">
         Check out the new certificate on your portfolio then start your next
