@@ -16,6 +16,8 @@
           aria-haspopup="true"
           aria-expanded="true"
           aria-controls="headlessui-menu-items-117"
+          @click="toggleMenuOpen"
+          @blur="closeMenu"
         >
           <span>{{ selected.name }}</span>
           <svg
@@ -32,7 +34,11 @@
         </button>
       </span>
       <div
-        class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-left -translate-y-2 scale-95"
+        class="transition-all duration-300 transform origin-top-left -translate-y-2 scale-95"
+        :class="{
+          'menu-closed': !menuIsOpen,
+          'menu-open': menuIsOpen,
+        }"
       >
         <div
           id="headlessui-menu-items-117"
@@ -90,6 +96,7 @@ export default {
   data() {
     return {
       selected: this.getSelectionFromDefault(this.default),
+      menuIsOpen: false,
     };
   },
   watch: {
@@ -107,14 +114,25 @@ export default {
       }
       return def;
     },
+    toggleMenuOpen() {
+      this.menuIsOpen = !this.menuIsOpen;
+    },
+    closeMenu() {
+      this.menuIsOpen = false;
+    },
   },
 };
 </script>
 
 <style scoped>
-.dropdown:focus-within .dropdown-menu {
+.menu-open {
   opacity: 1;
   transform: translate(0) scale(1);
   visibility: visible;
+}
+.menu-closed {
+  opacity: 0;
+  transform: translate(0) scale(1);
+  visibility: hidden;
 }
 </style>
