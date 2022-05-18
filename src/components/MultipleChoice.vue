@@ -6,18 +6,19 @@
       </h2>
     </div>
     <BlockButton
-      v-for="(answer, i) of answers"
+      v-for="(a, i) of answers"
       :key="i"
-      class="text-lg w-4/5 mb-2 max-w-md"
+      class="text-lg w-4/5 mb-3 max-w-md"
       color="blue"
+      :ring="alreadyAnswered && answer === a"
       :click="
         () => {
-          callback(answer);
+          callback(a);
         }
       "
       :disabled="sandbox"
     >
-      <span>{{ answer }}</span>
+      <span>{{ a }}</span>
     </BlockButton>
     <BlockButton
       v-if="sandbox"
@@ -44,8 +45,11 @@ export default {
     },
     question: {
       type: String,
-      required: false,
-      default: "",
+      required: true,
+    },
+    answer: {
+      type: String,
+      required: true,
     },
     sandbox: {
       type: Boolean,
@@ -56,6 +60,11 @@ export default {
       type: Array,
       required: false,
       default: () => [],
+    },
+    alreadyAnswered: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {

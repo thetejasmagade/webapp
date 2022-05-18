@@ -67,11 +67,20 @@ export default {
       required: false,
       defualt: false,
     },
+    ring: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   computed: {
     classes() {
       return {
         "animate-bounceSquish": this.pulse,
+
+        "ring-2": this.ring,
+        "ring-offset": this.ring,
+        "ring-white": this.ring,
 
         "text-white": this.color !== "white",
 

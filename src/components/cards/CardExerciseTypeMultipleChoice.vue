@@ -40,6 +40,8 @@
           :answers="answers"
           :question="question"
           :sandbox="sandbox"
+          :answer="answer"
+          :already-answered="alreadyAnswered"
         />
       </Multipane>
     </div>
@@ -73,6 +75,11 @@ export default {
     BottomOfMarkdownTabsNav,
   },
   props: {
+    alreadyAnswered: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     markdownSource: {
       type: String,
       required: true,
@@ -82,6 +89,10 @@ export default {
       required: true,
     },
     question: {
+      type: String,
+      required: true,
+    },
+    answer: {
       type: String,
       required: true,
     },

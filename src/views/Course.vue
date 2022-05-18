@@ -39,6 +39,7 @@
           :hint-markdown-source="hintMarkdownSource"
           :answers="question.Answers"
           :question="question.Question"
+          :answer="question.Answer"
           :sandbox="sandbox"
           :callback="submitTypeChoice"
           :hint-callback="hintCallback"
@@ -47,6 +48,7 @@
           :uuid="route.params.exerciseUUID"
           unit-type="exercise"
           :is-logged-in="isLoggedIn"
+          :already-answered="isExerciseComplete"
         />
         <CardExerciseTypeCode
           v-else-if="type === 'type_code'"
@@ -275,6 +277,12 @@ export default {
         }
       }
       return (complete / total) * 100;
+    });
+
+    const isExerciseComplete = computed(() => {
+      return state.courseProgress[route.params.moduleUUID][
+        route.params.exerciseUUID
+      ]?.Completed;
     });
 
     const dropdownModules = computed(() => {
@@ -801,6 +809,7 @@ export default {
       route,
       user: computed(() => store.getters.getUser),
       courseInsertsModal,
+      isExerciseComplete,
     };
   },
 };
