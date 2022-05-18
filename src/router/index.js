@@ -22,6 +22,18 @@ import { slugCS, slugAlgos, slugGolang } from "../lib/trackSlugs";
 
 const routes = [
   {
+    path: "/project/59fbb2aa-7d67-4e88-bac8-42f49798a9f5/4a7010c1-e7d3-4cc5-9b1b-d1f4e9f9ce81",
+    redirect: { path: "/build/seo-link-analyzer-python" },
+  },
+  {
+    path: "/project/2b266bb4-2262-49c0-b6d1-75cd8c5e8be8/81bb79ab-381b-424c-be12-8edfe9853f97",
+    redirect: { path: "/build/maze-solver-python" },
+  },
+  {
+    path: "/project/709a2e74-eb45-46ea-ac26-4b8e6a3ce3e6/fbac7ae9-6a4d-4ad5-bf76-9651cb8eb2c5",
+    redirect: { path: "/build/social-media-backend-golang" },
+  },
+  {
     path: "/course/2af5c197-21eb-48b4-bd90-b0d59adb311e/eca6fbac-01a2-4b03-9837-e2242d665e21/88898457-a74f-4dd7-97d3-f8a48d0a6beb",
     redirect: { path: "/learn/learn-code-javascript" },
   },

@@ -43,17 +43,39 @@
       </Section>
       <Section
         class="max-w-3xl w-full mb-4"
-        title="What makes Boot.dev projects special?"
+        title="What's the difference between a project and a course on Boot.dev?"
       >
         <div class="p-4">
+          <p class="my-4">
+            Projects are our way of providing "unguided" learning. Courses are a
+            great way to learn new concepts quickly, then projects let you get
+            your hands dirty with "real world" code.
+          </p>
           <ul class="list-disc mb-4">
-            <li>Write real code on your own machine</li>
-            <li>Have access to well-written solutions when you get stuck</li>
-            <li>Connect with a community of learners, mentors and teachers</li>
             <li>
-              Apply and practice the coding fundamentals you've been learning
+              You will write real code on your own machine instead of in the
+              browser
             </li>
-            <li>Create portfolio projects you can use in your job search</li>
+            <li>
+              You'll still have instructions and guidance on how to complete
+              each step
+            </li>
+            <li>
+              You will still have access to a well-written solution when you get
+              stuck
+            </li>
+            <li>
+              You will apply and practice the coding fundamentals you've been
+              learning in the courses
+            </li>
+            <li>
+              Projects allow you to come up with more of the solution on your
+              own, like you would in a real life job
+            </li>
+            <li>
+              You'll have a working codebase at the end to show off on your
+              Github portfolio
+            </li>
           </ul>
         </div>
       </Section>
