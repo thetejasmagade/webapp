@@ -15,6 +15,7 @@ const Track = () => import("@/views/Track.vue");
 const Browse = () => import("@/views/Browse.vue");
 const Project = () => import("@/views/Project.vue");
 const CourseLanding = () => import("@/views/CourseLanding.vue");
+const ProjectLanding = () => import("@/views/ProjectLanding.vue");
 
 import { isLoggedIn } from "@/lib/cloudClient.js";
 import { slugCS, slugAlgos, slugGolang } from "../lib/trackSlugs";
@@ -107,6 +108,11 @@ const routes = [
     path: "/learn/:courseSlug",
     name: "CourseLanding",
     component: CourseLanding,
+  },
+  {
+    path: "/build/:projectSlug",
+    name: "ProjectLanding",
+    component: ProjectLanding,
   },
   {
     path: "/course/:courseUUID/:moduleUUID?/:exerciseUUID?",

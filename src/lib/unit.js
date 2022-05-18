@@ -35,7 +35,7 @@ export function getUnitLink(unit) {
     };
   }
   return {
-    name: "Project",
-    params: { projectUUID: unitData.UUID },
+    name: "ProjectLanding",
+    params: { projectSlug: unitData.Slug },
   };
 }

@@ -396,7 +396,7 @@ export default {
     }
 
     const computedMeta = getComputedMeta({
-      title: "Login",
+      title: "Learn Computer Science",
       description:
         "Login or sign up for Boot.dev's computer science and coding courses. All my courses are free to audit, get started today.",
     });
