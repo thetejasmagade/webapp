@@ -9,7 +9,7 @@
           'bg-gray-800': routePath.includes(tab.route),
           'bg-gray-750': !routePath.includes(tab.route),
         }"
-        :to="{ name: tab.componentName }"
+        :to="{ path: tab.route }"
       >
         <FontAwesomeIcon :icon="tab.icon" class="md:mr-4 mx-1" />
         <span class="md:inline-block hidden text-sm"> {{ tab.name }} </span>

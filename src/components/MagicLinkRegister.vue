@@ -36,7 +36,7 @@
         class="mb-2 w-full flex flex-row justify-center items-center text-gray-400 text-sm leading-none"
       >
         <ToggleSwitch v-model="subscribeNews" />
-        <span class="ml-2">Get news and workshop announcements</span>
+        <span class="ml-2">Get the no-spam newsletter</span>
       </div>
 
       <div
@@ -66,7 +66,6 @@ import ToggleSwitch from "@/components/ToggleSwitch.vue";
 
 import { createUserManual, sendMagicLink } from "@/lib/cloudClient.js";
 
-import { eventRegister, singupMethodEmail } from "@/lib/analytics.js";
 import { notify } from "@/lib/notification.js";
 
 export default {
@@ -104,7 +103,6 @@ export default {
           this.$route.query.ruid
         );
         await sendMagicLink(this.email, true);
-        eventRegister(singupMethodEmail);
         this.sent = true;
       } catch (err) {
         notify({

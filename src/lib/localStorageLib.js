@@ -1,16 +1,14 @@
 const jwtKey = "cloudJWT";
-const seenSandboxModalLoginKey = "seenSandboxModalLogin";
-const seenSandboxModalPatronKey = "seenSandboxModalPatron";
-const seenDiscordSyncInsertKey = "seenDiscordSyncInsert";
 const trueString = "true";
 
-// add the courseUUID / project UUID to the end
-function getSeenUnitDoneModalKey(unitUUID) {
-  return `seenUnitDoneModal-${unitUUID}`;
-}
+export const seenSandboxModalLoginKey = "seenSandboxModalLogin";
+export const seenSandboxModalPatronKey = "seenSandboxModalPatron";
+export const seenDiscordSyncInsertKey = "seenDiscordSyncInsert";
+export const seenFriendsInsertKey = "seenFriendsInsert";
 
-function getExerciseCodeKey(exerciseUUID) {
-  return `cachedCode-${exerciseUUID}`;
+// add the courseUUID / project UUID to the end
+export function getSeenUnitDoneModalKey(unitUUID) {
+  return `seenUnitDoneModal-${unitUUID}`;
 }
 
 export function saveCloudJWT(token) {
@@ -29,33 +27,17 @@ export function removeCloudJWT() {
   localStorage.removeItem(jwtKey);
 }
 
-export function markSeenSandboxModalLoginKey() {
-  localStorage.setItem(seenSandboxModalLoginKey, trueString);
-}
-
-export function markSeenSandboxModalPatronKey() {
-  localStorage.setItem(seenSandboxModalPatronKey, trueString);
-}
-
-export function hasSeenSandboxModalLoginKey() {
-  const val = localStorage.getItem(seenSandboxModalLoginKey);
-  return val === trueString;
-}
-
-export function hasSeendSandboxModalPatronKey() {
-  const val = localStorage.getItem(seenSandboxModalPatronKey);
-  return val === trueString;
-}
-
-export function markSeenUnitDoneModal(courseUUID) {
-  const key = getSeenUnitDoneModalKey(courseUUID);
+export function markSeen(key) {
   localStorage.setItem(key, trueString);
 }
 
-export function hasSeenUnitDoneModal(courseUUID) {
-  const key = getSeenUnitDoneModalKey(courseUUID);
+export function hasSeen(key) {
   const val = localStorage.getItem(key);
   return val === trueString;
+}
+
+function getExerciseCodeKey(exerciseUUID) {
+  return `cachedCode-${exerciseUUID}`;
 }
 
 export function cacheExerciseCode(exerciseUUID, codeToCache) {
@@ -74,13 +56,4 @@ export function hasCachedCode(exerciseUUID) {
 
 export function deleteCachedCode(exerciseUUID) {
   localStorage.removeItem(getExerciseCodeKey(exerciseUUID));
-}
-
-export function markSeenDiscordSyncInsert() {
-  localStorage.setItem(seenDiscordSyncInsertKey, trueString);
-}
-
-export function hasSeenDiscordSyncInsert() {
-  const val = localStorage.getItem(seenDiscordSyncInsertKey);
-  return val === trueString;
 }

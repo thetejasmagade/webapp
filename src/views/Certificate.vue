@@ -33,7 +33,7 @@
               <img
                 loading="lazy"
                 alt="Boot.dev logo"
-                src="/src/img/qvault-icon-250.png"
+                src="/src/img/boot_dev_logo_full_256.png"
                 class="align-middle w-24 h-24 ml-2"
               />
             </div>

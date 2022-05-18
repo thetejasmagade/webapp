@@ -21,10 +21,10 @@ import BlockButton from "@/components/BlockButton.vue";
 import { eventOpenSandboxModeModal } from "@/lib/analytics.js";
 
 import {
-  markSeenSandboxModalLoginKey,
-  markSeenSandboxModalPatronKey,
-  hasSeenSandboxModalLoginKey,
-  hasSeendSandboxModalPatronKey,
+  seenSandboxModalLoginKey,
+  seenSandboxModalPatronKey,
+  markSeen,
+  hasSeen,
 } from "@/lib/localStorageLib";
 
 export default {
@@ -59,9 +59,9 @@ export default {
   methods: {
     show() {
       if (this.$store.getters.getIsLoggedIn) {
-        markSeenSandboxModalPatronKey();
+        markSeen(seenSandboxModalPatronKey);
       } else {
-        markSeenSandboxModalLoginKey();
+        markSeen(seenSandboxModalLoginKey);
       }
       eventOpenSandboxModeModal();
       this.$refs.sandboxModeModal?.show();
@@ -69,11 +69,14 @@ export default {
     showWithCache() {
       if (
         this.$store.getters.getIsLoggedIn &&
-        hasSeendSandboxModalPatronKey()
+        hasSeen(seenSandboxModalPatronKey)
       ) {
         return;
       }
-      if (!this.$store.getters.getIsLoggedIn && hasSeenSandboxModalLoginKey()) {
+      if (
+        !this.$store.getters.getIsLoggedIn &&
+        hasSeen(seenSandboxModalLoginKey)
+      ) {
         return;
       }
       this.show();

@@ -46,6 +46,12 @@ import {
   faDownload,
   faPuzzlePiece,
   faServer,
+  faPencil,
+  faTrash,
+  faX,
+  faExclamationTriangle,
+  faBook,
+  faTools,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -61,6 +67,7 @@ import {
 import { loadLoggedIn } from "@/lib/cloudStore.js";
 
 library.add(faArrowRight);
+library.add(faX);
 library.add(faArrowLeft);
 library.add(faUserTie);
 library.add(faSignOutAlt);
@@ -99,6 +106,11 @@ library.add(faServer);
 library.add(faPython);
 library.add(faGolang);
 library.add(faDiscord);
+library.add(faPencil);
+library.add(faTrash);
+library.add(faExclamationTriangle);
+library.add(faBook);
+library.add(faTools);
 
 export default {
   setup() {

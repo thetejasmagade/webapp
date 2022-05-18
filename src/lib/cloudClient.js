@@ -136,6 +136,61 @@ export async function purchaseHint(exerciseUUID) {
   return handled;
 }
 
+export async function createInsight(ExerciseUUID, Text) {
+  const resp = await fetchWithAuth(`${domain}/v1/insights`, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ExerciseUUID,
+      Text,
+    }),
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function updateInsight(insightUUID, Text) {
+  const resp = await fetchWithAuth(`${domain}/v1/insights/${insightUUID}`, {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      Text,
+    }),
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getInsights(exerciseUUID) {
+  const resp = await fetchWithAuth(
+    `${domain}/v1/insights?exercise_uuid=${exerciseUUID}&include=AuthorUser`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function deleteInsight(insightUUID) {
+  const resp = await fetchWithAuth(`${domain}/v1/insights/${insightUUID}`, {
+    method: "DELETE",
+    mode: "cors",
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getHintStatus(exerciseUUID) {
   const resp = await fetchWithAuth(
     `${domain}/v1/hints/${exerciseUUID}/status`,
@@ -334,32 +389,8 @@ export async function getUser() {
   return handled;
 }
 
-export async function getTrackCS() {
-  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/cs`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getTrackDSAlgos() {
-  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/ds_algos`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getTrackGopherGang() {
-  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/gopher_gang`, {
+export async function getTrack(trackSlug) {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/${trackSlug}`, {
     method: "GET",
     mode: "cors",
     headers: {

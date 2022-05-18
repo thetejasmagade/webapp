@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex flex-col justify-end">
-    <TopNav :title="`${displayLang.name} Playground`" />
+    <TopNav />
 
     <div
       class="z-10 right-28 top-14 flex justify-center flex-row m-4 md:block md:absolute"

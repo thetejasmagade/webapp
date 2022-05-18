@@ -6,19 +6,24 @@
           class="flex flex-col w-1/2 border-r border-gray-500 bg-gray-800 overflow-auto"
         >
           <MarkdownViewer :source="markdownSource" />
+          <div class="border-b mx-4 mb-8"></div>
           <BottomOfMarkdownTabsNav
             v-if="isLoggedIn"
-            class="mb-2"
+            class="mb-4"
             :tabs="
               isHintAvailable
                 ? [
-                    { icon: 'comment', name: 'Report Issue' },
+                    { icon: 'comment', name: 'Insights' },
                     {
                       icon: 'eye',
                       name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
                     },
+                    { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
-                : [{ icon: 'comment', name: 'Report Issue' }]
+                : [
+                    { icon: 'comment', name: 'Insights' },
+                    { icon: 'exclamation-triangle', name: 'Report Issue' },
+                  ]
             "
             :hint-markdown-source="hintMarkdownSource"
             :hint-callback="hintCallback"

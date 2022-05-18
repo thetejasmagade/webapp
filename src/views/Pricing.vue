@@ -5,7 +5,7 @@
     <div class="md:p-4 sm:p-0 h-full-minus-bar overflow-auto">
       <Section
         class="mb-5"
-        title="Support Boot.dev and enjoy premium features by becoming a patron"
+        title="Enjoy premium perks and support Boot.dev by becoming a patron"
         subtitle="Love it or your money back! Enjoy a 30-day money-back guarantee, and feel free to cancel anytime."
       >
         <header class="flex flex-col items-center my-8">
@@ -323,8 +323,7 @@ export default {
 
     const computedMeta = getComputedMeta({
       title: "Pricing",
-      description:
-        "Become a patron to unlock all the courses on content on Boot.dev",
+      description: "Become a patron to unlock all the courses on Boot.dev",
     });
     useMeta(computedMeta);
   },

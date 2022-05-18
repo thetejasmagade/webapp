@@ -17,8 +17,23 @@
       </span>
     </div>
     <div class="bg-gray-750 p-4 rounded-r rounded-b">
-      <div v-if="currentTabIndex === 0">
-        <h1 class="text-2xl mb-4 ml-4 pt-4">
+      <InsightView v-if="currentTabIndex === 0" :exercise-u-u-i-d="uuid" />
+      <div v-if="currentTabIndex === 1 && isHintAvailable">
+        <HintButton
+          v-if="!isHintPurchased && isHintAvailable"
+          class="pt-5 pb-5 justify-center items-center"
+          :hint-cost="hintCost"
+          :hint-callback="hintCallback"
+          :is-hint-available="isHintAvailable"
+        />
+        <MarkdownViewer v-if="isHintPurchased" :source="hintMarkdownSource" />
+      </div>
+      <div
+        v-if="
+          currentTabIndex === 2 || (currentTabIndex === 1 && !isHintAvailable)
+        "
+      >
+        <h1 class="text-lg mb-4 ml-4 pt-4">
           Is there something we can do to make this exercise better?
         </h1>
         <textarea
@@ -27,7 +42,13 @@
           class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none"
           rows="4"
         />
-        <BlockButton :click="btnClick" class="mb-4 ml-4"> Submit </BlockButton>
+        <BlockButton
+          :disabled="!commentText"
+          :click="btnClick"
+          class="mb-4 ml-4"
+        >
+          Submit
+        </BlockButton>
         <p class="ml-4">
           If you'd rather have a conversation with the authors and other
           students directly join our
@@ -39,16 +60,6 @@
           >
         </p>
       </div>
-      <div v-else>
-        <HintButton
-          v-if="!isHintPurchased && isHintAvailable && currentTabIndex === 1"
-          class="bg-gray-800 pt-5 pb-5 justify-center items-center"
-          :hint-cost="hintCost"
-          :hint-callback="hintCallback"
-          :is-hint-available="isHintAvailable"
-        />
-        <MarkdownViewer v-if="isHintPurchased" :source="hintMarkdownSource" />
-      </div>
     </div>
   </div>
 </template>
@@ -57,6 +68,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import HintButton from "@/components/HintButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
+import InsightView from "@/components/InsightView.vue";
 
 import BlockButton from "@/components/BlockButton.vue";
 import { notify } from "@/lib/notification.js";
@@ -71,6 +83,7 @@ export default {
     FontAwesomeIcon,
     BlockButton,
     HintButton,
+    InsightView,
     MarkdownViewer,
   },
   props: {
@@ -126,7 +139,7 @@ export default {
   methods: {
     async btnClick() {
       try {
-        if (this.commentText === null || "") {
+        if (!this.commentText === null) {
           throw "Please enter some feedback before submitting.";
         }
         if (this.unitType === "exercise") {

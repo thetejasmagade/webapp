@@ -74,7 +74,7 @@
               </router-link>
 
               <router-link
-                to="/courses"
+                to="/tracks"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded"
               >
                 Courses
@@ -142,7 +142,7 @@
         </router-link>
 
         <router-link
-          to="/courses"
+          to="/tracks"
           class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >
           Courses
@@ -185,13 +185,6 @@
 import { toRefs, reactive } from "vue";
 
 export default {
-  props: {
-    title: {
-      default: null,
-      required: false,
-      type: String,
-    },
-  },
   setup() {
     const state = reactive({
       mobileMenuOpen: false,

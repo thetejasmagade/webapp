@@ -1,20 +1,20 @@
 <template>
   <ViewNavWrapper>
     <div
-      class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
+      class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto p-4"
     >
       <Section
         v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
         :subtitle="`@${user.Handle}`"
-        class="max-w-2xl w-full mb-5 mt-4"
+        class="max-w-2xl w-full mb-5"
       >
         <div class="p-4 flex flex-col min-h-[150px]">
           <div class="flex justify-end">
             <ProfileImage
               class="w-32 mb-4 -mt-16"
               :profile-image-u-r-l="user.ProfileImageURL"
-              :editable="false"
+              :editable="isLoggedIn"
             />
           </div>
 
@@ -144,8 +144,9 @@ import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
-import { computed, reactive, onMounted } from "vue";
+import { computed, reactive, onMounted, toRefs } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 
 import {
   getCoursesPublic,
@@ -170,14 +171,15 @@ export default {
       filteredCourses: [],
       filteredAchievements: [],
     });
+    const store = useStore();
 
-    state.filteredCourses = computed(() => {
+    const filteredCourses = computed(() => {
       return state.courses
         .filter((course) => course.CompletedAt)
         .sort((c1, c2) => (c1.Title < c2.Title ? 1 : -1));
     });
 
-    state.filteredAchievements = computed(() => {
+    const filteredAchievements = computed(() => {
       return state.achievements
         .filter((ach) => ach.UnlockedAt)
         .sort((ua1, ua2) => {
@@ -188,14 +190,6 @@ export default {
           }
           return ua1.GemReward < ua2.GemReward ? -1 : 1;
         });
-    });
-
-    state.computedDate = computed(() => {
-      if (!state.course || !state.course.CompletedAt) {
-        return null;
-      }
-      const today = new Date(state.course.CompletedAt);
-      return today.toDateString();
     });
 
     onMounted(async () => {
@@ -222,7 +216,12 @@ export default {
       });
     });
     useMeta(computedMeta);
-    return state;
+    return {
+      ...toRefs(state),
+      filteredCourses,
+      filteredAchievements,
+      isLoggedIn: store.getters.getIsLoggedIn,
+    };
   },
   methods: {
     stripProtocol(url) {

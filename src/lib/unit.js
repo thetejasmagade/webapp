@@ -30,8 +30,8 @@ export function getUnitLink(unit) {
   const unitData = getUnitData(unit);
   if (unit.type === unitTypeCourse) {
     return {
-      name: "Course",
-      params: { courseUUID: unitData.UUID },
+      name: "CourseLanding",
+      params: { courseSlug: unitData.Slug },
     };
   }
   return {

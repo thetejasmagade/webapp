@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-start h-full">
-    <TopNav title="Getting Started" />
+    <TopNav />
 
     <div class="flex flex-col justify-center items-center flex-1">
       <SignupFlowCode v-if="flowIndex === 0" :on-done="onDone" />
@@ -46,7 +46,7 @@ export default {
       if (state.flowIndex > 3) {
         eventTutorialComplete();
         router.push({
-          name: "Courses",
+          name: "Tracks",
           query: { redirect: route.query.redirect },
         });
         return;

@@ -1,6 +1,6 @@
 <template>
   <Section
-    title="Join the Boot.dev community chat"
+    title="Join our community chat"
     subtitle="Sync your Discord and Boot.dev accounts"
     class="max-w-2xl mb-4 w-full"
   >
@@ -17,7 +17,7 @@
             >
             the free Discord desktop client.
           </li>
-          <li>Next, join our server below</li>
+          <li>Next, join our server.</li>
         </ul>
 
         <div class="flex justify-center mb-4">
@@ -36,17 +36,22 @@
               target="_blank"
               >#start-here</a
             >
-            channel. You'll be asked to type the "/sync" command in the
+            channel. You'll be asked to type the
+            <code
+              class="text-gray-200 bg-gray-700 py-1 px-2 rounded overflow-auto my-2"
+              >/sync</code
+            >
+            command in the
             <a
               class="text-blue-400 underline hover:text-blue-300"
               href="https://discord.com/channels/551921866173054977/921896108853178398"
               target="_blank"
               >#bot-cli</a
             >
-            channel, then to paste in your API key from below.
+            channel, then to paste in your key below.
           </p>
 
-          <div class="flex justify-center">
+          <div class="flex justify-center mb-8">
             <code
               class="text-gray-200 bg-gray-700 py-1 px-2 rounded overflow-auto my-2"
             >
@@ -54,8 +59,13 @@
             </code>
           </div>
 
-          <div class="text-center mt-2">
-            <BlockButton :click="onDone"> Done, I'm connected! </BlockButton>
+          <div class="flex flex-row justify-center">
+            <BlockButton :click="onDone" class="mr-4">
+              Done, I'm connected!
+            </BlockButton>
+            <BlockButton color="gray" :click="onDone">
+              Maybe later
+            </BlockButton>
           </div>
         </div>
       </div>

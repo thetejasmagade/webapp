@@ -28,7 +28,7 @@
       <div v-else class="flex flex-col items-center p-4">
         <img loading="lazy" src="@/img/gem-5.png" class="w-60" />
         <div class="mb-4">
-          <h2 class="text-blue-400 text-xl">Congragulations!</h2>
+          <h2 class="text-blue-400 text-xl">Congratulations!</h2>
         </div>
 
         <div class="mb-8">

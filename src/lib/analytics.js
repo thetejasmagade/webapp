@@ -53,12 +53,12 @@ export function eventBeginCheckout() {
       event: "begin_checkout",
       ecommerce: {
         currency: "USD",
-        value: 39.0,
+        value: 2.9,
         items: [
           {
             item_id: "pro_sub_id",
             item_name: "pro_sub",
-            price: 39.0,
+            price: 2.9,
             quantity: 1,
             currency: "USD",
           },
@@ -80,7 +80,7 @@ export function eventFinishCheckout() {
     window.dataLayer.push({
       event: "purchase",
       ecommerce: {
-        value: 39.0,
+        value: 29.0,
         transaction_id: Math.floor(Math.random() * 100000000).toString(),
         currency: "USD",
         items: [

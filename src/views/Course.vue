@@ -1,5 +1,5 @@
 <template>
-  <ViewNavWrapper :title="course?.Title">
+  <ViewNavWrapper>
     <div class="h-full">
       <SandboxModeModal ref="sandboxModeModal" />
       <UnitDoneModal
@@ -410,64 +410,29 @@ export default {
     });
 
     const computedMeta = computed(() => {
+      const isLanding = exerciseIndex.value === 0 && moduleIndex.value === 0;
       return getComputedMeta({
-        title: state.exerciseTitle,
-        description: state.exerciseDescription,
+        title: isLanding
+          ? course.value?.Title
+          : `${course.value?.Title}: ${state.exerciseTitle}`,
+        description: isLanding
+          ? course.value?.Description
+          : state.exerciseDescription,
         featuredImageURL: course.value?.ImageURL,
       });
     });
     useMeta(computedMeta);
 
     onMounted(async () => {
-      try {
-        state.courses = await getCourses(route.params.courseUUID);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-
-      try {
-        state.nextExercise = await getNextExercise(
-          route.params.courseUUID,
-          route.params.exerciseUUID
-        );
-      } catch (err) {
-        // ignore toast error
-      }
-      try {
-        state.previousExercise = await getPreviousExercise(
-          route.params.courseUUID,
-          route.params.exerciseUUID
-        );
-      } catch (err) {
-        // ignore toast error
-      }
-
       if (route.params.moduleUUID && route.params.exerciseUUID) {
-        const exercise = await getExerciseByID(
-          route.params.courseUUID,
-          route.params.exerciseUUID
-        );
-        loadExercise(exercise);
-        getUnitProgressIfLoggedIn();
-
-        await getCourseProgressIfLoggedIn();
-        if (store.getters.getIsLoggedIn) {
-          try {
-            if (!store.getters.getUser) {
-              await loadUser(store.commit);
-            }
-          } catch (err) {
-            notify({
-              type: "danger",
-              text: err,
-            });
-          }
-          loadHintStatus();
-          loadCheatStatus();
-        }
+        await Promise.all([
+          loadCourses(),
+          loadNextExercise(),
+          loadPrevExercise(),
+          loadCurrentExercise(),
+          getUnitProgressIfLoggedIn(),
+          loadUserStatus(),
+        ]);
         return;
       }
 
@@ -482,6 +447,70 @@ export default {
 
       await navToCurrentExercise();
     });
+
+    const loadCourses = async () => {
+      try {
+        state.courses = await getCourses(route.params.courseUUID);
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    };
+
+    const loadNextExercise = async () => {
+      try {
+        state.nextExercise = await getNextExercise(
+          route.params.courseUUID,
+          route.params.exerciseUUID
+        );
+      } catch (err) {
+        // ignore toast error
+      }
+    };
+
+    const loadPrevExercise = async () => {
+      try {
+        state.previousExercise = await getPreviousExercise(
+          route.params.courseUUID,
+          route.params.exerciseUUID
+        );
+      } catch (err) {
+        // ignore toast error
+      }
+    };
+
+    const loadCurrentExercise = async () => {
+      try {
+        const exercise = await getExerciseByID(
+          route.params.courseUUID,
+          route.params.exerciseUUID
+        );
+        loadExercise(exercise);
+      } catch (err) {
+        // ignore toast error
+      }
+    };
+
+    const loadUserStatus = async () => {
+      getUnitProgressIfLoggedIn();
+      await getCourseProgressIfLoggedIn();
+      if (store.getters.getIsLoggedIn) {
+        try {
+          if (!store.getters.getUser) {
+            await loadUser(store.commit);
+          }
+        } catch (err) {
+          notify({
+            type: "danger",
+            text: err,
+          });
+        }
+        loadHintStatus();
+        loadCheatStatus();
+      }
+    };
 
     const doneWithExercise = async () => {
       try {
