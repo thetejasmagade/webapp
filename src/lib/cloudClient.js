@@ -910,22 +910,6 @@ export async function submitMultipleChoiceExercise(exerciseUUID, answer) {
   return handled;
 }
 
-export async function submitInformationalExercise(exerciseUUID) {
-  const resp = await fetchWithAuthIfAuthed(
-    `${domain}/v1/exercises/${exerciseUUID}/informational`,
-    {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    }
-  );
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function submitInformationalStep(stepUUID) {
   const resp = await fetchWithAuthIfAuthed(
     `${domain}/v1/steps/${stepUUID}/informational`,

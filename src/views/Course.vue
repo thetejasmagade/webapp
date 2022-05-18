@@ -29,21 +29,11 @@
           :forward-link="forwardLink"
           :can-go-back="!isFirstExercise"
           :can-go-forward="!isLastExercise || courseDone"
-          :forward-click="
-            type === 'type_info' && isLoggedIn ? doneWithExercise : null
-          "
           :sandbox="sandbox"
         />
         <ProgressBar v-if="isLoggedIn" :percent-complete="percentComplete" />
-        <CardExerciseTypeInfo
-          v-if="type === 'type_info'"
-          :markdown-source="markdownSource"
-          :uuid="route.params.exerciseUUID"
-          unit-type="exercise"
-          :is-logged-in="isLoggedIn"
-        />
         <CardExerciseTypeMultipleChoice
-          v-else-if="type === 'type_choice'"
+          v-if="type === 'type_choice'"
           :markdown-source="markdownSource"
           :hint-markdown-source="hintMarkdownSource"
           :answers="question.Answers"
@@ -109,7 +99,6 @@ import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
 import UnitTopNav from "@/components/navs/UnitTopNav.vue";
 import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
 import ExerciseSkeleton from "@/components/skeletons/ExerciseSkeleton.vue";
-import CardExerciseTypeInfo from "@/components/cards/CardExerciseTypeInfo.vue";
 import CardExerciseTypeMultipleChoice from "@/components/cards/CardExerciseTypeMultipleChoice.vue";
 import CardExerciseTypeCode from "@/components/cards/CardExerciseTypeCode.vue";
 import CardExerciseTypeCodeCanvas from "@/components/cards/CardExerciseTypeCodeCanvas.vue";
@@ -140,7 +129,6 @@ import {
   getCurrentExercise,
   getPreviousExercise,
   getNextExercise,
-  submitInformationalExercise,
   submitCodeExercise,
   submitMultipleChoiceExercise,
   submitCodeCanvasExercise,
@@ -166,7 +154,6 @@ export default {
   components: {
     ViewNavWrapper,
     UnitDoneModal,
-    CardExerciseTypeInfo,
     UnitTopNav,
     SandboxModeModal,
     ExerciseSkeleton,
@@ -512,22 +499,6 @@ export default {
       }
     };
 
-    const doneWithExercise = async () => {
-      try {
-        await submitTypeInfo();
-        const nextExercise = await getNextExercise(
-          route.params.courseUUID,
-          route.params.exerciseUUID
-        );
-        navToExercise(nextExercise, false);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-    };
-
     const loadHintStatus = async () => {
       try {
         const hintResp = await getHintStatus(route.params.exerciseUUID);
@@ -590,13 +561,6 @@ export default {
       deleteCachedCode(route.params.exerciseUUID);
     };
 
-    const submitTypeInfo = async () => {
-      const submitResponse = await submitInformationalExercise(
-        route.params.exerciseUUID
-      );
-      await handleSuccess(submitResponse);
-    };
-
     const handleSuccess = async (submitResponse) => {
       eventExerciseSuccess(
         route.params.exerciseUUID,
@@ -604,22 +568,20 @@ export default {
         exerciseIndex.value,
         moduleIndex.value
       );
-      if (state.type !== "type_info") {
-        courseInsertsModal.value?.show();
-        if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
-          notify({
-            type: "success",
-            text: `Correct! You unlocked ${submitResponse.GemsEarned} ${
-              submitResponse.GemsEarned === 1 ? "gem" : "gems"
-            } 💎`,
-          });
-          await loadBalance(store.commit);
-        } else {
-          notify({
-            type: "success",
-            text: "Correct! Great Job",
-          });
-        }
+      courseInsertsModal.value?.show();
+      if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
+        notify({
+          type: "success",
+          text: `Correct! You unlocked ${submitResponse.GemsEarned} ${
+            submitResponse.GemsEarned === 1 ? "gem" : "gems"
+          } 💎`,
+        });
+        await loadBalance(store.commit);
+      } else {
+        notify({
+          type: "success",
+          text: "Correct! Great Job",
+        });
       }
       getUnitProgressIfLoggedIn();
       getCourseProgressIfLoggedIn();
@@ -825,12 +787,10 @@ export default {
       module,
       moduleIndex,
       course,
-      doneWithExercise,
       showSandboxModeModal,
       hintCallback,
       cheatCallback,
       resetCode,
-      submitTypeInfo,
       submitTypeCode,
       submitTypeCodeCanvas,
       submitTypeChoice,
