@@ -30,6 +30,7 @@
           :can-go-back="!isFirstExercise"
           :can-go-forward="!isLastExercise || courseDone"
           :sandbox="sandbox"
+          :pulse-next="pulseNext"
         />
         <ProgressBar v-if="isLoggedIn" :percent-complete="percentComplete" />
         <CardExerciseTypeMultipleChoice
@@ -189,6 +190,7 @@ export default {
       nextExercise: null,
       previousExercise: null,
       chapterCompleted: false,
+      pulseNext: false,
     });
 
     const router = useRouter();
@@ -562,6 +564,7 @@ export default {
     };
 
     const handleSuccess = async (submitResponse) => {
+      state.pulseNext = true;
       eventExerciseSuccess(
         route.params.exerciseUUID,
         course?.value?.Title,

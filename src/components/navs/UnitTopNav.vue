@@ -43,6 +43,7 @@
         :link="forwardLink"
         :click="forwardClick"
         :color="canGoForward ? 'blue' : 'gray'"
+        :pulse="pulseNext"
       >
         <FontAwesomeIcon icon="arrow-right" />
       </BlockButton>
@@ -64,6 +65,11 @@ export default {
     SandboxModeModal,
   },
   props: {
+    pulseNext: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     dropdownOneItems: {
       type: Array,
       required: false,

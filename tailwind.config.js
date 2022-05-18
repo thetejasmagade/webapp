@@ -1,7 +1,37 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        bounceSquish: {
+          "0%": {
+            transform: "scale(1,1) translateY(0);",
+          },
+          "10%": {
+            transform: "scale(1.1,.9) translateY(0);",
+          },
+          "30%": {
+            transform: "scale(.9,1.1) translateY(-10%);",
+          },
+          "50%": {
+            transform: "scale(1.05,.95) translateY(0);",
+          },
+          "57%": {
+            transform: "scale(1,1) translateY(-1%);",
+          },
+          "64%": {
+            transform: "scale(1,1) translateY(0);",
+          },
+          "100%": {
+            transform: "scale(1,1) translateY(0);",
+          },
+        },
+      },
+      animation: {
+        bounceSquish:
+          "bounceSquish 2s cubic-bezier(0.280, 0.840, 0.420, 1) infinite;",
+      },
+    },
     boxShadow: {
       sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
       DEFAULT:

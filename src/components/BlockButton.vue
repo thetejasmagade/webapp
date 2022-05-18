@@ -2,8 +2,8 @@
   <button
     v-if="click"
     type="submit"
-    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103"
-    :class="colors"
+    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 origin-bottom"
+    :class="classes"
     :disabled="disabled"
     :style="{
       cursor: disabled ? 'not-allowed' : 'pointer',
@@ -15,8 +15,8 @@
   <router-link
     v-else-if="link && !disabled"
     :to="link"
-    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103"
-    :class="colors"
+    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 origin-bottom"
+    :class="classes"
     :disabled="disabled"
     :style="{
       cursor: disabled ? 'not-allowed' : 'pointer',
@@ -27,8 +27,8 @@
   <button
     v-else
     type="submit"
-    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103"
-    :class="colors"
+    class="disabled:cursor-not-allowed focus:outline-none py-2 px-4 rounded active-scale-103 origin-bottom"
+    :class="classes"
     :disabled="disabled"
     :style="{
       cursor: disabled ? 'not-allowed' : 'pointer',
@@ -62,10 +62,17 @@ export default {
       required: false,
       default: null,
     },
+    pulse: {
+      type: Boolean,
+      required: false,
+      defualt: false,
+    },
   },
   computed: {
-    colors() {
+    classes() {
       return {
+        "animate-bounceSquish": this.pulse,
+
         "text-white": this.color !== "white",
 
         "bg-gray-500": this.color === "gray",
