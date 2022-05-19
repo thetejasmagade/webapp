@@ -32,7 +32,10 @@
           :sandbox="sandbox"
           :pulse-next="pulseNext"
         />
-        <ProgressBar v-if="isLoggedIn" :percent-complete="percentComplete" />
+        <ProgressBar
+          v-if="percentComplete !== null"
+          :percent-complete="percentComplete"
+        />
         <CardExerciseTypeMultipleChoice
           v-if="type === 'type_choice'"
           :markdown-source="markdownSource"
@@ -264,7 +267,7 @@ export default {
 
     const percentComplete = computed(() => {
       if (!state.courseProgress) {
-        return 0;
+        return null;
       }
       let complete = 0;
       let total = 0;
@@ -276,10 +279,16 @@ export default {
           total++;
         }
       }
+      if (total === 0) {
+        return null;
+      }
       return (complete / total) * 100;
     });
 
     const isExerciseComplete = computed(() => {
+      if (!state.courseProgress) {
+        return false;
+      }
       return state.courseProgress[route.params.moduleUUID][
         route.params.exerciseUUID
       ]?.Completed;
