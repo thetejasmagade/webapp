@@ -51,7 +51,7 @@ import { loadLoggedIn } from "@/lib/cloudStore.js";
 
 import { getLoginWithGithubURL } from "@/lib/cloudClient.js";
 
-import { saveRegisterIsSubscribedNews } from "@/lib/localStorage.js";
+import { saveRegisterIsSubscribedNews } from "@/lib/localStorageLib.js";
 
 export default {
   components: {

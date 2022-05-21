@@ -320,7 +320,7 @@ import danielImage from "@/img/daniel-gerep-300x300.webp";
 import ozyImage from "@/img/ozy-300x300.webp";
 import ignacioImage from "@/img/0-150x150-1.webp";
 
-import { loadRegisterIsSubscribedNews } from "@/lib/localStorage.js";
+import { loadRegisterIsSubscribedNews } from "@/lib/localStorageLib.js";
 
 export default {
   components: {
