@@ -139,7 +139,7 @@
             class="mb-5"
             :profile-image-u-r-l="danielImage"
             title="Daniel Gerep from Cássia, Brazil"
-            description="I’m a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord makes the weekly events a blast, and the members are quick to help out with detailed answers and explanations."
+            description="I’m a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord is a blast, and the members are quick to help out with detailed answers and explanations."
           />
           <Testimonial
             class="mb-5"
