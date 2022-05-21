@@ -51,6 +51,8 @@ import { loadLoggedIn } from "@/lib/cloudStore.js";
 
 import { getLoginWithGithubURL } from "@/lib/cloudClient.js";
 
+import { saveRegisterIsSubscribedNews } from "@/lib/localStorage.js";
+
 export default {
   components: {
     BlockButton,
@@ -91,6 +93,9 @@ export default {
       }
     },
     async clickGithub() {
+      if (this.subscribeNews) {
+        saveRegisterIsSubscribedNews();
+      }
       window.location.replace(
         getLoginWithGithubURL(this.isSubscribedNews, this.$route.query.ruid)
       );

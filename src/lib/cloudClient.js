@@ -38,18 +38,6 @@ export function getLoginWithGithubURL(isSubscribedNews, referringUserUUID) {
   return `${domain}/v1/auth/github/login?is_subscribed_news=${isSubscribedNews}&referring_user_id=${referringUserUUID}`;
 }
 
-export async function updateUserCache() {
-  const resp = await fetchWithAuth(`${domain}/v1/users/cache/update`, {
-    method: "PUT",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 async function refreshToken() {
   const resp = await fetchWithAuth(`${domain}/v1/auth/refresh`, {
     method: "POST",
@@ -292,23 +280,25 @@ export async function updateUser({
   recruitersCanContact,
   isSubscribedNews,
 }) {
-  function emptyToNull(s) {
-    if (s === "") {
+  function zeroToNull(s) {
+    if (!s) {
       return null;
     }
     return s;
   }
 
-  firstName = emptyToNull(firstName);
-  lastName = emptyToNull(lastName);
-  bio = emptyToNull(bio);
-  jobTitle = emptyToNull(jobTitle);
-  location = emptyToNull(location);
-  twitterHandle = emptyToNull(twitterHandle);
-  linkedinURL = emptyToNull(linkedinURL);
-  githubHandle = emptyToNull(githubHandle);
-  websiteURL = emptyToNull(websiteURL);
-  experienceLevel = emptyToNull(experienceLevel);
+  firstName = zeroToNull(firstName);
+  lastName = zeroToNull(lastName);
+  bio = zeroToNull(bio);
+  jobTitle = zeroToNull(jobTitle);
+  location = zeroToNull(location);
+  twitterHandle = zeroToNull(twitterHandle);
+  linkedinURL = zeroToNull(linkedinURL);
+  githubHandle = zeroToNull(githubHandle);
+  websiteURL = zeroToNull(websiteURL);
+  experienceLevel = zeroToNull(experienceLevel);
+  experienceLevel = zeroToNull(experienceLevel);
+  isSubscribedNews = zeroToNull(isSubscribedNews);
 
   const resp = await fetchWithAuth(`${domain}/v1/users`, {
     method: "PUT",

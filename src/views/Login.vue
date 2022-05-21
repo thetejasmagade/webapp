@@ -299,7 +299,7 @@
 </template>
 
 <script>
-import { loginToken, getUser, updateUserCache } from "@/lib/cloudClient.js";
+import { loginToken, getUser, updateUser } from "@/lib/cloudClient.js";
 import { eventRegister, singupMethodGithub } from "@/lib/analytics.js";
 
 import { loadLoggedIn } from "@/lib/cloudStore.js";
@@ -319,6 +319,8 @@ import meganImage from "@/img/megan_astraus-300x300.webp";
 import danielImage from "@/img/daniel-gerep-300x300.webp";
 import ozyImage from "@/img/ozy-300x300.webp";
 import ignacioImage from "@/img/0-150x150-1.webp";
+
+import { loadRegisterIsSubscribedNews } from "@/lib/localStorage.js";
 
 export default {
   components: {
@@ -361,10 +363,13 @@ export default {
         loginToken(this.$route.query.auth_token);
         // just make sure token works
         await getUser();
-
         if (this.$route.query.new_user === "true") {
           try {
-            updateUserCache();
+            if (loadRegisterIsSubscribedNews()) {
+              await updateUser({
+                isSubscribedNews: true,
+              });
+            }
             eventRegister(singupMethodGithub);
             loadLoggedIn(this);
             this.$router.push({

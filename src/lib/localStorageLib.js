@@ -5,6 +5,16 @@ export const seenSandboxModalLoginKey = "seenSandboxModalLogin";
 export const seenSandboxModalPatronKey = "seenSandboxModalPatron";
 export const seenDiscordSyncInsertKey = "seenDiscordSyncInsert";
 export const seenFriendsInsertKey = "seenFriendsInsert";
+const registerIsSubscribedNewsKey = "registerIsSubscribedNews";
+
+export function saveRegisterIsSubscribedNews() {
+  localStorage.setItem(registerIsSubscribedNewsKey, trueString);
+}
+
+export function loadRegisterIsSubscribedNews() {
+  const v = localStorage.getItem(registerIsSubscribedNewsKey);
+  return v === trueString;
+}
 
 // add the courseUUID / project UUID to the end
 export function getSeenUnitDoneModalKey(unitUUID) {
