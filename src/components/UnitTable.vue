@@ -57,7 +57,7 @@
                   :key="i"
                   :unit="unit"
                   :index="isOrdered ? i + 1 : null"
-                  :is-next="i === firstIncompleteIndex"
+                  :is-next="isOrdered ? i === firstIncompleteIndex : null"
                 />
               </tbody>
             </table>

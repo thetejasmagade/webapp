@@ -12,7 +12,9 @@
       <ProgressRadial :percent="calcPercent" />
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <router-link :to="getUnitLink(unit)">
+      <router-link
+        :to="calcPercent > 0 ? getUnitLink(unit) : getUnitLinkLanding(unit)"
+      >
         <div class="flex items-center hover:opacity-50">
           <span v-if="index" class="text-3xl text-gray-300 mr-4">{{
             index
@@ -50,7 +52,7 @@
 </template>
 
 <script>
-import { getUnitData, getUnitLink } from "@/lib/unit.js";
+import { getUnitData, getUnitLink, getUnitLinkLanding } from "@/lib/unit.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { getUnitsProgress } from "@/lib/cloudClient.js";
 import ProgressRadial from "@/components/ProgressRadial.vue";
@@ -133,6 +135,7 @@ export default {
   },
   methods: {
     getUnitLink,
+    getUnitLinkLanding,
     async getUnitsProgressIfLoggedIn() {
       if (!this.$store.getters.getIsLoggedIn) {
         return;
