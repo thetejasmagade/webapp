@@ -43,11 +43,11 @@
                   </tr>
                   <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">Code verification</td>
+                    <td class="px-4 py-2 font-bold">Pass off assignments</td>
                   </tr>
                   <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">Patron-only chat</td>
+                    <td class="px-4 py-2 font-bold">Solution keys</td>
                   </tr>
                   <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
@@ -55,13 +55,13 @@
                   </tr>
                   <tr class="border-b border-gray-500">
                     <td class="px-4 py-2">-</td>
+                    <td class="px-4 py-2 font-bold">Patron-only chat</td>
+                  </tr>
+                  <tr class="border-b border-gray-500">
+                    <td class="px-4 py-2">-</td>
                     <td class="px-4 py-2 font-bold">
                       Certificates of completion
                     </td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">View full solutions</td>
                   </tr>
                 </tbody>
               </table>
@@ -77,11 +77,21 @@
                     class="px-6 py-8 text-center rounded bg-gray-700 items-center flex flex-col h-full w-full"
                   >
                     <h3 class="text-4xl font-bold">
-                      {{ getCurrencySymbol(priceMonthly.CurrencyCode)
-                      }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
+                      {{ getCurrencySymbol(priceYearly.CurrencyCode)
+                      }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
                     </h3>
-                    <p class="mb-4 text-gray-400">monthly</p>
-                    <p class="mb-4">Small monthly payments</p>
+                    <p class="mb-4 text-gray-400">yearly</p>
+                    <p class="mb-4">
+                      Save with a
+                      {{
+                        Math.round(
+                          ((priceMonthly.UnitAmountPerMonth -
+                            priceYearly.UnitAmountPerMonth) *
+                            100) /
+                            priceMonthly.UnitAmountPerMonth
+                        )
+                      }}% discount
+                    </p>
                     <BlockButton
                       v-if="
                         $store.getters.getIsLoggedIn &&
@@ -90,11 +100,11 @@
                       class="mb-4 py-2 w-full"
                       :click="
                         () => {
-                          checkout(priceMonthly);
+                          checkout(priceYearly);
                         }
                       "
                     >
-                      Monthly Plan
+                      Yearly Plan
                     </BlockButton>
                   </div>
                 </div>
@@ -102,21 +112,11 @@
                   class="px-6 py-8 text-center rounded bg-blue-500 text-white items-center flex flex-col h-full w-full"
                 >
                   <h3 class="text-4xl font-bold">
-                    {{ getCurrencySymbol(priceYearly.CurrencyCode)
-                    }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
+                    {{ getCurrencySymbol(priceMonthly.CurrencyCode)
+                    }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
                   </h3>
-                  <p class="mb-4 text-blue-300">yearly</p>
-                  <p class="mb-4">
-                    Full access at a
-                    {{
-                      Math.round(
-                        ((priceMonthly.UnitAmountPerMonth -
-                          priceYearly.UnitAmountPerMonth) *
-                          100) /
-                          priceMonthly.UnitAmountPerMonth
-                      )
-                    }}% discount
-                  </p>
+                  <p class="mb-4 text-blue-300">monthly</p>
+                  <p class="mb-4">Small monthly payments</p>
                   <BlockButton
                     v-if="
                       $store.getters.getIsLoggedIn &&
@@ -126,11 +126,11 @@
                     class="mb-4 py-2 w-full"
                     :click="
                       () => {
-                        checkout(priceYearly);
+                        checkout(priceMonthly);
                       }
                     "
                   >
-                    Yearly Plan
+                    Monthly Plan
                   </BlockButton>
                   <span class="rounded-lg border-white border-2 text-white px-2"
                     >Most Popular</span
