@@ -9,6 +9,7 @@
         :course="course"
         :course-done="courseDone"
         :in-sandbox-mode="sandbox"
+        :is-exercise-complete="isExerciseComplete"
       />
 
       <ExerciseSkeleton v-if="!isContentLoaded" />
@@ -588,8 +589,8 @@ export default {
           text: "Correct! Great Job",
         });
       }
-      await getUnitProgressIfLoggedIn();
       await getCourseProgressIfLoggedIn();
+      await getUnitProgressIfLoggedIn();
       courseInsertsModal.value?.show();
     };
 

@@ -54,6 +54,10 @@ import BlockButton from "@/components/BlockButton.vue";
 import { sleep } from "@/lib/sleep.js";
 import { loadBalance } from "@/lib/cloudStore.js";
 
+import { markAchievementSeen } from "@/lib/cloudClient.js";
+import { onMounted, reactive, toRefs } from "@vue/runtime-core";
+import { useStore } from "vuex";
+
 export default {
   components: {
     BlockButton,
@@ -69,17 +73,28 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
+  setup(props) {
+    const { achievementEarned, onDone } = toRefs(props);
+
+    const state = reactive({
       claimed: false,
       spinning: false,
       gemNum: 0,
-    };
-  },
-  methods: {
-    async claim() {
-      this.claimed = true;
-      this.spinning = true;
+    });
+
+    const store = useStore();
+
+    onMounted(() => {
+      try {
+        markAchievementSeen(achievementEarned.value?.AchievementUUID);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    const claim = async () => {
+      state.claimed = true;
+      state.spinning = true;
       let nextChangeCount = 0;
       const totalCentiSec = 250;
       for (let centiSec = 0; centiSec < totalCentiSec; centiSec++) {
@@ -87,25 +102,32 @@ export default {
         const nextChangeAt = Math.floor(centiSec / 10) + 1;
         if (nextChangeCount === nextChangeAt) {
           if (nextChangeAt + centiSec >= totalCentiSec) {
-            this.gemNum = this.achievementEarned?.AchievementGemsEarned;
+            state.gemNum = achievementEarned.value?.AchievementGemsEarned;
           } else {
-            this.gemNum = Math.floor(
+            state.gemNum = Math.floor(
               Math.random() *
-                (this.achievementEarned?.AchievementGemsEarned * 2)
+                (achievementEarned.value?.AchievementGemsEarned * 2)
             );
           }
           nextChangeCount = 0;
         }
         nextChangeCount++;
       }
-      this.gemNum = this.achievementEarned?.AchievementGemsEarned;
-      this.spinning = false;
-      await loadBalance(this.$store.commit);
-    },
-    onClickDone() {
-      this.onDone();
-      this.claimed = false;
-    },
+      state.gemNum = achievementEarned.value?.AchievementGemsEarned;
+      state.spinning = false;
+      await loadBalance(store.commit);
+    };
+
+    const onClickDone = () => {
+      onDone.value();
+      state.claimed = false;
+    };
+
+    return {
+      ...toRefs(state),
+      onClickDone,
+      claim,
+    };
   },
 };
 </script>
