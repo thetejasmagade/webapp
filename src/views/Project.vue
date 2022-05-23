@@ -1,11 +1,11 @@
 <template>
   <ViewNavWrapper>
     <div class="h-full">
-      <UnitDoneModal
-        v-if="project"
-        ref="unitDoneModal"
-        :unit-u-u-i-d="project.UUID"
-        :type="'project'"
+      <ProjectInsertsModal
+        v-if="project && projectDone !== null"
+        ref="projectInsertsModal"
+        :project="project"
+        :project-done="projectDone"
       />
 
       <div v-if="project" class="h-full flex flex-col">
@@ -17,12 +17,10 @@
           :back-link="backLink"
           :forward-link="forwardLink"
           :can-go-back="!isFirstStep"
-          :can-go-forward="!isLastStep || !projectDone"
+          :can-go-forward="!isLastStep"
           :sandbox="false"
-          :forward-click="
-            type === 'type_info' && isLoggedIn ? completeStep : null
-          "
         />
+
         <ProgressBar
           v-if="isContentLoaded && isLoggedIn"
           :percent-complete="percentComplete"
@@ -33,18 +31,19 @@
           :project-slug="project.Slug"
           :step-slug="stepSlug"
           :uuid="$route.params.stepUUID"
-          unit-type="step"
+          :done-with-step="doneWithStep"
           :is-logged-in="isLoggedIn"
+          :is-step-complete="isStepComplete"
         />
         <CardStepTypeManual
           v-else-if="type === 'type_manual' && $route.params.stepUUID"
           :markdown-source="markdownSource"
           :project-slug="project.Slug"
           :step-slug="stepSlug"
-          :done-with-step="completeStep"
+          :done-with-step="doneWithStep"
           :uuid="$route.params.stepUUID"
-          unit-type="step"
           :is-logged-in="isLoggedIn"
+          :is-step-complete="isStepComplete"
         />
       </div>
     </div>
@@ -54,15 +53,13 @@
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import UnitTopNav from "@/components/navs/UnitTopNav.vue";
-import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
+import ProjectInsertsModal from "@/components/modals/ProjectInsertsModal.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 
 import { loadBalance } from "@/lib/cloudStore.js";
 import { notify } from "@/lib/notification.js";
-
-import { eventClickExerciseNavigation } from "@/lib/analytics.js";
 
 import {
   getCurrentStep,
@@ -79,7 +76,7 @@ import {
 
 import { useStore } from "vuex";
 
-import { reactive, toRefs, computed, ref, watchEffect, onMounted } from "vue";
+import { reactive, toRefs, computed, ref, onMounted } from "vue";
 
 import { useRoute, useRouter } from "vue-router";
 
@@ -89,11 +86,11 @@ import { getComputedMeta } from "@/lib/meta.js";
 export default {
   components: {
     UnitTopNav,
-    UnitDoneModal,
     CardStepTypeInfo,
     CardStepTypeManual,
     ViewNavWrapper,
     ProgressBar,
+    ProjectInsertsModal,
   },
   setup() {
     const state = reactive({
@@ -115,7 +112,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
 
-    const unitDoneModal = ref(null);
+    const projectInsertsModal = ref(null);
 
     onMounted(async () => {
       try {
@@ -224,12 +221,19 @@ export default {
       return (pProgress.NumDone / pProgress.NumMax) * 100;
     });
 
-    const projectDone = computed(() => {
-      if (!project.value?.Steps) {
-        return false;
-      }
+    const isStepComplete = computed(() => {
       if (!state.projectProgress) {
         return false;
+      }
+      return state.projectProgress[route.params.stepUUID]?.Completed;
+    });
+
+    const projectDone = computed(() => {
+      if (!project.value?.Steps) {
+        return null;
+      }
+      if (!state.projectProgress) {
+        return null;
       }
       for (const step of project.value.Steps) {
         if (!(step.UUID in state.projectProgress)) {
@@ -327,8 +331,9 @@ export default {
           text: "Great Job!",
         });
       }
-      getUnitProgressIfLoggedIn();
-      getProjectProgressIfLoggedIn();
+      await getUnitProgressIfLoggedIn();
+      await getProjectProgressIfLoggedIn();
+      projectInsertsModal.value?.show();
     };
 
     const navToStep = (step, replace) => {
@@ -364,28 +369,12 @@ export default {
       }
     };
 
-    const completeStep = async () => {
-      eventClickExerciseNavigation(route.params.stepUUID, project.value?.Title);
+    const doneWithStep = async () => {
       if (state.type === "type_info") {
         await submitTypeInfo();
       }
       if (state.type === "type_manual") {
         await submitTypeManual();
-      }
-      if (state.isLastStep && projectDone.value) {
-        return;
-      }
-      try {
-        const step = await getNextStep(
-          route.params.projectUUID,
-          route.params.stepUUID
-        );
-        navToStep(step, true);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
       }
     };
 
@@ -401,12 +390,6 @@ export default {
       }
     };
 
-    watchEffect(() => {
-      if (projectDone.value) {
-        unitDoneModal.value?.show();
-      }
-    });
-
     return {
       ...toRefs(state),
       stepIndex,
@@ -421,8 +404,9 @@ export default {
       submitTypeInfo,
       submitTypeManual,
       goToBeginning,
-      completeStep,
-      unitDoneModal,
+      doneWithStep,
+      projectInsertsModal,
+      isStepComplete,
     };
   },
 };

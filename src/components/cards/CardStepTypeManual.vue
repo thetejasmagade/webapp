@@ -3,7 +3,7 @@
     <div class="hidden lg:block max-w-4xl">
       <div class="mt-4 w-full flex flex-row justify-end">
         <BlockButton
-          v-if="$store.getters.getIsLoggedIn"
+          v-if="$store.getters.getIsLoggedIn && !isStepComplete"
           class="btn mr-3"
           :click="doneWithStep"
         >
@@ -80,6 +80,10 @@ export default {
     },
     uuid: {
       type: String,
+      required: true,
+    },
+    isStepComplete: {
+      type: Boolean,
       required: true,
     },
   },

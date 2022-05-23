@@ -1,19 +1,14 @@
 <template>
   <ViewNavWrapper>
     <div class="h-full">
-      <SandboxModeModal ref="sandboxModeModal" />
-      <UnitDoneModal
-        v-if="course"
-        ref="unitDoneModal"
-        :unit-u-u-i-d="course.UUID"
-        :go-to-beginning-callback="goToBeginning"
-        :type="'course'"
-      />
       <CourseInsertsModal
-        v-if="user && exerciseIndex"
+        v-if="user && exerciseIndex !== null && course && sandbox !== null"
         ref="courseInsertsModal"
         :user="user"
         :exercise-index="exerciseIndex"
+        :course="course"
+        :course-done="courseDone"
+        :in-sandbox-mode="sandbox"
       />
 
       <ExerciseSkeleton v-if="!isContentLoaded" />
@@ -101,9 +96,7 @@
 
 <script>
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
-import UnitDoneModal from "@/components/modals/UnitDoneModal.vue";
 import UnitTopNav from "@/components/navs/UnitTopNav.vue";
-import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
 import ExerciseSkeleton from "@/components/skeletons/ExerciseSkeleton.vue";
 import CardExerciseTypeMultipleChoice from "@/components/cards/CardExerciseTypeMultipleChoice.vue";
 import CardExerciseTypeCode from "@/components/cards/CardExerciseTypeCode.vue";
@@ -119,16 +112,14 @@ import { notify } from "@/lib/notification.js";
 
 import { useStore } from "vuex";
 
-import { reactive, computed, onMounted, ref, watchEffect, toRefs } from "vue";
+import { reactive, computed, onMounted, ref, toRefs } from "vue";
 
 import {
-  eventFinishCourse,
   eventExecuteCode,
   eventExerciseFailure,
   eventExerciseSuccess,
   eventSubmitMultipleChoice,
   eventClickCheat,
-  eventOpenSandboxModeModal,
 } from "@/lib/analytics.js";
 
 import {
@@ -159,9 +150,7 @@ import {
 export default {
   components: {
     ViewNavWrapper,
-    UnitDoneModal,
     UnitTopNav,
-    SandboxModeModal,
     ExerciseSkeleton,
     CardExerciseTypeMultipleChoice,
     CardExerciseTypeCode,
@@ -202,11 +191,13 @@ export default {
     const route = useRoute();
     const store = useStore();
 
-    const sandboxModeModal = ref(null);
     const unitDoneModal = ref(null);
     const courseInsertsModal = ref(null);
 
     const sandbox = computed(() => {
+      if (state.isFree === null) {
+        return null;
+      }
       return (
         (!store.getters.getUserIsSubscribed && !state.isFree) ||
         !store.getters.getIsLoggedIn
@@ -544,11 +535,6 @@ export default {
       }
     };
 
-    const showSandboxModeModal = () => {
-      eventOpenSandboxModeModal();
-      sandboxModeModal.value?.showWithCache();
-    };
-
     const hintCallback = async () => {
       if (!store.getters.getIsLoggedIn) {
         return;
@@ -588,7 +574,6 @@ export default {
         exerciseIndex.value,
         moduleIndex.value
       );
-      courseInsertsModal.value?.show();
       if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
         notify({
           type: "success",
@@ -603,8 +588,9 @@ export default {
           text: "Correct! Great Job",
         });
       }
-      getUnitProgressIfLoggedIn();
-      getCourseProgressIfLoggedIn();
+      await getUnitProgressIfLoggedIn();
+      await getCourseProgressIfLoggedIn();
+      courseInsertsModal.value?.show();
     };
 
     const getCourseProgressIfLoggedIn = async () => {
@@ -671,15 +657,19 @@ export default {
       }
     };
 
+    const handleSandbox = async () => {
+      notify({
+        type: "danger",
+        text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
+      });
+      courseInsertsModal.value?.show();
+    };
+
     const submitTypeCode = ({ output }) => {
       cacheExerciseCode(route.params.exerciseUUID, state.code);
       eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
       if (sandbox.value) {
-        showSandboxModeModal();
-        notify({
-          type: "danger",
-          text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
-        });
+        handleSandbox();
         return;
       }
       verifyCode({ output });
@@ -689,11 +679,7 @@ export default {
       cacheExerciseCode(route.params.exerciseUUID, state.code);
       eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
       if (sandbox.value) {
-        showSandboxModeModal();
-        notify({
-          type: "danger",
-          text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
-        });
+        handleSandbox();
         return;
       }
       verifyHash({ hash });
@@ -782,16 +768,8 @@ export default {
       }
     };
 
-    watchEffect(() => {
-      if (courseDone.value) {
-        unitDoneModal.value?.show();
-        eventFinishCourse(course.value?.Title, false);
-      }
-    });
-
     return {
       ...toRefs(state),
-      sandboxModeModal,
       unitDoneModal,
       isContentLoaded,
       sandbox,
@@ -807,7 +785,6 @@ export default {
       module,
       moduleIndex,
       course,
-      showSandboxModeModal,
       hintCallback,
       cheatCallback,
       resetCode,

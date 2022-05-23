@@ -3,6 +3,15 @@
     class="overflow-y-auto w-full flex flex-col items-center bg-gray-800 h-full"
   >
     <div class="max-w-4xl">
+      <div class="mt-4 w-full flex flex-row justify-end">
+        <BlockButton
+          v-if="$store.getters.getIsLoggedIn && !isStepComplete"
+          class="btn mr-3"
+          :click="doneWithStep"
+        >
+          I'm done with this step
+        </BlockButton>
+      </div>
       <MarkdownViewer ref="viewer" :source="markdownSource" />
       <div class="border-b mx-4 mb-8"></div>
       <BottomOfMarkdownTabsNav
@@ -28,6 +37,7 @@
 </template>
 
 <script>
+import BlockButton from "@/components/BlockButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 import Section from "@/components/Section.vue";
 import BottomOfMarkdownTabsNav from "@/components/navs/BottomOfMarkdownTabsNav.vue";
@@ -37,6 +47,7 @@ export default {
     MarkdownViewer,
     Section,
     BottomOfMarkdownTabsNav,
+    BlockButton,
   },
   props: {
     markdownSource: {
@@ -55,8 +66,16 @@ export default {
       type: String,
       required: true,
     },
+    doneWithStep: {
+      type: Function,
+      required: true,
+    },
     uuid: {
       type: String,
+      required: true,
+    },
+    isStepComplete: {
+      type: Boolean,
       required: true,
     },
   },

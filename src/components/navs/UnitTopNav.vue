@@ -41,7 +41,6 @@
         :disabled="!canGoForward"
         class="ml-3"
         :link="forwardLink"
-        :click="forwardClick"
         :color="canGoForward ? 'blue' : 'gray'"
         :pulse="pulseNext"
       >
@@ -117,11 +116,6 @@ export default {
     },
     backLink: {
       type: Object,
-      required: false,
-      default: null,
-    },
-    forwardClick: {
-      type: Function,
       required: false,
       default: null,
     },

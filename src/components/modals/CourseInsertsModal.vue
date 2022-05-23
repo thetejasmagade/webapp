@@ -1,18 +1,28 @@
 <template>
-  <Modal ref="courseInsertsModal" :on-close="onClose">
-    <div v-if="courseInserts.length > 0">
+  <Modal ref="insertsModal" :on-close="onClose">
+    <div v-if="inserts.length > 0">
       <InsertTypeAchievement
-        v-if="courseInserts[0].type === 'achievement'"
-        :achievement-earned="courseInserts[0].data"
+        v-if="inserts[0].type === 'achievement'"
+        :achievement-earned="inserts[0].data"
         :on-done="onSeenInsert"
       />
       <InsertTypeDiscordSync
-        v-else-if="courseInserts[0].type === 'discord'"
+        v-else-if="inserts[0].type === 'discord'"
         :on-done="onSeenInsert"
       />
       <InsertTypeInviteFriends
-        v-else-if="courseInserts[0].type === 'friends'"
+        v-else-if="inserts[0].type === 'friends'"
         :on-done="onSeenInsert"
+      />
+      <InsertTypeUnitDone
+        v-else-if="inserts[0].type === 'unitDone'"
+        :on-done="onSeenInsert"
+        :unit="unit"
+      />
+      <InsertTypeSandboxMode
+        v-else-if="inserts[0].type === 'sandbox'"
+        :on-done="onSeenInsert"
+        :unit="unit"
       />
     </div>
   </Modal>
@@ -22,11 +32,16 @@
 import InsertTypeAchievement from "@/components/inserts/InsertTypeAchievement.vue";
 import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vue";
 import InsertTypeInviteFriends from "@/components/inserts/InsertTypeInviteFriends.vue";
+import InsertTypeUnitDone from "@/components/inserts/InsertTypeUnitDone.vue";
+import InsertTypeSandboxMode from "@/components/inserts/InsertTypeSandboxMode.vue";
+
+import { createCourseUnit } from "@/lib/unit.js";
+
 import Modal from "@/components/modals/Modal.vue";
 
 import { notify } from "@/lib/notification.js";
 
-import { onMounted, toRefs, ref, reactive } from "vue";
+import { onMounted, toRefs, ref, reactive, watchEffect } from "vue";
 
 import { getPendingAchievements } from "@/lib/cloudClient.js";
 
@@ -34,7 +49,11 @@ import {
   seenDiscordSyncInsertKey,
   seenFriendsInsertKey,
   hasSeen,
+  getSeenUnitDoneModalKey,
+  seenSandboxModalLoginKey,
+  seenSandboxModalPatronKey,
 } from "@/lib/localStorageLib";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -42,6 +61,8 @@ export default {
     InsertTypeAchievement,
     InsertTypeDiscordSync,
     InsertTypeInviteFriends,
+    InsertTypeUnitDone,
+    InsertTypeSandboxMode,
   },
   props: {
     user: {
@@ -52,12 +73,28 @@ export default {
       type: Number,
       required: true,
     },
+    courseDone: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    course: {
+      type: Object,
+      required: true,
+    },
+    inSandboxMode: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   setup(props) {
-    const { user, exerciseIndex } = toRefs(props);
+    const { user, exerciseIndex, courseDone, inSandboxMode, course } =
+      toRefs(props);
     const state = reactive({
-      courseInserts: [],
+      inserts: [],
     });
+    const store = useStore();
 
     const showDiscordSyncIfNecessary = () => {
       if (user.value.DiscordUserID) {
@@ -69,7 +106,7 @@ export default {
       if (exerciseIndex.value !== 5) {
         return;
       }
-      state.courseInserts.push({
+      state.inserts.push({
         type: "discord",
       });
     };
@@ -81,19 +118,16 @@ export default {
       if (exerciseIndex.value !== 8) {
         return;
       }
-      state.courseInserts.push({
+      state.inserts.push({
         type: "friends",
       });
     };
 
-    onMounted(async () => {
-      showDiscordSyncIfNecessary();
-      showFriendsIfNecessary();
-
+    const showAchievementsIfNecessary = async () => {
       try {
         let pendingAchievements = await getPendingAchievements();
         for (const pendingAchievement of pendingAchievements) {
-          state.courseInserts.push({
+          state.inserts.push({
             type: "achievement",
             data: pendingAchievement,
           });
@@ -104,27 +138,68 @@ export default {
           text: err,
         });
       }
+    };
+
+    const showUnitDoneIfNecessary = async (courseDoneValue, courseValue) => {
+      if (!courseDoneValue) {
+        return;
+      }
+      if (hasSeen(getSeenUnitDoneModalKey(courseValue.UUID))) {
+        return;
+      }
+      if (state.inserts.find((insert) => insert.type === "unitDone")) {
+        return;
+      }
+      state.inserts.push({
+        type: "unitDone",
+      });
+    };
+
+    const showSandboxIfNecessary = async () => {
+      if (!inSandboxMode.value) {
+        return;
+      }
+      if (store.getters.getIsLoggedIn && hasSeen(seenSandboxModalPatronKey)) {
+        return;
+      }
+      if (!store.getters.getIsLoggedIn && hasSeen(seenSandboxModalLoginKey)) {
+        return;
+      }
+      state.inserts.push({
+        type: "sandbox",
+      });
+    };
+
+    onMounted(() => {
+      showDiscordSyncIfNecessary(user.value, exerciseIndex.value);
+      showFriendsIfNecessary();
+      showAchievementsIfNecessary();
+      showSandboxIfNecessary();
+    });
+
+    watchEffect(() => {
+      showUnitDoneIfNecessary(courseDone.value, course.value);
     });
 
     const onSeenInsert = () => {
-      state.courseInserts.shift();
-      if (state.courseInserts.length === 0) {
+      state.inserts.shift();
+      if (state.inserts.length === 0) {
         hide();
       }
     };
 
-    const courseInsertsModal = ref(null);
+    const insertsModal = ref(null);
     const show = () => {
-      if (state.courseInserts.length === 0) {
+      if (state.inserts.length === 0) {
         return;
       }
-      courseInsertsModal.value?.show();
+      insertsModal.value?.show();
     };
     const hide = () => {
-      courseInsertsModal.value?.hide();
+      insertsModal.value?.hide();
     };
     const onClose = () => {
-      state.courseInserts = [];
+      state.inserts = [];
     };
 
     return {
@@ -132,8 +207,9 @@ export default {
       onSeenInsert,
       show,
       hide,
-      courseInsertsModal,
+      insertsModal,
       onClose,
+      unit: createCourseUnit(course.value),
     };
   },
 };
