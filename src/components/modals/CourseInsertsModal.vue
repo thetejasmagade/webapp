@@ -78,6 +78,11 @@ export default {
       required: false,
       default: false,
     },
+    isExerciseComplete: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     course: {
       type: Object,
       required: true,
@@ -89,8 +94,14 @@ export default {
     },
   },
   setup(props) {
-    const { user, exerciseIndex, courseDone, inSandboxMode, course } =
-      toRefs(props);
+    const {
+      user,
+      exerciseIndex,
+      courseDone,
+      inSandboxMode,
+      course,
+      isExerciseComplete,
+    } = toRefs(props);
     const state = reactive({
       inserts: [],
     });
@@ -173,11 +184,13 @@ export default {
     onMounted(() => {
       showDiscordSyncIfNecessary(user.value, exerciseIndex.value);
       showFriendsIfNecessary();
-      showAchievementsIfNecessary();
       showSandboxIfNecessary();
     });
 
     watchEffect(() => {
+      if (isExerciseComplete.value) {
+        showAchievementsIfNecessary();
+      }
       showUnitDoneIfNecessary(courseDone.value, course.value);
     });
 
