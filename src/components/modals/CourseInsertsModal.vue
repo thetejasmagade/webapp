@@ -187,9 +187,10 @@ export default {
       showSandboxIfNecessary();
     });
 
-    watchEffect(() => {
+    watchEffect(async () => {
       if (isExerciseComplete.value) {
-        showAchievementsIfNecessary();
+        await showAchievementsIfNecessary();
+        show();
       }
       showUnitDoneIfNecessary(courseDone.value, course.value);
     });
@@ -218,7 +219,6 @@ export default {
     return {
       ...toRefs(state),
       onSeenInsert,
-      show,
       hide,
       insertsModal,
       onClose,
