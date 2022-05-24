@@ -3,7 +3,6 @@
     <div class="h-full">
       <CourseInsertsModal
         v-if="user && exerciseIndex !== null && course && sandbox !== null"
-        ref="courseInsertsModal"
         :user="user"
         :exercise-index="exerciseIndex"
         :course="course"
@@ -193,7 +192,6 @@ export default {
     const store = useStore();
 
     const unitDoneModal = ref(null);
-    const courseInsertsModal = ref(null);
 
     const sandbox = computed(() => {
       if (state.isFree === null) {
@@ -591,7 +589,6 @@ export default {
       }
       await getCourseProgressIfLoggedIn();
       await getUnitProgressIfLoggedIn();
-      courseInsertsModal.value?.show();
     };
 
     const getCourseProgressIfLoggedIn = async () => {
@@ -663,7 +660,6 @@ export default {
         type: "danger",
         text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
       });
-      courseInsertsModal.value?.show();
     };
 
     const submitTypeCode = ({ output }) => {
@@ -795,7 +791,6 @@ export default {
       goToBeginning,
       route,
       user: computed(() => store.getters.getUser),
-      courseInsertsModal,
       isExerciseComplete,
     };
   },
