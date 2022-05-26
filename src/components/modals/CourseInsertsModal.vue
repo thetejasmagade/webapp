@@ -73,6 +73,10 @@ export default {
       type: Number,
       required: true,
     },
+    moduleIndex: {
+      type: Number,
+      required: true,
+    },
     courseDone: {
       type: Boolean,
       required: false,
@@ -96,6 +100,7 @@ export default {
   setup(props) {
     const {
       user,
+      moduleIndex,
       exerciseIndex,
       courseDone,
       inSandboxMode,
@@ -114,7 +119,7 @@ export default {
       if (hasSeen(seenDiscordSyncInsertKey)) {
         return;
       }
-      if (exerciseIndex.value !== 5) {
+      if (moduleIndex.value != 1 && exerciseIndex.value !== 5) {
         return;
       }
       state.inserts.push({
@@ -126,7 +131,7 @@ export default {
       if (hasSeen(seenFriendsInsertKey)) {
         return;
       }
-      if (exerciseIndex.value !== 8) {
+      if (moduleIndex.value != 3 && exerciseIndex.value !== 8) {
         return;
       }
       state.inserts.push({

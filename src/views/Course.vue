@@ -2,9 +2,16 @@
   <ViewNavWrapper>
     <div class="h-full">
       <CourseInsertsModal
-        v-if="user && exerciseIndex !== null && course && sandbox !== null"
+        v-if="
+          user &&
+          exerciseIndex !== null &&
+          moduleIndex != null &&
+          course &&
+          sandbox !== null
+        "
         :user="user"
         :exercise-index="exerciseIndex"
+        :module-index="moduleIndex"
         :course="course"
         :course-done="courseDone"
         :in-sandbox-mode="sandbox"
