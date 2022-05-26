@@ -25,6 +25,7 @@ import {
   seenSandboxModalPatronKey,
   markSeen,
 } from "@/lib/localStorageLib";
+import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -39,6 +40,7 @@ export default {
   setup(props) {
     const store = useStore();
     const { onDone } = toRefs(props);
+    const router = useRouter();
 
     onMounted(async () => {
       if (store.getters.getIsLoggedIn) {
@@ -77,12 +79,10 @@ export default {
     const btnClick = () => {
       onDone.value();
       if (store.getters.getIsLoggedIn) {
-        this.$router.push({ name: "Pricing" });
-        this.hide();
+        router.push({ name: "Pricing" });
         return;
       }
-      this.$router.push({ name: "Login" });
-      this.hide();
+      router.push({ name: "Login" });
       return;
     };
     return {
