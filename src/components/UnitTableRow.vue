@@ -13,7 +13,11 @@
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
       <router-link
-        :to="calcPercent > 0 ? getUnitLink(unit) : getUnitLinkLanding(unit)"
+        :to="
+          $store.getters.getIsLoggedIn
+            ? getUnitLink(unit)
+            : getUnitLinkLanding(unit)
+        "
       >
         <div class="flex items-center hover:opacity-50">
           <span v-if="index" class="text-3xl text-gray-300 mr-4">{{
