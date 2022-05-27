@@ -45,6 +45,8 @@ import { onMounted, toRefs, ref, reactive, watchEffect } from "vue";
 
 import { getPendingAchievements } from "@/lib/cloudClient.js";
 
+import { loadBalance } from "@/lib/cloudStore.js";
+
 import {
   seenDiscordSyncInsertKey,
   seenFriendsInsertKey,
@@ -217,8 +219,9 @@ export default {
     const hide = () => {
       insertsModal.value?.hide();
     };
-    const onClose = () => {
+    const onClose = async () => {
       state.inserts = [];
+      await loadBalance(store.commit);
     };
 
     return {
