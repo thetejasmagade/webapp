@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row justify-start content-center">
-    <Tooltip :text="`Run code`" position="bottom">
+    <Tooltip :text="checkPlatform" position="bottom">
       <BlockButton class="mr-3" :click="runCallback">
         <FontAwesomeIcon icon="play" />
         Run
@@ -86,6 +86,16 @@ export default {
         this.cheatCost > this.$store.getters.getBalance &&
         !this.isCheatPurchased
       );
+    },
+    checkPlatform() {
+      let platform = navigator.userAgentData.platform;
+      if (platform.toLowerCase().includes("mac")) {
+        return "Run Code Cmd + Enter";
+      } else if (platform.toLowerCase().includes("windows")) {
+        return "Run Code Ctrl + Enter";
+      } else {
+        return "Run Code";
+      }
     },
   },
 };

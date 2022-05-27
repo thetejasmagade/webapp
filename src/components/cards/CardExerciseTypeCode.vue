@@ -1,5 +1,9 @@
 <template>
-  <div class="h-full overflow-auto">
+  <div
+    class="h-full overflow-auto"
+    @keyup.ctrl.enter="runCallback"
+    @keyup.meta.enter="runCallback"
+  >
     <div class="h-full hidden lg:block">
       <Multipane layout="horizontal" class="h-full flex-1 overflow-y-auto">
         <div
