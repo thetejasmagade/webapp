@@ -16,7 +16,24 @@
     />
     <div class="font-mono h-full">
       <Multipane layout="vertical">
-        <div class="w-full h-4/6">
+        <div v-if="isMAC" class="w-full h-4/6" @keyup.meta.enter="runCode">
+          <CodeMirrorWrapper
+            v-if="!isCheating"
+            :model-value="modelValue"
+            class="h-full"
+            :options="codeMirrorOptions"
+            @update:modelValue="(value) => $emit('update:modelValue', value)"
+          />
+          <CodeMirrorMergeWrapper
+            v-else
+            class="h-full"
+            :model-value="modelValue"
+            :solution="solution"
+            :options="codeMirrorOptions"
+            @update:modelValue="(value) => $emit('update:modelValue', value)"
+          />
+        </div>
+        <div v-else class="w-full h-4/6" @keyup.ctrl.enter="runCode">
           <CodeMirrorWrapper
             v-if="!isCheating"
             :model-value="modelValue"
@@ -85,6 +102,7 @@ import {
   awaitWorkerReady,
 } from "@/lib/runWorker.js";
 import { compileGo, compilePureScript } from "@/lib/cloudClient.js";
+import { getOperatingSystem, MAC } from "@/lib/platform.js";
 
 import { sleep } from "@/lib/sleep.js";
 
@@ -217,6 +235,12 @@ export default {
         return 4;
       }
       return 2;
+    },
+    isMAC() {
+      const OS = getOperatingSystem();
+      if (OS === MAC) {
+        return true;
+      } else return false;
     },
   },
   watch: {
