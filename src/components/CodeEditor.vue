@@ -16,11 +16,7 @@
     />
     <div class="font-mono h-full">
       <Multipane layout="vertical">
-        <div
-          v-if="getOS === 'MAC'"
-          class="w-full h-4/6"
-          @keyup.meta.enter="runCode"
-        >
+        <div v-if="isMAC" class="w-full h-4/6" @keyup.meta.enter="runCode">
           <CodeMirrorWrapper
             v-if="!isCheating"
             :model-value="modelValue"
@@ -106,7 +102,7 @@ import {
   awaitWorkerReady,
 } from "@/lib/runWorker.js";
 import { compileGo, compilePureScript } from "@/lib/cloudClient.js";
-import { getOperatingSystem } from "@/lib/platform.js";
+import { getOperatingSystem, MAC } from "@/lib/platform.js";
 
 import { sleep } from "@/lib/sleep.js";
 
@@ -240,8 +236,11 @@ export default {
       }
       return 2;
     },
-    setOS() {
-      return getOperatingSystem();
+    isMAC() {
+      const OS = getOperatingSystem();
+      if (OS === MAC) {
+        return true;
+      } else return false;
     },
   },
   watch: {

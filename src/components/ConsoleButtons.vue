@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { getOperatingSystem } from "@/lib/platform.js";
+import { getOperatingSystem, MAC } from "@/lib/platform.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import BlockButton from "@/components/BlockButton.vue";
 import Tooltip from "@/components/Tooltip.vue";
@@ -90,7 +90,7 @@ export default {
     },
     getRunCodeTooltip() {
       const OS = getOperatingSystem();
-      if (OS === "MAC") {
+      if (OS === MAC) {
         return "Run Code Cmd + Enter";
       } else return "Run Code Ctrl + Enter";
     },
