@@ -192,14 +192,17 @@ export default {
       showDiscordSyncIfNecessary(user.value, exerciseIndex.value);
       showFriendsIfNecessary();
       showSandboxIfNecessary();
+      if (inSandboxMode) {
+        show();
+      }
     });
 
     watchEffect(async () => {
+      showUnitDoneIfNecessary(courseDone.value, course.value);
       if (isExerciseComplete.value) {
         await showAchievementsIfNecessary();
         show();
       }
-      showUnitDoneIfNecessary(courseDone.value, course.value);
     });
 
     const onSeenInsert = () => {
