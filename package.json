@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vite --open",
+    "serve": "vite --open --port 8080",
     "preview": "vite preview --open --port 8080",
     "build": "vite build --out-dir dist",
     "lint": "eslint . --ext .js,.ts,.tsx,.vue",

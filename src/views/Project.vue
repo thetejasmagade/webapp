@@ -31,7 +31,7 @@
           :project-slug="project.Slug"
           :step-slug="stepSlug"
           :uuid="$route.params.stepUUID"
-          :done-with-step="doneWithStep"
+          :done-with-step="submitTypeInfo"
           :is-logged-in="isLoggedIn"
           :is-step-complete="isStepComplete"
         />
@@ -40,7 +40,17 @@
           :markdown-source="markdownSource"
           :project-slug="project.Slug"
           :step-slug="stepSlug"
-          :done-with-step="doneWithStep"
+          :done-with-step="submitTypeManual"
+          :uuid="$route.params.stepUUID"
+          :is-logged-in="isLoggedIn"
+          :is-step-complete="isStepComplete"
+        />
+        <CardStepTypeRepo
+          v-else-if="type === 'type_submit_repo' && $route.params.stepUUID"
+          :markdown-source="markdownSource"
+          :project-slug="project.Slug"
+          :step-slug="stepSlug"
+          :done-with-step="submitTypeRepo"
           :uuid="$route.params.stepUUID"
           :is-logged-in="isLoggedIn"
           :is-step-complete="isStepComplete"
@@ -56,6 +66,7 @@ import UnitTopNav from "@/components/navs/UnitTopNav.vue";
 import ProjectInsertsModal from "@/components/modals/ProjectInsertsModal.vue";
 import CardStepTypeInfo from "@/components/cards/CardStepTypeInfo.vue";
 import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
+import CardStepTypeRepo from "@/components/cards/CardStepTypeRepo.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 
 import { loadBalance } from "@/lib/cloudStore.js";
@@ -72,6 +83,7 @@ import {
   getProjectProgress,
   getUnitsProgress,
   getStepByID,
+  submitRepoStep,
 } from "@/lib/cloudClient.js";
 
 import { useStore } from "vuex";
@@ -91,6 +103,7 @@ export default {
     ViewNavWrapper,
     ProgressBar,
     ProjectInsertsModal,
+    CardStepTypeRepo,
   },
   setup() {
     const state = reactive({
@@ -321,6 +334,11 @@ export default {
       handleSuccess(submitResponse);
     };
 
+    const submitTypeRepo = async (link) => {
+      const submitResponse = await submitRepoStep(route.params.stepUUID, link);
+      handleSuccess(submitResponse);
+    };
+
     const handleSuccess = async () => {
       loadBalance(store.commit);
       if (state.projectProgress[route.params.stepUUID].Completed) {
@@ -369,15 +387,6 @@ export default {
       }
     };
 
-    const doneWithStep = async () => {
-      if (state.type === "type_info") {
-        await submitTypeInfo();
-      }
-      if (state.type === "type_manual") {
-        await submitTypeManual();
-      }
-    };
-
     const goToBeginning = async () => {
       try {
         const step = await getFirstStep(route.params.projectUUID);
@@ -404,9 +413,9 @@ export default {
       submitTypeInfo,
       submitTypeManual,
       goToBeginning,
-      doneWithStep,
       projectInsertsModal,
       isStepComplete,
+      submitTypeRepo,
     };
   },
 };

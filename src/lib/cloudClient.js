@@ -1,7 +1,7 @@
 import decodeJWT from "./decodeJWT";
 import { saveCloudJWT, loadCloudJWT, removeCloudJWT } from "./localStorageLib";
 
-export const domain = "https://api.qvault.io";
+export const domain = "http://localhost:5000";
 
 export function loginToken(token) {
   saveCloudJWT(token);
@@ -941,6 +941,24 @@ export async function submitManualStep(stepUUID) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({}),
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function submitRepoStep(stepUUID, repoSubmissionLink) {
+  const resp = await fetchWithAuth(
+    `${domain}/v1/steps/${stepUUID}/submit_repo`,
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        repoSubmission: repoSubmissionLink,
+      }),
     }
   );
   const handled = await handleJSONResponse(resp);
