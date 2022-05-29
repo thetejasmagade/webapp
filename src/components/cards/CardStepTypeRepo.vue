@@ -12,6 +12,7 @@
           v-if="$store.getters.getIsLoggedIn"
           class="btn ml-3"
           :click="() => doneWithStep(repoLink)"
+          :disabled="!(repoLink?.length > 0)"
         >
           Submit
         </BlockButton>
