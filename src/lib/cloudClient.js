@@ -1,7 +1,7 @@
 import decodeJWT from "./decodeJWT";
 import { saveCloudJWT, loadCloudJWT, removeCloudJWT } from "./localStorageLib";
 
-export const domain = "http://localhost:5000";
+export const domain = "https://api.qvault.io";
 
 export function loginToken(token) {
   saveCloudJWT(token);
