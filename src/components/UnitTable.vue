@@ -20,32 +20,36 @@
                   <th
                     scope="col"
                     class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  ></th>
+                  >
+                    {{ isOrdered ? "Next" : null }}
+                  </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  ></th>
+                    class="pr-2 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
+                  >
+                    {{ isOrdered ? "Order" : null }}
+                  </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                    class="py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
+                  >
+                    Progress
+                  </th>
+                  <th
+                    scope="col"
+                    class="py-3 text-left text-xs font-medium uppercase tracking-wider"
                   >
                     Title
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
+                    class="py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
                   >
-                    Description
+                    Type
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  >
-                    Difficulty
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
+                    class="py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
                   >
                     Avg Time
                   </th>

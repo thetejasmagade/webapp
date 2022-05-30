@@ -3,15 +3,20 @@
     <td class="px-2 py-4 whitespace-nowrap hidden lg:table-cell">
       <span
         v-if="isNext"
-        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-400 text-gray-900"
+        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-500 text-gray-100"
       >
         Next →
       </span>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap hidden lg:table-cell text-center">
+    <td class="py-4 whitespace-nowrap hidden lg:table-cell">
+      <div class="flex items-center">
+        <span v-if="index" class="text-3xl text-gray-300">{{ index }}</span>
+      </div>
+    </td>
+    <td class="py-4 whitespace-nowrap hidden lg:table-cell text-center">
       <ProgressRadial :percent="calcPercent" />
     </td>
-    <td class="px-4 py-4 whitespace-nowrap">
+    <td class="py-4 whitespace-nowrap">
       <router-link
         :to="
           $store.getters.getIsLoggedIn
@@ -20,35 +25,26 @@
         "
       >
         <div class="flex items-center hover:opacity-50">
-          <span v-if="index" class="text-3xl text-gray-300 mr-4">{{
-            index
-          }}</span>
           <div class="flex-shrink-0 h-10 w-10 mx-2">
             <img class="h-10 w-10 rounded" :src="iconUrl" />
           </div>
           <div class="ml-4">
-            <div class="text-md font-medium text-blue-400">
+            <div class="text-md lg:text-xl underline font-medium text-blue-400">
               {{ unitData.Title }}
-            </div>
-            <div class="text-sm text-gray-400">
-              <FontAwesomeIcon :icon="unit.project ? 'tools' : 'book'" />
-              {{ unit.project ? "Personal Project" : "Guided Course" }}
             </div>
           </div>
         </div>
       </router-link>
     </td>
-    <td class="px-4 py-4 hidden lg:table-cell">
-      <div class="text-sm">{{ unitData.Description }}</div>
+    <td class="py-4 whitespace-nowrap text-md hidden lg:table-cell">
+      <div class="text-xl text-gray-300">
+        <FontAwesomeIcon :icon="unit.project ? 'tools' : 'book'" />
+        {{ unit.project ? "Project" : "Course" }}
+      </div>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap hidden lg:table-cell">
-      <span
-        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-gray-900 text-blue-100"
-      >
-        {{ `${unitData.Difficulty}%` }}
-      </span>
-    </td>
-    <td class="px-4 py-4 whitespace-nowrap text-md hidden lg:table-cell">
+    <td
+      class="py-4 text-gray-300 whitespace-nowrap text-xl hidden lg:table-cell"
+    >
       <FontAwesomeIcon icon="hourglass" />
       {{ unitData.EstimatedCompletionTimeHours }} hours
     </td>
@@ -99,7 +95,7 @@ export default {
       if (this.interests.includes("Golang")) {
         return "https://user-images.githubusercontent.com/19890545/150690287-d7a7a4c0-ce89-4c49-8043-5af0348e615e.png";
       }
-      return null;
+      return "https://cdn.iconscout.com/icon/free/png-256/code-280-460136.png";
     },
     unitData() {
       return getUnitData(this.unit);
