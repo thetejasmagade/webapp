@@ -8,19 +8,18 @@
     >
       <div class="p-4">
         <UnitTable :units="units" is-ordered />
-        <h2 class="text-blue-400 text-xl">Notes</h2>
+        <h2 class="text-blue-400 text-xl my-4">Notes</h2>
         <p class="max-width">
           <i>
-            This curriculum is a work-in-progress while we build towards an
-            unaccredited university-level CS degree.
+            This curriculum is in a fully-working state, get started! That said,
+            it will grow over time and
             <a
               href="https://github.com/bootdotdev/curriculum"
               target="_blank"
               class="text-blue-400 hover:text-blue-300 underline"
-              >You can find the roadmap here.</a
+              >you can find the public roadmap on Github.</a
             >
-            Providing feedback to us and becoming a patron will help us get this
-            project finished.
+            Becoming a patron will help us get this project finished.
           </i>
         </p>
       </div>
@@ -78,11 +77,11 @@ export default {
 
     const sectionSubtitle = computed(() => {
       if (trackSlug === slugCS) {
-        return "Learn the skills that bootcamps skip, but employers are dying to hire for";
+        return "This is our full CS curriculum. If you're new to coding, start at the very top and work down in order.";
       } else if (trackSlug === slugAlgos) {
-        return "It's hard to find a job if you don't understand the fundamentals of algorithms";
+        return "If you have some coding experience, you can skip-ahead and learn algorithms here.";
       } else if (trackSlug === slugGolang) {
-        return "Learn why Go is taking over backend development";
+        return "If you're an experienced developer and just want to learn Go, start here.";
       }
       return "null";
     });
