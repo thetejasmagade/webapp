@@ -74,6 +74,7 @@
           :uuid="route.params.exerciseUUID"
           unit-type="exercise"
           :is-logged-in="isLoggedIn"
+          :is-exercise-complete="isExerciseComplete"
         />
         <CardExerciseTypeCodeCanvas
           v-else-if="type === 'type_code_canvas'"
@@ -94,6 +95,7 @@
           :uuid="route.params.exerciseUUID"
           unit-type="exercise"
           :is-logged-in="isLoggedIn"
+          :is-exercise-complete="isExerciseComplete"
         />
         <p v-else>something went wrong</p>
       </div>
