@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.active-scale-103 {
+  transition: transform 0.15s;
+}
+
 .active-scale-103:hover {
   transform: scale(1.03);
 }
