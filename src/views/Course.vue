@@ -665,7 +665,7 @@ export default {
     const handleSandbox = async () => {
       notify({
         type: "danger",
-        text: "You are in Sandbox Mode! Upgrade to continue Code Verification",
+        text: "You are in Sandbox Mode! Become a patron to continue passing off assignments.",
       });
     };
 
