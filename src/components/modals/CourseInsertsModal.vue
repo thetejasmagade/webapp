@@ -1,6 +1,6 @@
 <template>
   <Modal ref="insertsModal" :on-close="onClose">
-    <div v-if="inserts.length > 0">
+    <div v-if="inserts.length > 0" :key="inserts.length">
       <InsertTypeAchievement
         v-if="inserts[0].type === 'achievement'"
         :achievement-earned="inserts[0].data"

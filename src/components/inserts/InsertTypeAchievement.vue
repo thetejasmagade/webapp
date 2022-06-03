@@ -16,11 +16,7 @@
 
           <LootBox :on-done="claim" />
         </div>
-        <BlockButton
-          :click="onClickDone"
-          :disabled="!claimed"
-          :color="spinning ? 'gray' : 'blue'"
-        >
+        <BlockButton :click="onClickDone" :disabled="!claimed" color="blue">
           Continue course
         </BlockButton>
       </div>
@@ -35,7 +31,7 @@ import LootBox from "@/components/LootBox.vue";
 import { loadBalance } from "@/lib/cloudStore.js";
 
 import { markAchievementSeen } from "@/lib/cloudClient.js";
-import { computed, onMounted, reactive, toRefs } from "@vue/runtime-core";
+import { computed, reactive, toRefs } from "@vue/runtime-core";
 import { useStore } from "vuex";
 
 export default {
@@ -63,17 +59,14 @@ export default {
 
     const store = useStore();
 
-    onMounted(() => {
+    const claim = async () => {
+      state.claimed = true;
+      await loadBalance(store.commit);
       try {
         markAchievementSeen(achievementEarned.value?.AchievementUUID);
       } catch (err) {
         console.log(err);
       }
-    });
-
-    const claim = async () => {
-      state.claimed = true;
-      await loadBalance(store.commit);
     };
 
     const title = computed(() => {
