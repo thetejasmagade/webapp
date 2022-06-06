@@ -2,37 +2,32 @@
   <div class="flex flex-col justify-start h-full overflow-auto">
     <div class="flex flex-col justify-center items-center flex-1 p-4">
       <Section
-        title="Share your knowledge with other learners."
-        subtitle="Add additional information to any assignment."
+        title="Share your knowledge with other learners"
+        subtitle="Check out the insights tab at the bottom of each assignment"
         class="max-w-2xl mb-4 w-full"
       >
         <div class="flex flex-col p-4">
-          <p class="mb-4">
-            Have something you could add to what is being taught?
-            <b>submit an insight!</b>
-          </p>
-          <p class="mb-4">
-            Insights are a place for students to share additional knowledge with
-            other students about the current topic being taught in the course.
-          </p>
-          <p class="mb-4">
-            <b>Inisghts are not a place to submit bugs or general comments.</b>
-          </p>
-          <p class="mb-4">
-            Keep the courses focused on learning! Comments, and thoughts, can be
-            shared on our
-            <a
-              class="text-blue-400 underline hover:text-blue-300"
-              href="https://discord.gg/RGEqstYgVC"
-              target="_blank"
-            >
-              community discord server
-            </a>
-          </p>
-          <p class="mb-4">
-            Bugs, typos, or other course issues can be sumbitted within the
-            <b>Report Issue</b> tab.
-          </p>
+          <h3 class="mb-4 text-xl text-blue-400">When writing insights, do:</h3>
+          <ul class="list-disc mb-4">
+            <li>
+              Write comments that relate to the topic of the current exercise
+            </li>
+            <li>
+              Add additional information that isn't required learning, but that
+              you find interesting
+            </li>
+            <li>
+              Share a personal experience or perspective about the concept
+            </li>
+          </ul>
+          <h3 class="mb-4 text-xl text-blue-400">
+            When writing insights, do not:
+          </h3>
+          <ul class="list-disc mb-4">
+            <li>Do not report bugs or issues (use the issues tab instead)</li>
+            <li>Do not give hints</li>
+            <li>Do not ask for help (use the Discord community)</li>
+          </ul>
           <div class="flex justify-center mb-4">
             <BlockButton :click="onClickDone">Got it</BlockButton>
           </div>
