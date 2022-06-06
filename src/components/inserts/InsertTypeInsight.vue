@@ -2,8 +2,8 @@
   <div class="flex flex-col justify-start h-full overflow-auto">
     <div class="flex flex-col justify-center items-center flex-1 p-4">
       <Section
-        title="Let's Learn Together!"
-        subtitle="Share your insights with other students."
+        title="Share your knowledge with other learners."
+        subtitle="Add additional information to any assignment."
         class="max-w-2xl mb-4 w-full"
       >
         <div class="flex flex-col p-4">
@@ -16,7 +16,7 @@
             other students about the current topic being taught in the course.
           </p>
           <p class="mb-4">
-            <b>Inisghts are not a place to sumbit bugs or general comments.</b>
+            <b>Inisghts are not a place to submit bugs or general comments.</b>
           </p>
           <p class="mb-4">
             Keep the courses focused on learning! Comments, and thoughts, can be
@@ -45,6 +45,7 @@
 import BlockButton from "@/components/BlockButton.vue";
 import Section from "@/components/Section.vue";
 import { markSeen, seenInsightInsertKey } from "@/lib/localStorageLib";
+import { onMounted } from "@vue/runtime-core";
 
 export default {
   components: {
@@ -57,13 +58,14 @@ export default {
       required: true,
     },
   },
-  async mounted() {
-    markSeen(seenInsightInsertKey);
-  },
-  methods: {
-    onClickDone() {
-      this.onDone();
-    },
+  setup(props) {
+    onMounted(() => markSeen(seenInsightInsertKey));
+    function onClickDone() {
+      props.onDone();
+    }
+    return {
+      onClickDone,
+    };
   },
 };
 </script>

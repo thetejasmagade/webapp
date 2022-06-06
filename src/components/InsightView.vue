@@ -96,7 +96,6 @@ export default {
       return sortedInsights;
     },
     isComplete() {
-      console.log(this.isExerciseComplete);
       return this.isExerciseComplete;
     },
   },
