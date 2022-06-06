@@ -122,11 +122,6 @@ export default {
     });
     const store = useStore();
 
-    /* TODO: 
-    1. Change Insight insert to show on exercise 5
-    2. Change friends insert to show on exercise 8
-    3. Change Discord insert to Chapter 2 exercise 5 */
-
     const showDiscordSyncIfNecessary = () => {
       if (user.value.DiscordUserID) {
         return;
@@ -134,7 +129,7 @@ export default {
       if (hasSeen(seenDiscordSyncInsertKey)) {
         return;
       }
-      if (moduleIndex.value != 1 && exerciseIndex.value !== 5) {
+      if (moduleIndex.value != 2 && exerciseIndex.value !== 5) {
         return;
       }
       state.inserts.push({
@@ -146,7 +141,7 @@ export default {
       if (hasSeen(seenFriendsInsertKey)) {
         return;
       }
-      if (moduleIndex.value != 3 && exerciseIndex.value !== 8) {
+      if (moduleIndex.value != 1 && exerciseIndex.value !== 8) {
         return;
       }
       state.inserts.push({

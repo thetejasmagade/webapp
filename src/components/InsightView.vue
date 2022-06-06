@@ -15,10 +15,7 @@
       />
     </div>
     <h1 v-if="!isComplete" class="text-lg mb-4 ml-4 pt-4">
-      Complete the exercise to unlock insights!
-      <!-- TODO: Revise wording here..
-      Ask Lane if we want this text, or the textarea description to change while uncompleted
-      potentially a instead tooltip?  -->
+      Complete the assignment to submit your own insight.
     </h1>
     <h1 v-else class="text-lg mb-4 ml-4 pt-4">
       If you have any additional thoughts about this concept that may be useful
