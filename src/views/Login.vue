@@ -9,8 +9,7 @@
     >
       <Section
         title="Real code. Modern programming languages."
-        subtitle="We teach computer science through hands-on coding projects. We’re
-            built for developers who want to advance their careers."
+        subtitle="Learn computer science through hands-on courses and projects. We teach evergreen concepts using modern programming languages."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >

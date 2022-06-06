@@ -129,7 +129,7 @@ export default {
       if (hasSeen(seenDiscordSyncInsertKey)) {
         return;
       }
-      if (moduleIndex.value != 2 && exerciseIndex.value !== 5) {
+      if (moduleIndex.value !== 2 || exerciseIndex.value !== 5) {
         return;
       }
       state.inserts.push({
@@ -141,7 +141,7 @@ export default {
       if (hasSeen(seenFriendsInsertKey)) {
         return;
       }
-      if (moduleIndex.value != 1 && exerciseIndex.value !== 8) {
+      if (moduleIndex.value !== 1 || exerciseIndex.value !== 8) {
         return;
       }
       state.inserts.push({
@@ -153,7 +153,7 @@ export default {
       if (hasSeen(seenInsightInsertKey)) {
         return;
       }
-      if (moduleIndex.value != 1 && exerciseIndex.value != 5) {
+      if (moduleIndex.value !== 0 || exerciseIndex.value !== 5) {
         return;
       }
       state.inserts.push({
