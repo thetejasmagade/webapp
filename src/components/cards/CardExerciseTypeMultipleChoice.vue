@@ -25,6 +25,7 @@
                     { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
             "
+            :is-exercise-complete="alreadyAnswered"
             :hint-markdown-source="hintMarkdownSource"
             :hint-callback="hintCallback"
             :is-hint-purchased="isHintPurchased"

@@ -106,9 +106,6 @@ export async function createUserManual(
   return handled;
 }
 
-//TODO POST PURCHASE HINT
-//TODO GET STATUS
-
 export async function purchaseHint(exerciseUUID) {
   const resp = await fetchWithAuth(
     `${domain}/v1/hints/${exerciseUUID}/purchase`,
