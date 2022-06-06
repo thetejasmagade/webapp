@@ -1,6 +1,7 @@
 <template>
   <ViewNavWrapper>
     <div class="h-full">
+      <Confetti ref="confetti" />
       <CourseInsertsModal
         v-if="
           user &&
@@ -114,6 +115,7 @@ import { loadBalance, loadUser } from "@/lib/cloudStore.js";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useRoute, useRouter } from "vue-router";
 import { useMeta } from "vue-meta";
+import Confetti from "@/components/Confetti.vue";
 
 import { notify } from "@/lib/notification.js";
 
@@ -164,6 +166,7 @@ export default {
     CardExerciseTypeCodeCanvas,
     ProgressBar,
     CourseInsertsModal,
+    Confetti,
   },
   setup() {
     const state = reactive({
@@ -199,6 +202,7 @@ export default {
     const store = useStore();
 
     const unitDoneModal = ref(null);
+    const confetti = ref(null);
 
     const sandbox = computed(() => {
       if (state.isFree === null) {
@@ -581,6 +585,7 @@ export default {
         moduleIndex.value
       );
       if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
+        confetti.value?.start();
         notify({
           type: "success",
           text: `Correct! You unlocked ${submitResponse.GemsEarned} ${
@@ -799,6 +804,7 @@ export default {
       route,
       user: computed(() => store.getters.getUser),
       isExerciseComplete,
+      confetti,
     };
   },
 };
