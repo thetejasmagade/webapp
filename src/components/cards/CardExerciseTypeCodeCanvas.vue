@@ -25,6 +25,7 @@
                     { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
             "
+            :is-exercise-complete="isExerciseComplete"
             :hint-markdown-source="hintMarkdownSource"
             :hint-callback="hintCallback"
             :is-hint-purchased="isHintPurchased"
@@ -149,6 +150,11 @@ export default {
     uuid: {
       type: String,
       required: true,
+    },
+    isExerciseComplete: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   emits: ["update:modelValue"],

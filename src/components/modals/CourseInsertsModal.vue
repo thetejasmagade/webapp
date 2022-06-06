@@ -24,6 +24,11 @@
         :on-done="onSeenInsert"
         :unit="unit"
       />
+      <InsertTypeInsight
+        v-else-if="inserts[0].type === 'insights'"
+        :on-done="onSeenInsert"
+        :unit="unit"
+      />
     </div>
   </Modal>
 </template>
@@ -34,6 +39,7 @@ import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vu
 import InsertTypeInviteFriends from "@/components/inserts/InsertTypeInviteFriends.vue";
 import InsertTypeUnitDone from "@/components/inserts/InsertTypeUnitDone.vue";
 import InsertTypeSandboxMode from "@/components/inserts/InsertTypeSandboxMode.vue";
+import InsertTypeInsight from "@/components/inserts/InsertTypeInsight.vue";
 
 import { createCourseUnit } from "@/lib/unit.js";
 
@@ -50,6 +56,7 @@ import { loadBalance } from "@/lib/cloudStore.js";
 import {
   seenDiscordSyncInsertKey,
   seenFriendsInsertKey,
+  seenInsightInsertKey,
   hasSeen,
   getSeenUnitDoneModalKey,
   seenSandboxModalLoginKey,
@@ -65,6 +72,7 @@ export default {
     InsertTypeInviteFriends,
     InsertTypeUnitDone,
     InsertTypeSandboxMode,
+    InsertTypeInsight,
   },
   props: {
     user: {
@@ -121,7 +129,7 @@ export default {
       if (hasSeen(seenDiscordSyncInsertKey)) {
         return;
       }
-      if (moduleIndex.value != 1 && exerciseIndex.value !== 5) {
+      if (moduleIndex.value != 2 && exerciseIndex.value !== 5) {
         return;
       }
       state.inserts.push({
@@ -133,11 +141,23 @@ export default {
       if (hasSeen(seenFriendsInsertKey)) {
         return;
       }
-      if (moduleIndex.value != 3 && exerciseIndex.value !== 8) {
+      if (moduleIndex.value != 1 && exerciseIndex.value !== 8) {
         return;
       }
       state.inserts.push({
         type: "friends",
+      });
+    };
+
+    const showInsightIfNecessary = () => {
+      if (hasSeen(seenInsightInsertKey)) {
+        return;
+      }
+      if (moduleIndex.value != 1 && exerciseIndex.value != 5) {
+        return;
+      }
+      state.inserts.push({
+        type: "insights",
       });
     };
 
@@ -190,6 +210,7 @@ export default {
 
     onMounted(() => {
       showDiscordSyncIfNecessary(user.value, exerciseIndex.value);
+      showInsightIfNecessary();
       showFriendsIfNecessary();
       showSandboxIfNecessary();
       if (inSandboxMode) {

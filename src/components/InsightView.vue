@@ -14,17 +14,27 @@
         :profile-image-u-r-l="insight.AuthorUser.ProfileImageURL"
       />
     </div>
-    <h1 class="text-lg mb-4 ml-4 pt-4">
+    <h1 v-if="!isComplete" class="text-lg mb-4 ml-4 pt-4">
+      Complete the assignment to submit your own insight.
+    </h1>
+    <h1 v-else class="text-lg mb-4 ml-4 pt-4">
       If you have any additional thoughts about this concept that may be useful
       to other learners, drop a comment below!
     </h1>
     <textarea
+      v-if="isComplete"
       v-model="insightText"
+      :disabled="!isComplete"
       placeholder="Do not report issues, ask questions, or give hints here. Use the other tabs for that."
       class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none resize-none"
       rows="4"
     />
-    <BlockButton :disabled="!insightText" :click="btnClick" class="mb-4 ml-4">
+    <BlockButton
+      v-if="isComplete"
+      :disabled="!insightText"
+      :click="btnClick"
+      class="mb-4 ml-4"
+    >
       Submit
     </BlockButton>
     <div class="w-96 mx-auto text-gray-700 rounded">
@@ -51,6 +61,11 @@ export default {
       required: true,
       default: null,
       insights: [],
+    },
+    isExerciseComplete: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {
@@ -79,6 +94,9 @@ export default {
         }
       }
       return sortedInsights;
+    },
+    isComplete() {
+      return this.isExerciseComplete;
     },
   },
   async mounted() {
