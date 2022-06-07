@@ -2,7 +2,7 @@
   <ViewNavWrapper>
     <div>
       <Section
-        title="Speed Achievements"
+        title="Milestone Achievements"
         subtitle="Move fast and break things"
         class="m-4"
       >
@@ -10,7 +10,7 @@
           class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
         >
           <ImageCard
-            v-for="(userAchievement, i) of speedAchievements"
+            v-for="(userAchievement, i) of milestoneAchievements"
             :key="i"
             :img-src="
               userAchievement.ImageGifURL && userAchievement.UnlockedAt
@@ -116,9 +116,9 @@ export default {
   setup() {
     const store = useStore();
 
-    const speedAchievements = computed(() => {
+    const milestoneAchievements = computed(() => {
       return store.getters.getUserAchievements.filter(
-        (item) => item.Category === "speed"
+        (item) => item.Category === "milestone"
       );
     });
     const streakAchievements = computed(() => {
@@ -141,7 +141,7 @@ export default {
     loadUserAchievements(store.commit);
 
     return {
-      speedAchievements,
+      milestoneAchievements,
       streakAchievements,
       engagementAchievements,
     };
