@@ -531,7 +531,7 @@ export default {
       deleteCachedCode(route.params.exerciseUUID);
     };
 
-    const handleSuccess = async (submitResponse) => {
+    const handleSuccess = async () => {
       state.pulseNext = true;
       eventExerciseSuccess(
         route.params.exerciseUUID,
@@ -539,20 +539,11 @@ export default {
         exerciseIndex.value,
         moduleIndex.value
       );
-      console.log(submitResponse);
-      // leaving this in for now so confetti only plays on first completion
-      if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
-        confetti.value?.start();
-        notify({
-          type: "success",
-          text: `Correct! Great Job`,
-        });
-      } else {
-        notify({
-          type: "success",
-          text: "Correct! Great Job",
-        });
-      }
+      confetti.value?.start();
+      notify({
+        type: "success",
+        text: "Correct! Great Job",
+      });
       await getCourseProgressIfLoggedIn();
       await getUnitProgressIfLoggedIn();
     };

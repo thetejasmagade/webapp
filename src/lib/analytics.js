@@ -213,20 +213,6 @@ export function eventOpenSandboxModeModal() {
   }
 }
 
-export function eventEarnGems(numGems) {
-  try {
-    window.dataLayer.push({
-      event: "earn_virtual_currency",
-      virtual_currency_name: "Gems",
-    });
-    mixpanel.track("earnVirtualCurrency", {
-      numGems,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 export function eventUnlockAchievement(achievementID) {
   try {
     window.dataLayer.push({
