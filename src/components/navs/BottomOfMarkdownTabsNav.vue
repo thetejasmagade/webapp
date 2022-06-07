@@ -24,13 +24,12 @@
       />
       <div v-if="currentTabIndex === 1 && isHintAvailable">
         <HintButton
-          v-if="!isHintPurchased && isHintAvailable"
+          v-if="!didUserHint && isHintAvailable"
           class="pt-5 pb-5 justify-center items-center"
-          :hint-cost="hintCost"
           :hint-callback="hintCallback"
           :is-hint-available="isHintAvailable"
         />
-        <MarkdownViewer v-if="isHintPurchased" :source="hintMarkdownSource" />
+        <MarkdownViewer v-if="didUserHint" :source="hintMarkdownSource" />
       </div>
       <div
         v-if="
@@ -108,18 +107,13 @@ export default {
       type: String,
       required: true,
     },
-    isHintPurchased: {
+    didUserHint: {
       type: Boolean,
       required: false,
       default: false,
     },
     hintCallback: {
       type: Function,
-      required: false,
-      default: null,
-    },
-    hintCost: {
-      type: Number,
       required: false,
       default: null,
     },

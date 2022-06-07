@@ -13,8 +13,6 @@
               "
             />
           </div>
-
-          <LootBox :on-done="claim" />
         </div>
         <BlockButton :click="onClickDone" :disabled="!claimed" color="blue">
           Continue course
@@ -27,18 +25,14 @@
 <script>
 import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
-import LootBox from "@/components/LootBox.vue";
-import { loadBalance } from "@/lib/cloudStore.js";
 
 import { markAchievementSeen } from "@/lib/cloudClient.js";
-import { computed, reactive, toRefs } from "@vue/runtime-core";
-import { useStore } from "vuex";
+import { computed, reactive, toRefs, onMounted } from "@vue/runtime-core";
 
 export default {
   components: {
     BlockButton,
     Section,
-    LootBox,
   },
   props: {
     achievementEarned: {
@@ -57,29 +51,20 @@ export default {
       claimed: false,
     });
 
-    const store = useStore();
-
-    const claim = async () => {
+    onMounted(() => {
       state.claimed = true;
-      await loadBalance(store.commit);
       try {
         markAchievementSeen(achievementEarned.value?.AchievementUUID);
       } catch (err) {
         console.log(err);
       }
-    };
+    });
 
     const title = computed(() => {
-      if (state.claimed) {
-        return `You earned ${achievementEarned.value?.AchievementGemsEarned} Gems!`;
-      }
       return "Achievement unlocked!";
     });
 
     const subtitle = computed(() => {
-      if (state.claimed) {
-        return "Congratulations!";
-      }
       return `${achievementEarned.value?.AchievementTitle} - ${achievementEarned.value?.AchievementDescription}`;
     });
 
@@ -91,7 +76,6 @@ export default {
     return {
       ...toRefs(state),
       onClickDone,
-      claim,
       title,
       subtitle,
     };

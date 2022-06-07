@@ -1,36 +1,26 @@
 <template>
   <div class="flex flex-row justify-start content-center ml-7">
-    <Tooltip :text="hintTooltipText" position="bottom">
-      <BlockButton
-        v-if="!isHintPurchased && isHintAvailable"
-        :class="colors"
-        :click="hintCallback"
-        :disabled="notEnoughGemsToHint"
-      >
-        <font-awesome-icon icon="eye" />
-        {{ `Purchase Hint for ${hintCost} gems` }}
-      </BlockButton>
-    </Tooltip>
+    <BlockButton
+      v-if="!didUserHint && isHintAvailable"
+      :class="colors"
+      :click="hintCallback"
+    >
+      <font-awesome-icon icon="eye" />
+      {{ `View Hint` }}
+    </BlockButton>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import BlockButton from "@/components/BlockButton.vue";
-import Tooltip from "@/components/Tooltip.vue";
 
 export default {
   components: {
     FontAwesomeIcon,
     BlockButton,
-    Tooltip,
   },
   props: {
-    hintCost: {
-      type: Number,
-      required: false,
-      default: null,
-    },
     color: {
       type: String,
       required: false,
@@ -46,7 +36,7 @@ export default {
       required: false,
       default: false,
     },
-    isHintPurchased: {
+    didUserHint: {
       type: Boolean,
       required: false,
       default: false,
@@ -60,21 +50,6 @@ export default {
       type: String,
       required: false,
       default: "blue",
-    },
-  },
-  computed: {
-    hintTooltipText() {
-      if (this.notEnoughGemsToHint) {
-        return "You need more gems";
-      } else if (!this.isHintPurchased) {
-        return "Buy Hint";
-      }
-      return "Hint Purchased";
-    },
-    notEnoughGemsToHint() {
-      return (
-        this.hintCost > this.$store.getters.getBalance && !this.isHintPurchased
-      );
     },
   },
 };

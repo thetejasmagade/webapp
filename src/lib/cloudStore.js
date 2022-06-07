@@ -1,6 +1,5 @@
 import {
   getCourses,
-  getLastGemTransaction,
   getUser,
   getSubscriptionPlans,
   getJWTClaims,
@@ -34,11 +33,6 @@ export async function loadTrack(commit, trackSlug) {
 export async function loadUserAchievements(commit) {
   const userAchievements = await getUserAchievements();
   commit("setUserAchievements", userAchievements);
-}
-
-export async function loadBalance(commit) {
-  const lastGemTransaction = await getLastGemTransaction();
-  commit("setBalance", lastGemTransaction.Balance);
 }
 
 export async function loadSubscriptionPlans(thisComponent) {

@@ -49,8 +49,7 @@
           :sandbox="sandbox"
           :callback="submitTypeChoice"
           :hint-callback="hintCallback"
-          :is-hint-purchased="isHintPurchased"
-          :hint-cost="hintCost"
+          :did-user-hint="usedHint"
           :uuid="route.params.exerciseUUID"
           unit-type="exercise"
           :is-logged-in="isLoggedIn"
@@ -67,11 +66,9 @@
           :reset-code-callback="resetCode"
           :cheat-callback="cheatCallback"
           :is-cheating="isCheating"
-          :is-cheat-purchased="isCheatPurchased"
-          :cheat-cost="cheatCost"
+          :did-user-cheat="didUserCheat"
           :hint-callback="hintCallback"
-          :is-hint-purchased="isHintPurchased"
-          :hint-cost="hintCost"
+          :did-user-hint="usedHint"
           :uuid="route.params.exerciseUUID"
           unit-type="exercise"
           :is-logged-in="isLoggedIn"
@@ -88,11 +85,9 @@
           :reset-code-callback="resetCode"
           :cheat-callback="cheatCallback"
           :hint-callback="hintCallback"
-          :is-hint-purchased="isHintPurchased"
-          :hint-cost="hintCost"
+          :did-user-hint="usedHint"
           :is-cheating="isCheating"
-          :is-cheat-purchased="isCheatPurchased"
-          :cheat-cost="cheatCost"
+          :did-user-cheat="didUserCheat"
           :uuid="route.params.exerciseUUID"
           unit-type="exercise"
           :is-logged-in="isLoggedIn"
@@ -113,7 +108,7 @@ import CardExerciseTypeCode from "@/components/cards/CardExerciseTypeCode.vue";
 import CardExerciseTypeCodeCanvas from "@/components/cards/CardExerciseTypeCodeCanvas.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 import CourseInsertsModal from "@/components/modals/CourseInsertsModal.vue";
-import { loadBalance, loadUser } from "@/lib/cloudStore.js";
+import { loadUser } from "@/lib/cloudStore.js";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useRoute, useRouter } from "vue-router";
 import { useMeta } from "vue-meta";
@@ -146,10 +141,6 @@ import {
   getExerciseByID,
   getCourseProgress,
   getUnitsProgress,
-  getHintStatus,
-  purchaseHint,
-  getCheatStatus,
-  purchaseCheat,
 } from "@/lib/cloudClient.js";
 
 import {
@@ -187,12 +178,11 @@ export default {
       courses: null,
       isFree: null,
       isCheating: false,
+      usedHint: false,
       courseProgress: null,
       unitProgress: null,
-      isCheatPurchased: false,
-      isHintPurchased: false,
-      cheatCost: 0,
-      hintCost: 0,
+      didUserCheat: false,
+      didUserHint: false,
       nextExercise: null,
       previousExercise: null,
       chapterCompleted: false,
@@ -516,34 +506,6 @@ export default {
             text: err,
           });
         }
-        loadHintStatus();
-        loadCheatStatus();
-      }
-    };
-
-    const loadHintStatus = async () => {
-      try {
-        const hintResp = await getHintStatus(route.params.exerciseUUID);
-        state.isHintPurchased = hintResp.PurchasedAt !== null;
-        state.hintCost = hintResp.HintCost;
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-    };
-
-    const loadCheatStatus = async () => {
-      try {
-        const cheatResp = await getCheatStatus(route.params.exerciseUUID);
-        state.isCheatPurchased = cheatResp.PurchasedAt !== null;
-        state.cheatCost = cheatResp.CheatCost;
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
       }
     };
 
@@ -551,21 +513,12 @@ export default {
       if (!store.getters.getIsLoggedIn) {
         return;
       }
-      if (!state.isHintPurchased) {
-        await purchaseHint(route.params.exerciseUUID);
-        loadBalance(store.commit);
-        await loadHintStatus();
-      }
+      state.usedHint = !state.usedHint;
     };
 
     const cheatCallback = async () => {
       if (!store.getters.getIsLoggedIn) {
         return;
-      }
-      if (!state.isCheatPurchased) {
-        await purchaseCheat(route.params.exerciseUUID);
-        loadBalance(store.commit);
-        await loadCheatStatus();
       }
       state.isCheating = !state.isCheating;
       if (state.isCheating) {
@@ -586,15 +539,14 @@ export default {
         exerciseIndex.value,
         moduleIndex.value
       );
+      console.log(submitResponse);
+      // leaving this in for now so confetti only plays on first completion
       if (submitResponse.GemsEarned && submitResponse.GemsEarned > 0) {
         confetti.value?.start();
         notify({
           type: "success",
-          text: `Correct! You unlocked ${submitResponse.GemsEarned} ${
-            submitResponse.GemsEarned === 1 ? "gem" : "gems"
-          } 💎`,
+          text: `Correct! Great Job`,
         });
-        await loadBalance(store.commit);
       } else {
         notify({
           type: "success",
@@ -730,6 +682,7 @@ export default {
       state.isFirstExercise = exercise.Exercise.IsFirst;
       state.isLastExercise = exercise.Exercise.IsLast;
       state.isCheating = false;
+      state.usedHint = false;
       state.exerciseTitle = exercise.Exercise.Title;
       state.exerciseDescription = exercise.Exercise.Description;
 

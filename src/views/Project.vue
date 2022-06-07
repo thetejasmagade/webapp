@@ -69,7 +69,6 @@ import CardStepTypeManual from "@/components/cards/CardStepTypeManual.vue";
 import CardStepTypeRepo from "@/components/cards/CardStepTypeRepo.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 
-import { loadBalance } from "@/lib/cloudStore.js";
 import { notify } from "@/lib/notification.js";
 
 import {
@@ -340,7 +339,6 @@ export default {
     };
 
     const handleSuccess = async () => {
-      loadBalance(store.commit);
       if (state.projectProgress[route.params.stepUUID].Completed) {
         return;
       } else {

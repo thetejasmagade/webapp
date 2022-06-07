@@ -13,18 +13,16 @@
     </Tooltip>
     <Tooltip
       v-if="$store.getters.getIsLoggedIn"
-      :text="cheatTooltipText"
+      :text="`View Solution Code`"
       position="bottom"
     >
       <BlockButton
-        v-if="cheatCost != null"
         class="mr-3"
         :click="cheatCallback"
         :color="isCheating ? 'blue' : 'gray'"
-        :disabled="notEnoughGemsToCheat"
       >
         <FontAwesomeIcon icon="eye" />
-        {{ isCheatPurchased ? "Peek Solution" : `Peek Solution: 20 Gems` }}
+        {{ "Peek Solution" }}
       </BlockButton>
     </Tooltip>
   </div>
@@ -62,32 +60,8 @@ export default {
       required: false,
       default: false,
     },
-    isCheatPurchased: {
-      type: Boolean,
-      required: false,
-      default: null,
-    },
-    cheatCost: {
-      type: Number,
-      required: false,
-      default: null,
-    },
   },
   computed: {
-    cheatTooltipText() {
-      if (this.notEnoughGemsToCheat) {
-        return "You need more gems";
-      } else if (!this.isCheatPurchased) {
-        return "Buy Solution";
-      }
-      return "Toggle Solution";
-    },
-    notEnoughGemsToCheat() {
-      return (
-        this.cheatCost > this.$store.getters.getBalance &&
-        !this.isCheatPurchased
-      );
-    },
     getRunCodeTooltip() {
       const OS = getOperatingSystem();
       if (OS === MAC) {

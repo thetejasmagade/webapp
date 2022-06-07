@@ -25,17 +25,6 @@
         <div class="w-3/5 border-b border-gray-300" />
       </div>
 
-      <GemDisplay
-        :size="0.5"
-        :text="`${$store.getters.getBalance}`"
-        vertical
-        class="mb-3"
-      />
-
-      <div class="flex justify-center mb-2">
-        <div class="w-3/5 border-b border-gray-300" />
-      </div>
-
       <Tooltip
         :text="`Settings`"
         position="right"
@@ -83,19 +72,17 @@
 
 <script>
 import SideNavItem from "@/components/navs/SideNav/SideNavItem.vue";
-import GemDisplay from "@/components/GemDisplay.vue";
 import ProfileImage from "@/components/ProfileImage.vue";
 import Tooltip from "@/components/Tooltip.vue";
 import { useRoute } from "vue-router";
 
-import { loadBalance, loadUser } from "@/lib/cloudStore.js";
+import { loadUser } from "@/lib/cloudStore.js";
 
 import { setLogout } from "@/lib/cloudStore.js";
 
 export default {
   components: {
     SideNavItem,
-    GemDisplay,
     ProfileImage,
     Tooltip,
   },
@@ -111,7 +98,6 @@ export default {
     if (!this.$store.getters.getUser) {
       loadUser(this.$store.commit);
     }
-    loadBalance(this.$store.commit);
   },
   methods: {
     logout() {
