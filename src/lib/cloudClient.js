@@ -106,21 +106,6 @@ export async function createUserManual(
   return handled;
 }
 
-export async function purchaseHint(exerciseUUID) {
-  const resp = await fetchWithAuth(
-    `${domain}/v1/hints/${exerciseUUID}/purchase`,
-    {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function createInsight(ExerciseUUID, Text) {
   const resp = await fetchWithAuth(`${domain}/v1/insights`, {
     method: "POST",
@@ -172,51 +157,6 @@ export async function deleteInsight(insightUUID) {
     method: "DELETE",
     mode: "cors",
   });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getHintStatus(exerciseUUID) {
-  const resp = await fetchWithAuth(
-    `${domain}/v1/hints/${exerciseUUID}/status`,
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function purchaseCheat(exerciseUUID) {
-  const resp = await fetchWithAuth(
-    `${domain}/v1/cheat/${exerciseUUID}/purchase`,
-    {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getCheatStatus(exerciseUUID) {
-  const resp = await fetchWithAuth(
-    `${domain}/v1/cheat/${exerciseUUID}/status`,
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
   const handled = await handleJSONResponse(resp);
   return handled;
 }
@@ -478,18 +418,6 @@ export async function compilePureScript(code) {
     body: JSON.stringify({
       code,
     }),
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getLastGemTransaction() {
-  const resp = await fetchWithAuth(`${domain}/v1/gem_transactions/last`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
   const handled = await handleJSONResponse(resp);
   return handled;

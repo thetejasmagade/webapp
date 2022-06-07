@@ -6,6 +6,5 @@ export const streakBronzeAchievement = [
     AchievementImageURL: "/src/img/streak-bronze-min-300x300.webp",
     AchievementImageGifURL: "/src/img/speed_bronze_250.gif",
     AchievementCategory: "streak",
-    AchievementGemsEarned: 7,
   },
 ];
