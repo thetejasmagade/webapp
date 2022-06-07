@@ -16,7 +16,7 @@
                     { icon: 'comment', name: 'Insights' },
                     {
                       icon: 'eye',
-                      name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
+                      name: 'View Hint',
                     },
                     { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
@@ -28,8 +28,7 @@
             :is-exercise-complete="alreadyAnswered"
             :hint-markdown-source="hintMarkdownSource"
             :hint-callback="hintCallback"
-            :is-hint-purchased="isHintPurchased"
-            :hint-cost="hintCost"
+            :did-user-hint="didUserHint"
             :uuid="uuid"
             unit-type="exercise"
           />
@@ -114,17 +113,12 @@ export default {
       required: false,
       default: null,
     },
-    hintCost: {
-      type: Number,
-      required: false,
-      default: null,
-    },
     hintCallback: {
       type: Function,
       required: false,
       default: null,
     },
-    isHintPurchased: {
+    didUserHint: {
       type: Boolean,
       required: false,
       default: false,

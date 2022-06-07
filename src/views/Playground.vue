@@ -22,7 +22,7 @@
       :reset-callback="setCode"
       :prog-lang="progLang"
       :canvas-enabled="lang === 'jsCanvas'"
-      :is-cheat-purchased="true"
+      :did-user-cheat="true"
     />
   </div>
 </template>

@@ -16,7 +16,7 @@
                     { icon: 'comment', name: 'Insights' },
                     {
                       icon: 'eye',
-                      name: `${isHintPurchased ? 'View' : 'Buy'} Hint`,
+                      name: 'View Hint',
                     },
                     { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
@@ -28,8 +28,7 @@
             :is-exercise-complete="isExerciseComplete"
             :hint-markdown-source="hintMarkdownSource"
             :hint-callback="hintCallback"
-            :is-hint-purchased="isHintPurchased"
-            :hint-cost="hintCost"
+            :did-user-hint="didUserHint"
             :uuid="uuid"
             unit-type="exercise"
           />
@@ -46,8 +45,7 @@
           :canvas-enabled="true"
           :solution="solutionCode"
           :is-cheating="isCheating"
-          :is-cheat-purchased="isCheatPurchased"
-          :cheat-cost="cheatCost"
+          :did-user-cheat="didUserCheat"
           @update:modelValue="(value) => $emit('update:modelValue', value)"
         />
       </Multipane>
@@ -123,26 +121,16 @@ export default {
       type: Boolean,
       required: true,
     },
-    isCheatPurchased: {
+    didUserCheat: {
       type: Boolean,
       required: true,
-    },
-    cheatCost: {
-      type: Number,
-      required: false,
-      default: null,
     },
     hintMarkdownSource: {
       type: String,
       required: false,
       default: null,
     },
-    hintCost: {
-      type: Number,
-      required: false,
-      default: null,
-    },
-    isHintPurchased: {
+    didUserHint: {
       type: Boolean,
       required: false,
       default: false,
