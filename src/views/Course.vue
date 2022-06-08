@@ -620,7 +620,11 @@ export default {
     };
 
     const submitTypeCode = ({ output }) => {
-      cacheExerciseCode(route.params.exerciseUUID, state.code);
+      cacheExerciseCode(
+        store.getters.getUser.UUID,
+        route.params.exerciseUUID,
+        state.code
+      );
       eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
       if (sandbox.value) {
         handleSandbox();
@@ -630,7 +634,11 @@ export default {
     };
 
     const submitTypeCodeCanvas = ({ hash }) => {
-      cacheExerciseCode(route.params.exerciseUUID, state.code);
+      cacheExerciseCode(
+        store.getters.getUser.UUID,
+        route.params.exerciseUUID,
+        state.code
+      );
       eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
       if (sandbox.value) {
         handleSandbox();
@@ -695,8 +703,13 @@ export default {
       } else if (state.type === "type_choice") {
         state.question = exercise.Exercise.Question;
       }
-      if (hasCachedCode(route.params.exerciseUUID)) {
-        state.code = hasCachedCode(route.params.exerciseUUID);
+      if (
+        hasCachedCode(store.getters.getUser.UUID, route.params.exerciseUUID)
+      ) {
+        state.code = hasCachedCode(
+          store.getters.getUser.UUID,
+          route.params.exerciseUUID
+        );
       }
     };
 

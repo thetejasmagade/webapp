@@ -47,24 +47,26 @@ export function hasSeen(key) {
   return val === trueString;
 }
 
-function getExerciseCodeKey(exerciseUUID) {
-  return `cachedCode-${exerciseUUID}`;
+function getExerciseCodeKey(userUUID, exerciseUUID) {
+  return `cachedCode-${userUUID}-${exerciseUUID}`;
 }
 
-export function cacheExerciseCode(exerciseUUID, codeToCache) {
-  const key = getExerciseCodeKey(exerciseUUID);
+export function cacheExerciseCode(userUUID, exerciseUUID, codeToCache) {
+  const key = getExerciseCodeKey(userUUID, exerciseUUID);
   const val = codeToCache;
   localStorage.setItem(key, val);
 }
 
-export function hasCachedCode(exerciseUUID) {
-  const cachedCode = localStorage.getItem(getExerciseCodeKey(exerciseUUID));
+export function hasCachedCode(userUUID, exerciseUUID) {
+  const cachedCode = localStorage.getItem(
+    getExerciseCodeKey(userUUID, exerciseUUID)
+  );
   if (!cachedCode) {
     return false;
   }
   return cachedCode;
 }
 
-export function deleteCachedCode(exerciseUUID) {
-  localStorage.removeItem(getExerciseCodeKey(exerciseUUID));
+export function deleteCachedCode(userUUID, exerciseUUID) {
+  localStorage.removeItem(getExerciseCodeKey(userUUID, exerciseUUID));
 }
