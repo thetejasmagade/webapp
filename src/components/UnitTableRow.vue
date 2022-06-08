@@ -14,7 +14,11 @@
       </div>
     </td>
     <td class="py-4 whitespace-nowrap hidden lg:table-cell text-center">
-      <ProgressRadial :percent="calcPercent" />
+      <Radial
+        :from-percent="0"
+        :to-percent="calcPercent"
+        :checkmark="calcPercent === 100"
+      />
     </td>
     <td class="py-4 whitespace-nowrap">
       <router-link
@@ -55,12 +59,12 @@
 import { getUnitData, getUnitLink, getUnitLinkLanding } from "@/lib/unit.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { getUnitsProgress } from "@/lib/cloudClient.js";
-import ProgressRadial from "@/components/ProgressRadial.vue";
+import Radial from "@/components/Radial.vue";
 
 export default {
   components: {
     FontAwesomeIcon,
-    ProgressRadial,
+    Radial,
   },
   props: {
     unit: {
