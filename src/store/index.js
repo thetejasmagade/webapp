@@ -52,7 +52,7 @@ export default createStore({
         } else if (ua1.Category > ua2.Category) {
           return -1;
         }
-        return ua1.GemReward < ua2.GemReward ? -1 : 1;
+        return ua1.XPReward < ua2.XPReward ? -1 : 1;
       });
       state.userAchievements = newUserAchievements;
     },
