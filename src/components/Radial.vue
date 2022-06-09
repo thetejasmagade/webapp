@@ -73,7 +73,6 @@
 </template>
 <script>
 import { computed, reactive, toRefs, watchEffect } from "vue";
-import { sleep } from "@/lib/sleep.js";
 export default {
   props: {
     toPercent: {
@@ -133,6 +132,12 @@ export default {
         circumference.value - (state.curPercent / 100) * circumference.value
       );
     });
+
+    const parametricBlend = (t) => {
+      const sqt = t * t;
+      return sqt / (2.0 * (sqt - t) + 1.0);
+    };
+
     watchEffect(async () => {
       let percentDelta = null;
       if (props.fromPercent > props.toPercent) {
@@ -140,16 +145,26 @@ export default {
       } else {
         percentDelta = props.toPercent - props.fromPercent;
       }
-      const msPerFrame = props.duration / percentDelta;
-      for (let i = 0; i < props.duration; i += msPerFrame) {
-        await sleep(msPerFrame);
-        if (state.curPercent >= 100) {
-          state.curPercent = 0;
+      const startMs = Date.now();
+      let hasCalledOnRollover = false;
+      const step = () => {
+        const msSinceStart = Date.now() - startMs;
+        const parametricPercent = parametricBlend(
+          msSinceStart / props.duration
+        );
+        const delta = props.fromPercent + parametricPercent * percentDelta;
+        if (delta > 100 && !hasCalledOnRollover) {
           props.onRollover();
         }
-        state.curPercent++;
-      }
-      state.curPercent = props.toPercent;
+        hasCalledOnRollover = true;
+        state.curPercent = delta % 100;
+        if (msSinceStart < props.duration) {
+          window.requestAnimationFrame(step);
+        } else {
+          state.curPercent = props.toPercent;
+        }
+      };
+      step();
     });
     return {
       ...toRefs(state),
