@@ -422,19 +422,6 @@ export default {
     });
     useMeta(computedMeta);
 
-    const calcToPercent = computed(() => {
-      if (!store.getters.getUser) {
-        return 0;
-      }
-      const toPercent = Math.round(
-        ((store.getters.getUser.XPForLevel - state.XPGained) /
-          store.getters.getUser.XPTotalForLevel) *
-          100
-      );
-      console.log(toPercent);
-      return toPercent;
-    });
-
     onMounted(async () => {
       if (route.params.moduleUUID && route.params.exerciseUUID) {
         await Promise.all([
@@ -775,7 +762,6 @@ export default {
       module,
       moduleIndex,
       course,
-      calcToPercent,
       hintCallback,
       cheatCallback,
       resetCode,
