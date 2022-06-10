@@ -2,8 +2,38 @@
   <ViewNavWrapper>
     <div>
       <Section
+        title="Roles"
+        subtitle="Unlock new roles and show them off in the Discord server"
+        class="m-4"
+      >
+        <div
+          class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
+        >
+          <ImageCard
+            v-for="(userAchievement, i) of roleAchievements"
+            :key="i"
+            :img-src="
+              userAchievement.ImageGifURL && userAchievement.UnlockedAt
+                ? userAchievement.ImageGifURL
+                : userAchievement.ImageURL
+            "
+            :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
+          >
+            <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
+              <p class="text-blue-400 text-lg mb-2">
+                {{ userAchievement.Title }}
+              </p>
+
+              <p class="text-center text-sm">
+                {{ userAchievement.Description }}
+              </p>
+            </div>
+          </ImageCard>
+        </div>
+      </Section>
+      <Section
         title="Milestone Achievements"
-        subtitle="Move fast and break things"
+        subtitle="How far can you go?"
         class="m-4"
       >
         <div
@@ -116,6 +146,11 @@ export default {
   setup() {
     const store = useStore();
 
+    const roleAchievements = computed(() => {
+      return store.getters.getUserAchievements.filter(
+        (item) => item.Category === "role"
+      );
+    });
     const milestoneAchievements = computed(() => {
       return store.getters.getUserAchievements.filter(
         (item) => item.Category === "milestone"
@@ -141,6 +176,7 @@ export default {
     loadUserAchievements(store.commit);
 
     return {
+      roleAchievements,
       milestoneAchievements,
       streakAchievements,
       engagementAchievements,
