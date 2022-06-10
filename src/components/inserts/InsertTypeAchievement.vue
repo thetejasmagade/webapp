@@ -14,7 +14,7 @@
             />
           </div>
         </div>
-        <BlockButton :click="onClickDone" :disabled="!claimed" color="blue">
+        <BlockButton :click="onClickDone" color="blue">
           Continue course
         </BlockButton>
       </div>
@@ -27,7 +27,7 @@ import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
 
 import { markAchievementSeen } from "@/lib/cloudClient.js";
-import { computed, reactive, toRefs, onMounted } from "@vue/runtime-core";
+import { computed, toRefs, onMounted } from "@vue/runtime-core";
 
 export default {
   components: {
@@ -47,12 +47,7 @@ export default {
   setup(props) {
     const { achievementEarned, onDone } = toRefs(props);
 
-    const state = reactive({
-      claimed: false,
-    });
-
     onMounted(() => {
-      state.claimed = true;
       try {
         markAchievementSeen(achievementEarned.value?.AchievementUUID);
       } catch (err) {
@@ -70,11 +65,9 @@ export default {
 
     const onClickDone = () => {
       onDone.value();
-      state.claimed = false;
     };
 
     return {
-      ...toRefs(state),
       onClickDone,
       title,
       subtitle,

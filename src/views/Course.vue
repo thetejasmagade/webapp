@@ -422,6 +422,19 @@ export default {
     });
     useMeta(computedMeta);
 
+    const calcToPercent = computed(() => {
+      if (!store.getters.getUser) {
+        return 0;
+      }
+      const toPercent = Math.round(
+        ((store.getters.getUser.XPForLevel - state.XPGained) /
+          store.getters.getUser.XPTotalForLevel) *
+          100
+      );
+      console.log(toPercent);
+      return toPercent;
+    });
+
     onMounted(async () => {
       if (route.params.moduleUUID && route.params.exerciseUUID) {
         await Promise.all([
@@ -531,7 +544,7 @@ export default {
       deleteCachedCode(route.params.exerciseUUID);
     };
 
-    const handleSuccess = async () => {
+    const handleSuccess = async (submitResponse) => {
       state.pulseNext = true;
       eventExerciseSuccess(
         route.params.exerciseUUID,
@@ -539,11 +552,20 @@ export default {
         exerciseIndex.value,
         moduleIndex.value
       );
-      confetti.value?.start();
-      notify({
-        type: "success",
-        text: "Correct! Great Job",
-      });
+      if (submitResponse.XPReward && submitResponse.XPReward > 0) {
+        confetti.value?.start();
+        notify({
+          type: "success",
+          text: `Correct! You earned ${submitResponse.XPReward} XP`,
+        });
+        loadUser(store.commit);
+      } else {
+        confetti.value?.start();
+        notify({
+          type: "success",
+          text: "Correct! Great Job",
+        });
+      }
       await getCourseProgressIfLoggedIn();
       await getUnitProgressIfLoggedIn();
     };
@@ -753,6 +775,7 @@ export default {
       module,
       moduleIndex,
       course,
+      calcToPercent,
       hintCallback,
       cheatCallback,
       resetCode,

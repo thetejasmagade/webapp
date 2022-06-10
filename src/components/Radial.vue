@@ -75,9 +75,15 @@
 import { computed, reactive, toRefs, watchEffect } from "vue";
 export default {
   props: {
+    fromPercent: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     toPercent: {
       type: Number,
-      required: true,
+      required: false,
+      default: 0,
     },
     radius: {
       type: Number,
@@ -88,10 +94,6 @@ export default {
       type: Number,
       required: false,
       default: 5,
-    },
-    fromPercent: {
-      type: Number,
-      required: true,
     },
     duration: {
       type: Number,
@@ -109,6 +111,11 @@ export default {
       default: null,
     },
     onRollover: {
+      type: Function,
+      required: false,
+      default: () => {},
+    },
+    onAnimationComplete: {
       type: Function,
       required: false,
       default: () => {},
@@ -137,31 +144,31 @@ export default {
       const sqt = t * t;
       return sqt / (2.0 * (sqt - t) + 1.0);
     };
-
     watchEffect(async () => {
-      let percentDelta = null;
-      if (props.fromPercent > props.toPercent) {
-        percentDelta = 100 - props.fromPercent + props.toPercent;
-      } else {
-        percentDelta = props.toPercent - props.fromPercent;
-      }
+      const percentDelta = props.toPercent - props.fromPercent;
       const startMs = Date.now();
-      let hasCalledOnRollover = false;
+      const totalNumRollovers = Math.floor(props.toPercent / 100);
+      let numRollovers = 0;
       const step = () => {
         const msSinceStart = Date.now() - startMs;
         const parametricPercent = parametricBlend(
           msSinceStart / props.duration
         );
+        const threshold = (numRollovers + 1) * 100;
         const delta = props.fromPercent + parametricPercent * percentDelta;
-        if (delta > 100 && !hasCalledOnRollover) {
+        if (delta > threshold && totalNumRollovers >= numRollovers) {
           props.onRollover();
+          numRollovers++;
         }
-        hasCalledOnRollover = true;
         state.curPercent = delta % 100;
         if (msSinceStart < props.duration) {
+          if (props.toPercent === props.fromPercent) {
+            return;
+          }
           window.requestAnimationFrame(step);
         } else {
           state.curPercent = props.toPercent;
+          props.onAnimationComplete();
         }
       };
       step();
