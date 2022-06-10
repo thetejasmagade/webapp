@@ -15,7 +15,7 @@ import {
   loadCourses,
   loadProjects,
 } from "@/lib/cloudStore.js";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
 import { useStore } from "vuex";
 import { getComputedMeta } from "@/lib/meta.js";
@@ -30,9 +30,10 @@ export default {
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
     onMounted(async () => {
       if (useRoute().query.redirect) {
-        this.$router.push({ path: useRoute().query.redirect });
+        router.push({ path: useRoute().query.redirect });
       }
       try {
         await Promise.all([

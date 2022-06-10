@@ -51,6 +51,8 @@ import { onMounted, toRefs, ref, reactive, watchEffect } from "vue";
 
 import { getPendingAchievements } from "@/lib/cloudClient.js";
 
+import { loadUser } from "@/lib/cloudStore.js";
+
 import {
   seenDiscordSyncInsertKey,
   seenFriendsInsertKey,
@@ -243,6 +245,7 @@ export default {
     };
     const onClose = async () => {
       state.inserts = [];
+      await loadUser(store.commit);
     };
 
     return {

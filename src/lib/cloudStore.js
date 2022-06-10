@@ -49,8 +49,8 @@ export function loadLoggedIn(thisComponent) {
   thisComponent.$store.commit("setJWTClaims", getJWTClaims());
 }
 
-export function setLogout(thisComponent) {
+export function setLogout(commit, router) {
   logout();
-  thisComponent.$store.commit("reset");
-  thisComponent.$router.push({ name: "Login" });
+  commit("reset");
+  router.push({ name: "Login" });
 }

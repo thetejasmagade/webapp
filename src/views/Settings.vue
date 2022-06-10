@@ -420,7 +420,7 @@ export default {
     async deleteUser() {
       try {
         await deleteUser();
-        setLogout(this);
+        setLogout(this.$store.commit, this.$router);
         notify({
           type: "success",
           text: "Account deleted successfully",

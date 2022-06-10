@@ -531,7 +531,7 @@ export default {
       deleteCachedCode(route.params.exerciseUUID);
     };
 
-    const handleSuccess = async () => {
+    const handleSuccess = async (submitResponse) => {
       state.pulseNext = true;
       eventExerciseSuccess(
         route.params.exerciseUUID,
@@ -539,11 +539,20 @@ export default {
         exerciseIndex.value,
         moduleIndex.value
       );
-      confetti.value?.start();
-      notify({
-        type: "success",
-        text: "Correct! Great Job",
-      });
+      if (submitResponse.XPReward && submitResponse.XPReward > 0) {
+        confetti.value?.start();
+        notify({
+          type: "success",
+          text: `Correct! You earned ${submitResponse.XPReward} XP`,
+        });
+        loadUser(store.commit);
+      } else {
+        confetti.value?.start();
+        notify({
+          type: "success",
+          text: "Correct! Great Job",
+        });
+      }
       await getCourseProgressIfLoggedIn();
       await getUnitProgressIfLoggedIn();
     };
