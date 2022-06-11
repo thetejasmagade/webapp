@@ -1,18 +1,33 @@
 <template>
   <div class="p-4 flex justify-center items-center h-full">
     <Section :title="title" :subtitle="subtitle" class="w-full">
-      <div class="flex flex-col items-center px-4 py-8">
+      <div class="flex flex-col items-center p-4">
+        <p
+          v-if="achievementEarned.AchievementCategory === 'engagement'"
+          class="mb-4"
+        >
+          #100DaysOfCode is a popular Twitter challenge. You can
+          <a
+            href="https://www.100daysofcode.com/"
+            target="_blank"
+            class="text-blue-400 hover:text-blue-300 underline"
+            >read the official rules here,</a
+          >
+          but in a nutshell, to complete the challenge you need to code every
+          day for 100 days, and tweet about it daily using the
+          <b>#100DaysOfCode</b> and <b>#Bootdev</b> hashtags.
+        </p>
+
         <div class="flex flex-row items-center justify-center w-full">
-          <div class="w-full p-4">
-            <img
-              loading="lazy"
-              :src="
-                achievementEarned.AchievementImageGifURL
-                  ? achievementEarned.AchievementImageGifURL
-                  : achievementEarned.AchievementImageURL
-              "
-            />
-          </div>
+          <img
+            class="w-64"
+            loading="lazy"
+            :src="
+              achievementEarned.AchievementImageGifURL
+                ? achievementEarned.AchievementImageGifURL
+                : achievementEarned.AchievementImageURL
+            "
+          />
         </div>
         <BlockButton :click="onClickDone" color="blue">
           Continue course

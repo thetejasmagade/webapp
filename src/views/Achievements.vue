@@ -33,6 +33,51 @@
         </div>
       </Section>
       <Section
+        title="#100DaysOfCode Achievements"
+        subtitle="Are you up to the challenge?"
+        class="m-4"
+      >
+        <div>
+          <p class="my-4">
+            #100DaysOfCode is a popular Twitter challenge. You can
+            <a
+              href="https://www.100daysofcode.com/"
+              target="_blank"
+              class="text-blue-400 hover:text-blue-300 underline"
+              >read the official rules here,</a
+            >
+            but in a nutshell, to complete the challenge you need to code every
+            day for 100 days, and tweet about it daily using the
+            <b>#100DaysOfCode</b> and <b>#Bootdev</b> hashtags.
+          </p>
+        </div>
+        <div
+          class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
+        >
+          <ImageCard
+            v-for="(userAchievement, i) of engagementAchievements"
+            :key="i"
+            class="mb-6"
+            :img-src="
+              userAchievement.ImageGifURL && userAchievement.UnlockedAt
+                ? userAchievement.ImageGifURL
+                : userAchievement.ImageURL
+            "
+            :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
+          >
+            <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
+              <p class="text-blue-400 text-lg mb-2">
+                {{ userAchievement.Title }}
+              </p>
+
+              <p class="text-center text-sm">
+                {{ userAchievement.Description }}
+              </p>
+            </div>
+          </ImageCard>
+        </div>
+      </Section>
+      <Section
         title="Milestone Achievements"
         subtitle="How far can you go?"
         class="m-4"
@@ -73,37 +118,6 @@
         >
           <ImageCard
             v-for="(userAchievement, i) of streakAchievements"
-            :key="i"
-            class="mb-6"
-            :img-src="
-              userAchievement.ImageGifURL && userAchievement.UnlockedAt
-                ? userAchievement.ImageGifURL
-                : userAchievement.ImageURL
-            "
-            :class="{ 'opacity-25': !userAchievement.UnlockedAt }"
-          >
-            <div :ref="`cardbody${i}`" class="p-4 flex flex-col items-center">
-              <p class="text-blue-400 text-lg mb-2">
-                {{ userAchievement.Title }}
-              </p>
-
-              <p class="text-center text-sm">
-                {{ userAchievement.Description }}
-              </p>
-            </div>
-          </ImageCard>
-        </div>
-      </Section>
-      <Section
-        title="Devotion Achievements"
-        subtitle="Are you commited to your goals?"
-        class="m-4"
-      >
-        <div
-          class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
-        >
-          <ImageCard
-            v-for="(userAchievement, i) of engagementAchievements"
             :key="i"
             class="mb-6"
             :img-src="

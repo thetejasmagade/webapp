@@ -89,7 +89,7 @@
 
       <Section
         title="Certifications"
-        subtitle="Download and share Boot.dev certificates with potential employers to show off your skills"
+        subtitle="Download and share Boot.dev certificates to show off your skills"
         class="max-w-2xl w-full mb-5"
       >
         <div class="grid md:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
