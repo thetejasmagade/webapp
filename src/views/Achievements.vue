@@ -12,6 +12,7 @@
           <ImageCard
             v-for="(userAchievement, i) of roleAchievements"
             :key="i"
+            class="mb-6"
             :img-src="
               userAchievement.ImageGifURL && userAchievement.UnlockedAt
                 ? userAchievement.ImageGifURL
@@ -42,6 +43,7 @@
           <ImageCard
             v-for="(userAchievement, i) of milestoneAchievements"
             :key="i"
+            class="mb-6"
             :img-src="
               userAchievement.ImageGifURL && userAchievement.UnlockedAt
                 ? userAchievement.ImageGifURL
@@ -72,6 +74,7 @@
           <ImageCard
             v-for="(userAchievement, i) of streakAchievements"
             :key="i"
+            class="mb-6"
             :img-src="
               userAchievement.ImageGifURL && userAchievement.UnlockedAt
                 ? userAchievement.ImageGifURL
@@ -102,6 +105,7 @@
           <ImageCard
             v-for="(userAchievement, i) of engagementAchievements"
             :key="i"
+            class="mb-6"
             :img-src="
               userAchievement.ImageGifURL && userAchievement.UnlockedAt
                 ? userAchievement.ImageGifURL

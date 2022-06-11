@@ -1,10 +1,10 @@
 <template>
   <ViewNavWrapper>
     <div
+      v-if="user"
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto p-4"
     >
       <Section
-        v-if="user.Handle"
         :title="`${user.FirstName} ${user.LastName}`"
         :subtitle="`@${user.Handle}`"
         class="max-w-2xl w-full mb-5"
@@ -14,7 +14,7 @@
             <ProfileImage
               class="w-32 mb-4 -mt-16"
               :profile-image-u-r-l="user.ProfileImageURL"
-              :editable="isLoggedIn"
+              :editable="isLoggedInUser"
             />
           </div>
 
@@ -92,12 +92,11 @@
         subtitle="Download and share Boot.dev certificates with potential employers to show off your skills"
         class="max-w-2xl w-full mb-5"
       >
-        <div
-          v-for="(course, i) of filteredCourses"
-          :key="i"
-          class="grid md:grid-cols-2 xs:grid-cols-1 gap-4 p-4 hover:opacity-75"
-        >
+        <div class="grid md:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
           <router-link
+            v-for="(course, i) of filteredCourses"
+            :key="i"
+            class="hover:opacity-75"
             :to="{
               name: 'Certificate',
               params: { userHandle: user.Handle, courseUUID: course.UUID },
@@ -147,6 +146,7 @@ import { useMeta } from "vue-meta";
 import { computed, reactive, onMounted, toRefs } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import { sortUserAchievements } from "@/lib/sort.js";
 
 import {
   getCoursesPublic,
@@ -165,13 +165,14 @@ export default {
   },
   setup() {
     const state = reactive({
-      user: {},
+      user: null,
       courses: [],
       achievements: [],
       filteredCourses: [],
       filteredAchievements: [],
     });
     const store = useStore();
+    const route = useRoute();
 
     const filteredCourses = computed(() => {
       return state.courses
@@ -180,26 +181,19 @@ export default {
     });
 
     const filteredAchievements = computed(() => {
-      return state.achievements
-        .filter((ach) => ach.UnlockedAt)
-        .sort((ua1, ua2) => {
-          if (ua1.Category < ua2.Category) {
-            return 1;
-          } else if (ua1.Category > ua2.Category) {
-            return -1;
-          }
-          return ua1.XPReward < ua2.XPReward ? -1 : 1;
-        });
+      return state.achievements.filter((ach) => ach.UnlockedAt);
     });
 
     onMounted(async () => {
-      const route = useRoute();
       try {
         state.user = await getUserPublic(route.params.userHandle);
         state.courses = await getCoursesPublic(route.params.userHandle);
-        state.achievements = await getUserAchievementsPublic(
+        const achievements = await getUserAchievementsPublic(
           route.params.userHandle
         );
+        const sorted = sortUserAchievements(achievements);
+        sorted.reverse();
+        state.achievements = sorted;
       } catch (err) {
         notify({
           type: "danger",
@@ -210,9 +204,9 @@ export default {
 
     const computedMeta = computed(() => {
       return getComputedMeta({
-        title: `${state.user.FirstName}'s Portfolio`,
-        description: `Check out ${state.user.FirstName} ${state.user.LastName}'s coding accomplishments on Boot.dev`,
-        featuredImageURL: state.user.ProfileImageURL,
+        title: `${state.user?.FirstName}'s Portfolio`,
+        description: `Check out ${state.user?.FirstName} ${state.user?.LastName}'s coding accomplishments on Boot.dev`,
+        featuredImageURL: state.user?.ProfileImageURL,
       });
     });
     useMeta(computedMeta);
@@ -220,7 +214,9 @@ export default {
       ...toRefs(state),
       filteredCourses,
       filteredAchievements,
-      isLoggedIn: store.getters.getIsLoggedIn,
+      isLoggedInUser:
+        store.getters.getIsLoggedIn &&
+        store.getters.getUser?.Handle === route.params.userHandle,
     };
   },
   methods: {

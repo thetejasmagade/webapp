@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded mb-6 tracking-wide">
+  <div class="rounded tracking-wide">
     <div
       v-if="imgSrc"
       class="md:shrink-0 rounded"
