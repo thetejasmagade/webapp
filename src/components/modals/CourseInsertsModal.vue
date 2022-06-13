@@ -4,29 +4,33 @@
       <InsertTypeAchievement
         v-if="inserts[0].type === 'achievement'"
         :achievement-earned="inserts[0].data"
-        :on-done="onSeenInsert"
+        :on-done="onDone"
       />
       <InsertTypeDiscordSync
         v-else-if="inserts[0].type === 'discord'"
-        :on-done="onSeenInsert"
+        :on-done="onDone"
       />
       <InsertTypeInviteFriends
         v-else-if="inserts[0].type === 'friends'"
-        :on-done="onSeenInsert"
+        :on-done="onDone"
+      />
+      <InsertTypeSurvey
+        v-else-if="inserts[0].type === 'survey'"
+        :on-done="onDone"
       />
       <InsertTypeUnitDone
         v-else-if="inserts[0].type === 'unitDone'"
-        :on-done="onSeenInsert"
+        :on-done="onDone"
         :unit="unit"
       />
       <InsertTypeSandboxMode
         v-else-if="inserts[0].type === 'sandbox'"
-        :on-done="onSeenInsert"
+        :on-done="onDone"
         :unit="unit"
       />
       <InsertTypeInsight
         v-else-if="inserts[0].type === 'insights'"
-        :on-done="onSeenInsert"
+        :on-done="onDone"
         :unit="unit"
       />
     </div>
@@ -40,6 +44,7 @@ import InsertTypeInviteFriends from "@/components/inserts/InsertTypeInviteFriend
 import InsertTypeUnitDone from "@/components/inserts/InsertTypeUnitDone.vue";
 import InsertTypeSandboxMode from "@/components/inserts/InsertTypeSandboxMode.vue";
 import InsertTypeInsight from "@/components/inserts/InsertTypeInsight.vue";
+import InsertTypeSurvey from "@/components/inserts/InsertTypeSurvey.vue";
 
 import { createCourseUnit } from "@/lib/unit.js";
 
@@ -61,6 +66,7 @@ import {
   getSeenUnitDoneModalKey,
   seenSandboxModalLoginKey,
   seenSandboxModalPatronKey,
+  seenSurveyInsertKey,
 } from "@/lib/localStorageLib";
 import { useStore } from "vuex";
 
@@ -73,6 +79,7 @@ export default {
     InsertTypeUnitDone,
     InsertTypeSandboxMode,
     InsertTypeInsight,
+    InsertTypeSurvey,
   },
   props: {
     user: {
@@ -149,6 +156,18 @@ export default {
       });
     };
 
+    const showSurveyIfNecessary = () => {
+      if (hasSeen(seenSurveyInsertKey)) {
+        return;
+      }
+      if (moduleIndex.value !== 3 || exerciseIndex.value !== 5) {
+        return;
+      }
+      state.inserts.push({
+        type: "survey",
+      });
+    };
+
     const showInsightIfNecessary = () => {
       if (hasSeen(seenInsightInsertKey)) {
         return;
@@ -213,6 +232,7 @@ export default {
       showInsightIfNecessary();
       showFriendsIfNecessary();
       showSandboxIfNecessary();
+      showSurveyIfNecessary();
       if (inSandboxMode) {
         show();
       }
@@ -226,7 +246,7 @@ export default {
       }
     });
 
-    const onSeenInsert = () => {
+    const onDone = () => {
       state.inserts.shift();
       if (state.inserts.length === 0) {
         hide();
@@ -250,7 +270,7 @@ export default {
 
     return {
       ...toRefs(state),
-      onSeenInsert,
+      onDone,
       hide,
       insertsModal,
       onClose,

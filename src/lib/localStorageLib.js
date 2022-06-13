@@ -5,6 +5,7 @@ export const seenSandboxModalLoginKey = "seenSandboxModalLogin";
 export const seenSandboxModalPatronKey = "seenSandboxModalPatron";
 export const seenDiscordSyncInsertKey = "seenDiscordSyncInsert";
 export const seenFriendsInsertKey = "seenFriendsInsert";
+export const seenSurveyInsertKey = "seenSurveyInsert";
 export const seenInsightInsertKey = "seenInsightInsert";
 const registerIsSubscribedNewsKey = "registerIsSubscribedNews";
 

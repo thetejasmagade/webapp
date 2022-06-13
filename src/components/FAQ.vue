@@ -53,20 +53,6 @@
           their way to a successful coding career.
         </p>
 
-        <h2 class="text-xl my-4 text-blue-400">Do you offer any discounts?</h2>
-        <p>
-          Currently we're offering a
-          <a
-            target="_blank"
-            class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-            href="https://forms.gle/JUJBzwhVvgikAczq5"
-            >25% discount to anyone who completes this feedback form.</a
-          >
-          Our top priority is improving the courses and the community so your
-          feedback is super valuable to us. When you're finished with the survey
-          you'll be given a coupon code!
-        </p>
-
         <h2 class="text-xl my-4 text-blue-400">
           Do I need to know how to code before signing up?
         </h2>
