@@ -29,9 +29,15 @@
             "
           />
         </div>
-        <BlockButton :click="onClickDone" color="blue">
-          Continue course
-        </BlockButton>
+
+        <div class="flex flex-row items-center justify-center w-full">
+          <BlockButton :click="onClickTwitterShare" color="gray" class="mr-4">
+            Tweet about it
+          </BlockButton>
+          <BlockButton :click="onClickDone" color="blue">
+            Continue
+          </BlockButton>
+        </div>
       </div>
     </Section>
   </div>
@@ -41,7 +47,10 @@
 import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
 
-import { markAchievementSeen } from "@/lib/cloudClient.js";
+import {
+  markAchievementSeen,
+  imageURLToTwitterImageURL,
+} from "@/lib/cloudClient.js";
 import { computed, toRefs, onMounted } from "@vue/runtime-core";
 
 export default {
@@ -70,6 +79,22 @@ export default {
       }
     });
 
+    const onClickTwitterShare = async () => {
+      const resp = await imageURLToTwitterImageURL(
+        achievementEarned.value?.AchievementImageURL
+      );
+      const tweet = `🔥 Achievement Unlocked 🔥
+      
+I just coded my way into the '${achievementEarned.value?.AchievementTitle}' achievement on Boot .dev
+
+#Bootdev ${resp.TwitterImageURL}
+`;
+      window.open(
+        `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`,
+        "_blank"
+      );
+    };
+
     const title = computed(() => {
       return "Achievement unlocked!";
     });
@@ -86,6 +111,7 @@ export default {
       onClickDone,
       title,
       subtitle,
+      onClickTwitterShare,
     };
   },
 };

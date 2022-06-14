@@ -81,6 +81,21 @@ export async function confirmOnetimePurchase() {
   return handled;
 }
 
+export async function imageURLToTwitterImageURL(imageURL) {
+  const resp = await fetch(`${domain}/v1/twitter_convert_image`, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      imageURL,
+    }),
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function createUserManual(
   email,
   firstName,
