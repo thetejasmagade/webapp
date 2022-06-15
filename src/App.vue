@@ -150,7 +150,7 @@ export default {
 }
 
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
   margin: 0;
   height: 100%;
 }
