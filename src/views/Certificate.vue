@@ -1,53 +1,51 @@
 <template>
-  <div class="page h-full">
-    <BlockButton :click="download" color="blue" class="absolute top-4 left-4">
-      <FontAwesomeIcon icon="download" />
-      Download
-    </BlockButton>
-    <div class="page h-full flex items-center justify-center">
-      <div class="cert flex justify-center p-8">
+  <div class="h-full bg-gray-900 flex flex-col items-center">
+    <div class="cert flex justify-center p-8">
+      <div
+        id="cert"
+        class="flex justify-center p-4 w-11/12 bg-gray-700 text-gray-200"
+      >
         <div
-          id="cert"
-          class="flex justify-center p-4 w-11/12 bg-gray-700 text-gray-200"
+          class="inner-content border-gray-500 border-2 p-4 w-full text-center rounded"
         >
-          <div
-            class="inner-content border-gray-500 border-2 p-4 w-full text-center rounded"
-          >
-            <h1 class="text-6xl mt-4 text-blue-400 font-light">
-              CERTIFICATE OF COMPLETION
-            </h1>
-            <p class="text-lg border-blue-400 border-b-2 pb-2 font-thin">
-              FROM BOOT.DEV IN THE AREA OF COMPUTER SCIENCE
-            </p>
-            <div class="border-blue-400 border-b-2 pb-2 mb-8" />
-            <p class="text-xl mb-2 font-light">
-              This Certificate Is Proudly Presented To
-            </p>
-            <p class="text-6xl mb-8 text-blue-400 font-bold">
-              {{ user.FirstName }} {{ user.LastName }}
-            </p>
-            <p class="text-xl mb-2 font-light">Who Has Completed Boot.dev's</p>
-            <p class="text-4xl mb-8 font-bold">{{ course.Title }} Course</p>
-            <p class="text-2xl font-light">On {{ computedDate }}</p>
-            <div class="flex justify-around p-8">
-              <img
-                loading="lazy"
-                alt="Boot.dev logo"
-                src="/src/img/boot_dev_logo_full_256.png"
-                class="align-middle w-24 h-24 ml-2"
-              />
-            </div>
+          <h1 class="text-6xl mt-4 text-blue-400 font-light">
+            CERTIFICATE OF COMPLETION
+          </h1>
+          <p class="text-lg border-blue-400 border-b-2 pb-2 font-thin">
+            FROM BOOT.DEV IN THE AREA OF COMPUTER SCIENCE
+          </p>
+          <div class="border-blue-400 border-b-2 pb-2 mb-8" />
+          <p class="text-xl mb-2 font-light">
+            This Certificate Is Proudly Presented To
+          </p>
+          <p class="text-6xl mb-8 text-blue-400 font-bold">
+            {{ user.FirstName }} {{ user.LastName }}
+          </p>
+          <p class="text-xl mb-2 font-light">Who Has Completed Boot.dev's</p>
+          <p class="text-4xl mb-8 font-bold">{{ course.Title }} Course</p>
+          <p class="text-2xl font-light">On {{ computedDate }}</p>
+          <div class="flex justify-around p-8">
+            <img
+              loading="lazy"
+              alt="Boot.dev logo"
+              src="/src/img/boot_dev_logo_full_256.png"
+              class="align-middle w-24 h-24 ml-2"
+            />
           </div>
         </div>
       </div>
     </div>
+    <BlockButton :click="download" color="blue" class="mb-4">
+      <FontAwesomeIcon icon="download" />
+      Download
+    </BlockButton>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { getComputedMeta } from "@/lib/meta.js";
-import { computed, reactive, onMounted } from "vue";
+import { computed, reactive, onMounted, toRefs } from "vue";
 import { useRoute } from "vue-router";
 import BlockButton from "@/components/BlockButton.vue";
 import { toPng } from "html-to-image";
@@ -67,7 +65,7 @@ export default {
       course: {},
     });
 
-    state.computedDate = computed(() => {
+    const computedDate = computed(() => {
       if (!state.course || !state.course.CompletedAt) {
         return null;
       }
@@ -91,7 +89,7 @@ export default {
       }
     });
 
-    state.download = async () => {
+    const download = async () => {
       var node = document.getElementById("cert");
       const dataUrl = await toPng(node);
 
@@ -114,85 +112,17 @@ export default {
       });
     });
     useMeta(computedMeta);
-    return state;
+
+    return {
+      ...toRefs(state),
+      computedDate,
+      download,
+    };
   },
 };
 </script>
 
 <style scoped>
-.page {
-  background-image: linear-gradient(
-      67.5deg,
-      rgb(6, 6, 6) 0%,
-      rgb(6, 6, 6) 6%,
-      rgb(29, 29, 29) 6%,
-      rgb(29, 29, 29) 57%,
-      rgb(52, 52, 52) 57%,
-      rgb(52, 52, 52) 58%,
-      rgb(75, 75, 75) 58%,
-      rgb(75, 75, 75) 79%,
-      rgb(97, 97, 97) 79%,
-      rgb(97, 97, 97) 93%,
-      rgb(120, 120, 120) 93%,
-      rgb(120, 120, 120) 95%,
-      rgb(143, 143, 143) 95%,
-      rgb(143, 143, 143) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgb(6, 6, 6) 0%,
-      rgb(6, 6, 6) 6%,
-      rgb(29, 29, 29) 6%,
-      rgb(29, 29, 29) 57%,
-      rgb(52, 52, 52) 57%,
-      rgb(52, 52, 52) 58%,
-      rgb(75, 75, 75) 58%,
-      rgb(75, 75, 75) 79%,
-      rgb(97, 97, 97) 79%,
-      rgb(97, 97, 97) 93%,
-      rgb(120, 120, 120) 93%,
-      rgb(120, 120, 120) 95%,
-      rgb(143, 143, 143) 95%,
-      rgb(143, 143, 143) 100%
-    ),
-    linear-gradient(
-      135deg,
-      rgb(6, 6, 6) 0%,
-      rgb(6, 6, 6) 6%,
-      rgb(29, 29, 29) 6%,
-      rgb(29, 29, 29) 57%,
-      rgb(52, 52, 52) 57%,
-      rgb(52, 52, 52) 58%,
-      rgb(75, 75, 75) 58%,
-      rgb(75, 75, 75) 79%,
-      rgb(97, 97, 97) 79%,
-      rgb(97, 97, 97) 93%,
-      rgb(120, 120, 120) 93%,
-      rgb(120, 120, 120) 95%,
-      rgb(143, 143, 143) 95%,
-      rgb(143, 143, 143) 100%
-    ),
-    linear-gradient(
-      0deg,
-      rgb(6, 6, 6) 0%,
-      rgb(6, 6, 6) 6%,
-      rgb(29, 29, 29) 6%,
-      rgb(29, 29, 29) 57%,
-      rgb(52, 52, 52) 57%,
-      rgb(52, 52, 52) 58%,
-      rgb(75, 75, 75) 58%,
-      rgb(75, 75, 75) 79%,
-      rgb(97, 97, 97) 79%,
-      rgb(97, 97, 97) 93%,
-      rgb(120, 120, 120) 93%,
-      rgb(120, 120, 120) 95%,
-      rgb(143, 143, 143) 95%,
-      rgb(143, 143, 143) 100%
-    ),
-    linear-gradient(90deg, rgb(8, 8, 8), rgb(221, 221, 221));
-  background-blend-mode: overlay, overlay, overlay, overlay, normal;
-}
-
 .cert {
   width: 1080px;
 }
