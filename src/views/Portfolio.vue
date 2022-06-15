@@ -88,7 +88,7 @@
       </Section>
 
       <Section
-        title="Certifications"
+        title="Courses Completed"
         subtitle="Download and share Boot.dev certificates to show off your skills"
         class="max-w-2xl w-full mb-5"
       >
@@ -105,6 +105,18 @@
           >
             <ImageCard :img-src="course.ImageURL" />
           </router-link>
+        </div>
+      </Section>
+
+      <Section title="Projects Completed" class="max-w-2xl w-full mb-5">
+        <div class="grid md:grid-cols-2 xs:grid-cols-1 gap-4 p-4">
+          <div
+            v-for="(project, i) of filteredProjects"
+            :key="i"
+            target="_blank"
+          >
+            <ImageCard :img-src="project.ImageURL" />
+          </div>
         </div>
       </Section>
 
@@ -149,6 +161,7 @@ import { useStore } from "vuex";
 import { sortUserAchievements } from "@/lib/sort.js";
 
 import {
+  getProjectsPublic,
   getCoursesPublic,
   getUserPublic,
   getUserAchievementsPublic,
@@ -166,6 +179,7 @@ export default {
   setup() {
     const state = reactive({
       user: null,
+      projects: [],
       courses: [],
       achievements: [],
       filteredCourses: [],
@@ -180,14 +194,40 @@ export default {
         .sort((c1, c2) => (c1.Title < c2.Title ? 1 : -1));
     });
 
+    const filteredProjects = computed(() => {
+      return state.projects
+        .filter((project) => project.CompletedAt)
+        .sort((p1, p2) => (p1.Title < p2.Title ? 1 : -1));
+    });
+
     const filteredAchievements = computed(() => {
       return state.achievements.filter((ach) => ach.UnlockedAt);
     });
 
-    onMounted(async () => {
+    const loadCoursesPublic = async () => {
       try {
-        state.user = await getUserPublic(route.params.userHandle);
         state.courses = await getCoursesPublic(route.params.userHandle);
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    };
+
+    const loadProjectsPublic = async () => {
+      try {
+        state.projects = await getProjectsPublic(route.params.userHandle);
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    };
+
+    const loadAchievementsPublic = async () => {
+      try {
         const achievements = await getUserAchievementsPublic(
           route.params.userHandle
         );
@@ -200,6 +240,24 @@ export default {
           text: err,
         });
       }
+    };
+
+    const loadUserPublic = async () => {
+      try {
+        state.user = await getUserPublic(route.params.userHandle);
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
+    };
+
+    onMounted(async () => {
+      loadUserPublic();
+      loadCoursesPublic();
+      loadAchievementsPublic();
+      loadProjectsPublic();
     });
 
     const computedMeta = computed(() => {
@@ -214,6 +272,7 @@ export default {
       ...toRefs(state),
       filteredCourses,
       filteredAchievements,
+      filteredProjects,
       isLoggedInUser:
         store.getters.getIsLoggedIn &&
         store.getters.getUser?.Handle === route.params.userHandle,

@@ -594,6 +594,18 @@ export async function getCoursesPublic(userHandle) {
   return handled;
 }
 
+export async function getProjectsPublic(userHandle) {
+  const resp = await fetch(`${domain}/v1/users/public/${userHandle}/projects`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getCourseProgress(courseUUID) {
   const resp = await fetchWithAuth(
     `${domain}/v1/course_progress/${courseUUID}`,
