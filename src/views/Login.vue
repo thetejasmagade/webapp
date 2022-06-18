@@ -8,8 +8,8 @@
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
     >
       <Section
-        title="Real code. Modern programming languages."
-        subtitle="Learn computer science through hands-on courses and projects. We teach evergreen concepts using modern programming languages."
+        title="What if learning computer science was fun?"
+        subtitle="Master CS principles by writing modern code in our gamified platform."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >
