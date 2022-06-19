@@ -15,7 +15,7 @@ import InsertTypeUnitDone from "@/components/inserts/InsertTypeUnitDone.vue";
 
 import Modal from "@/components/modals/Modal.vue";
 
-import { toRefs, ref, reactive, watchEffect } from "vue";
+import { toRefs, ref, reactive, watchEffect, onMounted } from "vue";
 
 import { hasSeen, getSeenUnitDoneModalKey } from "@/lib/localStorageLib";
 
@@ -35,10 +35,18 @@ export default {
       type: Object,
       required: true,
     },
+    isStepComplete: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   setup(props) {
+    const { isStepComplete } = toRefs(props);
+
     const { projectDone, project } = toRefs(props);
     const state = reactive({
+      isMounted: false,
       inserts: [],
     });
 
@@ -57,8 +65,15 @@ export default {
       });
     };
 
-    watchEffect(() => {
+    onMounted(() => {
+      state.isMounted = true;
+    });
+
+    watchEffect(async () => {
       showUnitDoneIfNecessary(projectDone.value, project.value);
+      if (isStepComplete.value && state.isMounted) {
+        show();
+      }
     });
 
     const onSeenInsert = () => {

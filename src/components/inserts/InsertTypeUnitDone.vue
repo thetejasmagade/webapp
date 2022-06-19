@@ -13,17 +13,18 @@
     <div class="flex justify-center">
       <img loading="lazy" class="rounded" src="/src/img/gatsby_toast.webp" />
     </div>
-    <div class="flex justify-center">
-      <BlockButton class="m-4" :link="{ name: 'Tracks' }">
-        Next Course
+    <div class="flex flex-row items-center justify-center w-full">
+      <BlockButton :click="onClickTwitterShare" color="gray" class="mr-4">
+        Tweet about it
       </BlockButton>
       <BlockButton
+        v-if="$store.getters.getUser"
         class="m-4"
         :link="{
           name: 'Portfolio',
           params: { userHandle: $store.getters.getUser.Handle },
         }"
-        color="gray"
+        color="blue"
       >
         View Portfolio
       </BlockButton>
@@ -41,6 +42,8 @@ import { eventFinishCourse } from "@/lib/analytics.js";
 import { getUnitData } from "@/lib/unit.js";
 import { onMounted, toRefs } from "@vue/runtime-core";
 
+import { imageURLToTwitterImageURL } from "@/lib/cloudClient.js";
+
 export default {
   components: {
     BlockButton,
@@ -53,10 +56,49 @@ export default {
   },
   setup(props) {
     const { unit } = toRefs(props);
+
+    const onClickTwitterShare = async () => {
+      const resp = await imageURLToTwitterImageURL(
+        getUnitData(unit.value).ImageURL
+      );
+      const courseTweet = `🔥 Course Completed! 🔥
+      
+I just finished the '${getUnitData(unit.value).Title}' course on Boot .dev!
+
+#Bootdev ${resp.TwitterImageURL}
+`;
+
+      const projectTweet = `🔥 Project Completed! 🔥
+      
+I just finished the '${getUnitData(unit.value).Title}' project on Boot .dev!
+
+#Bootdev ${resp.TwitterImageURL}
+`;
+      if (unit.value.type === "course") {
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            courseTweet
+          )}`,
+          "_blank"
+        );
+      } else {
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            projectTweet
+          )}`,
+          "_blank"
+        );
+      }
+    };
+
     onMounted(() => {
       markSeen(getSeenUnitDoneModalKey(getUnitData(unit.value).UUID));
       eventFinishCourse(getUnitData(unit.value).Title, false);
     });
+
+    return {
+      onClickTwitterShare,
+    };
   },
 };
 </script>

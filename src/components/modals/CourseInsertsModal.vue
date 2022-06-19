@@ -125,9 +125,14 @@ export default {
       isExerciseComplete,
     } = toRefs(props);
     const state = reactive({
+      isMounted: false,
       inserts: [],
     });
     const store = useStore();
+
+    onMounted(() => {
+      state.isMounted = true;
+    });
 
     const showDiscordSyncIfNecessary = () => {
       if (user.value.DiscordUserID) {
@@ -240,7 +245,7 @@ export default {
 
     watchEffect(async () => {
       showUnitDoneIfNecessary(courseDone.value, course.value);
-      if (isExerciseComplete.value) {
+      if (isExerciseComplete.value && state.isMounted) {
         await showAchievementsIfNecessary();
         show();
       }

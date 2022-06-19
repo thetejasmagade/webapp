@@ -6,6 +6,7 @@
         ref="projectInsertsModal"
         :project="project"
         :project-done="projectDone"
+        :is-step-complete="isStepComplete"
       />
 
       <div v-if="project" class="h-full flex flex-col">
