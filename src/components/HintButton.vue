@@ -5,8 +5,8 @@
       :class="colors"
       :click="hintCallback"
     >
-      <font-awesome-icon icon="eye" />
-      {{ `View Hint` }}
+      <font-awesome-icon icon="eye" class="mr-2" />
+      View Hint
     </BlockButton>
   </div>
 </template>

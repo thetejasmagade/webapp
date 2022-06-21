@@ -10,21 +10,15 @@
           <BottomOfMarkdownTabsNav
             v-if="isLoggedIn"
             class="mb-4"
-            :tabs="
-              isHintAvailable
-                ? [
-                    { icon: 'comment', name: 'Insights' },
-                    {
-                      icon: 'eye',
-                      name: 'View Hint',
-                    },
-                    { icon: 'exclamation-triangle', name: 'Report Issue' },
-                  ]
-                : [
-                    { icon: 'comment', name: 'Insights' },
-                    { icon: 'exclamation-triangle', name: 'Report Issue' },
-                  ]
-            "
+            :tabs="[
+              { icon: 'comment', name: 'Insights' },
+              {
+                icon: 'eye',
+                name: 'Hint',
+              },
+              { icon: 'hand', name: 'Help' },
+              { icon: 'exclamation-triangle', name: 'Report Issue' },
+            ]"
             :is-exercise-complete="alreadyAnswered"
             :hint-markdown-source="hintMarkdownSource"
             :hint-callback="hintCallback"

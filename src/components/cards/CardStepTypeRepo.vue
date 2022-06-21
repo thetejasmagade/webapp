@@ -23,10 +23,8 @@
         v-if="isLoggedIn"
         class="mb-4"
         :tabs="[
-          {
-            icon: 'exclamation-triangle',
-            name: 'Report Issue',
-          },
+          { icon: 'hand', name: 'Help' },
+          { icon: 'exclamation-triangle', name: 'Report Issue' },
         ]"
         :uuid="uuid"
         unit-type="step"

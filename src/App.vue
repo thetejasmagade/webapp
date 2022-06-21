@@ -52,6 +52,7 @@ import {
   faExclamationTriangle,
   faBook,
   faTools,
+  faHand,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -111,6 +112,7 @@ library.add(faTrash);
 library.add(faExclamationTriangle);
 library.add(faBook);
 library.add(faTools);
+library.add(faHand);
 
 export default {
   setup() {
