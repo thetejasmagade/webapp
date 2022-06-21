@@ -14,20 +14,25 @@
         :profile-image-u-r-l="insight.AuthorUser.ProfileImageURL"
       />
     </div>
-    <h1 v-if="!isComplete" class="text-lg mb-4 ml-4 pt-4">
-      Complete the assignment to submit your own insight.
-    </h1>
-    <h1 v-else class="text-lg mb-4 ml-4 pt-4">
-      If you have any additional thoughts about this concept that may be useful
-      to other learners, drop a comment below!
-    </h1>
+    <h3 class="text-lg mb-4 ml-4 pt-4 font-bold text-blue-300">
+      Share additional thoughts, experiences, or learnings about this topic with
+      others.
+    </h3>
+    <h3 v-if="!isComplete" class="text-lg mb-4 ml-4 pt-4">
+      Complete the assignment in order to submit your own insight.
+    </h3>
     <textarea
       v-if="isComplete"
       v-model="insightText"
       :disabled="!isComplete"
-      placeholder="Do not report issues, ask questions, or give hints here. Use the other tabs for that."
+      placeholder="DO NOT report issues here
+DO NOT give hints here
+DO NOT ask for help here
+Use the other tabs for that :)
+
+This is a place to share insightful comments about the learning material."
       class="autoexpand tracking-wide py-2 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-700 rounded focus:outline-none resize-none"
-      rows="4"
+      rows="6"
     />
     <BlockButton
       v-if="isComplete"

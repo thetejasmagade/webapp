@@ -28,11 +28,6 @@
         :on-done="onDone"
         :unit="unit"
       />
-      <InsertTypeInsight
-        v-else-if="inserts[0].type === 'insights'"
-        :on-done="onDone"
-        :unit="unit"
-      />
     </div>
   </Modal>
 </template>
@@ -43,7 +38,6 @@ import InsertTypeDiscordSync from "@/components/inserts/InsertTypeDiscordSync.vu
 import InsertTypeInviteFriends from "@/components/inserts/InsertTypeInviteFriends.vue";
 import InsertTypeUnitDone from "@/components/inserts/InsertTypeUnitDone.vue";
 import InsertTypeSandboxMode from "@/components/inserts/InsertTypeSandboxMode.vue";
-import InsertTypeInsight from "@/components/inserts/InsertTypeInsight.vue";
 import InsertTypeSurvey from "@/components/inserts/InsertTypeSurvey.vue";
 
 import { createCourseUnit } from "@/lib/unit.js";
@@ -61,7 +55,6 @@ import { loadUser } from "@/lib/cloudStore.js";
 import {
   seenDiscordSyncInsertKey,
   seenFriendsInsertKey,
-  seenInsightInsertKey,
   hasSeen,
   getSeenUnitDoneModalKey,
   seenSandboxModalLoginKey,
@@ -78,7 +71,6 @@ export default {
     InsertTypeInviteFriends,
     InsertTypeUnitDone,
     InsertTypeSandboxMode,
-    InsertTypeInsight,
     InsertTypeSurvey,
   },
   props: {
@@ -173,18 +165,6 @@ export default {
       });
     };
 
-    const showInsightIfNecessary = () => {
-      if (hasSeen(seenInsightInsertKey)) {
-        return;
-      }
-      if (moduleIndex.value !== 0 || exerciseIndex.value !== 5) {
-        return;
-      }
-      state.inserts.push({
-        type: "insights",
-      });
-    };
-
     const showAchievementsIfNecessary = async () => {
       try {
         let pendingAchievements = await getPendingAchievements();
@@ -234,7 +214,6 @@ export default {
 
     onMounted(() => {
       showDiscordSyncIfNecessary(user.value, exerciseIndex.value);
-      showInsightIfNecessary();
       showFriendsIfNecessary();
       showSandboxIfNecessary();
       showSurveyIfNecessary();
