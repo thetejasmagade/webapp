@@ -629,11 +629,13 @@ export default {
     };
 
     const submitTypeCode = ({ output }) => {
-      cacheExerciseCode(
-        store.getters.getUser.UUID,
-        route.params.exerciseUUID,
-        state.code
-      );
+      if (!sandbox.value) {
+        cacheExerciseCode(
+          store.getters.getUser.UUID,
+          route.params.exerciseUUID,
+          state.code
+        );
+      }
       eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
       if (sandbox.value) {
         handleSandbox();
@@ -643,11 +645,13 @@ export default {
     };
 
     const submitTypeCodeCanvas = ({ hash }) => {
-      cacheExerciseCode(
-        store.getters.getUser.UUID,
-        route.params.exerciseUUID,
-        state.code
-      );
+      if (!sandbox.value) {
+        cacheExerciseCode(
+          store.getters.getUser.UUID,
+          route.params.exerciseUUID,
+          state.code
+        );
+      }
       eventExecuteCode(route.params.exerciseUUID, course.value?.Title);
       if (sandbox.value) {
         handleSandbox();
