@@ -13,7 +13,6 @@
             :tabs="
               isHintAvailable
                 ? [
-                    { icon: 'comment', name: 'Insights' },
                     {
                       icon: 'eye',
                       name: 'Hint',
@@ -22,7 +21,6 @@
                     { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
                 : [
-                    { icon: 'comment', name: 'Insights' },
                     { icon: 'hand', name: 'Help' },
                     { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]

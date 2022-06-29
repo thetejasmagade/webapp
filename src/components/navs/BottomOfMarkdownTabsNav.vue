@@ -17,11 +17,6 @@
       </span>
     </div>
     <div class="bg-gray-750 p-4 rounded-r rounded-b">
-      <InsightView
-        v-if="currentTabName === 'Insights'"
-        :is-exercise-complete="isExerciseComplete"
-        :exercise-u-u-i-d="uuid"
-      />
       <div v-if="currentTabName === 'Help'">
         <h3 class="text-lg mb-4 ml-4 pt-4">Stuck or need help?</h3>
         <p class="ml-4">
@@ -79,7 +74,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import HintButton from "@/components/HintButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
-import InsightView from "@/components/InsightView.vue";
 
 import BlockButton from "@/components/BlockButton.vue";
 import { notify } from "@/lib/notification.js";
@@ -96,7 +90,6 @@ export default {
     FontAwesomeIcon,
     BlockButton,
     HintButton,
-    InsightView,
     MarkdownViewer,
   },
   props: {
