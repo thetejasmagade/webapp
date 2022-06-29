@@ -121,61 +121,6 @@ export async function createUserManual(
   return handled;
 }
 
-export async function createInsight(ExerciseUUID, Text) {
-  const resp = await fetchWithAuth(`${domain}/v1/insights`, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ExerciseUUID,
-      Text,
-    }),
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function updateInsight(insightUUID, Text) {
-  const resp = await fetchWithAuth(`${domain}/v1/insights/${insightUUID}`, {
-    method: "PUT",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      Text,
-    }),
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function getInsights(exerciseUUID) {
-  const resp = await fetchWithAuth(
-    `${domain}/v1/insights?exercise_uuid=${exerciseUUID}&include=AuthorUser`,
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
-export async function deleteInsight(insightUUID) {
-  const resp = await fetchWithAuth(`${domain}/v1/insights/${insightUUID}`, {
-    method: "DELETE",
-    mode: "cors",
-  });
-  const handled = await handleJSONResponse(resp);
-  return handled;
-}
-
 export async function upsertExerciseFeedback(exerciseUUID, text) {
   const resp = await fetchWithAuth(
     `${domain}/v1/exercises/${exerciseUUID}/feedback`,
