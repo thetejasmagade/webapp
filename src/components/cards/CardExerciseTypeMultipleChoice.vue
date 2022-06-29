@@ -13,11 +13,11 @@
             :tabs="
               isHintAvailable
                 ? [
+                    { icon: 'hand', name: 'Help' },
                     {
                       icon: 'eye',
                       name: 'Hint',
                     },
-                    { icon: 'hand', name: 'Help' },
                     { icon: 'exclamation-triangle', name: 'Report Issue' },
                   ]
                 : [
