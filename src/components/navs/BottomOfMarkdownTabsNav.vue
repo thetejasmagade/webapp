@@ -57,14 +57,8 @@
           >
         </p>
       </div>
-      <div v-if="currentTabName === 'Hint' && isHintAvailable">
-        <HintButton
-          v-if="!didUserHint && isHintAvailable"
-          class="pt-5 pb-5 justify-center items-center"
-          :hint-callback="hintCallback"
-          :is-hint-available="isHintAvailable"
-        />
-        <MarkdownViewer v-if="didUserHint" :source="hintMarkdownSource" />
+      <div v-if="currentTabName === 'Hint'">
+        <MarkdownViewer :source="hintMarkdownSource" />
       </div>
     </div>
   </div>
@@ -72,13 +66,12 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import HintButton from "@/components/HintButton.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
 
 import BlockButton from "@/components/BlockButton.vue";
 import { notify } from "@/lib/notification.js";
 
-import { toRefs, reactive, computed } from "vue";
+import { toRefs, reactive } from "vue";
 
 import {
   upsertExerciseFeedback,
@@ -89,7 +82,6 @@ export default {
   components: {
     FontAwesomeIcon,
     BlockButton,
-    HintButton,
     MarkdownViewer,
   },
   props: {
@@ -127,17 +119,12 @@ export default {
     },
   },
   setup(props) {
-    const { tabs, uuid, hintMarkdownSource, unitType } = toRefs(props);
+    const { tabs, uuid, unitType } = toRefs(props);
 
     const state = reactive({
       commentText: null,
       currentTabName: tabs.value[0]?.name,
     });
-
-    const isHintAvailable = computed(() => {
-      return hintMarkdownSource.value !== null;
-    });
-
     const btnClick = async () => {
       try {
         if (!state.commentText === null) {
@@ -169,7 +156,6 @@ export default {
       ...toRefs(state),
       setCurrentTabName,
       btnClick,
-      isHintAvailable,
     };
   },
 };
