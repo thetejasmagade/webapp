@@ -22,7 +22,7 @@
                   {{ userAchievement.Title }}
                 </p>
 
-                <p class="text-center text-sm">
+                <p class="text-center">
                   {{ userAchievement.Description }}
                 </p>
               </div>
@@ -71,7 +71,7 @@
                   {{ userAchievement.Title }}
                 </p>
 
-                <p class="text-center text-sm">
+                <p class="text-center">
                   {{ userAchievement.Description }}
                 </p>
               </div>
@@ -106,7 +106,7 @@
                   {{ userAchievement.Title }}
                 </p>
 
-                <p class="text-center text-sm">
+                <p class="text-center">
                   {{ userAchievement.Description }}
                 </p>
               </div>
@@ -141,7 +141,7 @@
                   {{ userAchievement.Title }}
                 </p>
 
-                <p class="text-center text-sm">
+                <p class="text-center">
                   {{ userAchievement.Description }}
                 </p>
               </div>
