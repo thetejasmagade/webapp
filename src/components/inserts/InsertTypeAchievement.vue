@@ -85,9 +85,9 @@ export default {
       );
       const tweet = `🔥 Achievement Unlocked 🔥
       
-I just coded my way into the '${achievementEarned.value?.AchievementTitle}' achievement on Boot .dev
+I just coded my way into the '${achievementEarned.value?.AchievementTitle}' achievement on Boot.dev
 
-#Bootdev ${resp.TwitterImageURL}
+#Bootdev @bootdotdev ${resp.TwitterImageURL}
 `;
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`,
