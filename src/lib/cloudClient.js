@@ -461,6 +461,18 @@ export async function getPendingAchievements() {
   return handled;
 }
 
+export async function getAchievementsProgress() {
+  const resp = await fetchWithAuth(`${domain}/v1/achievements/progress`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function markAchievementSeen(achievementUUID) {
   const resp = await fetchWithAuth(
     `${domain}/v1/achievements/mark_seen/${achievementUUID}`,

@@ -28,8 +28,9 @@
         :x="cx"
         :y="cy"
         stroke="currentColor"
+        fill="currentColor"
         dy=".3em"
-        font-size="14"
+        :font-size="radius * 0.7"
         text-anchor="middle"
       >
         {{ Math.round(curPercent) }}%
@@ -40,8 +41,9 @@
         :x="cx"
         :y="cy"
         stroke="currentColor"
+        fill="currentColor"
         dy=".3em"
-        font-size="14"
+        :font-size="radius * 0.7"
         text-anchor="middle"
       >
         {{ level }}
@@ -50,6 +52,7 @@
         v-if="checkmark && curPercent === 100 && !level"
         class="text-blue-400"
         stroke="currentColor"
+        fill="currentColor"
         :x1="cx * 0.65"
         :y1="cy * 1.05"
         :x2="cx * 0.9"
