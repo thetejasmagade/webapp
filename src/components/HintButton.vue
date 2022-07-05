@@ -1,10 +1,6 @@
 <template>
-  <div class="flex flex-row justify-start content-center ml-7">
-    <BlockButton
-      v-if="!didUserHint && isHintAvailable"
-      :class="colors"
-      :click="hintCallback"
-    >
+  <div class="flex justify-center">
+    <BlockButton class="blue" :click="callback">
       <font-awesome-icon icon="eye" class="mr-2" />
       View Hint
     </BlockButton>
@@ -21,35 +17,10 @@ export default {
     BlockButton,
   },
   props: {
-    color: {
-      type: String,
-      required: false,
-      default: "blue",
-    },
-    hintCallback: {
+    callback: {
       type: Function,
       required: false,
       default: null,
-    },
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    didUserHint: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    isHintAvailable: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    colors: {
-      type: String,
-      required: false,
-      default: "blue",
     },
   },
 };

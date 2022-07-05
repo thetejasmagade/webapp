@@ -141,6 +141,8 @@ import {
   getExerciseByID,
   getCourseProgress,
   getUnitsProgress,
+  markHintSeen,
+  markSolutionSeen,
 } from "@/lib/cloudClient.js";
 
 import {
@@ -513,15 +515,34 @@ export default {
       if (!store.getters.getIsLoggedIn) {
         return;
       }
-      state.usedHint = !state.usedHint;
+      state.usedHint = true;
+      notify({
+        type: "warn",
+        text: "XP for this assignment reduced by 50%",
+      });
+      try {
+        await markHintSeen(route.params.exerciseUUID);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     const cheatCallback = async () => {
       if (!store.getters.getIsLoggedIn) {
         return;
       }
+
       state.isCheating = !state.isCheating;
       if (state.isCheating) {
+        notify({
+          type: "warn",
+          text: "XP for this assignment reduced by 75%",
+        });
+        try {
+          await markSolutionSeen(route.params.exerciseUUID);
+        } catch (err) {
+          console.log(err);
+        }
         eventClickCheat(route.params.exerciseUUID, course.value?.Title);
       }
     };

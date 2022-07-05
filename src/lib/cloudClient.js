@@ -770,6 +770,36 @@ export async function getNextStep(projectUUID, currentStepUUID) {
   return handled;
 }
 
+export async function markHintSeen(exerciseUUID) {
+  const resp = await fetchWithAuthIfAuthed(
+    `${domain}/v1/exercises/${exerciseUUID}/mark_hint_seen`,
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function markSolutionSeen(exerciseUUID) {
+  const resp = await fetchWithAuthIfAuthed(
+    `${domain}/v1/exercises/${exerciseUUID}/mark_solution_seen`,
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function submitCodeCanvasExercise(exerciseUUID, canvasHash) {
   const resp = await fetchWithAuthIfAuthed(
     `${domain}/v1/exercises/${exerciseUUID}/code_canvas`,
