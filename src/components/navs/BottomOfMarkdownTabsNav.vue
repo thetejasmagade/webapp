@@ -58,7 +58,8 @@
         </p>
       </div>
       <div v-if="currentTabName === 'Hint'">
-        <MarkdownViewer :source="hintMarkdownSource" />
+        <HintButton v-if="!didUserHint" :callback="hintCallback" />
+        <MarkdownViewer v-else :source="hintMarkdownSource" />
       </div>
     </div>
   </div>
@@ -67,6 +68,7 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
+import HintButton from "@/components/HintButton.vue";
 
 import BlockButton from "@/components/BlockButton.vue";
 import { notify } from "@/lib/notification.js";
@@ -83,6 +85,7 @@ export default {
     FontAwesomeIcon,
     BlockButton,
     MarkdownViewer,
+    HintButton,
   },
   props: {
     tabs: {

@@ -16,5 +16,8 @@ function color(type) {
   if (type === "danger") {
     return "#ED4245";
   }
+  if (type === "warn") {
+    return "#DFBE01";
+  }
   return "#5865F2";
 }
