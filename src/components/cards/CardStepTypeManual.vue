@@ -88,7 +88,7 @@ export default {
   methods: {
     linkClick() {
       window.open(
-        `https://github.com/qvault/projects/tree/main/projects/${this.projectSlug}/${this.stepSlug}/src`,
+        `https://github.com/bootdotdev/projects/tree/main/projects/${this.projectSlug}/${this.stepSlug}/src`,
         "_blank"
       );
     },

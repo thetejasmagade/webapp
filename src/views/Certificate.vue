@@ -101,7 +101,7 @@ export default {
         link.click();
         document.body.removeChild(link);
       }
-      downloadURI(dataUrl, "qvault_certificate.png");
+      downloadURI(dataUrl, "bootdev_certificate.png");
     };
 
     const computedMeta = computed(() => {
