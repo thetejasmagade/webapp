@@ -27,11 +27,17 @@
                 :ref="`cardbody${i}`"
                 class="p-4 flex flex-col items-center bg-gray-900 text-center"
               >
-                <p class="text-lg mb-2">
+                <p
+                  class="text-lg mb-2 overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full"
+                >
                   {{ `#${i + 1}` }} {{ user.FirstName }}
                 </p>
 
-                <p class="text-center text-blue-400">@{{ user.Handle }}</p>
+                <p
+                  class="text-center text-blue-400 overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full"
+                >
+                  @{{ user.Handle }}
+                </p>
 
                 <p class="text-center">{{ user.Count }} exercises</p>
               </div>
@@ -64,11 +70,17 @@
                 :ref="`cardbody${i}`"
                 class="p-4 flex flex-col items-center bg-gray-900 text-center"
               >
-                <p class="text-lg mb-2">
+                <p
+                  class="text-lg mb-2 overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full"
+                >
                   {{ `#${i + 1}` }} {{ user.FirstName }}
                 </p>
 
-                <p class="text-center text-blue-400">@{{ user.Handle }}</p>
+                <p
+                  class="text-center text-blue-400 overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full"
+                >
+                  @{{ user.Handle }}
+                </p>
 
                 <p class="text-center">{{ user.Count }} exercises</p>
               </div>
@@ -105,14 +117,20 @@
                 :ref="`cardbody${i}`"
                 class="p-4 flex flex-col items-center bg-gray-900 text-center"
               >
-                <p class="text-lg mb-2">
+                <p
+                  class="text-lg mb-2 overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full"
+                >
                   {{ `#${i + 1}` }} {{ user.FirstName }}
                 </p>
 
-                <p class="text-center text-blue-400">@{{ user.Handle }}</p>
+                <p
+                  class="text-center text-blue-400 overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full"
+                >
+                  @{{ user.Handle }}
+                </p>
 
                 <p class="text-center">Level: {{ user.Level }}</p>
-                <p class="text-center">+{{ user.XPForLevel }} XP</p>
+                <p class="text-center">+{{ user.XPForLevel }} xp</p>
               </div>
             </ImageCard>
           </div>
