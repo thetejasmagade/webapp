@@ -437,6 +437,48 @@ export async function getInterests() {
   return handled;
 }
 
+export async function getLeaderBoardNumExercisesHistogram(timeframe) {
+  const resp = await fetch(
+    `${domain}/v1/leaderboard_num_exercises_histogram/${timeframe}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getLeaderBoardNumExercises(timeframe) {
+  const resp = await fetch(
+    `${domain}/v1/leaderboard_num_exercises/${timeframe}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
+export async function getLeaderBoardXP() {
+  const resp = await fetch(`${domain}/v1/leaderboard_xp/alltime`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getUserAchievements() {
   const resp = await fetchWithAuth(`${domain}/v1/users/achievements`, {
     method: "GET",

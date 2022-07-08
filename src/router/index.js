@@ -16,6 +16,7 @@ const Browse = () => import("@/views/Browse.vue");
 const Project = () => import("@/views/Project.vue");
 const CourseLanding = () => import("@/views/CourseLanding.vue");
 const ProjectLanding = () => import("@/views/ProjectLanding.vue");
+const Leaderboard = () => import("@/views/Leaderboard.vue");
 
 import { isLoggedIn } from "@/lib/cloudClient.js";
 import { slugCS, slugAlgos, slugGolang } from "../lib/trackSlugs";
@@ -150,6 +151,11 @@ const routes = [
     path: "/pricing",
     name: "Pricing",
     component: Pricing,
+  },
+  {
+    path: "/leaderboard",
+    name: "Leaderboard",
+    component: Leaderboard,
   },
   {
     path: "/certificate/:userHandle/:courseUUID",
