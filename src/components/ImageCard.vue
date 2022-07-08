@@ -1,39 +1,43 @@
 <template>
-  <div class="rounded tracking-wide">
-    <div
-      v-if="imgSrc"
-      class="md:shrink-0 rounded"
-      :class="{
-        'rounded-b-none': hasSlots,
-      }"
+  <div>
+    <router-link
+      v-if="link"
+      :to="link"
+      class="rounded tracking-wide hover:opacity-50 cursor-pointer"
     >
-      <img
-        loading="lazy"
-        :src="imgSrc"
-        class="rounded object-cover h-full w-full"
-        :class="{
-          'rounded-b-none': hasSlots,
-        }"
-      />
-    </div>
-    <div v-if="hasSlots">
+      <ImageCardContents :img-src="imgSrc" :square="square">
+        <slot />
+      </ImageCardContents>
+    </router-link>
+
+    <ImageCardContents v-else :img-src="imgSrc" :square="square">
       <slot />
-    </div>
+    </ImageCardContents>
   </div>
 </template>
 
 <script>
+import ImageCardContents from "@/components/ImageCardContents.vue";
+
 export default {
+  components: {
+    ImageCardContents,
+  },
   props: {
     imgSrc: {
       type: String,
       required: false,
       default: null,
     },
-  },
-  computed: {
-    hasSlots() {
-      return this.$slots.default;
+    link: {
+      type: Object,
+      required: false,
+      default: null,
+    },
+    square: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 };

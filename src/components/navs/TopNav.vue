@@ -87,6 +87,13 @@
                 Pricing
               </router-link>
 
+              <router-link
+                to="/leaderboard"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded"
+              >
+                Leaderboard
+              </router-link>
+
               <a
                 href="https://discord.gg/EEkFwbv"
                 target="_blank"
