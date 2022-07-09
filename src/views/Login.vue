@@ -9,7 +9,7 @@
     >
       <Section
         title="What if learning computer science was fun?"
-        subtitle="Master CS principles by writing modern code in our gamified platform."
+        subtitle="Master CS principles by writing modern code in our game-like environment."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >
@@ -81,7 +81,7 @@
 
       <Section
         :title="`What will I learn?`"
-        :subtitle="`Practice computer science fundamentals by writing modern code`"
+        :subtitle="`Gain career-critical CS skills by coding in JavaScript, Python and Go`"
         class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-4">
@@ -103,27 +103,29 @@
           </div>
 
           <p class="mb-4">
-            We have a variety of courses written in Python, Golang, and
-            JavaScript, with more languages coming in the future. Each course
-            emphasizes CS principles, not simply frameworks and technologies.
+            Boot.dev is a computer science program. You learn the same kinds of
+            things with us that you would learn in a 4-year degree from college.
+            The majority of our students are preparing for a job in backend web
+            development, but CS skills are immensely valuable in all programming
+            jobs - from front-end to DevOps engineers.
           </p>
           <p class="mb-4">
             Computer science concepts and engineering best practices rarely
-            change. Popular languages and frameworks come and go.
-          </p>
-          <p class="mb-4">
+            change, but popular coding tools come and go. That's why Boot.dev is
+            less concerned about which programming languages we use, and more
+            concerned with teaching the underlying CS and engineering concepts.
             You can check out all of our
             <router-link
               class="underline cursor-pointer text-blue-400 hover:text-blue-300"
               to="/courses"
-              >courses and tracks here.</router-link
+              >courses and projects here.</router-link
             >
           </p>
         </div>
       </Section>
 
       <Section
-        :title="`What students say about Boot.dev`"
+        :title="`What our students say`"
         :subtitle="`Join over 12,000 developers learning on Boot.dev`"
         class="max-w-4xl w-full mb-5 mt-4"
       >
@@ -138,13 +140,13 @@
             class="mb-5"
             :profile-image-u-r-l="danielImage"
             title="Daniel Gerep from Cássia, Brazil"
-            description="I’m a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord is a blast, and the members are quick to help out with detailed answers and explanations."
+            description="I'm a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord is a blast, and the members are quick to help out with detailed answers and explanations."
           />
           <Testimonial
             class="mb-5"
             :profile-image-u-r-l="ozyImage"
             title="Özgür Yildirim from Esslingen, Germany"
-            description="I’m a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren’t an option because of work and wanting time with my kid! I came across Boot.dev after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I’d made the right decision going with Boot.dev."
+            description="I'm a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren't an option because of work and wanting time with my kid! I came across Boot.dev after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I'd made the right decision going with Boot.dev."
           />
           <Testimonial
             :profile-image-u-r-l="ignacioImage"
@@ -155,45 +157,30 @@
       </Section>
 
       <Section
-        :title="`We have strong beliefs about the best way to learn to code`"
-        :subtitle="`Don't waste time, learn to code the right way`"
+        :title="`We have beliefs about the best way to learn to code`"
         class="max-w-4xl w-full mb-5 mt-4"
       >
-        <div class="p-4">
-          <ul class="list-disc mb-4">
+        <div class="p-4 text-xl">
+          <ul class="list-disc mb-4 ml-4">
             <li>
-              Finding information is easy. Finding the best information is hard.
+              An understanding of computer science will set you apart in the job
+              market
             </li>
+            <li>You can’t learn to code if you aren’t writing code</li>
+            <li>A simple, linear learning path is best</li>
             <li>
-              As programming becomes easier, differentiating yourself becomes
-              harder.
+              It’s not hard to find coding courses online, but it is hard to
+              find good ones
             </li>
-            <li>A mix of guided and unguided learning is essential.</li>
-            <li>Boot camps are too fast, degrees are too slow.</li>
-            <li>
-              Learning the “soft lessons” from mentors is as important as
-              grokking cold-hard facts.
-            </li>
-            <li>Mastery is important, grades are not.</li>
-            <li>The future of learning is online.</li>
-            <li>
-              It’s only enjoyable to solve problems that you have the tools to
-              solve.
-            </li>
-            <li>T-shaped developers are the most successful.</li>
-            <li>You need to have the skills and be able to prove them too.</li>
-            <li>
-              If you don’t define your career goals, you’ll never know when
-              you’re ready for your first job.
-            </li>
-            <li>The ideal first coding job is not freelancing.</li>
+            <li>A mix of guided and unguided learning is essential</li>
+            <li>Boot camps are too fast, universities are too slow</li>
           </ul>
           <div class="text-center w-full">
             <a
               href="https://blog.boot.dev/about"
               class="underline text-blue-400 hover:text-blue-300"
             >
-              Read more about the details on our guiding principles here.
+              Read more about our guiding beliefs here
             </a>
           </div>
         </div>
@@ -213,26 +200,14 @@
               class="rounded object-cover"
             />
           </div>
-          <ul class="list-disc mb-4">
+          <ul class="list-disc mb-4 text-xl">
+            <li>Get advice and help from mentors and peers</li>
+            <li>Improve your resume with feedback from industry-experts</li>
             <li>
-              Participate in our weekly coding workshops to improve your
-              interviewing skills and learn about interesting applications of
-              computer science
+              Share your projects with other members and get help building an
+              amazing portfolio
             </li>
-            <li>
-              Share your career goals and get advice from mentors and peers
-            </li>
-            <li>
-              Bring your resume to our resume review sessions and we’ll help you
-              shine on paper
-            </li>
-            <li>
-              Build projects and work on courses with other members to build an
-              outstanding portfolio
-            </li>
-            <li>
-              Leverage our community to find the jobs you want to apply for
-            </li>
+            <li>Get job-search tips from other developers</li>
           </ul>
           <a
             href="https://discord.gg/EEkFwbv"
