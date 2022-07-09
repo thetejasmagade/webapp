@@ -32,7 +32,6 @@
 <script>
 import { updateUserProfileImage } from "@/lib/cloudClient.js";
 
-import { sleep } from "@/lib/sleep.js";
 import { notify } from "@/lib/notification.js";
 
 export default {
@@ -69,16 +68,8 @@ export default {
       const formData = new FormData();
       formData.append("profileImage", files[0]);
       try {
-        await updateUserProfileImage(formData);
-
-        // let the upload REALLY complete - kinda janky
-        await sleep(1000);
-
-        // cache break to reload image
-        const user = this.$store.getters.getUser;
-        user.ProfileImageURL += "?" + Date.now();
-        this.$store.commit("setUser", user);
-
+        const newUser = await updateUserProfileImage(formData);
+        this.$store.commit("setUser", newUser);
         notify({
           type: "success",
           text: "Profile image updated successfully",

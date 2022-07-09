@@ -3,7 +3,7 @@
     <TopNav />
 
     <div class="flex flex-col justify-center items-center flex-1">
-      <SignupFlowUsername v-if="flowIndex === 0" :on-done="onDone" />
+      <SignupFlowUser v-if="flowIndex === 0" :on-done="onDone" />
       <SignupFlowMethod v-else-if="flowIndex === 1" :on-done="onDone" />
       <SignupFlowCommunity v-else-if="flowIndex === 2" :on-done="onDone" />
     </div>
@@ -14,7 +14,7 @@
 import TopNav from "@/components/navs/TopNav.vue";
 import SignupFlowCommunity from "@/components/signupFlow/SignupFlowCommunity.vue";
 import SignupFlowMethod from "@/components/signupFlow/SignupFlowMethod.vue";
-import SignupFlowUsername from "@/components/signupFlow/SignupFlowUsername.vue";
+import SignupFlowUser from "@/components/signupFlow/SignupFlowUser.vue";
 
 import {
   eventTutorialComplete,
@@ -28,7 +28,7 @@ export default {
     TopNav,
     SignupFlowCommunity,
     SignupFlowMethod,
-    SignupFlowUsername,
+    SignupFlowUser,
   },
   setup() {
     const state = reactive({
