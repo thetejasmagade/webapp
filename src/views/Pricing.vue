@@ -5,93 +5,124 @@
     <div class="md:p-4 sm:p-0 h-full-minus-bar overflow-auto">
       <Section
         class="mb-5"
-        title="Enjoy premium perks and support Boot.dev by becoming a patron"
-        subtitle="Love it or your money back! Enjoy a 30-day money-back guarantee, and feel free to cancel anytime."
+        title="Gain full access to Boot.dev by supporting our creators"
+        subtitle="30-day money-back guarantee. Cancel anytime."
       >
-        <header class="flex flex-col items-center my-8">
-          <h2
+        <div class="p-4">
+          <header
             v-if="$store.getters.getUserIsSubscribed"
-            class="text-2xl text-primary-normal font-bold"
+            class="flex flex-col items-center my-8"
           >
-            You are already a patron. Go take some courses!
-          </h2>
-        </header>
-        <PricingSkeleton v-if="!subscriptionPlan" />
-        <section
-          v-if="priceYearly && priceMonthly && priceLifetime"
-          class="grid md:grid-cols-3 sm:grid-cols-1 gap-4 md:p-4 sm:p-0 w-full"
-        >
-          <div class="flex items-center justify-center">
-            <article
-              class="text-center items-center flex flex-col w-full rounded border border-gray-600 overflow-hidden"
-            >
-              <table class="table-auto border-collapse w-full">
-                <thead>
-                  <tr class="text-xl bg-gray-700">
-                    <th class="px-4 py-2 font-semibold">Basic</th>
-                    <th class="px-4 py-2 font-bold">Patron</th>
-                  </tr>
-                </thead>
-                <tbody class="text-sm font-normal">
-                  <tr class="border-b border-gray-500 py-10">
-                    <td class="px-4 py-2">Read all content</td>
-                    <td class="px-4 py-2 font-bold">Read all content</td>
-                  </tr>
-                  <tr class="border-b border-gray-500 py-4">
-                    <td class="px-4 py-2">Code sandbox</td>
-                    <td class="px-4 py-2 font-bold">Code sandbox</td>
-                  </tr>
-                  <tr class="border-b border-gray-500">
-                    <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">Pass off assignments</td>
-                  </tr>
-                  <tr class="border-b border-gray-500">
-                    <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">Solution keys</td>
-                  </tr>
-                  <tr class="border-b border-gray-500">
-                    <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">Multiple choice quizzes</td>
-                  </tr>
-                  <tr class="border-b border-gray-500">
-                    <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">Patron-only chat</td>
-                  </tr>
-                  <tr class="border-b border-gray-500">
-                    <td class="px-4 py-2">-</td>
-                    <td class="px-4 py-2 font-bold">
-                      Certificates of completion
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </article>
-          </div>
-          <div class="flex items-center justify-center md:col-span-2">
-            <article
-              class="px-6 text-center rounded items-center flex flex-col w-full"
-            >
-              <div class="grid xl:grid-cols-3 lg:grid-cols-1 gap-4 w-full">
-                <div>
+            <h2 class="text-2xl text-primary-normal font-bold">
+              You are already a patron. Go take some courses!
+            </h2>
+          </header>
+
+          <PricingSkeleton v-if="!subscriptionPlan" />
+
+          <section
+            v-if="priceYearly && priceMonthly && priceLifetime"
+            class="grid md:grid-cols-3 sm:grid-cols-1 gap-4 md:p-4 sm:p-0 w-full"
+          >
+            <div class="flex flex-col">
+              <h3 class="text-blue-400 text-xl mb-2">
+                What can I do on the free plan?
+              </h3>
+              <p class="mb-2">
+                The first 2 chapters of each course are free. After that, you'll
+                be in "sandbox" or "view only" mode.
+              </p>
+              <h3 class="text-blue-400 text-xl mb-2">
+                What do I get for becoming a patron?
+              </h3>
+              <ul class="list-disc ml-4">
+                <li>Full access to our entire curriculum</li>
+                <li>Certificates of completion</li>
+                <li>Extra achievements to unlock</li>
+                <li>A special role in our Discord</li>
+                <li>Access to our patron-only Discord chat</li>
+                <li>A warm fuzzy feeling for supporting our creators</li>
+              </ul>
+            </div>
+            <div class="flex items-center justify-center md:col-span-2">
+              <article
+                class="px-6 text-center rounded items-center flex flex-col w-full"
+              >
+                <div class="grid xl:grid-cols-3 lg:grid-cols-1 gap-4 w-full">
+                  <div>
+                    <div
+                      class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
+                    >
+                      <h3 class="text-4xl font-bold">
+                        {{ getCurrencySymbol(priceYearly.CurrencyCode)
+                        }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
+                      </h3>
+                      <p class="mb-4 text-gray-400">yearly</p>
+                      <p class="mb-4">
+                        Save with a
+                        {{
+                          Math.round(
+                            ((priceMonthly.UnitAmountPerMonth -
+                              priceYearly.UnitAmountPerMonth) *
+                              100) /
+                              priceMonthly.UnitAmountPerMonth
+                          )
+                        }}% discount
+                      </p>
+                      <BlockButton
+                        v-if="
+                          $store.getters.getIsLoggedIn &&
+                          !$store.getters.getUserIsSubscribed
+                        "
+                        class="mb-4 py-2 w-full"
+                        :click="
+                          () => {
+                            checkout(priceYearly);
+                          }
+                        "
+                      >
+                        Yearly Plan
+                      </BlockButton>
+                    </div>
+                  </div>
                   <div
-                    class="px-6 py-8 text-center rounded bg-gray-700 items-center flex flex-col h-full w-full"
+                    class="px-6 py-8 text-center rounded bg-blue-600 text-white items-center flex flex-col h-full w-full"
                   >
                     <h3 class="text-4xl font-bold">
-                      {{ getCurrencySymbol(priceYearly.CurrencyCode)
-                      }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
+                      {{ getCurrencySymbol(priceMonthly.CurrencyCode)
+                      }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
                     </h3>
-                    <p class="mb-4 text-gray-400">yearly</p>
-                    <p class="mb-4">
-                      Save with a
-                      {{
-                        Math.round(
-                          ((priceMonthly.UnitAmountPerMonth -
-                            priceYearly.UnitAmountPerMonth) *
-                            100) /
-                            priceMonthly.UnitAmountPerMonth
-                        )
-                      }}% discount
-                    </p>
+                    <p class="mb-4 text-blue-300">monthly</p>
+                    <p class="mb-4">Small monthly payments</p>
+                    <BlockButton
+                      v-if="
+                        $store.getters.getIsLoggedIn &&
+                        !$store.getters.getUserIsSubscribed
+                      "
+                      color="white"
+                      class="mb-4 py-2 w-full"
+                      :click="
+                        () => {
+                          checkout(priceMonthly);
+                        }
+                      "
+                    >
+                      Monthly Plan
+                    </BlockButton>
+                    <span
+                      class="rounded-lg border-white border-2 text-white px-2"
+                      >Most Popular</span
+                    >
+                  </div>
+                  <div
+                    class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
+                  >
+                    <h3 class="text-4xl font-bold">
+                      {{ getCurrencySymbol(priceLifetime.CurrencyCode)
+                      }}{{ priceLifetime.UnitAmount / 100 }}
+                    </h3>
+                    <p class="mb-4 text-gray-400">once</p>
+                    <p class="mb-4">Never be charged again</p>
                     <BlockButton
                       v-if="
                         $store.getters.getIsLoggedIn &&
@@ -100,85 +131,33 @@
                       class="mb-4 py-2 w-full"
                       :click="
                         () => {
-                          checkout(priceYearly);
+                          checkout(priceLifetime);
                         }
                       "
                     >
-                      Yearly Plan
+                      Lifetime
                     </BlockButton>
                   </div>
                 </div>
-                <div
-                  class="px-6 py-8 text-center rounded bg-blue-500 text-white items-center flex flex-col h-full w-full"
-                >
-                  <h3 class="text-4xl font-bold">
-                    {{ getCurrencySymbol(priceMonthly.CurrencyCode)
-                    }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
-                  </h3>
-                  <p class="mb-4 text-blue-300">monthly</p>
-                  <p class="mb-4">Small monthly payments</p>
+                <div v-if="!$store.getters.getIsLoggedIn" class="mt-8">
                   <BlockButton
-                    v-if="
-                      $store.getters.getIsLoggedIn &&
-                      !$store.getters.getUserIsSubscribed
-                    "
-                    color="white"
-                    class="mb-4 py-2 w-full"
+                    class="w-72 py-2"
                     :click="
                       () => {
-                        checkout(priceMonthly);
+                        $router.push({
+                          name: 'Login',
+                          query: { redirect: '/pricing' },
+                        });
                       }
                     "
                   >
-                    Monthly Plan
-                  </BlockButton>
-                  <span class="rounded-lg border-white border-2 text-white px-2"
-                    >Most Popular</span
-                  >
-                </div>
-                <div
-                  class="px-6 py-8 text-center rounded bg-gray-700 items-center flex flex-col h-full w-full"
-                >
-                  <h3 class="text-4xl font-bold">
-                    {{ getCurrencySymbol(priceLifetime.CurrencyCode)
-                    }}{{ priceLifetime.UnitAmount / 100 }}
-                  </h3>
-                  <p class="mb-4 text-gray-400">once</p>
-                  <p class="mb-4">Never be charged again</p>
-                  <BlockButton
-                    v-if="
-                      $store.getters.getIsLoggedIn &&
-                      !$store.getters.getUserIsSubscribed
-                    "
-                    class="mb-4 py-2 w-full"
-                    :click="
-                      () => {
-                        checkout(priceLifetime);
-                      }
-                    "
-                  >
-                    Lifetime
+                    Login to Start
                   </BlockButton>
                 </div>
-              </div>
-              <div v-if="!$store.getters.getIsLoggedIn" class="mt-8">
-                <BlockButton
-                  class="w-72 py-2"
-                  :click="
-                    () => {
-                      $router.push({
-                        name: 'Login',
-                        query: { redirect: '/pricing' },
-                      });
-                    }
-                  "
-                >
-                  Login to Start
-                </BlockButton>
-              </div>
-            </article>
-          </div>
-        </section>
+              </article>
+            </div>
+          </section>
+        </div>
       </Section>
 
       <Section
