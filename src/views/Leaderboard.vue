@@ -3,6 +3,20 @@
     <div
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto p-4"
     >
+      <Section
+        title="How many exercises are learners completing?"
+        class="m-4 max-w-4xl w-full"
+      >
+        <div class="p-4 flex flex-col items-center w-full">
+          <BarChart
+            :categories="leaderboardNumExercisesHistogramAlltimeCategories"
+            :series="leaderboardNumExercisesHistogramAlltimeSeries"
+            y-label="Percentage of learners"
+            x-label="Number of exercises"
+          />
+        </div>
+      </Section>
+
       <Section title="Most exercises completed today" class="m-4 max-w-4xl">
         <div class="p-4 flex flex-col items-center w-full">
           <div
@@ -144,6 +158,7 @@
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
+import BarChart from "@/components/BarChart.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
 import { computed, onMounted, reactive, toRefs } from "vue";
@@ -159,6 +174,7 @@ export default {
     ViewNavWrapper,
     ImageCard,
     Section,
+    BarChart,
   },
   setup() {
     const state = reactive({
@@ -185,7 +201,7 @@ export default {
         return categories;
       }
       for (const bar of state.leaderboardNumExercisesHistogramAlltime) {
-        categories.push(bar.NumExercises);
+        categories.push(`${bar.NumExercises}+`);
       }
       categories.reverse();
       categories.shift();
@@ -197,11 +213,21 @@ export default {
       if (!state.leaderboardNumExercisesHistogramAlltime) {
         return series;
       }
-      for (const bar of state.leaderboardNumExercisesHistogramAlltime) {
-        series.push(bar.Count);
+
+      const copy = JSON.parse(
+        JSON.stringify(state.leaderboardNumExercisesHistogramAlltime)
+      );
+      copy.reverse();
+      copy.shift();
+
+      let total = 0;
+      for (const bar of copy) {
+        total += bar.Count;
       }
-      series.reverse();
-      series.shift();
+
+      for (const bar of copy) {
+        series.push(Math.ceil((bar.Count * 10000) / total) / 100);
+      }
       return series;
     });
 
