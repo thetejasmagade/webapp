@@ -4,7 +4,8 @@
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto p-4"
     >
       <Section
-        title="How many exercises are learners completing?"
+        title="How many exercises are learners doing?"
+        subtitle="Hover over a bar to see the percentage of students who have completed that many exercises"
         class="m-4 max-w-4xl w-full"
       >
         <div class="p-4 flex flex-col items-center w-full">
@@ -17,7 +18,7 @@
         </div>
       </Section>
 
-      <Section title="Most exercises completed today" class="m-4 max-w-4xl">
+      <Section title="Top Daily Learners" class="m-4 max-w-4xl">
         <div class="p-4 flex flex-col items-center w-full">
           <div
             class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
@@ -60,7 +61,7 @@
         </div>
       </Section>
 
-      <Section title="Most exercises completed this week" class="m-4 max-w-4xl">
+      <Section title="Top Weekly Learners" class="m-4 max-w-4xl">
         <div class="p-4 flex flex-col items-center w-full">
           <div
             class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4 mt-8"
@@ -104,7 +105,7 @@
       </Section>
 
       <Section
-        title="Highest level learners of all time"
+        title="Top Learners of All Time"
         subtitle="The pinnacle of achievement"
         class="m-4 max-w-4xl"
       >
@@ -143,8 +144,17 @@
                   @{{ user.Handle }}
                 </p>
 
-                <p class="text-center">Level: {{ user.Level }}</p>
-                <p class="text-center">+{{ user.XPForLevel }} xp</p>
+                <Radial
+                  class="m-2"
+                  :from-percent="0"
+                  :to-percent="
+                    Math.round((user.XPForLevel / user.XPTotalForLevel) * 100)
+                  "
+                  :duration="2000"
+                  :level="user.Level"
+                  :radius="30"
+                  :stroke-width="7"
+                />
               </div>
             </ImageCard>
           </div>
@@ -159,6 +169,7 @@ import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
 import BarChart from "@/components/BarChart.vue";
+import Radial from "@/components/Radial.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
 import { computed, onMounted, reactive, toRefs } from "vue";
@@ -174,6 +185,7 @@ export default {
     ViewNavWrapper,
     ImageCard,
     Section,
+    Radial,
     BarChart,
   },
   setup() {
