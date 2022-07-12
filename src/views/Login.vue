@@ -8,8 +8,8 @@
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
     >
       <Section
-        title="What if learning computer science was fun?"
-        subtitle="Master CS principles by writing modern code in our game-like environment."
+        title="You don't need a CS degree to get hired, but you do need computer science skills."
+        subtitle="Prepare to land an entry-level role in tech by building real coding projects."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >
@@ -76,6 +76,26 @@
               </p>
             </div>
           </div>
+        </div>
+      </Section>
+
+      <Section
+        :title="`A simple path to your first job as a developer`"
+        class="max-w-4xl w-full mb-5 mt-4"
+      >
+        <div class="p-4">
+          <h3 class="mb-2 text-xl">
+            1. Learn the CS concepts that will set you apart in the job market
+            by completing guided courses.
+          </h3>
+          <h3 class="mb-2 text-xl">
+            2. Apply the concepts you've learned by building real-world
+            projects.
+          </h3>
+          <h3 class="mb-2 text-xl">
+            3. Prove your skills to employers by showing off the tangible
+            projects listed on your portfolio, Github, and resume.
+          </h3>
         </div>
       </Section>
 
