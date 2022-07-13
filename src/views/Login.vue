@@ -83,19 +83,30 @@
         :title="`A simple path to your first job as a developer`"
         class="max-w-4xl w-full mb-5 mt-4"
       >
-        <div class="p-4">
-          <h3 class="mb-2 text-xl">
-            1. Learn the CS concepts that will set you apart in the job market
-            by completing guided courses.
+        <div class="p-8">
+          <h3 class="text-2xl text-blue-400 font-bold">
+            #1 - Computer science courses
           </h3>
-          <h3 class="mb-2 text-xl">
-            2. Apply the concepts you've learned by building real-world
-            projects.
+          <p class="mb-4">
+            Learn the CS concepts that will set you apart in the job market by
+            completing hands-on courses.
+          </p>
+
+          <h3 class="text-2xl text-blue-400 font-bold">
+            #2 - Real-world coding projects
           </h3>
-          <h3 class="mb-2 text-xl">
-            3. Prove your skills to employers by showing off the tangible
-            projects listed on your portfolio, Github, and resume.
+          <p class="mb-4">
+            Apply the concepts you've learned by building real-world projects
+            using modern programming languages and technologies.
+          </p>
+
+          <h3 class="text-2xl text-blue-400 font-bold">
+            #3 - A job-winning portfolio & resume
           </h3>
+          <p class="mb-4">
+            Prove your skills to employers by showing off the tangible projects
+            listed on your portfolio, Github, and resume.
+          </p>
         </div>
       </Section>
 

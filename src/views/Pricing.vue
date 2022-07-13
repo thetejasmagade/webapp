@@ -1,14 +1,15 @@
 <template>
   <ViewNavWrapper>
     <LoadingOverlay :is-loading="isLoading" />
-
-    <div class="md:p-4 sm:p-0 h-full-minus-bar overflow-auto">
+    <div
+      class="md:p-4 sm:p-0 h-full-minus-bar overflow-auto flex flex-col justify-start items-center"
+    >
       <Section
-        class="mb-5"
-        title="Gain full access to Boot.dev by supporting our creators"
-        subtitle="30-day money-back guarantee. Cancel anytime."
+        class="mb-5 max-w-6xl w-full"
+        title="Become a patron, keep learning, then get a coding job"
+        subtitle="There is no risk to you! If you don't like the program, we have a 30-day money-back guarantee and it's easy to cancel."
       >
-        <div class="p-4">
+        <div class="p-8">
           <header
             v-if="$store.getters.getUserIsSubscribed"
             class="flex flex-col items-center my-8"
@@ -22,148 +23,162 @@
 
           <section
             v-if="priceYearly && priceMonthly && priceLifetime"
-            class="grid md:grid-cols-3 sm:grid-cols-1 gap-4 md:p-4 sm:p-0 w-full"
+            class="grid xl:grid-cols-3 lg:grid-cols-1 gap-4 w-full"
           >
-            <div class="flex flex-col">
-              <h3 class="text-blue-400 text-xl mb-2">
-                What can I do on the free plan?
+            <div
+              class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
+            >
+              <h3 class="text-4xl font-bold">
+                {{ getCurrencySymbol(priceYearly.CurrencyCode)
+                }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
               </h3>
-              <p class="mb-2">
-                The first 2 chapters of each course are free. After that, you'll
-                be in "sandbox" or "view only" mode.
+              <p class="mb-4 text-gray-400">yearly</p>
+              <p class="mb-4">
+                Save with a
+                {{
+                  Math.round(
+                    ((priceMonthly.UnitAmountPerMonth -
+                      priceYearly.UnitAmountPerMonth) *
+                      100) /
+                      priceMonthly.UnitAmountPerMonth
+                  )
+                }}% discount
               </p>
-              <h3 class="text-blue-400 text-xl mb-2">
-                What do I get for becoming a patron?
-              </h3>
-              <ul class="list-disc ml-4">
-                <li>Full access to our entire curriculum</li>
-                <li>Certificates of completion</li>
-                <li>Extra achievements to unlock</li>
-                <li>A special role in our Discord</li>
-                <li>Access to our patron-only Discord chat</li>
-                <li>A warm fuzzy feeling for supporting our creators</li>
-              </ul>
-            </div>
-            <div class="flex items-center justify-center md:col-span-2">
-              <article
-                class="px-6 text-center rounded items-center flex flex-col w-full"
+              <BlockButton
+                v-if="
+                  $store.getters.getIsLoggedIn &&
+                  !$store.getters.getUserIsSubscribed
+                "
+                class="mb-4 py-2 w-full"
+                :click="
+                  () => {
+                    checkout(priceYearly);
+                  }
+                "
               >
-                <div class="grid xl:grid-cols-3 lg:grid-cols-1 gap-4 w-full">
-                  <div>
-                    <div
-                      class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
-                    >
-                      <h3 class="text-4xl font-bold">
-                        {{ getCurrencySymbol(priceYearly.CurrencyCode)
-                        }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
-                      </h3>
-                      <p class="mb-4 text-gray-400">yearly</p>
-                      <p class="mb-4">
-                        Save with a
-                        {{
-                          Math.round(
-                            ((priceMonthly.UnitAmountPerMonth -
-                              priceYearly.UnitAmountPerMonth) *
-                              100) /
-                              priceMonthly.UnitAmountPerMonth
-                          )
-                        }}% discount
-                      </p>
-                      <BlockButton
-                        v-if="
-                          $store.getters.getIsLoggedIn &&
-                          !$store.getters.getUserIsSubscribed
-                        "
-                        class="mb-4 py-2 w-full"
-                        :click="
-                          () => {
-                            checkout(priceYearly);
-                          }
-                        "
-                      >
-                        Yearly Plan
-                      </BlockButton>
-                    </div>
-                  </div>
-                  <div
-                    class="px-6 py-8 text-center rounded bg-blue-600 text-white items-center flex flex-col h-full w-full"
-                  >
-                    <h3 class="text-4xl font-bold">
-                      {{ getCurrencySymbol(priceMonthly.CurrencyCode)
-                      }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
-                    </h3>
-                    <p class="mb-4 text-blue-300">monthly</p>
-                    <p class="mb-4">Small monthly payments</p>
-                    <BlockButton
-                      v-if="
-                        $store.getters.getIsLoggedIn &&
-                        !$store.getters.getUserIsSubscribed
-                      "
-                      color="white"
-                      class="mb-4 py-2 w-full"
-                      :click="
-                        () => {
-                          checkout(priceMonthly);
-                        }
-                      "
-                    >
-                      Monthly Plan
-                    </BlockButton>
-                    <span
-                      class="rounded-lg border-white border-2 text-white px-2"
-                      >Most Popular</span
-                    >
-                  </div>
-                  <div
-                    class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
-                  >
-                    <h3 class="text-4xl font-bold">
-                      {{ getCurrencySymbol(priceLifetime.CurrencyCode)
-                      }}{{ priceLifetime.UnitAmount / 100 }}
-                    </h3>
-                    <p class="mb-4 text-gray-400">once</p>
-                    <p class="mb-4">Never be charged again</p>
-                    <BlockButton
-                      v-if="
-                        $store.getters.getIsLoggedIn &&
-                        !$store.getters.getUserIsSubscribed
-                      "
-                      class="mb-4 py-2 w-full"
-                      :click="
-                        () => {
-                          checkout(priceLifetime);
-                        }
-                      "
-                    >
-                      Lifetime
-                    </BlockButton>
-                  </div>
-                </div>
-                <div v-if="!$store.getters.getIsLoggedIn" class="mt-8">
-                  <BlockButton
-                    class="w-72 py-2"
-                    :click="
-                      () => {
-                        $router.push({
-                          name: 'Login',
-                          query: { redirect: '/pricing' },
-                        });
-                      }
-                    "
-                  >
-                    Login to Start
-                  </BlockButton>
-                </div>
-              </article>
+                Yearly Plan
+              </BlockButton>
+            </div>
+            <div
+              class="px-6 py-8 text-center rounded bg-blue-600 text-white items-center flex flex-col h-full w-full"
+            >
+              <h3 class="text-4xl font-bold">
+                {{ getCurrencySymbol(priceMonthly.CurrencyCode)
+                }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
+              </h3>
+              <p class="mb-4 text-blue-300">monthly</p>
+              <p class="mb-4">Small monthly payments</p>
+              <BlockButton
+                v-if="
+                  $store.getters.getIsLoggedIn &&
+                  !$store.getters.getUserIsSubscribed
+                "
+                color="white"
+                class="mb-4 py-2 w-full"
+                :click="
+                  () => {
+                    checkout(priceMonthly);
+                  }
+                "
+              >
+                Monthly Plan
+              </BlockButton>
+              <span class="rounded-lg border-white border-2 text-white px-2"
+                >Most Popular</span
+              >
+            </div>
+            <div
+              class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
+            >
+              <h3 class="text-4xl font-bold">
+                {{ getCurrencySymbol(priceLifetime.CurrencyCode)
+                }}{{ priceLifetime.UnitAmount / 100 }}
+              </h3>
+              <p class="mb-4 text-gray-400">once</p>
+              <p class="mb-4">Never be charged again</p>
+              <BlockButton
+                v-if="
+                  $store.getters.getIsLoggedIn &&
+                  !$store.getters.getUserIsSubscribed
+                "
+                class="mb-4 py-2 w-full"
+                :click="
+                  () => {
+                    checkout(priceLifetime);
+                  }
+                "
+              >
+                Lifetime
+              </BlockButton>
+            </div>
+
+            <div v-if="!$store.getters.getIsLoggedIn" class="mt-8">
+              <BlockButton
+                class="w-72 py-2"
+                :click="
+                  () => {
+                    $router.push({
+                      name: 'Login',
+                      query: { redirect: '/pricing' },
+                    });
+                  }
+                "
+              >
+                Login to Start
+              </BlockButton>
             </div>
           </section>
         </div>
       </Section>
 
       <Section
+        class="mb-5 max-w-6xl w-full"
+        title="As a patron you will unlock:"
+      >
+        <div class="p-8 text-lg">
+          <h3 class="text-2xl text-blue-400 font-bold">
+            Complete access to the computer science career path
+          </h3>
+          <p class="mb-4">
+            A single payment plan gets you access to everything you need. The CS
+            concepts our lessons focus on are designed to set you apart in the
+            job market.
+          </p>
+
+          <h3 class="text-2xl text-blue-400 font-bold">
+            A simple path to your first developer job
+          </h3>
+          <p class="mb-4">
+            As you complete lessons you'll be developing a portfolio of projects
+            and certificates that qualify you for entry-level programming jobs.
+          </p>
+
+          <h3 class="text-2xl text-blue-400 font-bold">
+            Extra support from our creators and community
+          </h3>
+          <p class="mb-4">
+            You'll get access to our patron-only priority Discord chat.
+          </p>
+
+          <h3 class="text-2xl text-blue-400 font-bold">A no-risk education</h3>
+          <p class="mb-4">
+            Our curriculum costs less than 5% of a typical Bootcamp or college
+            degree. If you don't like our program, we'll even refund you!
+          </p>
+
+          <h3 class="text-2xl text-blue-400 font-bold">
+            A warm, fuzzy feeling
+          </h3>
+          <p class="mb-4">
+            We're a small team of 2 creators - we appreciate your support!
+          </p>
+        </div>
+      </Section>
+
+      <Section
         title="Join our network of over 400 patrons"
         subtitle="We can't wait to see you in the Discord"
-        class="mb-5"
+        class="mb-5 max-w-6xl w-full"
       >
         <div class="flex justify-center">
           <div class="max-w-4xl flex flex-col py-8">
@@ -194,7 +209,7 @@
         </div>
       </Section>
 
-      <FAQ />
+      <FAQ class="max-w-6xl w-full" />
     </div>
   </ViewNavWrapper>
 </template>

@@ -1,14 +1,50 @@
 <template>
-  <div>
-    <h1 class="text-2xl text-blue-400 mb-4">
+  <div class="text-lg">
+    <h1 class="text-3xl text-blue-400 mb-4 font-bold">
       {{ headingText }}
     </h1>
-    <p class="mb-4">
-      {{ descriptionText }}
-    </p>
-    <BlockButton :click="btnClick">
-      {{ buttonText }}
-    </BlockButton>
+
+    <p class="mb-2">As a Patron you will unlock:</p>
+
+    <div class="p-2">
+      <h3 class="text-xl text-blue-400 font-bold">
+        Complete access to the CS career path
+      </h3>
+      <p class="mb-4">
+        A single payment plan gets you access to everything you need
+      </p>
+
+      <h3 class="text-xl text-blue-400 font-bold">
+        A simple path to your first developer job
+      </h3>
+      <p class="mb-4">
+        As you complete lessons you'll be developing a portfolio of projects and
+        certificates that qualify you for entry-level programming jobs
+      </p>
+
+      <h3 class="text-xl text-blue-400 font-bold">
+        Extra support from our creators and community
+      </h3>
+      <p class="mb-4">
+        You'll get access to our patron-only priority Discord chat
+      </p>
+
+      <h3 class="text-xl text-blue-400 font-bold">A no-risk education</h3>
+      <p class="mb-4">
+        Our curriculum costs less than 5% of a typical Bootcamp or college
+        degree. If you don't like our program, we'll even refund you!
+      </p>
+
+      <h3 class="text-xl text-blue-400 font-bold">A warm, fuzzy feeling</h3>
+      <p class="mb-4">
+        We're a small team of 2 creators - we appreciate your support!
+      </p>
+    </div>
+    <div class="flex justify-center">
+      <BlockButton :click="btnClick">
+        {{ buttonText }}
+      </BlockButton>
+    </div>
   </div>
 </template>
 
@@ -53,9 +89,9 @@ export default {
 
     const headingText = computed(() => {
       if (store.getters.getIsLoggedIn) {
-        return "Become a patron for full access";
+        return "Become a Patron to keep going!";
       }
-      return "Login for full access";
+      return "Login to keep track of your progress!";
     });
 
     const buttonText = computed(() => {
@@ -63,17 +99,6 @@ export default {
         return "Become a patron";
       }
       return "Login";
-    });
-
-    const descriptionText = computed(() => {
-      if (store.getters.getIsLoggedIn) {
-        return `You're in sandbox mode! You can read instructions and play with the code,
-        but to check your answers, pass-off your assignments,
-        and take quizzes you'll need to become a patron.`;
-      }
-      return `You're in sandbox mode! You can read instructions and play with the code,
-        but to check your answers, pass-off your assignments,
-        and take quizzes you'll need to login.`;
     });
 
     const btnClick = () => {
@@ -88,7 +113,6 @@ export default {
     return {
       headingText,
       buttonText,
-      descriptionText,
       btnClick,
     };
   },
