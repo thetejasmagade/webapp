@@ -6,7 +6,7 @@
     >
       <Section
         class="mb-5 max-w-6xl w-full"
-        title="Become a patron, keep learning, then get a coding job"
+        title="Unlock full access to the lessons and projects that build a strong portfolio"
         subtitle="There is no risk to you! If you don't like the program, we have a 30-day money-back guarantee and it's easy to cancel."
       >
         <div class="p-8">
