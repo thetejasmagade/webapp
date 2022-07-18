@@ -3,6 +3,7 @@
     <div
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto p-4"
     >
+      <LeaderboardSkeleton v-if="!leaderboardNumExercisesDay" />
       <Section
         title="How many exercises are learners doing?"
         subtitle="Hover over a bar to see the percentage of students who have completed that many exercises"
@@ -165,6 +166,7 @@
 </template>
 
 <script>
+import LeaderboardSkeleton from "@/components/skeletons/LeaderboardSkeleton.vue";
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import ImageCard from "@/components/ImageCard.vue";
 import Section from "@/components/Section.vue";
@@ -187,6 +189,7 @@ export default {
     Section,
     Radial,
     BarChart,
+    LeaderboardSkeleton,
   },
   setup() {
     const state = reactive({
