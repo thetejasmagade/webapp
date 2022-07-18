@@ -1,7 +1,8 @@
 <template>
   <ViewNavWrapper>
+    <PortfolioSkeleton v-if="!user" />
     <div
-      v-if="user"
+      v-else
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto p-4"
     >
       <Section
@@ -148,6 +149,7 @@
 </template>
 
 <script>
+import PortfolioSkeleton from "@/components/skeletons/PortfolioSkeleton.vue";
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import ProfileImage from "@/components/ProfileImage.vue";
@@ -175,6 +177,7 @@ export default {
     ProfileImage,
     ImageCard,
     Section,
+    PortfolioSkeleton,
   },
   setup() {
     const state = reactive({
