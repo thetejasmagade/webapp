@@ -516,10 +516,12 @@ export default {
         return;
       }
       state.usedHint = true;
-      notify({
-        type: "warn",
-        text: "XP for this assignment reduced by 50%",
-      });
+      if (!isExerciseComplete.value) {
+        notify({
+          type: "warn",
+          text: "XP for this assignment reduced by 50%",
+        });
+      }
       try {
         await markHintSeen(route.params.exerciseUUID);
       } catch (err) {
@@ -533,7 +535,7 @@ export default {
       }
 
       state.isCheating = !state.isCheating;
-      if (state.isCheating) {
+      if (state.isCheating && !isExerciseComplete.value) {
         notify({
           type: "warn",
           text: "XP for this assignment reduced by 75%",
