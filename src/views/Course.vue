@@ -535,7 +535,6 @@ export default {
       }
 
       state.isCheating = !state.isCheating;
-      console.log(isExerciseComplete.value);
       if (state.isCheating && !isExerciseComplete.value) {
         notify({
           type: "warn",
