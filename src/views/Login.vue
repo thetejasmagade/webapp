@@ -8,8 +8,8 @@
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
     >
       <Section
-        title="You don't need a CS degree to get hired, but you do need computer science skills."
-        subtitle="Prepare to land an entry-level role in tech by building real coding projects."
+        title="A simple path to your self-taught backend career"
+        subtitle="Real projects will get you interviews. Computer science skills will land you the job."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >
@@ -80,12 +80,12 @@
       </Section>
 
       <Section
-        :title="`A simple path to your first job as a developer`"
+        title="A computer science education that will get you a job"
         class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-8">
           <h3 class="text-2xl text-blue-400 font-bold">
-            #1 - Computer science courses
+            #1 - Complete hands-on computer science courses
           </h3>
           <p class="mb-4">
             Learn the CS concepts that will set you apart in the job market by
@@ -93,7 +93,7 @@
           </p>
 
           <h3 class="text-2xl text-blue-400 font-bold">
-            #2 - Real-world coding projects
+            #2 - Build and publish real-world coding projects
           </h3>
           <p class="mb-4">
             Apply the concepts you've learned by building real-world projects
@@ -101,7 +101,7 @@
           </p>
 
           <h3 class="text-2xl text-blue-400 font-bold">
-            #3 - A job-winning portfolio & resume
+            #3 - Leverage your new job-winning portfolio
           </h3>
           <p class="mb-4">
             Prove your skills to employers by showing off the tangible projects
