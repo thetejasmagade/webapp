@@ -9,7 +9,7 @@
     >
       <Section
         title="A simple path to your self-taught backend career"
-        subtitle="Real projects will get you interviews. Computer science skills will land you the job."
+        subtitle="Published projects will get you interviews. Computer science skills will land you the job."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >
@@ -80,33 +80,86 @@
       </Section>
 
       <Section
-        title="A computer science education that will get you a job"
+        title="A job-focused computer science education"
         class="max-w-4xl w-full mb-5 mt-4"
       >
-        <div class="p-8">
-          <h3 class="text-2xl text-blue-400 font-bold">
-            #1 - Complete hands-on computer science courses
-          </h3>
-          <p class="mb-4">
-            Learn the CS concepts that will set you apart in the job market by
-            completing hands-on courses.
-          </p>
+        <ul class="p-8">
+          <li class="text-2xl mb-2">
+            1. Write real code in hands-on computer science courses
+          </li>
 
-          <h3 class="text-2xl text-blue-400 font-bold">
-            #2 - Build and publish real-world coding projects
-          </h3>
-          <p class="mb-4">
-            Apply the concepts you've learned by building real-world projects
-            using modern programming languages and technologies.
-          </p>
+          <li class="text-2xl mb-2">
+            2. Build and publish real-world coding projects
+          </li>
 
-          <h3 class="text-2xl text-blue-400 font-bold">
-            #3 - Leverage your new job-winning portfolio
-          </h3>
-          <p class="mb-4">
-            Prove your skills to employers by showing off the tangible projects
-            listed on your portfolio, Github, and resume.
-          </p>
+          <li class="text-2xl mb-2">
+            3. Leverage your new portfolio to land an entry-level job
+          </li>
+        </ul>
+      </Section>
+
+      <Section
+        title="Join over 15,000 students"
+        subtitle="Find them on our Discord community and leaderboard"
+        class="max-w-4xl w-full mb-5 mt-4"
+      >
+        <div class="p-4">
+          <Testimonial
+            class="mb-10"
+            :profile-image-u-r-l="meganImage"
+            title="Megan Astraus from Arizona, USA"
+            description="My first interaction with Boot.dev was through a resume event where Lane and the community spent a great deal of time combing through my resume and helping me make updates. The wealth of knowledge from the hungry programmers in the Discord helped me land my first software developer job just a month after that resume event!"
+          />
+          <Testimonial
+            class="mb-5"
+            :profile-image-u-r-l="danielImage"
+            title="Daniel Gerep from Cássia, Brazil"
+            description="I'm a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord is a blast, and the members are quick to help out with detailed answers and explanations."
+          />
+          <Testimonial
+            class="mb-5"
+            :profile-image-u-r-l="ozyImage"
+            title="Özgür Yildirim from Esslingen, Germany"
+            description="I'm a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren't an option because of work and wanting time with my kid! I came across Boot.dev after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I'd made the right decision going with Boot.dev."
+          />
+          <Testimonial
+            :profile-image-u-r-l="ignacioImage"
+            title="Ignacio Contreras from Guanajuato, Mexico"
+            description="I love how simple it is to find relevant content on Boot.dev. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."
+          />
+        </div>
+      </Section>
+
+      <Section
+        title="A simple, proven way to start a career"
+        subtitle="Boot.dev is founded by a backend hiring manager. Here are a few beliefs that guide our methodology."
+        class="max-w-4xl w-full mb-5 mt-4"
+      >
+        <div class="p-4 text-xl">
+          <ul class="list-disc mb-4 ml-4">
+            <li>
+              An understanding of computer science will set you apart in the job
+              market
+            </li>
+            <li>You can't learn to code if you aren't writing code</li>
+            <li>A straight learning path makes progress easy</li>
+            <li>
+              It's not hard to find coding courses online, but it is hard to
+              find good ones
+            </li>
+            <li>
+              A portfolio of published projects is your best tool on the job
+              search
+            </li>
+          </ul>
+          <div class="text-center w-full">
+            <a
+              href="https://blog.boot.dev/about"
+              class="underline text-blue-400 hover:text-blue-300"
+            >
+              Read more about our guiding beliefs here
+            </a>
+          </div>
         </div>
       </Section>
 
@@ -152,68 +205,6 @@
               >courses and projects here.</router-link
             >
           </p>
-        </div>
-      </Section>
-
-      <Section
-        :title="`What our students say`"
-        :subtitle="`Join over 12,000 developers learning on Boot.dev`"
-        class="max-w-4xl w-full mb-5 mt-4"
-      >
-        <div class="p-4">
-          <Testimonial
-            class="mb-10"
-            :profile-image-u-r-l="meganImage"
-            title="Megan Astraus from Arizona, USA"
-            description="My first interaction with Boot.dev was through a resume event where Lane and the community spent a great deal of time combing through my resume and helping me make updates. The wealth of knowledge from the hungry programmers in the Discord helped me land my first software developer job just a month after that resume event!"
-          />
-          <Testimonial
-            class="mb-5"
-            :profile-image-u-r-l="danielImage"
-            title="Daniel Gerep from Cássia, Brazil"
-            description="I'm a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord is a blast, and the members are quick to help out with detailed answers and explanations."
-          />
-          <Testimonial
-            class="mb-5"
-            :profile-image-u-r-l="ozyImage"
-            title="Özgür Yildirim from Esslingen, Germany"
-            description="I'm a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren't an option because of work and wanting time with my kid! I came across Boot.dev after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I'd made the right decision going with Boot.dev."
-          />
-          <Testimonial
-            :profile-image-u-r-l="ignacioImage"
-            title="Ignacio Contreras from Guanajuato, Mexico"
-            description="I love how simple it is to find relevant content on Boot.dev. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."
-          />
-        </div>
-      </Section>
-
-      <Section
-        :title="`We have beliefs about the best way to learn to code`"
-        class="max-w-4xl w-full mb-5 mt-4"
-      >
-        <div class="p-4 text-xl">
-          <ul class="list-disc mb-4 ml-4">
-            <li>
-              An understanding of computer science will set you apart in the job
-              market
-            </li>
-            <li>You can’t learn to code if you aren’t writing code</li>
-            <li>A simple, linear learning path is best</li>
-            <li>
-              It’s not hard to find coding courses online, but it is hard to
-              find good ones
-            </li>
-            <li>A mix of guided and unguided learning is essential</li>
-            <li>Boot camps are too fast, universities are too slow</li>
-          </ul>
-          <div class="text-center w-full">
-            <a
-              href="https://blog.boot.dev/about"
-              class="underline text-blue-400 hover:text-blue-300"
-            >
-              Read more about our guiding beliefs here
-            </a>
-          </div>
         </div>
       </Section>
 
