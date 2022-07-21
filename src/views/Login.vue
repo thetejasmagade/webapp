@@ -164,80 +164,48 @@
       </Section>
 
       <Section
-        :title="`What will I learn?`"
-        :subtitle="`Gain career-critical CS skills by coding in JavaScript, Python and Go`"
+        title="Backend developers in the US earn a median salary of $150,000, while
+            front-end developers earn $133,000."
+        subtitle="Join a rapidly growing job market"
         class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-4">
-          <div
-            class="flex flex-row justify-evenly p-4 bg-gray-900 rounded mb-4"
-          >
-            <img
-              class="rounded md:w-36 w-16"
-              src="https://richstone.github.io/assets/images/logos/python-logo-small.png"
-            />
-            <img
-              class="rounded md:w-36 w-16"
-              src="https://cdn.iconscout.com/icon/free/png-256/javascript-2752148-2284965.png"
-            />
-            <img
-              class="rounded md:w-36 w-16"
-              src="https://user-images.githubusercontent.com/19890545/150690287-d7a7a4c0-ce89-4c49-8043-5af0348e615e.png"
-            />
-          </div>
-
           <p class="mb-4">
-            Boot.dev is a computer science program. You learn the same kinds of
-            things with us that you would learn in a 4-year degree from college.
-            The majority of our students are preparing for a job in backend web
-            development, but CS skills are immensely valuable in all programming
-            jobs - from front-end to DevOps engineers.
+            Source:
+            <a
+              href="https://survey.stackoverflow.co/2022/#salary-united-states"
+              target="_blank"
+              class="underline text-blue-400 hover:text-blue-300"
+              >Stack Overflow survey for 2022</a
+            >
           </p>
           <p class="mb-4">
-            Computer science concepts and engineering best practices rarely
-            change, but popular coding tools come and go. That's why Boot.dev is
-            less concerned about which programming languages we use, and more
-            concerned with teaching the underlying CS and engineering concepts.
-            You can check out all of our
-            <router-link
-              class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-              to="/courses"
-              >courses and projects here.</router-link
-            >
+            Some might look at that data and assume that front-end positions are
+            better for entry-level devs because the salaries are lower. On the
+            contrary! There is higher demand and lower supply for backend
+            positions. With the right preparation a backend position can
+            actually be easier to land.
+          </p>
+          <p class="mb-4">
+            With all that in mind, a computer science education is actually
+            useful for all types of developers, we've just found that it's
+            disproportionately useful to backend engineers.
           </p>
         </div>
       </Section>
 
       <Section
-        :title="`Community is key`"
-        :subtitle="`Don't struggle due to a lack of social support`"
+        title="You don't need to take financial risks to upgrade your life"
+        subtitle="The highest quality CS education at 1% of the price of a university degree"
         class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-4">
-          <div class="flex justify-center mb-4">
-            <img
-              loading="lazy"
-              src="/src/img/undraw_Community_re_cyrm-768x578.webp"
-              width="400"
-              class="rounded object-cover"
-            />
-          </div>
+          <div class="flex justify-center mb-4"></div>
           <ul class="list-disc mb-4 text-xl">
-            <li>Get advice and help from mentors and peers</li>
-            <li>Improve your resume with feedback from industry-experts</li>
-            <li>
-              Share your projects with other members and get help building an
-              amazing portfolio
-            </li>
-            <li>Get job-search tips from other developers</li>
+            <li>Try for free - no credit card required</li>
+            <li>Pay less than 1% of what you'd spend at college</li>
+            <li>If you don't like Boot.dev, we'll refund you completely</li>
           </ul>
-          <a
-            href="https://discord.gg/EEkFwbv"
-            target="_blank"
-            class="underline text-blue-400 hover:text-blue-300"
-          >
-            Join the Discord community here
-          </a>
         </div>
       </Section>
 
