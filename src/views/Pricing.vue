@@ -33,13 +33,12 @@
                 }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
               </h3>
               <p class="mb-4 text-gray-400">paid monthly</p>
-              <p class="mb-4">Small monthly payments</p>
+              <p class="mb-4">Small monthly payments.</p>
               <BlockButton
                 v-if="
                   $store.getters.getIsLoggedIn &&
                   !$store.getters.getUserIsSubscribed
                 "
-                color="white"
                 class="mb-4 py-2 w-full"
                 :click="
                   () => {
@@ -60,7 +59,7 @@
               </h3>
               <p class="mb-4 text-blue-300">paid yearly</p>
               <p class="mb-4">
-                Pay
+                A whole year for
                 {{
                   Math.round(
                     ((priceMonthly.UnitAmountPerMonth -
@@ -68,13 +67,14 @@
                       100) /
                       priceMonthly.UnitAmountPerMonth
                   )
-                }}% less and get a whole year
+                }}% less.
               </p>
               <BlockButton
                 v-if="
                   $store.getters.getIsLoggedIn &&
                   !$store.getters.getUserIsSubscribed
                 "
+                color="white"
                 class="mb-4 py-2 w-full"
                 :click="
                   () => {
@@ -85,7 +85,7 @@
                 Yearly Plan
               </BlockButton>
               <span class="rounded-lg border-white border-2 text-white px-2">
-                Most Popular
+                Best Value
               </span>
             </div>
 
@@ -97,7 +97,7 @@
                 }}{{ priceLifetime.UnitAmount / 100 }}
               </h3>
               <p class="mb-4 text-gray-400">once</p>
-              <p class="mb-4">Never be charged again</p>
+              <p class="mb-4">Never be charged again.</p>
               <BlockButton
                 v-if="
                   $store.getters.getIsLoggedIn &&
