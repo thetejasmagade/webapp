@@ -1,56 +1,87 @@
 <template>
-  <tr>
-    <td class="px-2 py-4 whitespace-nowrap hidden lg:table-cell">
-      <span
-        v-if="isNext"
-        class="px-3 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-500 text-gray-100"
-      >
-        Next →
-      </span>
-    </td>
-    <td class="py-4 whitespace-nowrap hidden lg:table-cell">
-      <div class="flex items-center">
-        <span v-if="index" class="text-3xl text-gray-300">{{ index }}</span>
-      </div>
-    </td>
-    <td class="py-4 whitespace-nowrap hidden lg:table-cell text-center">
-      <Radial
-        :from-percent="0"
-        :to-percent="calcPercent"
-        :checkmark="calcPercent === 100"
-      />
-    </td>
-    <td class="py-4 whitespace-nowrap">
+  <tr class="hover:bg-gray-750">
+    <td class="whitespace-nowrap hidden lg:table-cell text-center">
       <router-link
         :to="
           $store.getters.getIsLoggedIn
             ? getUnitLink(unit)
             : getUnitLinkLanding(unit)
         "
+        class="p-4 block"
       >
-        <div class="flex items-center hover:opacity-50">
-          <div class="flex-shrink-0 h-10 w-10 mx-2">
-            <img class="h-10 w-10 rounded" :src="iconUrl" />
-          </div>
-          <div class="ml-4">
-            <div class="text-md lg:text-xl underline font-medium text-blue-400">
-              {{ unitData.Title }}
-            </div>
+        <div class="flex items-center justify-center">
+          <Radial
+            :from-percent="0"
+            :to-percent="calcPercent"
+            :checkmark="calcPercent === 100"
+          />
+        </div>
+      </router-link>
+    </td>
+
+    <td class="whitespace-nowrap hidden lg:table-cell">
+      <router-link
+        :to="
+          $store.getters.getIsLoggedIn
+            ? getUnitLink(unit)
+            : getUnitLinkLanding(unit)
+        "
+        class="p-4 block"
+      >
+        <div class="flex items-center justify-center mr-8">
+          <span
+            v-if="isNext"
+            class="inline-flex text-4xl font-bold items-center text-blue-400 animate-bounceHorizontal"
+          >
+            <FontAwesomeIcon icon="arrow-right" class="ml-2" />
+          </span>
+
+          <span v-else class="text-3xl text-gray-300">{{ index }}</span>
+        </div>
+      </router-link>
+    </td>
+
+    <td class="whitespace-nowrap text-md hidden lg:table-cell">
+      <router-link
+        :to="
+          $store.getters.getIsLoggedIn
+            ? getUnitLink(unit)
+            : getUnitLinkLanding(unit)
+        "
+        class="p-4 block"
+      >
+        <div class="flex flex-row">
+          <div class="text-4xl">
+            <img class="h-12 w-12 rounded" :src="iconUrl" />
           </div>
         </div>
       </router-link>
     </td>
-    <td class="py-4 whitespace-nowrap text-md hidden lg:table-cell">
-      <div class="text-xl text-gray-300">
-        <FontAwesomeIcon :icon="unit.project ? 'tools' : 'book'" />
-        {{ unit.project ? "Project" : "Course" }}
-      </div>
-    </td>
-    <td
-      class="py-4 text-gray-300 whitespace-nowrap text-xl hidden lg:table-cell"
-    >
-      <FontAwesomeIcon icon="hourglass" />
-      {{ unitData.EstimatedCompletionTimeHours }} hours
+
+    <td class="whitespace-nowrap">
+      <router-link
+        :to="
+          $store.getters.getIsLoggedIn
+            ? getUnitLink(unit)
+            : getUnitLinkLanding(unit)
+        "
+        class="p-4 block"
+      >
+        <div class="flex items-center mr-8">
+          <div class="ml-4">
+            <div
+              class="text-md lg:text-2xl underline font-medium mb-2 text-blue-400"
+            >
+              {{ unitData.Title }}
+            </div>
+            <div class="text-gray-400">
+              <FontAwesomeIcon :icon="unit.project ? 'tools' : 'book'" />
+              {{ unitData.EstimatedCompletionTimeHours }} hour
+              {{ unit.project ? "project" : "course" }}
+            </div>
+          </div>
+        </div>
+      </router-link>
     </td>
   </tr>
 </template>
@@ -78,8 +109,7 @@ export default {
     },
     index: {
       type: Number,
-      required: false,
-      default: null,
+      required: true,
     },
   },
   data() {

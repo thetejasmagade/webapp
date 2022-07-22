@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col items-center">
     <div v-if="!units || units.length === 0" class="flex flex-col">
       <Skeletor
         v-for="i in 12"
@@ -10,65 +10,19 @@
       />
     </div>
 
-    <div v-else class="flex flex-col">
-      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-400">
-              <thead class="text-gray-400">
-                <tr>
-                  <th
-                    scope="col"
-                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  >
-                    {{ isOrdered ? "Next" : null }}
-                  </th>
-                  <th
-                    scope="col"
-                    class="pr-2 py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  >
-                    {{ isOrdered ? "Order" : null }}
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  >
-                    Progress
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-3 text-left text-xs font-medium uppercase tracking-wider"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  >
-                    Type
-                  </th>
-                  <th
-                    scope="col"
-                    class="py-3 text-left text-xs font-medium uppercase tracking-wider hidden lg:table-cell"
-                  >
-                    Avg Time
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-400">
-                <UnitTableRow
-                  v-for="(unit, i) of units"
-                  :key="i"
-                  :unit="unit"
-                  :index="isOrdered ? i + 1 : null"
-                  :is-next="isOrdered ? i === firstIncompleteIndex : null"
-                />
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <table>
+      <tbody
+        class="divide-gray-500 border-gray-500 divide-y border border-l-8 border-l-blue-500"
+      >
+        <UnitTableRow
+          v-for="(unit, i) of units"
+          :key="i"
+          :unit="unit"
+          :index="i + 1"
+          :is-next="i === firstIncompleteIndex"
+        />
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -89,11 +43,6 @@ export default {
       type: Array,
       required: false,
       default: null,
-    },
-    isOrdered: {
-      type: Boolean,
-      required: false,
-      default: false,
     },
   },
   setup(props) {

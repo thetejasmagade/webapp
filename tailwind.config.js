@@ -26,10 +26,23 @@ module.exports = {
             transform: "scale(1,1) translateY(0);",
           },
         },
+        bounceHorizontal: {
+          "0%": {
+            transform: "translateX(0%);",
+          },
+          "50%": {
+            transform: "translateX(25%);",
+          },
+          "100%": {
+            transform: "translateX(0%);",
+          },
+        },
       },
       animation: {
         bounceSquish:
           "bounceSquish 2s cubic-bezier(0.280, 0.840, 0.420, 1) infinite;",
+        bounceHorizontal:
+          "bounceHorizontal 2s cubic-bezier(0.280, 0.240, 0.420, 1) infinite;",
       },
     },
     boxShadow: {
