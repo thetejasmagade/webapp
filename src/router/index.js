@@ -247,6 +247,10 @@ function getPreRedirects() {
       path: "/courses/browse",
       redirect: { path: "/tracks/computer-science" },
     },
+    {
+      path: "/tracks",
+      redirect: { path: "/tracks/computer-science" },
+    },
   ];
 }
 
