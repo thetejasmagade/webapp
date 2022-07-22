@@ -23,50 +23,16 @@
 
           <section
             v-if="priceYearly && priceMonthly && priceLifetime"
-            class="grid xl:grid-cols-3 lg:grid-cols-1 gap-4 w-full"
+            class="grid lg:grid-cols-3 sm:grid-cols-1 gap-4 w-full"
           >
             <div
-              class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
-            >
-              <h3 class="text-4xl font-bold">
-                {{ getCurrencySymbol(priceYearly.CurrencyCode)
-                }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
-              </h3>
-              <p class="mb-4 text-gray-400">yearly</p>
-              <p class="mb-4">
-                Save with a
-                {{
-                  Math.round(
-                    ((priceMonthly.UnitAmountPerMonth -
-                      priceYearly.UnitAmountPerMonth) *
-                      100) /
-                      priceMonthly.UnitAmountPerMonth
-                  )
-                }}% discount
-              </p>
-              <BlockButton
-                v-if="
-                  $store.getters.getIsLoggedIn &&
-                  !$store.getters.getUserIsSubscribed
-                "
-                class="mb-4 py-2 w-full"
-                :click="
-                  () => {
-                    checkout(priceYearly);
-                  }
-                "
-              >
-                Yearly Plan
-              </BlockButton>
-            </div>
-            <div
-              class="px-6 py-8 text-center rounded bg-blue-600 text-white items-center flex flex-col h-full w-full"
+              class="px-6 py-8 text-center rounded bg-gray-750 text-white items-center flex flex-col h-full w-full"
             >
               <h3 class="text-4xl font-bold">
                 {{ getCurrencySymbol(priceMonthly.CurrencyCode)
                 }}{{ priceMonthly.UnitAmountPerMonth / 100 }} / mo
               </h3>
-              <p class="mb-4 text-blue-300">monthly</p>
+              <p class="mb-4 text-gray-400">paid monthly</p>
               <p class="mb-4">Small monthly payments</p>
               <BlockButton
                 v-if="
@@ -83,10 +49,46 @@
               >
                 Monthly Plan
               </BlockButton>
-              <span class="rounded-lg border-white border-2 text-white px-2"
-                >Most Popular</span
-              >
             </div>
+
+            <div
+              class="px-6 py-8 text-center rounded bg-blue-600 items-center flex flex-col h-full w-full"
+            >
+              <h3 class="text-4xl font-bold">
+                {{ getCurrencySymbol(priceYearly.CurrencyCode)
+                }}{{ priceYearly.UnitAmountPerMonth / 100 }} / mo
+              </h3>
+              <p class="mb-4 text-blue-300">paid yearly</p>
+              <p class="mb-4">
+                Pay
+                {{
+                  Math.round(
+                    ((priceMonthly.UnitAmountPerMonth -
+                      priceYearly.UnitAmountPerMonth) *
+                      100) /
+                      priceMonthly.UnitAmountPerMonth
+                  )
+                }}% less and get a whole year
+              </p>
+              <BlockButton
+                v-if="
+                  $store.getters.getIsLoggedIn &&
+                  !$store.getters.getUserIsSubscribed
+                "
+                class="mb-4 py-2 w-full"
+                :click="
+                  () => {
+                    checkout(priceYearly);
+                  }
+                "
+              >
+                Yearly Plan
+              </BlockButton>
+              <span class="rounded-lg border-white border-2 text-white px-2">
+                Most Popular
+              </span>
+            </div>
+
             <div
               class="px-6 py-8 text-center rounded bg-gray-750 items-center flex flex-col h-full w-full"
             >
@@ -111,23 +113,25 @@
                 Lifetime
               </BlockButton>
             </div>
-
-            <div v-if="!$store.getters.getIsLoggedIn" class="mt-8">
-              <BlockButton
-                class="w-72 py-2"
-                :click="
-                  () => {
-                    $router.push({
-                      name: 'Login',
-                      query: { redirect: '/pricing' },
-                    });
-                  }
-                "
-              >
-                Login to Start
-              </BlockButton>
-            </div>
           </section>
+          <div
+            v-if="!$store.getters.getIsLoggedIn"
+            class="mt-8 flex justify-center"
+          >
+            <BlockButton
+              class="w-72 py-2"
+              :click="
+                () => {
+                  $router.push({
+                    name: 'Login',
+                    query: { redirect: '/pricing' },
+                  });
+                }
+              "
+            >
+              Login to Start
+            </BlockButton>
+          </div>
         </div>
       </Section>
 
