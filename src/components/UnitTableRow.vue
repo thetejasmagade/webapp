@@ -65,9 +65,9 @@
             ? getUnitLink(unit)
             : getUnitLinkLanding(unit)
         "
-        class="p-4 block"
+        class="p-2 lg:p-4 block"
       >
-        <div class="flex items-center mr-8">
+        <div class="flex items-center">
           <div class="ml-4">
             <div
               class="text-md lg:text-2xl underline font-medium mb-2 text-blue-400"

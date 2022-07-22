@@ -1,18 +1,23 @@
 <template>
-  <div class="flex flex-col items-center">
-    <div v-if="!units || units.length === 0" class="flex flex-col">
+  <div
+    class="flex flex-col lg:items-center overflow-x-hidden lg:overflow-x-auto"
+  >
+    <div
+      v-if="!units || units.length === 0"
+      class="flex flex-col items-center w-full"
+    >
       <Skeletor
         v-for="i in 12"
         :key="i"
-        height="60"
-        width="100%"
+        height="80"
+        width="75%"
         class="m-4 my-3 rounded"
       />
     </div>
 
     <table>
       <tbody
-        class="divide-gray-500 border-gray-500 divide-y border border-l-8 border-l-blue-500"
+        class="divide-gray-500 border-gray-500 lg:divide-y lg:border border-l-8 border-l-blue-500"
       >
         <UnitTableRow
           v-for="(unit, i) of units"

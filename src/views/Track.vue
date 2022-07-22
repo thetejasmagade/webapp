@@ -1,6 +1,6 @@
 <template>
   <ViewNavWrapper>
-    <div class="p-4 flex flex-col items-center">
+    <div class="lg:p-4 p-2 flex flex-col items-center">
       <Section
         h1
         title="Your path to a career in backend development"
@@ -11,7 +11,7 @@
         "
         class="max-w-6xl w-full"
       >
-        <div class="p-4">
+        <div class="p-2 lg:p-4">
           <UnitTable :units="units" class="mt-8" />
           <h2 class="text-blue-400 text-xl my-4">
             A living breathing curriculum
