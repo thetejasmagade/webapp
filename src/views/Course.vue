@@ -302,7 +302,7 @@ export default {
           }
         }
         return {
-          name: `Chapter ${i + 1}: ${mod.Title}`,
+          name: `Ch ${i + 1}: ${mod.Title}`,
           color: isChapterComplete ? "blue" : null,
           link: {
             name: "Course",
@@ -327,7 +327,7 @@ export default {
           isExerciseComplete = true;
         }
         return {
-          name: `Exercise ${i + 1} of ${exercises.value.length}`,
+          name: `${i + 1}. ${ex.Title}`,
           color: isExerciseComplete ? "blue" : null,
           link: {
             name: "Course",
