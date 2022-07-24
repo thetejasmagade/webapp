@@ -110,6 +110,7 @@ export default {
         title: "Computer Science Track",
         description:
           "Prepare for a job in backend development by taking our fully-online CS program",
+        featuredImageURL: "https://i.imgur.com/DsK1de9.png",
       });
     });
     useMeta(computedMeta);

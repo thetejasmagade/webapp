@@ -140,7 +140,7 @@ export default {
       return getComputedMeta({
         title: `${state.displayLang?.name} Playground`,
         description: `Run ${state.displayLang?.name} code in the browser. Execute your scripts in a sandboxed playground. Take courses to learn to write code and earn achievements to show off your skills.`,
-        featuredImageURL: "/src/img/code_playground-boot.png",
+        featuredImageURL: "https://i.imgur.com/MQtf5GM.png",
       });
     });
     useMeta(computedMeta);
