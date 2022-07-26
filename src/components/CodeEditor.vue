@@ -314,7 +314,7 @@ export default {
         if (!this.canvasAllowed && this.canvasEnabled) {
           notify({
             type: "danger",
-            text: "Your browser doesn't support canvas exercises, please use Chrome, Edge or Opera",
+            text: "Your browser doesn't support the modern offscreen canvas feature, please use Chrome, Edge or Opera",
           });
           return;
         }
