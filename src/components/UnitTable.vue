@@ -17,7 +17,7 @@
 
     <table>
       <tbody
-        class="divide-gray-500 border-gray-500 lg:divide-y lg:border border-l-8 border-l-blue-500"
+        class="divide-gray-500 border-gray-500 lg:divide-y border lg:border-l-8 border-l-blue-500"
       >
         <UnitTableRow
           v-for="(unit, i) of units"
