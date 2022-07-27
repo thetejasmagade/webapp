@@ -52,13 +52,14 @@ export function eventBeginCheckout() {
     window.dataLayer.push({
       event: "begin_checkout",
       ecommerce: {
+        // let's tell google our ~LTV
         currency: "USD",
-        value: 2.9,
+        value: 7,
         items: [
           {
             item_id: "pro_sub_id",
             item_name: "pro_sub",
-            price: 2.9,
+            value: 7,
             quantity: 1,
             currency: "USD",
           },
@@ -79,8 +80,9 @@ export function eventFinishCheckout() {
     window.dataLayer.push({ ecommerce: null });
     window.dataLayer.push({
       event: "purchase",
+      // let's tell google our ~LTV
       ecommerce: {
-        value: 29.0,
+        value: 70.0,
         transaction_id: Math.floor(Math.random() * 100000000).toString(),
         currency: "USD",
         items: [
