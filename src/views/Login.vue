@@ -368,8 +368,7 @@ export default {
       title: "Learn Computer Science",
       description:
         "Login or sign up for Boot.dev's computer science and coding courses. All my courses are free to audit, get started today.",
-      featuredImageURL:
-        "https://boot.dev/src/img/a_simple_path_to_your_backend_career-boot.png",
+      featuredImageURL: "https://i.imgur.com/DsK1de9.png",
     });
     useMeta(computedMeta);
   },
