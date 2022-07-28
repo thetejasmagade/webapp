@@ -8,7 +8,7 @@
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
     >
       <Section
-        title="A simple path to your self-taught backend career"
+        title="A straight path to your career in backend development"
         subtitle="Published projects will get you interviews. Computer science skills will land you the job."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
