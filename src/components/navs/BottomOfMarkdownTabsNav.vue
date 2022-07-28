@@ -27,7 +27,21 @@
             class="underline text-blue-400 hover:text-blue-300"
             >Discord community</a
           >
-          and post a question in the #course-help or #project-help channel.
+          and post a question in the
+          <a
+            href="https://discord.com/channels/551921866173054977/723921182646075452"
+            target="_blank"
+            class="underline text-blue-400 hover:text-blue-300"
+          >
+            #course-help</a
+          >
+          or
+          <a
+            href="https://discord.com/channels/551921866173054977/809273178216071198"
+            target="_blank"
+            class="underline text-blue-400 hover:text-blue-300"
+            >#project-help channel.</a
+          >
         </p>
       </div>
       <div v-if="currentTabName === 'Report Issue'">
