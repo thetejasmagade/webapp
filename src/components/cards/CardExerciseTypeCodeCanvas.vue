@@ -40,7 +40,7 @@
           class="h-full flex flex-col flex-1 overflow-y-auto"
           :run-callback="runCallback"
           :reset-callback="resetCodeCallback"
-          :cheat-callback="cheatCallback"
+          :cheat-callback="isLoggedIn ? cheatCallback : null"
           :prog-lang="progLang"
           :canvas-enabled="true"
           :solution="solutionCode"

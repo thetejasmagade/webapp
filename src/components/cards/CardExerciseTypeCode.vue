@@ -35,13 +35,13 @@
         </div>
         <MultipaneResizer layout="horizontal" />
         <CodeEditor
-          :key="isCheating"
           :model-value="modelValue"
           class="h-full flex flex-col flex-1 overflow-auto"
           :run-callback="runCallback"
           :reset-callback="resetCodeCallback"
-          :cheat-callback="cheatCallback"
+          :cheat-callback="isLoggedIn ? cheatCallback : null"
           :prog-lang="progLang"
+          :expected-output="expectedOutput"
           :canvas-enabled="false"
           :solution="solutionCode"
           :is-cheating="isCheating"
@@ -143,6 +143,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    expectedOutput: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   emits: ["update:modelValue"],

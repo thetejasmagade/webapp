@@ -17,6 +17,7 @@
     <div class="font-mono h-full">
       <Multipane layout="vertical">
         <div
+          :key="isCheating"
           class="w-full h-4/6"
           @keydown.ctrl.enter="ctrlKeydownCallback"
           @keydown.meta.enter="metaKeydownCallback"
@@ -65,9 +66,11 @@
             <MultipaneResizer layout="horizontal" />
             <div ref="console" class="overflow-auto h-full flex-1 pr-4">
               <p
-                v-for="(line, i) of output"
+                v-for="(line, i) of isCheating && !canvasEnabled
+                  ? formatExpected
+                  : output"
                 :key="i"
-                :class="{ 'text-red-400': err }"
+                :class="isCheating ? 'text-blue-400' : { 'text-red-400': err }"
                 class="whitespace-pre-wrap m-0"
               >
                 {{ line }}
@@ -160,6 +163,11 @@ export default {
       required: false,
       default: null,
     },
+    expectedOutput: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
   emits: ["update:modelValue"],
   data() {
@@ -194,6 +202,10 @@ export default {
         // than blindly inserting tabs
         extraKeys: { Tab: "indentMore" },
       };
+    },
+    formatExpected() {
+      const expectedOut = this.expectedOutput.split(/r\?\n/);
+      return expectedOut;
     },
     indentWithTabs() {
       if (this.progLang === "go") {
