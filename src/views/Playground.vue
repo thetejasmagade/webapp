@@ -84,6 +84,12 @@ console.log("hello, world")
 # https://blog.boot.dev/python/running-python-in-the-browser-with-web-assembly
         `;
   }
+  if (lang === "sql") {
+    return `CREATE TABLE users (id text);
+INSERT into users (id) values (1);
+SELECT * from users;
+`;
+  }
   if (lang === "purs") {
     return `module Main where
 
@@ -129,6 +135,10 @@ export default {
         },
         purs: {
           name: "PureScript",
+          color: null,
+        },
+        sql: {
+          name: "SQL",
           color: null,
         },
       },

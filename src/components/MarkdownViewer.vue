@@ -20,6 +20,7 @@ import "prismjs/components/prism-go.js";
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-javascript.js";
 import "prismjs/components/prism-haskell.js"; // required for purescript
+import "prismjs/components/prism-sql.js";
 import "prismjs/components/prism-purescript.js";
 import "prismjs/components/prism-python.js";
 

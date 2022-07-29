@@ -383,6 +383,22 @@ export async function compilePureScript(code) {
   return handled;
 }
 
+export async function runSQL(code, upStatements) {
+  const resp = await fetch(`${domain}/v1/courses_sql_api`, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      code,
+      upStatements,
+    }),
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getSubscriptionPlans() {
   const resp = await fetch(`${domain}/v1/subscription_plans`, {
     method: "GET",

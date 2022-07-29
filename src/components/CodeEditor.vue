@@ -87,7 +87,7 @@ import {
   terminateWorker,
   awaitWorkerReady,
 } from "@/lib/runWorker.js";
-import { compileGo, compilePureScript } from "@/lib/cloudClient.js";
+import { compileGo, compilePureScript, runSQL } from "@/lib/cloudClient.js";
 import { getOperatingSystem, MAC } from "@/lib/platform.js";
 
 import { sleep } from "@/lib/sleep.js";
@@ -213,6 +213,9 @@ export default {
       }
       if (this.progLang === "purs") {
         return "haskell";
+      }
+      if (this.progLang === "sql") {
+        return "sql";
       }
       return "unknown";
     },
@@ -369,6 +372,13 @@ export default {
               this.output.push(data);
               this.scrollToEnd();
             });
+          } else if (this.progLang === "sql") {
+            this.loadingText = "Running your code...";
+            // make it feel like something is running
+            await sleep(250);
+            const resp = await runSQL(this.modelValue);
+            this.output.push(resp.table);
+            this.scrollToEnd();
           }
         } catch (err) {
           await this.runCallback({ output: JSON.stringify(err) });

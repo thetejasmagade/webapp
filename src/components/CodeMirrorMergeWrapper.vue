@@ -8,6 +8,7 @@ import "codemirror/mode/javascript/javascript.js";
 import "@/lib/codemirrorModeGo.js";
 import "codemirror/mode/python/python.js";
 import "codemirror/mode/haskell/haskell.js";
+import "codemirror/mode/sql/sql.js";
 import "@/styles/codemirror-darcula.css";
 import "codemirror/addon/edit/matchbrackets.js";
 import "codemirror/addon/edit/closebrackets.js";
