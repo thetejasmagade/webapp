@@ -12,7 +12,7 @@
       </BlockButton>
     </Tooltip>
     <Tooltip
-      v-if="$store.getters.getIsLoggedIn"
+      v-if="cheatCallback"
       :text="`View Solution Code`"
       position="bottom"
     >

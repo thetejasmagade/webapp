@@ -63,6 +63,7 @@
           :prog-lang="progLang"
           :solution-code="complete"
           :run-callback="submitTypeCode"
+          :expected-output="expectedOutput"
           :reset-code-callback="resetCode"
           :cheat-callback="cheatCallback"
           :is-cheating="isCheating"
@@ -177,6 +178,7 @@ export default {
       code: "",
       complete: "",
       defaultCode: "",
+      expectedOutput: "",
       courses: null,
       isFree: null,
       isCheating: false,
@@ -730,6 +732,7 @@ export default {
         state.code = exercise.Exercise.Code;
         state.complete = exercise.Exercise.Complete;
         state.defaultCode = exercise.Exercise.Code;
+        state.expectedOutput = exercise.Exercise.CodeExpectedOutput;
         state.progLang = exercise.Exercise.ProgLang;
       } else if (state.type === "type_code_canvas") {
         state.code = exercise.Exercise.Code;
