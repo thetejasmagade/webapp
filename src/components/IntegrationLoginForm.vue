@@ -113,7 +113,7 @@ export default {
           this.subscribeNews,
           this.$route.query.ruid
         );
-        loadLoggedIn(this);
+        loadLoggedIn(this.$store.commit);
         if (resp.registered) {
           eventRegister(singupMethodGoogle);
           this.$router.push({

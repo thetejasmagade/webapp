@@ -1,5 +1,6 @@
 <template>
   <div class="login-container flex flex-col h-screen">
+    <LoginModal ref="loginModal" />
     <div class="nav-container">
       <TopNav />
     </div>
@@ -14,88 +15,53 @@
         h1
       >
         <div class="p-4">
-          <div v-if="state === 'integration'">
-            <IntegrationLoginForm />
-            <div class="text-center">
-              <p>
-                Don't like integrations?
-                <a
-                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                  @click="state = 'register'"
-                >
-                  Use a magic link
-                </a>
-              </p>
-            </div>
+          <div class="text-lg">
+            <p class="mb-2">
+              Employers want backend developers who have mastered CS
+              fundamentals. Computer science is the study of questions like:
+            </p>
+
+            <blockquote
+              class="bg-gray-700 border-l-4 border-l-gray-50 p-2 rounded mb-2"
+            >
+              How can we store 30 million user's status updates efficiently?
+            </blockquote>
+
+            <p class="mb-2">and</p>
+
+            <blockquote
+              class="bg-gray-700 border-l-4 border-l-gray-50 p-2 rounded mb-4"
+            >
+              Can we seamlessly stream video content across a weak internet
+              connection?
+            </blockquote>
+
+            <p class="mb-8">
+              Our hands-on courses and projects will teach you the computer
+              science skills you need to land a backend engineering job.
+            </p>
           </div>
 
-          <div v-if="state === 'register'">
-            <MagicLinkRegister />
-            <div class="text-center">
-              <p>
-                Have an integration?
-                <a
-                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                  @click="state = 'integration'"
-                >
-                  Sign in with a third party
-                </a>
-              </p>
-              <p>
-                Have an account?
-                <a
-                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                  @click="state = 'login'"
-                >
-                  Login
-                </a>
-              </p>
-            </div>
-          </div>
-
-          <div v-if="state === 'login'">
-            <MagicLinkLogin />
-            <div class="text-center">
-              <p>
-                Need an account?
-                <a
-                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                  @click="state = 'register'"
-                >
-                  Sign up free
-                </a>
-              </p>
-              <p>
-                Have an integrated account?
-                <a
-                  class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-                  @click="state = 'integration'"
-                >
-                  Sign in with a third party
-                </a>
-              </p>
-            </div>
+          <div class="flex justify-center">
+            <BlockButton :click="onLoginClick" class="text-xl">
+              Start the Backend Path for Free
+            </BlockButton>
           </div>
         </div>
       </Section>
 
       <Section
-        title="A job-focused computer science education"
+        title="You can't learn to code without writing a lot of code"
+        subtitle="Our students can't tear themselves away from these addictive lessons"
         class="max-w-4xl w-full mb-5 mt-4"
+        h1
       >
-        <ul class="p-8">
-          <li class="text-2xl mb-2">
-            1. Write real code in hands-on computer science courses
-          </li>
-
-          <li class="text-2xl mb-2">
-            2. Build and publish real-world coding projects
-          </li>
-
-          <li class="text-2xl mb-2">
-            3. Leverage your new portfolio to land an entry-level job
-          </li>
-        </ul>
+        <div class="p-8">
+          <FreezeFrame
+            class="rounded border border-white overflow-hidden"
+            src="https://i.imgur.com/8JdrNCj.gif"
+          />
+        </div>
       </Section>
 
       <Section
@@ -105,38 +71,44 @@
       >
         <div class="p-4">
           <Testimonial
-            class="mb-10"
+            class="mb-5"
+            :profile-image-u-r-l="ozyImage"
+            title="Özgür Yildirim from Esslingen, Germany"
+            description="I wanted to learn to code, but boot camp and university weren't an option because of work and family. I came across Boot.dev, and the simple path to a new career was huge for me. I now have a job-offer in hand!"
+          />
+          <Testimonial
+            class="mb-5"
             :profile-image-u-r-l="meganImage"
             title="Megan Astraus from Arizona, USA"
-            description="My first interaction with Boot.dev was through a resume event where Lane and the community spent a great deal of time combing through my resume and helping me make updates. The wealth of knowledge from the hungry programmers in the Discord helped me land my first software developer job just a month after that resume event!"
+            description="The wealth of knowledge from the hungry programmers in the Boot.dev Discord helped me land my first software developer job just a month after joining!"
           />
           <Testimonial
             class="mb-5"
             :profile-image-u-r-l="danielImage"
             title="Daniel Gerep from Cássia, Brazil"
-            description="I'm a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The diverse community in Discord is a blast, and the members are quick to help out with detailed answers and explanations."
-          />
-          <Testimonial
-            class="mb-5"
-            :profile-image-u-r-l="ozyImage"
-            title="Özgür Yildirim from Esslingen, Germany"
-            description="I'm a field service engineer in the biomedical industry. I wanted to learn to code, but boot camp and school weren't an option because of work and wanting time with my kid! I came across Boot.dev after trying other online courses, and liked that their “Intro to Coding” course got me up and running with JavaScript immediately. They have a simple curriculum and knowing the steps are in place for me to reach my goal is huge for me. As soon as I joined the community on Discord, I knew I'd made the right decision going with Boot.dev."
+            description="I'm a senior engineer learning Go, and the pace of Boot.dev courses has been perfect for me. The members of the Discord are quick to help out with detailed answers and explanations."
           />
           <Testimonial
             :profile-image-u-r-l="ignacioImage"
             title="Ignacio Contreras from Guanajuato, Mexico"
-            description="I love how simple it is to find relevant content on Boot.dev. As soon as I logged in, I connected with real developers and was recommended an interview prep course that was perfect for my situation."
+            description="I love how simple it is to get going with the learning path on Boot.dev. As soon as I logged in I connected with real developers and got started learning computer science."
           />
+
+          <div class="flex justify-center mt-8">
+            <BlockButton :click="onLoginClick" class="text-xl">
+              Start the Backend Path for Free
+            </BlockButton>
+          </div>
         </div>
       </Section>
 
       <Section
-        title="A simple, proven way to start a career"
-        subtitle="Boot.dev is founded by a backend hiring manager. Here are a few beliefs that guide our methodology."
+        title="A proven way to start your career in development"
+        subtitle="Being founded by a hiring manager, we understand what employers want to see in entry-level programming candidates"
         class="max-w-4xl w-full mb-5 mt-4"
       >
-        <div class="p-4 text-xl">
-          <ul class="list-disc mb-4 ml-4">
+        <div class="p-8 text-xl">
+          <ul class="list-disc mb-8 ml-4">
             <li>
               An understanding of computer science will set you apart in the job
               market
@@ -191,6 +163,11 @@
             useful for all types of developers, we've just found that it's
             disproportionately useful to backend engineers.
           </p>
+          <div class="flex justify-center mt-8">
+            <BlockButton :click="onLoginClick" class="text-xl">
+              Start the Backend Path for Free
+            </BlockButton>
+          </div>
         </div>
       </Section>
 
@@ -269,100 +246,107 @@ import { eventRegister, singupMethodGithub } from "@/lib/analytics.js";
 import { loadLoggedIn } from "@/lib/cloudStore.js";
 import { notify } from "@/lib/notification.js";
 
+import BlockButton from "@/components/BlockButton.vue";
 import Section from "@/components/Section.vue";
-import MagicLinkLogin from "@/components/MagicLinkLogin.vue";
-import MagicLinkRegister from "@/components/MagicLinkRegister.vue";
-import IntegrationLoginForm from "@/components/IntegrationLoginForm.vue";
+import LoginModal from "@/components/modals/LoginModal.vue";
 import TopNav from "@/components/navs/TopNav.vue";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
 import Testimonial from "@/components/Testimonial.vue";
 import FAQ from "@/components/FAQ.vue";
 
-import meganImage from "@/img/megan_astraus-300x300.webp";
-import danielImage from "@/img/daniel-gerep-300x300.webp";
-import ozyImage from "@/img/ozy-300x300.webp";
-import ignacioImage from "@/img/0-150x150-1.webp";
+import meganImg from "@/img/megan_astraus-300x300.webp";
+import danielImg from "@/img/daniel-gerep-300x300.webp";
+import ozyImg from "@/img/ozy-300x300.webp";
+import ignacioImg from "@/img/0-150x150-1.webp";
 
 import { loadRegisterIsSubscribedNews } from "@/lib/localStorageLib.js";
+import { computed, onMounted, ref } from "@vue/runtime-core";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+import FreezeFrame from "@/components/FreezeFrame.vue";
 
 export default {
   components: {
-    MagicLinkRegister,
-    IntegrationLoginForm,
-    MagicLinkLogin,
+    LoginModal,
     TopNav,
     Section,
     Testimonial,
     FAQ,
+    BlockButton,
+    FreezeFrame,
   },
-  data() {
-    return {
-      state: "integration",
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+    const store = useStore();
+
+    const loginModal = ref(null);
+
+    const meganImage = computed(() => {
+      return meganImg;
+    });
+    const danielImage = computed(() => {
+      return danielImg;
+    });
+    const ozyImage = computed(() => {
+      return ozyImg;
+    });
+    const ignacioImage = computed(() => {
+      return ignacioImg;
+    });
+
+    const onLoginClick = () => {
+      loginModal.value?.show();
     };
-  },
-  computed: {
-    meganImage() {
-      return meganImage;
-    },
-    danielImage() {
-      return danielImage;
-    },
-    ozyImage() {
-      return ozyImage;
-    },
-    ignacioImage() {
-      return ignacioImage;
-    },
-  },
-  async mounted() {
-    if (this.$route.query.error) {
-      notify({
-        type: "danger",
-        text: this.$route.query.error,
-      });
-    }
-    if (this.$route.query.auth_token) {
-      try {
-        loginToken(this.$route.query.auth_token);
-        // just make sure token works
-        await getUser();
-        if (this.$route.query.new_user === "true") {
-          try {
-            if (loadRegisterIsSubscribedNews()) {
-              await updateUser({
-                isSubscribedNews: true,
-              });
-            }
-            eventRegister(singupMethodGithub);
-            loadLoggedIn(this);
-            this.$router.push({
-              name: "SignupFlow",
-              query: { redirect: this.$route.query.redirect },
-            });
-            return;
-          } catch (err) {
-            console.log(err);
-          }
-        }
-      } catch (err) {
+
+    onMounted(async () => {
+      if (route.query.error) {
         notify({
           type: "danger",
-          text: err,
+          text: route.query.error,
         });
       }
-    }
 
-    loadLoggedIn(this);
-    if (
-      this.$store.getters.getIsLoggedIn &&
-      this.$store.getters.getIsEmailVerified
-    ) {
-      this.$router.push({
-        name: "Tracks",
-        query: { redirect: this.$route.query.redirect },
-      });
-    }
+      if (route.query.auth_token) {
+        try {
+          loginToken(route.query.auth_token);
+          // just make sure token works
+          await getUser();
+          if (route.query.new_user === "true") {
+            try {
+              if (loadRegisterIsSubscribedNews()) {
+                await updateUser({
+                  isSubscribedNews: true,
+                });
+              }
+              eventRegister(singupMethodGithub);
+              loadLoggedIn(store.commit);
+              router.push({
+                name: "SignupFlow",
+                query: { redirect: route.query.redirect },
+              });
+              return;
+            } catch (err) {
+              console.log(err);
+            }
+          }
+        } catch (err) {
+          notify({
+            type: "danger",
+            text: err,
+          });
+        }
+      }
+
+      loadLoggedIn(store.commit);
+      if (store.getters.getIsLoggedIn && store.getters.getIsEmailVerified) {
+        router.push({
+          name: "Tracks",
+          query: { redirect: route.query.redirect },
+        });
+      }
+    });
 
     const computedMeta = getComputedMeta({
       title: "Learn Computer Science",
@@ -371,6 +355,15 @@ export default {
       featuredImageURL: "https://i.imgur.com/DsK1de9.png",
     });
     useMeta(computedMeta);
+
+    return {
+      meganImage,
+      danielImage,
+      ozyImage,
+      ignacioImage,
+      onLoginClick,
+      loginModal,
+    };
   },
 };
 </script>

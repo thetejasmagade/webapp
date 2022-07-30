@@ -4,10 +4,10 @@
       <img width="150" class="rounded" loading="lazy" :src="profileImageURL" />
     </div>
     <div class="">
-      <h2 class="text-xl mb-4 text-blue-400">
+      <h2 class="text-2xl mb-4 text-blue-400">
         {{ title }}
       </h2>
-      <p class="mb-4">
+      <p class="mb-4 text-xl">
         {{ description }}
       </p>
     </div>

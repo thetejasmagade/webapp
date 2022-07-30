@@ -45,8 +45,8 @@ export async function loadUser(commit) {
   commit("setUser", user);
 }
 
-export function loadLoggedIn(thisComponent) {
-  thisComponent.$store.commit("setJWTClaims", getJWTClaims());
+export function loadLoggedIn(commit) {
+  commit("setJWTClaims", getJWTClaims());
 }
 
 export function setLogout(commit, router) {

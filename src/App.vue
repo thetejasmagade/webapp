@@ -125,7 +125,7 @@ export default {
     useMeta(computedMeta);
   },
   created() {
-    loadLoggedIn(this);
+    loadLoggedIn(this.$store.commit);
   },
 };
 </script>

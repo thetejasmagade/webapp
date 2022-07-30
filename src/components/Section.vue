@@ -10,10 +10,10 @@
         </h2>
       </div>
       <div v-if="subtitle" class="mb-2">
-        <h2 v-if="h1" class="text-gray-300 text-lg">
+        <h2 v-if="h1" class="text-gray-300 text-xl">
           {{ subtitle }}
         </h2>
-        <h3 v-else class="text-gray-300 text-lg">
+        <h3 v-else class="text-gray-300 text-xl">
           {{ subtitle }}
         </h3>
       </div>

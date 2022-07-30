@@ -157,7 +157,7 @@ export default {
       if (
         getPercentXPFromUser(state.oldUserState) ===
           getPercentXPFromUser(store.getters.getUser) &&
-        state.oldUserState.Level === store.getters.getUser.Level
+        state.oldUserState?.Level === store.getters.getUser?.Level
       ) {
         return;
       }
