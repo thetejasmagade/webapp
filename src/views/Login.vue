@@ -349,9 +349,9 @@ export default {
     });
 
     const computedMeta = getComputedMeta({
-      title: "Learn Computer Science",
+      title: "Learn Backend Development",
       description:
-        "Login or sign up for Boot.dev's computer science and coding courses. All my courses are free to audit, get started today.",
+        "Take a straight path to your career in backend development. Complete computer science courses, publish real backend projects, and build your professional portfolio.",
       featuredImageURL: "https://i.imgur.com/DsK1de9.png",
     });
     useMeta(computedMeta);

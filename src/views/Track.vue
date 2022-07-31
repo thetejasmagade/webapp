@@ -107,9 +107,9 @@ export default {
 
     const computedMeta = computed(() => {
       return getComputedMeta({
-        title: "Computer Science Track",
+        title: "Backend Development Track",
         description:
-          "Prepare for a job in backend development by taking our fully-online CS program",
+          "Take a striaght path to your career in backend development by completing our online computer science curriculum for backend engineers",
         featuredImageURL: "https://i.imgur.com/DsK1de9.png",
       });
     });
