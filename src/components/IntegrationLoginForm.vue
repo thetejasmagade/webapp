@@ -2,7 +2,12 @@
   <div>
     <div class="flex flex-col justify-evenly w-full items-center">
       <div class="mb-12 mt-4 w-60">
-        <BlockButton :click="clickGoogle" color="blue" class="w-full mb-4">
+        <BlockButton
+          :disabled="!isReady"
+          :click="login"
+          color="blue"
+          class="w-full mb-4"
+        >
           <FontAwesomeIcon :icon="['fab', 'google']" class="mr-3" />
           Sign in with Google
         </BlockButton>
@@ -42,6 +47,7 @@
 import BlockButton from "@/components/BlockButton.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { useTokenClient } from "vue3-google-signin";
 
 import { loginGoogle } from "@/lib/cloudClient.js";
 import { eventRegister, singupMethodGoogle } from "@/lib/analytics.js";
@@ -50,8 +56,10 @@ import { notify } from "@/lib/notification.js";
 import { loadLoggedIn } from "@/lib/cloudStore.js";
 
 import { getLoginWithGithubURL } from "@/lib/cloudClient.js";
-
+import { reactive, toRefs } from "vue";
 import { saveRegisterIsSubscribedNews } from "@/lib/localStorageLib.js";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -59,8 +67,8 @@ export default {
     ToggleSwitch,
     FontAwesomeIcon,
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       state: "register",
       email: null,
       firstName: null,
@@ -70,61 +78,47 @@ export default {
       subscribeNews: true,
       tosAccepted: true,
       validationCode: null,
-    };
-  },
-  methods: {
-    beforeIntegration() {
-      if (!this.tosAccepted) {
+    });
+
+    const route = useRoute();
+    const router = useRouter();
+    const store = useStore();
+
+    const beforeIntegration = () => {
+      if (!state.tosAccepted) {
         notify({
           type: "danger",
           text: "You need to accept the terms of service",
         });
         return;
       }
-    },
-    async clickGoogle() {
-      try {
-        this.$gAuth.signIn(this.onGoogleSuccess, this.onGoogleFailure);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-    },
-    async clickGithub() {
-      if (this.subscribeNews) {
-        saveRegisterIsSubscribedNews();
-      }
-      window.location.replace(
-        getLoginWithGithubURL(this.isSubscribedNews, this.$route.query.ruid)
-      );
-    },
-    async onGoogleFailure() {
+    };
+    const onGoogleFailure = async () => {
       notify({
         type: "danger",
         text: "Couldn't log in with Google",
       });
-    },
-    async onGoogleSuccess(googleUser) {
+    };
+
+    const onGoogleSuccess = async (googleUser) => {
       try {
         const resp = await loginGoogle(
           googleUser.getAuthResponse().id_token,
-          this.subscribeNews,
-          this.$route.query.ruid
+          state.subscribeNews,
+          route.query.ruid
         );
-        loadLoggedIn(this.$store.commit);
+        loadLoggedIn(store.commit);
         if (resp.registered) {
           eventRegister(singupMethodGoogle);
-          this.$router.push({
+          router.push({
             name: "SignupFlow",
-            query: { redirect: this.$route.query.redirect },
+            query: { redirect: route.query.redirect },
           });
           return;
         }
-        this.$router.push({
+        router.push({
           name: "Tracks",
-          query: { redirect: this.$route.query.redirect },
+          query: { redirect: route.query.redirect },
         });
       } catch (err) {
         notify({
@@ -132,7 +126,31 @@ export default {
           text: err,
         });
       }
-    },
+    };
+
+    const { isReady, login } = useTokenClient({
+      onSuccess: onGoogleSuccess,
+      onError: onGoogleFailure,
+    });
+
+    const clickGithub = async () => {
+      if (state.subscribeNews) {
+        saveRegisterIsSubscribedNews();
+      }
+      window.location.replace(
+        getLoginWithGithubURL(state.isSubscribedNews, route.query.ruid)
+      );
+    };
+
+    return {
+      ...toRefs(state),
+      onGoogleSuccess,
+      onGoogleFailure,
+      clickGithub,
+      beforeIntegration,
+      isReady,
+      login,
+    };
   },
 };
 </script>

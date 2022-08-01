@@ -2534,6 +2534,11 @@ vue3-google-auth@^0.0.2:
   resolved "https://registry.yarnpkg.com/vue3-google-auth/-/vue3-google-auth-0.0.2.tgz#044cd366d59f25cb09fa098202e3cf2333f19217"
   integrity sha512-ciflmH3VGC2F/6IBl4umMdUiTrfq8ziwIvzX0/UGES1Hyd3DnX+SEAZ2UDU2K6elR6N9tWvrSduYQ4g2ZA6PVQ==
 
+vue3-google-signin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue3-google-signin/-/vue3-google-signin-1.0.2.tgz#b8bade9618b977c9ffb2ab334b1a9e2bf08f11cc"
+  integrity sha512-xOWc3kSINsifXn5bUnxg1gLbWATkRJqfNYW3IDDfHJPPgfXoXo05379xTsbpKZyV2nMSqA1GgfqP5wGtr4b3gw==
+
 vue3-loading-overlay@^0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/vue3-loading-overlay/-/vue3-loading-overlay-0.0.0.tgz#b5c726b51114019c1771479f7558af1fb1e73f6e"
