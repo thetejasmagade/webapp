@@ -10,7 +10,7 @@
     >
       <Section
         title="Learn Backend Development the Right Way"
-        subtitle="Published projects will get you interviews. Computer science skills will get you hired."
+        subtitle="Computer science skills will get you interviews. A portfolio of projects will get you hired."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >
@@ -18,27 +18,26 @@
           <div class="text-lg">
             <p class="mb-2">
               Employers want backend developers who have mastered CS
-              fundamentals. Computer science is the study of questions like:
+              fundamentals so they can solve problems like:
             </p>
 
             <blockquote
               class="bg-gray-700 border-l-4 border-l-gray-50 p-2 rounded mb-2"
             >
-              How can we store 30 million user's status updates efficiently?
+              * How can we store 3 million status updates efficiently?
             </blockquote>
-
-            <p class="mb-2">and</p>
 
             <blockquote
               class="bg-gray-700 border-l-4 border-l-gray-50 p-2 rounded mb-4"
             >
-              Can we seamlessly stream video content across a weak internet
+              * How can we stream video content across a weak internet
               connection?
             </blockquote>
 
             <p class="mb-8">
-              Our hands-on courses and projects will teach you the computer
-              science skills you need to land a backend development job.
+              Follow our simple backend learning path and you'll come out the
+              other side with a professional portfolio of projects that will get
+              you hired.
             </p>
           </div>
 
@@ -51,7 +50,7 @@
       </Section>
 
       <Section
-        title="You can't learn to code without writing a lot of code"
+        title="Write real code, get immediate feedback"
         subtitle="Our students can't tear themselves away from these addictive lessons"
         class="max-w-4xl w-full mb-5 mt-4"
         h1
@@ -65,8 +64,8 @@
       </Section>
 
       <Section
-        title="Join over 15,000 students"
-        subtitle="Find them on our Discord community and leaderboard"
+        title="Join 15,000+ students learning modern backend skills"
+        subtitle="Find them in our Discord community and on the leaderboard"
         class="max-w-4xl w-full mb-5 mt-4"
       >
         <div class="p-4">
@@ -103,7 +102,7 @@
       </Section>
 
       <Section
-        title="A proven way to start your career in development"
+        title="A proven way to start your backend career"
         subtitle="Being founded by a hiring manager, we understand what employers want to see in entry-level programming candidates"
         class="max-w-4xl w-full mb-5 mt-4"
       >
