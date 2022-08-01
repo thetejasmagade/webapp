@@ -9,8 +9,8 @@
       class="flex flex-col justify-start items-center h-full-minus-bar overflow-auto px-4"
     >
       <Section
-        title="A straight path to your career in backend development"
-        subtitle="Published projects will get you interviews. Computer science skills will land you the job."
+        title="Learn Backend Development the Right Way"
+        subtitle="Published projects will get you interviews. Computer science skills will get you hired."
         class="max-w-4xl w-full mb-5 mt-4"
         h1
       >
@@ -38,7 +38,7 @@
 
             <p class="mb-8">
               Our hands-on courses and projects will teach you the computer
-              science skills you need to land a backend engineering job.
+              science skills you need to land a backend development job.
             </p>
           </div>
 
