@@ -6,7 +6,7 @@
   >
     <div>
       <div class="flex flex-col p-4">
-        <ul class="list-disc mb-4">
+        <ol class="list-disc mb-4">
           <li>
             First,
             <a
@@ -17,18 +17,16 @@
             >
             the free Discord desktop client.
           </li>
-          <li>Next, join our server.</li>
-        </ul>
-
-        <div class="flex justify-center mb-4">
-          <BlockButton :click="discordClick">
-            <FontAwesomeIcon :icon="['fab', 'discord']" class="icon" />
-            Join the Boot.dev Server
-          </BlockButton>
-        </div>
-
-        <div>
-          <p>
+          <li>
+            Next,
+            <a
+              class="underline text-blue-400 hover:text-blue-300"
+              href="https://discord.gg/EEkFwbv"
+              target="_blank"
+              >join our server</a
+            >
+          </li>
+          <li>
             Once you're in, read the
             <a
               class="text-blue-400 underline hover:text-blue-300"
@@ -36,7 +34,10 @@
               target="_blank"
               >#start-here</a
             >
-            channel. You'll be asked to type the
+            channel.
+          </li>
+          <li>
+            Type the
             <code
               class="text-gray-200 bg-gray-700 py-1 px-2 rounded overflow-auto my-2"
               >/sync</code
@@ -48,9 +49,11 @@
               target="_blank"
               >#bot-cli</a
             >
-            channel, then to paste in your key below.
-          </p>
+            channel, then to paste your key below.
+          </li>
+        </ol>
 
+        <div>
           <div class="flex justify-center mb-8">
             <code
               class="text-gray-200 bg-gray-700 py-1 px-2 rounded overflow-auto my-2"
@@ -74,7 +77,6 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Section from "@/components/Section.vue";
 import BlockButton from "@/components/BlockButton.vue";
 import { loadUser } from "@/lib/cloudStore.js";
@@ -85,7 +87,6 @@ export default {
   components: {
     Section,
     BlockButton,
-    FontAwesomeIcon,
   },
   props: {
     onDone: {
@@ -95,9 +96,6 @@ export default {
   },
   setup() {
     const store = useStore();
-    const discordClick = () => {
-      window.open("https://discord.gg/EEkFwbv", "_blank");
-    };
     onMounted(async () => {
       await loadUser(store.commit);
     });
@@ -105,7 +103,6 @@ export default {
       apiKey: computed(() => {
         return store.getters.getUser?.APIKey;
       }),
-      discordClick,
     };
   },
 };

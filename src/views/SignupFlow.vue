@@ -4,8 +4,8 @@
 
     <div class="flex flex-col justify-center items-center flex-1">
       <SignupFlowUser v-if="flowIndex === 0" :on-done="onDone" />
-      <SignupFlowMethod v-else-if="flowIndex === 1" :on-done="onDone" />
-      <SignupFlowCommunity v-else-if="flowIndex === 2" :on-done="onDone" />
+      <SignupFlowCommunity v-else-if="flowIndex === 1" :on-done="onDone" />
+      <SignupFlowIntro v-else-if="flowIndex === 2" :on-done="onDone" />
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@
 <script>
 import TopNav from "@/components/navs/TopNav.vue";
 import SignupFlowCommunity from "@/components/signupFlow/SignupFlowCommunity.vue";
-import SignupFlowMethod from "@/components/signupFlow/SignupFlowMethod.vue";
+import SignupFlowIntro from "@/components/signupFlow/SignupFlowIntro.vue";
 import SignupFlowUser from "@/components/signupFlow/SignupFlowUser.vue";
 
 import {
@@ -27,7 +27,7 @@ export default {
   components: {
     TopNav,
     SignupFlowCommunity,
-    SignupFlowMethod,
+    SignupFlowIntro,
     SignupFlowUser,
   },
   setup() {
