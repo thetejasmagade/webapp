@@ -4,7 +4,7 @@
       <div class="mb-12 mt-4 w-60">
         <BlockButton
           :disabled="!isReady"
-          :click="login"
+          :click="onLoginClick"
           color="blue"
           class="w-full mb-4"
         >
@@ -47,7 +47,7 @@
 import BlockButton from "@/components/BlockButton.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { useTokenClient } from "vue3-google-signin";
+import { useOneTap } from "vue3-google-signin";
 
 import { loginGoogle } from "@/lib/cloudClient.js";
 import { eventRegister, singupMethodGoogle } from "@/lib/analytics.js";
@@ -103,7 +103,7 @@ export default {
     const onGoogleSuccess = async (googleUser) => {
       try {
         const resp = await loginGoogle(
-          googleUser.getAuthResponse().id_token,
+          googleUser.credential,
           state.subscribeNews,
           route.query.ruid
         );
@@ -128,9 +128,18 @@ export default {
       }
     };
 
-    const { isReady, login } = useTokenClient({
-      onSuccess: onGoogleSuccess,
-      onError: onGoogleFailure,
+    const onLoginClick = () => {
+      console.log("Button Clicked");
+      login();
+    };
+
+    const { isReady, login } = useOneTap({
+      disableAutomaticPrompt: true,
+      onSuccess: (response) => {
+        console.log("Success:", response);
+        onGoogleSuccess(response);
+      },
+      onError: (err) => console.log(`Error Logged: ${err}`),
     });
 
     const clickGithub = async () => {
@@ -149,7 +158,7 @@ export default {
       clickGithub,
       beforeIntegration,
       isReady,
-      login,
+      onLoginClick,
     };
   },
 };
