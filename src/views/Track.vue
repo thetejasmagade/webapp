@@ -27,9 +27,8 @@
             <router-link
               to="/pricing"
               class="text-blue-400 hover:text-blue-300 underline"
+              >become a Patron</router-link
             >
-              become a Patron
-            </router-link>
             to unlock full access and support future development.
           </p>
           <UnitTable :units="units" class="mt-8" />
