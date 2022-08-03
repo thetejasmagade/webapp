@@ -39,7 +39,6 @@
     "vue-router": "^4.0.8",
     "vue-skeletor": "^1.0.6",
     "vue3-google-auth": "^0.0.2",
-    "vue3-google-signin": "^1.0.2",
     "vue3-loading-overlay": "^0.0.0",
     "vuex": "^4.0.2"
   },

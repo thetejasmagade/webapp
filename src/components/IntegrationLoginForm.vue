@@ -2,16 +2,7 @@
   <div>
     <div class="flex flex-col justify-evenly w-full items-center">
       <div class="mb-12 mt-4 w-60">
-        <BlockButton
-          :disabled="!isReady"
-          :click="onLoginClick"
-          color="blue"
-          class="w-full mb-4"
-        >
-          <FontAwesomeIcon :icon="['fab', 'google']" class="mr-3" />
-          Sign in with Google
-        </BlockButton>
-
+        <div ref="googleSignin" class="active-scale-103 w-full mb-4"></div>
         <BlockButton :click="clickGithub" color="gray" class="w-full">
           <FontAwesomeIcon :icon="['fab', 'github']" class="mr-3" />
           Sign in with Github
@@ -47,7 +38,6 @@
 import BlockButton from "@/components/BlockButton.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { useOneTap } from "vue3-google-signin";
 
 import { loginGoogle } from "@/lib/cloudClient.js";
 import { eventRegister, singupMethodGoogle } from "@/lib/analytics.js";
@@ -56,7 +46,7 @@ import { notify } from "@/lib/notification.js";
 import { loadLoggedIn } from "@/lib/cloudStore.js";
 
 import { getLoginWithGithubURL } from "@/lib/cloudClient.js";
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, ref, onMounted } from "vue";
 import { saveRegisterIsSubscribedNews } from "@/lib/localStorageLib.js";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -80,6 +70,7 @@ export default {
       validationCode: null,
     });
 
+    const googleSignin = ref(null);
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -99,6 +90,22 @@ export default {
         text: "Couldn't log in with Google",
       });
     };
+
+    const handleCredentialResponse = (response) => {
+      console.log("Encoded JWT ID token: " + response.credential);
+    };
+
+    onMounted(async () => {
+      window.google?.accounts.id.initialize({
+        client_id:
+          "44792168937-cm11c7cfa2co3pov1rt7p8r4keiee9cl.apps.googleusercontent.com",
+        callback: onGoogleSuccess,
+      });
+      window.google?.accounts.id.renderButton(
+        googleSignin.value,
+        { theme: "outline", size: "large", width: 240 } // customization attributes
+      );
+    });
 
     const onGoogleSuccess = async (googleUser) => {
       try {
@@ -128,20 +135,6 @@ export default {
       }
     };
 
-    const onLoginClick = () => {
-      console.log("Button Clicked");
-      login();
-    };
-
-    const { isReady, login } = useOneTap({
-      disableAutomaticPrompt: true,
-      onSuccess: (response) => {
-        console.log("Success:", response);
-        onGoogleSuccess(response);
-      },
-      onError: (err) => console.log(`Error Logged: ${err}`),
-    });
-
     const clickGithub = async () => {
       if (state.subscribeNews) {
         saveRegisterIsSubscribedNews();
@@ -157,8 +150,8 @@ export default {
       onGoogleFailure,
       clickGithub,
       beforeIntegration,
-      isReady,
-      onLoginClick,
+      handleCredentialResponse,
+      googleSignin,
     };
   },
 };
