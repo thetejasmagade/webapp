@@ -10,15 +10,8 @@ const main = async () => {
   init();
 
   const app = createApp(App);
-  // const $gAuth = $gAuth.createGAuth({
-  //   clientId:
-  //     "44792168937-cm11c7cfa2co3pov1rt7p8r4keiee9cl.apps.googleusercontent.com",
-  //   scope: "profile email",
-  //   prompt: "select_account",
-  // });
   app.use(store);
   app.use(router);
-  // app.use($gAuth);
   app.use(createMetaManager());
   await router.isReady();
   app.mount("#app");
