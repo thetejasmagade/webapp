@@ -91,10 +91,6 @@ export default {
       });
     };
 
-    const handleCredentialResponse = (response) => {
-      console.log("Encoded JWT ID token: " + response.credential);
-    };
-
     onMounted(async () => {
       window.google?.accounts.id.initialize({
         client_id:
@@ -150,7 +146,6 @@ export default {
       onGoogleFailure,
       clickGithub,
       beforeIntegration,
-      handleCredentialResponse,
       googleSignin,
     };
   },

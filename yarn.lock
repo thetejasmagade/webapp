@@ -2529,11 +2529,6 @@ vue-template-compiler@^2.6.14:
     de-indent "^1.0.2"
     he "^1.1.0"
 
-vue3-google-auth@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/vue3-google-auth/-/vue3-google-auth-0.0.2.tgz#044cd366d59f25cb09fa098202e3cf2333f19217"
-  integrity sha512-ciflmH3VGC2F/6IBl4umMdUiTrfq8ziwIvzX0/UGES1Hyd3DnX+SEAZ2UDU2K6elR6N9tWvrSduYQ4g2ZA6PVQ==
-
 vue3-loading-overlay@^0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/vue3-loading-overlay/-/vue3-loading-overlay-0.0.0.tgz#b5c726b51114019c1771479f7558af1fb1e73f6e"
