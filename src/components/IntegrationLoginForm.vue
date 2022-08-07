@@ -2,11 +2,7 @@
   <div>
     <div class="flex flex-col justify-evenly w-full items-center">
       <div class="mb-12 mt-4 w-60">
-        <BlockButton :click="clickGoogle" color="blue" class="w-full mb-4">
-          <FontAwesomeIcon :icon="['fab', 'google']" class="mr-3" />
-          Sign in with Google
-        </BlockButton>
-
+        <div ref="googleSignin" class="w-full mb-4 hover:opacity-90"></div>
         <BlockButton :click="clickGithub" color="gray" class="w-full">
           <FontAwesomeIcon :icon="['fab', 'github']" class="mr-3" />
           Sign in with Github
@@ -43,15 +39,10 @@ import BlockButton from "@/components/BlockButton.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import { loginGoogle } from "@/lib/cloudClient.js";
-import { eventRegister, singupMethodGoogle } from "@/lib/analytics.js";
-import { notify } from "@/lib/notification.js";
-
-import { loadLoggedIn } from "@/lib/cloudStore.js";
-
 import { getLoginWithGithubURL } from "@/lib/cloudClient.js";
-
+import { reactive, toRefs, ref, onMounted } from "vue";
 import { saveRegisterIsSubscribedNews } from "@/lib/localStorageLib.js";
+import { useRoute } from "vue-router";
 
 export default {
   components: {
@@ -59,8 +50,8 @@ export default {
     ToggleSwitch,
     FontAwesomeIcon,
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       state: "register",
       email: null,
       firstName: null,
@@ -70,69 +61,32 @@ export default {
       subscribeNews: true,
       tosAccepted: true,
       validationCode: null,
-    };
-  },
-  methods: {
-    beforeIntegration() {
-      if (!this.tosAccepted) {
-        notify({
-          type: "danger",
-          text: "You need to accept the terms of service",
-        });
-        return;
-      }
-    },
-    async clickGoogle() {
-      try {
-        this.$gAuth.signIn(this.onGoogleSuccess, this.onGoogleFailure);
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-    },
-    async clickGithub() {
-      if (this.subscribeNews) {
+    });
+
+    const googleSignin = ref(null);
+    const route = useRoute();
+
+    onMounted(async () => {
+      window.google?.accounts.id.renderButton(
+        googleSignin.value,
+        { theme: "outline", size: "large", width: 240 } // customization attributes
+      );
+    });
+
+    const clickGithub = async () => {
+      if (state.subscribeNews) {
         saveRegisterIsSubscribedNews();
       }
       window.location.replace(
-        getLoginWithGithubURL(this.isSubscribedNews, this.$route.query.ruid)
+        getLoginWithGithubURL(state.isSubscribedNews, route.query.ruid)
       );
-    },
-    async onGoogleFailure() {
-      notify({
-        type: "danger",
-        text: "Couldn't log in with Google",
-      });
-    },
-    async onGoogleSuccess(googleUser) {
-      try {
-        const resp = await loginGoogle(
-          googleUser.getAuthResponse().id_token,
-          this.subscribeNews,
-          this.$route.query.ruid
-        );
-        loadLoggedIn(this.$store.commit);
-        if (resp.registered) {
-          eventRegister(singupMethodGoogle);
-          this.$router.push({
-            name: "SignupFlow",
-            query: { redirect: this.$route.query.redirect },
-          });
-          return;
-        }
-        this.$router.push({
-          name: "Tracks",
-          query: { redirect: this.$route.query.redirect },
-        });
-      } catch (err) {
-        notify({
-          type: "danger",
-          text: err,
-        });
-      }
-    },
+    };
+
+    return {
+      ...toRefs(state),
+      clickGithub,
+      googleSignin,
+    };
   },
 };
 </script>

@@ -239,8 +239,17 @@
 </template>
 
 <script>
-import { loginToken, getUser, updateUser } from "@/lib/cloudClient.js";
-import { eventRegister, singupMethodGithub } from "@/lib/analytics.js";
+import {
+  loginToken,
+  getUser,
+  updateUser,
+  loginGoogle,
+} from "@/lib/cloudClient.js";
+import {
+  eventRegister,
+  singupMethodGithub,
+  singupMethodGoogle,
+} from "@/lib/analytics.js";
 
 import { loadLoggedIn } from "@/lib/cloudStore.js";
 import { notify } from "@/lib/notification.js";
@@ -264,6 +273,7 @@ import { computed, onMounted, ref } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import FreezeFrame from "@/components/FreezeFrame.vue";
+import { reactive } from "vue";
 
 export default {
   components: {
@@ -276,6 +286,10 @@ export default {
     FreezeFrame,
   },
   setup() {
+    const state = reactive({
+      subscribeNews: true,
+    });
+
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -297,6 +311,34 @@ export default {
 
     const onLoginClick = () => {
       loginModal.value?.show();
+    };
+
+    const onGoogleSuccess = async (googleUser) => {
+      try {
+        const resp = await loginGoogle(
+          googleUser.credential,
+          state.subscribeNews,
+          route.query.ruid
+        );
+        loadLoggedIn(store.commit);
+        if (resp.registered) {
+          eventRegister(singupMethodGoogle);
+          router.push({
+            name: "SignupFlow",
+            query: { redirect: route.query.redirect },
+          });
+          return;
+        }
+        router.push({
+          name: "Tracks",
+          query: { redirect: route.query.redirect },
+        });
+      } catch (err) {
+        notify({
+          type: "danger",
+          text: err,
+        });
+      }
     };
 
     onMounted(async () => {
@@ -337,6 +379,13 @@ export default {
           });
         }
       }
+
+      window.google?.accounts.id.initialize({
+        client_id:
+          "44792168937-cm11c7cfa2co3pov1rt7p8r4keiee9cl.apps.googleusercontent.com",
+        callback: onGoogleSuccess,
+      });
+      window.google?.accounts.id.prompt();
 
       loadLoggedIn(store.commit);
       if (store.getters.getIsLoggedIn && store.getters.getIsEmailVerified) {
