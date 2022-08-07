@@ -380,20 +380,21 @@ export default {
         }
       }
 
-      window.google?.accounts.id.initialize({
-        client_id:
-          "44792168937-cm11c7cfa2co3pov1rt7p8r4keiee9cl.apps.googleusercontent.com",
-        callback: onGoogleSuccess,
-      });
-      window.google?.accounts.id.prompt();
-
       loadLoggedIn(store.commit);
       if (store.getters.getIsLoggedIn && store.getters.getIsEmailVerified) {
         router.push({
           name: "Tracks",
           query: { redirect: route.query.redirect },
         });
+        return;
       }
+
+      window.google?.accounts.id.initialize({
+        client_id:
+          "44792168937-cm11c7cfa2co3pov1rt7p8r4keiee9cl.apps.googleusercontent.com",
+        callback: onGoogleSuccess,
+      });
+      window.google?.accounts.id.prompt();
     });
 
     const computedMeta = getComputedMeta({
