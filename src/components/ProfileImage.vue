@@ -8,24 +8,25 @@
         class="opacity-0 overflow-hidden absolute z-0 h-px w-px"
         @change="editProfileImage"
       />
-      <label for="profileImage">
+      <label for="profileImage" class="square-container">
         <img
           loading="lazy"
           :src="profileImageURLWithDefault"
           alt="user avatar"
-          class="rounded w-full h-full cover hover:opacity-75"
+          class="rounded absolute w-full h-full object-cover hover:opacity-75"
           :class="{ 'cursor-pointer': editable }"
         />
       </label>
     </form>
-    <img
-      v-else
-      loading="lazy"
-      :src="profileImageURLWithDefault"
-      alt="user avatar"
-      class="rounded w-full h-full cover"
-      :class="{ 'cursor-pointer': editable }"
-    />
+    <div v-else class="square-container">
+      <img
+        loading="lazy"
+        :src="profileImageURLWithDefault"
+        alt="user avatar"
+        class="rounded absolute w-full h-full object-cover"
+        :class="{ 'cursor-pointer': editable }"
+      />
+    </div>
   </div>
 </template>
 
@@ -85,4 +86,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.square-container {
+  position: relative;
+}
+
+.square-container::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+</style>
