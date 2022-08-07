@@ -65,14 +65,14 @@ export default {
       
 I just finished the '${getUnitData(unit.value).Title}' course on Boot .dev!
 
-#Bootdev ${resp.TwitterImageURL}
+#Bootdev @bootdotdev ${resp.TwitterImageURL}
 `;
 
       const projectTweet = `🔥 Project Completed! 🔥
       
 I just finished the '${getUnitData(unit.value).Title}' project on Boot .dev!
 
-#Bootdev ${resp.TwitterImageURL}
+#Bootdev @bootdotdev ${resp.TwitterImageURL}
 `;
       if (unit.value.type === "course") {
         window.open(

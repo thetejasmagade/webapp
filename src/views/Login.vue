@@ -17,8 +17,8 @@
         <div class="p-4">
           <div class="text-lg">
             <p class="mb-2">
-              Employers want backend developers who have mastered CS
-              fundamentals so they can solve problems like:
+              Employers want backend developers who have mastered computer
+              science fundamentals so they can solve problems like:
             </p>
 
             <blockquote

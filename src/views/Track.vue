@@ -6,29 +6,32 @@
         title="Your path to a career in backend development"
         :subtitle="
           units
-            ? `This is our one and only computer science program. Complete these ${units.length} courses and projects from top to bottom. `
+            ? `Complete the learning path by taking these ${units.length} courses and projects in order from top to bottom.`
             : null
         "
         class="max-w-6xl w-full"
       >
-        <div class="p-2 lg:p-4">
-          <UnitTable :units="units" class="mt-8" />
-          <h2 class="text-blue-400 text-xl my-4">
-            A living breathing curriculum
-          </h2>
+        <div class="p-2 lg:p-4 text-lg">
           <p class="max-width">
-            <i>
-              This curriculum is in a fully-working state, get started! That
-              said, it will grow over time and
-              <a
-                href="https://github.com/bootdotdev/curriculum"
-                target="_blank"
-                class="text-blue-400 hover:text-blue-300 underline"
-                >you can find the public roadmap on Github.</a
-              >
-              Becoming a patron will help us get this project finished.
-            </i>
+            This the one-and-only learning path on Boot.dev. It will teach you
+            computer science skills in order to prepare you for a job in backend
+            web development. If you have any questions about the content, check
+            out
+            <a
+              href="https://github.com/bootdotdev/curriculum"
+              target="_blank"
+              class="text-blue-400 hover:text-blue-300 underline"
+              >our public FAQ and roadmap on GitHub.</a
+            >
+            If you like what we're building,
+            <router-link
+              to="/pricing"
+              class="text-blue-400 hover:text-blue-300 underline"
+              >become a Patron</router-link
+            >
+            to unlock full access and support future development.
           </p>
+          <UnitTable :units="units" class="mt-8" />
         </div>
       </Section>
     </div>
