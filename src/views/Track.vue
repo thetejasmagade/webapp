@@ -132,7 +132,7 @@ export default {
       return getComputedMeta({
         title: "Backend Development Track",
         description:
-          "Take a striaght path to your career in backend development by completing our online computer science curriculum for backend engineers",
+          "Take a straight path to your career in backend development by completing our online computer science curriculum for backend engineers",
         featuredImageURL: "https://i.imgur.com/DsK1de9.png",
       });
     });
