@@ -31,7 +31,11 @@
             >
             to unlock full access and support future development.
           </p>
-          <UnitTable :units="units" class="mt-8" />
+          <UnitTable
+            :units="units"
+            :unit-progress="unitProgress"
+            class="mt-8"
+          />
         </div>
       </Section>
     </div>
@@ -42,7 +46,7 @@
 import Section from "@/components/Section.vue";
 import UnitTable from "@/components/UnitTable.vue";
 import ViewNavWrapper from "@/components/ViewNavWrapper.vue";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, reactive, toRefs } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   loadTrack,
@@ -54,6 +58,7 @@ import { useStore } from "vuex";
 import { slugCS } from "@/lib/trackSlugs.js";
 import { getComputedMeta } from "@/lib/meta.js";
 import { useMeta } from "vue-meta";
+import { getUnitsProgress } from "@/lib/cloudClient.js";
 
 export default {
   components: {
@@ -64,6 +69,9 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const state = reactive({
+      unitProgress: null,
+    });
 
     const loadTrackInStore = async () => {
       try {
@@ -97,6 +105,17 @@ export default {
       }
     };
 
+    const getUnitsProgressIfLoggedIn = async () => {
+      if (!store.getters.getIsLoggedIn) {
+        return;
+      }
+      try {
+        state.unitProgress = await getUnitsProgress();
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     onMounted(async () => {
       if (useRoute().query.redirect) {
         router.push({ path: useRoute().query.redirect });
@@ -106,6 +125,7 @@ export default {
       loadInterestsInStore();
       loadCoursesInStore();
       loadProjectsInStore();
+      getUnitsProgressIfLoggedIn();
     });
 
     const computedMeta = computed(() => {
@@ -119,6 +139,7 @@ export default {
     useMeta(computedMeta);
 
     return {
+      ...toRefs(state),
       units: computed(() => store.getters.getTrack(slugCS)),
     };
   },

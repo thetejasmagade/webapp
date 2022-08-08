@@ -89,7 +89,6 @@
 <script>
 import { getUnitData, getUnitLink, getUnitLinkLanding } from "@/lib/unit.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { getUnitsProgress } from "@/lib/cloudClient.js";
 import Radial from "@/components/Radial.vue";
 
 export default {
@@ -111,12 +110,11 @@ export default {
       type: Number,
       required: true,
     },
-  },
-  data() {
-    return {
-      unitProgress: null,
-      percent: null,
-    };
+    unitProgress: {
+      type: Object,
+      required: false,
+      default: null,
+    },
   },
   computed: {
     iconUrl() {
@@ -164,22 +162,9 @@ export default {
       );
     },
   },
-  async mounted() {
-    this.unitProgress = this.getUnitsProgressIfLoggedIn();
-  },
   methods: {
     getUnitLink,
     getUnitLinkLanding,
-    async getUnitsProgressIfLoggedIn() {
-      if (!this.$store.getters.getIsLoggedIn) {
-        return;
-      }
-      try {
-        this.unitProgress = await getUnitsProgress();
-      } catch (err) {
-        console.log(err);
-      }
-    },
     calcOffset() {
       return this.circumference - (this.calcPercent / 100) * this.circumference;
     },

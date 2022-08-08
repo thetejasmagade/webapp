@@ -25,6 +25,7 @@
           :unit="unit"
           :index="i + 1"
           :is-next="i === firstIncompleteIndex"
+          :unit-progress="unitProgress"
         />
       </tbody>
     </table>
@@ -46,6 +47,11 @@ export default {
   props: {
     units: {
       type: Array,
+      required: false,
+      default: null,
+    },
+    unitProgress: {
+      type: Object,
       required: false,
       default: null,
     },
