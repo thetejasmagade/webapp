@@ -170,7 +170,7 @@ export default {
           }
           window.requestAnimationFrame(step);
         } else {
-          state.curPercent = props.toPercent;
+          state.curPercent = props.toPercent % 100;
           props.onAnimationComplete();
         }
       };
