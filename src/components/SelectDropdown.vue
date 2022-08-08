@@ -19,7 +19,9 @@
           @click="toggleMenuOpen"
           @blur="closeMenu"
         >
-          <span>{{ selected.name }}</span>
+          <span class="w-32 overflow-hidden text-ellipsis text-left">{{
+            selected.name
+          }}</span>
           <svg
             class="w-5 h-6 ml-2 -mr-1"
             viewBox="0 0 20 20"
@@ -42,7 +44,7 @@
       >
         <div
           id="headlessui-menu-items-117"
-          class="absolute left-0 w-full mt-2 origin-top-left bg-gray-700 border-gray-200 divide-y divide-gray-300 rounded-md shadow-lg outline-none text-ellipsis overflow-y-auto overflow-x-hidden max-h-56"
+          class="absolute left-0 w-full mt-2 origin-top-left bg-gray-700 border-gray-200 divide-y divide-gray-300 rounded-md shadow-lg outline-none max-h-56"
           aria-labelledby="headlessui-menu-button-1"
           role="menu"
         >
@@ -66,7 +68,7 @@
               $emit('update:modelValue', option);
             "
           >
-            {{ option.name }}
+            <span class="overflow-hidden text-ellipsis">{{ option.name }}</span>
           </div>
         </div>
       </div>
