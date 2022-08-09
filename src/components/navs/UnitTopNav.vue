@@ -29,7 +29,6 @@
       </BlockButton>
     </div>
     <div class="flex-1 flex justify-end mr-5">
-      <BoostArrow class="mr-2" />
       <BlockButton
         :link="backLink"
         :disabled="!canGoBack"
@@ -56,7 +55,6 @@ import BlockButton from "@/components/BlockButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SelectDropdown from "@/components/SelectDropdown.vue";
 import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
-import BoostArrow from "@/components/BoostArrow.vue";
 
 export default {
   components: {
@@ -64,7 +62,6 @@ export default {
     FontAwesomeIcon,
     SelectDropdown,
     SandboxModeModal,
-    BoostArrow,
   },
   props: {
     pulseNext: {

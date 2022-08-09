@@ -1,99 +1,19 @@
 <template>
-  <div>
-    <Tooltip
-      v-if="multiplier"
-      :text="`XP Boost ${multiplier}x
-${durationRemainingString}`"
-      position="bottom"
-      color="green"
-    >
-      <div class="flex justify-center items-center w-10 h-10">
-        <div class="arrow-slide1">
-          <div class="arrow"></div>
-        </div>
-        <div class="arrow-slide2">
-          <div class="arrow"></div>
-        </div>
-        <div class="arrow-slide3">
-          <div class="arrow"></div>
-        </div>
-      </div>
-    </Tooltip>
+  <div class="flex justify-center items-center w-10 h-10">
+    <div class="arrow-slide1">
+      <div class="arrow"></div>
+    </div>
+    <div class="arrow-slide2">
+      <div class="arrow"></div>
+    </div>
+    <div class="arrow-slide3">
+      <div class="arrow"></div>
+    </div>
   </div>
 </template>
 
 <script>
-import Tooltip from "@/components/Tooltip.vue";
-import { getActiveUserBoosts } from "@/lib/cloudClient.js";
-import { computed, onMounted, reactive } from "@vue/runtime-core";
-
-export default {
-  components: {
-    Tooltip,
-  },
-  props: {},
-  setup() {
-    const state = reactive({
-      boosts: null,
-      msRemaining: null,
-    });
-
-    const loadBoosts = async () => {
-      try {
-        const boosts = await getActiveUserBoosts();
-        state.boosts = boosts;
-        const currentTime = new Date();
-        let smallestDuration = Number.POSITIVE_INFINITY;
-        for (const boost of state.boosts) {
-          const delta = new Date(boost.ExpiresAt) - currentTime;
-          if (delta < smallestDuration) {
-            smallestDuration = delta;
-          }
-        }
-        state.msRemaining = smallestDuration;
-        setInterval(() => {
-          state.msRemaining -= 1000;
-        }, 1000);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    onMounted(() => {
-      loadBoosts();
-    });
-
-    const multiplier = computed(() => {
-      if (!state.boosts) {
-        return null;
-      }
-      let mult = 1;
-      for (const boost of state.boosts) {
-        mult *= boost.XPMultiplier;
-      }
-      if (mult === 1) {
-        return null;
-      }
-      return mult;
-    });
-
-    const durationRemainingString = computed(() => {
-      let s = state.msRemaining;
-      const ms = s % 1000;
-      s = (s - ms) / 1000;
-      const secs = s % 60;
-      s = (s - secs) / 60;
-      const mins = s % 60;
-      const hrs = (s - mins) / 60;
-      return hrs + ":" + mins + ":" + secs;
-    });
-
-    return {
-      multiplier,
-      durationRemainingString,
-    };
-  },
-};
+export default {};
 </script>
 
 <style scoped>
@@ -101,7 +21,7 @@ export default {
   width: 25px;
   height: 25px;
   border: 5px solid;
-  border-color: var(--green-600) transparent transparent var(--green-600);
+  border-color: var(--blue-500) transparent transparent var(--blue-500);
   transform: rotate(45deg);
   border-radius: 4px;
 }
