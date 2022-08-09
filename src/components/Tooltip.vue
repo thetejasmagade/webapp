@@ -10,7 +10,7 @@
         'bg-red-500': color === 'red',
         'bg-yellow-600': color === 'yellow',
         'bg-blue-500': color === 'blue',
-        'bg-green-500': color === 'green',
+        'bg-green-800': color === 'green',
         top: position === 'top',
         right: position === 'right',
         bottom: position === 'bottom',

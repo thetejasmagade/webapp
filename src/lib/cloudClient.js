@@ -276,6 +276,18 @@ export async function getUser() {
   return handled;
 }
 
+export async function getActiveUserBoosts() {
+  const resp = await fetchWithAuthIfAuthed(`${domain}/v1/active_user_boosts`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const handled = await handleJSONResponse(resp);
+  return handled;
+}
+
 export async function getTrack(trackSlug) {
   const resp = await fetchWithAuthIfAuthed(`${domain}/v1/tracks/${trackSlug}`, {
     method: "GET",

@@ -143,6 +143,13 @@ export default {
   --blue-300: #b4baf8;
   --blue-400: #8d96f6;
 
+  --green-600: #41f179;
+  --green-700: #1bee5e;
+  --green-800: #10d14d;
+
+  --pink-700: #cb1576;
+  --pink-800: #a61161;
+
   --gray-200: #e5e5e5;
   --gray-700: #404040;
   --gray-800: #262626;
