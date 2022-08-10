@@ -66,7 +66,7 @@
           <div class="hidden sm:flex sm:ml-6">
             <div class="flex space-x-4 text-sm h-full items-center">
               <router-link
-                v-if="!$store.getters.getIsLoggedIn"
+                v-if="!$store.getters.getIsLoggedIn && route.path !== '/'"
                 to="/"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded"
               >
@@ -128,7 +128,7 @@
     >
       <div class="px-2 pt-2 pb-3 space-y-1">
         <router-link
-          v-if="!$store.getters.getIsLoggedIn"
+          v-if="!$store.getters.getIsLoggedIn && route.path !== '/'"
           to="/"
           class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
           aria-current="page"
@@ -185,12 +185,14 @@
 
 <script>
 import { toRefs, reactive } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   setup() {
     const state = reactive({
       mobileMenuOpen: false,
     });
+    const route = useRoute();
 
     const clickMobileMenuToggle = () => {
       state.mobileMenuOpen = !state.mobileMenuOpen;
@@ -199,6 +201,7 @@ export default {
     return {
       ...toRefs(state),
       clickMobileMenuToggle,
+      route,
     };
   },
 };
