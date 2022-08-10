@@ -43,7 +43,7 @@
 
           <div class="flex justify-center">
             <BlockButton :click="onLoginClick" class="text-xl">
-              Start the Backend Path for Free
+              Login and Try the Backend Path Free
             </BlockButton>
           </div>
         </div>
@@ -95,7 +95,7 @@
 
           <div class="flex justify-center mt-8">
             <BlockButton :click="onLoginClick" class="text-xl">
-              Start the Backend Path for Free
+              Login and Try the Backend Path Free
             </BlockButton>
           </div>
         </div>
@@ -164,7 +164,7 @@
           </p>
           <div class="flex justify-center mt-8">
             <BlockButton :click="onLoginClick" class="text-xl">
-              Start the Backend Path for Free
+              Login and Try the Backend Path Free
             </BlockButton>
           </div>
         </div>
