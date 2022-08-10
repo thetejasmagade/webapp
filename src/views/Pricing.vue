@@ -6,8 +6,8 @@
     >
       <Section
         class="mb-5 max-w-6xl w-full"
-        title="Unlock full access to the lessons and projects that build a strong portfolio"
-        subtitle="There is no risk to you! If you don't like the program, we have a 30-day money-back guarantee and it's easy to cancel."
+        title="Complete your path to a career as a backend dev by becoming a Patron"
+        subtitle="Get full access to the career path at no-risk. Cancel anytime, and enjoy a 30-day money-back guarantee."
       >
         <div class="p-8">
           <header
@@ -150,11 +150,13 @@
           </p>
 
           <h3 class="text-2xl text-blue-400 font-bold">
-            A simple path to your first developer job
+            A job-ready portfolio of projects
           </h3>
           <p class="mb-4">
-            As you complete lessons you'll be developing a portfolio of projects
-            and certificates that qualify you for entry-level programming jobs.
+            As you work through the career path you'll be building real projects
+            that will live on your professional portfolio. An impressive
+            portfolio of projects is the lifeblood of a self-taught developer's
+            job search.
           </p>
 
           <h3 class="text-2xl text-blue-400 font-bold">
@@ -166,8 +168,8 @@
 
           <h3 class="text-2xl text-blue-400 font-bold">A no-risk education</h3>
           <p class="mb-4">
-            Our curriculum costs less than 5% of a typical Bootcamp or college
-            degree. If you don't like our program, we'll even refund you!
+            Our curriculum is about 1% of the price of a typical univeristy
+            degree. If you don't like our stuff, we'll even refund you!
           </p>
 
           <h3 class="text-2xl text-blue-400 font-bold">

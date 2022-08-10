@@ -6,16 +6,16 @@
     <div class="flex justify-center p-4">
       <div class="px-4 max-w-4xl">
         <h2 class="text-xl my-4 text-blue-400">
-          What's the difference between a basic account and a patron account?
+          What's the difference between a free account and a patron account?
         </h2>
         <p class="mb-4">
           You can demo patron-only features at the beginning of each course, but
-          after that you'll be in read-only mode. You won't pass off assignments
-          or know if you got the correct answers. You also won't earn
-          achievements and certifications without a patron account.
+          after that you'll be in "sandbox" or "read only" mode. You won't pass
+          off assignments or know if you got the correct answers. You also won't
+          earn achievements and certifications without a patron account.
         </p>
         <p class="mb-4">
-          Patrons enjoy all the features in the basic plan, plus the ability to
+          Patrons enjoy all the features in the free plan, plus the ability to
           pass off exercises, view solutions, complete quizzes, earn
           certifications, and chat in the patron-only lounge.
         </p>
@@ -25,11 +25,10 @@
         </h2>
         <p class="mb-4">
           Free options use ads to pay for ongoing development, or don't have the
-          resources to offer an amazing experience. We're a small team that
-          would love to quit our full-time jobs and work exclusively on
-          Boot.dev. The only way for us to do that is if our fans to support us
-          directly. We don't want to make our students the product by running
-          ads.
+          resources to offer an amazing experience. We're a small team of 2
+          dedicated to giving Boot.dev our full-time attention while keeping it
+          ad-free. The only way for us to do that is if our fans to support us
+          directly.
         </p>
         <p class="mb-4">
           That said, we make all of our content free to read, and open our
@@ -81,9 +80,8 @@
         </h2>
         <p>
           Hopefully you can figure out if you're enjoying the platform within
-          the first several free exercises of each course. That said, if you
-          become a patron and no longer want to support us you can take
-          advantage of our
+          the first several free chapters. That said, if you become a patron and
+          no longer want to support us you can take advantage of our
           <a
             class="underline cursor-pointer text-blue-400 hover:text-blue-300"
             href="https://blog.boot.dev/return-policy/"
