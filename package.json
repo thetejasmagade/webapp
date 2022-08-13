@@ -19,7 +19,6 @@
     "@vitejs/plugin-vue": "^2.2.0",
     "@vue/server-renderer": "^3.2.31",
     "canvas-confetti": "^1.5.1",
-    "chart.js": "^3.8.0",
     "codemirror": "^5.65.1",
     "core-js": "^3.21.0",
     "diff-match-patch": "^1.0.5",
