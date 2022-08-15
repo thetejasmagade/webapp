@@ -171,4 +171,25 @@ body {
 .top-nav-bar-height {
   height: var(--top-nav-bar-height);
 }
+
+/* Scrollbar CSS Start */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-200); 
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: var(--gray-900);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-700); 
+}
+/* Scrollbar CSS End */
+
 </style>
