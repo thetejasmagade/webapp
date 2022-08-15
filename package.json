@@ -34,6 +34,7 @@
     "prismjs": "^1.26.0",
     "vue": "^3.2.31",
     "vue-chartjs": "^4.1.1",
+    "vue-hotkeys-rt": "^0.1.0",
     "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.0.8",
     "vue-skeletor": "^1.0.6",

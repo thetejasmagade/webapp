@@ -4,6 +4,8 @@ import router from "@/router";
 import store from "@/store";
 import { createMetaManager } from "vue-meta";
 import { init } from "@/lib/analytics.js";
+import Hotkeys from 'vue-hotkeys-rt';
+import VueShortcuts from 'vue-shortcuts';
 import "mosha-vue-toastify/dist/style.css";
 
 const main = async () => {
@@ -12,6 +14,8 @@ const main = async () => {
   const app = createApp(App);
   app.use(store);
   app.use(router);
+  app.use(Hotkeys);
+  app.use(VueShortcuts, { prevent: ["input"] });
   app.use(createMetaManager());
   await router.isReady();
   app.mount("#app");

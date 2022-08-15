@@ -29,6 +29,8 @@
       </BlockButton>
     </div>
     <div class="flex-1 flex justify-end mr-5">
+      <HotKey :backLink="backLink" :forwardLink="forwardLink" />
+
       <BlockButton
         :link="backLink"
         :disabled="!canGoBack"
@@ -55,6 +57,7 @@ import BlockButton from "@/components/BlockButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SelectDropdown from "@/components/SelectDropdown.vue";
 import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
+import HotKey from "../HotKey.vue";
 
 export default {
   components: {
@@ -62,6 +65,7 @@ export default {
     FontAwesomeIcon,
     SelectDropdown,
     SandboxModeModal,
+    HotKey,
   },
   props: {
     pulseNext: {
