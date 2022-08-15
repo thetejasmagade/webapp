@@ -36,7 +36,9 @@
         :disabled="!canGoBack"
         :color="canGoBack ? 'blue' : 'gray'"
       >
-        <FontAwesomeIcon icon="arrow-left" />
+        <Tooltip :text="gotoPreviousTooltip" position="bottom"
+          ><FontAwesomeIcon icon="arrow-left"
+        /></Tooltip>
       </BlockButton>
 
       <BlockButton
@@ -46,17 +48,21 @@
         :color="canGoForward ? 'blue' : 'gray'"
         :pulse="pulseNext"
       >
-        <FontAwesomeIcon icon="arrow-right" />
+        <Tooltip :text="gotoForwardTooltip" position="bottom"
+          ><FontAwesomeIcon icon="arrow-right"
+        /></Tooltip>
       </BlockButton>
     </div>
   </div>
 </template>
 
 <script>
+import { getOperatingSystem, MAC } from "@/lib/platform.js";
 import BlockButton from "@/components/BlockButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import SelectDropdown from "@/components/SelectDropdown.vue";
 import SandboxModeModal from "@/components/modals/SandboxModeModal.vue";
+import Tooltip from "@/components/Tooltip.vue";
 import HotKey from "../HotKey.vue";
 
 export default {
@@ -66,6 +72,7 @@ export default {
     SelectDropdown,
     SandboxModeModal,
     HotKey,
+    Tooltip,
   },
   props: {
     pulseNext: {
@@ -127,6 +134,20 @@ export default {
       type: Object,
       required: false,
       default: null,
+    },
+  },
+  computed: {
+    gotoPreviousTooltip() {
+      const OS = getOperatingSystem();
+      if (OS === MAC) {
+        return "Cmd + A";
+      } else return "Ctrl + A";
+    },
+    gotoForwardTooltip() {
+      const OS = getOperatingSystem();
+      if (OS === MAC) {
+        return "Cmd + D";
+      } else return "Ctrl + D";
     },
   },
   methods: {
